@@ -72,7 +72,7 @@ bool ReadConfig(LPSTR lpCmdLine)
 	FILE*		file    = NULL;
 	char		buffer[200];
 	char*		pText;
-	int			nb;
+	size_t		nb;
 
 	file = fopen("data\\config.def", "rb");
 	if ( file == NULL )  return false;
@@ -476,7 +476,7 @@ LRESULT CALLBACK WindowProc (HWND hWnd, UINT message,
 				else
 				{
 					char s[50];
-					sprintf(s, "wParam=%d\n", wParam);
+					sprintf(s, "wParam=%d\n", static_cast<int> (wParam));
 					OutputDebug(s);
 				}
 			}
@@ -838,7 +838,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		{
 			if ( !GetMessage(&msg, NULL, 0, 0) )
 			{
-				return msg.wParam;
+				return static_cast<int> (msg.wParam);
 			}
 			TranslateMessage(&msg); 
 			DispatchMessage(&msg);
@@ -850,6 +850,6 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 	}
 
-	return msg.wParam;
+	return static_cast<int> (msg.wParam);
 }
 

@@ -98,7 +98,8 @@ bool CDecor::Write(int rank, bool bUser, int world, int time, int total)
 	char		filename[MAX_PATH];
 	FILE*		file    = NULL;
 	DescFile*	pBuffer = NULL;
-	int			nb, i;
+	int			i;
+	size_t		nb;
 
 	if ( bUser )
 	{
@@ -181,7 +182,8 @@ bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
 	FILE*		file    = NULL;
 	DescFile*	pBuffer = NULL;
 	int			majRev, minRev;
-	int			nb, i, x, y;
+	int			i, x, y;
+	size_t		nb;
 	OldBlupi	oldBlupi;
 
 	Init(-1, -1);
@@ -325,7 +327,7 @@ bool CDecor::FileExist(int rank, bool bUser, int &world, int &time, int &total)
 	FILE*		file    = NULL;
 	DescFile*	pBuffer = NULL;
 	int			majRev, minRev;
-	int			nb;
+	size_t		nb;
 
 	if ( bUser )
 	{

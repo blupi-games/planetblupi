@@ -548,7 +548,7 @@ bool CSound::PlayMusic(HWND hWnd, LPSTR lpszMIDIFilename)
 	dwReturn = mciSendCommand(NULL,
 							  MCI_OPEN,
 							  MCI_OPEN_TYPE|MCI_OPEN_ELEMENT,
-							  (DWORD)(LPVOID)&mciOpenParms);
+							  (DWORD_PTR)(LPVOID)&mciOpenParms);
 	if ( dwReturn != 0 )
 	{
 		OutputDebug("PlayMusic-1\n");
@@ -562,11 +562,11 @@ bool CSound::PlayMusic(HWND hWnd, LPSTR lpszMIDIFilename)
 	m_MidiDeviceID = mciOpenParms.wDeviceID;
 
 	// Begin playback. 
-	mciPlayParms.dwCallback = (DWORD)hWnd;
+	mciPlayParms.dwCallback = (DWORD_PTR)hWnd;
 	dwReturn = mciSendCommand(m_MidiDeviceID,
 							  MCI_PLAY,
 							  MCI_NOTIFY, 
-							  (DWORD)(LPVOID)&mciPlayParms);
+							  (DWORD_PTR)(LPVOID)&mciPlayParms);
 	if ( dwReturn != 0 )
 	{
 		OutputDebug("PlayMusic-2\n");

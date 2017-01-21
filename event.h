@@ -209,8 +209,8 @@ protected:
 	bool		m_bDemoPlay;
 	DemoEvent*	m_pDemoBuffer;
 	int			m_demoTime;
-	int			m_demoIndex;
-	int			m_demoEnd;
+	size_t		m_demoIndex;
+	size_t		m_demoEnd;
 	int			m_demoNumber;
 	bool		m_bCtrlDown;
 	POINT		m_debugPos;

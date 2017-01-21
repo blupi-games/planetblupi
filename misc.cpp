@@ -114,9 +114,9 @@ int Random(int min, int max)
 
 // Retourne le nom de dossier en cours.
 
-void GetCurrentDir(char *pName, int lg)
+void GetCurrentDir(char *pName, size_t lg)
 {
-	int		i;
+	size_t		i;
 
 	strncpy(pName, _pgmptr, lg-1);
 	pName[lg-1] = 0;
@@ -152,7 +152,7 @@ void GetCurrentDir(char *pName, int lg)
 void AddCDPath(char *pFilename)
 {
 	char	temp[MAX_PATH];
-	int		lg;
+	size_t	lg;
 	bool	bDaniel = false;
 
 	if ( g_CDPath[0] == 0 )  return;
@@ -192,7 +192,7 @@ void AddUserPath(char *pFilename)
 {
 	char					temp[MAX_PATH];
 	char*					pText;
-	int						pos;
+	size_t					pos;
 	char					last;
 	SECURITY_ATTRIBUTES		att;
 

@@ -1738,7 +1738,8 @@ bool CEvent::CreateButtons()
 
 void AddCheatCode(char *pDst, char *pSrc)
 {
-	int		i, j;
+	int		i;
+	size_t	j;
 
 	if ( pDst[0] != 0 )  strcat(pDst, " / ");
 
@@ -4197,7 +4198,8 @@ bool CEvent::ReadLibelle(int world, bool bSchool, bool bHelp)
 	char*		pText;
 	char*		pDest;
 	char		indic;
-	int			nb, h1, h2;
+	int			h1, h2;
+	size_t		nb;
 
 	if ( bSchool )  indic = '$';
 	else            indic = '#';
@@ -4259,7 +4261,7 @@ bool CEvent::WriteInfo()
 	char		filename[MAX_PATH];
 	FILE*		file = NULL;
 	DescInfo	info;
-	int			nb;
+	size_t		nb;
 
 	strcpy(filename, "data\\info.blp");
 	AddUserPath(filename);
@@ -4301,7 +4303,7 @@ bool CEvent::ReadInfo()
 	char		filename[MAX_PATH];
 	FILE*		file = NULL;
 	DescInfo	info;
-	int			nb;
+	size_t		nb;
 
 	strcpy(filename, "data\\info.blp");
 	AddUserPath(filename);
@@ -4421,7 +4423,8 @@ bool CEvent::DemoPlayStart()
 	char		filename[MAX_PATH];
 	FILE*		file = NULL;
 	DemoHeader	header;
-	int			nb, world, time, total;
+	int			world, time, total;
+	size_t		nb;
 
 	m_pDemoBuffer = (DemoEvent*)malloc(MAXDEMO*sizeof(DemoEvent));
 	if ( m_pDemoBuffer == NULL )  return false;
@@ -4622,7 +4625,7 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 	bool		bEnable;
 
 	pos = ConvLongToPos(lParam);
-	fwKeys = wParam;
+	fwKeys = static_cast<int> (wParam);
 
 	DemoRecEvent(message, wParam, lParam);
 
