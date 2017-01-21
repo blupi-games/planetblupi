@@ -2570,7 +2570,7 @@ static DescAction action_table[] =
 // Calcule l'action suivante.
 // Retourne FALSE lorsque l'action est terminée.
 
-BOOL Action(short action, short direct,
+bool Action(short action, short direct,
 			short &phase, short &step,
 			short &channel, short &icon, POINT &pos, short &posZ,
 			short &sound)
@@ -2658,7 +2658,7 @@ static short rotate_table[] =
 
 // Tourne une icône dans une direction donnée.
 
-BOOL Rotate(short &icon, short direct)
+bool Rotate(short &icon, short direct)
 {
 	short*		pTable = rotate_table;
 	short		i;
