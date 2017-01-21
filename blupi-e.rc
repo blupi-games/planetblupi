@@ -1,0 +1,489 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// French (Switzerland) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRS)
+#ifdef _WIN32
+LANGUAGE LANG_FRENCH, SUBLANG_FRENCH_SWISS
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "blupi.ico"
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 0,4,0,0
+ PRODUCTVERSION 0,4,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "100c04b0"
+        BEGIN
+            VALUE "CompanyName", "EPSITEC\0"
+            VALUE "FileDescription", "Blupi\0"
+            VALUE "FileVersion", "0, 4, 0, 0\0"
+            VALUE "InternalName", "Planet Blupi\0"
+            VALUE "LegalCopyright", "Copyright © 1997\0"
+            VALUE "OriginalFilename", "Blupi.exe\0"
+            VALUE "ProductName", "EPSITEC Planet Blupi\0"
+            VALUE "ProductVersion", "0, 4, 0, 0\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x100c, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_POINTER             CURSOR  DISCARDABLE     "cursor1.cur"
+IDC_MAP                 CURSOR  DISCARDABLE     "map.cur"
+IDC_ARROWU              CURSOR  DISCARDABLE     "arrowup.cur"
+IDC_ARROWD              CURSOR  DISCARDABLE     "arrowdow.cur"
+IDC_ARROWL              CURSOR  DISCARDABLE     "arrowlef.cur"
+IDC_ARROWR              CURSOR  DISCARDABLE     "arrowrig.cur"
+IDC_ARROWUL             CURSOR  DISCARDABLE     "arrowul.cur"
+IDC_ARROWUR             CURSOR  DISCARDABLE     "arrowur.cur"
+IDC_ARROWDR             CURSOR  DISCARDABLE     "arrowdr.cur"
+IDC_ARROWDL             CURSOR  DISCARDABLE     "arrowdl.cur"
+IDC_WAIT                CURSOR  DISCARDABLE     "wait.cur"
+IDC_EMPTY               CURSOR  DISCARDABLE     "empty.cur"
+IDC_FILL                CURSOR  DISCARDABLE     "fill.cur"
+IDC_ARROW               CURSOR  DISCARDABLE     "arrow.cur"
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_ACTION_GO            "Go"
+    TX_ACTION_STOP          "Stop"
+    TX_ACTION_MANGE         "Eat"
+    TX_ACTION_CARRY         "Take"
+    TX_ACTION_DEPOSE        "Drop"
+    TX_ACTION_ABAT          "Cut down a tree"
+    TX_ACTION_ROC           "Carve a rock"
+    TX_ACTION_CULTIVE       "Grow tomatoes"
+    TX_ACTION_BUILD1        "Garden shed"
+    TX_ACTION_BUILD2        "Incubator"
+    TX_ACTION_BUILD3        "Laboratory"
+    TX_ACTION_BUILD4        "Mine"
+    TX_ACTION_BUILD5        "Workshop"
+    TX_ACTION_BUILD6        "Teleporter"
+    TX_ACTION_MUR           "Wall"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_ACTION_PALIS         "Palisade"
+    TX_ACTION_ABATn         "Cut down  trees"
+    TX_ACTION_ROCn          "Carve rocks"
+    TX_ACTION_PONT          "Bridge"
+    TX_ACTION_TOUR          "Protection tower"
+    TX_ACTION_BOIT          "Drink"
+    TX_ACTION_LABO          "Transform"
+    TX_ACTION_FLEUR         "Make bunch of flowers"
+    TX_ACTION_FLEURn        "Make bunches of flowers"
+    TX_ACTION_DYNAMITE      "Blow up"
+    TX_ACTION_BATEAU        "Boat"
+    TX_ACTION_DJEEP         "Leave Jeep"
+    TX_ACTION_DRAPEAU       "Prospect for iron"
+    TX_ACTION_EXTRAIT       "Extract iron"
+    TX_ACTION_FABJEEP       "Make a Jeep"
+    TX_ACTION_FABMINE       "Make a time bomb"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_ERROR_MISC           "Impossible"
+    TX_ERROR_GROUND         "Inadequate ground"
+    TX_ERROR_FREE           "Occupied ground"
+    TX_ERROR_PONTOP         "Opposite bank no good"
+    TX_ERROR_PONTTERM       "Bridge finished"
+    TX_ERROR_TOURISOL       "(isolated tower)"
+    TX_ERROR_TOUREAU        "Too close to water"
+    TX_ERROR_TELE2          "Already two teleporters"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_IONAMEEX             "training %d, time %d"
+    TX_IOFREE               "free slot"
+    TX_TERMMIN              "Lost if less than %d Blupis"
+    TX_TERMMAX              "Impossible to win if less than %d Blupis"
+    TX_BUTTON_JOUER         "Missions"
+    TX_BUTTON_APPRENDRE     "Training"
+    TX_BUTTON_QUITTER       "Quit BLUPI"
+    TX_BUTTON_PREVP         "Previous game"
+    TX_BUTTON_NEXTP         "Next game"
+    TX_BUTTON_PLAYP         "Play this game"
+    TX_BUTTON_BUILDP        "Construct this game"
+    TX_BUTTON_TERM          "Finish"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_BUTTON_READP         "Open another game "
+    TX_BUTTON_WRITEP        "Save this game"
+    TX_BUTTON_CANCELP       "Quit this game"
+    TX_BUTTON_CONTP         "Continue this game"
+    TX_BUTTON_REPEAT        "Restart this game"
+    TX_BUTTON_BUTTON        "Available buttons"
+    TX_BUTTON_CTERM         "Ending conditions"
+    TX_BUTTON_TERMC         "Quit construction"
+    TX_BUTTON_TERMHBLUPI    "Blupi on striped paving stones"
+    TX_BUTTON_TERMHPLANCHE  "Planks on striped paving stones"
+    TX_BUTTON_TERMFIRE      "Fire out"
+    TX_BUTTON_TERMDEC       "(-)"
+    TX_BUTTON_TERMINC       "(+)"
+    TX_PAUSE                "Game paused"
+    TX_JAUGE1               "Blupi's energy"
+    TX_JAUGE2               "Work done"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_BUTTON_SETUP         "Settings"
+    TX_BUTTON_MUSIC         "Music choice"
+    TX_BUTTON_SETUP1        "Slower"
+    TX_BUTTON_SETUP2        "Faster"
+    TX_BUTTON_SETUP3        "Reduce volume"
+    TX_BUTTON_SETUP4        "Increase volume"
+    TX_BUTTON_MUSIC1        "No music"
+    TX_BUTTON_MUSIC2        "Music number 1"
+    TX_BUTTON_MUSIC3        "Music number 2"
+    TX_BUTTON_MUSIC4        "Music number 3"
+    TX_BUTTON_MUSIC5        "Music number 4"
+    TX_BUTTON_MUSIC6        "Music number 5"
+    TX_BUTTON_MUSIC7        "Music number 6"
+    TX_BUTTON_MUSIC8        "Music number 7"
+    TX_BUTTON_MUSIC9        "Music number 8"
+    TX_BUTTON_MUSIC10       "Music number 9"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_BUTTON_REGION        "Scenery choice"
+    TX_BUTTON_TERMMBLUPI    "Blupi in house"
+    TX_BUTTON_TERMKILL      "No more enemies"
+    TX_TERM                 "Ending conditions"
+    TX_BUTTON               "Available buttons"
+    TX_MUSIC                "Music choice"
+    TX_SCHOOL               "Training number"
+    TX_MISSION              "Mission number"
+    TX_IONAMEMI             "mission %d, time %d"
+    TX_BUTTON_TERMHTOMATE   "Tomatoes on striped paving stones"
+    TX_BUTTON_SETUP5        "Reduce volume"
+    TX_BUTTON_SETUP6        "Increase volume"
+    TX_BUTTON_SETUP7        "No video"
+    TX_BUTTON_SETUP8        "Show videos"
+    TX_OUI                  "Yes"
+    TX_NON                  "No"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_OBJ_BLUPIm           "Sick Blupi"
+    TX_OBJ_BLUPIf           "Tired Blupi"
+    TX_OBJ_BLUPI            "Blupi"
+    TX_OBJ_BATEAU           "Boat"
+    TX_OBJ_JEEP             "Jeep"
+    TX_OBJ_PIEGE            "Sticky trap"
+    TX_OBJ_POISON           "Poison"
+    TX_OBJ_DYNAMITE         "Dynamite"
+    TX_OBJ_MINE             "Time bomb"
+    TX_OBJ_TOMATE           "Tomatoes"
+    TX_OBJ_POTION           "Medical potion"
+    TX_OBJ_PLANCHE          "Planks"
+    TX_OBJ_PIERRE           "Stones"
+    TX_OBJ_DRAPEAU          "Flag"
+    TX_OBJ_FER              "Iron"
+    TX_OBJ_FLEUR1           "Flowers"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_OBJ_FLEUR2           "Flowers"
+    TX_OBJ_FLEUR3           "Flowers"
+    TX_OBJ_CABANE           "Garden shed"
+    TX_OBJ_LABO             "Laboratory"
+    TX_OBJ_MINEFER          "Mine"
+    TX_OBJ_USINE            "Workshop"
+    TX_OBJ_TOUR             "Protection tower"
+    TX_OBJ_FEU              "Fire"
+    TX_OBJ_ROBOT            "Master robot"
+    TX_OBJ_TRACKS           "Bulldozer"
+    TX_OBJ_BOMBE            "Bouncing bomb"
+    TX_OBJ_ARAIGNEE         "Spider"
+    TX_OBJ_VIRUS            "Virus"
+    TX_OBJ_ELECTRO          "Electrocutor"
+    TX_OBJ_ARBRE            "Tree"
+    TX_OBJ_MUR              "Wall"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_OBJ_ARBREb           "Tree trunks"
+    TX_OBJ_ROC              "Rocks"
+    TX_OBJ_OEUF             "Eggs"
+    TX_OBJ_PALISSADE        "Palisade"
+    TX_OBJ_ENNEMIp          "Trapped enemy"
+    TX_OBJ_ENNEMI           "Enemy construction"
+    TX_OBJ_HERBE            "Normal ground"
+    TX_OBJ_MOUSSE           "Inflammable ground"
+    TX_OBJ_TERRE            "Sterile ground"
+    TX_OBJ_EAU              "Water"
+    TX_OBJ_RIVE             "Bank"
+    TX_OBJ_MIXTE            "Miscellaneous ground"
+    TX_OBJ_PONT             "Bridge"
+    TX_OBJ_COUVEUSE         "Incubator"
+    TX_OBJ_GLACE            "Ice"
+    TX_OBJ_MAISON           "Blupi's house"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_OBJ_HACHURE          "Striped paving stones"
+    TX_OBJ_MOUSSEb          "Burnt ground"
+    TX_OBJ_BOUQUET1         "Bunch of flowers"
+    TX_OBJ_BOUQUET2         "Bunch of flowers"
+    TX_OBJ_BOUQUET3         "Bunch of flowers"
+    TX_OBJ_DALLE            "Paving stones"
+    TX_OBJ_ENNEMIs          "Enemy ground "
+    TX_OBJ_DISCIPLE         "Helper robot"
+    TX_OBJ_METAL            "Platinium"
+    TX_OBJ_FUSEE            "Enemy rocket"
+    TX_OBJ_TELEPORTE        "Teleporter"
+    TX_OBJ_ARMURE           "Armour"
+    TX_OBJ_DALLESPEC        "Special pavings"
+    TX_OBJ_COUVTELE         "Incubator or teleporter"
+    TX_OBJ_BATIMENT         "Buildings"
+    TX_OBJ_BATENNEMIS       "Enemy buildings"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_WIN1                 "Well done !"
+    TX_WIN2                 "Yes, great ..."
+    TX_WIN3                 "Very good."
+    TX_WIN4                 "Excellent..."
+    TX_WIN5                 "Mission over..."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_LOST1                "You have failed, try again..."
+    TX_LOST2                "No, wrong way ..."
+    TX_LOST3                "Bang, failed again !"
+    TX_LOST4                "Another mistake..."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_LOST5                "No, not that way !"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_LASTWIN1             "Now go on mission."
+    TX_LASTWIN2             "Very good, success on all missions !"
+    TX_LASTWIN3             "Last construction resolved !"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_BUTTON_SETUP9        "Slower"
+    TX_BUTTON_SETUP10       "Faster"
+    TX_INFO_SETUP1          "Global game\nspeed"
+    TX_INFO_SETUP2          "Sound effect\nvolume"
+    TX_INFO_SETUP3          "Music\nvolume"
+    TX_INFO_SETUP4          "Video\nsequences"
+    TX_INFO_SETUP5          "Scroll speed\nwith mouse"
+    TX_INFO_NOSCROLL        "None"
+    TX_BUTTON_REGION1       "Prairie"
+    TX_BUTTON_REGION2       "Desert"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_BUTTON_REGION3       "Forest under snow"
+    TX_BUTTON_REGION4       "Forest"
+    TX_REGION               "Scenery choice"
+    TX_BUTTON_PLAY_STOP     "Interrupt"
+    TX_BUTTON_PLAY_SETUP    "Settings"
+    TX_BUTTON_PLAY_WRITE    "Save"
+    TX_INSERT               "Insert CD-Rom Planet Blupi and wait a few seconds..."
+    TX_BUTTON_PREVH         "Previous page"
+    TX_BUTTON_NEXTH         "Next page"
+    TX_BUTTON_TERMHMETAL    "Platinium on striped paving stones"
+    TX_BUTTON_HELP          "Help"
+    TX_HELP                 "Help number"
+    TX_BUTTON_PRIVE         "Construction"
+    TX_PRIVATE              "Construction number"
+    TX_IONAMEPR             "Construction %d, time %d"
+    TX_PRIVATE_HACHBLUPI    "1|Go on striped\n1| paving stones."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_ACTION_FABDISC       "Make a helper robot"
+    TX_ACTION_REPEAT        "Repeat"
+    TX_ACTION_QARMURE       "Quit"
+    TX_ACTION_FABARMURE     "Make armour"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_PRIVATE_HACHPLANCHE  "1|Drop planks on striped \n1|paving stones."
+    TX_PRIVATE_HACHTOMATE   "1|Drop tomatoes on striped \n1|paving stones."
+    TX_PRIVATE_HACHMETAL    "1|Drop platinium on striped \n1|paving stones."
+    TX_PRIVATE_STOPFIRE     "1|Resist until\n1|fire extinction ..."
+    TX_PRIVATE_HOMEBLUPI    "1|Each Blupi in\n1|his house."
+    TX_PRIVATE_KILLROBOTS   "1|Kill all\n1|enemies !"
+    TX_BUTTON_UNDO          "Cancel last operation"
+    TX_DEMO_END1            "You have played the DEMO version of Planet Blupi."
+    TX_DEMO_END2            "We hope you have had as much fun playing the game as we had making it !"
+    TX_DEMO_END3            "This game is an original creation of EPSITEC SA, CH-1092 Belmont"
+    TX_DEMO_END4            "http://www.blupi.com            blupi@epsitec.ch"
+    TX_FULL_END1            "You have played Planet Blupi."
+    TX_FULL_END2            "We hope you have had as much fun playing the game as we had making it !"
+    TX_FULL_END3            "This game is an original creation of EPSITEC SA, CH-1092 Belmont"
+    TX_FULL_END4            "http://www.blupi.com            blupi@epsitec.ch"
+    TX_PRIVATE_OBJECTIF     "1|Goal :"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_PRIVATE_NBBLUPI      "1|The Blupi population must \n1|be of at least  %d Blupis."
+    TX_BUTTON_SKILL         "Skill level"
+    TX_SKILL1               "Easy"
+    TX_SKILL2               "Difficult"
+    TX_BUTTON_DEMO          "Demo"
+    TX_DEMOREC              "REC"
+    TX_DEMOPLAY             "Demo"
+    TX_BUTTON_TERMHROBOT    "Robot on striped paving stones"
+    TX_PRIVATE_HACHROBOT    "1|The robot must reach\n1|the striped paving stones."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_REPEAT_CULTIVE       "1: Grow tomatoes\n2: Eat"
+    TX_REPEAT_FLEUR         "1: Make a bunch\n2: Transform"
+    TX_REPEAT_FLEURQ        "1: Take\n2: Transform"
+    TX_REPEAT_FABMINE       "1: Extract iron\n2: Make a bomb"
+    TX_REPEAT_FABJEEP       "1: Extract iron\n2: Make a Jeep"
+    TX_REPEAT_PALIS         "1: Cut down a tree \n2: Make a palisade"
+    TX_REPEAT_PALISQ        "1: Take\n2: Build palisade"
+    TX_REPEAT_PONT          "1: Cut down a tree \n2: Build a bridge"
+    TX_REPEAT_PONTQ         "1: Take\n2: Build a bridge"
+    TX_REPEAT_BATEAU        "1: Cut down a tree \n2: Make a boat"
+    TX_REPEAT_BATEAUQ       "1: Take\n2: Make a boat"
+    TX_REPEAT_FABARMURE     "1: Extract iron\n2: Make an armour"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_OBJ_MURPAL           "Wall or palisade"
+    TX_OBJ_OBJET            "Items"
+    TX_OBJ_ARME             "Weapons"
+    TX_OBJ_VEHICULE         "Transport"
+    TX_OBJ_STARTFEU         "Starting fire"
+    TX_OBJ_DELOBJ           "Delete item"
+    TX_OBJ_DELPERSO         "Delete figure"
+    TX_OBJ_DELFEU           "Delete fire"
+    TX_OBJ_PLANTE           "Decorative plants"
+    TX_OBJ_BARENNEMIS       "Enemy barrier"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    TX_DIRECT_N             "N"
+    TX_DIRECT_S             "S"
+    TX_DIRECT_E             "E"
+    TX_DIRECT_O             "W"
+END
+
+#endif    // French (Switzerland) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

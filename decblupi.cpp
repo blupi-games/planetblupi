@@ -1,0 +1,4894 @@
+// DecBlupi.cpp
+//
+
+#include "DEF.H"
+#include "DECOR.H"
+#include "ACTION.H"
+#include "MISC.H"
+#include "RESOURCE.H"
+#include "decgoal.h"
+
+// Cette table donne l'action à effectuer pour un bouton
+// enfoncé.
+short table_actions[] =
+{
+	WM_ACTION_GO,
+	WM_ACTION_STOP,
+	WM_ACTION_MANGE,
+	WM_ACTION_CARRY,
+	WM_ACTION_DEPOSE,
+	WM_ACTION_ABAT1,
+	WM_ACTION_ROC1,
+	WM_ACTION_CULTIVE,
+	WM_ACTION_BUILD1,
+	WM_ACTION_BUILD2,
+	WM_ACTION_BUILD3,
+	WM_ACTION_BUILD4,
+	WM_ACTION_BUILD5,
+	WM_ACTION_BUILD6,
+	WM_ACTION_MUR,
+	WM_ACTION_PALIS,
+	WM_ACTION_ABAT1,
+	WM_ACTION_ROC1,
+	WM_ACTION_PONTE,
+	WM_ACTION_TOUR,
+	WM_ACTION_BOIT,
+	WM_ACTION_LABO,
+	WM_ACTION_FLEUR1,
+	WM_ACTION_FLEUR1,
+	WM_ACTION_DYNAMITE,
+	WM_ACTION_BATEAUE,
+	WM_ACTION_DJEEP,
+	WM_ACTION_DRAPEAU,
+	WM_ACTION_EXTRAIT,
+	WM_ACTION_FABJEEP,
+	WM_ACTION_FABMINE,
+	WM_ACTION_FABDISC,
+	WM_ACTION_REPEAT,
+	WM_ACTION_DARMURE,
+	WM_ACTION_FABARMURE,
+};
+
+
+
+
+
+// Supprime tous les blupi.
+
+void CDecor::BlupiFlush()
+{
+	int		i;
+
+	memset(m_blupi, 0, sizeof(Blupi)*MAXBLUPI);
+
+	for ( i=0 ; i<MAXBLUPI ; i++ )
+	{
+		m_blupi[i].bExist = FALSE;
+	}
+}
+
+// Crée un nouveau blupi, et retourne son rang.
+
+int CDecor::BlupiCreate(POINT cel, int action, int direct,
+						int perso, int energy)
+{
+	int		rank;
+
+	if ( perso == 0 && action == ACTION_STOP &&  // blupi ?
+		 energy <= MAXENERGY/4 )
+	{
+		action = ACTION_STOPf;
+	}
+
+	if ( perso == 1 && action == ACTION_STOP )  // araignée ?
+	{
+		action = ACTION_A_STOP;
+	}
+
+	if ( perso == 2 && action == ACTION_STOP )  // virus ?
+	{
+		action = ACTION_V_STOP;
+	}
+
+	if ( perso == 3 && action == ACTION_STOP )  // tracks ?
+	{
+		action = ACTION_T_STOP;
+	}
+
+	if ( perso == 4 && action == ACTION_STOP )  // robot ?
+	{
+		action = ACTION_R_STOP;
+	}
+
+	if ( perso == 5 && action == ACTION_STOP )  // bombe ?
+	{
+		action = ACTION_B_STOP;
+	}
+
+	if ( perso == 7 && action == ACTION_STOP )  // électro ?
+	{
+		action = ACTION_E_STOP;
+	}
+
+	if ( perso == 8 && action == ACTION_STOP )  // disciple ?
+	{
+		action = ACTION_D_STOP;
+	}
+
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		if ( m_blupi[rank].bExist &&
+			 m_blupi[rank].cel.x == cel.x &&
+			 m_blupi[rank].cel.y == cel.y )
+		{
+			m_blupi[rank].aDirect = ((m_blupi[rank].aDirect/16+1)%8)*16;
+			m_blupi[rank].sDirect =  m_blupi[rank].aDirect;
+			m_blupi[rank].perso   = perso;
+			m_blupi[rank].energy  = energy;
+			m_blupi[rank].action  = action;
+			BlupiActualise(rank);
+			return rank;
+		}
+	}
+
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		if ( !m_blupi[rank].bExist )
+		{
+			m_blupi[rank].bExist      = TRUE;
+			m_blupi[rank].bHili       = FALSE;
+			m_blupi[rank].perso       = perso;
+			m_blupi[rank].energy      = energy;
+			m_blupi[rank].goalAction  = 0;
+			m_blupi[rank].goalCel.x   = -1;
+			m_blupi[rank].goalCel.y   = -1;
+			m_blupi[rank].cel         = cel;
+			m_blupi[rank].fix         = cel;
+			m_blupi[rank].action      = action;
+			m_blupi[rank].interrupt   = 1;
+			m_blupi[rank].aDirect     = direct;
+			m_blupi[rank].sDirect     = direct;
+			m_blupi[rank].phase       = 0;
+			m_blupi[rank].step        = rank*13;  // un peu de hazard !
+			m_blupi[rank].channel     = -1;
+			m_blupi[rank].icon        = -1;
+			m_blupi[rank].lastIcon    = -1;
+			m_blupi[rank].pos.x       = 0;
+			m_blupi[rank].pos.y       = 0;
+			m_blupi[rank].posZ        = 0;
+			m_blupi[rank].takeChannel = -1;
+			m_blupi[rank].passCel.x   = -1;
+			m_blupi[rank].jaugePhase  = -1;
+			m_blupi[rank].jaugeMax    = -1;
+			m_blupi[rank].stop        = 0;
+			m_blupi[rank].bArrow      = FALSE;
+			m_blupi[rank].bRepeat     = FALSE;
+			m_blupi[rank].bMalade     = FALSE;
+			m_blupi[rank].bCache      = FALSE;
+			m_blupi[rank].vehicule    = 0;
+			m_blupi[rank].busyCount   = 0;
+			m_blupi[rank].busyDelay   = 0;
+			m_blupi[rank].clicCount   = 0;
+			m_blupi[rank].clicDelay   = 0;
+
+			ListFlush(rank);
+			FlushUsed(rank);
+			BlupiDestCel(rank);
+			BlupiPushFog(rank);
+			BlupiActualise(rank);
+			return rank;
+		}
+	}
+
+	return -1;
+}
+
+// Supprime un blupi existant.
+// Si perso == -1, supprime n'importe quel personnage ici.
+// Si perso >= 0, supprime seulement ce personnage.
+
+BOOL CDecor::BlupiDelete(POINT cel, int perso)
+{
+	int		rank;
+
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		if ( m_blupi[rank].bExist &&
+			 m_blupi[rank].cel.x == cel.x &&
+			 m_blupi[rank].cel.y == cel.y &&
+			 (perso == -1 || m_blupi[rank].perso == perso) )
+		{
+			m_blupi[rank].bExist = FALSE;
+
+			if ( !m_bBuild )  // phase de jeu ?
+			{
+				if ( perso == 6 )  // détonnateur invisible ?
+				{
+					MoveFinish(rank);  // stoppe décompte à rebourd
+				}
+				if ( m_nbBlupiHili > 0 &&
+					 m_rankBlupiHili == rank )  // est-ce le blupi sélectionné ?
+				{
+					m_nbBlupiHili   = 0;
+					m_rankBlupiHili = -1;
+				}
+			}
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+// Supprime un blupi existant.
+
+void CDecor::BlupiDelete(int rank)
+{
+	m_blupi[rank].bExist = FALSE;
+
+	if ( !m_bBuild &&    // phase de jeu ?
+		 m_nbBlupiHili > 0 &&
+		 m_rankBlupiHili == rank )  // est-ce le blupi sélectionné ?
+	{
+		m_nbBlupiHili   = 0;
+		m_rankBlupiHili = -1;
+	}
+}
+
+// Supprime tout dans un périmètre donné suite à une explosion.
+//	type=0	->	explosion
+//	type=1	->	électro
+
+void CDecor::BlupiKill(int exRank, POINT cel, int type)
+{
+	int		rank, action, x, y, icon;
+
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		// Supprime sans condition les blupi placés
+		// dans la cellule où a lieu l'explosion.
+		if ( rank != exRank &&
+			 m_blupi[rank].bExist &&
+			 m_blupi[rank].vehicule != 3 &&  // pas armure ?
+			 !m_bInvincible &&
+			 m_blupi[rank].cel.x >= cel.x   &&
+			 m_blupi[rank].cel.x <= cel.x+1 &&
+			 m_blupi[rank].cel.y >= cel.y   &&
+			 m_blupi[rank].cel.y <= cel.y+1 )
+		{
+			GoalUnwork(rank);
+
+			if ( type == 0 )  // explosion ?
+			{
+				m_blupi[rank].bExist = FALSE;  // mort instantannée
+			}
+
+			if ( type == 1 )  // électro ?
+			{
+				x = m_blupi[rank].cel.x;
+				y = m_blupi[rank].cel.y;
+				icon = m_decor[x/2][y/2].objectIcon;
+				if ( m_blupi[rank].perso == 0 &&
+					 m_blupi[rank].vehicule == 0 &&  // à pied ?
+					 !m_bInvincible &&
+					 icon != 113 &&                 // maison ?
+					 icon !=  28 && icon !=  29 &&  // laboratoire ?
+					 icon != 119 && icon != 120 &&  // usine ?
+					 icon != 121 && icon != 122 )   // mine de fer ?
+				{
+					if ( m_blupi[rank].bMalade )
+					{
+						action = WM_ACTION_ELECTROm;
+					}
+					else
+					{
+						action = WM_ACTION_ELECTRO;
+					}
+					GoalStart(rank, action, m_blupi[rank].cel);
+//?					BlupiChangeAction(rank, ACTION_ELECTRO);
+				}
+			}
+		}
+
+		// Supprime les blupi placés une case autour de la
+		// cellule où a lieu l'explosion, seulement s'ils
+		// ne sont pas cachés (pas dans un batiment).
+		if ( type == 0 &&
+			 rank != exRank &&
+			 m_blupi[rank].bExist &&
+			 m_blupi[rank].vehicule != 3 &&  // pas armure ?
+			 !m_bInvincible &&
+			 !m_blupi[rank].bCache &&  // pas dans un batiment ?
+			 m_blupi[rank].cel.x >= cel.x-1 &&
+			 m_blupi[rank].cel.x <= cel.x+2 &&
+			 m_blupi[rank].cel.y >= cel.y-1 &&
+			 m_blupi[rank].cel.y <= cel.y+2 )
+		{
+			GoalUnwork(rank);
+			m_blupi[rank].bExist = FALSE;
+		}
+	}
+}
+
+
+
+// Test si un blupi existe.
+
+BOOL CDecor::BlupiIfExist(int rank)
+{
+	return m_blupi[rank].bExist;
+}
+
+
+// Triche pour tous les blupi.
+//	#1	->	(POWER)    redonne l'énergie maximale
+//	#2	->	(LONESOME) tue toutes les araignées/virus/etc.
+
+void CDecor::BlupiCheat(int cheat)
+{
+	int		rank;
+
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		if ( cheat == 1 )  // power ?
+		{
+			if ( m_blupi[rank].bExist &&
+				 m_blupi[rank].perso == 0 )
+			{
+				m_blupi[rank].energy = MAXENERGY;
+				m_blupi[rank].bMalade = FALSE;
+			}
+		}
+
+		if ( cheat == 2 )  // lonesome ?
+		{
+			if ( m_blupi[rank].bExist &&
+				 m_blupi[rank].perso != 0 &&
+				 m_blupi[rank].perso != 8 )  // araignée/virus/etc. ?
+			{
+				m_blupi[rank].bExist = FALSE;
+			}
+		}
+	}
+}
+
+
+// Actualise un blupi pour pouvoir le dessiner dans son état.
+
+void CDecor::BlupiActualise(int rank)
+{
+	short	sound;
+
+	Action(m_blupi[rank].action,
+		   m_blupi[rank].aDirect,
+		   m_blupi[rank].phase,
+		   m_blupi[rank].step,
+		   m_blupi[rank].channel,
+		   m_blupi[rank].icon,
+		   m_blupi[rank].pos,
+		   m_blupi[rank].posZ,
+		   sound);
+	BlupiAdaptIcon(rank);
+
+	m_blupi[rank].lastIcon = -1;
+	m_blupi[rank].phase    = 0;
+	m_blupi[rank].pos.x    = 0;
+	m_blupi[rank].pos.y    = 0;
+	m_blupi[rank].posZ     = 0;
+}
+
+// Adapte une icône.
+
+void CDecor::BlupiAdaptIcon(int rank)
+{
+	int		direct;
+
+	if ( m_blupi[rank].icon == -1 )  return;
+
+	if ( m_blupi[rank].bMalade )  // malade ?
+	{
+		if ( m_blupi[rank].icon >= 69 &&
+			 m_blupi[rank].icon <= 92 )
+		{
+			m_blupi[rank].icon += 100;  // 169..192 (tout vert)
+		}
+		else if ( m_blupi[rank].icon == 270 )  // écrasé ?
+		{
+			m_blupi[rank].icon = 271;
+		}
+		else if ( m_blupi[rank].icon < 318 ||  // pas télétransporté ?
+				  m_blupi[rank].icon > 321 )
+		{
+			direct = GetIconDirect(m_blupi[rank].icon);
+			if ( direct < 0 )
+			{
+				m_blupi[rank].icon = 169;  // debout direction est !
+			}
+			else
+			{
+				m_blupi[rank].icon = 169+3*(direct/16);
+			}
+		}
+	}
+
+	if ( m_blupi[rank].perso == 0 &&
+		 m_blupi[rank].vehicule == 1 )  // en bateau ?
+	{
+		direct = GetIconDirect(m_blupi[rank].icon);
+		if ( direct < 0 )
+		{
+			m_blupi[rank].icon = 234;  // bateau direction est !
+		}
+		else
+		{
+			m_blupi[rank].icon = 234+(direct/(16/2));
+		}
+	}
+
+	if ( m_blupi[rank].perso == 0 &&
+		 m_blupi[rank].vehicule == 2 )  // en jeep ?
+	{
+		direct = GetIconDirect(m_blupi[rank].icon);
+		if ( direct < 0 )
+		{
+			m_blupi[rank].icon = 250;  // bateau direction est !
+		}
+		else
+		{
+			m_blupi[rank].icon = 250+(direct/(16/2));
+		}
+	}
+
+	if ( m_blupi[rank].perso == 0 &&
+		 m_blupi[rank].vehicule == 3 )  // armure ?
+	{
+		if ( m_blupi[rank].icon < 322 ||
+			 m_blupi[rank].icon > 347 )
+		{
+			if ( m_blupi[rank].icon == 106 ||  // élan pour saut ?
+				 m_blupi[rank].icon == 194 )   // mèche ?
+			{
+				m_blupi[rank].icon = 347;
+			}
+			else
+			{
+				direct = GetIconDirect(m_blupi[rank].icon);
+				if ( direct < 0 )
+				{
+					m_blupi[rank].icon = 322;  // armure direction est !
+				}
+				else
+				{
+					m_blupi[rank].icon = 322+3*(direct/16);
+				}
+			}
+		}
+	}
+
+	if ( m_blupi[rank].perso == 8 )  // disciple ?
+	{
+		direct = GetIconDirect(m_blupi[rank].icon);
+		if ( direct < 0 )
+		{
+			m_blupi[rank].icon = 290;  // disciple direction est !
+		}
+		else
+		{
+			m_blupi[rank].icon = 290+(direct/(16/2));
+		}
+	}
+}
+
+
+// Fait entendre un son pour un blupi.
+// Si bStop=TRUE, on stoppe le son précédent associé
+// à ce blupi (rank), si nécessaire.
+
+void CDecor::BlupiSound(int rank, int sound, POINT pos, BOOL bStop)
+{
+	int		newSound;
+
+	if ( rank == -1 )
+	{
+		rank = m_rankBlupiHili;
+	}
+
+	if ( rank != -1 && m_blupi[rank].perso == 8 )  // disciple ?
+	{
+		if ( sound == SOUND_HOP    ||
+			 sound == SOUND_BRULE  ||
+			 sound == SOUND_TCHAO  ||
+			 sound == SOUND_FLEUR  ||
+			 sound == SOUND_ARROSE )
+		{
+			newSound = -1;
+		}
+		else
+		{
+			newSound = sound;
+		}
+
+		if ( sound == SOUND_BOING  ||
+			 sound == SOUND_BOING1 ||
+			 sound == SOUND_BOING2 ||
+			 sound == SOUND_BOING3 )
+		{
+			newSound = SOUND_D_BOING;
+		}
+		if ( sound == SOUND_GO1 ||
+			 sound == SOUND_GO2 ||
+			 sound == SOUND_GO3 ||
+			 sound == SOUND_GO4 ||
+			 sound == SOUND_GO5 ||
+			 sound == SOUND_GO6 )
+		{
+			newSound = SOUND_D_GO;
+		}
+		if ( sound == SOUND_OK1  ||
+			 sound == SOUND_OK2  ||
+			 sound == SOUND_OK3  ||
+			 sound == SOUND_OK4  ||
+			 sound == SOUND_OK5  ||
+			 sound == SOUND_OK6  ||
+			 sound == SOUND_OK1f ||
+			 sound == SOUND_OK2f ||
+			 sound == SOUND_OK3f ||
+			 sound == SOUND_OK1e ||
+			 sound == SOUND_OK2e ||
+			 sound == SOUND_OK3e )
+		{
+			newSound = SOUND_D_OK;
+		}
+		if ( sound == SOUND_TERM1 ||
+			 sound == SOUND_TERM2 ||
+			 sound == SOUND_TERM3 ||
+			 sound == SOUND_TERM4 ||
+			 sound == SOUND_TERM5 ||
+			 sound == SOUND_TERM6 )
+		{
+			newSound = SOUND_D_TERM;
+		}
+
+		if ( newSound == -1 )  return;
+		sound = newSound;
+	}
+
+	if ( bStop )
+	{
+		m_pSound->PlayImage(sound, pos, rank);
+	}
+	else
+	{
+		m_pSound->PlayImage(sound, pos);
+	}
+}
+
+// Sons associés à des actions.
+
+static short tableSound[] =
+{
+	ACTION_BRULE,		SOUND_BRULE,
+	ACTION_TCHAO,		SOUND_TCHAO,
+	ACTION_MANGE,		SOUND_MANGE,
+	ACTION_BOIT,		SOUND_BOIT,
+	ACTION_GLISSE,		SOUND_GLISSE,
+	ACTION_R_CHARGE,	SOUND_R_CHARGE,
+	-1
+};
+
+// Effectue quelques initialisations pour une nouvelle action.
+
+void CDecor::BlupiInitAction(int rank, int action, int direct)
+{
+	short*		pTable = tableSound;
+	POINT		pos;
+	int			rand;
+
+	while ( *pTable != -1 )
+	{
+		if ( pTable[0] == action )
+		{
+			pos = ConvCelToPos(m_blupi[rank].cel);
+			BlupiSound(rank, pTable[1], pos);
+			break;
+		}
+
+		pTable += 2;
+	}
+
+	m_blupi[rank].action = action;
+
+	if ( m_blupi[rank].perso == 0 )  // blupi ?
+	{
+		if ( m_blupi[rank].vehicule == 1 )  // en bateau ?
+		{
+			if ( m_blupi[rank].action == ACTION_STOP )
+			{
+				m_blupi[rank].action = ACTION_STOPb;
+			}
+
+			if ( m_blupi[rank].action == ACTION_MARCHE )
+			{
+				m_blupi[rank].action = ACTION_MARCHEb;
+			}
+		}
+
+		if ( m_blupi[rank].vehicule == 2 )  // en jeep ?
+		{
+			if ( m_blupi[rank].action == ACTION_STOP )
+			{
+				m_blupi[rank].action = ACTION_STOPj;
+			}
+
+			if ( m_blupi[rank].action == ACTION_MARCHE )
+			{
+				m_blupi[rank].action = ACTION_MARCHEj;
+			}
+		}
+
+		if ( m_blupi[rank].vehicule == 3 )  // armure ?
+		{
+			if ( m_blupi[rank].action == ACTION_STOP )
+			{
+				m_blupi[rank].action = ACTION_STOPa;
+			}
+
+			if ( m_blupi[rank].action == ACTION_MARCHE )
+			{
+				m_blupi[rank].action = ACTION_MARCHEa;
+				m_blupi[rank].step = (m_blupi[rank].step/2)*2;
+			}
+		}
+
+		if ( m_blupi[rank].energy <= MAXENERGY/4 )  // peu de forces ?
+		{
+			if ( m_blupi[rank].action == ACTION_STOP )
+			{
+				m_blupi[rank].action = ACTION_STOPf;
+			}
+
+			if ( m_blupi[rank].action == ACTION_MARCHE )
+			{
+				m_blupi[rank].action = ACTION_MARCHEf;
+				m_blupi[rank].step = (m_blupi[rank].step/2)*2;
+			}
+		}
+
+		if ( m_blupi[rank].action == ACTION_STOP &&
+			 m_blupi[rank].goalAction == 0 )  // à pied ?
+		{
+			rand = Random(0,400);
+			if ( rand >= 10 && rand <= 15 &&
+				 m_blupi[rank].takeChannel == -1 )
+			{
+				m_blupi[rank].action = ACTION_MISC1;  // épaules
+				m_blupi[rank].step = 0;
+			}
+			if ( rand >= 20 && rand <= 23 )
+			{
+				m_blupi[rank].action = ACTION_MISC2;  // grat-grat
+				m_blupi[rank].step = 0;
+			}
+			if ( rand == 30 &&
+				 m_blupi[rank].takeChannel == -1 )
+			{
+				m_blupi[rank].action = ACTION_MISC3;  // yoyo
+				m_blupi[rank].step = 0;
+			}
+			if ( rand >= 40 && rand <= 45 )
+			{
+				m_blupi[rank].action = ACTION_MISC4;  // ferme les yeux
+				m_blupi[rank].step = 0;
+			}
+			if ( rand == 50 &&
+				 m_blupi[rank].takeChannel == -1 )
+			{
+				m_blupi[rank].action = ACTION_MISC5;  // ohé
+				m_blupi[rank].step = 0;
+			}
+			if ( rand == 60 )
+			{
+				m_blupi[rank].action = ACTION_MISC6;  // diabolo
+				m_blupi[rank].step = 0;
+			}
+		}
+		if ( m_blupi[rank].action == ACTION_STOPf &&
+			 m_blupi[rank].goalAction == 0 )
+		{
+			rand = Random(0,100);
+			if ( rand == 10 &&  // propabilité 1/100
+				 m_blupi[rank].takeChannel == -1 )
+			{
+				m_blupi[rank].action = ACTION_MISC1f;
+				m_blupi[rank].step = 0;
+			}
+		}
+
+		if ( direct != -1 )
+		{
+			m_blupi[rank].sDirect = direct;
+		}
+
+		if ( m_blupi[rank].action == ACTION_BUILD        ||
+			 m_blupi[rank].action == ACTION_BUILDBREF    ||
+			 m_blupi[rank].action == ACTION_BUILDSEC     ||
+			 m_blupi[rank].action == ACTION_BUILDSOURD   ||
+			 m_blupi[rank].action == ACTION_BUILDPIERRE  ||
+			 m_blupi[rank].action == ACTION_PIOCHE       ||
+			 m_blupi[rank].action == ACTION_PIOCHEPIERRE ||
+			 m_blupi[rank].action == ACTION_PIOCHESOURD  ||
+			 m_blupi[rank].action == ACTION_ARROSE       ||
+			 m_blupi[rank].action == ACTION_BECHE        ||
+			 m_blupi[rank].action == ACTION_SCIE         ||
+			 m_blupi[rank].action == ACTION_TAKE         ||
+			 m_blupi[rank].action == ACTION_DEPOSE       ||
+			 m_blupi[rank].action == ACTION_BRULE        ||
+			 m_blupi[rank].action == ACTION_TCHAO        ||
+			 m_blupi[rank].action == ACTION_GRILLE1      ||
+			 m_blupi[rank].action == ACTION_GRILLE2      ||
+			 m_blupi[rank].action == ACTION_GRILLE3      ||
+			 m_blupi[rank].action == ACTION_ELECTRO      ||
+			 m_blupi[rank].action == ACTION_MANGE        ||
+			 m_blupi[rank].action == ACTION_BOIT         ||
+			 m_blupi[rank].action == ACTION_NAISSANCE    ||
+			 m_blupi[rank].action == ACTION_SAUTE1       ||
+			 m_blupi[rank].action == ACTION_SAUTE2       ||
+			 m_blupi[rank].action == ACTION_SAUTE3       ||
+			 m_blupi[rank].action == ACTION_SAUTE4       ||
+			 m_blupi[rank].action == ACTION_SAUTE5       ||
+//?			 m_blupi[rank].action == ACTION_GLISSE       ||
+			 m_blupi[rank].action == ACTION_PONT         ||
+			 m_blupi[rank].action == ACTION_MECHE        ||
+			 m_blupi[rank].action == ACTION_A_GRILLE     ||
+			 m_blupi[rank].action == ACTION_V_GRILLE     ||
+			 m_blupi[rank].action == ACTION_T_ECRASE     ||
+			 m_blupi[rank].action == ACTION_R_MARCHE     ||
+			 m_blupi[rank].action == ACTION_R_APLAT      ||
+			 m_blupi[rank].action == ACTION_R_BUILD      ||
+			 m_blupi[rank].action == ACTION_R_CHARGE     ||
+			 m_blupi[rank].action == ACTION_B_MARCHE     ||
+			 m_blupi[rank].action == ACTION_E_MARCHE     ||
+			 m_blupi[rank].action == ACTION_MARCHEb      ||
+			 m_blupi[rank].action == ACTION_MARCHEj      ||
+			 m_blupi[rank].action == ACTION_TELEPORTE1   ||
+			 m_blupi[rank].action == ACTION_TELEPORTE2   ||
+			 m_blupi[rank].action == ACTION_TELEPORTE3   ||
+			 m_blupi[rank].action == ACTION_ARMUREOPEN   ||
+			 m_blupi[rank].action == ACTION_ARMURECLOSE  )
+		{
+			m_blupi[rank].step = 0;
+		}
+	}
+
+	if ( m_blupi[rank].perso == 1 )  // araignée ?
+	{
+		if ( m_blupi[rank].action == ACTION_MARCHE )
+		{
+			m_blupi[rank].action = ACTION_A_MARCHE;
+		}
+
+		if ( m_blupi[rank].action == ACTION_STOP )
+		{
+			m_blupi[rank].action = ACTION_A_STOP;
+			m_blupi[rank].sDirect = Random(0,7)*16;
+		}
+
+		m_blupi[rank].step = 0;
+	}
+
+	if ( m_blupi[rank].perso == 2 )  // virus ?
+	{
+		if ( m_blupi[rank].action == ACTION_MARCHE )
+		{
+			m_blupi[rank].action = ACTION_V_MARCHE;
+		}
+
+		if ( m_blupi[rank].action == ACTION_STOP )
+		{
+			m_blupi[rank].action = ACTION_V_STOP;
+		}
+
+		m_blupi[rank].step = 0;
+	}
+
+	if ( m_blupi[rank].perso == 3 )  // tracks ?
+	{
+		if ( m_blupi[rank].action == ACTION_MARCHE )
+		{
+			m_blupi[rank].action = ACTION_T_MARCHE;
+		}
+
+		if ( m_blupi[rank].action == ACTION_STOP )
+		{
+			m_blupi[rank].action = ACTION_T_STOP;
+		}
+
+		m_blupi[rank].step = 0;
+	}
+
+	if ( m_blupi[rank].perso == 4 )  // robot ?
+	{
+		if ( m_blupi[rank].action == ACTION_MARCHE )
+		{
+			m_blupi[rank].action = ACTION_R_MARCHE;
+		}
+
+		if ( m_blupi[rank].action == ACTION_STOP )
+		{
+			m_blupi[rank].action = ACTION_R_STOP;
+		}
+
+		m_blupi[rank].step = 0;
+	}
+
+	if ( m_blupi[rank].perso == 5 )  // bombe ?
+	{
+		if ( m_blupi[rank].action == ACTION_MARCHE )
+		{
+			m_blupi[rank].action = ACTION_B_MARCHE;
+		}
+
+		if ( m_blupi[rank].action == ACTION_STOP )
+		{
+			m_blupi[rank].action = ACTION_B_STOP;
+		}
+
+		m_blupi[rank].step = 0;
+	}
+
+	if ( m_blupi[rank].perso == 7 )  // électro ?
+	{
+		if ( m_blupi[rank].action == ACTION_MARCHE )
+		{
+			m_blupi[rank].action = ACTION_E_MARCHE;
+		}
+
+		if ( m_blupi[rank].action == ACTION_STOP )
+		{
+			m_blupi[rank].action = ACTION_E_STOP;
+		}
+
+		m_blupi[rank].step = 0;
+	}
+
+	if ( m_blupi[rank].perso == 8 )  // disciple ?
+	{
+		if ( direct != -1 )
+		{
+			m_blupi[rank].sDirect = direct;
+		}
+
+		if ( m_blupi[rank].action == ACTION_MARCHE )
+		{
+			m_blupi[rank].action = ACTION_D_MARCHE;
+		}
+
+		if ( m_blupi[rank].action == ACTION_STOP )
+		{
+			m_blupi[rank].action = ACTION_D_STOP;
+		}
+
+		if ( m_blupi[rank].action == ACTION_PIOCHE )
+		{
+			m_blupi[rank].action = ACTION_D_PIOCHE;
+		}
+
+		if ( m_blupi[rank].action == ACTION_BUILD )
+		{
+			m_blupi[rank].action = ACTION_D_BUILD;
+		}
+
+		if ( m_blupi[rank].action == ACTION_SCIE )
+		{
+			m_blupi[rank].action = ACTION_D_SCIE;
+		}
+
+		if ( m_blupi[rank].action == ACTION_TCHAO )
+		{
+			m_blupi[rank].action = ACTION_D_TCHAO;
+		}
+
+		if ( m_blupi[rank].action == ACTION_CUEILLE1 )
+		{
+			m_blupi[rank].action = ACTION_D_CUEILLE1;
+		}
+
+		if ( m_blupi[rank].action == ACTION_CUEILLE2 )
+		{
+			m_blupi[rank].action = ACTION_D_CUEILLE2;
+		}
+
+		if ( m_blupi[rank].action == ACTION_MECHE )
+		{
+			m_blupi[rank].action = ACTION_D_MECHE;
+		}
+
+		if ( m_blupi[rank].action == ACTION_ARROSE )
+		{
+			m_blupi[rank].action = ACTION_D_ARROSE;
+		}
+
+		if ( m_blupi[rank].action == ACTION_BECHE )
+		{
+			m_blupi[rank].action = ACTION_D_BECHE;
+		}
+
+		m_blupi[rank].step = 0;
+	}
+}
+
+// Change l'action de blupi.
+
+void CDecor::BlupiChangeAction(int rank, int action, int direct)
+{
+	if ( rank < 0 )  return;
+	BlupiInitAction(rank, action, direct);
+	BlupiDestCel(rank);
+	m_blupi[rank].phase = 0;
+	m_blupi[rank].pos.x = 0;
+	m_blupi[rank].pos.y = 0;
+	BlupiNextAction(rank);
+}
+
+
+
+// Vide la liste des actions.
+
+void CDecor::ListFlush(int rank)
+{
+	int		i;
+
+	for ( i=0 ; i<MAXLIST ; i++ )
+	{
+		m_blupi[rank].listButton[i] = -1;
+	}
+	m_blupi[rank].repeatLevelHope = -1;
+	m_blupi[rank].repeatLevel     = -1;
+}
+
+// Retourne le paramètre associé à une action.
+
+int CDecor::ListGetParam(int rank, int button, POINT cel)
+{
+	int		icon;
+
+	if ( button == BUTTON_CARRY ||
+		 button == BUTTON_FLEUR )
+	{
+		return m_decor[cel.x/2][cel.y/2].objectIcon;
+	}
+
+	if ( button == BUTTON_DEPOSE )
+	{
+		return m_blupi[rank].takeIcon;
+	}
+
+	if ( button == BUTTON_GO &&
+		 cel.x%2 == 1 && cel.y%2 == 1 )
+	{
+		icon = m_decor[cel.x/2][cel.y/2].objectIcon;
+		if ( icon == 117 ||  // bateau ?
+			 icon == 118 )   // voiture ?
+		{
+			return icon;
+		}
+	}
+
+	return -1;
+}
+
+// Ajoute une action dans la liste.
+
+BOOL CDecor::ListPut(int rank, int button, POINT cel, POINT cMem)
+{
+	int		i, last;
+
+	if ( button == BUTTON_REPEAT ||
+		 button == BUTTON_GO     )  return TRUE;
+
+	// Mémorise "mange" seulement après un "cultive".
+	if ( button == BUTTON_MANGE &&
+		 m_blupi[rank].listButton[0] != BUTTON_CULTIVE )  return TRUE;
+
+	// Si prend/dépose à la suite au même endroit,
+	// il est inutile de mémoriser !
+	last = m_blupi[rank].listButton[0];
+	if ( (button == BUTTON_CARRY  && last == BUTTON_DEPOSE) ||
+		 (button == BUTTON_DEPOSE && last == BUTTON_CARRY ) )
+	{
+		if ( cel.x/2 == m_blupi[rank].listCel[0].x/2 &&
+			 cel.y/2 == m_blupi[rank].listCel[0].y/2 )
+		{
+			ListRemove(rank);
+			return TRUE;
+		}
+	}
+
+	for ( i=MAXLIST-1 ; i>0 ; i-- )
+	{
+		m_blupi[rank].listButton[i] = m_blupi[rank].listButton[i-1];
+		m_blupi[rank].listCel[i]    = m_blupi[rank].listCel[i-1];
+		m_blupi[rank].listParam[i]  = m_blupi[rank].listParam[i-1];
+	}
+
+	m_blupi[rank].listButton[0] = button;
+	m_blupi[rank].listCel[0]    = cMem;
+	m_blupi[rank].listParam[0]  = ListGetParam(rank, button, cel);
+
+	return TRUE;
+}
+
+// Enlève la dernière action ajoutée dans la liste.
+
+void CDecor::ListRemove(int rank)
+{
+	int		i;
+
+	if ( m_blupi[rank].listButton[0] == BUTTON_CULTIVE )  return;
+
+	for ( i=0 ; i<MAXLIST-1 ; i++ )
+	{
+		m_blupi[rank].listButton[i] = m_blupi[rank].listButton[i+1];
+		m_blupi[rank].listCel[i]    = m_blupi[rank].listCel[i+1];
+		m_blupi[rank].listParam[i]  = m_blupi[rank].listParam[i+1];
+	}
+
+	m_blupi[rank].listButton[MAXLIST-1] = -1;
+}
+
+// Cherche une action à répéter dans la liste.
+// Retourne la profondeur de la répétition.
+// Retourne -1 si aucune répétiton n'est possible.
+
+int CDecor::ListSearch(int rank, int button, POINT cel,
+					   int &textForButton)
+{
+	int		i, j, param, nb;
+
+	static int table_series[] =
+	{
+		TX_REPEAT_CULTIVE,
+		2, BUTTON_CULTIVE, BUTTON_MANGE,
+
+		TX_REPEAT_FLEUR,
+		4, BUTTON_FLEUR, BUTTON_CARRY, BUTTON_LABO, BUTTON_DEPOSE,
+
+		TX_REPEAT_FLEURQ,
+		3, BUTTON_CARRY, BUTTON_LABO, BUTTON_DEPOSE,
+
+		TX_REPEAT_FABMINE,
+		3, BUTTON_EXTRAIT, BUTTON_FABMINE, BUTTON_DEPOSE,
+
+		TX_REPEAT_FABJEEP,
+		3, BUTTON_EXTRAIT, BUTTON_FABJEEP, BUTTON_DJEEP,
+
+		TX_REPEAT_FABARMURE,
+		3, BUTTON_EXTRAIT, BUTTON_FABARMURE, BUTTON_DARMURE,
+
+		TX_REPEAT_PALIS,
+		4, BUTTON_ABAT, BUTTON_CARRY, BUTTON_DEPOSE, BUTTON_PALIS,
+
+		TX_REPEAT_PALISQ,
+		3, BUTTON_CARRY, BUTTON_DEPOSE, BUTTON_PALIS,
+
+		TX_REPEAT_PONT,
+		4, BUTTON_ABAT, BUTTON_CARRY, BUTTON_DEPOSE, BUTTON_PONT,
+
+		TX_REPEAT_PONTQ,
+		3, BUTTON_CARRY, BUTTON_DEPOSE, BUTTON_PONT,
+
+		TX_REPEAT_BATEAU,
+		4, BUTTON_ABAT, BUTTON_CARRY, BUTTON_DEPOSE, BUTTON_BATEAU,
+
+		TX_REPEAT_BATEAUQ,
+		3, BUTTON_CARRY, BUTTON_DEPOSE, BUTTON_BATEAU,
+
+		-1,
+	};
+
+	param = ListGetParam(rank, button, cel);
+
+	i = 0;
+	while ( table_series[i] != -1 )
+	{
+		nb = table_series[i+1];
+		if ( button == m_blupi[rank].listButton[nb-1]   &&
+			 param  == m_blupi[rank].listParam[nb-1]    &&
+			 cel.x  >= m_blupi[rank].listCel[nb-1].x-50 &&
+			 cel.x  <= m_blupi[rank].listCel[nb-1].x+50 &&
+			 cel.y  >= m_blupi[rank].listCel[nb-1].y-50 &&
+			 cel.y  <= m_blupi[rank].listCel[nb-1].y+50 )
+		{
+			for ( j=0 ; j<nb ; j++ )
+			{
+				if ( table_series[i+2+j] !=
+					 m_blupi[rank].listButton[nb-1-j] )
+				{
+					goto next;
+				}
+			}
+			textForButton = table_series[i];
+			return nb-1;
+		}
+
+		next:
+		i += nb+2;
+	}
+
+#if 0
+	for ( i=0 ; i<MAXLIST ; i++ )
+	{
+		if ( button == m_blupi[rank].listButton[i]   &&
+			 param  == m_blupi[rank].listParam[i]    &&
+			 cel.x  >= m_blupi[rank].listCel[i].x-50 &&
+			 cel.x  <= m_blupi[rank].listCel[i].x+50 &&
+			 cel.y  >= m_blupi[rank].listCel[i].y-50 &&
+			 cel.y  <= m_blupi[rank].listCel[i].y+50 )
+		{
+			return i;
+		}
+	}
+#endif
+
+	return -1;
+}
+
+// Ajuste une action à répéter.
+
+BOOL CDecor::RepeatAdjust(int rank, int button,
+						  POINT &cel, POINT &cMem, int param, int list)
+{
+	int		i, channel, icon, icon1, icon2, flags;
+	POINT	test;
+
+	static int	table_object[] =
+	{
+		BUTTON_ABAT,	CHOBJECT,   6,  11,
+		BUTTON_ROC,		CHOBJECT,  37,  43,
+		BUTTON_MANGE,	CHOBJECT,  60,  60,
+		BUTTON_PALIS,	CHOBJECT,  36,  36,
+		BUTTON_BATEAU,	CHOBJECT,  36,  36,
+		BUTTON_DEPOSE,	-1,        -1,  -1,
+		BUTTON_DJEEP,	-1,        -1,  -1,
+		BUTTON_DARMURE,	-1,        -1,  -1,
+		0,
+	};
+
+	static int table_mur[] =
+	{
+		+2, 0,		// 1<<0
+		 0,+2,		// 1<<1
+		-2, 0,		// 1<<2
+		 0,-2,		// 1<<3
+	};
+
+	if ( button == BUTTON_DEPOSE &&  // dépose pour une palissade ?
+		 list > 0 &&
+		 m_blupi[rank].listButton[list-1] == BUTTON_PALIS )
+	{
+		icon = m_decor[cel.x/2][cel.y/2].objectIcon;
+
+		flags = 0;
+		if ( icon == 65 )  flags = (1<<0)|(1<<2);
+		if ( icon == 66 )  flags = (1<<1)|(1<<3);
+		if ( icon == 67 )  flags = (1<<0)|(1<<1);
+		if ( icon == 68 )  flags = (1<<1)|(1<<2);
+		if ( icon == 69 )  flags = (1<<2)|(1<<3);
+		if ( icon == 70 )  flags = (1<<0)|(1<<3);
+		if ( icon == 71 )
+		{
+			for ( i=0 ; i<4 ; i++ )
+			{
+				test.x = cel.x + table_mur[i*2+0];
+				test.y = cel.y + table_mur[i*2+1];
+				if ( IsValid(test) &&
+					 m_decor[test.x/2][test.y/2].floorIcon == 15 &&  // dalle grise ?
+					 CelOkForAction(test, WM_ACTION_DEPOSE, rank) == 0 )
+				{
+					cel  = test;
+					cMem = test;
+					goto ok;
+				}
+			}
+			flags = (1<<0)|(1<<1)|(1<<2)|(1<<3);
+		}
+
+		if ( flags == 0 )
+		{
+			if ( CelOkForAction(cel, WM_ACTION_DEPOSE, rank) == 0 )
+			{
+				goto ok;
+			}
+		}
+
+		for ( i=0 ; i<4 ; i++ )
+		{
+			if ( flags & (1<<i) )
+			{
+				test.x = cel.x + table_mur[i*2+0];
+				test.y = cel.y + table_mur[i*2+1];
+				if ( CelOkForAction(test, WM_ACTION_DEPOSE, rank) == 0 )
+				{
+					cel  = test;
+					cMem = test;
+					goto ok;
+				}
+			}
+		}
+		return FALSE;
+	}
+
+	if ( button == BUTTON_DEPOSE &&  // dépose pour un bateau ?
+		 list > 0 &&
+		 m_blupi[rank].listButton[list-1] == BUTTON_BATEAU )
+	{
+		if ( SearchOtherBateau(rank, cel, 100, test, icon) )
+		{
+			cel  = test;
+			cMem = test;
+			goto ok;
+		}
+		return FALSE;
+	}
+
+//?	if ( button == BUTTON_MANGE )
+//?	{
+//?		cel = m_blupi[rank].cel;  // cherche là où est blupi !
+//?	}
+
+	i = 0;
+	channel = -2;
+	icon1   = -1;
+	icon2   = -1;
+	while ( table_object[i] != 0 )
+	{
+		if ( button == table_object[i] )
+		{
+			channel = table_object[i+1];
+			icon1   = table_object[i+2];
+			icon2   = table_object[i+3];
+			break;
+		}
+		i += 4;
+	}
+
+	if ( button == BUTTON_CARRY ||
+		 button == BUTTON_FLEUR )
+	{
+		channel = CHOBJECT;
+		icon1   = param;
+		icon2   = param;
+	}
+	if ( button == BUTTON_GO &&  // va en bateau/jeep ?
+		 param != -1 )
+	{
+		channel = CHOBJECT;
+		icon1   = param;
+		icon2   = param;
+	}
+
+	if ( channel != -2 )
+	{
+		if ( !SearchOtherObject(rank, cel, table_actions[button],
+								50*2, channel,
+								icon1, icon2, -1, -1,
+								cel, icon1) )
+		{
+			return FALSE;
+		}
+	}
+
+	if ( button == BUTTON_PALIS )
+	{
+		cMem = cel;
+	}
+
+	ok:
+	if ( cel.x%2 == 0 )  cel.x ++;
+	if ( cel.y%2 == 0 )  cel.y ++;  // sur l'objet
+
+	m_blupi[rank].interrupt = 1;
+	return TRUE;
+}
+
+
+
+// Démarre une action.
+
+void CDecor::GoalStart(int rank, int action, POINT cel)
+{
+	m_blupi[rank].goalHili   = cel;
+	m_blupi[rank].goalAction = action;
+	m_blupi[rank].goalPhase  = 0;
+	m_blupi[rank].goalCel.x  = -1;
+	m_blupi[rank].bRepeat    = FALSE;
+
+	GoalInitJauge(rank);
+	FlushUsed(rank);
+}
+
+// Effectue la méta opération suivante.
+// Retourne FALSE lorsque c'est fini !
+
+BOOL CDecor::GoalNextPhase(int rank)
+{
+	short*	pTable;
+	int		i, nb;
+
+	if ( m_blupi[rank].goalAction == 0 )  return FALSE;
+
+	pTable = GetTableGoal(m_blupi[rank].goalAction);
+	if ( pTable == NULL )
+	{
+		GoalStop(rank, TRUE);
+		return FALSE;
+	}
+
+	for ( i=0 ; i<m_blupi[rank].goalPhase ; i++ )
+	{
+		if ( *pTable == 0 )  return FALSE;
+		pTable += 1+table_goal_nbop[*pTable];
+	}
+
+	if ( *pTable == GOAL_GROUP )
+	{
+		m_blupi[rank].goalPhase ++;
+		nb = pTable[1];
+		pTable += 2;
+
+		for ( i=0 ; i<nb ; i++ )
+		{
+			m_blupi[rank].goalPhase ++;
+			if ( !GoalNextOp(rank, pTable) )  return FALSE;
+			pTable += 1+table_goal_nbop[*pTable];
+		}
+	}
+
+	m_blupi[rank].goalPhase ++;
+	return GoalNextOp(rank, pTable);
+}
+
+// Initialise la jauge pour une méta opération.
+
+void CDecor::GoalInitJauge(int rank)
+{
+	short*	pTable;
+	int		max=0, op;
+
+	m_blupi[rank].jaugePhase = -1;
+	m_blupi[rank].jaugeMax   = -1;
+
+	if ( m_blupi[rank].perso != 0 &&
+		 m_blupi[rank].perso != 8 )  return;  // araignée/virus/etc. ?
+	if ( m_blupi[rank].goalAction == 0 )  return;
+
+	pTable = GetTableGoal(m_blupi[rank].goalAction);
+	if ( pTable == NULL )  goto term;
+
+	while ( TRUE )
+	{
+		op = *pTable;
+		if ( op == 0 ||
+			 op == GOAL_TERM )  goto term;
+
+		if ( op == GOAL_ACTION &&
+			 pTable[1] != ACTION_STOP )
+		{
+			max ++;
+		}
+
+		pTable += 1+table_goal_nbop[*pTable];
+	}
+
+	term:
+	if ( max > 0 )
+	{
+		m_blupi[rank].jaugePhase = 0;
+		m_blupi[rank].jaugeMax   = max;
+	}
+}
+
+// Permet de passer à travers certains arbres.
+
+void CDecor::GoalInitPassCel(int rank)
+{
+	POINT		cel;
+	int			channel, icon;
+
+	cel.x = (m_blupi[rank].goalCel.x/2)*2;
+	cel.y = (m_blupi[rank].goalCel.y/2)*2;
+
+	GetObject(cel, channel, icon);
+
+	if ( channel == CHOBJECT &&
+		 ((icon >=  8 && icon <= 11) ||  // arbres touffus ?
+		  (icon >= 30 && icon <= 35) ||  // arbres touffus sans feuilles ?
+		  (icon >= 37 && icon <= 43) ||  // rochers ?
+		  (icon == 81 || icon == 83 || icon == 94) ||  // fleurs ?
+		  (icon >= 100 && icon <= 105) ||  // usine ?
+		  (icon == 115 || icon == 116) ||  // usine ?
+		  (icon ==  17 || icon ==  18) ||  // usine ?
+		  (icon == 117) ||  // bateau ?
+		  (icon == 118) ||  // jeep ?
+		  (icon ==  16)) )  // armure ?
+	{
+		m_blupi[rank].passCel = m_blupi[rank].goalCel;
+	}
+	else
+	{
+		m_blupi[rank].passCel.x = -1;
+	}
+}
+
+// Ajuste une coordonnée de cellule.
+
+void CDecor::GoalAdjustCel(int rank, int &x, int &y)
+{
+	if ( x == -10 && y == -10 )
+	{
+		if ( m_blupi[rank].goalAction == WM_ACTION_PONTEL )
+		{
+			x = m_blupi[rank].fix.x + m_blupi[rank].cLoop*2;
+			y = m_blupi[rank].fix.y;
+			return;
+		}
+		if ( m_blupi[rank].goalAction == WM_ACTION_PONTOL )
+		{
+			x = m_blupi[rank].fix.x - m_blupi[rank].cLoop*2;
+			y = m_blupi[rank].fix.y;
+			return;
+		}
+		if ( m_blupi[rank].goalAction == WM_ACTION_PONTSL )
+		{
+			x = m_blupi[rank].fix.x;
+			y = m_blupi[rank].fix.y + m_blupi[rank].cLoop*2;
+			return;
+		}
+		if ( m_blupi[rank].goalAction == WM_ACTION_PONTNL )
+		{
+			x = m_blupi[rank].fix.x;
+			y = m_blupi[rank].fix.y - m_blupi[rank].cLoop*2;
+			return;
+		}
+	}
+
+	x += m_blupi[rank].cel.x;
+	y += m_blupi[rank].cel.y;
+}
+
+// Liste des buts multiples.
+
+int table_multi_goal[16*2] =
+{
+	 0, 0,
+	+1, 0,
+	 0,+1,
+	+1,+1,
+	 0,-1,
+	+1,-1,
+	 0,+2,
+	+1,+2,
+	-1,-1,
+	-1, 0,
+	-1,+1,
+	-1,+2,
+	+2,-1,
+	+2, 0,
+	+2,+1,
+	+2,+2,
+};
+
+// Effectue une méta opération.
+
+BOOL CDecor::GoalNextOp(int rank, short *pTable)
+{
+	int			op, x, y;
+	int			action, direct, channel, icon, mchannel, micon;
+	int			total, step, delai, first, last, first2, last2, flag, i;
+	int			button, param;
+	POINT		pos, cel, cMem, destCel;
+	BOOL		bOK, bError=TRUE;
+
+	pos = ConvCelToPos(m_blupi[rank].cel);
+
+	op = *pTable++;
+
+	if ( op == GOAL_ACTION &&
+		 *pTable != ACTION_STOP )
+	{
+		m_blupi[rank].jaugePhase ++;
+	}
+
+	if ( op == GOAL_GOHILI )
+	{
+		m_blupi[rank].goalCel.x = m_blupi[rank].goalHili.x+(*pTable++);
+		m_blupi[rank].goalCel.y = m_blupi[rank].goalHili.y+(*pTable++);
+		flag = *pTable++;
+//?		m_blupi[rank].passCel.x = -1;
+		FlushUsed(rank);
+		return TRUE;
+	}
+
+	if ( op == GOAL_GOHILI2 )
+	{
+		cel.x = (m_blupi[rank].goalHili.x/2)*2+(*pTable++);
+		cel.y = (m_blupi[rank].goalHili.y/2)*2+(*pTable++);
+		flag = *pTable++;
+		if ( flag == TRUE )
+		{
+			m_blupi[rank].goalCel = cel;
+			GoalInitPassCel(rank);
+		}
+		m_blupi[rank].goalCel = cel;
+		FlushUsed(rank);
+		return TRUE;
+	}
+
+	if ( op == GOAL_GOBLUPI )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		flag = *pTable++;
+		if ( flag == TRUE )
+		{
+			if ( IsBlupiHereEx(cel, rank, FALSE) )  // destination occupée ?
+			{
+				m_blupi[rank].goalPhase --;  // on attend ...
+				return TRUE;
+			}
+			m_blupi[rank].goalCel = cel;
+			GoalInitPassCel(rank);
+		}
+		m_blupi[rank].goalCel = cel;
+		FlushUsed(rank);
+		return TRUE;
+	}
+
+	if ( op == GOAL_TESTOBJECT )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		channel  = *pTable++;
+		icon     = *pTable++;
+		GetObject(cel, mchannel, micon);
+		if ( channel != mchannel || icon != micon )  goto error;
+		return TRUE;
+	}
+
+	if ( op == GOAL_PUTFLOOR )
+	{
+		x = *pTable++;
+		y = *pTable++;
+		GoalAdjustCel(rank, x,y);
+		channel = *pTable++;
+		icon    = *pTable++;
+		if ( icon == -2 )  icon = m_blupi[rank].vIcon;
+		PutFloor(GetCel(x,y), channel, icon);
+		return TRUE;
+	}
+
+	if ( op == GOAL_PUTOBJECT )
+	{
+		x = *pTable++;
+		y = *pTable++;
+		GoalAdjustCel(rank, x,y);
+		channel = *pTable++;
+		icon    = *pTable++;
+		if ( channel == -3 && icon == -3 )  // l'objet transporté ?
+		{
+			channel = m_blupi[rank].takeChannel;
+			icon    = m_blupi[rank].takeIcon;
+		}
+		PutObject(GetCel(x,y), channel, icon);
+		return TRUE;
+	}
+
+	if ( op == GOAL_BUILDFLOOR )
+	{
+		x = *pTable++;
+		y = *pTable++;
+		GoalAdjustCel(rank, x,y);
+		cel.x = (x/2)*2;
+		cel.y = (y/2)*2;
+		GetFloor(cel, channel, i);
+		channel  = *pTable++;
+		icon     = *pTable++;
+		mchannel = *pTable++;
+		micon    = *pTable++;
+		total    = *pTable++;
+		delai    = *pTable++;
+		step     = *pTable++;
+
+		if ( i >= 19 && i <= 32 &&  // herbe foncée ?
+			 icon == 57 )  icon = 58;  // sol tomate foncé
+		if ( i == 58 &&
+			 icon == 1 )  icon = 20;  // remet herbe foncée
+
+		if ( !MoveCreate(cel, rank, TRUE,
+						 channel, icon,
+						 mchannel, micon,
+						 total, delai, step) )  goto error;
+		return TRUE;
+	}
+
+	if ( op == GOAL_BUILDOBJECT )
+	{
+		x = *pTable++;
+		y = *pTable++;
+		GoalAdjustCel(rank, x,y);
+		cel.x = (x/2)*2;
+		cel.y = (y/2)*2;
+		channel  = *pTable++;
+		icon     = *pTable++;
+		mchannel = *pTable++;
+		micon    = *pTable++;
+		total    = *pTable++;
+		delai    = *pTable++;
+		step     = *pTable++;
+		if ( channel == -2 && icon == -2 )  // l'objet actuel ?
+		{
+			GetObject(cel, channel, icon);
+		}
+		ArrangeBuild(cel, channel, icon);  // arrange les murs autour
+		if ( !MoveCreate(cel, rank, FALSE,
+						 channel, icon,
+						 mchannel, micon,
+						 total, delai, step) )  goto error;
+		return TRUE;
+	}
+
+	if ( op == GOAL_FINISHMOVE )
+	{
+		MoveFinish(rank);
+		return TRUE;
+	}
+
+	if ( op == GOAL_ARRANGEOBJECT )
+	{
+		x = *pTable++;
+		y = *pTable++;
+		GoalAdjustCel(rank, x,y);
+		MoveFinish(GetCel(x,y));
+		ArrangeObject(GetCel(x,y));
+		return TRUE;
+	}
+
+	if ( op == GOAL_EXPLOSE1 )
+	{
+		x = *pTable++;
+		y = *pTable++;
+		GoalAdjustCel(rank, x,y);
+		cel = GetCel(x,y);
+
+		BlupiKill(rank, cel, 0);
+		MoveFinish(cel);
+
+		// Faut-il démarrer une explosion en chaîne.
+		GetObject(cel, channel, icon);
+		if ( channel == CHOBJECT && icon == 85 )  // dynamite ?
+		{
+			rank = BlupiCreate(GetCel(cel,1,1), ACTION_STOP, DIRECT_E,
+							   6, MAXENERGY);  // crée un détonnateur
+			if ( rank >= 0 )
+			{
+				GoalStart(rank, WM_ACTION_T_DYNAMITE, cel);
+				m_blupi[rank].bCache = TRUE;
+			}
+		}
+		else
+		{
+			PutObject(cel, -1,-1);  // supprime l'objet
+			ArrangeObject(cel);
+		}
+		return TRUE;
+	}
+
+	if ( op == GOAL_EXPLOSE2 )
+	{
+		x = *pTable++;
+		y = *pTable++;
+		GoalAdjustCel(rank, x,y);
+		cel = GetCel((x/2)*2,(y/2)*2);
+
+		GetObject(cel, channel, icon);
+		if ( channel != CHOBJECT || icon != 85 )  // dynamite ?
+		{
+			channel = CHOBJECT;
+			icon    = -1;
+			ArrangeBuild(cel, channel, icon);  // arrange les murs autour
+			if ( !MoveCreate(cel, rank, FALSE,
+							 CHOBJECT,-1, -1,-1,
+							 10, 1, -1*100) )  goto error;
+			MoveAddIcons(cel, 6);  // explosion
+		}
+		return TRUE;
+	}
+
+	if ( op == GOAL_ADDMOVES )
+	{
+		x = *pTable++;
+		y = *pTable++;
+		GoalAdjustCel(rank, x,y);
+		icon = *pTable++;
+		MoveAddMoves(GetCel(x,y), icon);
+		return TRUE;
+	}
+
+	if ( op == GOAL_ADDICONS )
+	{
+		x = *pTable++;
+		y = *pTable++;
+		GoalAdjustCel(rank, x,y);
+		icon = *pTable++;
+		MoveAddIcons(GetCel(x,y), icon);
+		return TRUE;
+	}
+
+	if ( op == GOAL_ACTION )
+	{
+		action = *pTable++;
+		direct = *pTable++;
+		BlupiInitAction(rank, action, direct);
+		return TRUE;
+	}
+
+	if ( op == GOAL_ELECTRO )
+	{
+		x = *pTable++;
+		y = *pTable++;
+		GoalAdjustCel(rank, x,y);
+		cel = GetCel((x/2)*2,(y/2)*2);
+		icon = *pTable++;
+		if ( MoveCreate(cel, rank, TRUE,
+						CHFLOOR,-1, -1,-1,
+						100,1,100, FALSE, TRUE) )
+		{
+			MoveAddIcons(cel, icon);
+		}
+		BlupiKill(rank, cel, 1);
+		return TRUE;
+	}
+
+	if ( op == GOAL_MALADE )
+	{
+		m_blupi[rank].bMalade = *pTable++;
+		return TRUE;
+	}
+
+	if ( op == GOAL_WORK )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		m_decor[cel.x/2][cel.y/2].workBlupi = rank;
+		return TRUE;
+	}
+
+	if ( op == GOAL_INTERRUPT )
+	{
+		m_blupi[rank].interrupt = *pTable++;  // change le niveau
+		return TRUE;
+	}
+
+	if ( op == GOAL_ENERGY )
+	{
+		if ( m_blupi[rank].energy <= *pTable++ )  goto error;
+		return TRUE;
+	}
+
+	if ( op == GOAL_ISNOMALADE )
+	{
+		if ( m_blupi[rank].bMalade )  goto error;
+		return TRUE;
+	}
+
+	if ( op == GOAL_TAKE )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		MoveFinish(rank);
+		m_blupi[rank].takeChannel = m_decor[cel.x/2][cel.y/2].objectChannel;
+		m_blupi[rank].takeIcon    = m_decor[cel.x/2][cel.y/2].objectIcon;
+		m_decor[cel.x/2][cel.y/2].objectChannel = -1;
+		m_decor[cel.x/2][cel.y/2].objectIcon    = -1;
+		return TRUE;
+	}
+
+	if ( op == GOAL_TAKEOBJECT )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		channel = *pTable++;
+		icon    = *pTable++;
+		m_blupi[rank].takeChannel = channel;
+		m_blupi[rank].takeIcon    = icon;
+		return TRUE;
+	}
+
+	if ( op == GOAL_LABO )
+	{
+		m_blupi[rank].takeChannel = CHOBJECT;
+		if ( m_blupi[rank].takeIcon == 82 )  // fleurs normales ?
+		{
+			m_blupi[rank].takeIcon = 80;  // bouteille
+		}
+		if ( m_blupi[rank].takeIcon == 84 )  // fleurs foncées ?
+		{
+			m_blupi[rank].takeIcon = 85;  // dynamite
+		}
+		if ( m_blupi[rank].takeIcon == 95 )  // fleurs vertes ?
+		{
+			m_blupi[rank].takeIcon = 93;  // piège
+		}
+		if ( m_blupi[rank].takeIcon == 60 )  // tomates ?
+		{
+			m_blupi[rank].takeIcon = 92;  // poison
+		}
+		return TRUE;
+	}
+
+	if ( op == GOAL_CACHE )
+	{
+		m_blupi[rank].bCache = *pTable++;
+		if ( *pTable++ &&  // bDynamite ?
+			 m_blupi[rank].perso == 0 &&
+			 m_blupi[rank].vehicule == 3 &&  // armure ?
+			 !m_bInvincible )
+		{
+			m_blupi[rank].bCache = FALSE;
+		}
+		return TRUE;
+	}
+
+	if ( op == GOAL_DELETE )
+	{
+		if ( m_blupi[rank].perso    == 0 &&  // blupi ?
+			 m_blupi[rank].vehicule == 3 &&  // armure ?
+			 !m_bInvincible )
+		{
+			return TRUE;
+		}
+		BlupiDelete(rank);  // snif ...
+		return TRUE;
+	}
+
+	if ( op == GOAL_DEPOSE )
+	{
+		m_blupi[rank].takeChannel = -1;
+		return TRUE;
+	}
+
+	if ( op == GOAL_NEWBLUPI )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		PutObject(cel, -1,-1);  // enlève les oeufs
+
+		rank = BlupiCreate(cel, ACTION_STOP, DIRECT_E, 0, MAXENERGY/4);
+		if ( rank >= 0 )
+		{
+			m_blupi[rank].energy = MAXENERGY/4;
+			BlupiInitAction(rank, ACTION_NAISSANCE);
+		}
+
+		cel.x ++;
+		rank = BlupiCreate(cel, ACTION_STOP, DIRECT_E, 0, MAXENERGY/4);
+		if ( rank >= 0 )
+		{
+			m_blupi[rank].energy = MAXENERGY/4;
+			BlupiInitAction(rank, ACTION_NAISSANCE);
+		}
+
+		cel.x --;
+		cel.y ++;
+		rank = BlupiCreate(cel, ACTION_STOP, DIRECT_E, 0, MAXENERGY/4);
+		if ( rank >= 0 )
+		{
+			m_blupi[rank].energy = MAXENERGY/4;
+			BlupiInitAction(rank, ACTION_NAISSANCE);
+		}
+
+		cel.x ++;
+		rank = BlupiCreate(cel, ACTION_STOP, DIRECT_E, 0, MAXENERGY/4);
+		if ( rank >= 0 )
+		{
+			m_blupi[rank].energy = MAXENERGY/4;
+			BlupiInitAction(rank, ACTION_NAISSANCE);
+		}
+		return TRUE;
+	}
+
+	if ( op == GOAL_NEWPERSO )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		icon = *pTable++;
+
+		destCel = cel;
+		destCel.x ++;
+		if ( IsBlupiHereEx(destCel, rank, FALSE) )  // destination occupée ?
+		{
+			m_blupi[rank].goalPhase --;  // on attend ...
+			return TRUE;
+		}
+		destCel.x ++;
+		if ( IsBlupiHereEx(destCel, rank, FALSE) )  // destination occupée ?
+		{
+			destCel.y --;
+			if ( icon == 5 ||  // bombe ?
+				 IsBlupiHereEx(destCel, rank, FALSE) )  // destination occupée ?
+			{
+				m_blupi[rank].goalPhase --;  // on attend ...
+				return TRUE;
+			}
+		}
+
+		rank = BlupiCreate(cel, ACTION_STOP, DIRECT_E, icon, MAXENERGY);
+		if ( rank >= 0 )
+		{
+			m_blupi[rank].goalCel = destCel;
+		}
+		return TRUE;
+	}
+
+	if ( op == GOAL_USINEBUILD )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		if ( !IsUsineBuild(rank, cel) )  goto error;
+		return TRUE;
+	}
+
+	if ( op == GOAL_USINEFREE )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		if ( !IsUsineFree(rank, cel) )
+		{
+			GoalStop(rank, TRUE);
+			m_blupi[rank].goalCel = GetCel(cel,1,-1);  // à côté de la porte
+//?			m_blupi[rank].goalAction = 0;  // stoppe sitôt après
+//?			m_blupi[rank].interrupt = 1;
+//?			GoalUnwork(rank);
+//?			FlushUsed(rank);
+		}
+		return TRUE;
+	}
+
+	if ( op == GOAL_AMORCE )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		if ( IsBlupiHereEx(cel, rank, FALSE) )  goto error;
+		// Crée un détonnateur de mine (blupi invisible).
+		rank = BlupiCreate(cel, ACTION_STOP, DIRECT_E, 6, MAXENERGY);
+		if ( rank >= 0 )
+		{
+			m_blupi[rank].bCache = TRUE;  // invisible
+			m_blupi[rank].goalAction = WM_ACTION_MINE2;
+			m_blupi[rank].goalPhase  = 0;
+			m_blupi[rank].goalCel.x  = -1;
+			m_blupi[rank].interrupt  = 1;
+		}
+		return TRUE;
+	}
+
+	if ( op == GOAL_VEHICULE )
+	{
+		m_blupi[rank].vehicule = *pTable++;
+		if ( m_blupi[rank].vehicule != 0         &&  // pas à pied ?
+			 m_blupi[rank].takeChannel != -1     &&  // porte qq chose ?
+			 m_blupi[rank].energy <= MAXENERGY/4 )   // faible ?
+		{
+			m_blupi[rank].energy = MAXENERGY/4+1;
+		}
+		return TRUE;
+	}
+
+	if ( op == GOAL_ACTUALISE )
+	{
+		BlupiActualise(rank);
+		return TRUE;
+	}
+
+	if ( op == GOAL_SOUND )
+	{
+		icon = *pTable++;
+		BlupiSound(rank, icon, pos);
+		return TRUE;
+	}
+
+	if ( op == GOAL_REPEAT )
+	{
+		icon = *pTable++;
+		m_blupi[rank].bRepeat = icon;
+		return TRUE;
+	}
+
+	if ( op == GOAL_OTHER )
+	{
+		if ( !m_blupi[rank].bRepeat )  goto term;
+
+		// Bouton stop pressé ?
+		if ( m_blupi[rank].stop == 1 )  goto term;
+
+		channel = *pTable++;
+		first   = *pTable++;
+		last    = *pTable++;
+		first2  = *pTable++;
+		last2   = *pTable++;
+		action  = *pTable++;
+		if ( !SearchOtherObject(rank, m_blupi[rank].cel, action, 100,
+								channel, first, last, first2, last2,
+								m_blupi[rank].goalHili, icon) )  goto term;
+		if ( action == WM_ACTION_ABAT1 ||
+			 action == WM_ACTION_ROC1  )
+		{
+			action += icon-first;  // WM_ACTION_ABAT1..6
+		}
+		m_blupi[rank].goalAction = action;
+		m_blupi[rank].goalPhase  = 0;
+		m_blupi[rank].goalCel.x  = -1;
+		m_blupi[rank].interrupt  = 1;
+		GoalInitJauge(rank);
+		GoalUnwork(rank);
+		FlushUsed(rank);
+		return TRUE;
+	}
+
+	if ( op == GOAL_OTHERFIX )
+	{
+		if ( !m_blupi[rank].bRepeat )  goto term;
+
+		// Bouton stop pressé ?
+		if ( m_blupi[rank].stop == 1 )  goto term;
+
+		channel = *pTable++;
+		first   = *pTable++;
+		last    = *pTable++;
+		first2  = *pTable++;
+		last2   = *pTable++;
+		action  = *pTable++;
+		if ( !SearchOtherObject(rank, m_blupi[rank].fix, action, 100,
+								channel, first, last, first2, last2,
+								m_blupi[rank].goalHili, icon) )  goto term;
+		if ( action == WM_ACTION_ABAT1 ||
+			 action == WM_ACTION_ROC1  )
+		{
+			action += icon-first;  // WM_ACTION_ABAT1..6
+		}
+		m_blupi[rank].goalAction = action;
+		m_blupi[rank].goalPhase  = 0;
+		m_blupi[rank].goalCel.x  = -1;
+		m_blupi[rank].interrupt  = 1;
+		GoalInitJauge(rank);
+		GoalUnwork(rank);
+		FlushUsed(rank);
+		return TRUE;
+	}
+
+	if ( op == GOAL_OTHERLOOP )
+	{
+		action = *pTable++;
+		if ( m_blupi[rank].cLoop < m_blupi[rank].nLoop )
+		{
+			m_blupi[rank].goalAction = action;
+			m_blupi[rank].goalPhase  = 0;
+			m_blupi[rank].goalCel.x  = -1;
+			m_blupi[rank].interrupt  = 1;
+			GoalInitJauge(rank);
+			GoalUnwork(rank);
+			FlushUsed(rank);
+		}
+		return TRUE;
+	}
+
+	if ( op == GOAL_NEXTLOOP )
+	{
+		m_blupi[rank].cLoop ++;
+		return TRUE;
+	}
+
+	if ( op == GOAL_FIX )
+	{
+		m_blupi[rank].fix.x = m_blupi[rank].cel.x+(*pTable++);
+		m_blupi[rank].fix.y = m_blupi[rank].cel.y+(*pTable++);
+		return TRUE;
+	}
+
+	if ( op == GOAL_FLOORJUMP )
+	{
+		channel = *pTable++;
+		icon    = *pTable++;
+		action  = *pTable++;
+		GetFloor(m_blupi[rank].cel, mchannel, micon);
+		if ( channel == mchannel && icon == micon )
+		{
+			m_blupi[rank].goalAction = action;
+			m_blupi[rank].goalPhase  = 0;
+			m_blupi[rank].goalCel.x  = -1;
+			m_blupi[rank].interrupt  = 1;
+			GoalInitJauge(rank);
+			GoalUnwork(rank);
+			FlushUsed(rank);
+		}
+		return TRUE;
+	}
+
+	if ( op == GOAL_ADDDRAPEAU )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		AddDrapeau(cel);  // cellule sondée
+		return TRUE;
+	}
+
+	if ( op == GOAL_TELEPORTE )
+	{
+		pos.x = *pTable++;
+		pos.y = *pTable++;
+
+		cMem = m_blupi[rank].cel;
+		GetFloor(cMem, channel, icon);
+		PutFloor(cMem, -1, -1);
+		bOK = SearchOtherObject(rank, m_blupi[rank].cel, WM_ACTION_GO,
+								1000, CHFLOOR,80,80,-1,-1, cel, i);
+		PutFloor(cMem, channel, icon);
+		if ( !bOK )  goto error;
+
+		cel.x += pos.x;
+		cel.y += pos.y;
+		if ( IsBlupiHereEx(cel, rank, FALSE) ||
+			 !IsFreeCel(cel, rank) )  goto error;
+		m_blupi[rank].cel = cel;
+		BlupiPushFog(rank);
+		if ( m_blupi[rank].bHili )
+		{
+			SetCoin(cel, TRUE);
+		}
+		return TRUE;
+	}
+
+	if ( op == GOAL_IFTERM )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		if ( !IsFreeCel(cel, rank) ||
+			 IsBlupiHereEx(cel, rank, FALSE) )  goto term;
+		return TRUE;
+	}
+
+	if ( op == GOAL_IFDEBARQUE )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		m_blupi[rank].vehicule = 0;  // à pied
+		bOK = IsFreeCel(cel, rank) &&
+			  !IsBlupiHereEx(cel, rank, FALSE);
+		m_blupi[rank].vehicule = 1;  // en bateau
+		if ( !bOK )  goto term;
+		return TRUE;
+	}
+
+	if ( op == GOAL_SKIPSKILL )
+	{
+		i     = (*pTable++);
+		total = (*pTable++);
+		if (  m_skill == i )
+		{
+			m_blupi[rank].goalPhase += total;  // saute qq instructions
+		}
+		return TRUE;
+	}
+
+	if ( op == GOAL_TERM )
+	{
+		term:
+		bError = FALSE;
+	}
+
+	if ( op == GOAL_WAITFREE )
+	{
+		cel.x = m_blupi[rank].cel.x+(*pTable++);
+		cel.y = m_blupi[rank].cel.y+(*pTable++);
+		if ( IsBlupiHereEx(cel, rank, FALSE) )  // destination occupée ?
+		{
+			m_blupi[rank].goalPhase --;  // on attend ...
+
+			rank = m_blupiHere;
+			if ( m_blupi[rank].goalAction != WM_ACTION_GO      &&
+				 m_blupi[rank].goalAction != WM_ACTION_ELECTRO &&
+				 m_blupi[rank].goalAction != WM_ACTION_ELECTROm )
+			{
+				destCel.x = cel.x;
+				destCel.y = cel.y-1;
+				if ( !IsBlupiHereEx(destCel, rank, FALSE) )
+				{
+					GoalStart(rank, WM_ACTION_GO, destCel);
+					return TRUE;
+				}
+
+				destCel.x = cel.x+1;
+				destCel.y = cel.y;
+				if ( !IsBlupiHereEx(destCel, rank, FALSE) )
+				{
+					GoalStart(rank, WM_ACTION_GO, destCel);
+					return TRUE;
+				}
+
+				destCel.x = cel.x;
+				destCel.y = cel.y+1;
+				if ( !IsBlupiHereEx(destCel, rank, FALSE) )
+				{
+					GoalStart(rank, WM_ACTION_GO, destCel);
+					return TRUE;
+				}
+
+				destCel.x = cel.x+1;
+				destCel.y = cel.y-1;
+				if ( !IsBlupiHereEx(destCel, rank, FALSE) )
+				{
+					GoalStart(rank, WM_ACTION_GO, destCel);
+					return TRUE;
+				}
+
+				destCel.x = cel.x+1;
+				destCel.y = cel.y+1;
+				if ( !IsBlupiHereEx(destCel, rank, FALSE) )
+				{
+					GoalStart(rank, WM_ACTION_GO, destCel);
+					return TRUE;
+				}
+
+				if ( m_blupi[rank].perso == 0 )
+				{
+					if ( m_blupi[rank].bMalade )
+					{
+						action = WM_ACTION_ELECTROm;
+					}
+					else
+					{
+						action = WM_ACTION_ELECTRO;
+					}
+					GoalStart(rank, action, m_blupi[rank].cel);
+					return TRUE;
+				}
+			}
+		}
+		return TRUE;
+	}
+
+	error:
+	i = m_blupi[rank].repeatLevel;
+	GoalStop(rank, bError, i==-1);
+	if ( i != -1 )  // répétition en cours ?
+	{
+		button = m_blupi[rank].listButton[i];
+		cMem   = m_blupi[rank].listCel[i];
+		param  = m_blupi[rank].listParam[i];
+		cel = cMem;
+		if ( RepeatAdjust(rank, button, cel, cMem, param, i) )
+		{
+			if ( IsBlupiHereEx(cel, rank, FALSE) )  // destination occupée ?
+			{
+				m_blupi[rank].repeatLevel = i;  // on continue ...
+				GoalStart(rank, WM_ACTION_GO, m_blupi[rank].cel);  // on attend ...
+				return TRUE;
+			}
+			if ( BlupiGoal(rank, button, cel, cMem) )
+			{
+				m_blupi[rank].repeatLevel = i;  // on continue ...
+				return TRUE;
+			}
+		}
+	}
+	return FALSE;
+}
+
+// Supprime le blocage de la cellule dans laquelle
+// blupi travaille.
+
+void CDecor::GoalUnwork(int rank)
+{
+	int			x, y;
+
+	for ( x=0 ; x<MAXCELX/2 ; x++ )
+	{
+		for ( y=0 ; y<MAXCELY/2 ; y++ )
+		{
+			if ( m_decor[x][y].workBlupi == rank )
+			{
+				m_decor[x][y].workBlupi = -1;  // débloque
+			}
+		}
+	}
+}
+
+// Stoppe complètement une action.
+
+void CDecor::GoalStop(int rank, BOOL bError, BOOL bSound)
+{
+	POINT		pos;
+
+	static int table_sound_term[6] =
+	{
+		SOUND_TERM1,
+		SOUND_TERM2,
+		SOUND_TERM3,
+		SOUND_TERM4,
+		SOUND_TERM5,
+		SOUND_TERM6,
+	};
+
+	static int table_sound_boing[3] =
+	{
+		SOUND_BOING1,
+		SOUND_BOING2,
+		SOUND_BOING3,
+	};
+
+	if ( bError && bSound )
+	{
+		ListRemove(rank);  // supprime la dernière action mémorisée
+	}
+
+	m_blupi[rank].goalAction  = 0;
+	m_blupi[rank].goalPhase   = 0;
+	m_blupi[rank].goalCel.x   = -1;
+	m_blupi[rank].jaugePhase  = -1;
+	m_blupi[rank].jaugeMax    = -1;
+	m_blupi[rank].interrupt   = 1;  // remet le niveau normal
+	m_blupi[rank].busyCount   = 0;
+	m_blupi[rank].busyDelay   = 0;
+	m_blupi[rank].repeatLevel = -1;  // stoppe la répétition
+	FlushUsed(rank);
+	MoveFinish(rank);
+	GoalUnwork(rank);
+
+	// En cas d'erreur, il faut accepter de traverser la
+	// construction avortée (par exemple, le massif d'arbres
+	// dans lequel blupi se trouve, mais qui n'a pas pu
+	// être abattu).
+	if ( !bError )
+	{
+		m_blupi[rank].passCel.x = -1;
+	}
+
+	m_blupi[rank].stop = 0;  // relâche bouton stop
+
+	if ( bSound &&
+		 (m_blupi[rank].perso == 0 ||   // blupi ?
+		  m_blupi[rank].perso == 8 ) )  // assistant ?
+	{
+		if ( bError )
+		{
+			pos.x = LXIMAGE/2;
+			pos.y = LYIMAGE/2;
+			BlupiSound(rank, table_sound_boing[Random(0,2)], pos, TRUE);
+		}
+		else
+		{
+			pos = ConvCelToPos(m_blupi[rank].cel);
+			BlupiSound(rank, table_sound_term[Random(0,5)], pos, TRUE);
+		}
+	}
+}
+
+
+// Teste si une cellule est déjà utilisée comme but pour
+// n'importe quel blupi.
+
+BOOL CDecor::BlupiIsGoalUsed(POINT cel)
+{
+	int		rank;
+
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		if ( m_blupi[rank].bExist &&
+			 m_blupi[rank].goalCel.x/2 == cel.x/2 &&
+			 m_blupi[rank].goalCel.y/2 == cel.y/2 )  return TRUE;
+	}
+
+	return FALSE;
+}
+
+
+// Démarre ou stoppe un rayon entre deux tours.
+
+void CDecor::BlupiStartStopRayon(int rank, POINT startCel, POINT endCel)
+{
+	int		i, icon, icon2;
+	POINT	cel, cel2, vector, pos;
+
+	if ( m_blupi[rank].perso == 1 ||  // araignée ?
+		 m_blupi[rank].perso == 2 )   // virus ?
+	{
+		return;
+	}
+
+	// Stoppe un rayon.
+	cel.x = (endCel.x/2)*2;
+	cel.y = (endCel.y/2)*2;
+	icon = m_decor[cel.x/2][cel.y/2].objectIcon;
+	if ( (icon == 10000 || icon == 10001) &&
+		 MoveIsUsed(cel) )
+	{
+		if ( MoveIsUsed(cel) )
+		{
+			MoveFinish(cel);
+
+			pos = ConvCelToPos(cel);
+			BlupiSound(rank, SOUND_RAYON2, pos);
+		}
+
+		for ( i=0 ; i<4 ; i++ )
+		{
+			vector = GetVector(i*2*16);
+			cel.x = (endCel.x/2)*2 + vector.x*2;
+			cel.y = (endCel.y/2)*2 + vector.y*2;
+			icon = m_decor[cel.x/2][cel.y/2].objectIcon;
+			if ( icon == 10000 || icon == 10001 )
+			{
+				MoveFinish(cel);
+			}
+		}
+	}
+
+	// Démarre un rayon.
+	cel.x  = (startCel.x/2)*2;
+	cel.y  = (startCel.y/2)*2;
+	cel2.x = (endCel.x/2)*2;
+	cel2.y = (endCel.y/2)*2;
+	icon  = m_decor[cel.x/2][cel.y/2].objectIcon;
+	icon2 = m_decor[cel2.x/2][cel2.y/2].objectIcon;
+	if ( (icon == 10000 || icon == 10001) &&
+		 icon2 != 10000 && icon2 != 10001 )
+	{
+		if ( MoveCreate(cel, -1, FALSE, CHOBJECT,-1,
+						-1,-1, 9999,1,0, TRUE) )
+		{
+			MoveAddIcons(cel, icon==10000?4:5, TRUE);  // éclairs
+		}
+
+		pos = ConvCelToPos(cel);
+		BlupiSound(rank, SOUND_RAYON1, pos);
+
+		for ( i=0 ; i<4 ; i++ )
+		{
+			vector = GetVector(i*2*16);
+			cel.x = (startCel.x/2)*2 + vector.x*2;
+			cel.y = (startCel.y/2)*2 + vector.y*2;
+			icon = m_decor[cel.x/2][cel.y/2].objectIcon;
+			if ( icon == 10000 || icon == 10001 )
+			{
+				if ( MoveCreate(cel, -1, FALSE, CHOBJECT,-1,
+								-1,-1, 9999,1,0, TRUE) )
+				{
+					MoveAddIcons(cel, icon==10000?4:5, TRUE);  // éclairs
+				}
+			}
+		}
+	}
+}
+
+
+// Tourne un blupi, si nécessaire.
+// Retourne FALSE si ce n'est pas nécessaire.
+
+BOOL CDecor::BlupiRotate(int rank)
+{
+	int		aDirect, sDirect, ip, in, sens;
+	BOOL	bOK;
+	POINT	pos;
+
+	aDirect = m_blupi[rank].aDirect;
+	sDirect = m_blupi[rank].sDirect;
+
+	if ( aDirect == sDirect )  return FALSE;
+
+	if ( sDirect > aDirect )  ip = sDirect+0*16-aDirect;
+	else                      ip = sDirect+8*16-aDirect;
+
+	if ( aDirect > sDirect )  in = aDirect+0*16-sDirect;
+	else                      in = aDirect+8*16-sDirect;
+
+	if ( ip == 0 || in == 0 )
+	{
+		m_blupi[rank].aDirect = m_blupi[rank].sDirect;
+		return FALSE;
+	}
+
+	if ( m_blupi[rank].perso == 0 &&  // blupi ?
+		 m_blupi[rank].vehicule == 1 )  // en bateau ?
+	{
+		if ( ip == in )  sens = Random(0,1)?8:8*16-8;
+		if ( ip <  in )  sens = 8;
+		if ( ip >  in )  sens = 8*16-8;
+		aDirect = (aDirect+sens)%(8*16);
+	}
+	else if ( m_blupi[rank].perso == 0 &&  // blupi ?
+		 m_blupi[rank].vehicule == 2 )  // en jeep ?
+	{
+		if ( ip == in )  sens = Random(0,1)?8:8*16-8;
+		if ( ip <  in )  sens = 8;
+		if ( ip >  in )  sens = 8*16-8;
+		aDirect = (aDirect+sens)%(8*16);
+	}
+	else if ( m_blupi[rank].perso == 0 &&  // blupi ?
+		 m_blupi[rank].vehicule == 3 )  // armure ?
+	{
+		if ( ip == in )  sens = Random(0,1)?4:8*16-4;
+		if ( ip <  in )  sens = 4;
+		if ( ip >  in )  sens = 8*16-4;
+		aDirect = (aDirect+sens)%(8*16);
+	}
+	else if ( m_blupi[rank].perso == 3 )  // tracks ?
+	{
+		if ( ip == in )  sens = Random(0,1)?4:8*16-4;
+		if ( ip <  in )  sens = 4;
+		if ( ip >  in )  sens = 8*16-4;
+		aDirect = (aDirect+sens)%(8*16);
+	}
+	else if ( m_blupi[rank].perso == 4 )  // robot ?
+	{
+		pos = ConvCelToPos(m_blupi[rank].cel);
+		BlupiSound(rank, SOUND_R_ROTATE, pos);
+
+		if ( ip == in )  sens = Random(0,1)?2:8*16-2;
+		if ( ip <  in )  sens = 2;
+		if ( ip >  in )  sens = 8*16-2;
+		aDirect = (aDirect+sens)%(8*16);
+	}
+	else if ( m_blupi[rank].perso == 8 )  // disciple ?
+	{
+		if ( ip == in )  sens = Random(0,1)?8:8*16-8;
+		if ( ip <  in )  sens = 8;
+		if ( ip >  in )  sens = 8*16-8;
+		aDirect = (aDirect+sens)%(8*16);
+	}
+	else
+	{
+		if ( ip == in )  sens = Random(0,1)?1:7;
+		if ( ip <  in )  sens = 1;
+		if ( ip >  in )  sens = 7;
+		aDirect = ((aDirect/16+sens)%8)*16;
+	}
+
+	m_blupi[rank].lastIcon = m_blupi[rank].icon;
+	bOK = Rotate(m_blupi[rank].icon, aDirect);
+	if ( bOK )
+	{
+		m_blupi[rank].aDirect = aDirect;
+		return TRUE;
+	}
+	else
+	{
+		m_blupi[rank].aDirect = m_blupi[rank].sDirect;
+		return FALSE;
+	}
+}
+
+// Avance un blupi existant.
+
+BOOL CDecor::BlupiNextAction(int rank)
+{
+	BOOL		bOK;
+	POINT		pos, iCel;
+	int			a, min;
+	short		sound;
+
+	if ( !m_blupi[rank].bExist )  return FALSE;
+
+	if ( m_blupi[rank].clicDelay > 0 )
+	{
+		m_blupi[rank].clicDelay --;
+	}
+	if ( m_blupi[rank].clicDelay == 0 )
+	{
+		m_blupi[rank].clicCount = 0;
+	}
+
+	bOK = TRUE;
+	if ( !BlupiRotate(rank) )  // si rotation pas nécessaire
+	{
+		m_blupi[rank].lastIcon = m_blupi[rank].icon;
+
+		bOK = Action(m_blupi[rank].action,
+					 m_blupi[rank].aDirect,
+					 m_blupi[rank].phase,
+					 m_blupi[rank].step,
+					 m_blupi[rank].channel,
+					 m_blupi[rank].icon,
+					 m_blupi[rank].pos,
+					 m_blupi[rank].posZ,
+					 sound);
+		BlupiAdaptIcon(rank);
+
+		if ( sound != -1 )
+		{
+			pos = ConvCelToPos(m_blupi[rank].cel);
+			BlupiSound(rank, sound, pos);
+		}
+	}
+
+	a = GetAmplitude(m_blupi[rank].action);
+
+	iCel = m_blupi[rank].cel;
+
+	if ( m_blupi[rank].pos.x ==  (DIMCELX/2)*a &&
+		 m_blupi[rank].pos.y ==  (DIMCELY/2)*a )
+	{
+		m_blupi[rank].cel.x += a;
+		BlupiPushFog(rank);
+		BlupiStartStopRayon(rank, iCel, m_blupi[rank].cel);
+	}
+
+	if ( m_blupi[rank].pos.x == -(DIMCELX/2)*a &&
+		 m_blupi[rank].pos.y == -(DIMCELY/2)*a )
+	{
+		m_blupi[rank].cel.x -= a;
+		BlupiPushFog(rank);
+		BlupiStartStopRayon(rank, iCel, m_blupi[rank].cel);
+	}
+
+	if ( m_blupi[rank].pos.x == -(DIMCELX/2)*a &&
+		 m_blupi[rank].pos.y ==  (DIMCELY/2)*a )
+	{
+		m_blupi[rank].cel.y += a;
+		BlupiPushFog(rank);
+		BlupiStartStopRayon(rank, iCel, m_blupi[rank].cel);
+	}
+
+	if ( m_blupi[rank].pos.x ==  (DIMCELX/2)*a &&
+		 m_blupi[rank].pos.y == -(DIMCELY/2)*a )
+	{
+		m_blupi[rank].cel.y -= a;
+		BlupiPushFog(rank);
+		BlupiStartStopRayon(rank, iCel, m_blupi[rank].cel);
+	}
+
+	if ( m_blupi[rank].pos.x ==  0          &&
+		 m_blupi[rank].pos.y ==  DIMCELY*a )
+	{
+		m_blupi[rank].cel.x += a;
+		m_blupi[rank].cel.y += a;
+		BlupiPushFog(rank);
+		BlupiStartStopRayon(rank, iCel, m_blupi[rank].cel);
+	}
+
+	if ( m_blupi[rank].pos.x ==  0          &&
+		 m_blupi[rank].pos.y == -DIMCELY*a )
+	{
+		m_blupi[rank].cel.x -= a;
+		m_blupi[rank].cel.y -= a;
+		BlupiPushFog(rank);
+		BlupiStartStopRayon(rank, iCel, m_blupi[rank].cel);
+	}
+
+	if ( m_blupi[rank].pos.x ==  DIMCELX*a &&
+		 m_blupi[rank].pos.y ==  0          )
+	{
+		m_blupi[rank].cel.x += a;
+		m_blupi[rank].cel.y -= a;
+		BlupiPushFog(rank);
+		BlupiStartStopRayon(rank, iCel, m_blupi[rank].cel);
+	}
+
+	if ( m_blupi[rank].pos.x == -DIMCELX*a &&
+		 m_blupi[rank].pos.y ==  0          )
+	{
+		m_blupi[rank].cel.x -= a;
+		m_blupi[rank].cel.y += a;
+		BlupiPushFog(rank);
+		BlupiStartStopRayon(rank, iCel, m_blupi[rank].cel);
+	}
+
+	// Blupi perd de l'énergie s'il fait qq chose.
+	if ( m_blupi[rank].action != ACTION_STOP    &&
+		 m_blupi[rank].action != ACTION_STOPf   &&
+		 m_blupi[rank].action != ACTION_STOPb   &&
+		 m_blupi[rank].action != ACTION_STOPj   &&
+		 m_blupi[rank].action != ACTION_MISC1   &&
+		 m_blupi[rank].action != ACTION_MISC2   &&
+		 m_blupi[rank].action != ACTION_MISC3   &&
+		 m_blupi[rank].action != ACTION_MISC4   &&
+		 m_blupi[rank].action != ACTION_MISC5   &&
+		 m_blupi[rank].action != ACTION_MISC6   &&
+		 m_blupi[rank].action != ACTION_MISC1f  )
+	{
+		if ( m_blupi[rank].energy > 0 &&
+			 m_blupi[rank].perso == 0 &&    // blupi ?
+			 m_blupi[rank].vehicule == 0 )  // à pied ?
+		{
+			if ( m_bSuper )  a = 0;
+			else             a = 1;
+			min = 0;
+			if ( m_blupi[rank].goalAction == WM_ACTION_MUR ||
+				 m_blupi[rank].goalAction == WM_ACTION_TOUR )
+			{
+				a = 5;
+				min = 1;
+			}
+			if ( m_blupi[rank].action == ACTION_GLISSE )
+			{
+				if ( m_bSuper )  a = 0;
+				else             a = 40;
+			}
+			m_blupi[rank].energy -= a;  // blupi se fatigue +/-
+			if ( m_blupi[rank].energy < min )
+			{
+				m_blupi[rank].energy = min;
+			}
+		}
+	}
+
+	// Blupi prend de l'énergie s'il mange.
+	if ( m_blupi[rank].action == ACTION_MANGE )
+	{
+		if ( m_blupi[rank].energy < MAXENERGY )
+		{
+			m_blupi[rank].energy += MAXENERGY/(40*3);
+		}
+	}
+
+	// Le robot perd de l'énergie s'il fait qq chose.
+	if ( m_blupi[rank].action != ACTION_R_STOP )
+	{
+		if ( m_blupi[rank].energy > 0 &&
+			 m_blupi[rank].perso == 4 )
+		{
+			m_blupi[rank].energy -= 3;  // le robot se fatigue
+			if ( m_blupi[rank].energy < 1 )
+			{
+				m_blupi[rank].energy = 1;
+			}
+		}
+	}
+
+	// Le robot prend de l'énergie s'il se recharge.
+	if ( m_blupi[rank].action == ACTION_R_CHARGE )
+	{
+		if ( m_blupi[rank].energy < MAXENERGY )
+		{
+			m_blupi[rank].energy = MAXENERGY;
+		}
+	}
+
+	// Blupi guérrit s'il boit.
+	if ( m_blupi[rank].action == ACTION_BOIT )
+	{
+		m_blupi[rank].bMalade = FALSE;
+		if ( m_blupi[rank].energy < MAXENERGY )
+		{
+			m_blupi[rank].energy += MAXENERGY/(40*3);
+		}
+	}
+
+	// Si blupi est presque complètement épuisé, il stoppe.
+	if ( !bOK &&
+		 m_blupi[rank].perso == 0 &&
+		 m_blupi[rank].energy < 50 &&
+		 m_blupi[rank].energy != 0 &&
+		 m_blupi[rank].action == ACTION_MARCHEf )
+	{
+		BlupiInitAction(rank, ACTION_STOP);
+		GoalStop(rank, TRUE);
+	}
+
+	return bOK;
+}
+
+// Action suivante pour un blupi existant.
+
+void CDecor::BlupiNextGoal(int rank)
+{
+	int			direct, action, channel, icon, min, lg, fRank, i;
+	POINT		pos, cel, vector;
+
+	if ( !m_blupi[rank].bExist )  return;
+
+	pos = ConvCelToPos(m_blupi[rank].cel);
+
+	// Si blupi termine une action "mort", il doit disparaître.
+	if ( m_blupi[rank].action == ACTION_BRULE    ||
+		 m_blupi[rank].action == ACTION_TCHAO    ||
+		 m_blupi[rank].action == ACTION_A_GRILLE ||
+		 m_blupi[rank].action == ACTION_V_GRILLE )
+	{
+		BlupiDelete(rank);  // snif ...
+		return;
+	}
+
+	// Si blupi passe trop prêt du feu, aie aie aie ...
+	if ( IsFireCel(m_blupi[rank].cel) )  // blupi se brule les ailes ?
+	{
+		if ( m_blupi[rank].perso == 0 &&
+			 m_blupi[rank].vehicule != 3 &&  // pas armure ?
+			 !m_bInvincible &&
+			 m_blupi[rank].goalAction != WM_ACTION_GRILLE )
+		{
+			BlupiDeselect(rank);
+			GoalStart(rank, WM_ACTION_GRILLE, m_blupi[rank].cel);
+			goto goal;
+//?			BlupiInitAction(rank, ACTION_BRULE);
+//?			goto init;
+		}
+		if ( m_blupi[rank].perso == 1 ||  // araignée ?
+			 m_blupi[rank].perso == 2 )   // virus ?
+		{
+			BlupiDelete(rank);  // la bestiole meurt
+			return;
+		}
+	}
+
+	// Si blupi passe trop prêt d'un virus ...
+	if ( m_blupi[rank].perso == 0 &&
+		 m_blupi[rank].vehicule != 1 &&  // pas en bateau ?
+		 m_blupi[rank].vehicule != 3 &&  // pas armure ?
+		 !m_blupi[rank].bMalade &&  // en bonne santé ?
+		 m_blupi[rank].goalAction != WM_ACTION_GRILLE &&
+		 m_blupi[rank].goalAction != WM_ACTION_ELECTRO &&
+		 m_blupi[rank].goalAction != WM_ACTION_ELECTROm &&
+		 m_blupi[rank].goalAction != WM_ACTION_BATEAUDE &&
+		 m_blupi[rank].goalAction != WM_ACTION_BATEAUDS &&
+		 m_blupi[rank].goalAction != WM_ACTION_BATEAUDO &&
+		 m_blupi[rank].goalAction != WM_ACTION_BATEAUDN &&
+		 m_blupi[rank].goalAction != WM_ACTION_BATEAUAE &&
+		 m_blupi[rank].goalAction != WM_ACTION_BATEAUAS &&
+		 m_blupi[rank].goalAction != WM_ACTION_BATEAUAO &&
+		 m_blupi[rank].goalAction != WM_ACTION_BATEAUAN &&
+		 !m_bInvincible &&
+		 IsVirusCel(m_blupi[rank].cel) )  // blupi chope un virus ?
+	{
+		m_blupi[rank].bMalade = TRUE;
+
+		if ( m_blupi[rank].energy > MAXENERGY/4 )
+		{
+			m_blupi[rank].energy = MAXENERGY/4;
+		}
+
+		BlupiSound(rank, SOUND_VIRUS, pos);
+
+		if ( m_blupi[rank].vehicule == 2 )  // en jeep ?
+		{
+			GoalStart(rank, WM_ACTION_DJEEP, m_blupi[rank].cel);
+			goto goal;
+		}
+	}
+
+	// Si blupi est complètement épuisé, il meurt.
+	if ( m_blupi[rank].perso == 0 &&
+		 m_blupi[rank].energy == 0 )
+	{
+		BlupiDeselect(rank);
+		BlupiInitAction(rank, ACTION_TCHAO);
+		goto init;
+	}
+
+	// Assigne un but s'il s'agit d'une araignée.
+	if ( m_blupi[rank].perso == 1 &&  // araignée ?
+		 m_blupi[rank].goalAction != WM_ACTION_A_MORT )
+	{
+		cel = m_blupi[rank].cel;
+		cel.x = (cel.x/2)*2;
+		cel.y = (cel.y/2)*2;
+		GetObject(cel, channel, icon);
+		if ( channel == CHOBJECT &&
+			 (icon == 10000 || icon == 10001) &&  // rayon ?
+			 MoveIsUsed(cel) )  // enclenché ?
+		{
+			BlupiInitAction(rank, ACTION_A_GRILLE);
+			goto init;
+		}
+
+		cel = m_blupi[rank].cel;
+		if ( cel.x%2 != 0 && cel.y%2 != 0 )
+		{
+			cel.x = (cel.x/2)*2;
+			cel.y = (cel.y/2)*2;
+			GetObject(cel, channel, icon);
+			if ( channel == CHOBJECT &&
+				 icon    == 60 )  // tomates ?
+			{
+				PutObject(cel, -1,-1);  // plus de tomates
+				BlupiSound(rank, SOUND_A_HIHI, pos);
+			}
+			if ( channel == CHOBJECT &&
+				 icon    == 92 )  // poison ?
+			{
+				PutObject(cel, -1,-1);  // plus de poison
+				BlupiInitAction(rank, ACTION_STOP);
+				GoalStart(rank, WM_ACTION_A_MORT, m_blupi[rank].cel);
+				m_blupi[rank].goalCel = m_blupi[rank].cel;
+				goto goal;
+//?				BlupiSound(rank, SOUND_A_POISON, pos);
+//?				BlupiInitAction(rank, ACTION_A_POISON);
+//?				goto init;
+			}
+			if ( channel == CHOBJECT &&
+				 icon    == 93 )  // piège ?
+			{
+				BlupiSound(rank, SOUND_PIEGE, pos);
+				PutObject(cel, CHOBJECT, 96);  // araignée piégée
+				BlupiDelete(rank);  // supprime araignée
+				return;
+			}
+		}
+
+		m_blupi[rank].bExist = FALSE;
+		if ( m_time%5 == rank%5 &&  // pas trop souvent !
+			 SearchSpiderObject(rank, m_blupi[rank].cel, 100, cel, icon) )
+		{
+			m_blupi[rank].goalCel = cel;
+			FlushUsed(rank);
+//			direct = DirectSearch(m_blupi[rank].cel, cel);
+//			if ( direct != -1 )
+//			{
+//				vector = GetVector(direct);
+//				m_blupi[rank].goalCel.x = m_blupi[rank].cel.x + vector.x;
+//				m_blupi[rank].goalCel.y = m_blupi[rank].cel.y + vector.y;
+//				FlushUsed(rank);
+//			}
+		}
+		m_blupi[rank].bExist = TRUE;
+	}
+
+	// Assigne un but s'il s'agit d'un virus.
+	if ( m_blupi[rank].perso == 2 )  // virus ?
+	{
+		cel = m_blupi[rank].cel;
+		cel.x = (cel.x/2)*2;
+		cel.y = (cel.y/2)*2;
+		GetObject(cel, channel, icon);
+		if ( channel == CHOBJECT &&
+			 (icon == 10000 || icon == 10001) &&  // rayon ?
+			 MoveIsUsed(cel) )  // enclenché ?
+		{
+			BlupiInitAction(rank, ACTION_V_GRILLE);
+			goto init;
+		}
+
+		min = 50;  // ignore si trop loin !
+		fRank = -1;
+		for ( i=0 ; i<MAXBLUPI ; i++ )
+		{
+			if ( m_blupi[i].bExist &&
+				 m_blupi[i].perso == 0 &&
+				 !m_blupi[i].bMalade )
+			{
+				lg = abs(m_blupi[rank].cel.x-m_blupi[i].cel.x)+
+					 abs(m_blupi[rank].cel.y-m_blupi[i].cel.y);
+				if ( lg < min )
+				{
+					min = lg;
+					fRank = i;
+				}
+			}
+		}
+		if ( fRank != -1 )
+		{
+			direct = DirectSearch(m_blupi[rank].cel, m_blupi[fRank].cel);
+			if ( direct != -1 )
+			{
+				vector = GetVector(direct);
+				m_blupi[rank].goalCel.x = m_blupi[rank].cel.x + vector.x;
+				m_blupi[rank].goalCel.y = m_blupi[rank].cel.y + vector.y;
+				FlushUsed(rank);
+			}
+		}
+	}
+
+	// Assigne un but s'il s'agit d'un tracks.
+	if ( m_blupi[rank].perso == 3 &&  // tracks ?
+		 m_blupi[rank].goalAction != WM_ACTION_T_DYNAMITE )
+	{
+		cel = m_blupi[rank].cel;
+		if ( cel.x%2 != 0 && cel.y%2 != 0 )
+		{
+			cel.x = (cel.x/2)*2;
+			cel.y = (cel.y/2)*2;
+			GetObject(cel, channel, icon);
+			if ( channel == CHOBJECT &&
+				 IsTracksObject(icon) )
+			{
+				if ( icon == 85 )  // dynamite ?
+				{
+					BlupiInitAction(rank, ACTION_STOP);
+					GoalStart(rank, WM_ACTION_T_DYNAMITE, cel);
+					goto goal;
+				}
+				if ( icon == 125 ||  // mine ?
+					 icon == 127 )
+				{
+					// Supprime le détonnateur.
+					BlupiDelete(GetCel(cel.x+1,cel.y+1), 6);
+				}
+				if ( icon == 93 )  // piège ?
+				{
+					BlupiSound(rank, SOUND_PIEGE, pos);
+					PutObject(cel, CHOBJECT, 97);  // tracks piégé
+					BlupiDelete(rank);  // supprime tracks
+					return;
+				}
+
+				PutObject(cel, -1,-1);  // plus d'objet
+
+				BlupiSound(rank, SOUND_T_ECRASE, pos);
+				BlupiInitAction(rank, ACTION_T_ECRASE);
+				goto init;
+			}
+		}
+		cel = m_blupi[rank].cel;
+		m_blupi[rank].bExist = FALSE;
+		if ( IsBlupiHere(cel, FALSE) &&
+			 m_blupi[m_blupiHere].perso == 0 &&
+			 m_blupi[m_blupiHere].vehicule == 0 )  // à pied ?
+		{
+			m_blupi[rank].bExist = TRUE;
+			// Blupi écrasé au sol.
+			if ( MoveCreate(cel, rank, TRUE, CHFLOOR,-1, -1,-1,
+							100,1,100, FALSE, TRUE) )
+			{
+				if ( m_blupi[m_blupiHere].bMalade )  MoveAddIcons(cel, 10);
+				else                                 MoveAddIcons(cel, 9);
+			}
+			BlupiDelete(m_blupiHere);  // plus de blupi !
+			BlupiSound(rank, SOUND_AIE, pos);
+			BlupiInitAction(rank, ACTION_T_ECRASE);  // écrase blupi
+			goto init;
+		}
+		m_blupi[rank].bExist = TRUE;
+
+//		if ( m_blupi[rank].goalCel.x != -1 )
+//		{
+//			GetObject(m_blupi[rank].goalCel, channel, icon);
+//			if ( IsTracksObject(icon) )  goto action;
+//		}
+		m_blupi[rank].bExist = FALSE;
+		if ( m_time%5 == rank%5 &&  // pas trop souvent !
+			 SearchTracksObject(rank, m_blupi[rank].cel, 25, cel, icon) )
+		{
+			m_blupi[rank].goalCel = cel;
+			FlushUsed(rank);
+		}
+		m_blupi[rank].bExist = TRUE;
+	}
+
+	// Assigne un but s'il s'agit d'un robot.
+	if ( m_blupi[rank].perso == 4 &&  // robot ?
+		 m_blupi[rank].goalAction != WM_ACTION_T_DYNAMITE )
+	{
+		cel = m_blupi[rank].cel;
+		if ( cel.x%2 != 0 && cel.y%2 != 0 )
+		{
+			cel.x = (cel.x/2)*2;
+			cel.y = (cel.y/2)*2;
+			GetObject(cel, channel, icon);
+			if ( channel == CHOBJECT &&
+				 IsRobotObject(icon) )
+			{
+				if ( icon == 85 )  // dynamite ?
+				{
+					BlupiInitAction(rank, ACTION_STOP);
+					GoalStart(rank, WM_ACTION_T_DYNAMITE, cel);
+					goto goal;
+				}
+				if ( icon == 125 ||  // mine ?
+					 icon == 127 )
+				{
+					// Supprime le détonnateur.
+					BlupiDelete(GetCel(cel.x+1,cel.y+1), 6);
+				}
+				if ( icon == 93 )  // piège ?
+				{
+					BlupiSound(rank, SOUND_PIEGE, pos);
+					PutObject(cel, CHOBJECT, 98);  // robot piégé
+					BlupiDelete(rank);  // supprime robot
+					return;
+				}
+
+				PutObject(cel, -1,-1);  // plus d'objet
+
+				BlupiSound(rank, SOUND_T_ECRASE, pos);
+				BlupiInitAction(rank, ACTION_R_ECRASE);
+				goto init;
+			}
+		}
+		cel = m_blupi[rank].cel;
+		if ( m_blupi[rank].goalAction == 0 &&
+			 m_time%17 == rank%17 &&  // pas trop souvent !
+			 SearchRobotObject(rank, m_blupi[rank].fix, 50, cel, icon, action) )
+		{
+			if ( action == -1 )
+			{
+				m_blupi[rank].goalCel = cel;
+				FlushUsed(rank);
+			}
+			else
+			{
+				BlupiInitAction(rank, ACTION_STOP);
+				GoalStart(rank, action, cel);
+				goto goal;
+			}
+		}
+	}
+
+	// Assigne un but s'il s'agit d'une bombe.
+	if ( m_blupi[rank].perso == 5 &&  // bombe ?
+		 m_blupi[rank].goalAction != WM_ACTION_T_DYNAMITE )
+	{
+		cel = m_blupi[rank].cel;
+		if ( cel.x%2 != 0 && cel.y%2 != 0 )
+		{
+			cel.x = (cel.x/2)*2;
+			cel.y = (cel.y/2)*2;
+			GetObject(cel, channel, icon);
+			if ( channel == CHOBJECT &&
+				 icon == 93 )  // piège ?
+			{
+				BlupiSound(rank, SOUND_PIEGE, pos);
+				PutObject(cel, CHOBJECT, 114);  // bombe piégée
+				BlupiDelete(rank);  // supprime bombe
+				return;
+			}
+		}
+		for ( i=0 ; i<4 ; i++ )
+		{
+			vector = GetVector(i*2*16);
+			cel.x = ((m_blupi[rank].cel.x + vector.x*2)/2)*2;
+			cel.y = ((m_blupi[rank].cel.y + vector.y*2)/2)*2;
+			GetObject(cel, channel, icon);
+			if ( channel == CHOBJECT &&
+				 IsBombeObject(icon) &&  // cabane, palissade, etc. ?
+				 icon != 93 )  // pas piège ?
+			{
+				BlupiInitAction(rank, ACTION_STOP);
+				GoalStart(rank, WM_ACTION_T_DYNAMITE, m_blupi[rank].cel);
+				goto goal;
+			}
+		}
+		cel = m_blupi[rank].cel;
+		if ( m_blupi[rank].goalAction == 0 &&
+			 m_time%17 == rank%17 &&  // pas trop souvent !
+			 SearchBombeObject(rank, cel, 100, cel, icon) )
+		{
+			m_blupi[rank].goalCel = cel;
+			FlushUsed(rank);
+		}
+	}
+
+	// Assigne un but s'il s'agit d'un électro.
+	if ( m_blupi[rank].perso == 7 )  // électro ?
+	{
+		cel = m_blupi[rank].cel;
+		if ( cel.x%2 != 0 && cel.y%2 != 0 )
+		{
+			cel.x = (cel.x/2)*2;
+			cel.y = (cel.y/2)*2;
+			GetObject(cel, channel, icon);
+			if ( channel == CHOBJECT &&
+				 icon == 93 )  // piège ?
+			{
+				BlupiSound(rank, SOUND_PIEGE, pos);
+				PutObject(cel, CHOBJECT, 19);  // électro piégée
+				BlupiDelete(rank);  // supprime électro
+				return;
+			}
+		}
+		cel = m_blupi[rank].cel;
+		if ( m_blupi[rank].goalAction == 0 &&
+			 m_blupi[rank].goalCel.x == -1 &&
+			 m_time%37 == rank%37 &&  // pas trop souvent !
+			 SearchElectroObject(rank, cel, 100, cel, icon) )
+		{
+			if ( icon == -1 )  // sur un blupi ?
+			{
+				BlupiInitAction(rank, ACTION_STOP);
+				GoalStart(rank, WM_ACTION_E_RAYON, cel);
+				m_blupi[rank].fix = cel;
+				goto goal;
+			}
+			m_blupi[rank].goalCel = cel;
+			FlushUsed(rank);
+		}
+	}
+
+	BlupiInitAction(rank, ACTION_STOP);
+
+	goal:
+	if ( m_blupi[rank].goalCel.x != -1 )  // y a-t-il un but ?
+	{
+		direct = DirectSearch(m_blupi[rank].cel,
+							  m_blupi[rank].goalCel);
+
+		if ( direct == -1 )  // but atteint ?
+		{
+			m_blupi[rank].goalCel.x = -1;
+			FlushUsed(rank);
+		}
+		else
+		{
+			// Si blupi a peu d'énergie et qu'il transporte
+			// qq chose, il doit stopper !
+			if ( m_blupi[rank].energy <= MAXENERGY/4 &&
+				 m_blupi[rank].takeChannel != -1 &&
+				 (m_blupi[rank].vehicule == 0 ||  // à pied ?
+				  m_blupi[rank].vehicule == 3) )  // armure ?
+			{
+				// Si blupi est en train de descendre de la jeep
+				// et qu'il est malade tout en transportant qq
+				// chose, il ne faut pas stopper !!!
+				cel = m_blupi[rank].cel; 
+				if ( cel.x%2 != 0 && cel.y%2 != 0 &&
+					 m_decor[cel.x/2][cel.y/2].objectIcon == 118 &&  // jeep
+					 m_blupi[rank].bMalade &&
+					 m_blupi[rank].takeChannel != -1 )  goto search;
+				GoalStop(rank, TRUE);
+			}
+			else
+			{
+				search:
+//-				BlupiInitAction(rank, ACTION_MARCHE, direct);
+				if ( SearchBestPass(rank, action) )
+				{
+//-					if ( (action >= ACTION_SAUTE2 &&
+//-						  action <= ACTION_SAUTE5) ||
+//-						 action == ACTION_GLISSE )
+//-					{
+						BlupiInitAction(rank, action);
+//-					}
+				}
+				else
+				{
+					BlupiInitAction(rank, ACTION_STOP);
+					if ( m_blupi[rank].perso == 0 ||  // blupi ?
+						 m_blupi[rank].perso == 8 )   // disciple ?
+					{
+						if ( m_blupi[rank].busyCount == 0 )  // dernière tentative ?
+						{
+							GoalStop(rank, TRUE);
+							m_blupi[rank].goalCel.x = -1;
+							m_blupi[rank].goalPhase = 0;
+							m_blupi[rank].interrupt = 1;
+						}
+					}
+					else		// perso ennemi ?
+					{
+						// On cherchera un autre but !
+						GoalStop(rank, TRUE);
+//?						m_blupi[rank].goalCel.x = -1;
+//?						m_blupi[rank].goalPhase = 0;
+//?						m_blupi[rank].interrupt = 1;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		GoalNextPhase(rank);  // méta opération suivante
+	}
+
+	init:
+	BlupiDestCel(rank);
+
+	m_blupi[rank].phase = 0;
+	m_blupi[rank].pos.x = 0;
+	m_blupi[rank].pos.y = 0;
+
+	BlupiNextAction(rank);
+}
+
+// Calcule la cellule de destination.
+
+void CDecor::BlupiDestCel(int rank)
+{
+	int			a;
+	POINT		vector;
+
+	m_blupi[rank].destCel = m_blupi[rank].cel;
+
+	if ( m_blupi[rank].action == ACTION_MARCHE   ||
+		 m_blupi[rank].action == ACTION_MARCHEf  ||
+		 m_blupi[rank].action == ACTION_MARCHEb  ||
+		 m_blupi[rank].action == ACTION_MARCHEj  ||
+		 m_blupi[rank].action == ACTION_MARCHEa  ||
+		 m_blupi[rank].action == ACTION_A_MARCHE ||
+		 m_blupi[rank].action == ACTION_V_MARCHE ||
+		 m_blupi[rank].action == ACTION_T_MARCHE ||
+		 m_blupi[rank].action == ACTION_R_MARCHE ||
+		 m_blupi[rank].action == ACTION_B_MARCHE ||
+		 m_blupi[rank].action == ACTION_E_MARCHE ||
+		 m_blupi[rank].action == ACTION_D_MARCHE )
+	{
+		vector = GetVector(m_blupi[rank].sDirect);
+
+		m_blupi[rank].destCel.x += vector.x;
+		m_blupi[rank].destCel.y += vector.y;
+	}
+
+	a = GetAmplitude(m_blupi[rank].action);
+	if ( a > 1 )
+	{
+		vector = GetVector(m_blupi[rank].sDirect);
+
+		m_blupi[rank].destCel.x += vector.x*a;
+		m_blupi[rank].destCel.y += vector.y*a;
+	}
+}
+
+// Avance tous les blupis.
+
+void CDecor::BlupiStep(BOOL bFirst)
+{
+	int		rank;
+
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		if ( m_blupi[rank].bExist )
+		{
+			if ( !BlupiNextAction(rank) )
+			{
+				BlupiNextGoal(rank);
+			}
+		}
+	}
+
+	if ( bFirst )
+	{
+		m_timeConst ++;  // avance le temps absolu global constant
+
+		if ( m_timeConst == m_timeFlipOutline )
+		{
+			m_bOutline = FALSE;  // supprime le mode "outline"
+		}
+	}
+	m_time ++;  // avance le temps absolu global
+}
+
+
+// Retourne le rectangle occupé par un blupi,
+// pour les sélections (pas exact).
+
+void CDecor::BlupiGetRect(int rank, RECT &rect)
+{
+	POINT		pos;
+
+	pos = ConvCelToPos(m_blupi[rank].cel);
+	pos.x += m_blupi[rank].pos.x;
+	pos.y += m_blupi[rank].pos.y-(DIMBLUPIY-DIMCELY)-SHIFTBLUPIY;
+
+	rect.left   = pos.x+16;
+	rect.top    = pos.y+10;
+	rect.right  = pos.x+DIMBLUPIX-16;
+	rect.bottom = pos.y+DIMBLUPIY;
+}
+
+// Retourne le blupi visé par la souris.
+
+int CDecor::GetTargetBlupi(POINT pos)
+{
+#if 1
+	int			rank, found, prof;
+	POINT		test, rel, cel;
+
+	cel = ConvPosToCel(pos);
+
+	found = -1;
+	prof  = 0;
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		if ( m_blupi[rank].bExist &&
+			 (m_blupi[rank].perso == 0 ||  // blupi ?
+			  m_blupi[rank].perso == 8) )  // disciple ?
+		{
+			test = ConvCelToPos(m_blupi[rank].cel);
+			test.x += m_blupi[rank].pos.x;
+			test.y += m_blupi[rank].pos.y-(DIMBLUPIY-DIMCELY)-SHIFTBLUPIY;
+
+			if ( pos.x >= test.x           &&
+				 pos.x <= test.x+DIMBLUPIX &&
+				 pos.y >= test.y           &&
+				 pos.y <= test.y+DIMBLUPIY )
+			{
+				rel.x = pos.x-test.x;
+				rel.y = pos.y-test.y;
+				if ( (cel.x == m_blupi[rank].cel.x &&
+					  cel.y == m_blupi[rank].cel.y ) ||
+					 (cel.x == m_blupi[rank].destCel.x &&
+					  cel.y == m_blupi[rank].destCel.y ) ||
+					 m_pPixmap->IsIconPixel(m_blupi[rank].channel,
+											m_blupi[rank].icon,
+											rel) )
+				{
+					if ( found != -1 &&
+						 test.y < prof )  continue;
+
+					found = rank;
+					prof  = test.y;
+				}
+			}
+		}
+	}
+
+	return found;
+#else
+	int			rank, found, prof;
+	RECT		rect;
+	POINT		cel;
+
+	found = -1;
+	prof  = 0;
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		if ( m_blupi[rank].bExist &&
+			 (m_blupi[rank].perso == 0 ||  // blupi ?
+			  m_blupi[rank].perso == 8) )  // disciple ?
+		{
+			BlupiGetRect(rank, rect);
+
+			if ( pos.x >= rect.left    &&
+				 pos.x <= rect.right   &&
+				 pos.y >= rect.top     &&
+				 pos.y <= rect.bottom  )
+			{
+				if ( found != -1 &&
+					 rect.top < prof )  continue;
+
+				found = rank;
+				prof  = rect.top;
+			}
+		}
+	}
+
+	if ( found != -1 )  return found;
+
+	cel = ConvPosToCel(pos);
+
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		if ( m_blupi[rank].bExist &&
+			 (m_blupi[rank].perso == 0 ||  // blupi ?
+			  m_blupi[rank].perso == 8) )  // disciple ?
+		{
+			if ( cel.x == m_blupi[rank].cel.x &&
+				 cel.y == m_blupi[rank].cel.y )  return rank;
+
+			if ( cel.x == m_blupi[rank].destCel.x &&
+				 cel.y == m_blupi[rank].destCel.y )  return rank;
+		}
+	}
+
+	return -1;
+#endif
+}
+
+
+// Déslectionne tous les blupi.
+
+void CDecor::BlupiDeselect()
+{
+	int		rank;
+
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		m_blupi[rank].bHili  = FALSE;
+		m_blupi[rank].bArrow = FALSE;
+	}
+
+	m_nbBlupiHili   = 0;
+	m_rankBlupiHili = -1;
+}
+
+// Déslectionne un blupi.
+
+void CDecor::BlupiDeselect(int rank)
+{
+	m_blupi[rank].bHili  = FALSE;
+	m_blupi[rank].bArrow = FALSE;
+
+	if ( m_nbBlupiHili > 0 &&
+		 m_rankBlupiHili == rank )  // est-ce le blupi sélectionné ?
+	{
+		m_nbBlupiHili   = 0;
+		m_rankBlupiHili = -1;
+	}
+}
+
+// Met ou enlève une flèche au blupi sélectionné blupi.
+
+void CDecor::BlupiSetArrow(int rank, BOOL bArrow)
+{
+	m_celArrow.x = -1;
+
+	if ( bArrow )
+	{
+		m_blupi[rank].bArrow = TRUE;
+	}
+	else
+	{
+		for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+		{
+			m_blupi[rank].bArrow = FALSE;
+		}
+	}
+}
+
+// Initialise la zone outline en fonction du rectangle de sélection.
+
+void CDecor::InitOutlineRect()
+{
+	if ( !m_bOutline && m_bHiliRect )
+	{
+		m_celOutline1.x = m_p1Hili.x<m_p2Hili.x ? m_p1Hili.x : m_p2Hili.x;
+		m_celOutline1.y = m_p1Hili.y<m_p2Hili.y ? m_p1Hili.y : m_p2Hili.y;
+		m_celOutline2.x = m_p1Hili.x>m_p2Hili.x ? m_p1Hili.x : m_p2Hili.x;
+		m_celOutline2.y = m_p1Hili.y>m_p2Hili.y ? m_p1Hili.y : m_p2Hili.y;
+		m_celOutline1.x = (m_celOutline1.x/2)*2;
+		m_celOutline1.y = (m_celOutline1.y/2)*2;
+		m_celOutline2.x += 2;
+		m_celOutline2.y += 2;
+	}
+	else
+	{
+		m_celOutline1.x = -1;
+		m_celOutline2.x = -1;
+	}
+}
+
+// Sélectionne un blupi lorsque le bouton est pressé.
+
+void CDecor::BlupiHiliDown(POINT pos, BOOL bAdd)
+{
+	if ( MapMove(pos) )  return;
+
+	if ( !bAdd )  BlupiDeselect();
+
+	m_p1Hili = ConvPosToCel(pos);
+	m_p2Hili = ConvPosToCel(pos);
+	m_bHiliRect = TRUE;
+	m_celHili.x = -1;
+
+	InitOutlineRect();
+}
+
+// Sélectionne un blupi lorsque la souris est déplacée.
+
+void CDecor::BlupiHiliMove(POINT pos, BOOL bAdd)
+{
+	if ( m_bHiliRect )  // rectangle de sélection existe ?
+	{
+		m_p2Hili = ConvPosToCel(pos);
+		InitOutlineRect();
+	}
+}
+
+// Sélectionne un blupi lorsque le bouton est relâché.
+// Retourne FALSE si la sélection n'a pas changé !
+
+void CDecor::BlupiHiliUp(POINT pos, BOOL bAdd)
+{
+	int			rank, r, nb, sound;
+	BOOL		bEnerve = FALSE;
+	POINT		c1, c2;
+
+	static int table_sound_ok[6] =
+	{
+		SOUND_OK1,
+		SOUND_OK2,
+		SOUND_OK3,
+		SOUND_OK4,
+		SOUND_OK5,
+		SOUND_OK6,
+	};
+
+	static int table_sound_okf[3] =  // si fatigué
+	{
+		SOUND_OK1f,
+		SOUND_OK2f,
+		SOUND_OK3f,
+	};
+
+	static int table_sound_oke[3] =  // si énervé
+	{
+		SOUND_OK1e,
+		SOUND_OK2e,
+		SOUND_OK3e,
+	};
+
+	if ( m_bHiliRect )  // rectangle de sélection existe ?
+	{
+		nb = 0;
+
+		if ( m_p1Hili.x == m_p2Hili.x &&
+			 m_p1Hili.y == m_p2Hili.y )
+		{
+			rank = GetTargetBlupi(pos);  // rank <- blupi visé par la souris
+			if ( rank != -1 )
+			{
+				m_blupi[rank].bHili = !m_blupi[rank].bHili;
+				if ( m_blupi[rank].bHili )
+				{
+					if ( m_blupi[rank].clicDelay > 0 )
+					{
+						m_blupi[rank].clicDelay = 80;
+						m_blupi[rank].clicCount ++;
+						if ( m_blupi[rank].clicCount > 4 )
+						{
+							bEnerve = TRUE;
+						}
+					}
+					else
+					{
+						m_blupi[rank].clicDelay = 40;
+					}
+					nb = 1;
+				}
+			}
+		}
+		else
+		{
+			if ( m_p1Hili.x < m_p2Hili.x )
+			{
+				c1.x = m_p1Hili.x;
+				c2.x = m_p2Hili.x+1;
+			}
+			else
+			{
+				c1.x = m_p2Hili.x;
+				c2.x = m_p1Hili.x+1;
+			}
+
+			if ( m_p1Hili.y < m_p2Hili.y )
+			{
+				c1.y = m_p1Hili.y;
+				c2.y = m_p2Hili.y+1;
+			}
+			else
+			{
+				c1.y = m_p2Hili.y;
+				c2.y = m_p1Hili.y+1;
+			}
+
+			for ( r=0 ; r<MAXBLUPI ; r++ )
+			{
+				if ( m_blupi[r].bExist &&
+					 (m_blupi[r].perso == 0 ||  // blupi ?
+					  m_blupi[r].perso == 8) )  // disciple ?
+				{
+					if ( m_blupi[r].cel.x >= c1.x &&
+						 m_blupi[r].cel.x <  c2.x &&
+						 m_blupi[r].cel.y >= c1.y &&
+						 m_blupi[r].cel.y <  c2.y )
+					{
+						m_blupi[r].bHili = TRUE;
+						nb ++;
+						rank = r;
+					}
+				}
+			}
+		}
+
+		m_bHiliRect = FALSE;  // plus de rectangle
+		InitOutlineRect();
+
+		if ( nb > 0 )
+		{
+			if ( nb > 1 )  // sélection multiple ?
+			{
+				sound = table_sound_ok[Random(0,5)];
+			}
+			else
+			{
+				if ( m_blupi[rank].energy <= MAXENERGY/4 )
+				{
+					sound = table_sound_okf[Random(0,2)];
+				}
+				else
+				{
+					sound = table_sound_ok[Random(0,5)];
+				}
+				if ( bEnerve )  // déjà sélectionné y'a peu ?
+				{
+					sound = table_sound_oke[Random(0,2)];
+				}
+			}
+			BlupiSound(rank, sound, pos, TRUE);
+		}
+	}
+
+	m_nbBlupiHili   = 0;
+	m_rankBlupiHili = -1;
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		m_blupi[rank].bArrow = FALSE;
+
+		if ( m_blupi[rank].bExist &&
+			 m_blupi[rank].bHili  )
+		{
+			m_nbBlupiHili ++;
+			m_rankBlupiHili = rank;
+		}
+	}
+}
+
+// Dessine le rectangle de sélection, si nécessaire.
+
+void CDecor::BlupiDrawHili()
+{
+	POINT		c1, c2, cc;
+	POINT		p1, p2, p3, p4;
+	POINT		start, pos;
+	RECT		rect;
+	int			shift;
+
+	if ( !m_bHiliRect )  return;
+
+	if ( m_p1Hili.x < m_p2Hili.x )
+	{
+		c1.x = m_p1Hili.x;
+		c2.x = m_p2Hili.x+1;
+	}
+	else
+	{
+		c1.x = m_p2Hili.x;
+		c2.x = m_p1Hili.x+1;
+	}
+
+	if ( m_p1Hili.y < m_p2Hili.y )
+	{
+		c1.y = m_p1Hili.y;
+		c2.y = m_p2Hili.y+1;
+	}
+	else
+	{
+		c1.y = m_p2Hili.y;
+		c2.y = m_p1Hili.y+1;
+	}
+
+	p1 = ConvCelToPos(c1);  // p1 en haut
+	p2 = ConvCelToPos(c2);  // p2 en bas
+
+	cc.x = c1.x;
+	cc.y = c2.y;
+	p3 = ConvCelToPos(cc);  // p3 à gauche
+
+	cc.x = c2.x;
+	cc.y = c1.y;
+	p4 = ConvCelToPos(cc);  // p4 à droite
+
+	p1.x += DIMCELX/2;
+	p2.x += DIMCELX/2;
+	p3.x += DIMCELX/2;
+	p4.x += DIMCELX/2;
+
+	shift = m_shiftHili%(64/2);
+
+	start.x = p1.x-shift*2;
+	start.y = p1.y-shift-1;
+	while ( start.x < p4.x )
+	{
+		pos = start;
+		rect.left   = 0;
+		rect.right  = 64;
+		rect.top    = 0;
+		rect.bottom = 66/2;
+		if ( pos.x+rect.right > p4.x )
+		{
+			rect.right = p4.x-pos.x;
+		}
+		if ( pos.x < p1.x )
+		{
+			rect.left +=  p1.x-pos.x;
+			rect.top  += (p1.x-pos.x)/2;
+			pos.x = p1.x;
+			pos.y = p1.y-1;
+		}
+		m_pPixmap->DrawPart(-1, CHHILI, pos, rect);  // ligne p1-p4
+
+		start.x += 64;
+		start.y += 64/2;
+	}
+
+	start.x = p3.x-shift*2;
+	start.y = p3.y-shift-1;
+	while ( start.x < p2.x )
+	{
+		pos = start;
+		rect.left   = 0;
+		rect.right  = 64;
+		rect.top    = 0;
+		rect.bottom = 66/2;
+		if ( pos.x+rect.right > p2.x )
+		{
+			rect.right = p2.x-pos.x;
+		}
+		if ( pos.x < p3.x )
+		{
+			rect.left +=  p3.x-pos.x;
+			rect.top  += (p3.x-pos.x)/2;
+			pos.x = p3.x;
+			pos.y = p3.y-1;
+		}
+		m_pPixmap->DrawPart(-1, CHHILI, pos, rect);  // ligne p3-p2
+
+		start.x += 64;
+		start.y += 64/2;
+	}
+
+	start.x = p3.x-shift*2;
+	start.y = p3.y+shift-66/2;
+	while ( start.x < p1.x )
+	{
+		pos = start;
+		rect.left   = 0;
+		rect.right  = 64;
+		rect.top    = 66/2;
+		rect.bottom = 66;
+		if ( pos.x+rect.right > p1.x )
+		{
+			rect.right = p1.x-pos.x;
+		}
+		if ( pos.x < p3.x )
+		{
+			rect.left   +=  p3.x-pos.x;
+			rect.bottom -= (p3.x-pos.x)/2;
+			pos.x = p3.x;
+		}
+		m_pPixmap->DrawPart(-1, CHHILI, pos, rect);  // ligne p3-p1
+
+		start.x += 64;
+		start.y -= 64/2;
+	}
+
+	start.x = p2.x-shift*2;
+	start.y = p2.y+shift-66/2;
+	while ( start.x < p4.x )
+	{
+		pos = start;
+		rect.left   = 0;
+		rect.right  = 64;
+		rect.top    = 66/2;
+		rect.bottom = 66;
+		if ( pos.x+rect.right > p4.x )
+		{
+			rect.right = p4.x-pos.x;
+		}
+		if ( pos.x < p2.x )
+		{
+			rect.left   +=  p2.x-pos.x;
+			rect.bottom -= (p2.x-pos.x)/2;
+			pos.x = p2.x;
+		}
+		m_pPixmap->DrawPart(-1, CHHILI, pos, rect);  // ligne p2-p4
+
+		start.x += 64;
+		start.y -= 64/2;
+	}
+
+	m_shiftHili += 3;
+}
+
+
+// Retourne le bouton par défaut à un endroit donné.
+// Est utilisé pour trouver que faire lors d'un clic
+// avec le bouton de droite.
+
+int CDecor::GetDefButton(POINT cel)
+{
+	int		button, rank, channel, icon;
+	POINT	iCel;
+
+	iCel = cel;
+	cel.x = (cel.x/2)*2;
+	cel.y = (cel.y/2)*2;
+	GetObject(cel, channel, icon);
+
+	if ( m_nbBlupiHili == 0 )  return -1;
+	if ( m_nbBlupiHili >  1 )  return BUTTON_GO;
+	rank = m_rankBlupiHili;
+
+	button = BUTTON_GO;
+
+	if ( channel == CHOBJECT )
+	{
+		if ( icon >=  7 &&
+			 icon <= 11 )  button = BUTTON_ABAT;
+		if ( icon >= 37 &&
+			 icon <= 43 )  button = BUTTON_ROC;
+
+		if ( icon ==  61 )  button = BUTTON_CULTIVE; // cabane
+		if ( icon == 122 )  button = BUTTON_EXTRAIT; // extrait
+
+		if ( iCel.x%2 == 1 && iCel.y%2 == 1 )
+		{
+			if ( icon ==  14 )  button = BUTTON_CARRY;   // métal
+			if ( icon ==  36 )  button = BUTTON_CARRY;   // planches
+			if ( icon ==  44 )  button = BUTTON_CARRY;   // pierres
+			if ( icon ==  60 )  button = BUTTON_MANGE;   // tomates
+			if ( icon ==  63 )  button = BUTTON_CARRY;   // oeufs
+			if ( icon ==  80 )  button = BUTTON_BOIT;    // bouteille
+			if ( icon ==  82 )  button = BUTTON_CARRY;   // fleurs
+			if ( icon ==  84 )  button = BUTTON_CARRY;   // fleurs
+			if ( icon ==  95 )  button = BUTTON_CARRY;   // fleurs
+			if ( icon ==  85 )  button = BUTTON_CARRY;   // dynamite
+			if ( icon ==  92 )  button = BUTTON_CARRY;   // poison
+			if ( icon ==  93 )  button = BUTTON_CARRY;   // piège
+			if ( icon == 123 )  button = BUTTON_CARRY;   // fer
+			if ( icon == 125 )  button = BUTTON_CARRY;   // mine
+		}
+
+		if ( icon == 28 &&  // laboratoire ?
+			 m_blupi[rank].energy > MAXENERGY/4 &&
+			 m_blupi[rank].takeChannel == CHOBJECT &&
+			 (m_blupi[rank].takeIcon == 82 ||  // porte fleurs ?
+			  m_blupi[rank].takeIcon == 84 ||
+			  m_blupi[rank].takeIcon == 95 ||
+			  m_blupi[rank].takeIcon == 60) )  // porte tomates ?
+		{
+			button = BUTTON_LABO;  // transforme
+		}
+	}
+
+	if ( !m_blupi[rank].bMalade &&
+		 button == BUTTON_BOIT )
+	{
+		button = BUTTON_CARRY;  // porte la bouteille si pas malade
+	}
+
+	if ( (m_blupi[rank].energy <= MAXENERGY/4 ||
+		  m_blupi[rank].takeChannel != -1     ) &&
+		 (button == BUTTON_ABAT    ||
+		  button == BUTTON_CARRY   ||
+		  button == BUTTON_ROC     ||
+		  button == BUTTON_CULTIVE ) )
+	{
+		return -1;
+	}
+
+	if ( m_blupi[rank].energy > (MAXENERGY/4)*3 &&
+		 button == BUTTON_MANGE )
+	{
+		button = BUTTON_CARRY;
+	}
+
+	if ( m_buttonExist[button] == 0 )  // bouton existe ?
+	{
+		return -1;
+	}
+
+	return button;
+}
+
+// Indique un but visé à long terme, pour un blupi donné.
+
+BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
+{
+	POINT		goalHili, goalHili2, goal, test;
+	int			i, action, channel, icon, error, direct, step;
+	BOOL		bRepeat = FALSE;
+
+	// Si plusieurs blupi sont sélectionnés, ils ne vont pas
+	// tous à la même destination.
+	if ( button == BUTTON_GO )
+	{
+		step = 0;
+		for ( i=0 ; i<rank ; i++ )
+		{
+			if ( m_blupi[i].bExist &&
+				 m_blupi[i].bHili  )  step ++;
+		}
+		if ( step > 15 )  step = 15;
+		cel.x  += table_multi_goal[step*2+0];
+		cel.y  += table_multi_goal[step*2+1];
+		cMem.x += table_multi_goal[step*2+0];
+		cMem.y += table_multi_goal[step*2+1];
+	}
+
+	if ( !IsCheminFree(rank, cel, button) )  return FALSE;
+
+	goal        = cel;
+	goalHili    = cel;
+	goalHili2.x = (cel.x/2)*2;
+	goalHili2.y = (cel.y/2)*2;
+
+	if ( button == BUTTON_GO &&
+		 m_decor[goalHili.x/2][goalHili.y/2].objectIcon == 113 )  // maison ?
+	{
+		goalHili.x = (goalHili.x/2)*2+1;
+		goalHili.y = (goalHili.y/2)*2+1;
+	}
+
+	if ( button == BUTTON_ABATn )
+	{
+		button = BUTTON_ABAT;
+		bRepeat = TRUE;
+	}
+	if ( button == BUTTON_ROCn )
+	{
+		button = BUTTON_ROC;
+		bRepeat = TRUE;
+	}
+	if ( button == BUTTON_FLEURn )
+	{
+		button = BUTTON_FLEUR;
+		bRepeat = TRUE;
+	}
+	action = table_actions[button];
+
+	if ( action == WM_ACTION_STOP )
+	{
+		if ( m_blupi[rank].goalAction != 0 &&
+			 m_blupi[rank].interrupt <= 0 )
+		{
+			m_blupi[rank].stop = 1;  // faudra stopper
+		}
+		else
+		{
+			m_blupi[rank].goalCel = m_blupi[rank].destCel;
+			m_blupi[rank].goalAction = 0;
+		}
+		m_blupi[rank].repeatLevel = -1;  // stoppe la répétition
+		return FALSE;
+	}
+
+	// Action prioritaire en cours ?
+	if ( m_blupi[rank].goalAction != 0 &&
+		 m_blupi[rank].interrupt <= 0 )  return FALSE;
+
+	error = CelOkForAction(goalHili, action, rank);
+	if ( error != 0 && error != ERROR_TOURISOL )  return FALSE;
+
+	if ( action == WM_ACTION_GO &&
+		 m_blupi[rank].energy <= MAXENERGY/4 &&
+		 m_blupi[rank].takeChannel != -1 )  return FALSE;
+
+	if ( action == WM_ACTION_GO )
+	{
+		GetObject(goalHili2, channel, icon);
+		if ( channel == CHOBJECT &&
+			 icon == 120 &&  // usine ?
+			 goalHili.x%2 == 0 &&  // au fond ?
+			 goalHili.y%2 == 1 )
+		{
+			return FALSE;  // action refusée
+		}
+		if ( m_blupi[rank].perso != 8 &&  // pas disciple ?
+			 channel == CHOBJECT &&
+			 icon == 118 &&  // jeep ?
+			 goalHili.x%2 == 1 &&  // sur la jeep ?
+			 goalHili.y%2 == 1 )
+		{
+			action = WM_ACTION_MJEEP;
+		}
+		if ( m_blupi[rank].perso != 8 &&  // pas disciple ?
+			 m_blupi[rank].takeChannel == -1 &&  // ne porte rien ?
+			 channel == CHOBJECT &&
+			 icon == 16 &&  // armure ?
+			 goalHili.x%2 == 1 &&  // sur l'armure ?
+			 goalHili.y%2 == 1 )
+		{
+			action = WM_ACTION_MARMURE;
+		}
+		if ( m_blupi[rank].perso != 8 &&  // pas disciple ?
+			 channel == CHOBJECT &&
+			 icon == 113 )  // maison ?
+		{
+			action = WM_ACTION_MAISON;
+		}
+		GetFloor(goalHili2, channel, icon);
+		if ( m_blupi[rank].perso == 0 &&
+			 m_blupi[rank].vehicule == 0 &&  // à pied ?
+			 m_blupi[rank].takeChannel == -1 &&  // ne porte rien ?
+			 channel == CHFLOOR &&
+			 icon == 80 )  // téléporteur ?
+		{
+			if ( cel.x%2 == 0 && cel.y%2 == 0 )
+			{
+				action = WM_ACTION_TELEPORTE00;
+			}
+			if ( cel.x%2 == 1 && cel.y%2 == 0 )
+			{
+				action = WM_ACTION_TELEPORTE10;
+			}
+			if ( cel.x%2 == 0 && cel.y%2 == 1 )
+			{
+				action = WM_ACTION_TELEPORTE01;
+			}
+			if ( cel.x%2 == 1 && cel.y%2 == 1 )
+			{
+				action = WM_ACTION_TELEPORTE11;
+			}
+		}
+		IsFreeCelEmbarque(goalHili, rank, action, goal);
+		IsFreeCelDebarque(goalHili, rank, action, goal);
+	}
+
+	if ( action == WM_ACTION_DEPOSE &&
+		 m_blupi[rank].energy <= MAXENERGY/4 )
+	{
+		// Energie juste pour déposer l'objet transporté.
+		m_blupi[rank].energy = MAXENERGY/4+20;
+	}
+
+	if ( action == WM_ACTION_ABAT1 )
+	{
+		GetObject(goalHili2, channel, icon);
+		if ( channel == CHOBJECT &&
+			 icon >= 6 && icon <= 11 )  // arbre ?
+		{
+			action += icon-6;  // WM_ACTION_ABAT1..6
+		}
+	}
+
+	if ( action == WM_ACTION_ROC1 )
+	{
+		GetObject(goalHili2, channel, icon);
+		if ( channel == CHOBJECT &&
+			 icon >= 37 && icon <= 43 )  // rochers ?
+		{
+			action += icon-37;  // WM_ACTION_ROC1..7
+		}
+	}
+
+	if ( action == WM_ACTION_FLEUR1 )
+	{
+		GetObject(goalHili2, channel, icon);
+		if ( channel == CHOBJECT &&
+			 icon == 83 )  // fleurs foncées ?
+		{
+			action = WM_ACTION_FLEUR2;
+		}
+		if ( channel == CHOBJECT &&
+			 icon == 94 )  // fleurs vertes ?
+		{
+			action = WM_ACTION_FLEUR3;
+		}
+	}
+
+	if ( action == WM_ACTION_PONTE )
+	{
+		cel  = goalHili2;
+		test = goalHili2;
+		if ( IsBuildPont(test, icon) != 0 )  return FALSE;
+
+		m_blupi[rank].nLoop = abs((test.x-cel.x)+(test.y-cel.y))/2;
+		m_blupi[rank].cLoop = 0;
+		m_blupi[rank].vIcon = icon;
+		m_blupi[rank].fix   = cel;
+
+		if ( test.x-cel.x < 0 )  action = WM_ACTION_PONTO;
+		if ( test.y-cel.y > 0 )  action = WM_ACTION_PONTS;
+		if ( test.y-cel.y < 0 )  action = WM_ACTION_PONTN;
+	}
+
+	if ( action == WM_ACTION_BATEAUE )
+	{
+		if ( !IsBuildBateau(goalHili2, direct) )  return FALSE;
+
+		if ( direct == DIRECT_S )  action = WM_ACTION_BATEAUS;
+		if ( direct == DIRECT_O )  action = WM_ACTION_BATEAUO;
+		if ( direct == DIRECT_N )  action = WM_ACTION_BATEAUN;
+	}
+
+	if ( action == WM_ACTION_CARRY )
+	{
+		if ( IsBlupiHereEx(GetCel(goalHili2,0,1), rank, TRUE) )
+		{
+			action = WM_ACTION_CARRY2;
+		}
+	}
+
+	if ( action == WM_ACTION_DEPOSE )
+	{
+		GetFloor(goalHili2, channel, icon);
+		if ( channel == CHFLOOR && icon == 52 &&  // nurserie ?
+			 m_blupi[rank].takeChannel == CHOBJECT &&
+			 m_blupi[rank].takeIcon    == 63 )  // oeufs ?
+		{
+			action = WM_ACTION_NEWBLUPI;
+		}
+		if ( !IsFreeCelDepose(GetCel(goalHili2,0,1), rank) ||
+			 IsBlupiHereEx(GetCel(goalHili2,0,1), rank, TRUE) )
+		{
+			action = WM_ACTION_DEPOSE2;
+		}
+	}
+
+	if ( action == WM_ACTION_MANGE )
+	{
+		if ( IsBlupiHereEx(GetCel(goalHili2,0,1), rank, TRUE) )
+		{
+			action = WM_ACTION_MANGE2;
+		}
+	}
+
+	if ( action == WM_ACTION_BOIT )
+	{
+		if ( IsBlupiHereEx(GetCel(goalHili2,0,1), rank, TRUE) )
+		{
+			action = WM_ACTION_BOIT2;
+		}
+	}
+
+	if ( action == WM_ACTION_DYNAMITE )
+	{
+		GetObject(goalHili2, channel, icon);
+		if ( channel == CHOBJECT &&
+			 icon == 125 )  // mine ?
+		{
+			action = WM_ACTION_MINE;
+		}
+		else
+		{
+			if ( m_blupi[rank].takeChannel == CHOBJECT &&
+				 m_blupi[rank].takeIcon == 85 )  // porte dynamite ?
+			{
+				action = WM_ACTION_DYNAMITE2;
+			}
+		}
+	}
+
+	GoalStart(rank, action, goal);
+	m_blupi[rank].bRepeat   = bRepeat;
+	m_blupi[rank].busyCount = 5;  // 5 tentatives au maximum
+	m_blupi[rank].busyDelay = 0;
+
+	if ( action == WM_ACTION_REPEAT )
+	{
+		m_blupi[rank].repeatLevel = m_blupi[rank].repeatLevelHope;
+		m_blupi[rank].listCel[m_blupi[rank].repeatLevel] = goal;
+	}
+	else
+	{
+		ListPut(rank, button, goal, cMem);
+	}
+
+	return TRUE;
+}
+
+// Indique un but visé à long terme, pour tous les blupi
+// sélectionnés.
+
+void CDecor::BlupiGoal(POINT cel, int button)
+{
+	POINT		bPos, avg;
+	int			rank, nb, nbHili;
+
+	static int table_sound_go[6] =
+	{
+		SOUND_GO1,
+		SOUND_GO2,
+		SOUND_GO3,
+		SOUND_GO4,
+		SOUND_GO5,
+		SOUND_GO6,
+	};
+
+	static int table_sound_gom[3] =
+	{
+		SOUND_GO4,
+		SOUND_GO5,
+		SOUND_GO6,
+	};
+
+	static int table_sound_boing[3] =
+	{
+		SOUND_BOING1,
+		SOUND_BOING2,
+		SOUND_BOING3,
+	};
+
+	if ( button == -1 )
+	{
+		avg = ConvCelToPos(cel);
+		m_pSound->PlayImage(table_sound_boing[Random(0,2)], avg);
+		return;
+	}
+
+	avg.x  = 0;
+	avg.y  = 0;
+	nb     = 0;
+	nbHili = 0;
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		if ( m_blupi[rank].bExist &&
+			 m_blupi[rank].bHili  )
+		{
+			bPos = ConvCelToPos(m_blupi[rank].cel);
+			avg.x += bPos.x;
+			avg.y += bPos.y;
+			nbHili ++;
+
+			if ( BlupiGoal(rank, button, cel, cel) )
+			{
+				nb  ++;
+			}
+		}
+	}
+
+	if ( button == BUTTON_STOP )  return;
+
+	if ( nbHili > 0 )
+	{
+		avg.x /= nbHili;
+		avg.y /= nbHili;
+	}
+	if ( avg.x < 0       )  avg.x = 0;
+	if ( avg.x > LXIMAGE )  avg.x = LXIMAGE;
+	avg.y = LYIMAGE/2;
+
+	if ( nb == 0 && nbHili > 0 )
+	{
+		if ( nbHili == 1 )
+		{
+			BlupiSound(m_rankBlupiHili, table_sound_boing[Random(0,2)], avg, TRUE);
+		}
+		else
+		{
+			m_pSound->PlayImage(table_sound_boing[Random(0,2)], avg);
+		}
+	}
+
+	if ( nb > 0 )
+	{
+		if ( nbHili == 1 )
+		{
+			BlupiSound(m_rankBlupiHili, table_sound_go[Random(0,5)], avg, TRUE);
+		}
+		else
+		{
+			m_pSound->PlayImage(table_sound_gom[Random(0,2)], avg);
+		}
+	}
+}
+
+
+// Indique si une cellule est occupée pour un tracks.
+// La cellule est considérée libre uniquement si elle
+// contient un blupi à pied ou un détonnateur de mine
+// (personnage invisible).
+
+BOOL CDecor::IsTracksHere(POINT cel, BOOL bSkipInMove)
+{
+	int			rank;
+
+	if ( !IsValid(cel) )  return FALSE;
+
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		if ( m_blupi[rank].bExist &&
+			 (m_blupi[rank].perso != 0    ||  // blupi ?
+			  m_blupi[rank].vehicule != 0 ||  // à pied ?
+			  m_bInvincible) &&
+			 m_blupi[rank].perso != 6 )  // détonnateur ?
+		{
+			if ( bSkipInMove && m_blupi[rank].goalCel.x != -1 )  continue;
+
+			if ( cel.x == m_blupi[rank].cel.x &&
+				 cel.y == m_blupi[rank].cel.y )
+			{
+				m_blupiHere = rank;
+				return TRUE;
+			}
+
+			if ( cel.x == m_blupi[rank].destCel.x &&
+				 cel.y == m_blupi[rank].destCel.y )
+			{
+				m_blupiHere = rank;
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+// Indique si une cellule est occupée par un blupi.
+// Le blupi donné dans exRank est ignoré !
+
+BOOL CDecor::IsBlupiHereEx(POINT cel1, POINT cel2, int exRank, BOOL bSkipInMove)
+{
+	int			rank;
+
+	if ( !IsValid(cel1) )  return FALSE;
+	if ( !IsValid(cel2) )  return FALSE;
+
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		if ( m_blupi[rank].bExist &&
+			 m_blupi[rank].perso != 6 &&  // pas le détonnateur de mine
+			 rank != exRank )
+		{
+			if ( bSkipInMove && m_blupi[rank].goalCel.x != -1 )  continue;
+
+			if ( cel1.x <= m_blupi[rank].cel.x &&
+				 cel2.x >= m_blupi[rank].cel.x &&
+				 cel1.y <= m_blupi[rank].cel.y &&
+				 cel2.y >= m_blupi[rank].cel.y )
+			{
+				m_blupiHere = rank;
+				return TRUE;
+			}
+
+			if ( cel1.x <= m_blupi[rank].destCel.x &&
+				 cel2.x >= m_blupi[rank].destCel.x &&
+				 cel1.y <= m_blupi[rank].destCel.y &&
+				 cel2.y >= m_blupi[rank].destCel.y )
+			{
+				m_blupiHere = rank;
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+// Indique si une cellule est occupée par un blupi.
+// Le blupi donné dans exRank est ignoré !
+
+BOOL CDecor::IsBlupiHereEx(POINT cel, int exRank, BOOL bSkipInMove)
+{
+	int			rank;
+
+	if ( !IsValid(cel) )  return FALSE;
+
+	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+	{
+		if ( m_blupi[rank].bExist &&
+			 m_blupi[rank].perso != 6 &&  // pas le détonnateur de mine
+			 rank != exRank )
+		{
+			if ( bSkipInMove && m_blupi[rank].goalCel.x != -1 )  continue;
+
+			if ( cel.x == m_blupi[rank].cel.x &&
+				 cel.y == m_blupi[rank].cel.y )
+			{
+				m_blupiHere = rank;
+				return TRUE;
+			}
+
+			if ( cel.x == m_blupi[rank].destCel.x &&
+				 cel.y == m_blupi[rank].destCel.y )
+			{
+				m_blupiHere = rank;
+				return TRUE;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
+// Indique si une cellule est occupée par un blupi.
+
+BOOL CDecor::IsBlupiHere(POINT cel, BOOL bSkipInMove)
+{
+	return IsBlupiHereEx(cel, -1, bSkipInMove);
+}
+
+// Indique si une cellule future (dans une direction donnée)
+// est déjà occupée par un blupi.
+
+BOOL CDecor::IsBlupiHere(POINT cel, int direct, BOOL bSkipInMove)
+{
+	POINT	vector;
+
+	vector = GetVector(direct);
+
+	cel.x += vector.x;
+	cel.y += vector.y;
+
+	return IsBlupiHereEx(cel, -1, bSkipInMove);
+}
+
+
+// Retourne les niveaux des jauges.
+
+void CDecor::GetLevelJauge(int *pLevels, int *pTypes)
+{
+	int			rank;
+
+	pLevels[0] = -1;
+	pLevels[1] = -1;
+
+	rank = m_rankBlupiHili;
+
+	if ( m_nbBlupiHili == 1 )  // un seul blupi sélectionné ?
+	{
+		pLevels[0] = (m_blupi[rank].energy*100)/MAXENERGY;
+
+		pTypes[0] = 1;  // rouge
+		if ( m_blupi[rank].energy > MAXENERGY/4 )
+		{
+			pTypes[0] = 2;  // bleu
+		}
+	}
+
+	if ( m_blupi[rank].interrupt == 0 &&
+		 m_blupi[rank].jaugeMax > 0 )
+	{
+		pLevels[1] = (m_blupi[rank].jaugePhase*100)/
+					  m_blupi[rank].jaugeMax;
+		pTypes[1] = 3;  // jaune
+	}
+}
+
+
+// Retourne TRUE si un blupi est déjà sélectionné et qu'il
+// effectue une action prioritaire. Dans ce cas, il faut tout
+// de suite mettre le menu "stoppe" s'il est cliqué.
+
+BOOL CDecor::IsWorkBlupi(int rank)
+{
+	if ( m_blupi[rank].bHili &&
+		 m_blupi[m_rankBlupiHili].goalAction != 0 &&
+		 m_blupi[m_rankBlupiHili].interrupt <= 0 )  return TRUE;
+
+	return FALSE;
+}
+
+
+// Retourne les boutons possibles à un endroit donné,
+// pour le blupi sélectionné.
+
+void CDecor::BlupiGetButtons(POINT pos, int &nb,
+							 int *pButtons, int *pErrors, int &perso)
+{
+	int*		pB = pButtons;
+	int*		pE = pErrors;
+	POINT		cel, cel2;
+	int			i, rank, button, error, channel, icon, textForButton;
+	BOOL		bBuild = FALSE;
+	BOOL		bPut;
+
+	static int table_buttons[] =
+	{
+		BUTTON_GO,			0,
+		BUTTON_DJEEP,		0,
+		BUTTON_DARMURE,		0,
+		BUTTON_MANGE,		0,
+		BUTTON_BOIT,		0,
+		BUTTON_CARRY,		0,
+		BUTTON_DEPOSE,		0,
+		BUTTON_LABO,		0,
+		BUTTON_ABAT,		0,
+		BUTTON_ABATn,		0,
+		BUTTON_ROC,			0,
+		BUTTON_ROCn,		0,
+		BUTTON_CULTIVE,		0,
+		BUTTON_FLEUR,		0,
+		BUTTON_FLEURn,		0,
+		BUTTON_DYNAMITE,	0,
+		BUTTON_DRAPEAU,		0,
+		BUTTON_EXTRAIT,		0,
+		BUTTON_FABJEEP,		0,
+		BUTTON_FABMINE,		0,
+		BUTTON_FABDISC,		0,
+		BUTTON_FABARMURE,	0,
+		BUTTON_BUILD1,		36,  // si planches (cabane)
+		BUTTON_BUILD2,		36,  // si planches (nurserie)
+		BUTTON_BUILD4,		36,  // si planches (mine)
+		BUTTON_PALIS,		36,  // si planches
+		BUTTON_PONT,		36,  // si planches
+		BUTTON_BATEAU,		36,  // si planches
+		BUTTON_BUILD6,		36,  // si planches (téléporteur)
+		BUTTON_BUILD3,		44,  // si pierres (laboratoire)
+		BUTTON_BUILD5,		44,  // si pierres (usine)
+		BUTTON_MUR,			44,  // si pierres
+		BUTTON_TOUR,		44,  // si pierres
+		BUTTON_STOP,		0,
+		-1
+	};
+
+	nb    = 0;
+	perso = 0;
+
+	cel  = ConvPosToCel(pos);
+	cel2 = ConvPosToCel2(pos);
+
+	if ( m_nbBlupiHili == 0 )  return;
+
+	if ( m_nbBlupiHili > 1 )  // sélection multiple ?
+	{
+		error = CelOkForAction(cel, table_actions[BUTTON_GO], m_rankBlupiHili);
+		if ( error == 0 )
+		{
+			*pB++ = BUTTON_GO;
+			*pE++ = 0;
+			nb ++;
+		}
+
+		for ( rank=0 ; rank<MAXBLUPI ; rank++ )
+		{
+			if ( m_blupi[rank].bExist &&
+				 m_blupi[rank].goalAction != 0 )
+			{
+				*pB++ = BUTTON_STOP;
+				*pE++ = 0;
+				nb ++;
+				break;
+			}
+		}
+
+		return;
+	}
+
+	if ( m_nbBlupiHili != 1 )  return;
+
+	perso = m_blupi[m_rankBlupiHili].perso;
+
+	// Si action prioritaire en cours -> seulement stoppe.
+	if ( m_blupi[m_rankBlupiHili].goalAction != 0 &&
+		 m_blupi[m_rankBlupiHili].interrupt <= 0 )
+	{
+		if ( abs(m_blupi[m_rankBlupiHili].cel.x-cel.x) <= 3 &&
+			 abs(m_blupi[m_rankBlupiHili].cel.y-cel.y) <= 3 &&
+			 CelOkForAction(cel, table_actions[BUTTON_STOP], m_rankBlupiHili) == 0 )
+		{
+			*pB++ = BUTTON_STOP;
+			*pE++ = 0;
+			nb ++;
+		}
+		return;
+	}
+
+	// Vérifie si le blupi sélectionné peut construire.
+	if ( m_rankBlupiHili >= 0 )
+	{
+		if ( m_blupi[m_rankBlupiHili].energy > MAXENERGY/4 &&
+			 m_blupi[m_rankBlupiHili].takeChannel == -1 &&
+			 m_blupi[m_rankBlupiHili].vehicule == 0 )  // à pied ?
+		{
+			bBuild = TRUE;
+		}
+	}
+
+	// Met les différentes actions.
+	i = 0;
+	while ( table_buttons[i] != -1 )
+	{
+		button = table_buttons[i];
+
+		if ( m_buttonExist[button] == 0 )  goto next;
+
+		error = CelOkForAction(cel, table_actions[button], m_rankBlupiHili);
+
+		if ( error == 0 )  bPut = TRUE;
+		else               bPut = FALSE;
+
+		if ( bBuild &&
+			 table_buttons[i+1] != 0 &&  // toujours présent si matière ?
+			 (m_rankBlupiHili < 0 ||
+			  m_blupi[m_rankBlupiHili].perso != 8 ||  // pas disciple ?
+			  table_buttons[i+1] != 44) )  // ni pierres ?
+		{
+			GetObject(cel2, channel, icon);
+			if ( channel == CHOBJECT &&
+				 icon == table_buttons[i+1] &&  // matière ?
+				 cel.x%2 == 1 && cel.y%2 == 1 )
+			{
+				bPut = TRUE;  // bouton présent, mais disable !
+			}
+		}
+
+		if ( bPut )
+		{
+			*pB++ = button;
+			*pE++ = error;
+			nb ++;
+		}
+
+		next:
+		i += 2;
+	}
+
+	// Si le premier bouton est "abat", ajoute "va" devant !
+	if ( pButtons[0] == BUTTON_ABAT )
+	{
+		for ( i=nb ; i>0 ; i-- )
+		{
+			pButtons[i] = pButtons[i-1];
+			pErrors[i]  = pErrors[i-1];
+		}
+
+		pButtons[0] = BUTTON_GO;
+		pErrors[0]  = ERROR_MISC;
+		nb ++;
+	}
+
+	// Regarde s'il faut ajouter le bouton "répète".
+	if ( m_blupi[m_rankBlupiHili].repeatLevel != -1 ||
+		 m_blupi[m_rankBlupiHili].energy <= MAXENERGY/4 ||
+		 m_buttonExist[BUTTON_REPEAT] == 0 )
+	{
+		return;
+	}
+
+	for ( i=0 ; i<nb ; i++ )
+	{
+		rank = ListSearch(m_rankBlupiHili, pButtons[i], cel, textForButton);
+		if ( rank > 0 )  // au moins 2 actions à répéter ?
+		{
+			m_blupi[m_rankBlupiHili].repeatLevelHope = rank;
+
+			pButtons[nb] = BUTTON_REPEAT;
+			pErrors[nb]  = textForButton;
+			nb ++;
+			return;
+		}
+	}
+}
+
+
+// Initialise les conditions de fin.
+
+void CDecor::TerminatedInit()
+{
+	m_winCount = 50;
+
+	m_winLastHachBlupi   = 0;
+	m_winLastHachPlanche = 0;
+	m_winLastHachTomate  = 0;
+	m_winLastHachMetal   = 0;
+	m_winLastHachRobot   = 0;
+	m_winLastHome        = 0;
+	m_winLastHomeBlupi   = 0;
+	m_winLastRobots      = 0;
+}
+
+// Vérifie si la partie est terminée.
+// Retourne 0 si la partie n'est pas terminée.
+// Retourne 1 si la partie est perdue.
+// Retourne 2 si la partie est gagnée.
+
+int CDecor::IsTerminated()
+{
+	int		nb, count, out;
+	POINT	pos;
+
+	pos.x = LXIMAGE/2;
+	pos.y = LYIMAGE/2;
+
+	count = m_winCount;
+	m_winCount = 50;
+
+	if ( m_winLastHome > m_nbStatHome )  // une maison en moins ?
+	{
+		out = 1;  // perdu
+		goto delay;
+	}
+	m_winLastHome = m_nbStatHome;
+
+	nb = StatisticGetBlupi();
+	if ( nb < m_term.nbMinBlupi )
+	{
+		out = 1;  // perdu
+		goto delay;
+	}
+	if ( nb < m_term.nbMaxBlupi )  return 0;  // continue
+
+	if ( m_term.bStopFire )
+	{
+		nb = StatisticGetFire();
+		if ( nb > 0 )  return 0;  // continue;
+	}
+
+	if ( m_term.bHachBlupi )
+	{
+		if ( m_winLastHachBlupi < m_nbStatHachBlupi )
+		{
+			m_pSound->PlayImage(SOUND_BUT, pos);
+		}
+		m_winLastHachBlupi = m_nbStatHachBlupi;
+
+		if ( m_nbStatHachBlupi < m_nbStatHach*4 )  return 0;  // continue;
+	}
+
+	if ( m_term.bHachPlanche )
+	{
+		if ( m_winLastHachPlanche < m_nbStatHachPlanche )
+		{
+			m_pSound->PlayImage(SOUND_BUT, pos);
+		}
+		m_winLastHachPlanche = m_nbStatHachPlanche;
+
+		if ( m_nbStatHachPlanche < m_nbStatHach )  return 0;  // continue;
+	}
+
+	if ( m_term.bHachTomate )
+	{
+		if ( m_winLastHachTomate < m_nbStatHachTomate )
+		{
+			m_pSound->PlayImage(SOUND_BUT, pos);
+		}
+		m_winLastHachTomate = m_nbStatHachTomate;
+
+		if ( m_nbStatHachTomate < m_nbStatHach )  return 0;  // continue;
+	}
+
+	if ( m_term.bHachMetal )
+	{
+		if ( m_winLastHachMetal < m_nbStatHachMetal )
+		{
+			m_pSound->PlayImage(SOUND_BUT, pos);
+		}
+		m_winLastHachMetal = m_nbStatHachMetal;
+
+		if ( m_nbStatHachMetal < m_nbStatHach )  return 0;  // continue;
+	}
+
+	if ( m_term.bHachRobot )
+	{
+		if ( m_winLastRobots > m_nbStatRobots )
+		{
+			out = 1;  // perdu
+			goto delay;
+		}
+		m_winLastRobots = m_nbStatRobots;
+
+		if ( m_winLastHachRobot < m_nbStatHachRobot )
+		{
+			m_pSound->PlayImage(SOUND_BUT, pos);
+		}
+		m_winLastHachRobot = m_nbStatHachRobot;
+
+		if ( m_nbStatHachRobot < m_nbStatHach )  return 0;  // continue;
+	}
+
+	if ( m_term.bHomeBlupi )
+	{
+		if ( m_winLastHomeBlupi < m_nbStatHomeBlupi )
+		{
+			m_pSound->PlayImage(SOUND_BUT, pos);
+		}
+		m_winLastHomeBlupi = m_nbStatHomeBlupi;
+
+		if ( m_nbStatHomeBlupi < m_nbStatHome )  return 0;  // continue;
+	}
+
+	if ( m_term.bKillRobots )
+	{
+		if ( m_winLastRobots > m_nbStatRobots )
+		{
+			m_pSound->PlayImage(SOUND_BUT, pos);
+		}
+		m_winLastRobots = m_nbStatRobots;
+
+		if ( m_nbStatRobots > 0 )  return 0;  // continue;
+	}
+
+	out = 2;  // gagné
+
+	delay:
+	m_winCount = count;
+	if ( m_winCount == 0 )
+	{
+		if ( out == 1 )  // perdu ?
+		{
+			if ( !m_pSound->PlayImage(SOUND_LOST, pos) )
+			{
+				m_pSound->PlayImage(SOUND_BUT, pos);
+			}
+		}
+		else
+		{
+			if ( !m_pSound->PlayImage(SOUND_WIN, pos) )
+			{
+				m_pSound->PlayImage(SOUND_BUT, pos);
+			}
+		}
+
+		return out;  // perdu/gagné
+	}
+	m_winCount --;
+	return 0;  // continue
+}
+
+// Retourne la structure pour terminer une partie.
+
+Term* CDecor::GetTerminated()
+{
+	return &m_term;
+}
+
