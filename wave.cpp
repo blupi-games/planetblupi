@@ -21,7 +21,7 @@ WAVEFILE, *LPWAVEFILE;
 
 
 // Function Prototypes  
-BOOL wave_ParseWaveMemory(void *pvRes, 
+bool wave_ParseWaveMemory(void *pvRes, 
                           WAVEFORMATEX **ppWaveHeader, 
                           BYTE **ppbWaveData,
                           DWORD *pcbWaveSize);
@@ -80,7 +80,7 @@ LPVOID WAVE_LoadResource
 //
 //////////////////////////////////////////////////////////////////
 
-BOOL wave_ParseWaveMemory
+bool wave_ParseWaveMemory
 
   (LPVOID          lpChunkOfMemory, // Points to raw ram
    LPWAVEFORMATEX  *lplpWaveHeader, // Points to pointer to header
@@ -115,10 +115,10 @@ BOOL wave_ParseWaveMemory
     // Using the mmioFOURCC macro (part of Windows SDK), ensure
     // that this is a RIFF WAVE chunk of memory
     if (dwRiff != mmioFOURCC('R', 'I', 'F', 'F'))
-      return FALSE;      // not even RIFF
+      return false;      // not even RIFF
 
     if (dwType != mmioFOURCC('W', 'A', 'V', 'E'))
-      return FALSE;      // not a WAV
+      return false;      // not a WAV
 
     // Find the pointer to the end of the chunk of memory
     pdwEnd = (DWORD *)((BYTE *)pdw + dwLength-4);
@@ -137,7 +137,7 @@ BOOL wave_ParseWaveMemory
           if (lplpWaveHeader && !*lplpWaveHeader)
             {
             if (dwLength < sizeof(WAVEFORMAT))
-              return FALSE; // something's wrong! Not a WAV
+              return false; // something's wrong! Not a WAV
 
             // Set the lplpWaveHeader to point to this part of
             // the memory chunk
@@ -150,7 +150,7 @@ BOOL wave_ParseWaveMemory
             if ((!lplpWaveSamples || *lplpWaveSamples) &&
                 (!lpcbWaveSize || *lpcbWaveSize))
               {
-              return TRUE;
+              return true;
               }
             }
           break;
@@ -171,7 +171,7 @@ BOOL wave_ParseWaveMemory
             // Make sure we have our header pointer set up.
             // If we do, we can exit
             if (!lplpWaveHeader || *lplpWaveHeader)
-              return TRUE;
+              return true;
             }
           break;
 
@@ -183,7 +183,7 @@ BOOL wave_ParseWaveMemory
 
   // Failed! If we made it here, we did not get all the pieces
   // of the wave
-  return FALSE;
+  return false;
 } // wave_ParseWaveMemory
 
 

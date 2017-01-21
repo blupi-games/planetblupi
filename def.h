@@ -5,10 +5,10 @@
 
 #include <Windows.h>
 
-#define _DEMO			FALSE	// TRUE=demo, FALSE=complet
-#define _INTRO			FALSE	// TRUE si images d'introduction
-#define _EGAMES			FALSE	// TRUE version pour eGames
-#define _SE				FALSE	// TRUE eGames Special Edition
+#define _DEMO			false	// true=demo, false=complet
+#define _INTRO			false	// true si images d'introduction
+#define _EGAMES			false	// true version pour eGames
+#define _SE				false	// true eGames Special Edition
 
 
 #define LXIMAGE			640		// dimensions de la fenêtre de jeu

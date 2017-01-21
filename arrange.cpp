@@ -49,7 +49,7 @@ static char tableDark[13*4] =
 
 // Retourne les bits contenant de l'eau.
 
-BOOL CDecor::GetSeeBits(POINT cel, char *pBits, int index)
+bool CDecor::GetSeeBits(POINT cel, char *pBits, int index)
 {
 	int		icon;
 
@@ -59,13 +59,13 @@ BOOL CDecor::GetSeeBits(POINT cel, char *pBits, int index)
 	pBits[3] = 0;
 
 	if ( cel.x < 0 || cel.x >= MAXCELX ||
-		 cel.y < 0 || cel.y >= MAXCELY )  return FALSE;
+		 cel.y < 0 || cel.y >= MAXCELY )  return false;
 
 	icon = m_decor[cel.x/2][cel.y/2].floorIcon;
 
 	if ( index == 0 )  // eau ?
 	{
-		if ( icon < 1 || icon > 14 )  return TRUE;
+		if ( icon < 1 || icon > 14 )  return true;
 		icon -= 1;
 		pBits[0] = tableSee[icon*4+0];
 		pBits[1] = tableSee[icon*4+1];
@@ -75,16 +75,16 @@ BOOL CDecor::GetSeeBits(POINT cel, char *pBits, int index)
 
 	if ( index == 1 )  // mousse ?
 	{
-		if ( icon >= 2 && icon <= 14 )  return FALSE;  // eau ?
+		if ( icon >= 2 && icon <= 14 )  return false;  // eau ?
 		if ( icon == 66 || icon == 79 )  // mousse spéciale ?
 		{
 			pBits[0] = 1;
 			pBits[1] = 1;
 			pBits[2] = 1;
 			pBits[3] = 1;
-			return TRUE;
+			return true;
 		}
-		if ( icon < 20 || icon > 32 )  return TRUE;
+		if ( icon < 20 || icon > 32 )  return true;
 		icon -= 20;
 		pBits[0] = tableDark[icon*4+0];
 		pBits[1] = tableDark[icon*4+1];
@@ -94,7 +94,7 @@ BOOL CDecor::GetSeeBits(POINT cel, char *pBits, int index)
 
 	if ( index == 2 )  // terre ?
 	{
-		if ( icon >= 2 && icon <= 14 )  return FALSE;  // eau ?
+		if ( icon >= 2 && icon <= 14 )  return false;  // eau ?
 		if ( (icon >= 46 && icon <= 48) ||  // terre spéciale ?
 			 icon == 71 )  // terre à fer ?
 		{
@@ -102,9 +102,9 @@ BOOL CDecor::GetSeeBits(POINT cel, char *pBits, int index)
 			pBits[1] = 1;
 			pBits[2] = 1;
 			pBits[3] = 1;
-			return TRUE;
+			return true;
 		}
-		if ( icon < 33 || icon > 45 )  return TRUE;
+		if ( icon < 33 || icon > 45 )  return true;
 		icon -= 33;
 		pBits[0] = tableDark[icon*4+0];
 		pBits[1] = tableDark[icon*4+1];
@@ -112,7 +112,7 @@ BOOL CDecor::GetSeeBits(POINT cel, char *pBits, int index)
 		pBits[3] = tableDark[icon*4+3];
 	}
 
-	return TRUE;
+	return true;
 }
 
 void CopyBits(char *pDst, char *pSrc)
@@ -123,13 +123,13 @@ void CopyBits(char *pDst, char *pSrc)
 	}
 }
 
-BOOL ChangeBits(char *pDst, char *pSrc)
+bool ChangeBits(char *pDst, char *pSrc)
 {
 	for ( int i=0 ; i<4 ; i++ )
 	{
-		if ( *pDst++ != *pSrc++ )  return TRUE;
+		if ( *pDst++ != *pSrc++ )  return true;
 	}
-	return FALSE;
+	return false;
 }
 
 // Retourne l'icône correspondant aux bits d'eaux.
@@ -186,7 +186,7 @@ void CDecor::ArrangeFloor(POINT cel)
 	POINT	test;
 	int		max, index, icon;
 	char	here[4], bits[4], init[4];
-	BOOL	bModif = FALSE;
+	bool	bModif = false;
 
 	icon = m_decor[cel.x/2][cel.y/2].floorIcon;
 
@@ -212,7 +212,7 @@ void CDecor::ArrangeFloor(POINT cel)
 				 bits[3] != here[2] )
 			{
 				here[2] = bits[1];
-				bModif = TRUE;
+				bModif = true;
 			}
 		}
 
@@ -226,7 +226,7 @@ void CDecor::ArrangeFloor(POINT cel)
 				 bits[3] != here[0] )
 			{
 				here[0] = bits[3];
-				bModif = TRUE;
+				bModif = true;
 			}
 		}
 
@@ -240,7 +240,7 @@ void CDecor::ArrangeFloor(POINT cel)
 				 bits[3] != here[1] )
 			{
 				here[1] = bits[2];
-				bModif = TRUE;
+				bModif = true;
 			}
 		}
 
@@ -254,7 +254,7 @@ void CDecor::ArrangeFloor(POINT cel)
 				 bits[2] != here[3] )
 			{
 				here[3] = bits[0];
-				bModif = TRUE;
+				bModif = true;
 			}
 		}
 
@@ -575,7 +575,7 @@ void CDecor::ArrangeObject(POINT cel)
 	int		first, last;
 	int		index, i, j, k, x, y;
 	POINT	vector, test, pos;
-	BOOL	bTour;
+	bool	bTour;
 
 	for ( index=0 ; index<3 ; index++ )
 	{
@@ -635,16 +635,16 @@ void CDecor::ArrangeObject(POINT cel)
 			vector = GetVector(i*2*16);
 			test = cel;
 
-			bTour = FALSE;
+			bTour = false;
 			j = 0;
-			while ( TRUE )
+			while ( true )
 			{
 				test.x += vector.x*2;
 				test.y += vector.y*2;
 
 				if ( m_decor[test.x/2][test.y/2].objectIcon == 27 )  // tour ?
 				{
-					bTour = TRUE;
+					bTour = true;
 					break;
 				}
 
@@ -660,7 +660,7 @@ void CDecor::ArrangeObject(POINT cel)
 
 			if ( m_decor[cel.x/2][cel.y/2].objectIcon != 27 )  // pas tour ?
 			{
-				bTour = FALSE;
+				bTour = false;
 			}
 
 			test = cel;
@@ -684,10 +684,10 @@ void CDecor::ArrangeObject(POINT cel)
 
 				if ( !m_bBuild && bTour )
 				{
-					if ( MoveCreate(test, -1, FALSE, CHOBJECT,-1,
-									-1,-1, 9999,1,0, TRUE) )
+					if ( MoveCreate(test, -1, false, CHOBJECT,-1,
+									-1,-1, 9999,1,0, true) )
 					{
-						MoveAddIcons(test, 5-i%2, TRUE);  // éclairs
+						MoveAddIcons(test, 5-i%2, true);  // éclairs
 					}
 
 					pos = ConvCelToPos(test);
@@ -707,7 +707,7 @@ void CDecor::ArrangeObject(POINT cel)
 
 // Test s'il faut remplir le sol ici.
 
-BOOL CDecor::ArrangeFillTestFloor(POINT cel1, POINT cel2)
+bool CDecor::ArrangeFillTestFloor(POINT cel1, POINT cel2)
 {
 	POINT		cel;
 	int			icon1, icon2;
@@ -741,37 +741,37 @@ BOOL CDecor::ArrangeFillTestFloor(POINT cel1, POINT cel2)
 				 m_decor[cel.x/2][cel.y/2].floorIcon    <  icon1 ||
 				 m_decor[cel.x/2][cel.y/2].floorIcon    >  icon2 )
 			{
-				return FALSE;
+				return false;
 			}
 
 			if ( m_fillPutChannel == CHFLOOR &&
 				 m_fillPutIcon    == 14      &&  // met de l'eau ?
 				 m_decor[cel.x/2][cel.y/2].objectIcon != -1 )
 			{
-				return FALSE;
+				return false;
 			}
 		}
 	}
 
 	if ( m_fillPutChannel == CHFLOOR &&
 		 m_fillPutIcon    == 14      &&  // met de l'eau ?
-		 IsBlupiHereEx(cel1, cel2, -1, FALSE) )
+		 IsBlupiHereEx(cel1, cel2, -1, false) )
 	{
-		return FALSE;
+		return false;
 	}
 
-	return TRUE;
+	return true;
 }
 
 // Test s'il faut remplir ici.
 
-BOOL CDecor::ArrangeFillTest(POINT pos)
+bool CDecor::ArrangeFillTest(POINT pos)
 {
 	POINT		cel1, cel2;
 
 	if ( m_pFillMap[(pos.x/2)+(pos.y/2)*(MAXCELX/2)] == 1 )
 	{
-		return FALSE;
+		return false;
 	}
 
 	if ( m_bFillFloor )
@@ -787,20 +787,20 @@ BOOL CDecor::ArrangeFillTest(POINT pos)
 		if ( m_decor[pos.x/2][pos.y/2].objectChannel == m_fillSearchChannel &&
 			 m_decor[pos.x/2][pos.y/2].objectIcon    == m_fillSearchIcon    &&
 			 !IsBlupiHereEx(GetCel(pos.x+0,pos.y+0),
-							GetCel(pos.x+1,pos.y+1), -1, FALSE) )
+							GetCel(pos.x+1,pos.y+1), -1, false) )
 		{
 			if ( m_decor[pos.x/2][pos.y/2].floorChannel == CHFLOOR &&
 				 m_decor[pos.x/2][pos.y/2].floorIcon >=  2 &&
 				 m_decor[pos.x/2][pos.y/2].floorIcon <= 14 )  // rive ou eau ?
 			{
-				return FALSE;
+				return false;
 			}
 
-			return TRUE;
+			return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Modifie le décor lors d'un remplissage.
@@ -916,7 +916,7 @@ void CDecor::ArrangeFillSearch(POINT pos)
 
 // Rempli un sol à partir d'une position donnée.
 
-void CDecor::ArrangeFill(POINT pos, int channel, int icon, BOOL bFloor)
+void CDecor::ArrangeFill(POINT pos, int channel, int icon, bool bFloor)
 {
 	m_bFillFloor = bFloor;
 
@@ -969,7 +969,7 @@ void CDecor::ArrangeBlupi()
 		{
 			if ( !IsFreeCel(m_blupi[rank].cel, rank) )
 			{
-				m_blupi[rank].bExist = FALSE;
+				m_blupi[rank].bExist = false;
 			}
 		}
 	}

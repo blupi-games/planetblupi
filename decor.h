@@ -43,8 +43,8 @@ Cellule;
 
 typedef struct
 {
-	BOOL	bExist;			// TRUE -> utilisé
-	BOOL	bHili;			// TRUE -> sélectionné
+	int		bExist;			// true -> utilisé
+	int		bHili;			// true -> sélectionné
 
 	short	perso;			// personnage, voir (*)
 
@@ -84,14 +84,14 @@ typedef struct
 	short	jaugePhase;
 	short	jaugeMax;
 	short	stop;			// 1 -> devra stopper
-	short	bArrow;			// TRUE -> flèche en dessus de blupi
-	short	bRepeat;		// TRUE -> répète l'action
+	short	bArrow;			// true -> flèche en dessus de blupi
+	short	bRepeat;		// true -> répète l'action
 	short	nLoop;			// nb de boucles pour GOAL_OTHERLOOP
 	short	cLoop;			// boucle en cours
 	short	vIcon;			// icône variable
 	POINT	goalHili;		// but visé
-	short	bMalade;		// TRUE -> blupi malade
-	short	bCache;			// TRUE -> caché (pas dessiné)
+	short	bMalade;		// true -> blupi malade
+	short	bCache;			// true -> caché (pas dessiné)
 	short	vehicule;		// véhicule utilisé par blupi, voir (**)
 	char	busyCount;
 	char	busyDelay;
@@ -131,12 +131,12 @@ Blupi;
 
 typedef struct
 {
-	BOOL	bExist;			// TRUE -> utilisé
+	int		bExist;			// true -> utilisé
 
 	POINT	cel;			// cellule du décor
 	short	rankBlupi;		// blupi travaillant ici
 
-	BOOL	bFloor;			// TRUE -> floor, FALSE -> object
+	int		bFloor;			// true -> floor, false -> object
 	short	channel;
 	short	icon;
 	short	maskChannel;
@@ -169,11 +169,11 @@ public:
 	void	ArrangeBuild(POINT cel, int &channel, int &icon);
 	void	ArrangeObject(POINT cel);
 
-	BOOL	ArrangeFillTestFloor(POINT cel1, POINT cel2);
-	BOOL	ArrangeFillTest(POINT pos);
+	bool	ArrangeFillTestFloor(POINT cel1, POINT cel2);
+	bool	ArrangeFillTest(POINT pos);
 	void	ArrangeFillPut(POINT pos, int channel, int icon);
 	void	ArrangeFillSearch(POINT pos);
-	void	ArrangeFill(POINT pos, int channel, int icon, BOOL bFloor);
+	void	ArrangeFill(POINT pos, int channel, int icon, bool bFloor);
 
 	void	ArrangeBlupi();
 
@@ -182,118 +182,118 @@ public:
 	void	SearchObject(int rank, int icon, POINT cel, int *pBits);
 	void	AjustFloor(int rank, int icon, POINT cel, int *pBits);
 	void	AjustObject(int rank, int icon, POINT cel, int *pBits);
-	BOOL	IsFreeDirect(POINT cel, int direct, int rank);
-	BOOL	IsFreeCelObstacle(POINT cel);
-	BOOL	IsFreeCelFloor(POINT cel, int rank);
-	BOOL	IsFreeCelGo(POINT cel, int rank);
-	BOOL	IsFreeCelHili(POINT cel, int rank);
-	BOOL	IsFreeCel(POINT cel, int rank);
-	BOOL	IsFreeCelDepose(POINT cel, int rank);
-	BOOL	IsFreeCelEmbarque(POINT cel, int rank, int &action, POINT &limit);
-	BOOL	IsFreeCelDebarque(POINT cel, int rank, int &action, POINT &limit);
-	BOOL	IsFreeJump(POINT cel, int direct, int rank, int &action);
-	BOOL	IsFreeGlisse(POINT cel, int direct, int rank, int &action);
+	bool	IsFreeDirect(POINT cel, int direct, int rank);
+	bool	IsFreeCelObstacle(POINT cel);
+	bool	IsFreeCelFloor(POINT cel, int rank);
+	bool	IsFreeCelGo(POINT cel, int rank);
+	bool	IsFreeCelHili(POINT cel, int rank);
+	bool	IsFreeCel(POINT cel, int rank);
+	bool	IsFreeCelDepose(POINT cel, int rank);
+	bool	IsFreeCelEmbarque(POINT cel, int rank, int &action, POINT &limit);
+	bool	IsFreeCelDebarque(POINT cel, int rank, int &action, POINT &limit);
+	bool	IsFreeJump(POINT cel, int direct, int rank, int &action);
+	bool	IsFreeGlisse(POINT cel, int direct, int rank, int &action);
 	int		DirectSearch(POINT cel, POINT goal);
 	void	FlushUsed(int rank);
 	void	AddUsedPos(int rank, POINT pos);
-	BOOL	IsUsedPos(int rank, POINT pos);
-	BOOL	SearchBestBase(int rank, int &action, POINT &newCel, int &direct);
-	BOOL	SearchBestPass(int rank, int &action);
-	BOOL	IsWorkableObject(POINT cel, int rank);
-	BOOL	SearchOtherObject(int rank, POINT initCel, int action,
+	bool	IsUsedPos(int rank, POINT pos);
+	bool	SearchBestBase(int rank, int &action, POINT &newCel, int &direct);
+	bool	SearchBestPass(int rank, int &action);
+	bool	IsWorkableObject(POINT cel, int rank);
+	bool	SearchOtherObject(int rank, POINT initCel, int action,
 							  int distMax, int channel,
 							  int firstIcon1, int lastIcon1,
 							  int firstIcon2, int lastIcon2,
 							  POINT &foundCel, int &foundIcon);
-	BOOL	SearchOtherDrapeau(int rank, POINT initCel, int distMax,
+	bool	SearchOtherDrapeau(int rank, POINT initCel, int distMax,
 							   POINT &foundCel, int &foundIcon);
-	BOOL	SearchOtherBateau(int rank, POINT initCel, int distMax,
+	bool	SearchOtherBateau(int rank, POINT initCel, int distMax,
 							  POINT &foundCel, int &foundIcon);
-	BOOL	IsSpiderObject(int icon);
-	BOOL	SearchSpiderObject(int rank, POINT initCel, int distMax,
+	bool	IsSpiderObject(int icon);
+	bool	SearchSpiderObject(int rank, POINT initCel, int distMax,
 							   POINT &foundCel, int &foundIcon);
-	BOOL	IsTracksObject(int icon);
-	BOOL	SearchTracksObject(int rank, POINT initCel, int distMax,
+	bool	IsTracksObject(int icon);
+	bool	SearchTracksObject(int rank, POINT initCel, int distMax,
 							   POINT &foundCel, int &foundIcon);
-	BOOL	IsRobotObject(int icon);
-	BOOL	SearchRobotObject(int rank, POINT initCel, int distMax,
+	bool	IsRobotObject(int icon);
+	bool	SearchRobotObject(int rank, POINT initCel, int distMax,
 							  POINT &foundCel, int &foundIcon,
 							  int &foundAction);
-	BOOL	IsBombeObject(int icon);
-	BOOL	SearchBombeObject(int rank, POINT initCel, int distMax,
+	bool	IsBombeObject(int icon);
+	bool	SearchBombeObject(int rank, POINT initCel, int distMax,
 							  POINT &foundCel, int &foundIcon);
-	BOOL	SearchElectroObject(int rank, POINT initCel, int distMax,
+	bool	SearchElectroObject(int rank, POINT initCel, int distMax,
 								POINT &foundCel, int &foundIcon);
-	BOOL	IsUsineBuild(int rank, POINT cel);
-	BOOL	IsUsineFree(int rank, POINT cel);
-	BOOL	IsFireCel(POINT cel);
-	BOOL	IsVirusCel(POINT cel);
+	bool	IsUsineBuild(int rank, POINT cel);
+	bool	IsUsineFree(int rank, POINT cel);
+	bool	IsFireCel(POINT cel);
+	bool	IsVirusCel(POINT cel);
 	int		IsBuildPont(POINT &cel, int &iconBuild);
-	BOOL	IsBuildBateau(POINT cel, int &direct);
+	bool	IsBuildBateau(POINT cel, int &direct);
 	void	InitDrapeau();
 	void	AddDrapeau(POINT cel);
 	void	SubDrapeau(POINT cel);
-	BOOL	TestDrapeau(POINT cel);
+	bool	TestDrapeau(POINT cel);
 
 	// DecBlupi.cpp
 	void	BlupiFlush();
 	int		BlupiCreate(POINT cel, int action, int direct,
 						int perso, int energy);
-	BOOL	BlupiDelete(POINT cel, int perso=-1);
+	bool	BlupiDelete(POINT cel, int perso=-1);
 	void	BlupiDelete(int rank);
 	void	BlupiKill(int exRank, POINT cel, int type);
-	BOOL	BlupiIfExist(int rank);
+	bool	BlupiIfExist(int rank);
 	void	BlupiCheat(int cheat);
 	void	BlupiActualise(int rank);
 	void	BlupiAdaptIcon(int rank);
 	void	BlupiPushFog(int rank);
-	void	BlupiSound(int rank, int sound, POINT pos, BOOL bStop=FALSE);
+	void	BlupiSound(int rank, int sound, POINT pos, bool bStop=false);
 	void	BlupiInitAction(int rank, int action, int direct=-1);
 	void	BlupiChangeAction(int rank, int action, int direct=-1);
 	void	ListFlush(int rank);
 	int		ListGetParam(int rank, int button, POINT cel);
-	BOOL	ListPut(int rank, int button, POINT cel, POINT cMem);
+	bool	ListPut(int rank, int button, POINT cel, POINT cMem);
 	void	ListRemove(int rank);
 	int		ListSearch(int rank, int button, POINT cel, int &textForButton);
-	BOOL	RepeatAdjust(int rank, int button, POINT &cel, POINT &cMem,
+	bool	RepeatAdjust(int rank, int button, POINT &cel, POINT &cMem,
 						 int param, int list);
 	void	GoalStart(int rank, int action, POINT cel);
-	BOOL	GoalNextPhase(int rank);
+	bool	GoalNextPhase(int rank);
 	void	SetTotalTime(int total);
 	int		GetTotalTime();
 	void	GoalInitJauge(int rank);
 	void	GoalInitPassCel(int rank);
 	void	GoalAdjustCel(int rank, int &x, int &y);
-	BOOL	GoalNextOp(int rank, short *pTable);
+	bool	GoalNextOp(int rank, short *pTable);
 	void	GoalUnwork(int rank);
-	void	GoalStop(int rank, BOOL bError=FALSE, BOOL bSound=TRUE);
-	BOOL	BlupiIsGoalUsed(POINT cel);
+	void	GoalStop(int rank, bool bError=false, bool bSound=true);
+	bool	BlupiIsGoalUsed(POINT cel);
 	void	BlupiStartStopRayon(int rank, POINT startCel, POINT endCel);
-	BOOL	BlupiRotate(int rank);
-	BOOL	BlupiNextAction(int rank);
+	bool	BlupiRotate(int rank);
+	bool	BlupiNextAction(int rank);
 	void	BlupiNextGoal(int rank);
-	void	BlupiStep(BOOL bFirst);
+	void	BlupiStep(bool bFirst);
 	void	BlupiGetRect(int rank, RECT &rect);
 	int		GetTargetBlupi(POINT pos);
 	void	BlupiDeselect();
 	void	BlupiDeselect(int rank);
-	void	BlupiSetArrow(int rank, BOOL bArrow);
+	void	BlupiSetArrow(int rank, bool bArrow);
 	void	InitOutlineRect();
-	void	BlupiHiliDown(POINT pos, BOOL bAdd=FALSE);
-	void	BlupiHiliMove(POINT pos, BOOL bAdd=FALSE);
-	void	BlupiHiliUp(POINT pos, BOOL bAdd=FALSE);
+	void	BlupiHiliDown(POINT pos, bool bAdd=false);
+	void	BlupiHiliMove(POINT pos, bool bAdd=false);
+	void	BlupiHiliUp(POINT pos, bool bAdd=false);
 	void	BlupiDrawHili();
 	int		GetDefButton(POINT cel);
-	BOOL	BlupiGoal(int rank, int button, POINT cel, POINT cMem);
+	bool	BlupiGoal(int rank, int button, POINT cel, POINT cMem);
 	void	BlupiGoal(POINT cel, int button);
 	void	BlupiDestCel(int rank);
-	BOOL	IsTracksHere(POINT cel, BOOL bSkipInMove);
-	BOOL	IsBlupiHereEx(POINT cel1, POINT cel2, int exRank, BOOL bSkipInMove);
-	BOOL	IsBlupiHereEx(POINT cel, int exRank, BOOL bSkipInMove);
-	BOOL	IsBlupiHere(POINT cel, BOOL bSkipInMove);
-	BOOL	IsBlupiHere(POINT cel, int direct, BOOL bSkipInMove);
+	bool	IsTracksHere(POINT cel, bool bSkipInMove);
+	bool	IsBlupiHereEx(POINT cel1, POINT cel2, int exRank, bool bSkipInMove);
+	bool	IsBlupiHereEx(POINT cel, int exRank, bool bSkipInMove);
+	bool	IsBlupiHere(POINT cel, bool bSkipInMove);
+	bool	IsBlupiHere(POINT cel, int direct, bool bSkipInMove);
 	void	GetLevelJauge(int *pLevels, int *pTypes);
-	BOOL	IsWorkBlupi(int rank);
+	bool	IsWorkBlupi(int rank);
 	void	BlupiGetButtons(POINT pos, int &nb, int *pButtons, int *pErrors, int &perso);
 	void	TerminatedInit();
 	int		IsTerminated();
@@ -303,36 +303,36 @@ public:
 	void	MoveFlush();
 	int		MoveMaxFire();
 	void	MoveFixInit();
-	BOOL	MoveCreate(POINT cel, int rankBlupi, BOOL bFloor,
+	bool	MoveCreate(POINT cel, int rankBlupi, bool bFloor,
 					   int channel, int icon,
 					   int maskChannel, int maskIcon,
 					   int total, int delai, int stepY,
-					   BOOL bMisc=FALSE, BOOL bNotIfExist=FALSE);
-	BOOL	MoveAddMoves(POINT cel, int rankMoves);
-	BOOL	MoveAddIcons(POINT cel, int rankIcons, BOOL bContinue=FALSE);
-	BOOL	MoveStartFire(POINT cel);
+					   bool bMisc=false, bool bNotIfExist=false);
+	bool	MoveAddMoves(POINT cel, int rankMoves);
+	bool	MoveAddIcons(POINT cel, int rankIcons, bool bContinue=false);
+	bool	MoveStartFire(POINT cel);
 	void	MoveProxiFire(POINT cel);
 	void	MoveFire(int rank);
-	void	MoveStep(BOOL bFirst);
+	void	MoveStep(bool bFirst);
 	void	MoveFinish(POINT cel);
 	void	MoveFinish(int rankBlupi);
-	BOOL	MoveIsUsed(POINT cel);
-	BOOL	MoveGetObject(POINT cel, int &channel, int &icon);
-	BOOL	MovePutObject(POINT cel, int channel, int icon);
+	bool	MoveIsUsed(POINT cel);
+	bool	MoveGetObject(POINT cel, int &channel, int &icon);
+	bool	MovePutObject(POINT cel, int channel, int icon);
 
 	// DecIO.cpp
-	BOOL	Write(int rank, BOOL bUser, int world, int time, int total);
-	BOOL	Read(int rank, BOOL bUser, int &world, int &time, int &total);
-	BOOL	FileExist(int rank, BOOL bUser, int &world, int &time, int &total);
+	bool	Write(int rank, bool bUser, int world, int time, int total);
+	bool	Read(int rank, bool bUser, int &world, int &time, int &total);
+	bool	FileExist(int rank, bool bUser, int &world, int &time, int &total);
 	void	Flush();
 
 	// DecMap.cpp
 	void	MapInitColors();
 	POINT	ConvCelToMap(POINT cel);
 	POINT	ConvMapToCel(POINT pos);
-	BOOL	MapMove(POINT pos);
+	bool	MapMove(POINT pos);
 	void	MapPutCel(POINT pos);
-	BOOL	GenerateMap();
+	bool	GenerateMap();
 
 	// DecStat.cpp
 	void	StatisticInit();
@@ -341,52 +341,52 @@ public:
 	int		StatisticGetFire();
 	void	StatisticDraw();
 	void	GenerateStatictic();
-	BOOL	StatisticDown(POINT pos, int fwKeys);
-	BOOL	StatisticMove(POINT pos, int fwKeys);
-	BOOL	StatisticUp(POINT pos, int fwKeys);
+	bool	StatisticDown(POINT pos, int fwKeys);
+	bool	StatisticMove(POINT pos, int fwKeys);
+	bool	StatisticUp(POINT pos, int fwKeys);
 	int		StatisticDetect(POINT pos);
 
 	// Chemin.cpp
 	void	CheminMemPos(int exRank);
-	BOOL	CheminTestPos(POINT pos, int &rank);
+	bool	CheminTestPos(POINT pos, int &rank);
 	int		CheminARebours(int rank);
 	void	CheminFillTerrain(int rank);
-	BOOL	CheminTestDirection(int rank, int pos, int dir,
+	bool	CheminTestDirection(int rank, int pos, int dir,
 								int &next, int &ampli,
 								int &cout, int &action);
-	BOOL	CheminCherche(int rank, int &action);
-	BOOL	IsCheminFree(int rank, POINT dest, int button);
+	bool	CheminCherche(int rank, int &action);
+	bool	IsCheminFree(int rank, POINT dest, int button);
 
 	// Decor.cpp
 	void	SetShiftOffset(POINT offset);
 	POINT	ConvCelToPos(POINT cel);
-	POINT	ConvPosToCel(POINT pos, BOOL bMap=FALSE);
+	POINT	ConvPosToCel(POINT pos, bool bMap=false);
 	POINT	ConvPosToCel2(POINT pos);
 
 	void	Create(HWND hWnd, CSound *pSound, CPixmap *pPixmap);
 	void	Init(int channel, int icon);
 	void	InitAfterBuild();
 	void	ResetHili();
-	BOOL	LoadImages();
+	bool	LoadImages();
 	void	ClearFog();
 	void	ClearFire();
-	void	SetBuild(BOOL bBuild);
-	void	EnableFog(BOOL bEnable);
-	BOOL	GetInvincible();
-	void	SetInvincible(BOOL bInvincible);
-	BOOL	GetSuper();
-	void	SetSuper(BOOL bSuper);
+	void	SetBuild(bool bBuild);
+	void	EnableFog(bool bEnable);
+	bool	GetInvincible();
+	void	SetInvincible(bool bInvincible);
+	bool	GetSuper();
+	void	SetSuper(bool bSuper);
 	void	FlipOutline();
-	BOOL	PutFloor(POINT cel, int channel, int icon);
-	BOOL	PutObject(POINT cel, int channel, int icon);
-	BOOL	GetFloor(POINT cel, int &channel, int &icon);
-	BOOL	GetObject(POINT cel, int &channel, int &icon);
-	BOOL	SetFire(POINT cel, BOOL bFire);
+	bool	PutFloor(POINT cel, int channel, int icon);
+	bool	PutObject(POINT cel, int channel, int icon);
+	bool	GetFloor(POINT cel, int &channel, int &icon);
+	bool	GetObject(POINT cel, int &channel, int &icon);
+	bool	SetFire(POINT cel, bool bFire);
 
-	void	SetCoin(POINT coin, BOOL bCenter=FALSE);
+	void	SetCoin(POINT coin, bool bCenter=false);
 	POINT	GetCoin();
 	POINT	GetHome();
-	void	MemoPos(int rank, BOOL bRecord);
+	void	MemoPos(int rank, bool bRecord);
 
 	void	SetTime(int time);
 	int		GetTime();
@@ -400,8 +400,8 @@ public:
 	void	SetRegion(int region);
 	int		GetRegion();
 
-	void	SetInfoMode(BOOL bInfo);
-	BOOL	GetInfoMode();
+	void	SetInfoMode(bool bInfo);
+	bool	GetInfoMode();
 	void	SetInfoHeight(int height);
 	int		GetInfoHeight();
 
@@ -425,17 +425,17 @@ public:
 	void	CelHiliButton(POINT cel, int button);
 	void	CelHiliRepeat(int list);
 	int		GetResHili(POINT posMouse);
-	void	HideTooltips(BOOL bHide);
+	void	HideTooltips(bool bHide);
 
 	void	UndoOpen();
 	void	UndoClose();
 	void	UndoCopy();
 	void	UndoBack();
-	BOOL	IsUndo();
+	bool	IsUndo();
 
 	
 protected:
-	BOOL	GetSeeBits(POINT cel, char *pBits, int index);
+	bool	GetSeeBits(POINT cel, char *pBits, int index);
 	int		GetSeeIcon(char *pBits, int index);
 
 protected:
@@ -455,16 +455,16 @@ protected:
 	POINT		m_shiftOffset;
 	int			m_iconHili[4][4];
 	int			m_rankHili;			// rang du blupi visé
-	BOOL		m_bHiliRect;
+	bool		m_bHiliRect;
 	POINT		m_p1Hili;			// coins rectangle de sélection
 	POINT		m_p2Hili;
 	int			m_shiftHili;
 	int			m_nbBlupiHili;		// nb de blupi sélectionnés
 	int			m_rankBlupiHili;	// rang blupi sélectionné
-	BOOL		m_bFog;				// TRUE -> brouillard (jeu)
-	BOOL		m_bBuild;			// TRUE -> construction
-	BOOL		m_bInvincible;		// TRUE -> cheat code
-	BOOL		m_bSuper;			// TRUE -> cheat code
+	bool		m_bFog;				// true -> brouillard (jeu)
+	bool		m_bBuild;			// true -> construction
+	bool		m_bInvincible;		// true -> cheat code
+	bool		m_bSuper;			// true -> cheat code
 	short		m_colors[100];
 	int			m_time;				// temps relatif global
 	int			m_timeConst;		// temps relatif global constant
@@ -472,16 +472,16 @@ protected:
 	int			m_totalTime;		// temps total passé sur une partie
 	int			m_phase;			// phase pour la carte
 	POINT		m_celArrow;			// cellule avec flèche
-	BOOL		m_bOutline;
-	BOOL		m_bGroundRedraw;
+	bool		m_bOutline;
+	bool		m_bGroundRedraw;
 	char		m_buttonExist[MAXBUTTON];
 	int			m_statNb;			// nb de statistiques
 	int			m_statFirst;		// première statistique visible
 	int			m_bStatUp;			// flèche up statistique
 	int			m_bStatDown;		// flèche down statistique
 	int			m_statHili;			// statistique survolée
-	BOOL		m_bStatRecalc;		// TRUE -> recalcule les statistiques
-	BOOL		m_bStatRedraw;		// TRUE -> redessine les statistiques
+	bool		m_bStatRecalc;		// true -> recalcule les statistiques
+	bool		m_bStatRedraw;		// true -> redessine les statistiques
 	int			m_nbStatHach;		// nb de hachures
 	int			m_nbStatHachBlupi;	// hachures occupées par blupi
 	int			m_nbStatHachPlanche;// hachures occupées par planches
@@ -506,12 +506,12 @@ protected:
 	int			m_lastRegion;		// numéro dernière région
 	int			m_blupiHere;
 	POINT		m_lastDrapeau[MAXLASTDRAPEAU];
-	BOOL		m_bHideTooltips;	// TRUE -> menu présent
+	bool		m_bHideTooltips;	// true -> menu présent
 	char		m_text[50];
 	POINT		m_textLastPos;
 	int			m_textCount;
 	int			m_skill;
-	BOOL		m_bInfo;
+	bool		m_bInfo;
 	int			m_infoHeight;
 	POINT		m_memoPos[4];
 
@@ -520,7 +520,7 @@ protected:
 	POINT		m_cheminPos[MAXBLUPI*2];
 	int			m_cheminRank[MAXBLUPI*2];
 
-	BOOL		m_bFillFloor;
+	bool		m_bFillFloor;
 	int			m_fillSearchChannel;
 	int			m_fillSearchIcon;
 	int			m_fillPutChannel;
@@ -538,7 +538,7 @@ protected:
 
 POINT GetCel (int x, int y);
 POINT GetCel (POINT cel, int x, int y);
-BOOL IsValid (POINT cel);
+bool IsValid (POINT cel);
 POINT GetVector (int direct);
 extern int table_multi_goal[];
 extern short table_actions[];

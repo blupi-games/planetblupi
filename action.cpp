@@ -2568,7 +2568,7 @@ static DescAction action_table[] =
 
 
 // Calcule l'action suivante.
-// Retourne FALSE lorsque l'action est terminée.
+// Retourne false lorsque l'action est terminée.
 
 bool Action(short action, short direct,
 			short &phase, short &step,
@@ -2615,18 +2615,18 @@ bool Action(short action, short direct,
 			pos.x /= 100;
 			pos.y /= 100;
 
-			if ( phase >= nbPhase )  return FALSE;
+			if ( phase >= nbPhase )  return false;
 
 			phase ++;
 			step  ++;
 
-			return TRUE;
+			return true;
 		}
 
 		pTable ++;
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -2667,31 +2667,31 @@ bool Rotate(short &icon, short direct)
 	if ( icon >= 200 && icon <= 215 )  // tracks ?
 	{
 		icon = (direct/8)+200;
-		return TRUE;
+		return true;
 	}
 
 	if ( icon >= 216 && icon <= 231 )  // robot ?
 	{
 		icon = (direct/8)+216;
-		return TRUE;
+		return true;
 	}
 
 	if ( icon >= 290 && icon <= 305 )  // disciple ?
 	{
 		icon = (direct/8)+290;
-		return TRUE;
+		return true;
 	}
 
 	if ( icon >= 234 && icon <= 249 )  // blupi en bateau ?
 	{
 		icon = (direct/8)+234;
-		return TRUE;
+		return true;
 	}
 
 	if ( icon >= 250 && icon <= 265 )  // blupi en jeep ?
 	{
 		icon = (direct/8)+250;
-		return TRUE;
+		return true;
 	}
 
 	if ( icon >= 169 && icon <= 192 )  // blupi malade ?
@@ -2707,14 +2707,14 @@ bool Rotate(short &icon, short direct)
 			if ( icon == pTable[i] )
 			{
 				icon = pTable[direct/16]+offset;
-				return TRUE;
+				return true;
 			}
 		}
 
 		pTable += 8;
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Retourne la direction d'une icône.

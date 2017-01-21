@@ -37,13 +37,13 @@ CSound*		g_pSound  = NULL;		// sound principal
 CMovie*		g_pMovie  = NULL;		// movie principal
 CDecor*		g_pDecor  = NULL;
 char		g_CDPath[MAX_PATH];		// chemin d'accès au CD-Rom
-BOOL		g_bFullScreen = FALSE;	// FALSE si mode de test
+bool		g_bFullScreen = false;	// false si mode de test
 int			g_speedRate = 1;
 int			g_timerInterval = 50;	// inverval = 50ms
 int			g_mouseType = MOUSETYPEGRA;
 MMRESULT    g_updateTimer;			// timer général
-BOOL		g_bActive = TRUE;		// is application active ?
-BOOL		g_bTermInit = FALSE;	// initialisation en cours
+bool		g_bActive = true;		// is application active ?
+bool		g_bTermInit = false;	// initialisation en cours
 
 UINT		g_lastPhase = 999;
 
@@ -67,7 +67,7 @@ int GetNum(char *p)
 
 // Lit le fichier de configuration.
 
-BOOL ReadConfig(LPSTR lpCmdLine)
+bool ReadConfig(LPSTR lpCmdLine)
 {
 	FILE*		file    = NULL;
 	char		buffer[200];
@@ -75,7 +75,7 @@ BOOL ReadConfig(LPSTR lpCmdLine)
 	int			nb;
 
 	file = fopen("data\\config.def", "rb");
-	if ( file == NULL )  return FALSE;
+	if ( file == NULL )  return false;
 	nb = fread(buffer, sizeof(char), 200-1, file);
 	buffer[nb] = 0;
 	fclose(file);
@@ -93,7 +93,7 @@ BOOL ReadConfig(LPSTR lpCmdLine)
 			g_CDPath[i] = 0;  // met le terminateur
 		}
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 	else
@@ -122,7 +122,7 @@ BOOL ReadConfig(LPSTR lpCmdLine)
 		drive[2] = '\\';
 		drive[3] = 0;
 		nb = GetDriveType(drive);
-		if ( nb != DRIVE_CDROM )  return FALSE;
+		if ( nb != DRIVE_CDROM )  return false;
 	}
 #endif
 #endif
@@ -146,7 +146,7 @@ BOOL ReadConfig(LPSTR lpCmdLine)
 	pText = strstr(buffer, "FullScreen=");
 	if ( pText != NULL )
 	{
-		g_bFullScreen = GetNum(pText+11);
+		g_bFullScreen = !!GetNum(pText+11);
 		if ( g_bFullScreen != 0 )  g_bFullScreen = 1;
 	}
 
@@ -158,7 +158,7 @@ BOOL ReadConfig(LPSTR lpCmdLine)
 		if ( g_mouseType > 9 )  g_mouseType = 9;
 	}
 
-	return TRUE;
+	return true;
 }
 
 
@@ -297,9 +297,9 @@ void Benchmark()
 
 // Restitue le jeu après une activation en mode fullScreen.
 
-BOOL RestoreGame()
+bool RestoreGame()
 {
-	if ( g_pPixmap == NULL )  return FALSE;
+	if ( g_pPixmap == NULL )  return false;
 
 	g_pEvent->RestoreGame();
 	return g_pPixmap->Restore();
@@ -307,9 +307,9 @@ BOOL RestoreGame()
 
 // Libère le jeu avant une désactivation en mode fullScreen.
 
-BOOL FlushGame()
+bool FlushGame()
 {
-	if ( g_pPixmap == NULL )  return FALSE;
+	if ( g_pPixmap == NULL )  return false;
 
 	return g_pPixmap->Flush();
 }
@@ -417,7 +417,7 @@ LRESULT CALLBACK WindowProc (HWND hWnd, UINT message,
 					totalDim.y = 66;
 					iconDim.x = 64;
 					iconDim.y = 66/2;
-					g_pPixmap->Cache(CHHILI, "image\\hili.blp", totalDim, iconDim, TRUE);
+					g_pPixmap->Cache(CHHILI, "image\\hili.blp", totalDim, iconDim, true);
 					g_pPixmap->SetTransparent(CHHILI, RGB(0,0,255));  // bleu
 
 					g_pPixmap->SavePalette();
@@ -485,7 +485,7 @@ LRESULT CALLBACK WindowProc (HWND hWnd, UINT message,
 		case WM_SETCURSOR:
 //			ChangeSprite();
 //			SetCursor(NULL);  // pas de souris visible !
-			return TRUE;
+			return true;
 
 		case WM_LBUTTONDOWN:
 //?			Benchmark();
@@ -544,7 +544,7 @@ LRESULT CALLBACK WindowProc (HWND hWnd, UINT message,
 
 // Erreur dans DoInit.
 
-BOOL InitFail(char *msg, BOOL bDirectX)
+bool InitFail(char *msg, bool bDirectX)
 {
 	char	buffer[100];
 
@@ -556,17 +556,17 @@ BOOL InitFail(char *msg, BOOL bDirectX)
 
     FinishObjects();
     DestroyWindow(g_hWnd);
-    return FALSE;
+    return false;
 }
 
 // Initialisation de l'application.
 
-static BOOL DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
+static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	WNDCLASS		wc;
 	POINT			totalDim, iconDim;
 	RECT			rcRect;
-	BOOL			bOK;
+	bool			bOK;
 
 	bOK = ReadConfig(lpCmdLine);  // lit le fichier config.def
 
@@ -614,7 +614,7 @@ static BOOL DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 
 		SetRect(&WindowRect, (sx-LXIMAGE)/2, (sy-LYIMAGE)/2,
 							 (sx+LXIMAGE)/2, (sy+LYIMAGE)/2);
-		AdjustWindowRect(&WindowRect,  WS_POPUPWINDOW|WS_CAPTION, TRUE);
+		AdjustWindowRect(&WindowRect,  WS_POPUPWINDOW|WS_CAPTION, true);
 		WindowRect.top += GetSystemMetrics(SM_CYCAPTION);
 
 		g_hWnd = CreateWindow
@@ -631,7 +631,7 @@ static BOOL DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 						NULL
 					);
 	}
-	if ( !g_hWnd )  return FALSE;
+	if ( !g_hWnd )  return false;
 
 	ShowWindow(g_hWnd, nCmdShow);
 	UpdateWindow(g_hWnd);
@@ -641,17 +641,17 @@ static BOOL DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 
 	if ( !bOK )  // config.def pas correct ?
 	{
-		return InitFail("Game not correctly installed", FALSE);
+		return InitFail("Game not correctly installed", false);
 	}
 
 	// Crée le pixmap principal.
 	g_pPixmap = new CPixmap;
-	if ( g_pPixmap == NULL )  return InitFail("New pixmap", TRUE);
+	if ( g_pPixmap == NULL )  return InitFail("New pixmap", true);
 
 	totalDim.x = LXIMAGE;
 	totalDim.y = LYIMAGE;
 	if ( !g_pPixmap->Create(g_hWnd, totalDim, g_bFullScreen, g_mouseType) )
-		return InitFail("Create pixmap", TRUE);
+		return InitFail("Create pixmap", true);
 
 	OutputDebug("Image: init\n");
 	totalDim.x = LXIMAGE;
@@ -659,11 +659,11 @@ static BOOL DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	iconDim.x  = 0;
 	iconDim.y  = 0;
 #if _INTRO
-	if ( !g_pPixmap->Cache(CHBACK, "image\\intro1.blp", totalDim, iconDim, TRUE) )
+	if ( !g_pPixmap->Cache(CHBACK, "image\\intro1.blp", totalDim, iconDim, true) )
 #else
-	if ( !g_pPixmap->Cache(CHBACK, "image\\init.blp", totalDim, iconDim, TRUE) )
+	if ( !g_pPixmap->Cache(CHBACK, "image\\init.blp", totalDim, iconDim, true) )
 #endif
-		return FALSE;
+		return false;
 
 	OutputDebug("SavePalette\n");
 	g_pPixmap->SavePalette();
@@ -675,10 +675,10 @@ static BOOL DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	totalDim.y = LYIMAGE;
 	iconDim.x  = 0;
 	iconDim.y  = 0;
-	if ( !g_pPixmap->Cache(CHGROUND, "image\\init.blp", totalDim, iconDim, TRUE) )
-		return FALSE;
+	if ( !g_pPixmap->Cache(CHGROUND, "image\\init.blp", totalDim, iconDim, true) )
+		return false;
 
-	g_pPixmap->SetDebug(FALSE);
+	g_pPixmap->SetDebug(false);
 
 	rcRect.left   = 0;
 	rcRect.top    = 0;
@@ -691,118 +691,118 @@ static BOOL DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	totalDim.y = DIMCELY*2*6;
 	iconDim.x = DIMCELX*2;
 	iconDim.y = DIMCELY*2;
-	if ( !g_pPixmap->Cache(CHFLOOR, "image\\floor000.blp", totalDim, iconDim, FALSE) )
-		return InitFail("Cache floor000.blp", TRUE);
+	if ( !g_pPixmap->Cache(CHFLOOR, "image\\floor000.blp", totalDim, iconDim, false) )
+		return InitFail("Cache floor000.blp", true);
 	g_pPixmap->SetTransparent(CHFLOOR, RGB(0,0,255));  // bleu
 
 	totalDim.x = DIMOBJX*16;
 	totalDim.y = DIMOBJY*8;
 	iconDim.x = DIMOBJX;
 	iconDim.y = DIMOBJY;
-	if ( !g_pPixmap->Cache(CHOBJECT, "image\\obj000.blp", totalDim, iconDim, FALSE) )
-		return InitFail("Cache obj000.blp", TRUE);
+	if ( !g_pPixmap->Cache(CHOBJECT, "image\\obj000.blp", totalDim, iconDim, false) )
+		return InitFail("Cache obj000.blp", true);
 	g_pPixmap->SetTransparent(CHOBJECT, RGB(0,0,255));  // bleu
 
-	if ( !g_pPixmap->Cache(CHOBJECTo, "image\\obj-o000.blp", totalDim, iconDim, FALSE) )
-		return InitFail("Cache obj-o000.blp", TRUE);
+	if ( !g_pPixmap->Cache(CHOBJECTo, "image\\obj-o000.blp", totalDim, iconDim, false) )
+		return InitFail("Cache obj-o000.blp", true);
 	g_pPixmap->SetTransparent(CHOBJECTo, RGB(255,255,255));  // blanc
 
 	totalDim.x = DIMBLUPIX*16;
 	totalDim.y = DIMBLUPIY*23;
 	iconDim.x = DIMBLUPIX;
 	iconDim.y = DIMBLUPIY;
-	if ( !g_pPixmap->Cache(CHBLUPI, "image\\blupi.blp", totalDim, iconDim, FALSE) )
-		return InitFail("Cache blupi.blp", TRUE);
+	if ( !g_pPixmap->Cache(CHBLUPI, "image\\blupi.blp", totalDim, iconDim, false) )
+		return InitFail("Cache blupi.blp", true);
 	g_pPixmap->SetTransparent(CHBLUPI, RGB(0,0,255));  // bleu
 
 	totalDim.x = 64;
 	totalDim.y = 66;
 	iconDim.x = 64;
 	iconDim.y = 66/2;
-	if ( !g_pPixmap->Cache(CHHILI, "image\\hili.blp", totalDim, iconDim, FALSE) )
-		return InitFail("Cache hili.blp", TRUE);
+	if ( !g_pPixmap->Cache(CHHILI, "image\\hili.blp", totalDim, iconDim, false) )
+		return InitFail("Cache hili.blp", true);
 	g_pPixmap->SetTransparent(CHHILI, RGB(0,0,255));  // bleu
 
 	totalDim.x = DIMCELX*2*3;
 	totalDim.y = DIMCELY*2*5;
 	iconDim.x = DIMCELX*2;
 	iconDim.y = DIMCELY*2;
-	if ( !g_pPixmap->Cache(CHFOG, "image\\fog.blp", totalDim, iconDim, FALSE) )
-		return InitFail("Cache fog.blp", TRUE);
+	if ( !g_pPixmap->Cache(CHFOG, "image\\fog.blp", totalDim, iconDim, false) )
+		return InitFail("Cache fog.blp", true);
 	g_pPixmap->SetTransparent(CHFOG, RGB(255,255,255));  // blanc
 
 	totalDim.x = DIMCELX*2*16;
 	totalDim.y = DIMCELY*2*1;
 	iconDim.x = DIMCELX*2;
 	iconDim.y = DIMCELY*2;
-	if ( !g_pPixmap->Cache(CHMASK1, "image\\mask1.blp", totalDim, iconDim, FALSE) )
-		return InitFail("Cache mask1.blp", TRUE);
+	if ( !g_pPixmap->Cache(CHMASK1, "image\\mask1.blp", totalDim, iconDim, false) )
+		return InitFail("Cache mask1.blp", true);
 	g_pPixmap->SetTransparent(CHMASK1, RGB(0,0,0));  // noir
 
 	totalDim.x = DIMBUTTONX*6;
 	totalDim.y = DIMBUTTONY*21;
 	iconDim.x = DIMBUTTONX;
 	iconDim.y = DIMBUTTONY;
-	if ( !g_pPixmap->Cache(CHBUTTON, "image\\button00.blp", totalDim, iconDim, FALSE) )
-		return InitFail("Cache button00.blp", TRUE);
+	if ( !g_pPixmap->Cache(CHBUTTON, "image\\button00.blp", totalDim, iconDim, false) )
+		return InitFail("Cache button00.blp", true);
 	g_pPixmap->SetTransparent(CHBUTTON, RGB(0,0,255));  // bleu
 
 	totalDim.x = DIMJAUGEX*1;
 	totalDim.y = DIMJAUGEY*4;
 	iconDim.x = DIMJAUGEX;
 	iconDim.y = DIMJAUGEY;
-	if ( !g_pPixmap->Cache(CHJAUGE, "image\\jauge.blp", totalDim, iconDim, FALSE) )
-		return InitFail("Cache jauge.blp", TRUE);
+	if ( !g_pPixmap->Cache(CHJAUGE, "image\\jauge.blp", totalDim, iconDim, false) )
+		return InitFail("Cache jauge.blp", true);
 	g_pPixmap->SetTransparent(CHJAUGE, RGB(0,0,255));  // bleu
 
 	totalDim.x = DIMTEXTX*16;
 	totalDim.y = DIMTEXTY*8*3;
 	iconDim.x = DIMTEXTX;
 	iconDim.y = DIMTEXTY;
-	if ( !g_pPixmap->Cache(CHTEXT, "image\\text.blp", totalDim, iconDim, FALSE) )
-		return InitFail("Cache text.blp", TRUE);
+	if ( !g_pPixmap->Cache(CHTEXT, "image\\text.blp", totalDim, iconDim, false) )
+		return InitFail("Cache text.blp", true);
 	g_pPixmap->SetTransparent(CHTEXT, RGB(0,0,255));  // bleu
 
 	totalDim.x = DIMLITTLEX*16;
 	totalDim.y = DIMLITTLEY*8;
 	iconDim.x = DIMLITTLEX;
 	iconDim.y = DIMLITTLEY;
-	if ( !g_pPixmap->Cache(CHLITTLE, "image\\little.blp", totalDim, iconDim, FALSE) )
-		return InitFail("Cache little.blp", TRUE);
+	if ( !g_pPixmap->Cache(CHLITTLE, "image\\little.blp", totalDim, iconDim, false) )
+		return InitFail("Cache little.blp", true);
 	g_pPixmap->SetTransparent(CHLITTLE, RGB(0,0,255));  // bleu
 
 	totalDim.x = 426;
 	totalDim.y = 52;
 	iconDim.x = 426;
 	iconDim.y = 52;
-	if ( !g_pPixmap->Cache(CHBIGNUM, "image\\bignum.blp", totalDim, iconDim, FALSE) )
-		return InitFail("Cache bignum.blp", TRUE);
+	if ( !g_pPixmap->Cache(CHBIGNUM, "image\\bignum.blp", totalDim, iconDim, false) )
+		return InitFail("Cache bignum.blp", true);
 	g_pPixmap->SetTransparent(CHBIGNUM, RGB(0,0,255));  // bleu
 
 	// Crée le gestionnaire de son.
 	g_pSound = new CSound;
-	if ( g_pSound == NULL )  return InitFail("New sound", TRUE);
+	if ( g_pSound == NULL )  return InitFail("New sound", true);
 
 	g_pSound->Create(g_hWnd);
 	g_pSound->CacheAll();
-	g_pSound->SetState(TRUE);
+	g_pSound->SetState(true);
 
 	// Crée le gestionnaire de films.
 	g_pMovie = new CMovie;
-	if ( g_pMovie == NULL )  return InitFail("New movie", FALSE);
+	if ( g_pMovie == NULL )  return InitFail("New movie", false);
 
 	g_pMovie->Create();
 
 	// Crée le gestionnaire de décors.
 	g_pDecor = new CDecor;
-	if ( g_pDecor == NULL )  return InitFail("New decor", FALSE);
+	if ( g_pDecor == NULL )  return InitFail("New decor", false);
 
 	g_pDecor->Create(g_hWnd, g_pSound, g_pPixmap);
 	g_pDecor->MapInitColors();
 
 	// Crée le gestionnaire d'événements.
 	g_pEvent = new CEvent;
-	if ( g_pEvent == NULL )  return InitFail("New event", FALSE);
+	if ( g_pEvent == NULL )  return InitFail("New event", false);
 
 	g_pEvent->Create(g_hWnd, g_pPixmap, g_pDecor, g_pSound, g_pMovie);
 	g_pEvent->SetFullScreen(g_bFullScreen);
@@ -813,8 +813,8 @@ static BOOL DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	g_pEvent->ChangePhase(WM_PHASE_TESTCD);
 #endif
 
-	g_bTermInit = TRUE;  // initialisation terminée
-	return TRUE;
+	g_bTermInit = true;  // initialisation terminée
+	return true;
 }
 
 
@@ -827,12 +827,12 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	if ( !DoInit(hInstance, lpCmdLine, nCmdShow) )
 	{
-		return FALSE;
+		return false;
 	}
 
 	SetTimer(g_hWnd, 1, g_timerInterval, NULL);
 
-	while ( TRUE )
+	while ( true )
 	{
 		if ( PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE) )
 		{

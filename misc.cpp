@@ -13,7 +13,7 @@
 
 HINSTANCE		g_hInstance;
 int				g_lastSprite = 0;
-extern BOOL		g_bFullScreen;	// FALSE si mode de test
+extern bool		g_bFullScreen;	// false si mode de test
 extern int		g_mouseType;
 extern char		g_CDPath[MAX_PATH];
 
@@ -153,14 +153,14 @@ void AddCDPath(char *pFilename)
 {
 	char	temp[MAX_PATH];
 	int		lg;
-	BOOL	bDaniel = FALSE;
+	bool	bDaniel = false;
 
 	if ( g_CDPath[0] == 0 )  return;
 
 	lg = strlen(g_CDPath);
 	if ( lg > 14 && strstr(g_CDPath+lg-14, "\\daniel\\blupi\\") )
 	{
-		bDaniel = TRUE;
+		bDaniel = true;
 	}
 
 #if _DEMO
@@ -212,7 +212,7 @@ void AddUserPath(char *pFilename)
 
 	att.nLength = sizeof(SECURITY_ATTRIBUTES);
 	att.lpSecurityDescriptor = NULL;
-	att.bInheritHandle = FALSE;
+	att.bInheritHandle = false;
 	CreateDirectory(temp, &att);
 
 	pText = strstr(pFilename, "\\");

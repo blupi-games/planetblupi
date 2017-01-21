@@ -39,318 +39,318 @@ Statistic;
 static Statistic table_statistic[] =
 {
 	{				// STATBLUPIm = 0
-		TRUE,
+		true,
 		0,			// blupi malade
 		0,0,		// 
 		76,
-		FALSE,
+		false,
 		TX_OBJ_BLUPIm,
 		0, 0,
 	},
 	{				// STATBLUPIf = 1
-		TRUE,
+		true,
 		0,			// blupi fatigué
 		0,0,		// 
 		13,
-		FALSE,
+		false,
 		TX_OBJ_BLUPIf,
 		0, 0,
 	},
 	{				// STATBLUPI = 2
-		TRUE,
+		true,
 		0,			// blupi énergique
 		0,0,		// 
 		14,
-		FALSE,
+		false,
 		TX_OBJ_BLUPI,
 		0, 0,
 	},
 	{				// STATDISCIPLE = 3
-		TRUE,
+		true,
 		8,			// disciple
 		0,0,		// 
 		85,
-		FALSE,
+		false,
 		TX_OBJ_DISCIPLE,
 		0, 0,
 	},
 	{				// 4
-		TRUE,
+		true,
 		-1,			// objet
 		117,117,	// bateau
 		58,
-		FALSE,
+		false,
 		TX_OBJ_BATEAU,
 		0, 0,
 	},
 	{				// 5
-		TRUE,
+		true,
 		-1,			// objet
 		118,118,	// jeep
 		65,
-		FALSE,
+		false,
 		TX_OBJ_JEEP,
 		0, 0,
 	},
 	{				// 6
-		TRUE,
+		true,
 		-1,			// objet
 		16,16,		// armure
 		106,
-		FALSE,
+		false,
 		TX_OBJ_ARMURE,
 		0, 0,
 	},
 	{				// 7
-		TRUE,
+		true,
 		-1,			// objet
 		93,93,		// piège
 		70,
-		FALSE,
+		false,
 		TX_OBJ_PIEGE,
 		0, 0,
 	},
 	{				// 8
-		TRUE,
+		true,
 		-1,			// objet
 		92,92,		// poison
 		71,
-		FALSE,
+		false,
 		TX_OBJ_POISON,
 		0, 0,
 	},
 	{				// 9
-		TRUE,
+		true,
 		-1,			// objet
 		85,85,		// dynamite
 		57,
-		FALSE,
+		false,
 		TX_OBJ_DYNAMITE,
 		0, 0,
 	},
 	{				// 10
-		TRUE,
+		true,
 		-1,			// objet
 		125,125,	// mine
 		63,
-		FALSE,
+		false,
 		TX_OBJ_MINE,
 		0, 0,
 	},
 	{				// 11
-		TRUE,
+		true,
 		-1,			// objet
 		60,60,		// tomate
 		28,
-		FALSE,
+		false,
 		TX_OBJ_TOMATE,
 		0, 0,
 	},
 	{				// 12
-		TRUE,
+		true,
 		-1,			// objet
 		80,80,		// bouteille
 		34,
-		FALSE,
+		false,
 		TX_OBJ_POTION,
 		0, 0,
 	},
 	{				// 13
-		TRUE,
+		true,
 		-1,			// objet
 		36,36,		// planches
 		22,
-		FALSE,
+		false,
 		TX_OBJ_PLANCHE,
 		0, 0,
 	},
 	{				// 14
-		TRUE,
+		true,
 		-1,			// objet
 		44,44,		// pierres
 		27,
-		FALSE,
+		false,
 		TX_OBJ_PIERRE,
 		0, 0,
 	},
 	{				// 15
-		TRUE,
+		true,
 		-1,			// objet
 		124,124,	// drapeau
 		64,
-		TRUE,
+		true,
 		TX_OBJ_DRAPEAU,
 		0, 0,
 	},
 	{				// 16
-		TRUE,
+		true,
 		-1,			// objet
 		123,123,	// fer
 		62,
-		FALSE,
+		false,
 		TX_OBJ_FER,
 		0, 0,
 	},
 	{				// 17
-		TRUE,
+		true,
 		-1,			// objet
 		82,82,		// fleurs1
 		72,
-		FALSE,
+		false,
 		TX_OBJ_FLEUR1,
 		0, 0,
 	},
 	{				// 18
-		TRUE,
+		true,
 		-1,			// objet
 		84,84,		// fleurs2
 		73,
-		FALSE,
+		false,
 		TX_OBJ_FLEUR2,
 		0, 0,
 	},
 	{				// 19
-		TRUE,
+		true,
 		-1,			// objet
 		95,95,		// fleurs3
 		74,
-		FALSE,
+		false,
 		TX_OBJ_FLEUR3,
 		0, 0,
 	},
 	{				// 20
-		TRUE,
+		true,
 		-1,			// objet
 		61,61,		// cabane
 		19,
-		TRUE,
+		true,
 		TX_OBJ_CABANE,
 		0, 0,
 	},
 	{				// 21
-		TRUE,
+		true,
 		-1,			// objet
 		-52,-56,	// couveuse
 		25,
-		FALSE,
+		false,
 		TX_OBJ_COUVEUSE,
 		0, 0,
 	},
 	{				// 22
-		TRUE,
+		true,
 		-1,			// objet
 		-80,-84,	// téléporteur
 		101,
-		FALSE,
+		false,
 		TX_OBJ_TELEPORTE,
 		0, 0,
 	},
 	{				// 23
-		TRUE,
+		true,
 		-1,			// objet
 		28,29,		// laboratoire
 		35,
-		TRUE,
+		true,
 		TX_OBJ_LABO,
 		0, 0,
 	},
 	{				// 24
-		TRUE,
+		true,
 		-1,			// objet
 		121,122,	// mine de fer
 		61,
-		TRUE,
+		true,
 		TX_OBJ_MINEFER,
 		0, 0,
 	},
 	{				// 25
-		TRUE,
+		true,
 		-1,			// objet
 		119,120,	// usine
 		59,
-		TRUE,
+		true,
 		TX_OBJ_USINE,
 		0, 0,
 	},
 	{				// 26
-		TRUE,
+		true,
 		-1,			// objet
 		27,27,		// tour
 		33,
-		TRUE,
+		true,
 		TX_OBJ_TOUR,
 		0, 0,
 	},
 	{				// STATFEU = 27
-		TRUE,
+		true,
 		-2,			// feu
 		0,0,		// 
 		37,
-		TRUE,
+		true,
 		TX_OBJ_FEU,
 		0, 0,
 	},
 	{				// STATROBOT = 28
-		TRUE,
+		true,
 		4,			// robot
 		0,0,		// 
 		56,
-		FALSE,
+		false,
 		TX_OBJ_ROBOT,
 		0, 0,
 	},
 	{				// STATTRACKS = 29
-		TRUE,
+		true,
 		3,			// tracks
 		0,0,		// 
 		17,
-		FALSE,
+		false,
 		TX_OBJ_TRACKS,
 		0, 0,
 	},
 	{				// STATBOMBE = 30
-		TRUE,
+		true,
 		5,			// bombe
 		0,0,		// 
 		38,
-		FALSE,
+		false,
 		TX_OBJ_BOMBE,
 		0, 0,
 	},
 	{				// STATARAIGNEE = 31
-		TRUE,
+		true,
 		1,			// araignée
 		0,0,		// 
 		15,
-		FALSE,
+		false,
 		TX_OBJ_ARAIGNEE,
 		0, 0,
 	},
 	{				// STATVIRUS = 32
-		TRUE,
+		true,
 		2,			// virus
 		0,0,		// 
 		16,
-		FALSE,
+		false,
 		TX_OBJ_VIRUS,
 		0, 0,
 	},
 	{				// STATELECTRO = 33
-		TRUE,
+		true,
 		7,			// électro
 		0,0,		// 
 		75,
-		FALSE,
+		false,
 		TX_OBJ_ELECTRO,
 		0, 0,
 	},
 
 	{
-		FALSE,
+		false,
 		-1,
 		0,0,
 		-1,
-		FALSE,
+		false,
 		0,
 		999, 999,
 	},
@@ -399,11 +399,11 @@ void CDecor::StatisticInit()
 
 	m_statNb    = 0;
 	m_statFirst = 0;
-	m_bStatUp   = FALSE;
-	m_bStatDown = FALSE;
+	m_bStatUp   = false;
+	m_bStatDown = false;
 	m_statHili  = -1;
-	m_bStatRecalc = TRUE;  // faudra tout recalculer
-	m_bStatRedraw = TRUE;  // faudra tout redessiner
+	m_bStatRecalc = true;  // faudra tout recalculer
+	m_bStatRedraw = true;  // faudra tout redessiner
 }
 
 
@@ -412,7 +412,7 @@ void CDecor::StatisticInit()
 void CDecor::StatisticUpdate()
 {
 	int			rank, x, y, icon, nb;
-	BOOL		bHach;
+	bool		bHach;
 	Statistic*	pStatistic;
 
 	m_nbStatHach        = 0;
@@ -525,11 +525,11 @@ void CDecor::StatisticUpdate()
 	{
 		for ( y=0 ; y<MAXCELY ; y+=2 )
 		{
-			bHach = FALSE;
+			bHach = false;
 			if ( m_decor[x/2][y/2].floorChannel == CHFLOOR &&
 				 m_decor[x/2][y/2].floorIcon    == 17 )  // dalle hachurée ?
 			{
-				bHach = TRUE;
+				bHach = true;
 				m_nbStatHach ++;
 			}
 
@@ -614,8 +614,8 @@ void CDecor::StatisticUpdate()
 	}
 	if ( m_statNb <= STATNB )  // tout visible en une page ?
 	{
-		m_bStatUp   = FALSE;
-		m_bStatDown = FALSE;
+		m_bStatUp   = false;
+		m_bStatDown = false;
 		m_statFirst = 0;
 	}
 	else
@@ -623,21 +623,21 @@ void CDecor::StatisticUpdate()
 		// nb <- nb de pages nécessaires
 		nb = (m_statNb+STATNB-5)/(STATNB-2);
 
-		m_bStatUp   = TRUE;
-		m_bStatDown = TRUE;
+		m_bStatUp   = true;
+		m_bStatDown = true;
 		if ( m_statFirst >= 1+(nb-1)*(STATNB-2) )
 		{
 			m_statFirst = 1+(nb-1)*(STATNB-2);
-			m_bStatDown = FALSE;
+			m_bStatDown = false;
 		}
 		if ( m_statFirst == 0 )
 		{
-			m_bStatUp = FALSE;
+			m_bStatUp = false;
 		}
 	}
 
-	m_bStatRecalc = FALSE;  // c'est calculé
-	m_bStatRedraw = TRUE;   // faudra tout redessiner
+	m_bStatRecalc = false;  // c'est calculé
+	m_bStatRedraw = true;   // faudra tout redessiner
 }
 
 // Retourne le nombre de blupi.
@@ -779,7 +779,7 @@ void CDecor::StatisticDraw()
 		DrawText(m_pPixmap, pos, text);
 	}
 
-	m_bStatRedraw = FALSE;  // dessin plus nécessaire
+	m_bStatRedraw = false;  // dessin plus nécessaire
 }
 
 // Génère les statistiques.
@@ -802,7 +802,7 @@ void CDecor::GenerateStatictic()
 
 // Bouton pressé dans les statistiques.
 
-BOOL CDecor::StatisticDown(POINT pos, int fwKeys)
+bool CDecor::StatisticDown(POINT pos, int fwKeys)
 {
 	int			hili, rank, x, y, show, icon;
 	POINT		cel;
@@ -811,7 +811,7 @@ BOOL CDecor::StatisticDown(POINT pos, int fwKeys)
 	StatisticUpdate();
 
 	hili = StatisticDetect(pos);
-	if ( hili < 0 )  return FALSE;
+	if ( hili < 0 )  return false;
 
 	if ( m_bStatUp && hili == 0 )  // flèche up ?
 	{
@@ -824,7 +824,7 @@ BOOL CDecor::StatisticDown(POINT pos, int fwKeys)
 		pos.x = LXIMAGE/2;
 		pos.y = LYIMAGE/2;
 		m_pSound->PlayImage(SOUND_OPEN, pos);
-		return TRUE;
+		return true;
 	}
 
 	if ( m_bStatDown && hili == STATNB-1 )  // flèche down ?
@@ -841,13 +841,13 @@ BOOL CDecor::StatisticDown(POINT pos, int fwKeys)
 		pos.x = LXIMAGE/2;
 		pos.y = LYIMAGE/2;
 		m_pSound->PlayImage(SOUND_OPEN, pos);
-		return TRUE;
+		return true;
 	}
 
 	rank = m_statFirst+hili;
 	if ( rank > 0 && m_bStatUp )  rank --;
 	pStatistic = StatisticGet(rank);
-	if ( !pStatistic->bExist )  return FALSE;
+	if ( !pStatistic->bExist )  return false;
 
 	show = pStatistic->lastShow % pStatistic->nb;
 	pStatistic->lastShow ++;
@@ -876,11 +876,11 @@ BOOL CDecor::StatisticDown(POINT pos, int fwKeys)
 							 m_blupi[rank].perso == 8 )   // disciple ?
 						{
 							BlupiDeselect();
-							m_blupi[rank].bHili = TRUE;
+							m_blupi[rank].bHili = true;
 							m_rankBlupiHili = rank;  // sélectionne
 							m_nbBlupiHili = 1;
 						}
-						BlupiSetArrow(rank, TRUE);
+						BlupiSetArrow(rank, true);
 						cel = m_blupi[rank].cel;
 						goto select;
 					}
@@ -981,17 +981,17 @@ BOOL CDecor::StatisticDown(POINT pos, int fwKeys)
 		}
 	}
 
-	return FALSE;
+	return false;
 
 	select:
-	SetCoin(cel, TRUE);
+	SetCoin(cel, true);
 	NextPhase(0);  // faudra refaire la carte tout de suite
-	return TRUE;
+	return true;
 }
 
 // Souris déplacée dans les statistiques.
 
-BOOL CDecor::StatisticMove(POINT pos, int fwKeys)
+bool CDecor::StatisticMove(POINT pos, int fwKeys)
 {
 	int		rank;
 
@@ -1000,17 +1000,17 @@ BOOL CDecor::StatisticMove(POINT pos, int fwKeys)
 	if ( rank != m_statHili )  // autre mise en évidence ?
 	{
 		m_statHili = rank;
-		m_bStatRedraw = TRUE;  // faudra tout redessiner
+		m_bStatRedraw = true;  // faudra tout redessiner
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Bouton relâché dans les statistiques.
 
-BOOL CDecor::StatisticUp(POINT pos, int fwKeys)
+bool CDecor::StatisticUp(POINT pos, int fwKeys)
 {
-	return FALSE;
+	return false;
 }
 
 // Détecte dans quelle statistique est la souris.

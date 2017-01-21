@@ -20,16 +20,16 @@
 CButton::CButton()
 {
 	m_type            = 0;
-	m_bEnable         = TRUE;
-	m_bHide           = FALSE;
+	m_bEnable         = true;
+	m_bHide           = false;
 	m_state           = 0;
 	m_mouseState      = 0;
 	m_nbMenu          = 0;
 	m_nbToolTips      = 0;
 	m_selMenu         = 0;
-	m_bMouseDown      = FALSE;
-	m_bMinimizeRedraw = FALSE;
-	m_bRedraw         = FALSE;
+	m_bMouseDown      = false;
+	m_bMinimizeRedraw = false;
+	m_bRedraw         = false;
 }
 
 // Destructeur.
@@ -41,8 +41,8 @@ CButton::~CButton()
 
 // Crée un nouveau bouton.
 
-BOOL CButton::Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
-					 POINT pos, int type, BOOL bMinimizeRedraw,
+bool CButton::Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
+					 POINT pos, int type, bool bMinimizeRedraw,
 					 int *pMenu, int nbMenu,
 					 int *pToolTips, int nbToolTips,
 					 int region, UINT message)
@@ -55,7 +55,7 @@ BOOL CButton::Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
 		DIMBUTTONX,DIMBUTTONY,		// button00.bmp
 	};
 
-	if ( type < 0 || type > 0 )  return FALSE;
+	if ( type < 0 || type > 0 )  return false;
 
 	iconDim.x  = ttypes[type*2+0];
 	iconDim.y  = ttypes[type*2+1];
@@ -65,8 +65,8 @@ BOOL CButton::Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
 	m_pSound          = pSound;
 	m_type            = type;
 	m_bMinimizeRedraw = bMinimizeRedraw;
-	m_bEnable         = TRUE;
-	m_bHide           = FALSE;
+	m_bEnable         = true;
+	m_bHide           = false;
 	m_message         = message;
 	m_pos             = pos;
 	m_dim             = iconDim;
@@ -75,8 +75,8 @@ BOOL CButton::Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
 	m_selMenu         = 0;
 	m_state           = 0;
 	m_mouseState      = 0;
-	m_bMouseDown      = FALSE;
-	m_bRedraw         = TRUE;
+	m_bMouseDown      = false;
+	m_bRedraw         = true;
 
 	for ( i=0 ; i<nbMenu ; i++ )
 	{
@@ -115,7 +115,7 @@ BOOL CButton::Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
 		m_toolTips[i] = pToolTips[i];
 	}
 
-	return TRUE;
+	return true;
 }
 
 // Dessine un bouton dans son état.
@@ -127,7 +127,7 @@ void CButton::Draw()
 	RECT		rect;
 
 	if ( m_bMinimizeRedraw && !m_bRedraw )  return;
-	m_bRedraw = FALSE;
+	m_bRedraw = false;
 
 	if ( m_bHide )  // bouton caché ?
 	{
@@ -171,7 +171,7 @@ void CButton::Draw()
 
 void CButton::Redraw()
 {
-	m_bRedraw = TRUE;
+	m_bRedraw = true;
 }
 
 int CButton::GetState()
@@ -184,7 +184,7 @@ void CButton::SetState(int state)
 	if ( m_state      != state ||
 		 m_mouseState != state )
 	{
-		m_bRedraw = TRUE;
+		m_bRedraw = true;
 	}
 
 	m_state      = state;
@@ -200,39 +200,39 @@ void CButton::SetMenu(int menu)
 {
 	if ( m_selMenu != menu )
 	{
-		m_bRedraw = TRUE;
+		m_bRedraw = true;
 	}
 
 	m_selMenu = menu;
 }
 
 
-BOOL CButton::GetEnable()
+bool CButton::GetEnable()
 {
 	return m_bEnable;
 }
 
-void CButton::SetEnable(BOOL bEnable)
+void CButton::SetEnable(bool bEnable)
 {
 	if ( m_bEnable != bEnable )
 	{
-		m_bRedraw = TRUE;
+		m_bRedraw = true;
 	}
 
 	m_bEnable = bEnable;
 }
 
 
-BOOL CButton::GetHide()
+bool CButton::GetHide()
 {
 	return m_bHide;
 }
 
-void CButton::SetHide(BOOL bHide)
+void CButton::SetHide(bool bHide)
 {
 	if ( m_bHide != bHide )
 	{
-		m_bRedraw = TRUE;
+		m_bRedraw = true;
 	}
 
 	m_bHide = bHide;
@@ -241,11 +241,11 @@ void CButton::SetHide(BOOL bHide)
 
 // Traitement d'un événement.
 
-BOOL CButton::TreatEvent(UINT message, WPARAM wParam, LPARAM lParam)
+bool CButton::TreatEvent(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	POINT		pos;
 
-	if ( m_bHide || !m_bEnable )  return FALSE;
+	if ( m_bHide || !m_bEnable )  return false;
 
 	pos = ConvLongToPos(lParam);
 
@@ -253,20 +253,20 @@ BOOL CButton::TreatEvent(UINT message, WPARAM wParam, LPARAM lParam)
     {
 		case WM_LBUTTONDOWN:
 		case WM_RBUTTONDOWN:
-			if ( MouseDown(pos) )  return TRUE;
+			if ( MouseDown(pos) )  return true;
 			break;
 
 		case WM_MOUSEMOVE:
-			if ( MouseMove(pos) )  return TRUE;
+			if ( MouseMove(pos) )  return true;
 			break;
 
 		case WM_LBUTTONUP:
 		case WM_RBUTTONUP:
-			if ( MouseUp(pos) )  return FALSE;  // (*)
+			if ( MouseUp(pos) )  return false;  // (*)
 			break;
 	}
 
-	return FALSE;
+	return false;
 }
 
 // (*) Tous les boutons doivent recevoir l'événement BUTTONUP !
@@ -274,7 +274,7 @@ BOOL CButton::TreatEvent(UINT message, WPARAM wParam, LPARAM lParam)
 
 // Indique si la souris est sur ce bouton.
 
-BOOL CButton::MouseOnButton(POINT pos)
+bool CButton::MouseOnButton(POINT pos)
 {
 	return Detect(pos);
 }
@@ -322,11 +322,11 @@ int CButton::GetToolTips(POINT pos)
 
 // Détecte si la souris est dans le bouton.
 
-BOOL CButton::Detect(POINT pos)
+bool CButton::Detect(POINT pos)
 {
 	int		width = m_dim.x;
 
-	if ( m_bHide || !m_bEnable )  return FALSE;
+	if ( m_bHide || !m_bEnable )  return false;
 
 	if ( m_nbMenu > 1 && m_bMouseDown )  // sous-menu déroulé ?
 	{
@@ -336,31 +336,31 @@ BOOL CButton::Detect(POINT pos)
 	if ( pos.x < m_pos.x         ||
 		 pos.x > m_pos.x+width   ||
 		 pos.y < m_pos.y         ||
-		 pos.y > m_pos.y+m_dim.y )  return FALSE;
+		 pos.y > m_pos.y+m_dim.y )  return false;
 
-	return TRUE;
+	return true;
 }
 
 // Bouton de la souris pressé.
 
-BOOL CButton::MouseDown(POINT pos)
+bool CButton::MouseDown(POINT pos)
 {
-	if ( !Detect(pos) )  return FALSE;
+	if ( !Detect(pos) )  return false;
 
 	m_mouseState = 1;
-	m_bMouseDown = TRUE;
-	m_bRedraw    = TRUE;
+	m_bMouseDown = true;
+	m_bRedraw    = true;
 	PostMessage(m_hWnd, WM_UPDATE, 0, 0);
 
 	m_pSound->PlayImage(SOUND_CLICK, pos);
-	return TRUE;
+	return true;
 }
 
 // Souris déplacés.
 
-BOOL CButton::MouseMove(POINT pos)
+bool CButton::MouseMove(POINT pos)
 {
-	BOOL	bDetect;
+	bool	bDetect;
 	int		iState, iMenu;
 
 	iState = m_mouseState;
@@ -393,7 +393,7 @@ BOOL CButton::MouseMove(POINT pos)
 	if ( iState != m_mouseState ||
 		 iMenu  != m_selMenu    )
 	{
-		m_bRedraw = TRUE;
+		m_bRedraw = true;
 		PostMessage(m_hWnd, WM_UPDATE, 0, 0);
 	}
 
@@ -402,24 +402,24 @@ BOOL CButton::MouseMove(POINT pos)
 
 // Bouton de la souris relâché.
 
-BOOL CButton::MouseUp(POINT pos)
+bool CButton::MouseUp(POINT pos)
 {
-	BOOL	bDetect;
+	bool	bDetect;
 
 	bDetect = Detect(pos);
 
 	m_mouseState = m_state;
-	m_bMouseDown = FALSE;
-	m_bRedraw    = TRUE;
+	m_bMouseDown = false;
+	m_bRedraw    = true;
 
-	if ( !bDetect )  return FALSE;
+	if ( !bDetect )  return false;
 
 	if ( m_message != -1 )
 	{
 		PostMessage(m_hWnd, m_message, 0, 0);
 	}
 
-	return TRUE;
+	return true;
 }
 
 

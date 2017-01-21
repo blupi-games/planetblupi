@@ -20,19 +20,19 @@ CPixmap::CPixmap()
 {
 	int		i;
 	
-	m_bFullScreen  = FALSE;
+	m_bFullScreen  = false;
 	m_mouseType    = MOUSETYPEGRA;
-	m_bDebug       = TRUE;
-	m_bPalette     = TRUE;
+	m_bDebug       = true;
+	m_bPalette     = true;
 
 	m_mouseSprite  = SPRITE_WAIT;
 	MouseHotSpot();
 	m_mousePos.x   = LXIMAGE/2;
 	m_mousePos.y   = LYIMAGE/2;
 	m_mouseBackPos = m_mousePos;
-	m_bMouseBack   = FALSE;
-	m_bMouseShow   = TRUE;
-	m_bBackDisplayed = FALSE;
+	m_bMouseBack   = false;
+	m_bMouseShow   = true;
+	m_bBackDisplayed = false;
 
 	m_lpDD         = NULL;
 	m_lpDDSPrimary = NULL;
@@ -104,7 +104,7 @@ CPixmap::~CPixmap()
 }
 
 
-void CPixmap::SetDebug(BOOL bDebug)
+void CPixmap::SetDebug(bool bDebug)
 {
 	m_bDebug = bDebug;
 	DDSetDebug(bDebug);
@@ -112,10 +112,10 @@ void CPixmap::SetDebug(BOOL bDebug)
 
 
 // Crée l'objet DirectDraw principal.
-// Retourne FALSE en cas d'erreur.
+// Retourne false en cas d'erreur.
 
-BOOL CPixmap::Create(HWND hwnd, POINT dim,
-					 BOOL bFullScreen, int mouseType)
+bool CPixmap::Create(HWND hwnd, POINT dim,
+					 bool bFullScreen, int mouseType)
 {
 	DDSURFACEDESC		ddsd;
 	HRESULT				ddrval;
@@ -129,7 +129,7 @@ BOOL CPixmap::Create(HWND hwnd, POINT dim,
 	if ( m_mouseType == MOUSETYPEGRA )
 	{
 		// Cache définitivement la vilaine souris Windows.
-		ShowCursor(FALSE);
+		ShowCursor(false);
 
 		pos = m_mousePos;
 		ClientToScreen(m_hWnd, &pos);
@@ -146,7 +146,7 @@ BOOL CPixmap::Create(HWND hwnd, POINT dim,
     if ( ddrval != DD_OK )
     {
 		OutputDebug("Fatal error: DirectDrawCreate\n");
-        return FALSE;
+        return false;
     }
 
     // Get exclusive mode.
@@ -161,7 +161,7 @@ BOOL CPixmap::Create(HWND hwnd, POINT dim,
     if ( ddrval != DD_OK )
     {
 		OutputDebug("Fatal error: SetCooperativeLevel\n");
-        return FALSE;
+        return false;
     }
 
     // Set the video mode to 640x480x8.
@@ -171,7 +171,7 @@ BOOL CPixmap::Create(HWND hwnd, POINT dim,
 		if ( ddrval != DD_OK )
 		{
 			OutputDebug("Fatal error: SetDisplayMode\n");
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -186,7 +186,7 @@ BOOL CPixmap::Create(HWND hwnd, POINT dim,
     {
 		TraceErrorDD(ddrval, "pixmap", 0);
 		OutputDebug("Fatal error: CreateSurface\n");
-        return FALSE;
+        return false;
     }
 	
 	// Create the back buffer.
@@ -203,7 +203,7 @@ BOOL CPixmap::Create(HWND hwnd, POINT dim,
 	{
 		TraceErrorDD(ddrval, "pixmap", 0);
 		OutputDebug("Fatal error: CreateBackSurface\n");
-		return FALSE;
+		return false;
 	}
 
 	// Create the mouse buffer.
@@ -220,7 +220,7 @@ BOOL CPixmap::Create(HWND hwnd, POINT dim,
 	{
 		TraceErrorDD(ddrval, "pixmap", 0);
 		OutputDebug("Fatal error: CreateMouseSurface\n");
-		return FALSE;
+		return false;
 	}
 
 	// Create a DirectDrawClipper object. The object enables clipping to the 
@@ -233,7 +233,7 @@ BOOL CPixmap::Create(HWND hwnd, POINT dim,
 		{
 			TraceErrorDD(ddrval, "pixmap", 0);
 			OutputDebug("Can't create clipper\n");
-			return FALSE;
+			return false;
 		}
 
 		ddrval = m_lpClipper->SetHWnd(0, hwnd);
@@ -241,7 +241,7 @@ BOOL CPixmap::Create(HWND hwnd, POINT dim,
 		{
 			TraceErrorDD(ddrval, "pixmap", 0);
 			OutputDebug("Can't set clipper window handle\n");
-			return FALSE;
+			return false;
 		}
 
 		ddrval = m_lpDDSPrimary->SetClipper(m_lpClipper);
@@ -249,53 +249,53 @@ BOOL CPixmap::Create(HWND hwnd, POINT dim,
 		{
 			TraceErrorDD(ddrval, "pixmap", 0);
 			OutputDebug("Can't attach clipper to primary surface\n");
-			return FALSE;
+			return false;
 		}
     }
 
-    return TRUE;
+    return true;
 }
 
 // Libère les bitmaps.
 
-BOOL CPixmap::Flush()
+bool CPixmap::Flush()
 {
-	return TRUE;
+	return true;
 }
 
 // Restitue les bitmaps.
 
-BOOL CPixmap::Restore()
+bool CPixmap::Restore()
 {
 	RestoreAll();
-	return TRUE;
+	return true;
 }
 
 // Initialise la palette système.
 
-BOOL CPixmap::InitSysPalette()
+bool CPixmap::InitSysPalette()
 {
     HDC			hdc;
 	int			caps;
 
     hdc = CreateCompatibleDC(NULL);
-    if ( hdc == NULL )  return FALSE;
+    if ( hdc == NULL )  return false;
 
 	if ( !m_bFullScreen )
 	{
 		caps = GetDeviceCaps(hdc, SIZEPALETTE);
-		if ( caps == 0 )  m_bPalette = FALSE;
-		else              m_bPalette = TRUE;
+		if ( caps == 0 )  m_bPalette = false;
+		else              m_bPalette = true;
 	}
 
 	GetSystemPaletteEntries(hdc, 0, 256, m_sysPal);
     DeleteDC(hdc);
-	return TRUE;
+	return true;
 }
 
 // Indique si l'on utilise une palette.
 
-BOOL CPixmap::IsPalette()
+bool CPixmap::IsPalette()
 {
 	return m_bPalette;
 }
@@ -387,7 +387,7 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 	if ( rcRect.left >= rcRect.right ||
 		 rcRect.top  >= rcRect.bottom )  return DD_OK;
 
-    while( TRUE )
+    while( true )
     {
 		if ( chDst < 0 )
 		{
@@ -427,7 +427,7 @@ HRESULT CPixmap::BltFast(LPDIRECTDRAWSURFACE lpDD,
 	if ( mode == 0 )  dwTrans = DDBLTFAST_SRCCOLORKEY;
 	else              dwTrans = DDBLTFAST_NOCOLORKEY;
 
-    while( TRUE )
+    while( true )
     {
 		ddrval = lpDD->BltFast(dst.x, dst.y,
 							   m_lpDDSurface[channel],
@@ -449,28 +449,28 @@ HRESULT CPixmap::BltFast(LPDIRECTDRAWSURFACE lpDD,
 
 // Sauve toute la palette de couleurs.
 
-BOOL CPixmap::SavePalette()
+bool CPixmap::SavePalette()
 {
     HRESULT     ddrval;
 
-	if ( m_lpDDPal == NULL )  return FALSE;
+	if ( m_lpDDPal == NULL )  return false;
 
     ddrval = m_lpDDPal->GetEntries(0, 0, 256, m_pal);
 
-	if ( ddrval != DD_OK )  return FALSE;
-	return TRUE;
+	if ( ddrval != DD_OK )  return false;
+	return true;
 }
 
 // Restitue toute la palette de couleurs.
 
-BOOL CPixmap::RestorePalette()
+bool CPixmap::RestorePalette()
 {
     HRESULT     ddrval;
 
     ddrval = m_lpDDPal->SetEntries(0, 0, 256, m_pal);
 
-	if ( ddrval != DD_OK )  return FALSE;
-	return TRUE;
+	if ( ddrval != DD_OK )  return false;
+	return true;
 }
 
 // Cherche une couleur dans la palette principale.
@@ -551,12 +551,12 @@ int CPixmap::SearchColor(int red, int green, int blue)
 
 // Cache une image contenant des icônes.
 
-BOOL CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
-					BOOL bUsePalette)
+bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
+					bool bUsePalette)
 {
     HRESULT     ddrval;
 
-	if ( channel < 0 || channel >= MAXIMAGE )  return FALSE;
+	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 
 	if ( m_lpDDSurface[channel] != NULL )
 	{
@@ -594,7 +594,7 @@ BOOL CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
     if ( m_lpDDSurface[channel] == NULL )
     {
 		OutputDebug("Fatal error: DDLoadBitmap\n");
-        return FALSE;
+        return false;
     }
 
     // Set the color key to white
@@ -606,16 +606,16 @@ BOOL CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
 	m_totalDim[channel] = totalDim;
 	m_iconDim[channel]  = iconDim;
 
-	return TRUE;
+	return true;
 }
 
 // Cache une image globale.
 
-BOOL CPixmap::Cache(int channel, char *pFilename, POINT totalDim, BOOL bUsePalette)
+bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, bool bUsePalette)
 {
 	POINT		iconDim;
 
-	if ( channel < 0 || channel >= MAXIMAGE )  return FALSE;
+	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 
 	iconDim.x = 0;
 	iconDim.y = 0;
@@ -625,9 +625,9 @@ BOOL CPixmap::Cache(int channel, char *pFilename, POINT totalDim, BOOL bUsePalet
 
 // Cache une image provenant d'un bitmap.
 
-BOOL CPixmap::Cache(int channel, HBITMAP hbm, POINT totalDim)
+bool CPixmap::Cache(int channel, HBITMAP hbm, POINT totalDim)
 {
-	if ( channel < 0 || channel >= MAXIMAGE )  return FALSE;
+	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 
 	if ( m_lpDDSurface[channel] != NULL )
 	{
@@ -640,7 +640,7 @@ BOOL CPixmap::Cache(int channel, HBITMAP hbm, POINT totalDim)
     if ( m_lpDDSurface[channel] == NULL )
     {
 		OutputDebug("Fatal error: DDLoadBitmap\n");
-        return FALSE;
+        return false;
     }
 
     // Set the color key to white
@@ -649,7 +649,7 @@ BOOL CPixmap::Cache(int channel, HBITMAP hbm, POINT totalDim)
 	m_totalDim[channel] = totalDim;
 	m_iconDim[channel]  = totalDim;
 
-	return TRUE;
+	return true;
 }
 
 // Purge une image.
@@ -705,58 +705,58 @@ RECT CPixmap::GetClipping()
 
 // Teste si un point fait partie d'une icône.
 
-BOOL CPixmap::IsIconPixel(int channel, int rank, POINT pos)
+bool CPixmap::IsIconPixel(int channel, int rank, POINT pos)
 {
 	int			nbx, nby;
     COLORREF	rgb;
     HDC			hDC;
 
-	if ( channel < 0 || channel >= MAXIMAGE )  return FALSE;
-	if (  m_lpDDSurface[channel] == NULL )     return FALSE;
+	if ( channel < 0 || channel >= MAXIMAGE )  return false;
+	if (  m_lpDDSurface[channel] == NULL )     return false;
 
 	if ( m_iconDim[channel].x == 0 ||
-		 m_iconDim[channel].y == 0 )  return FALSE;
+		 m_iconDim[channel].y == 0 )  return false;
 
 	nbx = m_totalDim[channel].x / m_iconDim[channel].x;
 	nby = m_totalDim[channel].y / m_iconDim[channel].y;
 
-	if ( rank < 0 || rank >= nbx*nby )  return FALSE;
+	if ( rank < 0 || rank >= nbx*nby )  return false;
 
 	pos.x += (rank%nbx)*m_iconDim[channel].x;
 	pos.y += (rank/nbx)*m_iconDim[channel].y;
 
-	if ( m_lpDDSurface[channel]->GetDC(&hDC) != DD_OK )  return FALSE;
+	if ( m_lpDDSurface[channel]->GetDC(&hDC) != DD_OK )  return false;
 	rgb = GetPixel(hDC, pos.x, pos.y);
 	m_lpDDSurface[channel]->ReleaseDC(hDC);
 
 	if ( rgb == m_colorSurface[2*channel+0] ||
-		 rgb == m_colorSurface[2*channel+1] )  return FALSE;
+		 rgb == m_colorSurface[2*channel+1] )  return false;
 
-	return TRUE;
+	return true;
 }
 
 
 // Dessine une partie d'image rectangulaire.
 // Les modes sont 0=transparent, 1=opaque.
 
-BOOL CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos,
-					   int mode, BOOL bMask)
+bool CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos,
+					   int mode, bool bMask)
 {
 	int			nbx, nby;
 	RECT		rect;
 	HRESULT		ddrval;
 	COLORREF	oldColor1, oldColor2;
 
-	if ( channel < 0 || channel >= MAXIMAGE )  return FALSE;
-	if (  m_lpDDSurface[channel] == NULL )     return FALSE;
+	if ( channel < 0 || channel >= MAXIMAGE )  return false;
+	if (  m_lpDDSurface[channel] == NULL )     return false;
 
 	if ( m_iconDim[channel].x == 0 ||
-		 m_iconDim[channel].y == 0 )  return FALSE;
+		 m_iconDim[channel].y == 0 )  return false;
 
 	nbx = m_totalDim[channel].x / m_iconDim[channel].x;
 	nby = m_totalDim[channel].y / m_iconDim[channel].y;
 
-	if ( rank < 0 || rank >= nbx*nby )  return FALSE;
+	if ( rank < 0 || rank >= nbx*nby )  return false;
 
 	rect.left   = (rank%nbx)*m_iconDim[channel].x;
 	rect.top    = (rank/nbx)*m_iconDim[channel].y;
@@ -769,8 +769,8 @@ BOOL CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos,
 	ddrval = BltFast(chDst, channel, pos, rect, mode);
 	if ( bMask )  SetTransparent2(channel, oldColor1, oldColor2);
 
-	if ( ddrval != DD_OK )  return FALSE;
-	return TRUE;
+	if ( ddrval != DD_OK )  return false;
+	return true;
 }
 
 // Dessine une partie d'image rectangulaire.
@@ -783,26 +783,26 @@ BOOL CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos,
 //	32,32	34,33
 //	33,48	35,49
 
-BOOL CPixmap::DrawIconDemi(int chDst, int channel, int rank, POINT pos,
-						   int mode, BOOL bMask)
+bool CPixmap::DrawIconDemi(int chDst, int channel, int rank, POINT pos,
+						   int mode, bool bMask)
 {
 	int			nbx, nby;
 	RECT		rect;
 	HRESULT		ddrval;
 	COLORREF	oldColor1, oldColor2;
 
-	if ( channel < 0 || channel >= MAXIMAGE )  return FALSE;
-	if (  m_lpDDSurface[channel] == NULL )     return FALSE;
+	if ( channel < 0 || channel >= MAXIMAGE )  return false;
+	if (  m_lpDDSurface[channel] == NULL )     return false;
 
 	if ( m_iconDim[channel].x == 0 ||
-		 m_iconDim[channel].y == 0 )  return FALSE;
+		 m_iconDim[channel].y == 0 )  return false;
 
 	nbx = m_totalDim[channel].x /  m_iconDim[channel].x;
 	nby = m_totalDim[channel].y / (m_iconDim[channel].y/2);
 
 	rank = (rank/32)*32+((rank%32)/2)+((rank%2)*16);
 
-	if ( rank < 0 || rank >= nbx*nby )  return FALSE;
+	if ( rank < 0 || rank >= nbx*nby )  return false;
 
 	rect.left   = (rank%nbx)* m_iconDim[channel].x;
 	rect.top    = (rank/nbx)*(m_iconDim[channel].y/2);
@@ -815,32 +815,32 @@ BOOL CPixmap::DrawIconDemi(int chDst, int channel, int rank, POINT pos,
 	ddrval = BltFast(chDst, channel, pos, rect, mode);
 	if ( bMask )  SetTransparent2(channel, oldColor1, oldColor2);
 
-	if ( ddrval != DD_OK )  return FALSE;
-	return TRUE;
+	if ( ddrval != DD_OK )  return false;
+	return true;
 }
 
 // Dessine une partie d'image rectangulaire.
 // Les modes sont 0=transparent, 1=opaque.
 
-BOOL CPixmap::DrawIconPart(int chDst, int channel, int rank, POINT pos,
+bool CPixmap::DrawIconPart(int chDst, int channel, int rank, POINT pos,
 						   int startY, int endY,
-						   int mode, BOOL bMask)
+						   int mode, bool bMask)
 {
 	int			nbx, nby;
 	RECT		rect;
 	HRESULT		ddrval;
 	COLORREF	oldColor1, oldColor2;
 
-	if ( channel < 0 || channel >= MAXIMAGE )  return FALSE;
-	if (  m_lpDDSurface[channel] == NULL )     return FALSE;
+	if ( channel < 0 || channel >= MAXIMAGE )  return false;
+	if (  m_lpDDSurface[channel] == NULL )     return false;
 
 	if ( m_iconDim[channel].x == 0 ||
-		 m_iconDim[channel].y == 0 )  return FALSE;
+		 m_iconDim[channel].y == 0 )  return false;
 
 	nbx = m_totalDim[channel].x / m_iconDim[channel].x;
 	nby = m_totalDim[channel].y / m_iconDim[channel].y;
 
-	if ( rank < 0 || rank >= nbx*nby )  return FALSE;
+	if ( rank < 0 || rank >= nbx*nby )  return false;
 
 	rect.left   = (rank%nbx)*m_iconDim[channel].x;
 	rect.top    = (rank/nbx)*m_iconDim[channel].y;
@@ -856,21 +856,21 @@ BOOL CPixmap::DrawIconPart(int chDst, int channel, int rank, POINT pos,
 	ddrval = BltFast(chDst, channel, pos, rect, mode);
 	if ( bMask )  SetTransparent2(channel, oldColor1, oldColor2);
 
-	if ( ddrval != DD_OK )  return FALSE;
-	return TRUE;
+	if ( ddrval != DD_OK )  return false;
+	return true;
 }
 
 // Dessine une partie d'image n'importe où.
 // Les modes sont 0=transparent, 1=opaque.
 
-BOOL CPixmap::DrawPart(int chDst, int channel, POINT dest, RECT rect,
-					   int mode, BOOL bMask)
+bool CPixmap::DrawPart(int chDst, int channel, POINT dest, RECT rect,
+					   int mode, bool bMask)
 {
 	HRESULT		ddrval;
 	COLORREF	oldColor1, oldColor2;
 
-	if ( channel < 0 || channel >= MAXIMAGE )  return FALSE;
-	if (  m_lpDDSurface[channel] == NULL )     return FALSE;
+	if ( channel < 0 || channel >= MAXIMAGE )  return false;
+	if (  m_lpDDSurface[channel] == NULL )     return false;
 
 	oldColor1 = m_colorSurface[2*channel+0];
 	oldColor2 = m_colorSurface[2*channel+1];
@@ -878,41 +878,41 @@ BOOL CPixmap::DrawPart(int chDst, int channel, POINT dest, RECT rect,
 	ddrval = BltFast(chDst, channel, dest, rect, mode);
 	if ( bMask )  SetTransparent2(channel, oldColor1, oldColor2);
 
-	if ( ddrval != DD_OK )  return FALSE;
-	return TRUE;
+	if ( ddrval != DD_OK )  return false;
+	return true;
 }
 
 // Dessine une partie d'image rectangulaire.
 // Les modes sont 0=transparent, 1=opaque.
 
-BOOL CPixmap::DrawImage(int chDst, int channel, RECT rect, int mode)
+bool CPixmap::DrawImage(int chDst, int channel, RECT rect, int mode)
 {
 	POINT		dst;
 	HRESULT		ddrval;
 
-	if ( channel < 0 || channel >= MAXIMAGE )  return FALSE;
-	if (  m_lpDDSurface[channel] == NULL )     return FALSE;
+	if ( channel < 0 || channel >= MAXIMAGE )  return false;
+	if (  m_lpDDSurface[channel] == NULL )     return false;
 
 	dst.x = rect.left;
 	dst.y = rect.top;
 
 	ddrval = BltFast(chDst, channel, dst, rect, mode);
 
-	if ( ddrval != DD_OK )  return FALSE;
+	if ( ddrval != DD_OK )  return false;
 
 	if ( channel == CHBACK )
 	{
 		MouseBackSave();  // sauve ce qui sera sous la souris
-		m_bBackDisplayed = FALSE;
+		m_bBackDisplayed = false;
 	}
 
-	return TRUE;
+	return true;
 }
 
 
 // Construit une icône en utilisant un masque.
 
-BOOL CPixmap::BuildIconMask(int channelMask, int rankMask,
+bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 							int channel, int rankSrc, int rankDst)
 {
 	int			nbx, nby;
@@ -920,17 +920,17 @@ BOOL CPixmap::BuildIconMask(int channelMask, int rankMask,
 	RECT		rect;
 	HRESULT		ddrval;
 
-	if ( channel < 0 || channel >= MAXIMAGE )  return FALSE;
-	if (  m_lpDDSurface[channel] == NULL )     return FALSE;
+	if ( channel < 0 || channel >= MAXIMAGE )  return false;
+	if (  m_lpDDSurface[channel] == NULL )     return false;
 
 	if ( m_iconDim[channel].x == 0 ||
-		 m_iconDim[channel].y == 0 )  return FALSE;
+		 m_iconDim[channel].y == 0 )  return false;
 
 	nbx = m_totalDim[channel].x / m_iconDim[channel].x;
 	nby = m_totalDim[channel].y / m_iconDim[channel].y;
 
-	if ( rankSrc < 0 || rankSrc >= nbx*nby )  return FALSE;
-	if ( rankDst < 0 || rankDst >= nbx*nby )  return FALSE;
+	if ( rankSrc < 0 || rankSrc >= nbx*nby )  return false;
+	if ( rankDst < 0 || rankDst >= nbx*nby )  return false;
 
 	rect.left   = (rankSrc%nbx)*m_iconDim[channel].x;
 	rect.top    = (rankSrc/nbx)*m_iconDim[channel].y;
@@ -939,36 +939,36 @@ BOOL CPixmap::BuildIconMask(int channelMask, int rankMask,
 	posDst.x    = (rankDst%nbx)*m_iconDim[channel].x;
 	posDst.y    = (rankDst/nbx)*m_iconDim[channel].y;
 	ddrval = BltFast(m_lpDDSurface[channel], channel, posDst, rect, 1);
-	if ( ddrval != DD_OK )  return FALSE;
+	if ( ddrval != DD_OK )  return false;
 
 	if ( m_iconDim[channelMask].x == 0 ||
-		 m_iconDim[channelMask].y == 0 )  return FALSE;
+		 m_iconDim[channelMask].y == 0 )  return false;
 
 	nbx = m_totalDim[channelMask].x / m_iconDim[channelMask].x;
 	nby = m_totalDim[channelMask].y / m_iconDim[channelMask].y;
 
-	if ( rankMask < 0 || rankMask >= nbx*nby )  return FALSE;
+	if ( rankMask < 0 || rankMask >= nbx*nby )  return false;
 
 	rect.left   = (rankMask%nbx)*m_iconDim[channelMask].x;
 	rect.top    = (rankMask/nbx)*m_iconDim[channelMask].y;
 	rect.right  = rect.left + m_iconDim[channelMask].x;
 	rect.bottom = rect.top  + m_iconDim[channelMask].y;
 	ddrval = BltFast(m_lpDDSurface[channel], channelMask, posDst, rect, 0);
-	if ( ddrval != DD_OK )  return FALSE;
+	if ( ddrval != DD_OK )  return false;
 
-	return TRUE;
+	return true;
 }
 
 
 // Affiche le pixmap à l'écran.
-// Retourne FALSE en cas d'erreur.
+// Retourne false en cas d'erreur.
 
-BOOL CPixmap::Display()
+bool CPixmap::Display()
 {
 	HRESULT		ddrval;
 	RECT		DestRect, MapRect;
 
-	m_bBackDisplayed = TRUE;
+	m_bBackDisplayed = true;
 
 	// Get screen coordinates of client window for blit
 	GetClientRect(m_hWnd, &DestRect);
@@ -993,14 +993,14 @@ BOOL CPixmap::Display()
     {
         ddrval = RestoreAll();
     }
-	if ( ddrval != DD_OK )  return FALSE;
-	return TRUE;
+	if ( ddrval != DD_OK )  return false;
+	return true;
 }
 
 
 // Positionne la souris et change le lutin.
 
-void CPixmap::SetMousePosSprite(POINT pos, int sprite, BOOL bDemoPlay)
+void CPixmap::SetMousePosSprite(POINT pos, int sprite, bool bDemoPlay)
 {
 	if ( m_mousePos.x == pos.x &&
 		 m_mousePos.y == pos.y &&
@@ -1018,7 +1018,7 @@ void CPixmap::SetMousePosSprite(POINT pos, int sprite, BOOL bDemoPlay)
 
 // Positionne la souris.
 
-void CPixmap::SetMousePos(POINT pos, BOOL bDemoPlay)
+void CPixmap::SetMousePos(POINT pos, bool bDemoPlay)
 {
 	if ( m_mousePos.x == pos.x &&
 		 m_mousePos.y == pos.y )  return;
@@ -1033,7 +1033,7 @@ void CPixmap::SetMousePos(POINT pos, BOOL bDemoPlay)
 
 // Change le lutin de la souris.
 
-void CPixmap::SetMouseSprite(int sprite, BOOL bDemoPlay)
+void CPixmap::SetMouseSprite(int sprite, bool bDemoPlay)
 {
 	if ( m_mouseSprite == sprite )  return;
 
@@ -1048,7 +1048,7 @@ void CPixmap::SetMouseSprite(int sprite, BOOL bDemoPlay)
 
 // Montre ou cache la souris.
 
-void CPixmap::MouseShow(BOOL bShow)
+void CPixmap::MouseShow(bool bShow)
 {
 	m_bMouseShow = bShow;
 }
@@ -1096,7 +1096,7 @@ void CPixmap::MouseUpdate()
 // Il s'agit en fait de dessiner un petit morceau rectangulaire
 // de m_lpDDSBack dans l'écran.
 
-BOOL CPixmap::MouseQuickDraw(RECT rect)
+bool CPixmap::MouseQuickDraw(RECT rect)
 {
 	HRESULT		ddrval;
 	RECT		DestRect;
@@ -1124,15 +1124,15 @@ BOOL CPixmap::MouseQuickDraw(RECT rect)
     {
         ddrval = RestoreAll();
     }
-	if ( ddrval != DD_OK )  return FALSE;
-	return TRUE;
+	if ( ddrval != DD_OK )  return false;
+	return true;
 }
 
 // Invalide la copie sous la souris.
 
 void CPixmap::MouseInvalidate()
 {
-	m_bMouseBack = FALSE;
+	m_bMouseBack = false;
 }
 
 // Enlève la souris dans m_lpDDSBack.
@@ -1200,7 +1200,7 @@ void CPixmap::MouseBackSave()
 
 	m_mouseBackPos.x = m_mousePos.x - m_mouseHotSpot.x;
 	m_mouseBackPos.y = m_mousePos.y - m_mouseHotSpot.y;
-	m_bMouseBack = TRUE;
+	m_bMouseBack = true;
 
 	dst.x = 0;
 	dst.y = 0;
@@ -1229,7 +1229,7 @@ void CPixmap::MouseBackSave()
 		rcRect.bottom = LYIMAGE;
 	}
 
-    while( TRUE )
+    while( true )
     {
 		ddrval = m_lpDDSMouse->BltFast(dst.x, dst.y,
 									   m_lpDDSBack,
@@ -1285,7 +1285,7 @@ void CPixmap::MouseBackRestore()
 		rcRect.bottom -= (dst.y+DIMBLUPIY)-LYIMAGE;
 	}
 
-    while( TRUE )
+    while( true )
     {
 		ddrval = m_lpDDSBack->BltFast(dst.x, dst.y,
 									  m_lpDDSMouse,

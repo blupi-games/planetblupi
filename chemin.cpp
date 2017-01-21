@@ -39,7 +39,7 @@ void CDecor::CheminMemPos(int exRank)
 
 // Teste si une positiion est occupée par un blupi.
 
-BOOL CDecor::CheminTestPos(POINT pos, int &rank)
+bool CDecor::CheminTestPos(POINT pos, int &rank)
 {
 	int		i;
 
@@ -49,11 +49,11 @@ BOOL CDecor::CheminTestPos(POINT pos, int &rank)
 			 pos.y == m_cheminPos[i].y )
 		{
 			rank = m_cheminRank[i];
-			return TRUE;
+			return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -72,7 +72,7 @@ int CDecor::CheminARebours(int rank)
 	
 	if ( rebours == 0 )  return -1;
 
-	while ( TRUE )
+	while ( true )
 	{	
 	bis:
 		for ( set=0 ; set<2 ; set++ )
@@ -180,12 +180,12 @@ void CDecor::CheminFillTerrain(int rank)
 // et le "prix à payer" pour aller dans cette direction
 // coût doit être déterminé en sortie
 
-BOOL CDecor::CheminTestDirection(int rank, int pos, int dir,
+bool CDecor::CheminTestDirection(int rank, int pos, int dir,
 								 int &next, int &ampli,
 								 int &cout, int &action)
 {
 	POINT		cel, vector, newCel;
-	BOOL		bFree;
+	bool		bFree;
 	int			tryDirect, workBlupi, rankHere;
 
 	cel.x = pos%MAXCELX;
@@ -226,7 +226,7 @@ BOOL CDecor::CheminTestDirection(int rank, int pos, int dir,
 			 m_blupi[rank].passCel.y/2 == (cel.y+vector.y*ampli)/2 &&
 			 (workBlupi < 0 || workBlupi == rank) )
 		{
-			bFree = TRUE;
+			bFree = true;
 			cout = 1;
 		}
 	}
@@ -240,35 +240,35 @@ BOOL CDecor::CheminTestDirection(int rank, int pos, int dir,
 		{
 			// Le tracks peut aller sur les blupi
 			// pour les écraser !
-			if ( IsTracksHere(newCel, FALSE) )  // autre perso ici ?
+			if ( IsTracksHere(newCel, false) )  // autre perso ici ?
 			{
-				return FALSE;
+				return false;
 			}
 		}
 		else
 		{
-//?			if ( IsBlupiHere(newCel, FALSE) )  // autre perso ici ?
+//?			if ( IsBlupiHere(newCel, false) )  // autre perso ici ?
 			if ( CheminTestPos(newCel, rankHere) )  // autre perso ici ?
 			{
 				// Si blupi immobile, comme si obstacle qq.
-//?				if ( m_blupi[m_blupiHere].goalCel.x == -1 )  return FALSE;
-				if ( m_blupi[rankHere].goalCel.x == -1 )  return FALSE;
+//?				if ( m_blupi[m_blupiHere].goalCel.x == -1 )  return false;
+				if ( m_blupi[rankHere].goalCel.x == -1 )  return false;
 
 				// Si blupi mobile, possible mais coût élevé.
 				cout = 20;
 			}
 		}
 		next = vector.y*MAXCELX + vector.x;
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 
 
-// Retourne TRUE si on a assigné une nouvelle direction à blupi.
-BOOL CDecor::CheminCherche(int rank, int &action)
+// Retourne true si on a assigné une nouvelle direction à blupi.
+bool CDecor::CheminCherche(int rank, int &action)
 {
 	int 	cout;		// prix pour aller dans une direction
 	int		pos, dir, next, ampli;
@@ -277,13 +277,13 @@ BOOL CDecor::CheminCherche(int rank, int &action)
 	if ( m_blupi[rank].cel.x == m_blupi[rank].goalCel.x &&
 		 m_blupi[rank].cel.y == m_blupi[rank].goalCel.y )
 	{
-		return FALSE;
+		return false;
 	}
 
 	// Destination occupée ?
-	if ( IsBlupiHereEx(m_blupi[rank].goalCel, rank, FALSE) )
+	if ( IsBlupiHereEx(m_blupi[rank].goalCel, rank, false) )
 	{
-		return FALSE;
+		return false;
 	}
 
 	memset(m_cheminWork, 0, (BYTE)MAXCELX*(BYTE)MAXCELY);
@@ -295,30 +295,30 @@ BOOL CDecor::CheminCherche(int rank, int &action)
     
     // cherche le chemin à partir de la destination
 	dir = CheminARebours(rank);
-	if ( dir < 0 )  return FALSE;
+	if ( dir < 0 )  return false;
 
 	pos = m_blupi[rank].cel.y*MAXCELX + m_blupi[rank].cel.x;
 	if ( CheminTestDirection(rank, pos, dir, next, ampli, cout, action) &&
 		 cout < 20 )
 	{
 		m_blupi[rank].sDirect = 16*dir;
-		return TRUE;
+		return true;
 	}
 
 	// ne devrait jamais arriver !	
-	return FALSE;			
+	return false;			
 }
 
 
 // Teste s'il est possible de se rendre à un endroit donné.
 
-BOOL CDecor::IsCheminFree(int rank, POINT dest, int button)
+bool CDecor::IsCheminFree(int rank, POINT dest, int button)
 {
 	int		action, sDirect;
 	POINT	goalCel, passCel, limit;
-	BOOL	bOK;
+	bool	bOK;
 
-	if ( button == BUTTON_STOP )  return TRUE;
+	if ( button == BUTTON_STOP )  return true;
 
 	goalCel = m_blupi[rank].goalCel;
 	passCel = m_blupi[rank].passCel;
@@ -349,7 +349,7 @@ BOOL CDecor::IsCheminFree(int rank, POINT dest, int button)
 	}
 
 	if ( m_blupi[rank].cel.x == dest.x &&
-		 m_blupi[rank].cel.y == dest.y )  return TRUE;
+		 m_blupi[rank].cel.y == dest.y )  return true;
 
 	m_blupi[rank].goalCel = dest;
 	if ( m_decor[dest.x/2][dest.y/2].objectChannel == CHOBJECT &&

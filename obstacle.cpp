@@ -1582,7 +1582,7 @@ void Copy33To99(int *pSrc33, int *pDst99, int dx, int dy)
 
 // Indique s'il est possible d'avancer dans une direction donnée.
 
-BOOL CDecor::IsFreeDirect(POINT cel, int direct, int rank)
+bool CDecor::IsFreeDirect(POINT cel, int direct, int rank)
 {
 	int			icon, workBlupi;
 	int			bits[3*3], obstacles[9*9];
@@ -1594,38 +1594,38 @@ BOOL CDecor::IsFreeDirect(POINT cel, int direct, int rank)
 	test.y = cel.y+vector.y;
 
 	if ( m_decor[test.x/2][test.y/2].fire > 0 &&
-		 m_decor[test.x/2][test.y/2].fire < MoveMaxFire() )  return FALSE;
+		 m_decor[test.x/2][test.y/2].fire < MoveMaxFire() )  return false;
 
 	// Cellule bloquée (un blupi travaille ici) ?
 	if ( m_blupi[rank].perso != 3 )  // pas tracks ?
 	{
 		workBlupi = m_decor[test.x/2][test.y/2].workBlupi;
-		if ( workBlupi >= 0 && workBlupi != rank )  return FALSE;
+		if ( workBlupi >= 0 && workBlupi != rank )  return false;
 	}
 
 	// Déplacement possible par-rapport au sol ?
 //	icon = m_decor[cel.x/2][cel.y/2].floorIcon;
 //	SearchFloor(rank, icon, cel, bits);
 //	AjustFloor(rank, icon, cel, bits);
-//	if ( bits[(1+vector.x)+(1+vector.y)*3] == 1 )  return FALSE;
+//	if ( bits[(1+vector.x)+(1+vector.y)*3] == 1 )  return false;
 
 	icon = m_decor[test.x/2][test.y/2].floorIcon;
 	SearchFloor(rank, icon, test, bits);
 	AjustFloor(rank, icon, test, bits);
-	if ( bits[1+1*3] == 1 )  return FALSE;
-	if ( bits[(1-vector.x)+(1-vector.y)*3] == 1 )  return FALSE;
+	if ( bits[1+1*3] == 1 )  return false;
+	if ( bits[(1-vector.x)+(1-vector.y)*3] == 1 )  return false;
 
 	// Déplacement possible par-rapport aux obstacles ?
 	icon = m_decor[cel.x/2][cel.y/2].objectIcon;
 	SearchObject(rank, icon, cel, bits);
 	AjustObject(rank, icon, cel, bits);
-	if ( bits[(1+vector.x)+(1+vector.y)*3] == 1 )  return FALSE;
+	if ( bits[(1+vector.x)+(1+vector.y)*3] == 1 )  return false;
 
 	icon = m_decor[test.x/2][test.y/2].objectIcon;
 	SearchObject(rank, icon, test, bits);
 	AjustObject(rank, icon, test, bits);
-	if ( bits[(1-vector.x)+(1-vector.y)*3] == 1 )  return FALSE;
-	if ( bits[1+1*3] == 1 )  return FALSE;
+	if ( bits[(1-vector.x)+(1-vector.y)*3] == 1 )  return false;
+	if ( bits[1+1*3] == 1 )  return false;
 
 	if ( vector.x != 0 && vector.y != 0 )  // déplacement diagonal ?
 	{
@@ -1643,67 +1643,67 @@ BOOL CDecor::IsFreeDirect(POINT cel, int direct, int rank)
 		AjustObject(rank, icon, test, bits);
 		Copy33To99(bits, obstacles, vector.x, 0);
 
-		if ( obstacles[(4+vector.x*1)+(4+vector.y*2)*9] == 1 )  return FALSE;
-		if ( obstacles[(4+vector.x*2)+(4+vector.y*1)*9] == 1 )  return FALSE;
+		if ( obstacles[(4+vector.x*1)+(4+vector.y*2)*9] == 1 )  return false;
+		if ( obstacles[(4+vector.x*2)+(4+vector.y*1)*9] == 1 )  return false;
 	}
 
-	return TRUE;  // pas d'obstacle
+	return true;  // pas d'obstacle
 }
 
 // Indique si une cellule contient un objet.
 // Est utilisé lors du dessin (BuildPutBlupi), pour savoir
 // si blupi est devant un objet.
 
-BOOL CDecor::IsFreeCelObstacle(POINT cel)
+bool CDecor::IsFreeCelObstacle(POINT cel)
 {
 	int			icon;
 	int			bits[9];
 
-	if ( !IsValid(cel) )  return FALSE;
+	if ( !IsValid(cel) )  return false;
 
 	if ( m_decor[cel.x/2][cel.y/2].fire > 0 &&
-		 m_decor[cel.x/2][cel.y/2].fire < MoveMaxFire() )  return FALSE;
+		 m_decor[cel.x/2][cel.y/2].fire < MoveMaxFire() )  return false;
 
 	icon = m_decor[cel.x/2][cel.y/2].objectIcon;
 	if ( icon != -1 )
 	{
 		SearchObject(-1, icon, cel, bits);
-		if ( bits[1+1*3] == 1 )  return FALSE;
+		if ( bits[1+1*3] == 1 )  return false;
 	}
 
-	return TRUE;  // pas d'obstacle
+	return true;  // pas d'obstacle
 }
 
 // Indique si une cellule contient un sol.
 // Est utilisé pour savoir si blupi peut aller sur une cellule
 // en tenant compte uniquement des sols.
-// Retourne TRUE si blupi peut y aller !
+// Retourne true si blupi peut y aller !
 
-BOOL CDecor::IsFreeCelFloor(POINT cel, int rank)
+bool CDecor::IsFreeCelFloor(POINT cel, int rank)
 {
 	int			icon;
 	int			bits[9];
 
-	if ( !IsValid(cel) )  return FALSE;
+	if ( !IsValid(cel) )  return false;
 
 	icon = m_decor[cel.x/2][cel.y/2].floorIcon;
 	if ( icon != -1 )
 	{
 		SearchFloor(rank, icon, cel, bits);
 		AjustFloor(rank, icon, cel, bits);
-		if ( bits[1+1*3] == 1 )  return FALSE;
+		if ( bits[1+1*3] == 1 )  return false;
 	}
 
-	return TRUE;  // pas d'obstacle
+	return true;  // pas d'obstacle
 }
 
 // Indique si une cellule est libre.
 // Est utilisé pour savoir si blupi peut venir ici
 // débarquer en bateau ou monter dans sa jeep.
 
-BOOL CDecor::IsFreeCelGo(POINT cel, int rank)
+bool CDecor::IsFreeCelGo(POINT cel, int rank)
 {
-	BOOL		bOK;
+	bool		bOK;
 	POINT		limit;
 	int			action, channel, icon;
 
@@ -1716,7 +1716,7 @@ BOOL CDecor::IsFreeCelGo(POINT cel, int rank)
 		 channel == CHOBJECT &&
 		 icon == 113 )  // maison ?
 	{
-		return FALSE;
+		return false;
 	}
 
 	// Refuse d'aller dans le laboratoire (on peut seulement
@@ -1726,17 +1726,17 @@ BOOL CDecor::IsFreeCelGo(POINT cel, int rank)
 		  icon == 120 ||  // usine ?
 		  icon == 122) )  // mine de fer ?
 	{
-		return FALSE;
+		return false;
 	}
 
 	bOK = IsFreeCel(cel, rank);
-	if ( bOK )  return TRUE;
+	if ( bOK )  return true;
 
 	bOK = IsFreeCelEmbarque(cel, rank, action, limit);
-	if ( bOK )  return TRUE;
+	if ( bOK )  return true;
 
 	bOK = IsFreeCelDebarque(cel, rank, action, limit);
-	if ( bOK )  return TRUE;
+	if ( bOK )  return true;
 
 	if ( !m_blupi[rank].bMalade &&
 		 m_blupi[rank].vehicule == 0 &&  // à pied ?
@@ -1744,7 +1744,7 @@ BOOL CDecor::IsFreeCelGo(POINT cel, int rank)
 		 channel == CHOBJECT &&
 		 icon == 118 )  // jeep ?
 	{
-		return TRUE;
+		return true;
 	}
 
 	if ( !m_blupi[rank].bMalade &&
@@ -1755,26 +1755,26 @@ BOOL CDecor::IsFreeCelGo(POINT cel, int rank)
 		 channel == CHOBJECT &&
 		 icon == 16 )  // armure ?
 	{
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Indique si on peut faire qq chose sur une cellule.
 // Est utilisé pour savoir comment est la mise en évidence (hili)
 // à cet endroit.
 
-BOOL CDecor::IsFreeCelHili(POINT cel, int rank)
+bool CDecor::IsFreeCelHili(POINT cel, int rank)
 {
-	BOOL		bOK;
+	bool		bOK;
 	POINT		limit;
 	int			workBlupi, channel, icon, action;
 
 	if ( IsValid(cel) )
 	{
 		workBlupi = m_decor[cel.x/2][cel.y/2].workBlupi;
-		if ( workBlupi >= 0 && workBlupi != rank )  return FALSE;
+		if ( workBlupi >= 0 && workBlupi != rank )  return false;
 
 		channel = m_decor[cel.x/2][cel.y/2].objectChannel;
 		icon    = m_decor[cel.x/2][cel.y/2].objectIcon;
@@ -1787,100 +1787,100 @@ BOOL CDecor::IsFreeCelHili(POINT cel, int rank)
 			  (icon >= 115 && icon <= 116) ||  // idem ?
 			  (icon >=  17 && icon <=  18)) )  // idem ?
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
 	if ( rank == -1 )  return IsFreeCelFloor(cel, rank);
 
 	bOK = IsFreeCelFloor(cel, rank);
-	if ( bOK )  return TRUE;
+	if ( bOK )  return true;
 
 	bOK = IsFreeCelEmbarque(cel, rank, action, limit);
-	if ( bOK )  return TRUE;
+	if ( bOK )  return true;
 
 	bOK = IsFreeCelDebarque(cel, rank, action, limit);
-	if ( bOK )  return TRUE;
+	if ( bOK )  return true;
 
-	return FALSE;
+	return false;
 }
 
 // Indique si une cellule est libre.
 // Est utilisé pour savoir si blupi peut venir ici.
 
-BOOL CDecor::IsFreeCel(POINT cel, int rank)
+bool CDecor::IsFreeCel(POINT cel, int rank)
 {
 	int			icon, workBlupi;
 	int			bits[9];
 
-	if ( !IsValid(cel) )  return FALSE;
+	if ( !IsValid(cel) )  return false;
 
 	if ( m_decor[cel.x/2][cel.y/2].fire > 0 &&
-		 m_decor[cel.x/2][cel.y/2].fire < MoveMaxFire() )  return FALSE;
+		 m_decor[cel.x/2][cel.y/2].fire < MoveMaxFire() )  return false;
 
 	// Cellule bloquée (un blupi travaille ici) ?
 	if ( rank != -1 && m_blupi[rank].perso != 3 )  // pas tracks ?
 	{
 		workBlupi = m_decor[cel.x/2][cel.y/2].workBlupi;
-		if ( workBlupi >= 0 && workBlupi != rank )  return FALSE;
+		if ( workBlupi >= 0 && workBlupi != rank )  return false;
 	}
 
 	icon = m_decor[cel.x/2][cel.y/2].floorIcon;
 	SearchFloor(rank, icon, cel, bits);
 	AjustFloor(rank, icon, cel, bits);
-	if ( bits[1+1*3] == 1 )  return FALSE;
+	if ( bits[1+1*3] == 1 )  return false;
 
 	icon = m_decor[cel.x/2][cel.y/2].objectIcon;
 	SearchObject(rank, icon, cel, bits);
 	AjustObject(rank, icon, cel, bits);
-	if ( bits[1+1*3] == 1 )  return FALSE;
+	if ( bits[1+1*3] == 1 )  return false;
 
-	return TRUE;  // pas d'obstacle
+	return true;  // pas d'obstacle
 }
 
 // Indique si blupi peut déposer un objet ici.
 
-BOOL CDecor::IsFreeCelDepose(POINT cel, int rank)
+bool CDecor::IsFreeCelDepose(POINT cel, int rank)
 {
 	int		icon;
 
-	if ( !IsFreeCel(cel, rank) )  return FALSE;
+	if ( !IsFreeCel(cel, rank) )  return false;
 
 	icon = m_decor[cel.x/2][cel.y/2].objectIcon;
 	if ( icon == 10000 || icon == 10001 ||  // éclairs entre tours ?
 		 icon == 18 )  // dalle glissante ?
 	{
-		return FALSE;
+		return false;
 	}
 
 	icon = m_decor[cel.x/2][cel.y/2].floorIcon;
 	if ( icon == 80 )  // téléporteur ?
 	{
-		return FALSE;
+		return false;
 	}
 
-	return TRUE;
+	return true;
 }
 
 // Indique s'il est possible d'embarquer ici.
 // Le point retourné dans "limit" indique jusqu'où il est
 // possible de marcher normalement (sans passe muraille).
 
-BOOL CDecor::IsFreeCelEmbarque(POINT cel, int rank,
+bool CDecor::IsFreeCelEmbarque(POINT cel, int rank,
 							   int &action, POINT &limit)
 {
-	BOOL		bOK;
+	bool		bOK;
 	int			channel, icon;
 
 	// Impossible si blupi n'est pas à pied,
 	// ou s'il s'agit d'un disciple.
 	if ( rank == -1 || m_blupi[rank].vehicule != 0 ||
-		 m_blupi[rank].perso == 8 )  return FALSE;
+		 m_blupi[rank].perso == 8 )  return false;
 
 	// A-t-on cliqué sur un bateau ?
-	if ( cel.x%2 != 1 || cel.y%2 != 1 )  return FALSE;
+	if ( cel.x%2 != 1 || cel.y%2 != 1 )  return false;
 	GetObject(cel, channel, icon);
-	if ( channel != CHOBJECT || icon != 117 )  return FALSE;
+	if ( channel != CHOBJECT || icon != 117 )  return false;
 
 	GetFloor(cel, channel, icon);
 	if ( channel == CHFLOOR && icon == 2 )
@@ -1892,7 +1892,7 @@ BOOL CDecor::IsFreeCelEmbarque(POINT cel, int rank,
 		{
 			limit = GetCel(cel,-2,0);
 			action = WM_ACTION_BATEAUDE;
-			return TRUE;
+			return true;
 		}
 	}
 
@@ -1906,7 +1906,7 @@ BOOL CDecor::IsFreeCelEmbarque(POINT cel, int rank,
 		{
 			limit = GetCel(cel,0,-2);
 			action = WM_ACTION_BATEAUDS;
-			return TRUE;
+			return true;
 		}
 	}
 
@@ -1920,7 +1920,7 @@ BOOL CDecor::IsFreeCelEmbarque(POINT cel, int rank,
 		{
 			limit = GetCel(cel,+1,0);
 			action = WM_ACTION_BATEAUDO;
-			return TRUE;
+			return true;
 		}
 	}
 
@@ -1934,31 +1934,31 @@ BOOL CDecor::IsFreeCelEmbarque(POINT cel, int rank,
 		{
 			limit = GetCel(cel,0,+1);
 			action = WM_ACTION_BATEAUDN;
-			return TRUE;
+			return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Indique s'il est possible de débarquer ici.
 // Le point retourné dans "limit" indique jusqu'où il est
 // possible de naviguer normalement (sans passe muraille).
 
-BOOL CDecor::IsFreeCelDebarque(POINT cel, int rank,
+bool CDecor::IsFreeCelDebarque(POINT cel, int rank,
 							   int &action, POINT &limit)
 {
-	BOOL		bOK;
+	bool		bOK;
 	int			channel1, icon1;
 	int			channel2, icon2;
 
 	// Impossible si blupi n'est pas en bateau.
-	if ( rank == -1 || m_blupi[rank].vehicule != 1 )  return FALSE;
+	if ( rank == -1 || m_blupi[rank].vehicule != 1 )  return false;
 
 	m_blupi[rank].vehicule = 0;
 	bOK = IsFreeCel(cel, rank);  // libre (à pied) ?
 	m_blupi[rank].vehicule = 1;
-	if ( !bOK )  return FALSE;
+	if ( !bOK )  return false;
 
 	GetFloor(GetCel(cel,+2,0), channel1, icon1);
 	GetObject(GetCel(cel,+2,0), channel2, icon2);
@@ -1968,7 +1968,7 @@ BOOL CDecor::IsFreeCelDebarque(POINT cel, int rank,
 	{
 		limit = GetCel(cel,+3,0);
 		action = WM_ACTION_BATEAUAE;
-		return TRUE;
+		return true;
 	}
 
 	GetFloor(GetCel(cel,0,+2), channel1, icon1);
@@ -1979,7 +1979,7 @@ BOOL CDecor::IsFreeCelDebarque(POINT cel, int rank,
 	{
 		limit = GetCel(cel,0,+3);
 		action = WM_ACTION_BATEAUAS;
-		return TRUE;
+		return true;
 	}
 
 	GetFloor(GetCel(cel,-2,0), channel1, icon1);
@@ -1990,7 +1990,7 @@ BOOL CDecor::IsFreeCelDebarque(POINT cel, int rank,
 	{
 		limit = GetCel(cel,-2,0);
 		action = WM_ACTION_BATEAUAO;
-		return TRUE;
+		return true;
 	}
 
 	GetFloor(GetCel(cel,0,-2), channel1, icon1);
@@ -2001,36 +2001,36 @@ BOOL CDecor::IsFreeCelDebarque(POINT cel, int rank,
 	{
 		limit = GetCel(cel,0,-2);
 		action = WM_ACTION_BATEAUAN;
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Indique s'il est possible de sauter dans une direction.
 
-BOOL CDecor::IsFreeJump(POINT cel, int direct, int rank, int &action)
+bool CDecor::IsFreeJump(POINT cel, int direct, int rank, int &action)
 {
 	POINT		depart, vector;
 	int			i, icon;
 	int			bits[3*3];
 
 	// Refuse de sauter si blupi n'est pas à pied !
-	if ( m_blupi[rank].vehicule != 0 )  return FALSE;
+	if ( m_blupi[rank].vehicule != 0 )  return false;
 
 	// Refuse de sauter dans les directions se, so, no, ne.
-	if ( (direct/16)%2 != 0 )  return FALSE;
+	if ( (direct/16)%2 != 0 )  return false;
 
 	// Refuse de sauter si peu d'énergie ou si porte qq chose.
 	if ( m_blupi[rank].perso != 0 ||
 		 m_blupi[rank].energy <= MAXENERGY/4 ||
-		 m_blupi[rank].takeChannel != -1 )  return FALSE;
+		 m_blupi[rank].takeChannel != -1 )  return false;
 
 	vector = GetVector(direct);
 	depart = cel;
 
 	i = 0;
-	while ( TRUE )
+	while ( true )
 	{
 		cel.x += vector.x;
 		cel.y += vector.y;
@@ -2039,46 +2039,46 @@ BOOL CDecor::IsFreeJump(POINT cel, int direct, int rank, int &action)
 		if ( IsFreeCelFloor(cel, rank) )  break;
 		i ++;
 	}
-	if ( i == 0 )  return FALSE;
+	if ( i == 0 )  return false;
 
 	// Départ possible par-rapport aux obstacles ?
 	icon = m_decor[depart.x/2][depart.y/2].objectIcon;
 	SearchObject(rank, icon, depart, bits);
 	AjustObject(rank, icon, depart, bits);
-	if ( bits[(1+vector.x)+(1+vector.y)*3] == 1 )  return FALSE;
+	if ( bits[(1+vector.x)+(1+vector.y)*3] == 1 )  return false;
 
 	// Arrivée possible par-rapport aux obstacles ?
 	icon = m_decor[cel.x/2][cel.y/2].objectIcon;
 	SearchObject(rank, icon, cel, bits);
 	AjustObject(rank, icon, cel, bits);
-	if ( bits[(1-vector.x)+(1-vector.y)*3] == 1 )  return FALSE;
+	if ( bits[(1-vector.x)+(1-vector.y)*3] == 1 )  return false;
 
 	if ( !IsFreeCel(cel, rank) ||
-		  IsBlupiHere(cel, TRUE) )  return FALSE;
+		  IsBlupiHere(cel, true) )  return false;
 
 	action = ACTION_SAUTE2+(i-1);
-	return TRUE;
+	return true;
 }
 
 // Indique s'il est possible de glisser dans une direction.
 
-BOOL CDecor::IsFreeGlisse(POINT cel, int direct, int rank, int &action)
+bool CDecor::IsFreeGlisse(POINT cel, int direct, int rank, int &action)
 {
 	int			channel, icon;
 
 	// Y'a que blupi qui glisse !
-	if ( m_blupi[rank].perso != 0 )  return FALSE;
+	if ( m_blupi[rank].perso != 0 )  return false;
 
 	GetFloor(GetCel((cel.x/2)*2,(cel.y/2)*2), channel, icon);
 	if ( channel != CHFLOOR || icon != 18 )  // pas dalle glissante ?
 	{
-		return FALSE;
+		return false;
 	}
 
-	if ( !IsFreeDirect(cel, direct, rank) )  return FALSE;
+	if ( !IsFreeDirect(cel, direct, rank) )  return false;
 
 	action = ACTION_GLISSE;
-	return TRUE;
+	return true;
 }
 
 
@@ -2229,28 +2229,28 @@ void CDecor::AddUsedPos(int rank, POINT pos)
 
 // Cherche si une position a déjà été essayée.
 
-BOOL CDecor::IsUsedPos(int rank, POINT pos)
+bool CDecor::IsUsedPos(int rank, POINT pos)
 {
 	int		i;
 
 	for ( i=0 ; i<m_blupi[rank].nbUsed ; i++ )
 	{
 		if ( pos.x == m_blupi[rank].posUsed[i].x &&
-			 pos.y == m_blupi[rank].posUsed[i].y )  return TRUE;
+			 pos.y == m_blupi[rank].posUsed[i].y )  return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 
 // Cherche la meilleure direction pour atteindre un but.
 
-BOOL CDecor::SearchBestBase(int rank, int &action, POINT &newCel, int &direct)
+bool CDecor::SearchBestBase(int rank, int &action, POINT &newCel, int &direct)
 {
 	int			searchDirect[8] = {0,1,7,2,6,5,3,4};
 	int			tryDirect, workBlupi, i, a;
 	POINT		cel, vector;
-	BOOL		bFree;
+	bool		bFree;
 
 	cel    = m_blupi[rank].cel;
 	direct = DirectSearch(cel, m_blupi[rank].goalCel);
@@ -2288,7 +2288,7 @@ BOOL CDecor::SearchBestBase(int rank, int &action, POINT &newCel, int &direct)
 				 m_blupi[rank].passCel.y/2 == (cel.y+vector.y*a)/2 &&
 				 (workBlupi < 0 || workBlupi == rank) )
 			{
-				bFree = TRUE;
+				bFree = true;
 			}
 		}
 
@@ -2303,7 +2303,7 @@ BOOL CDecor::SearchBestBase(int rank, int &action, POINT &newCel, int &direct)
 				{
 					// Le tracks peut aller sur les blupi
 					// pour les écraser !
-					if ( IsTracksHere(newCel, FALSE) )
+					if ( IsTracksHere(newCel, false) )
 					{
 						continue;
 					}
@@ -2311,37 +2311,37 @@ BOOL CDecor::SearchBestBase(int rank, int &action, POINT &newCel, int &direct)
 					{
 						AddUsedPos(rank, newCel);
 						direct = tryDirect;
-						return TRUE;
+						return true;
 					}
 				}
 				else
 				{
-					if ( IsBlupiHere(newCel, FALSE) )
+					if ( IsBlupiHere(newCel, false) )
 					{
 						// Si blupi immobile, comme si obstacle qq.
 						if ( m_blupi[m_blupiHere].goalCel.x == -1 )  continue;
 						newCel = cel;
 						action = ACTION_STOP;
 						direct = tryDirect;
-						return TRUE;
+						return true;
 					}
 					else
 					{
 						AddUsedPos(rank, newCel);
 						direct = tryDirect;
-						return TRUE;
+						return true;
 					}
 				}
 			}
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Cherche la meilleure direction pour atteindre un but.
 
-BOOL CDecor::SearchBestPass(int rank, int &action)
+bool CDecor::SearchBestPass(int rank, int &action)
 {
 	Blupi		iBlupi;
 	int			i, j, direct;
@@ -2361,23 +2361,23 @@ BOOL CDecor::SearchBestPass(int rank, int &action)
 			{
 				m_blupi[rank].busyCount --;
 			}
-			return FALSE;
+			return false;
 		}
 		if ( CheminCherche(rank, action) )  // recherche futée selon DD ...
 		{
-			return TRUE;
+			return true;
 		}
 		else
 		{
 			// Si la destination est occupée pendant une répétition,
 			// il faut attendre à l'infini !
 			if ( m_blupi[rank].repeatLevel != -1 &&
-				 IsBlupiHereEx(m_blupi[rank].goalCel, rank, FALSE) )
+				 IsBlupiHereEx(m_blupi[rank].goalCel, rank, false) )
 			{
 				m_blupi[rank].busyCount ++;
 			}
 			m_blupi[rank].busyDelay = Random(8,12);  // délai avant réessai
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -2388,7 +2388,7 @@ BOOL CDecor::SearchBestPass(int rank, int &action)
 		// Essaye 7 coups en avance, pour voir.
 		iCel = m_blupi[rank].cel;
 		i = 0;
-		while ( TRUE )
+		while ( true )
 		{
 			if ( !SearchBestBase(rank, action, cel, direct) )  break;
 			if ( action == ACTION_STOP )  // collision avec autre blupi ?
@@ -2396,7 +2396,7 @@ BOOL CDecor::SearchBestPass(int rank, int &action)
 				if ( i == 0 )
 				{
 					m_blupi[rank] = iBlupi;  // restitue blupi
-					return FALSE;
+					return false;
 				}
 				i = 7;  // comme si ok pour 7 coups
 				break;
@@ -2416,7 +2416,7 @@ BOOL CDecor::SearchBestPass(int rank, int &action)
 					m_blupi[rank].cel = iCel;
 					m_blupi[rank].sDirect = direct;
 					action = ACTION_MARCHE;
-					return TRUE;
+					return true;
 				}
 			}
 
@@ -2434,19 +2434,19 @@ BOOL CDecor::SearchBestPass(int rank, int &action)
 
 		m_blupi[rank] = iBlupi;  // restitue blupi
 
-		if ( i == 0 )  return FALSE;
+		if ( i == 0 )  return false;
 
 		if ( i == 7 )
 		{
 			SearchBestBase(rank, action, cel, direct);
 			m_blupi[rank].sDirect = direct;
-			return TRUE;
+			return true;
 		}
 
 		AddUsedPos(rank, lCel);  // bloque position ridicule
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -2454,29 +2454,29 @@ BOOL CDecor::SearchBestPass(int rank, int &action)
 // Le sol doit permettre d'aller aux 4 coins, et il ne doit
 // pas y avoir un autre blupi que soi-même.
 
-BOOL CDecor::IsWorkableObject(POINT cel, int rank)
+bool CDecor::IsWorkableObject(POINT cel, int rank)
 {
 	if ( !IsFreeCelFloor(GetCel(cel,0,0), -1) ||
 		 !IsFreeCelFloor(GetCel(cel,1,0), -1) ||
 		 !IsFreeCelFloor(GetCel(cel,0,1), -1) ||
-		 !IsFreeCelFloor(GetCel(cel,1,1), -1) )  return FALSE;
+		 !IsFreeCelFloor(GetCel(cel,1,1), -1) )  return false;
 
-	if ( IsBlupiHereEx(GetCel(cel,0,0), rank, FALSE) ||
-		 IsBlupiHereEx(GetCel(cel,1,0), rank, FALSE) ||
-		 IsBlupiHereEx(GetCel(cel,0,1), rank, FALSE) ||
-		 IsBlupiHereEx(GetCel(cel,1,1), rank, FALSE) )  return FALSE;
+	if ( IsBlupiHereEx(GetCel(cel,0,0), rank, false) ||
+		 IsBlupiHereEx(GetCel(cel,1,0), rank, false) ||
+		 IsBlupiHereEx(GetCel(cel,0,1), rank, false) ||
+		 IsBlupiHereEx(GetCel(cel,1,1), rank, false) )  return false;
 
 	if ( m_decor[cel.x/2][cel.y/2].fire > 0 &&
-		 m_decor[cel.x/2][cel.y/2].fire < MoveMaxFire() )  return FALSE;
+		 m_decor[cel.x/2][cel.y/2].fire < MoveMaxFire() )  return false;
 
-	return TRUE;
+	return true;
 }
 
 
 // Cherche un autre objet pour continuer une action
 // (comme par exemple abatre des arbres).
 
-BOOL CDecor::SearchOtherObject(int rank, POINT initCel, int action,
+bool CDecor::SearchOtherObject(int rank, POINT initCel, int action,
 							   int distMax, int channel,
 							   int firstIcon1, int lastIcon1,
 							   int firstIcon2, int lastIcon2,
@@ -2486,7 +2486,7 @@ BOOL CDecor::SearchOtherObject(int rank, POINT initCel, int action,
 	int		x, y, xx, yy;
 	int		dist, min = distMax;
 	POINT	cel;
-	BOOL	bOK;
+	bool	bOK;
 
 	if ( firstIcon1 == 33 && lastIcon1 == 48 &&
 		 firstIcon2 == 71 && lastIcon2 == 71 )  // cherche du fer ?
@@ -2518,7 +2518,7 @@ BOOL CDecor::SearchOtherObject(int rank, POINT initCel, int action,
 	{
 		for ( x=startx ; x<endx ; x+=2 )
 		{
-			bOK = FALSE;
+			bOK = false;
 
 			if ( channel == CHFLOOR )
 			{
@@ -2527,7 +2527,7 @@ BOOL CDecor::SearchOtherObject(int rank, POINT initCel, int action,
 					  m_decor[x/2][y/2].floorIcon <= lastIcon1 )||
 					 (m_decor[x/2][y/2].floorIcon >= firstIcon2 &&
 					  m_decor[x/2][y/2].floorIcon <= lastIcon2 ))&&
-					 m_decor[x/2][y/2].objectChannel == -1 )  bOK = TRUE;
+					 m_decor[x/2][y/2].objectChannel == -1 )  bOK = true;
 			}
 			else
 			{
@@ -2535,7 +2535,7 @@ BOOL CDecor::SearchOtherObject(int rank, POINT initCel, int action,
 					((m_decor[x/2][y/2].objectIcon >= firstIcon1 &&
 					  m_decor[x/2][y/2].objectIcon <= lastIcon1 )||
 					 (m_decor[x/2][y/2].objectIcon >= firstIcon2 &&
-					  m_decor[x/2][y/2].objectIcon <= lastIcon2 )) ) bOK = TRUE;
+					  m_decor[x/2][y/2].objectIcon <= lastIcon2 )) ) bOK = true;
 			}
 
 			if ( bOK )
@@ -2574,7 +2574,7 @@ BOOL CDecor::SearchOtherObject(int rank, POINT initCel, int action,
 		}
 	}
 
-	if ( min == distMax )  return FALSE;
+	if ( min == distMax )  return false;
 
 	foundCel.x = xx;
 	foundCel.y = yy;
@@ -2588,13 +2588,13 @@ BOOL CDecor::SearchOtherObject(int rank, POINT initCel, int action,
 		foundIcon = m_decor[xx/2][yy/2].objectIcon;
 	}
 
-	return TRUE;
+	return true;
 }
 
 // Cherche un autre sol pouvant contenir du fer, pour y
 // planter un drapeau.
 
-BOOL CDecor::SearchOtherDrapeau(int rank, POINT initCel, int distMax,
+bool CDecor::SearchOtherDrapeau(int rank, POINT initCel, int distMax,
 								POINT &foundCel, int &foundIcon)
 {
 	int		startx, starty, endx, endy, icon;
@@ -2640,14 +2640,14 @@ BOOL CDecor::SearchOtherDrapeau(int rank, POINT initCel, int distMax,
 		}
 	}
 
-	if ( min == distMax )  return FALSE;
-	return TRUE;
+	if ( min == distMax )  return false;
+	return true;
 }
 
 // Cherche un autre sol permettant de déposer du bois
 // pour construire un bateau.
 
-BOOL CDecor::SearchOtherBateau(int rank, POINT initCel, int distMax,
+bool CDecor::SearchOtherBateau(int rank, POINT initCel, int distMax,
 							   POINT &foundCel, int &foundIcon)
 {
 	int		startx, starty, endx, endy;
@@ -2681,14 +2681,14 @@ BOOL CDecor::SearchOtherBateau(int rank, POINT initCel, int distMax,
 		}
 	}
 
-	if ( min == distMax )  return FALSE;
-	return TRUE;
+	if ( min == distMax )  return false;
+	return true;
 }
 
 
 // Vérifie si l'objet peut être détruit par l'araignée.
 
-BOOL CDecor::IsSpiderObject(int icon)
+bool CDecor::IsSpiderObject(int icon)
 {
 	return ( icon == 60 ||   // tomates ?
 			 icon == 92 ||   // poison ?
@@ -2697,7 +2697,7 @@ BOOL CDecor::IsSpiderObject(int icon)
 
 // Cherche un autre objet pour l'araignée.
 
-BOOL CDecor::SearchSpiderObject(int rank, POINT initCel, int distMax,
+bool CDecor::SearchSpiderObject(int rank, POINT initCel, int distMax,
 								POINT &foundCel, int &foundIcon)
 {
 	int		startx, starty, endx, endy;
@@ -2723,7 +2723,7 @@ BOOL CDecor::SearchSpiderObject(int rank, POINT initCel, int distMax,
 			{
 				cel.x = x;
 				cel.y = y;
-				if ( IsBlupiHere(cel, FALSE) )  continue;
+				if ( IsBlupiHere(cel, false) )  continue;
 
 				dist = abs(initCel.x-x) + abs(initCel.y-y);
 
@@ -2741,15 +2741,15 @@ BOOL CDecor::SearchSpiderObject(int rank, POINT initCel, int distMax,
 		}
 	}
 
-	if ( min == distMax )  return FALSE;
+	if ( min == distMax )  return false;
 
-	return TRUE;
+	return true;
 }
 
 
 // Vérifie si l'objet peut être détruit par le tracks.
 
-BOOL CDecor::IsTracksObject(int icon)
+bool CDecor::IsTracksObject(int icon)
 {
 	return ( icon ==  36 ||		// planches ?
 			 icon ==  44 ||		// pierres ?
@@ -2768,7 +2768,7 @@ BOOL CDecor::IsTracksObject(int icon)
 
 // Cherche un autre objet pour le tracks.
 
-BOOL CDecor::SearchTracksObject(int rank, POINT initCel, int distMax,
+bool CDecor::SearchTracksObject(int rank, POINT initCel, int distMax,
 								POINT &foundCel, int &foundIcon)
 {
 	int		startx, starty, endx, endy, icon;
@@ -2795,7 +2795,7 @@ BOOL CDecor::SearchTracksObject(int rank, POINT initCel, int distMax,
 //?				cel.x = x;
 //?				cel.y = y;
 //?				if ( BlupiIsGoalUsed(cel) )  continue;
-//?				if ( IsBlupiHere(cel, FALSE) )  continue;
+//?				if ( IsBlupiHere(cel, false) )  continue;
 
 				dist = abs(initCel.x-x) + abs(initCel.y-y);
 				if ( dist <= min )
@@ -2841,15 +2841,15 @@ BOOL CDecor::SearchTracksObject(int rank, POINT initCel, int distMax,
 		}
 	}
 
-	if ( min == distMax )  return FALSE;
+	if ( min == distMax )  return false;
 
-	return TRUE;
+	return true;
 }
 
 
 // Vérifie si l'objet peut être détruit par le robot.
 
-BOOL CDecor::IsRobotObject(int icon)
+bool CDecor::IsRobotObject(int icon)
 {
 	return ( icon ==  85 ||  // dynamite ?
 			 icon ==  93 ||  // piège ?
@@ -2860,7 +2860,7 @@ BOOL CDecor::IsRobotObject(int icon)
 // Cherche une autre action pour le robot.
 // C'est ici qu'est contenue l'IA du robot !
 
-BOOL CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
+bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 							   POINT &foundCel, int &foundIcon,
 							   int &foundAction)
 {
@@ -2929,7 +2929,7 @@ BOOL CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 	if ( min < distMax )
 	{
 		foundAction = -1;  // robot passe tout prèt d'un piège/dynamite
-		return TRUE;
+		return true;
 	}
 
 	// Cherche l'usine la moins construite.
@@ -2969,7 +2969,7 @@ BOOL CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 			if ( index == 3 )  foundAction = WM_ACTION_R_BUILD3;  // virus
 			if ( index == 4 )  foundAction = WM_ACTION_R_BUILD5;  // bombe
 			if ( index == 5 )  foundAction = WM_ACTION_R_BUILD6;  // électro
-			return TRUE;
+			return true;
 		}
 		// Cherche un emplacement libre.
 		for ( d=1 ; d<distMax/6 ; d++ )
@@ -3029,7 +3029,7 @@ BOOL CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 			}
 		}
 	}
-	if ( nb > MAXBLUPI-10 )  return FALSE;  // rien si trop peuplé !
+	if ( nb > MAXBLUPI-10 )  return false;  // rien si trop peuplé !
 	// Cherche l'ennemi le moins répandu.
 	min = 999;
 	index = 0;
@@ -3090,7 +3090,7 @@ BOOL CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 		if ( index == 3 )  foundAction = WM_ACTION_R_MAKE3;  // virus
 		if ( index == 4 )  foundAction = WM_ACTION_R_MAKE5;  // bombe
 		if ( index == 5 )  foundAction = WM_ACTION_R_MAKE6;  // électro
-		return TRUE;
+		return true;
 	}
 
 	// Cherche l'usine la plus proche.
@@ -3128,15 +3128,15 @@ BOOL CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 		if ( foundIcon == 104 )  foundAction = WM_ACTION_R_MAKE4;  // tracks
 		if ( foundIcon == 115 )  foundAction = WM_ACTION_R_MAKE5;  // bombe
 		if ( foundIcon ==  17 )  foundAction = WM_ACTION_R_MAKE6;  // électro
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Teste si un emplacement est ok pour bâtir une usine.
 
-BOOL CDecor::IsUsineBuild(int rank, POINT cel)
+bool CDecor::IsUsineBuild(int rank, POINT cel)
 {
 	int		icon, channel;
 	int		x, y;
@@ -3144,28 +3144,28 @@ BOOL CDecor::IsUsineBuild(int rank, POINT cel)
 	// Pas sur les dalles hachurées !
 	GetFloor(cel, channel, icon);
 	if ( channel == CHFLOOR &&
-		 (icon < 65 || icon > 67) )  return FALSE;
+		 (icon < 65 || icon > 67) )  return false;
 
 	for ( x=-1 ; x<3 ; x++ )
 	{
 		for ( y=-1 ; y<3 ; y++ )
 		{
 			if ( !IsFreeCel(GetCel(cel,x,y), rank) ||
-				 IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+				 IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 			{
-				return FALSE;
+				return false;
 			}
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 // Teste s'il est possible d'entrer dans une usine.
 // L'usine doit être libre devant (lieu de stationnement
 // pour l'ennemi qui sera construit).
 
-BOOL CDecor::IsUsineFree(int rank, POINT cel)
+bool CDecor::IsUsineFree(int rank, POINT cel)
 {
 	int		channel, icon;
 
@@ -3173,24 +3173,24 @@ BOOL CDecor::IsUsineFree(int rank, POINT cel)
 
 	if ( channel == CHOBJECT && icon == 115 )  // usine à bombes ?
 	{
-		return ( !IsBlupiHereEx(GetCel(cel,0,1), rank, FALSE) &&
-				 !IsBlupiHereEx(GetCel(cel,1,1), rank, FALSE) &&
-				 !IsBlupiHereEx(GetCel(cel,2,1), rank, FALSE) &&
-				 !IsBlupiHereEx(GetCel(cel,3,1), rank, FALSE) );
+		return ( !IsBlupiHereEx(GetCel(cel,0,1), rank, false) &&
+				 !IsBlupiHereEx(GetCel(cel,1,1), rank, false) &&
+				 !IsBlupiHereEx(GetCel(cel,2,1), rank, false) &&
+				 !IsBlupiHereEx(GetCel(cel,3,1), rank, false) );
 	}
 
-	return ( !IsBlupiHereEx(GetCel(cel,0,1), rank, FALSE) &&
-			 !IsBlupiHereEx(GetCel(cel,1,1), rank, FALSE) &&
-			 !IsBlupiHereEx(GetCel(cel,2,0), rank, FALSE) &&
-			 !IsBlupiHereEx(GetCel(cel,2,1), rank, FALSE) &&
-			 (!IsBlupiHereEx(GetCel(cel,3,0), rank, FALSE)||
-			  !IsBlupiHereEx(GetCel(cel,3,1), rank, FALSE)) );
+	return ( !IsBlupiHereEx(GetCel(cel,0,1), rank, false) &&
+			 !IsBlupiHereEx(GetCel(cel,1,1), rank, false) &&
+			 !IsBlupiHereEx(GetCel(cel,2,0), rank, false) &&
+			 !IsBlupiHereEx(GetCel(cel,2,1), rank, false) &&
+			 (!IsBlupiHereEx(GetCel(cel,3,0), rank, false)||
+			  !IsBlupiHereEx(GetCel(cel,3,1), rank, false)) );
 }
 
 
 // Vérifie si l'objet peut être détruit par une bombe.
 
-BOOL CDecor::IsBombeObject(int icon)
+bool CDecor::IsBombeObject(int icon)
 {
 	return ( icon == 36 ||		// planches ?
 			 icon == 61 ||		// cabane ?
@@ -3202,7 +3202,7 @@ BOOL CDecor::IsBombeObject(int icon)
 
 // Cherche un autre objet pour une bombe.
 
-BOOL CDecor::SearchBombeObject(int rank, POINT initCel, int distMax,
+bool CDecor::SearchBombeObject(int rank, POINT initCel, int distMax,
 							   POINT &foundCel, int &foundIcon)
 {
 	int		startx, starty, endx, endy;
@@ -3228,7 +3228,7 @@ BOOL CDecor::SearchBombeObject(int rank, POINT initCel, int distMax,
 			{
 				cel.x = x;
 				cel.y = y;
-				if ( IsBlupiHere(cel, FALSE) )  continue;
+				if ( IsBlupiHere(cel, false) )  continue;
 
 				dist = abs(initCel.x-x) + abs(initCel.y-y);
 
@@ -3246,14 +3246,14 @@ BOOL CDecor::SearchBombeObject(int rank, POINT initCel, int distMax,
 		}
 	}
 
-	if ( min == distMax )  return FALSE;
+	if ( min == distMax )  return false;
 
-	return TRUE;
+	return true;
 }
 
 // Cherche un autre objet pour un électro.
 
-BOOL CDecor::SearchElectroObject(int rank, POINT initCel, int distMax,
+bool CDecor::SearchElectroObject(int rank, POINT initCel, int distMax,
 								 POINT &foundCel, int &foundIcon)
 {
 	int		startx, starty, endx, endy;
@@ -3279,7 +3279,7 @@ BOOL CDecor::SearchElectroObject(int rank, POINT initCel, int distMax,
 			{
 				cel.x = x;
 				cel.y = y;
-				if ( IsBlupiHere(cel, FALSE) )  continue;
+				if ( IsBlupiHere(cel, false) )  continue;
 
 				dist = abs(initCel.x-x) + abs(initCel.y-y);
 
@@ -3293,7 +3293,7 @@ BOOL CDecor::SearchElectroObject(int rank, POINT initCel, int distMax,
 			}
 		}
 	}
-	if ( min <= 4 )  return TRUE;
+	if ( min <= 4 )  return true;
 
 	min = distMax;
 	for ( r=0 ; r<MAXBLUPI ; r++ )
@@ -3316,7 +3316,7 @@ BOOL CDecor::SearchElectroObject(int rank, POINT initCel, int distMax,
 			}
 		}
 	}
-	if ( min == distMax )  return FALSE;
+	if ( min == distMax )  return false;
 
 	// Cherche un emplacement libre.
 	for ( d=1 ; d<distMax/2 ; d++ )
@@ -3333,24 +3333,24 @@ BOOL CDecor::SearchElectroObject(int rank, POINT initCel, int distMax,
 				if ( i == 3 )  y -= 1;  // monte
 
 				if ( IsFreeCel(GetCel(x,y), rank) &&
-					 !IsBlupiHereEx(GetCel(x,y), rank, FALSE) )
+					 !IsBlupiHereEx(GetCel(x,y), rank, false) )
 				{
 					foundCel.x = x;
 					foundCel.y = y;
-					return TRUE;
+					return true;
 				}
 			}
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 
 // Teste si une position est très proche du feu.
-// Si oui, retourne TRUE.
+// Si oui, retourne true.
 
-BOOL CDecor::IsFireCel(POINT cel)
+bool CDecor::IsFireCel(POINT cel)
 {
 	int			x, y;
 	POINT		test;
@@ -3368,17 +3368,17 @@ BOOL CDecor::IsFireCel(POINT cel)
 			if ( !IsValid(test) )  continue;
 
 			if ( m_decor[test.x/2][test.y/2].fire > 0 &&
-				 m_decor[test.x/2][test.y/2].fire < MoveMaxFire() )  return TRUE;
+				 m_decor[test.x/2][test.y/2].fire < MoveMaxFire() )  return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Teste si une position est très proche d'un virus.
-// Si oui, retourne TRUE.
+// Si oui, retourne true.
 
-BOOL CDecor::IsVirusCel(POINT cel)
+bool CDecor::IsVirusCel(POINT cel)
 {
 	int		rank;
 
@@ -3390,11 +3390,11 @@ BOOL CDecor::IsVirusCel(POINT cel)
 			if ( cel.x >= m_blupi[rank].cel.x-1 &&
 				 cel.x <= m_blupi[rank].cel.x+1 &&
 				 cel.y >= m_blupi[rank].cel.y-1 &&
-				 cel.y <= m_blupi[rank].cel.y+1 )  return TRUE;
+				 cel.y <= m_blupi[rank].cel.y+1 )  return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -3531,7 +3531,7 @@ int CDecor::IsBuildPont(POINT &cel, int &iconBuild)
 // Regarde s'il est possible de construire un bateau à partir
 // d'une cellule donnée (cel).
 
-BOOL CDecor::IsBuildBateau(POINT cel, int &direct)
+bool CDecor::IsBuildBateau(POINT cel, int &direct)
 {
 	int		fChannel, fIcon;
 	int		oChannel, oIcon;
@@ -3542,7 +3542,7 @@ BOOL CDecor::IsBuildBateau(POINT cel, int &direct)
 		 oChannel == -1      && oIcon == -1 )
 	{
 		direct = DIRECT_E;
-		return TRUE;
+		return true;
 	}
 
 	GetFloor (GetCel(cel,-2,0), fChannel, fIcon);
@@ -3551,7 +3551,7 @@ BOOL CDecor::IsBuildBateau(POINT cel, int &direct)
 		 oChannel == -1      && oIcon == -1 )
 	{
 		direct = DIRECT_O;
-		return TRUE;
+		return true;
 	}
 
 	GetFloor (GetCel(cel,0,+2), fChannel, fIcon);
@@ -3560,7 +3560,7 @@ BOOL CDecor::IsBuildBateau(POINT cel, int &direct)
 		 oChannel == -1      && oIcon == -1 )
 	{
 		direct = DIRECT_S;
-		return TRUE;
+		return true;
 	}
 
 	GetFloor (GetCel(cel,0,-2), fChannel, fIcon);
@@ -3569,11 +3569,11 @@ BOOL CDecor::IsBuildBateau(POINT cel, int &direct)
 		 oChannel == -1      && oIcon == -1 )
 	{
 		direct = DIRECT_N;
-		return TRUE;
+		return true;
 	}
 
 	direct = -1;
-	return FALSE;
+	return false;
 }
 
 
@@ -3625,16 +3625,16 @@ void CDecor::SubDrapeau(POINT cel)
 
 // Teste si une cellule a déjà été visitée.
 
-BOOL CDecor::TestDrapeau(POINT cel)
+bool CDecor::TestDrapeau(POINT cel)
 {
 	int		i;
 
 	for ( i=0 ; i<MAXLASTDRAPEAU ; i++ )
 	{
 		if ( cel.x == m_lastDrapeau[i].x &&
-			 cel.y == m_lastDrapeau[i].y )  return TRUE;
+			 cel.y == m_lastDrapeau[i].y )  return true;
 	}
 
-	return FALSE;
+	return false;
 }
 

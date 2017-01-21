@@ -90,7 +90,7 @@ CMenu::~CMenu()
 
 // Crée un nouveau bouton.
 
-BOOL CMenu::Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
+bool CMenu::Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
 				   POINT pos, int nb, int *pButtons, int *pErrors,
 				   int perso)
 {
@@ -123,7 +123,7 @@ BOOL CMenu::Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
 
 	m_selRank = Detect(pos);
 
-	return TRUE;
+	return true;
 }
 
 // Met à jour le menu.
@@ -164,8 +164,8 @@ void CMenu::Draw()
 	int			i, state, icon;
 	POINT		pos;
 	RECT		oldClip, clipRect;
-	BOOL		bLeft  = TRUE;
-	BOOL		bRight = TRUE;
+	bool		bLeft  = true;
+	bool		bRight = true;
 	char		text[50];
 	char*		pText;
 
@@ -178,8 +178,8 @@ void CMenu::Draw()
 	clipRect.bottom = POSDRAWY+DIMDRAWY;
 	m_pPixmap->SetClipping(clipRect);
 
-	if ( m_pos.x-150         < POSDRAWX          )  bLeft  = FALSE;
-	if ( m_pos.x+m_dim.x+150 > POSDRAWX+DIMDRAWX )  bRight = FALSE;
+	if ( m_pos.x-150         < POSDRAWX          )  bLeft  = false;
+	if ( m_pos.x+m_dim.x+150 > POSDRAWX+DIMDRAWX )  bRight = false;
 
 	for ( i=0 ; i<m_nbButtons ; i++ )
 	{
@@ -323,34 +323,34 @@ int CMenu::GetRank()
 	return m_selRank;
 }
 
-// Retourne TRUE si le bouton sélectionné a une erreur.
+// Retourne true si le bouton sélectionné a une erreur.
 
-BOOL CMenu::IsError()
+bool CMenu::IsError()
 {
-	if ( m_selRank == -1 )  return TRUE;
+	if ( m_selRank == -1 )  return true;
 
 	if ( m_errors[m_selRank] != 0  &&
-		 m_errors[m_selRank] < 100 )  return TRUE;
+		 m_errors[m_selRank] < 100 )  return true;
 
-	return FALSE;
+	return false;
 }
 
 
 // Indique si le menu existe.
 
-BOOL CMenu::IsExist()
+bool CMenu::IsExist()
 {
-	return ( m_nbButtons == 0 ) ? FALSE:TRUE;
+	return ( m_nbButtons == 0 ) ? false:true;
 }
 
 
 // Traitement d'un événement.
 
-BOOL CMenu::TreatEvent(UINT message, WPARAM wParam, LPARAM lParam)
+bool CMenu::TreatEvent(UINT message, WPARAM wParam, LPARAM lParam)
 {
 	POINT		pos;
 
-	if ( m_nbButtons == 0 )  return FALSE;
+	if ( m_nbButtons == 0 )  return false;
 
 	pos = ConvLongToPos(lParam);
 
@@ -358,20 +358,20 @@ BOOL CMenu::TreatEvent(UINT message, WPARAM wParam, LPARAM lParam)
     {
 		case WM_LBUTTONDOWN:
 		case WM_RBUTTONDOWN:
-			if ( MouseDown(pos) )  return TRUE;
+			if ( MouseDown(pos) )  return true;
 			break;
 
 		case WM_MOUSEMOVE:
-			if ( MouseMove(pos) )  return TRUE;
+			if ( MouseMove(pos) )  return true;
 			break;
 
 		case WM_LBUTTONUP:
 		case WM_RBUTTONUP:
-			if ( MouseUp(pos) )  return TRUE;
+			if ( MouseUp(pos) )  return true;
 			break;
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Détecte dans quel bouton est la souris.
@@ -392,14 +392,14 @@ int CMenu::Detect(POINT pos)
 
 // Bouton de la souris pressé.
 
-BOOL CMenu::MouseDown(POINT pos)
+bool CMenu::MouseDown(POINT pos)
 {
-	return FALSE;
+	return false;
 }
 
 // Souris déplacés.
 
-BOOL CMenu::MouseMove(POINT pos)
+bool CMenu::MouseMove(POINT pos)
 {
 	m_mousePos = pos;
 	m_selRank = Detect(pos);
@@ -412,17 +412,17 @@ BOOL CMenu::MouseMove(POINT pos)
 		Delete();  // enlève le menu si souris trop loin !
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Bouton de la souris relâché.
 
-BOOL CMenu::MouseUp(POINT pos)
+bool CMenu::MouseUp(POINT pos)
 {
 	m_mousePos = pos;
 	m_selRank = Detect(pos);
 
-	return FALSE;
+	return false;
 }
 
 // Envoie le message.

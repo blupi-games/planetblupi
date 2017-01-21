@@ -63,7 +63,7 @@ void CDecor::BlupiFlush()
 
 	for ( i=0 ; i<MAXBLUPI ; i++ )
 	{
-		m_blupi[i].bExist = FALSE;
+		m_blupi[i].bExist = false;
 	}
 }
 
@@ -135,8 +135,8 @@ int CDecor::BlupiCreate(POINT cel, int action, int direct,
 	{
 		if ( !m_blupi[rank].bExist )
 		{
-			m_blupi[rank].bExist      = TRUE;
-			m_blupi[rank].bHili       = FALSE;
+			m_blupi[rank].bExist      = true;
+			m_blupi[rank].bHili       = false;
 			m_blupi[rank].perso       = perso;
 			m_blupi[rank].energy      = energy;
 			m_blupi[rank].goalAction  = 0;
@@ -161,10 +161,10 @@ int CDecor::BlupiCreate(POINT cel, int action, int direct,
 			m_blupi[rank].jaugePhase  = -1;
 			m_blupi[rank].jaugeMax    = -1;
 			m_blupi[rank].stop        = 0;
-			m_blupi[rank].bArrow      = FALSE;
-			m_blupi[rank].bRepeat     = FALSE;
-			m_blupi[rank].bMalade     = FALSE;
-			m_blupi[rank].bCache      = FALSE;
+			m_blupi[rank].bArrow      = false;
+			m_blupi[rank].bRepeat     = false;
+			m_blupi[rank].bMalade     = false;
+			m_blupi[rank].bCache      = false;
 			m_blupi[rank].vehicule    = 0;
 			m_blupi[rank].busyCount   = 0;
 			m_blupi[rank].busyDelay   = 0;
@@ -187,7 +187,7 @@ int CDecor::BlupiCreate(POINT cel, int action, int direct,
 // Si perso == -1, supprime n'importe quel personnage ici.
 // Si perso >= 0, supprime seulement ce personnage.
 
-BOOL CDecor::BlupiDelete(POINT cel, int perso)
+bool CDecor::BlupiDelete(POINT cel, int perso)
 {
 	int		rank;
 
@@ -198,7 +198,7 @@ BOOL CDecor::BlupiDelete(POINT cel, int perso)
 			 m_blupi[rank].cel.y == cel.y &&
 			 (perso == -1 || m_blupi[rank].perso == perso) )
 		{
-			m_blupi[rank].bExist = FALSE;
+			m_blupi[rank].bExist = false;
 
 			if ( !m_bBuild )  // phase de jeu ?
 			{
@@ -213,18 +213,18 @@ BOOL CDecor::BlupiDelete(POINT cel, int perso)
 					m_rankBlupiHili = -1;
 				}
 			}
-			return TRUE;
+			return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Supprime un blupi existant.
 
 void CDecor::BlupiDelete(int rank)
 {
-	m_blupi[rank].bExist = FALSE;
+	m_blupi[rank].bExist = false;
 
 	if ( !m_bBuild &&    // phase de jeu ?
 		 m_nbBlupiHili > 0 &&
@@ -260,7 +260,7 @@ void CDecor::BlupiKill(int exRank, POINT cel, int type)
 
 			if ( type == 0 )  // explosion ?
 			{
-				m_blupi[rank].bExist = FALSE;  // mort instantannée
+				m_blupi[rank].bExist = false;  // mort instantannée
 			}
 
 			if ( type == 1 )  // électro ?
@@ -305,7 +305,7 @@ void CDecor::BlupiKill(int exRank, POINT cel, int type)
 			 m_blupi[rank].cel.y <= cel.y+2 )
 		{
 			GoalUnwork(rank);
-			m_blupi[rank].bExist = FALSE;
+			m_blupi[rank].bExist = false;
 		}
 	}
 }
@@ -314,9 +314,9 @@ void CDecor::BlupiKill(int exRank, POINT cel, int type)
 
 // Test si un blupi existe.
 
-BOOL CDecor::BlupiIfExist(int rank)
+bool CDecor::BlupiIfExist(int rank)
 {
-	return m_blupi[rank].bExist;
+	return !!m_blupi[rank].bExist;
 }
 
 
@@ -336,7 +336,7 @@ void CDecor::BlupiCheat(int cheat)
 				 m_blupi[rank].perso == 0 )
 			{
 				m_blupi[rank].energy = MAXENERGY;
-				m_blupi[rank].bMalade = FALSE;
+				m_blupi[rank].bMalade = false;
 			}
 		}
 
@@ -346,7 +346,7 @@ void CDecor::BlupiCheat(int cheat)
 				 m_blupi[rank].perso != 0 &&
 				 m_blupi[rank].perso != 8 )  // araignée/virus/etc. ?
 			{
-				m_blupi[rank].bExist = FALSE;
+				m_blupi[rank].bExist = false;
 			}
 		}
 	}
@@ -481,10 +481,10 @@ void CDecor::BlupiAdaptIcon(int rank)
 
 
 // Fait entendre un son pour un blupi.
-// Si bStop=TRUE, on stoppe le son précédent associé
+// Si bStop=true, on stoppe le son précédent associé
 // à ce blupi (rank), si nécessaire.
 
-void CDecor::BlupiSound(int rank, int sound, POINT pos, BOOL bStop)
+void CDecor::BlupiSound(int rank, int sound, POINT pos, bool bStop)
 {
 	int		newSound;
 
@@ -979,16 +979,16 @@ int CDecor::ListGetParam(int rank, int button, POINT cel)
 
 // Ajoute une action dans la liste.
 
-BOOL CDecor::ListPut(int rank, int button, POINT cel, POINT cMem)
+bool CDecor::ListPut(int rank, int button, POINT cel, POINT cMem)
 {
 	int		i, last;
 
 	if ( button == BUTTON_REPEAT ||
-		 button == BUTTON_GO     )  return TRUE;
+		 button == BUTTON_GO     )  return true;
 
 	// Mémorise "mange" seulement après un "cultive".
 	if ( button == BUTTON_MANGE &&
-		 m_blupi[rank].listButton[0] != BUTTON_CULTIVE )  return TRUE;
+		 m_blupi[rank].listButton[0] != BUTTON_CULTIVE )  return true;
 
 	// Si prend/dépose à la suite au même endroit,
 	// il est inutile de mémoriser !
@@ -1000,7 +1000,7 @@ BOOL CDecor::ListPut(int rank, int button, POINT cel, POINT cMem)
 			 cel.y/2 == m_blupi[rank].listCel[0].y/2 )
 		{
 			ListRemove(rank);
-			return TRUE;
+			return true;
 		}
 	}
 
@@ -1015,7 +1015,7 @@ BOOL CDecor::ListPut(int rank, int button, POINT cel, POINT cMem)
 	m_blupi[rank].listCel[0]    = cMem;
 	m_blupi[rank].listParam[0]  = ListGetParam(rank, button, cel);
 
-	return TRUE;
+	return true;
 }
 
 // Enlève la dernière action ajoutée dans la liste.
@@ -1135,7 +1135,7 @@ int CDecor::ListSearch(int rank, int button, POINT cel,
 
 // Ajuste une action à répéter.
 
-BOOL CDecor::RepeatAdjust(int rank, int button,
+bool CDecor::RepeatAdjust(int rank, int button,
 						  POINT &cel, POINT &cMem, int param, int list)
 {
 	int		i, channel, icon, icon1, icon2, flags;
@@ -1215,7 +1215,7 @@ BOOL CDecor::RepeatAdjust(int rank, int button,
 				}
 			}
 		}
-		return FALSE;
+		return false;
 	}
 
 	if ( button == BUTTON_DEPOSE &&  // dépose pour un bateau ?
@@ -1228,7 +1228,7 @@ BOOL CDecor::RepeatAdjust(int rank, int button,
 			cMem = test;
 			goto ok;
 		}
-		return FALSE;
+		return false;
 	}
 
 //?	if ( button == BUTTON_MANGE )
@@ -1274,7 +1274,7 @@ BOOL CDecor::RepeatAdjust(int rank, int button,
 								icon1, icon2, -1, -1,
 								cel, icon1) )
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -1288,7 +1288,7 @@ BOOL CDecor::RepeatAdjust(int rank, int button,
 	if ( cel.y%2 == 0 )  cel.y ++;  // sur l'objet
 
 	m_blupi[rank].interrupt = 1;
-	return TRUE;
+	return true;
 }
 
 
@@ -1301,32 +1301,32 @@ void CDecor::GoalStart(int rank, int action, POINT cel)
 	m_blupi[rank].goalAction = action;
 	m_blupi[rank].goalPhase  = 0;
 	m_blupi[rank].goalCel.x  = -1;
-	m_blupi[rank].bRepeat    = FALSE;
+	m_blupi[rank].bRepeat    = false;
 
 	GoalInitJauge(rank);
 	FlushUsed(rank);
 }
 
 // Effectue la méta opération suivante.
-// Retourne FALSE lorsque c'est fini !
+// Retourne false lorsque c'est fini !
 
-BOOL CDecor::GoalNextPhase(int rank)
+bool CDecor::GoalNextPhase(int rank)
 {
 	short*	pTable;
 	int		i, nb;
 
-	if ( m_blupi[rank].goalAction == 0 )  return FALSE;
+	if ( m_blupi[rank].goalAction == 0 )  return false;
 
 	pTable = GetTableGoal(m_blupi[rank].goalAction);
 	if ( pTable == NULL )
 	{
-		GoalStop(rank, TRUE);
-		return FALSE;
+		GoalStop(rank, true);
+		return false;
 	}
 
 	for ( i=0 ; i<m_blupi[rank].goalPhase ; i++ )
 	{
-		if ( *pTable == 0 )  return FALSE;
+		if ( *pTable == 0 )  return false;
 		pTable += 1+table_goal_nbop[*pTable];
 	}
 
@@ -1339,7 +1339,7 @@ BOOL CDecor::GoalNextPhase(int rank)
 		for ( i=0 ; i<nb ; i++ )
 		{
 			m_blupi[rank].goalPhase ++;
-			if ( !GoalNextOp(rank, pTable) )  return FALSE;
+			if ( !GoalNextOp(rank, pTable) )  return false;
 			pTable += 1+table_goal_nbop[*pTable];
 		}
 	}
@@ -1365,7 +1365,7 @@ void CDecor::GoalInitJauge(int rank)
 	pTable = GetTableGoal(m_blupi[rank].goalAction);
 	if ( pTable == NULL )  goto term;
 
-	while ( TRUE )
+	while ( true )
 	{
 		op = *pTable;
 		if ( op == 0 ||
@@ -1480,14 +1480,14 @@ int table_multi_goal[16*2] =
 
 // Effectue une méta opération.
 
-BOOL CDecor::GoalNextOp(int rank, short *pTable)
+bool CDecor::GoalNextOp(int rank, short *pTable)
 {
 	int			op, x, y;
 	int			action, direct, channel, icon, mchannel, micon;
 	int			total, step, delai, first, last, first2, last2, flag, i;
 	int			button, param;
 	POINT		pos, cel, cMem, destCel;
-	BOOL		bOK, bError=TRUE;
+	bool		bOK, bError=true;
 
 	pos = ConvCelToPos(m_blupi[rank].cel);
 
@@ -1506,7 +1506,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		flag = *pTable++;
 //?		m_blupi[rank].passCel.x = -1;
 		FlushUsed(rank);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_GOHILI2 )
@@ -1514,14 +1514,14 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		cel.x = (m_blupi[rank].goalHili.x/2)*2+(*pTable++);
 		cel.y = (m_blupi[rank].goalHili.y/2)*2+(*pTable++);
 		flag = *pTable++;
-		if ( flag == TRUE )
+		if ( !!flag )
 		{
 			m_blupi[rank].goalCel = cel;
 			GoalInitPassCel(rank);
 		}
 		m_blupi[rank].goalCel = cel;
 		FlushUsed(rank);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_GOBLUPI )
@@ -1529,19 +1529,19 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		cel.x = m_blupi[rank].cel.x+(*pTable++);
 		cel.y = m_blupi[rank].cel.y+(*pTable++);
 		flag = *pTable++;
-		if ( flag == TRUE )
+		if ( !!flag )
 		{
-			if ( IsBlupiHereEx(cel, rank, FALSE) )  // destination occupée ?
+			if ( IsBlupiHereEx(cel, rank, false) )  // destination occupée ?
 			{
 				m_blupi[rank].goalPhase --;  // on attend ...
-				return TRUE;
+				return true;
 			}
 			m_blupi[rank].goalCel = cel;
 			GoalInitPassCel(rank);
 		}
 		m_blupi[rank].goalCel = cel;
 		FlushUsed(rank);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_TESTOBJECT )
@@ -1552,7 +1552,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		icon     = *pTable++;
 		GetObject(cel, mchannel, micon);
 		if ( channel != mchannel || icon != micon )  goto error;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_PUTFLOOR )
@@ -1564,7 +1564,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		icon    = *pTable++;
 		if ( icon == -2 )  icon = m_blupi[rank].vIcon;
 		PutFloor(GetCel(x,y), channel, icon);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_PUTOBJECT )
@@ -1580,7 +1580,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 			icon    = m_blupi[rank].takeIcon;
 		}
 		PutObject(GetCel(x,y), channel, icon);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_BUILDFLOOR )
@@ -1604,11 +1604,11 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		if ( i == 58 &&
 			 icon == 1 )  icon = 20;  // remet herbe foncée
 
-		if ( !MoveCreate(cel, rank, TRUE,
+		if ( !MoveCreate(cel, rank, true,
 						 channel, icon,
 						 mchannel, micon,
 						 total, delai, step) )  goto error;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_BUILDOBJECT )
@@ -1630,17 +1630,17 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 			GetObject(cel, channel, icon);
 		}
 		ArrangeBuild(cel, channel, icon);  // arrange les murs autour
-		if ( !MoveCreate(cel, rank, FALSE,
+		if ( !MoveCreate(cel, rank, false,
 						 channel, icon,
 						 mchannel, micon,
 						 total, delai, step) )  goto error;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_FINISHMOVE )
 	{
 		MoveFinish(rank);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_ARRANGEOBJECT )
@@ -1650,7 +1650,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		GoalAdjustCel(rank, x,y);
 		MoveFinish(GetCel(x,y));
 		ArrangeObject(GetCel(x,y));
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_EXPLOSE1 )
@@ -1672,7 +1672,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 			if ( rank >= 0 )
 			{
 				GoalStart(rank, WM_ACTION_T_DYNAMITE, cel);
-				m_blupi[rank].bCache = TRUE;
+				m_blupi[rank].bCache = true;
 			}
 		}
 		else
@@ -1680,7 +1680,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 			PutObject(cel, -1,-1);  // supprime l'objet
 			ArrangeObject(cel);
 		}
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_EXPLOSE2 )
@@ -1696,12 +1696,12 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 			channel = CHOBJECT;
 			icon    = -1;
 			ArrangeBuild(cel, channel, icon);  // arrange les murs autour
-			if ( !MoveCreate(cel, rank, FALSE,
+			if ( !MoveCreate(cel, rank, false,
 							 CHOBJECT,-1, -1,-1,
 							 10, 1, -1*100) )  goto error;
 			MoveAddIcons(cel, 6);  // explosion
 		}
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_ADDMOVES )
@@ -1711,7 +1711,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		GoalAdjustCel(rank, x,y);
 		icon = *pTable++;
 		MoveAddMoves(GetCel(x,y), icon);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_ADDICONS )
@@ -1721,7 +1721,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		GoalAdjustCel(rank, x,y);
 		icon = *pTable++;
 		MoveAddIcons(GetCel(x,y), icon);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_ACTION )
@@ -1729,7 +1729,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		action = *pTable++;
 		direct = *pTable++;
 		BlupiInitAction(rank, action, direct);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_ELECTRO )
@@ -1739,20 +1739,20 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		GoalAdjustCel(rank, x,y);
 		cel = GetCel((x/2)*2,(y/2)*2);
 		icon = *pTable++;
-		if ( MoveCreate(cel, rank, TRUE,
+		if ( MoveCreate(cel, rank, true,
 						CHFLOOR,-1, -1,-1,
-						100,1,100, FALSE, TRUE) )
+						100,1,100, false, true) )
 		{
 			MoveAddIcons(cel, icon);
 		}
 		BlupiKill(rank, cel, 1);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_MALADE )
 	{
 		m_blupi[rank].bMalade = *pTable++;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_WORK )
@@ -1760,25 +1760,25 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		cel.x = m_blupi[rank].cel.x+(*pTable++);
 		cel.y = m_blupi[rank].cel.y+(*pTable++);
 		m_decor[cel.x/2][cel.y/2].workBlupi = rank;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_INTERRUPT )
 	{
 		m_blupi[rank].interrupt = *pTable++;  // change le niveau
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_ENERGY )
 	{
 		if ( m_blupi[rank].energy <= *pTable++ )  goto error;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_ISNOMALADE )
 	{
 		if ( m_blupi[rank].bMalade )  goto error;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_TAKE )
@@ -1790,7 +1790,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		m_blupi[rank].takeIcon    = m_decor[cel.x/2][cel.y/2].objectIcon;
 		m_decor[cel.x/2][cel.y/2].objectChannel = -1;
 		m_decor[cel.x/2][cel.y/2].objectIcon    = -1;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_TAKEOBJECT )
@@ -1801,7 +1801,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		icon    = *pTable++;
 		m_blupi[rank].takeChannel = channel;
 		m_blupi[rank].takeIcon    = icon;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_LABO )
@@ -1823,7 +1823,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		{
 			m_blupi[rank].takeIcon = 92;  // poison
 		}
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_CACHE )
@@ -1834,9 +1834,9 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 			 m_blupi[rank].vehicule == 3 &&  // armure ?
 			 !m_bInvincible )
 		{
-			m_blupi[rank].bCache = FALSE;
+			m_blupi[rank].bCache = false;
 		}
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_DELETE )
@@ -1845,16 +1845,16 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 			 m_blupi[rank].vehicule == 3 &&  // armure ?
 			 !m_bInvincible )
 		{
-			return TRUE;
+			return true;
 		}
 		BlupiDelete(rank);  // snif ...
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_DEPOSE )
 	{
 		m_blupi[rank].takeChannel = -1;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_NEWBLUPI )
@@ -1894,7 +1894,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 			m_blupi[rank].energy = MAXENERGY/4;
 			BlupiInitAction(rank, ACTION_NAISSANCE);
 		}
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_NEWPERSO )
@@ -1905,20 +1905,20 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 
 		destCel = cel;
 		destCel.x ++;
-		if ( IsBlupiHereEx(destCel, rank, FALSE) )  // destination occupée ?
+		if ( IsBlupiHereEx(destCel, rank, false) )  // destination occupée ?
 		{
 			m_blupi[rank].goalPhase --;  // on attend ...
-			return TRUE;
+			return true;
 		}
 		destCel.x ++;
-		if ( IsBlupiHereEx(destCel, rank, FALSE) )  // destination occupée ?
+		if ( IsBlupiHereEx(destCel, rank, false) )  // destination occupée ?
 		{
 			destCel.y --;
 			if ( icon == 5 ||  // bombe ?
-				 IsBlupiHereEx(destCel, rank, FALSE) )  // destination occupée ?
+				 IsBlupiHereEx(destCel, rank, false) )  // destination occupée ?
 			{
 				m_blupi[rank].goalPhase --;  // on attend ...
-				return TRUE;
+				return true;
 			}
 		}
 
@@ -1927,7 +1927,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		{
 			m_blupi[rank].goalCel = destCel;
 		}
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_USINEBUILD )
@@ -1935,7 +1935,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		cel.x = m_blupi[rank].cel.x+(*pTable++);
 		cel.y = m_blupi[rank].cel.y+(*pTable++);
 		if ( !IsUsineBuild(rank, cel) )  goto error;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_USINEFREE )
@@ -1944,32 +1944,32 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		cel.y = m_blupi[rank].cel.y+(*pTable++);
 		if ( !IsUsineFree(rank, cel) )
 		{
-			GoalStop(rank, TRUE);
+			GoalStop(rank, true);
 			m_blupi[rank].goalCel = GetCel(cel,1,-1);  // à côté de la porte
 //?			m_blupi[rank].goalAction = 0;  // stoppe sitôt après
 //?			m_blupi[rank].interrupt = 1;
 //?			GoalUnwork(rank);
 //?			FlushUsed(rank);
 		}
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_AMORCE )
 	{
 		cel.x = m_blupi[rank].cel.x+(*pTable++);
 		cel.y = m_blupi[rank].cel.y+(*pTable++);
-		if ( IsBlupiHereEx(cel, rank, FALSE) )  goto error;
+		if ( IsBlupiHereEx(cel, rank, false) )  goto error;
 		// Crée un détonnateur de mine (blupi invisible).
 		rank = BlupiCreate(cel, ACTION_STOP, DIRECT_E, 6, MAXENERGY);
 		if ( rank >= 0 )
 		{
-			m_blupi[rank].bCache = TRUE;  // invisible
+			m_blupi[rank].bCache = true;  // invisible
 			m_blupi[rank].goalAction = WM_ACTION_MINE2;
 			m_blupi[rank].goalPhase  = 0;
 			m_blupi[rank].goalCel.x  = -1;
 			m_blupi[rank].interrupt  = 1;
 		}
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_VEHICULE )
@@ -1981,27 +1981,27 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		{
 			m_blupi[rank].energy = MAXENERGY/4+1;
 		}
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_ACTUALISE )
 	{
 		BlupiActualise(rank);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_SOUND )
 	{
 		icon = *pTable++;
 		BlupiSound(rank, icon, pos);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_REPEAT )
 	{
 		icon = *pTable++;
 		m_blupi[rank].bRepeat = icon;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_OTHER )
@@ -2032,7 +2032,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		GoalInitJauge(rank);
 		GoalUnwork(rank);
 		FlushUsed(rank);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_OTHERFIX )
@@ -2063,7 +2063,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		GoalInitJauge(rank);
 		GoalUnwork(rank);
 		FlushUsed(rank);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_OTHERLOOP )
@@ -2079,20 +2079,20 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 			GoalUnwork(rank);
 			FlushUsed(rank);
 		}
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_NEXTLOOP )
 	{
 		m_blupi[rank].cLoop ++;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_FIX )
 	{
 		m_blupi[rank].fix.x = m_blupi[rank].cel.x+(*pTable++);
 		m_blupi[rank].fix.y = m_blupi[rank].cel.y+(*pTable++);
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_FLOORJUMP )
@@ -2111,7 +2111,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 			GoalUnwork(rank);
 			FlushUsed(rank);
 		}
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_ADDDRAPEAU )
@@ -2119,7 +2119,7 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		cel.x = m_blupi[rank].cel.x+(*pTable++);
 		cel.y = m_blupi[rank].cel.y+(*pTable++);
 		AddDrapeau(cel);  // cellule sondée
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_TELEPORTE )
@@ -2137,15 +2137,15 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 
 		cel.x += pos.x;
 		cel.y += pos.y;
-		if ( IsBlupiHereEx(cel, rank, FALSE) ||
+		if ( IsBlupiHereEx(cel, rank, false) ||
 			 !IsFreeCel(cel, rank) )  goto error;
 		m_blupi[rank].cel = cel;
 		BlupiPushFog(rank);
 		if ( m_blupi[rank].bHili )
 		{
-			SetCoin(cel, TRUE);
+			SetCoin(cel, true);
 		}
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_IFTERM )
@@ -2153,8 +2153,8 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		cel.x = m_blupi[rank].cel.x+(*pTable++);
 		cel.y = m_blupi[rank].cel.y+(*pTable++);
 		if ( !IsFreeCel(cel, rank) ||
-			 IsBlupiHereEx(cel, rank, FALSE) )  goto term;
-		return TRUE;
+			 IsBlupiHereEx(cel, rank, false) )  goto term;
+		return true;
 	}
 
 	if ( op == GOAL_IFDEBARQUE )
@@ -2163,10 +2163,10 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		cel.y = m_blupi[rank].cel.y+(*pTable++);
 		m_blupi[rank].vehicule = 0;  // à pied
 		bOK = IsFreeCel(cel, rank) &&
-			  !IsBlupiHereEx(cel, rank, FALSE);
+			  !IsBlupiHereEx(cel, rank, false);
 		m_blupi[rank].vehicule = 1;  // en bateau
 		if ( !bOK )  goto term;
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_SKIPSKILL )
@@ -2177,20 +2177,20 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		{
 			m_blupi[rank].goalPhase += total;  // saute qq instructions
 		}
-		return TRUE;
+		return true;
 	}
 
 	if ( op == GOAL_TERM )
 	{
 		term:
-		bError = FALSE;
+		bError = false;
 	}
 
 	if ( op == GOAL_WAITFREE )
 	{
 		cel.x = m_blupi[rank].cel.x+(*pTable++);
 		cel.y = m_blupi[rank].cel.y+(*pTable++);
-		if ( IsBlupiHereEx(cel, rank, FALSE) )  // destination occupée ?
+		if ( IsBlupiHereEx(cel, rank, false) )  // destination occupée ?
 		{
 			m_blupi[rank].goalPhase --;  // on attend ...
 
@@ -2201,42 +2201,42 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 			{
 				destCel.x = cel.x;
 				destCel.y = cel.y-1;
-				if ( !IsBlupiHereEx(destCel, rank, FALSE) )
+				if ( !IsBlupiHereEx(destCel, rank, false) )
 				{
 					GoalStart(rank, WM_ACTION_GO, destCel);
-					return TRUE;
+					return true;
 				}
 
 				destCel.x = cel.x+1;
 				destCel.y = cel.y;
-				if ( !IsBlupiHereEx(destCel, rank, FALSE) )
+				if ( !IsBlupiHereEx(destCel, rank, false) )
 				{
 					GoalStart(rank, WM_ACTION_GO, destCel);
-					return TRUE;
+					return true;
 				}
 
 				destCel.x = cel.x;
 				destCel.y = cel.y+1;
-				if ( !IsBlupiHereEx(destCel, rank, FALSE) )
+				if ( !IsBlupiHereEx(destCel, rank, false) )
 				{
 					GoalStart(rank, WM_ACTION_GO, destCel);
-					return TRUE;
+					return true;
 				}
 
 				destCel.x = cel.x+1;
 				destCel.y = cel.y-1;
-				if ( !IsBlupiHereEx(destCel, rank, FALSE) )
+				if ( !IsBlupiHereEx(destCel, rank, false) )
 				{
 					GoalStart(rank, WM_ACTION_GO, destCel);
-					return TRUE;
+					return true;
 				}
 
 				destCel.x = cel.x+1;
 				destCel.y = cel.y+1;
-				if ( !IsBlupiHereEx(destCel, rank, FALSE) )
+				if ( !IsBlupiHereEx(destCel, rank, false) )
 				{
 					GoalStart(rank, WM_ACTION_GO, destCel);
-					return TRUE;
+					return true;
 				}
 
 				if ( m_blupi[rank].perso == 0 )
@@ -2250,11 +2250,11 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 						action = WM_ACTION_ELECTRO;
 					}
 					GoalStart(rank, action, m_blupi[rank].cel);
-					return TRUE;
+					return true;
 				}
 			}
 		}
-		return TRUE;
+		return true;
 	}
 
 	error:
@@ -2268,20 +2268,20 @@ BOOL CDecor::GoalNextOp(int rank, short *pTable)
 		cel = cMem;
 		if ( RepeatAdjust(rank, button, cel, cMem, param, i) )
 		{
-			if ( IsBlupiHereEx(cel, rank, FALSE) )  // destination occupée ?
+			if ( IsBlupiHereEx(cel, rank, false) )  // destination occupée ?
 			{
 				m_blupi[rank].repeatLevel = i;  // on continue ...
 				GoalStart(rank, WM_ACTION_GO, m_blupi[rank].cel);  // on attend ...
-				return TRUE;
+				return true;
 			}
 			if ( BlupiGoal(rank, button, cel, cMem) )
 			{
 				m_blupi[rank].repeatLevel = i;  // on continue ...
-				return TRUE;
+				return true;
 			}
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 // Supprime le blocage de la cellule dans laquelle
@@ -2305,7 +2305,7 @@ void CDecor::GoalUnwork(int rank)
 
 // Stoppe complètement une action.
 
-void CDecor::GoalStop(int rank, BOOL bError, BOOL bSound)
+void CDecor::GoalStop(int rank, bool bError, bool bSound)
 {
 	POINT		pos;
 
@@ -2363,12 +2363,12 @@ void CDecor::GoalStop(int rank, BOOL bError, BOOL bSound)
 		{
 			pos.x = LXIMAGE/2;
 			pos.y = LYIMAGE/2;
-			BlupiSound(rank, table_sound_boing[Random(0,2)], pos, TRUE);
+			BlupiSound(rank, table_sound_boing[Random(0,2)], pos, true);
 		}
 		else
 		{
 			pos = ConvCelToPos(m_blupi[rank].cel);
-			BlupiSound(rank, table_sound_term[Random(0,5)], pos, TRUE);
+			BlupiSound(rank, table_sound_term[Random(0,5)], pos, true);
 		}
 	}
 }
@@ -2377,7 +2377,7 @@ void CDecor::GoalStop(int rank, BOOL bError, BOOL bSound)
 // Teste si une cellule est déjà utilisée comme but pour
 // n'importe quel blupi.
 
-BOOL CDecor::BlupiIsGoalUsed(POINT cel)
+bool CDecor::BlupiIsGoalUsed(POINT cel)
 {
 	int		rank;
 
@@ -2385,10 +2385,10 @@ BOOL CDecor::BlupiIsGoalUsed(POINT cel)
 	{
 		if ( m_blupi[rank].bExist &&
 			 m_blupi[rank].goalCel.x/2 == cel.x/2 &&
-			 m_blupi[rank].goalCel.y/2 == cel.y/2 )  return TRUE;
+			 m_blupi[rank].goalCel.y/2 == cel.y/2 )  return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -2443,10 +2443,10 @@ void CDecor::BlupiStartStopRayon(int rank, POINT startCel, POINT endCel)
 	if ( (icon == 10000 || icon == 10001) &&
 		 icon2 != 10000 && icon2 != 10001 )
 	{
-		if ( MoveCreate(cel, -1, FALSE, CHOBJECT,-1,
-						-1,-1, 9999,1,0, TRUE) )
+		if ( MoveCreate(cel, -1, false, CHOBJECT,-1,
+						-1,-1, 9999,1,0, true) )
 		{
-			MoveAddIcons(cel, icon==10000?4:5, TRUE);  // éclairs
+			MoveAddIcons(cel, icon==10000?4:5, true);  // éclairs
 		}
 
 		pos = ConvCelToPos(cel);
@@ -2460,10 +2460,10 @@ void CDecor::BlupiStartStopRayon(int rank, POINT startCel, POINT endCel)
 			icon = m_decor[cel.x/2][cel.y/2].objectIcon;
 			if ( icon == 10000 || icon == 10001 )
 			{
-				if ( MoveCreate(cel, -1, FALSE, CHOBJECT,-1,
-								-1,-1, 9999,1,0, TRUE) )
+				if ( MoveCreate(cel, -1, false, CHOBJECT,-1,
+								-1,-1, 9999,1,0, true) )
 				{
-					MoveAddIcons(cel, icon==10000?4:5, TRUE);  // éclairs
+					MoveAddIcons(cel, icon==10000?4:5, true);  // éclairs
 				}
 			}
 		}
@@ -2472,18 +2472,18 @@ void CDecor::BlupiStartStopRayon(int rank, POINT startCel, POINT endCel)
 
 
 // Tourne un blupi, si nécessaire.
-// Retourne FALSE si ce n'est pas nécessaire.
+// Retourne false si ce n'est pas nécessaire.
 
-BOOL CDecor::BlupiRotate(int rank)
+bool CDecor::BlupiRotate(int rank)
 {
 	int		aDirect, sDirect, ip, in, sens;
-	BOOL	bOK;
+	bool	bOK;
 	POINT	pos;
 
 	aDirect = m_blupi[rank].aDirect;
 	sDirect = m_blupi[rank].sDirect;
 
-	if ( aDirect == sDirect )  return FALSE;
+	if ( aDirect == sDirect )  return false;
 
 	if ( sDirect > aDirect )  ip = sDirect+0*16-aDirect;
 	else                      ip = sDirect+8*16-aDirect;
@@ -2494,7 +2494,7 @@ BOOL CDecor::BlupiRotate(int rank)
 	if ( ip == 0 || in == 0 )
 	{
 		m_blupi[rank].aDirect = m_blupi[rank].sDirect;
-		return FALSE;
+		return false;
 	}
 
 	if ( m_blupi[rank].perso == 0 &&  // blupi ?
@@ -2558,25 +2558,25 @@ BOOL CDecor::BlupiRotate(int rank)
 	if ( bOK )
 	{
 		m_blupi[rank].aDirect = aDirect;
-		return TRUE;
+		return true;
 	}
 	else
 	{
 		m_blupi[rank].aDirect = m_blupi[rank].sDirect;
-		return FALSE;
+		return false;
 	}
 }
 
 // Avance un blupi existant.
 
-BOOL CDecor::BlupiNextAction(int rank)
+bool CDecor::BlupiNextAction(int rank)
 {
-	BOOL		bOK;
+	bool		bOK;
 	POINT		pos, iCel;
 	int			a, min;
 	short		sound;
 
-	if ( !m_blupi[rank].bExist )  return FALSE;
+	if ( !m_blupi[rank].bExist )  return false;
 
 	if ( m_blupi[rank].clicDelay > 0 )
 	{
@@ -2587,7 +2587,7 @@ BOOL CDecor::BlupiNextAction(int rank)
 		m_blupi[rank].clicCount = 0;
 	}
 
-	bOK = TRUE;
+	bOK = true;
 	if ( !BlupiRotate(rank) )  // si rotation pas nécessaire
 	{
 		m_blupi[rank].lastIcon = m_blupi[rank].icon;
@@ -2756,7 +2756,7 @@ BOOL CDecor::BlupiNextAction(int rank)
 	// Blupi guérrit s'il boit.
 	if ( m_blupi[rank].action == ACTION_BOIT )
 	{
-		m_blupi[rank].bMalade = FALSE;
+		m_blupi[rank].bMalade = false;
 		if ( m_blupi[rank].energy < MAXENERGY )
 		{
 			m_blupi[rank].energy += MAXENERGY/(40*3);
@@ -2771,7 +2771,7 @@ BOOL CDecor::BlupiNextAction(int rank)
 		 m_blupi[rank].action == ACTION_MARCHEf )
 	{
 		BlupiInitAction(rank, ACTION_STOP);
-		GoalStop(rank, TRUE);
+		GoalStop(rank, true);
 	}
 
 	return bOK;
@@ -2839,7 +2839,7 @@ void CDecor::BlupiNextGoal(int rank)
 		 !m_bInvincible &&
 		 IsVirusCel(m_blupi[rank].cel) )  // blupi chope un virus ?
 	{
-		m_blupi[rank].bMalade = TRUE;
+		m_blupi[rank].bMalade = true;
 
 		if ( m_blupi[rank].energy > MAXENERGY/4 )
 		{
@@ -2914,7 +2914,7 @@ void CDecor::BlupiNextGoal(int rank)
 			}
 		}
 
-		m_blupi[rank].bExist = FALSE;
+		m_blupi[rank].bExist = false;
 		if ( m_time%5 == rank%5 &&  // pas trop souvent !
 			 SearchSpiderObject(rank, m_blupi[rank].cel, 100, cel, icon) )
 		{
@@ -2929,7 +2929,7 @@ void CDecor::BlupiNextGoal(int rank)
 //				FlushUsed(rank);
 //			}
 		}
-		m_blupi[rank].bExist = TRUE;
+		m_blupi[rank].bExist = true;
 	}
 
 	// Assigne un but s'il s'agit d'un virus.
@@ -3018,15 +3018,15 @@ void CDecor::BlupiNextGoal(int rank)
 			}
 		}
 		cel = m_blupi[rank].cel;
-		m_blupi[rank].bExist = FALSE;
-		if ( IsBlupiHere(cel, FALSE) &&
+		m_blupi[rank].bExist = false;
+		if ( IsBlupiHere(cel, false) &&
 			 m_blupi[m_blupiHere].perso == 0 &&
 			 m_blupi[m_blupiHere].vehicule == 0 )  // à pied ?
 		{
-			m_blupi[rank].bExist = TRUE;
+			m_blupi[rank].bExist = true;
 			// Blupi écrasé au sol.
-			if ( MoveCreate(cel, rank, TRUE, CHFLOOR,-1, -1,-1,
-							100,1,100, FALSE, TRUE) )
+			if ( MoveCreate(cel, rank, true, CHFLOOR,-1, -1,-1,
+							100,1,100, false, true) )
 			{
 				if ( m_blupi[m_blupiHere].bMalade )  MoveAddIcons(cel, 10);
 				else                                 MoveAddIcons(cel, 9);
@@ -3036,21 +3036,21 @@ void CDecor::BlupiNextGoal(int rank)
 			BlupiInitAction(rank, ACTION_T_ECRASE);  // écrase blupi
 			goto init;
 		}
-		m_blupi[rank].bExist = TRUE;
+		m_blupi[rank].bExist = true;
 
 //		if ( m_blupi[rank].goalCel.x != -1 )
 //		{
 //			GetObject(m_blupi[rank].goalCel, channel, icon);
 //			if ( IsTracksObject(icon) )  goto action;
 //		}
-		m_blupi[rank].bExist = FALSE;
+		m_blupi[rank].bExist = false;
 		if ( m_time%5 == rank%5 &&  // pas trop souvent !
 			 SearchTracksObject(rank, m_blupi[rank].cel, 25, cel, icon) )
 		{
 			m_blupi[rank].goalCel = cel;
 			FlushUsed(rank);
 		}
-		m_blupi[rank].bExist = TRUE;
+		m_blupi[rank].bExist = true;
 	}
 
 	// Assigne un but s'il s'agit d'un robot.
@@ -3222,7 +3222,7 @@ void CDecor::BlupiNextGoal(int rank)
 					 m_decor[cel.x/2][cel.y/2].objectIcon == 118 &&  // jeep
 					 m_blupi[rank].bMalade &&
 					 m_blupi[rank].takeChannel != -1 )  goto search;
-				GoalStop(rank, TRUE);
+				GoalStop(rank, true);
 			}
 			else
 			{
@@ -3245,7 +3245,7 @@ void CDecor::BlupiNextGoal(int rank)
 					{
 						if ( m_blupi[rank].busyCount == 0 )  // dernière tentative ?
 						{
-							GoalStop(rank, TRUE);
+							GoalStop(rank, true);
 							m_blupi[rank].goalCel.x = -1;
 							m_blupi[rank].goalPhase = 0;
 							m_blupi[rank].interrupt = 1;
@@ -3254,7 +3254,7 @@ void CDecor::BlupiNextGoal(int rank)
 					else		// perso ennemi ?
 					{
 						// On cherchera un autre but !
-						GoalStop(rank, TRUE);
+						GoalStop(rank, true);
 //?						m_blupi[rank].goalCel.x = -1;
 //?						m_blupi[rank].goalPhase = 0;
 //?						m_blupi[rank].interrupt = 1;
@@ -3318,7 +3318,7 @@ void CDecor::BlupiDestCel(int rank)
 
 // Avance tous les blupis.
 
-void CDecor::BlupiStep(BOOL bFirst)
+void CDecor::BlupiStep(bool bFirst)
 {
 	int		rank;
 
@@ -3339,7 +3339,7 @@ void CDecor::BlupiStep(BOOL bFirst)
 
 		if ( m_timeConst == m_timeFlipOutline )
 		{
-			m_bOutline = FALSE;  // supprime le mode "outline"
+			m_bOutline = false;  // supprime le mode "outline"
 		}
 	}
 	m_time ++;  // avance le temps absolu global
@@ -3471,8 +3471,8 @@ void CDecor::BlupiDeselect()
 
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{
-		m_blupi[rank].bHili  = FALSE;
-		m_blupi[rank].bArrow = FALSE;
+		m_blupi[rank].bHili  = false;
+		m_blupi[rank].bArrow = false;
 	}
 
 	m_nbBlupiHili   = 0;
@@ -3483,8 +3483,8 @@ void CDecor::BlupiDeselect()
 
 void CDecor::BlupiDeselect(int rank)
 {
-	m_blupi[rank].bHili  = FALSE;
-	m_blupi[rank].bArrow = FALSE;
+	m_blupi[rank].bHili  = false;
+	m_blupi[rank].bArrow = false;
 
 	if ( m_nbBlupiHili > 0 &&
 		 m_rankBlupiHili == rank )  // est-ce le blupi sélectionné ?
@@ -3496,19 +3496,19 @@ void CDecor::BlupiDeselect(int rank)
 
 // Met ou enlève une flèche au blupi sélectionné blupi.
 
-void CDecor::BlupiSetArrow(int rank, BOOL bArrow)
+void CDecor::BlupiSetArrow(int rank, bool bArrow)
 {
 	m_celArrow.x = -1;
 
 	if ( bArrow )
 	{
-		m_blupi[rank].bArrow = TRUE;
+		m_blupi[rank].bArrow = true;
 	}
 	else
 	{
 		for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 		{
-			m_blupi[rank].bArrow = FALSE;
+			m_blupi[rank].bArrow = false;
 		}
 	}
 }
@@ -3537,7 +3537,7 @@ void CDecor::InitOutlineRect()
 
 // Sélectionne un blupi lorsque le bouton est pressé.
 
-void CDecor::BlupiHiliDown(POINT pos, BOOL bAdd)
+void CDecor::BlupiHiliDown(POINT pos, bool bAdd)
 {
 	if ( MapMove(pos) )  return;
 
@@ -3545,7 +3545,7 @@ void CDecor::BlupiHiliDown(POINT pos, BOOL bAdd)
 
 	m_p1Hili = ConvPosToCel(pos);
 	m_p2Hili = ConvPosToCel(pos);
-	m_bHiliRect = TRUE;
+	m_bHiliRect = true;
 	m_celHili.x = -1;
 
 	InitOutlineRect();
@@ -3553,7 +3553,7 @@ void CDecor::BlupiHiliDown(POINT pos, BOOL bAdd)
 
 // Sélectionne un blupi lorsque la souris est déplacée.
 
-void CDecor::BlupiHiliMove(POINT pos, BOOL bAdd)
+void CDecor::BlupiHiliMove(POINT pos, bool bAdd)
 {
 	if ( m_bHiliRect )  // rectangle de sélection existe ?
 	{
@@ -3563,12 +3563,12 @@ void CDecor::BlupiHiliMove(POINT pos, BOOL bAdd)
 }
 
 // Sélectionne un blupi lorsque le bouton est relâché.
-// Retourne FALSE si la sélection n'a pas changé !
+// Retourne false si la sélection n'a pas changé !
 
-void CDecor::BlupiHiliUp(POINT pos, BOOL bAdd)
+void CDecor::BlupiHiliUp(POINT pos, bool bAdd)
 {
 	int			rank, r, nb, sound;
-	BOOL		bEnerve = FALSE;
+	bool		bEnerve = false;
 	POINT		c1, c2;
 
 	static int table_sound_ok[6] =
@@ -3614,7 +3614,7 @@ void CDecor::BlupiHiliUp(POINT pos, BOOL bAdd)
 						m_blupi[rank].clicCount ++;
 						if ( m_blupi[rank].clicCount > 4 )
 						{
-							bEnerve = TRUE;
+							bEnerve = true;
 						}
 					}
 					else
@@ -3660,7 +3660,7 @@ void CDecor::BlupiHiliUp(POINT pos, BOOL bAdd)
 						 m_blupi[r].cel.y >= c1.y &&
 						 m_blupi[r].cel.y <  c2.y )
 					{
-						m_blupi[r].bHili = TRUE;
+						m_blupi[r].bHili = true;
 						nb ++;
 						rank = r;
 					}
@@ -3668,7 +3668,7 @@ void CDecor::BlupiHiliUp(POINT pos, BOOL bAdd)
 			}
 		}
 
-		m_bHiliRect = FALSE;  // plus de rectangle
+		m_bHiliRect = false;  // plus de rectangle
 		InitOutlineRect();
 
 		if ( nb > 0 )
@@ -3692,7 +3692,7 @@ void CDecor::BlupiHiliUp(POINT pos, BOOL bAdd)
 					sound = table_sound_oke[Random(0,2)];
 				}
 			}
-			BlupiSound(rank, sound, pos, TRUE);
+			BlupiSound(rank, sound, pos, true);
 		}
 	}
 
@@ -3700,7 +3700,7 @@ void CDecor::BlupiHiliUp(POINT pos, BOOL bAdd)
 	m_rankBlupiHili = -1;
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{
-		m_blupi[rank].bArrow = FALSE;
+		m_blupi[rank].bArrow = false;
 
 		if ( m_blupi[rank].bExist &&
 			 m_blupi[rank].bHili  )
@@ -3961,11 +3961,11 @@ int CDecor::GetDefButton(POINT cel)
 
 // Indique un but visé à long terme, pour un blupi donné.
 
-BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
+bool CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 {
 	POINT		goalHili, goalHili2, goal, test;
 	int			i, action, channel, icon, error, direct, step;
-	BOOL		bRepeat = FALSE;
+	bool		bRepeat = false;
 
 	// Si plusieurs blupi sont sélectionnés, ils ne vont pas
 	// tous à la même destination.
@@ -3984,7 +3984,7 @@ BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 		cMem.y += table_multi_goal[step*2+1];
 	}
 
-	if ( !IsCheminFree(rank, cel, button) )  return FALSE;
+	if ( !IsCheminFree(rank, cel, button) )  return false;
 
 	goal        = cel;
 	goalHili    = cel;
@@ -4001,17 +4001,17 @@ BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 	if ( button == BUTTON_ABATn )
 	{
 		button = BUTTON_ABAT;
-		bRepeat = TRUE;
+		bRepeat = true;
 	}
 	if ( button == BUTTON_ROCn )
 	{
 		button = BUTTON_ROC;
-		bRepeat = TRUE;
+		bRepeat = true;
 	}
 	if ( button == BUTTON_FLEURn )
 	{
 		button = BUTTON_FLEUR;
-		bRepeat = TRUE;
+		bRepeat = true;
 	}
 	action = table_actions[button];
 
@@ -4028,19 +4028,19 @@ BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 			m_blupi[rank].goalAction = 0;
 		}
 		m_blupi[rank].repeatLevel = -1;  // stoppe la répétition
-		return FALSE;
+		return false;
 	}
 
 	// Action prioritaire en cours ?
 	if ( m_blupi[rank].goalAction != 0 &&
-		 m_blupi[rank].interrupt <= 0 )  return FALSE;
+		 m_blupi[rank].interrupt <= 0 )  return false;
 
 	error = CelOkForAction(goalHili, action, rank);
-	if ( error != 0 && error != ERROR_TOURISOL )  return FALSE;
+	if ( error != 0 && error != ERROR_TOURISOL )  return false;
 
 	if ( action == WM_ACTION_GO &&
 		 m_blupi[rank].energy <= MAXENERGY/4 &&
-		 m_blupi[rank].takeChannel != -1 )  return FALSE;
+		 m_blupi[rank].takeChannel != -1 )  return false;
 
 	if ( action == WM_ACTION_GO )
 	{
@@ -4050,7 +4050,7 @@ BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 			 goalHili.x%2 == 0 &&  // au fond ?
 			 goalHili.y%2 == 1 )
 		{
-			return FALSE;  // action refusée
+			return false;  // action refusée
 		}
 		if ( m_blupi[rank].perso != 8 &&  // pas disciple ?
 			 channel == CHOBJECT &&
@@ -4149,7 +4149,7 @@ BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 	{
 		cel  = goalHili2;
 		test = goalHili2;
-		if ( IsBuildPont(test, icon) != 0 )  return FALSE;
+		if ( IsBuildPont(test, icon) != 0 )  return false;
 
 		m_blupi[rank].nLoop = static_cast<short> (abs((test.x-cel.x)+(test.y-cel.y))/2);
 		m_blupi[rank].cLoop = 0;
@@ -4163,7 +4163,7 @@ BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 
 	if ( action == WM_ACTION_BATEAUE )
 	{
-		if ( !IsBuildBateau(goalHili2, direct) )  return FALSE;
+		if ( !IsBuildBateau(goalHili2, direct) )  return false;
 
 		if ( direct == DIRECT_S )  action = WM_ACTION_BATEAUS;
 		if ( direct == DIRECT_O )  action = WM_ACTION_BATEAUO;
@@ -4172,7 +4172,7 @@ BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 
 	if ( action == WM_ACTION_CARRY )
 	{
-		if ( IsBlupiHereEx(GetCel(goalHili2,0,1), rank, TRUE) )
+		if ( IsBlupiHereEx(GetCel(goalHili2,0,1), rank, true) )
 		{
 			action = WM_ACTION_CARRY2;
 		}
@@ -4188,7 +4188,7 @@ BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 			action = WM_ACTION_NEWBLUPI;
 		}
 		if ( !IsFreeCelDepose(GetCel(goalHili2,0,1), rank) ||
-			 IsBlupiHereEx(GetCel(goalHili2,0,1), rank, TRUE) )
+			 IsBlupiHereEx(GetCel(goalHili2,0,1), rank, true) )
 		{
 			action = WM_ACTION_DEPOSE2;
 		}
@@ -4196,7 +4196,7 @@ BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 
 	if ( action == WM_ACTION_MANGE )
 	{
-		if ( IsBlupiHereEx(GetCel(goalHili2,0,1), rank, TRUE) )
+		if ( IsBlupiHereEx(GetCel(goalHili2,0,1), rank, true) )
 		{
 			action = WM_ACTION_MANGE2;
 		}
@@ -4204,7 +4204,7 @@ BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 
 	if ( action == WM_ACTION_BOIT )
 	{
-		if ( IsBlupiHereEx(GetCel(goalHili2,0,1), rank, TRUE) )
+		if ( IsBlupiHereEx(GetCel(goalHili2,0,1), rank, true) )
 		{
 			action = WM_ACTION_BOIT2;
 		}
@@ -4243,7 +4243,7 @@ BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 		ListPut(rank, button, goal, cMem);
 	}
 
-	return TRUE;
+	return true;
 }
 
 // Indique un but visé à long terme, pour tous les blupi
@@ -4321,7 +4321,7 @@ void CDecor::BlupiGoal(POINT cel, int button)
 	{
 		if ( nbHili == 1 )
 		{
-			BlupiSound(m_rankBlupiHili, table_sound_boing[Random(0,2)], avg, TRUE);
+			BlupiSound(m_rankBlupiHili, table_sound_boing[Random(0,2)], avg, true);
 		}
 		else
 		{
@@ -4333,7 +4333,7 @@ void CDecor::BlupiGoal(POINT cel, int button)
 	{
 		if ( nbHili == 1 )
 		{
-			BlupiSound(m_rankBlupiHili, table_sound_go[Random(0,5)], avg, TRUE);
+			BlupiSound(m_rankBlupiHili, table_sound_go[Random(0,5)], avg, true);
 		}
 		else
 		{
@@ -4348,11 +4348,11 @@ void CDecor::BlupiGoal(POINT cel, int button)
 // contient un blupi à pied ou un détonnateur de mine
 // (personnage invisible).
 
-BOOL CDecor::IsTracksHere(POINT cel, BOOL bSkipInMove)
+bool CDecor::IsTracksHere(POINT cel, bool bSkipInMove)
 {
 	int			rank;
 
-	if ( !IsValid(cel) )  return FALSE;
+	if ( !IsValid(cel) )  return false;
 
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{
@@ -4368,30 +4368,30 @@ BOOL CDecor::IsTracksHere(POINT cel, BOOL bSkipInMove)
 				 cel.y == m_blupi[rank].cel.y )
 			{
 				m_blupiHere = rank;
-				return TRUE;
+				return true;
 			}
 
 			if ( cel.x == m_blupi[rank].destCel.x &&
 				 cel.y == m_blupi[rank].destCel.y )
 			{
 				m_blupiHere = rank;
-				return TRUE;
+				return true;
 			}
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Indique si une cellule est occupée par un blupi.
 // Le blupi donné dans exRank est ignoré !
 
-BOOL CDecor::IsBlupiHereEx(POINT cel1, POINT cel2, int exRank, BOOL bSkipInMove)
+bool CDecor::IsBlupiHereEx(POINT cel1, POINT cel2, int exRank, bool bSkipInMove)
 {
 	int			rank;
 
-	if ( !IsValid(cel1) )  return FALSE;
-	if ( !IsValid(cel2) )  return FALSE;
+	if ( !IsValid(cel1) )  return false;
+	if ( !IsValid(cel2) )  return false;
 
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{
@@ -4407,7 +4407,7 @@ BOOL CDecor::IsBlupiHereEx(POINT cel1, POINT cel2, int exRank, BOOL bSkipInMove)
 				 cel2.y >= m_blupi[rank].cel.y )
 			{
 				m_blupiHere = rank;
-				return TRUE;
+				return true;
 			}
 
 			if ( cel1.x <= m_blupi[rank].destCel.x &&
@@ -4416,22 +4416,22 @@ BOOL CDecor::IsBlupiHereEx(POINT cel1, POINT cel2, int exRank, BOOL bSkipInMove)
 				 cel2.y >= m_blupi[rank].destCel.y )
 			{
 				m_blupiHere = rank;
-				return TRUE;
+				return true;
 			}
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Indique si une cellule est occupée par un blupi.
 // Le blupi donné dans exRank est ignoré !
 
-BOOL CDecor::IsBlupiHereEx(POINT cel, int exRank, BOOL bSkipInMove)
+bool CDecor::IsBlupiHereEx(POINT cel, int exRank, bool bSkipInMove)
 {
 	int			rank;
 
-	if ( !IsValid(cel) )  return FALSE;
+	if ( !IsValid(cel) )  return false;
 
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{
@@ -4445,24 +4445,24 @@ BOOL CDecor::IsBlupiHereEx(POINT cel, int exRank, BOOL bSkipInMove)
 				 cel.y == m_blupi[rank].cel.y )
 			{
 				m_blupiHere = rank;
-				return TRUE;
+				return true;
 			}
 
 			if ( cel.x == m_blupi[rank].destCel.x &&
 				 cel.y == m_blupi[rank].destCel.y )
 			{
 				m_blupiHere = rank;
-				return TRUE;
+				return true;
 			}
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Indique si une cellule est occupée par un blupi.
 
-BOOL CDecor::IsBlupiHere(POINT cel, BOOL bSkipInMove)
+bool CDecor::IsBlupiHere(POINT cel, bool bSkipInMove)
 {
 	return IsBlupiHereEx(cel, -1, bSkipInMove);
 }
@@ -4470,7 +4470,7 @@ BOOL CDecor::IsBlupiHere(POINT cel, BOOL bSkipInMove)
 // Indique si une cellule future (dans une direction donnée)
 // est déjà occupée par un blupi.
 
-BOOL CDecor::IsBlupiHere(POINT cel, int direct, BOOL bSkipInMove)
+bool CDecor::IsBlupiHere(POINT cel, int direct, bool bSkipInMove)
 {
 	POINT	vector;
 
@@ -4515,17 +4515,17 @@ void CDecor::GetLevelJauge(int *pLevels, int *pTypes)
 }
 
 
-// Retourne TRUE si un blupi est déjà sélectionné et qu'il
+// Retourne true si un blupi est déjà sélectionné et qu'il
 // effectue une action prioritaire. Dans ce cas, il faut tout
 // de suite mettre le menu "stoppe" s'il est cliqué.
 
-BOOL CDecor::IsWorkBlupi(int rank)
+bool CDecor::IsWorkBlupi(int rank)
 {
 	if ( m_blupi[rank].bHili &&
 		 m_blupi[m_rankBlupiHili].goalAction != 0 &&
-		 m_blupi[m_rankBlupiHili].interrupt <= 0 )  return TRUE;
+		 m_blupi[m_rankBlupiHili].interrupt <= 0 )  return true;
 
-	return FALSE;
+	return false;
 }
 
 
@@ -4539,8 +4539,8 @@ void CDecor::BlupiGetButtons(POINT pos, int &nb,
 	int*		pE = pErrors;
 	POINT		cel, cel2;
 	int			i, rank, button, error, channel, icon, textForButton;
-	BOOL		bBuild = FALSE;
-	BOOL		bPut;
+	bool		bBuild = false;
+	bool		bPut;
 
 	static int table_buttons[] =
 	{
@@ -4640,7 +4640,7 @@ void CDecor::BlupiGetButtons(POINT pos, int &nb,
 			 m_blupi[m_rankBlupiHili].takeChannel == -1 &&
 			 m_blupi[m_rankBlupiHili].vehicule == 0 )  // à pied ?
 		{
-			bBuild = TRUE;
+			bBuild = true;
 		}
 	}
 
@@ -4654,8 +4654,8 @@ void CDecor::BlupiGetButtons(POINT pos, int &nb,
 
 		error = CelOkForAction(cel, table_actions[button], m_rankBlupiHili);
 
-		if ( error == 0 )  bPut = TRUE;
-		else               bPut = FALSE;
+		if ( error == 0 )  bPut = true;
+		else               bPut = false;
 
 		if ( bBuild &&
 			 table_buttons[i+1] != 0 &&  // toujours présent si matière ?
@@ -4668,7 +4668,7 @@ void CDecor::BlupiGetButtons(POINT pos, int &nb,
 				 icon == table_buttons[i+1] &&  // matière ?
 				 cel.x%2 == 1 && cel.y%2 == 1 )
 			{
-				bPut = TRUE;  // bouton présent, mais disable !
+				bPut = true;  // bouton présent, mais disable !
 			}
 		}
 

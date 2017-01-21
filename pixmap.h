@@ -15,44 +15,44 @@ public:
 	CPixmap();
 	~CPixmap();
 
-	void	SetDebug(BOOL bDebug);
+	void	SetDebug(bool bDebug);
 	
-	BOOL	Create(HWND hwnd, POINT dim, BOOL bFullScreen, int mouseType);
-	BOOL	Flush();
-	BOOL	Restore();
-	BOOL	InitSysPalette();
-	BOOL	IsPalette();
+	bool	Create(HWND hwnd, POINT dim, bool bFullScreen, int mouseType);
+	bool	Flush();
+	bool	Restore();
+	bool	InitSysPalette();
+	bool	IsPalette();
 	void	Fill(RECT rect, COLORREF color);
 	
-	BOOL	SavePalette();
-	BOOL	RestorePalette();
+	bool	SavePalette();
+	bool	RestorePalette();
 	int		SearchColor(int red, int green, int blue);
-	BOOL	Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim, BOOL bUsePalette);
-	BOOL	Cache(int channel, char *pFilename, POINT totalDim, BOOL bUsePalette);
-	BOOL	Cache(int channel, HBITMAP hbm, POINT totalDim);
+	bool	Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim, bool bUsePalette);
+	bool	Cache(int channel, char *pFilename, POINT totalDim, bool bUsePalette);
+	bool	Cache(int channel, HBITMAP hbm, POINT totalDim);
 	void	Flush(int channel);
 	void	SetTransparent(int channel, COLORREF color);
 	void	SetTransparent2(int channel, COLORREF color1, COLORREF color2);
 	void	SetClipping(RECT clip);
 	RECT	GetClipping();
 
-	BOOL	IsIconPixel(int channel, int rank, POINT pos);
+	bool	IsIconPixel(int channel, int rank, POINT pos);
 
-	BOOL	DrawIcon(int chDst, int channel, int rank, POINT pos, int mode=0, BOOL bMask=FALSE);
-	BOOL	DrawIconDemi(int chDst, int channel, int rank, POINT pos, int mode=0, BOOL bMask=FALSE);
-	BOOL	DrawIconPart(int chDst, int channel, int rank, POINT pos, int startY, int endY, int mode=0, BOOL bMask=FALSE);
-	BOOL	DrawPart(int chDst, int channel, POINT dest, RECT rect, int mode=0, BOOL bMask=FALSE);
-	BOOL	DrawImage(int chDst, int channel, RECT rect, int mode=0);
+	bool	DrawIcon(int chDst, int channel, int rank, POINT pos, int mode=0, bool bMask=false);
+	bool	DrawIconDemi(int chDst, int channel, int rank, POINT pos, int mode=0, bool bMask=false);
+	bool	DrawIconPart(int chDst, int channel, int rank, POINT pos, int startY, int endY, int mode=0, bool bMask=false);
+	bool	DrawPart(int chDst, int channel, POINT dest, RECT rect, int mode=0, bool bMask=false);
+	bool	DrawImage(int chDst, int channel, RECT rect, int mode=0);
 
-	BOOL	BuildIconMask(int channelMask, int rankMask,
+	bool	BuildIconMask(int channelMask, int rankMask,
 						  int channel, int rankSrc, int rankDst);
 	
-	BOOL	Display();
+	bool	Display();
 
-	void	SetMousePosSprite(POINT pos, int sprite, BOOL bDemoPlay);
-	void	SetMousePos(POINT pos, BOOL bDemoPlay);
-	void	SetMouseSprite(int sprite, BOOL bDemoPlay);
-	void	MouseShow(BOOL bShow);
+	void	SetMousePosSprite(POINT pos, int sprite, bool bDemoPlay);
+	void	SetMousePos(POINT pos, bool bDemoPlay);
+	void	SetMouseSprite(int sprite, bool bDemoPlay);
+	void	MouseShow(bool bShow);
 	void	MouseInvalidate();
 	void	MouseBackClear();
 	void	MouseBackDraw();
@@ -64,7 +64,7 @@ protected:
 					int channel, POINT dst, RECT rcRect, int mode);
 
 	void	MouseUpdate();
-	BOOL	MouseQuickDraw(RECT rect);
+	bool	MouseQuickDraw(RECT rect);
 	void	MouseBackSave();
 	void	MouseBackRestore();
 	void	MouseBackDebug();
@@ -72,10 +72,10 @@ protected:
 	void	MouseHotSpot();
 
 protected:
-	BOOL					m_bFullScreen;
+	bool					m_bFullScreen;
 	int						m_mouseType;
-	BOOL					m_bDebug;
-	BOOL					m_bPalette;
+	bool					m_bDebug;
+	bool					m_bPalette;
 	HWND					m_hWnd;
 	POINT					m_dim;					// dimensions totales
 	RECT					m_clipRect;				// rectangle de clipping
@@ -84,9 +84,9 @@ protected:
 	int						m_mouseSprite;
 	POINT					m_mouseHotSpot;
 	POINT					m_mouseBackPos;
-	BOOL					m_bMouseBack;
-	BOOL					m_bMouseShow;
-	BOOL					m_bBackDisplayed;
+	bool					m_bMouseBack;
+	bool					m_bMouseShow;
+	bool					m_bBackDisplayed;
 
 	LPDIRECTDRAW			m_lpDD;					// DirectDraw object
 	LPDIRECTDRAWSURFACE		m_lpDDSPrimary;			// DirectDraw primary surface

@@ -20,9 +20,9 @@
 CJauge::CJauge()
 {
 	m_type            = 0;
-	m_bHide           = TRUE;
-	m_bMinimizeRedraw = FALSE;
-	m_bRedraw         = FALSE;
+	m_bHide           = true;
+	m_bMinimizeRedraw = false;
+	m_bRedraw         = false;
 }
 
 // Destructeur.
@@ -34,22 +34,22 @@ CJauge::~CJauge()
 
 // Crée un nouveau bouton.
 
-BOOL CJauge::Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
-					POINT pos, int type, BOOL bMinimizeRedraw)
+bool CJauge::Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
+					POINT pos, int type, bool bMinimizeRedraw)
 {
 	m_hWnd            = hWnd;
 	m_pPixmap         = pPixmap;
 	m_pSound          = pSound;
 	m_type            = type;
 	m_bMinimizeRedraw = bMinimizeRedraw;
-	m_bHide           = TRUE;
+	m_bHide           = true;
 	m_pos             = pos;
 	m_dim.x           = DIMJAUGEX;
 	m_dim.y           = DIMJAUGEY;
 	m_level           = 0;
-	m_bRedraw         = TRUE;
+	m_bRedraw         = true;
 
-	return TRUE;
+	return true;
 }
 
 // Dessine un bouton dans son état.
@@ -60,7 +60,7 @@ void CJauge::Draw()
 	RECT		rect;
 
 	if ( m_bMinimizeRedraw && !m_bRedraw )  return;
-	m_bRedraw = FALSE;
+	m_bRedraw = false;
 
 	if ( m_bHide )  // bouton caché ?
 	{
@@ -94,7 +94,7 @@ void CJauge::Draw()
 
 void CJauge::Redraw()
 {
-	m_bRedraw = TRUE;
+	m_bRedraw = true;
 }
 
 // Modifie le niveau.
@@ -106,7 +106,7 @@ void CJauge::SetLevel(int level)
 
 	if ( m_level != level )
 	{
-		m_bRedraw = TRUE;
+		m_bRedraw = true;
 	}
 
 	m_level = level;
@@ -118,23 +118,23 @@ void CJauge::SetType(int type)
 {
 	if ( m_type != type )
 	{
-		m_bRedraw = TRUE;
+		m_bRedraw = true;
 	}
 
 	m_type = type;
 }
 
 
-BOOL CJauge::GetHide()
+bool CJauge::GetHide()
 {
 	return m_bHide;
 }
 
-void CJauge::SetHide(BOOL bHide)
+void CJauge::SetHide(bool bHide)
 {
 	if ( m_bHide != bHide )
 	{
-		m_bRedraw = TRUE;
+		m_bRedraw = true;
 	}
 
 	m_bHide = bHide;
@@ -147,6 +147,6 @@ POINT CJauge::GetPos()
 
 void CJauge::SetRedraw()
 {
-	m_bRedraw = TRUE;
+	m_bRedraw = true;
 }
 

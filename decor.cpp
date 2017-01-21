@@ -45,11 +45,11 @@ POINT GetCel(POINT cel, int x, int y)
 // bord (-2) pour permettre de gérer le brouillard proprement
 // jusque dans les bords !
 
-BOOL IsValid(POINT cel)
+bool IsValid(POINT cel)
 {
 	if ( cel.x < 2 || cel.x >= MAXCELX-2 ||
-		 cel.y < 2 || cel.y >= MAXCELX-2 )  return FALSE;
-	return TRUE;
+		 cel.y < 2 || cel.y >= MAXCELX-2 )  return false;
+	return true;
 }
 
 // Retourne un vecteur orienté dans une direction donnée.
@@ -110,7 +110,7 @@ CDecor::CDecor()
 	m_celOutline1.x = -1;
 	m_celOutline2.x = -1;
 
-	m_bHiliRect = FALSE;  // pas de rectangle de sélection
+	m_bHiliRect = false;  // pas de rectangle de sélection
 	m_shiftHili = 0;
 
 	m_shiftOffset.x = 0;
@@ -120,12 +120,12 @@ CDecor::CDecor()
 	m_rankBlupiHili = -1;
 	m_rankHili      = -1;
 
-	m_bFog          = FALSE;
-	m_bBuild        = FALSE;
-	m_bInvincible   = FALSE;
-	m_bSuper        = FALSE;
-	m_bHideTooltips = FALSE;
-	m_bInfo         = FALSE;
+	m_bFog          = false;
+	m_bBuild        = false;
+	m_bInvincible   = false;
+	m_bSuper        = false;
+	m_bHideTooltips = false;
+	m_bInfo         = false;
 	m_infoHeight    = 100;
 	m_phase         = 0;
 	m_totalTime     = 0;
@@ -154,7 +154,7 @@ void CDecor::Create(HWND hWnd, CSound *pSound, CPixmap *pPixmap)
 	m_hWnd     = hWnd;
 	m_pSound   = pSound;
 	m_pPixmap  = pPixmap;
-	m_bOutline = FALSE;
+	m_bOutline = false;
 }
 
 // Initialise le décor avec un sol plat partout.
@@ -188,8 +188,8 @@ void CDecor::Init(int channel, int icon)
 		}
 	}
 
-	m_bOutline = FALSE;
-	m_bGroundRedraw = TRUE;
+	m_bOutline = false;
+	m_bGroundRedraw = true;
 }
 
 // Initialise le décor après une modification.
@@ -207,18 +207,18 @@ void CDecor::InitAfterBuild()
 
 void CDecor::ResetHili()
 {
-	m_bHiliRect = FALSE;  // plus de rectangle
+	m_bHiliRect = false;  // plus de rectangle
 	InitOutlineRect();
 }
 
 // Charge les images nécessaires au décor.
 
-BOOL CDecor::LoadImages()
+bool CDecor::LoadImages()
 {
 	POINT		totalDim, iconDim;
 	char		filename[50];
 
-	if ( m_region == m_lastRegion )  return TRUE;
+	if ( m_region == m_lastRegion )  return true;
 	m_lastRegion = m_region;
 
 	totalDim.x = DIMCELX*2*16;
@@ -226,8 +226,8 @@ BOOL CDecor::LoadImages()
 	iconDim.x = DIMCELX*2;
 	iconDim.y = DIMCELY*2;
 	sprintf(filename, "image\\floor%.3d.blp", m_region);
-	if ( !m_pPixmap->Cache(CHFLOOR, filename, totalDim, iconDim, FALSE) )
-		return FALSE;
+	if ( !m_pPixmap->Cache(CHFLOOR, filename, totalDim, iconDim, false) )
+		return false;
 	m_pPixmap->SetTransparent(CHFLOOR, RGB(0,0,255));  // bleu
 
 	totalDim.x = DIMOBJX*16;
@@ -235,19 +235,19 @@ BOOL CDecor::LoadImages()
 	iconDim.x = DIMOBJX;
 	iconDim.y = DIMOBJY;
 	sprintf(filename, "image\\obj%.3d.blp", m_region);
-	if ( !m_pPixmap->Cache(CHOBJECT, filename, totalDim, iconDim, FALSE) )
-		return FALSE;
+	if ( !m_pPixmap->Cache(CHOBJECT, filename, totalDim, iconDim, false) )
+		return false;
 	m_pPixmap->SetTransparent(CHOBJECT, RGB(0,0,255));  // bleu
 
 	sprintf(filename, "image\\obj-o%.3d.blp", m_region);
-	if ( !m_pPixmap->Cache(CHOBJECTo, filename, totalDim, iconDim, FALSE) )
-		return FALSE;
+	if ( !m_pPixmap->Cache(CHOBJECTo, filename, totalDim, iconDim, false) )
+		return false;
 	m_pPixmap->SetTransparent(CHOBJECTo, RGB(255,255,255));  // blanc
 
 	MapInitColors();  // init les couleurs pour la carte
 
-	m_bGroundRedraw = TRUE;
-	return TRUE;
+	m_bGroundRedraw = true;
+	return true;
 }
 
 // Met partout du brouillard, sauf aux endroits des blupi.
@@ -272,7 +272,7 @@ void CDecor::ClearFog()
 		}
 	}
 
-	m_bOutline = FALSE;
+	m_bOutline = false;
 }
 
 // Permet de nouveau aux cellules brulées de bruler.
@@ -300,39 +300,39 @@ void CDecor::ClearFire()
 
 // Indique le mode jeu/construction.
 
-void CDecor::SetBuild(BOOL bBuild)
+void CDecor::SetBuild(bool bBuild)
 {
 	m_bBuild = bBuild;
 }
 
 // Indique s'il faut tenir compte du brouillard.
 
-void CDecor::EnableFog(BOOL bEnable)
+void CDecor::EnableFog(bool bEnable)
 {
 	m_bFog     = bEnable;
-	m_bOutline = FALSE;
+	m_bOutline = false;
 }
 
 // Gestion du mode invincible.
 
-BOOL CDecor::GetInvincible()
+bool CDecor::GetInvincible()
 {
 	return m_bInvincible;
 }
 
-void CDecor::SetInvincible(BOOL bInvincible)
+void CDecor::SetInvincible(bool bInvincible)
 {
 	m_bInvincible = bInvincible;
 }
 
 // Gestion du mode costaud (superblupi).
 
-BOOL CDecor::GetSuper()
+bool CDecor::GetSuper()
 {
 	return m_bSuper;
 }
 
-void CDecor::SetSuper(BOOL bSuper)
+void CDecor::SetSuper(bool bSuper)
 {
 	m_bSuper = bSuper;
 }
@@ -347,27 +347,27 @@ void CDecor::FlipOutline()
 
 // Initialise un sol dans une cellule.
 
-BOOL CDecor::PutFloor(POINT cel, int channel, int icon)
+bool CDecor::PutFloor(POINT cel, int channel, int icon)
 {
 	if ( cel.x < 0 || cel.x >= MAXCELX ||
-		 cel.y < 0 || cel.y >= MAXCELY )  return FALSE;
+		 cel.y < 0 || cel.y >= MAXCELY )  return false;
 
 	m_decor[cel.x/2][cel.y/2].floorChannel = channel;
 	m_decor[cel.x/2][cel.y/2].floorIcon    = icon;
 
-	m_bGroundRedraw = TRUE;
+	m_bGroundRedraw = true;
 
 //?	SubDrapeau(cel);  // on pourra de nouveau planter un drapeau
 
-	return TRUE;
+	return true;
 }
 
 // Initialise un objet dans une cellule.
 
-BOOL CDecor::PutObject(POINT cel, int channel, int icon)
+bool CDecor::PutObject(POINT cel, int channel, int icon)
 {
 	if ( cel.x < 0 || cel.x >= MAXCELX ||
-		 cel.y < 0 || cel.y >= MAXCELY )  return FALSE;
+		 cel.y < 0 || cel.y >= MAXCELY )  return false;
 
 	if ( icon == -1 )  channel = -1;
 
@@ -376,45 +376,45 @@ BOOL CDecor::PutObject(POINT cel, int channel, int icon)
 
 	SubDrapeau(cel);  // on pourra de nouveau planter un drapeau
 
-	return TRUE;
+	return true;
 }
 
 // Retourne un sol dans une cellule.
 
-BOOL CDecor::GetFloor(POINT cel, int &channel, int &icon)
+bool CDecor::GetFloor(POINT cel, int &channel, int &icon)
 {
 	if ( cel.x < 0 || cel.x >= MAXCELX ||
-		 cel.y < 0 || cel.y >= MAXCELY )  return FALSE;
+		 cel.y < 0 || cel.y >= MAXCELY )  return false;
 
 	channel = m_decor[cel.x/2][cel.y/2].floorChannel;
 	icon    = m_decor[cel.x/2][cel.y/2].floorIcon;
 
-	return TRUE;
+	return true;
 }
 
 // Retourne une objet dans une cellule.
 
-BOOL CDecor::GetObject(POINT cel, int &channel, int &icon)
+bool CDecor::GetObject(POINT cel, int &channel, int &icon)
 {
 	if ( cel.x < 0 || cel.x >= MAXCELX ||
-		 cel.y < 0 || cel.y >= MAXCELY )  return FALSE;
+		 cel.y < 0 || cel.y >= MAXCELY )  return false;
 
 	channel = m_decor[cel.x/2][cel.y/2].objectChannel;
 	icon    = m_decor[cel.x/2][cel.y/2].objectIcon;
 
-	return TRUE;
+	return true;
 }
 
 // Modifie le feu pour une cellule.
 
-BOOL CDecor::SetFire(POINT cel, BOOL bFire)
+bool CDecor::SetFire(POINT cel, bool bFire)
 {
 	if ( cel.x < 0 || cel.x >= MAXCELX ||
-		 cel.y < 0 || cel.y >= MAXCELY )  return FALSE;
+		 cel.y < 0 || cel.y >= MAXCELY )  return false;
 
 	m_decor[cel.x/2][cel.y/2].fire = bFire?1:0;
 
-	return TRUE;
+	return true;
 }
 
 
@@ -423,7 +423,7 @@ BOOL CDecor::SetFire(POINT cel, BOOL bFire)
 void CDecor::SetShiftOffset(POINT offset)
 {
 	m_shiftOffset = offset;
-	m_bGroundRedraw = TRUE;
+	m_bGroundRedraw = true;
 }
 
 // Convertit la position d'une cellule en coordonnée graphique.
@@ -443,7 +443,7 @@ POINT CDecor::ConvCelToPos(POINT cel)
 
 // Convertit une coordonnée graphique en cellule.
 
-POINT CDecor::ConvPosToCel(POINT pos, BOOL bMap)
+POINT CDecor::ConvPosToCel(POINT pos, bool bMap)
 {
 	POINT	cel;
 
@@ -650,7 +650,7 @@ void CDecor::BuildMoveFloor(int x, int y, POINT pos, int rank)
 								 m_move[rank].icon, 0);
 
 		m_pPixmap->DrawIcon(-1, m_move[rank].channel, 0,
-							pos, 0, TRUE);
+							pos, 0, true);
 	}
 	else
 	{
@@ -1004,7 +1004,7 @@ void CDecor::BuildGround(RECT clip)
 		}
 	}
 
-	m_bGroundRedraw = FALSE;
+	m_bGroundRedraw = false;
 }
 
 // Construit le décor dans un pixmap.
@@ -1623,10 +1623,10 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 {
 	int		x, y, i, j, channel, icon, nb, start, direct;
 	int		error = 0;
-	BOOL	bStrong    = FALSE;
-	BOOL	bTransport = FALSE;
-	BOOL	bVehicule  = FALSE;
-	BOOL	bVehiculeA = FALSE;
+	bool	bStrong    = false;
+	bool	bTransport = false;
+	bool	bVehicule  = false;
+	bool	bVehiculeA = false;
 	POINT	vector;
 
 	for ( x=0 ; x<4 ; x++ )
@@ -1657,26 +1657,26 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 	{
 		if ( m_blupi[rank].energy > MAXENERGY/4 )  // blupi fort ?
 		{
-			bStrong = TRUE;
+			bStrong = true;
 		}
 		if ( m_blupi[rank].takeChannel != -1 )  // porte qq chose ?
 		{
-			bTransport = TRUE;
+			bTransport = true;
 		}
 		if ( m_blupi[rank].vehicule != 0 )  // pas à pied ?
 		{
-			bVehicule = TRUE;
+			bVehicule = true;
 		}
 		if ( m_blupi[rank].vehicule != 0 &&  // pas à pied ?
 			 m_blupi[rank].vehicule != 3 )   // pas armure ?
 		{
-			bVehiculeA = TRUE;
+			bVehiculeA = true;
 		}
 	}
 
 	if ( action == 0 )
 	{
-		if ( IsBlupiHere(cel, FALSE) )
+		if ( IsBlupiHere(cel, false) )
 		{
 			icons[1][1] = ICON_HILI_SEL;
 		}
@@ -1758,7 +1758,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 				if ( ((m_blupi[rank].takeChannel == -1) ||
 					  (m_blupi[rank].energy > MAXENERGY/4)) &&
 					 IsFreeCelGo(GetCel(cel.x+x,cel.y+y), rank) &&
-					 !IsBlupiHere(GetCel(cel.x+x,cel.y+y), TRUE) )
+					 !IsBlupiHere(GetCel(cel.x+x,cel.y+y), true) )
 				{
 //?					icons[1+x][1+y] = ICON_HILI_GO;  // flèche
 					icons[1+x][1+y] = ICON_HILI_OP;  // action
@@ -1904,7 +1904,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 						error = ERROR_FREE;
 						icons[x+1][y+1] = ICON_HILI_ERR;  // croix
 					}
-					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 					{
 						error = ERROR_FREE;
 						icons[x+1][y+1] = ICON_HILI_ERR;  // croix
@@ -1951,7 +1951,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 			{
 				for ( y=0 ; y<2 ; y++ )
 				{
-					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 					{
 						error = ERROR_FREE;
 						icons[x+1][y+1] = ICON_HILI_ERR;  // croix
@@ -1963,7 +1963,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 
 	if ( action == WM_ACTION_TOUR )
 	{
-		BOOL	bTour;
+		bool	bTour;
 
 		if ( cel.x%2 != 1 || cel.y%2 != 1 )
 		{
@@ -2018,7 +2018,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 							icons[x+1][y+1] = ICON_HILI_ERR;  // croix
 						}
 					}
-					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 					{
 						error = ERROR_FREE;
 						icons[x+1][y+1] = ICON_HILI_ERR;  // croix
@@ -2028,7 +2028,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 
 			if ( error == 0 )
 			{
-				bTour = FALSE;
+				bTour = false;
 				for ( i=0 ; i<4 ; i++ )
 				{
 					vector = GetVector(i*2*16);
@@ -2042,13 +2042,13 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 
 						if ( m_decor[x/2][y/2].objectIcon == 27 )  // tour ?
 						{
-							bTour = TRUE;
+							bTour = true;
 						}
 
 						if ( MoveGetObject(GetCel(x,y), channel, icon) &&
 							 channel == CHOBJECT && icon == 27 )  // tour en construction ?
 						{
-							bTour = TRUE;
+							bTour = true;
 						}
 					}
 				}
@@ -2093,7 +2093,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 			{
 				for ( y=0 ; y<2 ; y++ )
 				{
-					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 					{
 						error = ERROR_FREE;
 						icons[x+1][y+1] = ICON_HILI_ERR;  // croix
@@ -2144,7 +2144,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 			{
 				for ( y=0 ; y<2 ; y++ )
 				{
-					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 					{
 						error = ERROR_FREE;
 						icons[x+1][y+1] = ICON_HILI_ERR;  // croix
@@ -2180,8 +2180,8 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 				  icon ==  93 ||   // piège ?
 				  icon == 123 ||   // fer ?
 				  icon == 125) &&  // mine ?
-				 (!IsBlupiHereEx(GetCel(cel,-1,0), rank, FALSE) ||
-				  !IsBlupiHereEx(GetCel(cel,0,-1), rank, FALSE)) )
+				 (!IsBlupiHereEx(GetCel(cel,-1,0), rank, false) ||
+				  !IsBlupiHereEx(GetCel(cel,0,-1), rank, false)) )
 			{
 				icons[1][1] = ICON_HILI_OP;  // action
 			}
@@ -2219,7 +2219,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 					for ( y=0 ; y<2 ; y++ )
 					{
 						if ( !IsFreeCelDepose(GetCel(cel,x,y), rank) ||
-							 IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+							 IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 						{
 							error = ERROR_MISC;
 						}
@@ -2230,17 +2230,17 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 			else
 			{
 				if ( !IsFreeCelDepose(GetCel(cel,1,1), rank) ||
-					 IsBlupiHereEx(GetCel(cel,1,1), rank, FALSE) )
+					 IsBlupiHereEx(GetCel(cel,1,1), rank, false) )
 				{
 					error = ERROR_MISC;
 				}
 				else
 				{
 					if ( !IsFreeCelDepose(GetCel(cel,0,1), rank) ||
-						 IsBlupiHereEx(GetCel(cel,0,1), rank, FALSE) )
+						 IsBlupiHereEx(GetCel(cel,0,1), rank, false) )
 					{
 						if ( !IsFreeCelDepose(GetCel(cel,1,0), rank) ||
-							 IsBlupiHereEx(GetCel(cel,1,0), rank, FALSE) )
+							 IsBlupiHereEx(GetCel(cel,1,0), rank, false) )
 						{
 							error = ERROR_MISC;
 						}
@@ -2285,7 +2285,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 		{
 			for ( y=0 ; y<2 ; y++ )
 			{
-				if ( IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+				if ( IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 				{
 					error = ERROR_MISC;
 					icons[x+1][y+1] = ICON_HILI_ERR;  // croix
@@ -2325,7 +2325,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 		{
 			for ( y=0 ; y<2 ; y++ )
 			{
-				if ( IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+				if ( IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 				{
 					error = ERROR_MISC;
 					icons[x+1][y+1] = ICON_HILI_ERR;  // croix
@@ -2403,7 +2403,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 						error = ERROR_FREE;
 						icons[x+1][y+1] = ICON_HILI_ERR;  // croix
 					}
-					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 					{
 						error = ERROR_FREE;
 						icons[x+1][y+1] = ICON_HILI_ERR;  // croix
@@ -2427,8 +2427,8 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 				 m_blupi[rank].perso != 8 &&  // pas disciple ?
 				 channel == CHOBJECT &&
 				 icon == 60 &&  // tomates ?
-				 (!IsBlupiHereEx(GetCel(cel,-1,0), rank, FALSE) ||
-				  !IsBlupiHereEx(GetCel(cel,0,-1), rank, FALSE)) )
+				 (!IsBlupiHereEx(GetCel(cel,-1,0), rank, false) ||
+				  !IsBlupiHereEx(GetCel(cel,0,-1), rank, false)) )
 			{
 				icons[1][1] = ICON_HILI_OP;  // action
 			}
@@ -2454,8 +2454,8 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 				 m_blupi[rank].perso != 8 &&  // pas disciple ?
 				 channel == CHOBJECT &&
 				 icon == 80 &&  // bouteille ?
-				 (!IsBlupiHereEx(GetCel(cel,-1,0), rank, FALSE) ||
-				  !IsBlupiHereEx(GetCel(cel,0,-1), rank, FALSE)) )
+				 (!IsBlupiHereEx(GetCel(cel,-1,0), rank, false) ||
+				  !IsBlupiHereEx(GetCel(cel,0,-1), rank, false)) )
 			{
 				icons[1][1] = ICON_HILI_OP;  // action
 			}
@@ -2511,7 +2511,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 			{
 				for ( y=0 ; y<2 ; y++ )
 				{
-					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+					if ( IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 					{
 						error = ERROR_FREE;
 						icons[x+1][y+1] = ICON_HILI_ERR;  // croix
@@ -2532,8 +2532,8 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 		{
 			if ( IsFreeCelGo(GetCel(cel,+1, 0), rank) &&
 				 IsFreeCelGo(GetCel(cel,+1,+1), rank) &&
-				!IsBlupiHereEx(GetCel(cel,+1, 0), rank, FALSE) &&
-				!IsBlupiHereEx(GetCel(cel,+1,+1), rank, FALSE) )
+				!IsBlupiHereEx(GetCel(cel,+1, 0), rank, false) &&
+				!IsBlupiHereEx(GetCel(cel,+1,+1), rank, false) )
 			{
 				icons[1][1] = ICON_HILI_OP;  // action
 				icons[2][1] = ICON_HILI_OP;
@@ -2563,8 +2563,8 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 		{
 			if ( IsFreeCelGo(GetCel(cel,+1, 0), rank) &&
 				 IsFreeCelGo(GetCel(cel,+1,+1), rank) &&
-				!IsBlupiHereEx(GetCel(cel,+1, 0), rank, FALSE) &&
-				!IsBlupiHereEx(GetCel(cel,+1,+1), rank, FALSE) )
+				!IsBlupiHereEx(GetCel(cel,+1, 0), rank, false) &&
+				!IsBlupiHereEx(GetCel(cel,+1,+1), rank, false) )
 			{
 				icons[1][1] = ICON_HILI_OP;  // action
 				icons[2][1] = ICON_HILI_OP;
@@ -2615,7 +2615,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 		{
 			for ( y=0 ; y<2 ; y++ )
 			{
-				if ( IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+				if ( IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 				{
 					error = ERROR_MISC;
 					icons[x+1][y+1] = ICON_HILI_ERR;  // croix
@@ -2650,7 +2650,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 		{
 			for ( y=0 ; y<2 ; y++ )
 			{
-				if ( IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+				if ( IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 				{
 					error = ERROR_MISC;
 					icons[x+1][y+1] = ICON_HILI_ERR;  // croix
@@ -2699,7 +2699,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 		{
 			for ( y=0 ; y<2 ; y++ )
 			{
-				if ( IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+				if ( IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 				{
 					error = ERROR_MISC;
 					icons[x+1][y+1] = ICON_HILI_ERR;  // croix
@@ -2736,7 +2736,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 		{
 			for ( y=0 ; y<2 ; y++ )
 			{
-				if ( IsBlupiHereEx(GetCel(cel,x,y), rank, FALSE) )
+				if ( IsBlupiHereEx(GetCel(cel,x,y), rank, false) )
 				{
 					error = ERROR_MISC;
 					icons[x+1][y+1] = ICON_HILI_ERR;  // croix
@@ -2821,7 +2821,7 @@ void CDecor::CelHili(POINT pos, int action)
 		{
 			m_celHili = ConvPosToCel(pos);
 
-			if ( IsBlupiHere(m_celHili, FALSE) )
+			if ( IsBlupiHere(m_celHili, false) )
 			{
 				m_rankHili = m_blupiHere;
 				m_iconHili[1][1] = ICON_HILI_SEL;
@@ -3203,7 +3203,7 @@ int CDecor::GetResHili(POINT posMouse)
 // Indique si le menu est présent et qu'il faut cacher
 // les tooltips du décor.
 
-void CDecor::HideTooltips(BOOL bHide)
+void CDecor::HideTooltips(bool bHide)
 {
 	m_bHideTooltips = bHide;
 }
@@ -3211,7 +3211,7 @@ void CDecor::HideTooltips(BOOL bHide)
 
 // Modifie l'origine supérieure/gauche du décor.
 
-void CDecor::SetCoin(POINT coin, BOOL bCenter)
+void CDecor::SetCoin(POINT coin, bool bCenter)
 {
 	if ( bCenter )
 	{
@@ -3225,7 +3225,7 @@ void CDecor::SetCoin(POINT coin, BOOL bCenter)
 	if ( coin.y > MAXCELY-4  )  coin.y = MAXCELY-4;
 
 	m_celCoin = coin;
-	m_bGroundRedraw = TRUE;  // faudra redessiner les sols
+	m_bGroundRedraw = true;  // faudra redessiner les sols
 	m_celHili.x = -1;
 	m_textLastPos.x = -1;  // tooltips plus lavable !
 }
@@ -3243,7 +3243,7 @@ POINT CDecor::GetHome()
 
 // Mémoirise une position pendant le jeu.
 
-void CDecor::MemoPos(int rank, BOOL bRecord)
+void CDecor::MemoPos(int rank, bool bRecord)
 {
 	POINT		pos;
 
@@ -3267,7 +3267,7 @@ void CDecor::MemoPos(int rank, BOOL bRecord)
 		else
 		{
 			m_pSound->PlayImage(SOUND_BUT, pos);
-			SetCoin(m_memoPos[rank], FALSE);
+			SetCoin(m_memoPos[rank], false);
 		}
 	}
 }
@@ -3333,13 +3333,13 @@ int CDecor::GetRegion()
 
 // Gestion des infos.
 
-void CDecor::SetInfoMode(BOOL bInfo)
+void CDecor::SetInfoMode(bool bInfo)
 {
 	m_bInfo = bInfo;
-	m_bGroundRedraw = TRUE;  // faudra redessiner les sols
+	m_bGroundRedraw = true;  // faudra redessiner les sols
 }
 
-BOOL CDecor::GetInfoMode()
+bool CDecor::GetInfoMode()
 {
 	return m_bInfo;
 }
@@ -3347,7 +3347,7 @@ BOOL CDecor::GetInfoMode()
 void CDecor::SetInfoHeight(int height)
 {
 	m_infoHeight = height;
-	m_bGroundRedraw = TRUE;  // faudra redessiner les sols
+	m_bGroundRedraw = true;  // faudra redessiner les sols
 }
 
 int CDecor::GetInfoHeight()
@@ -3407,13 +3407,13 @@ void CDecor::UndoBack()
 	{
 		memcpy(&m_decor, m_pUndoDecor, sizeof(Cellule)*(MAXCELX/2)*(MAXCELY/2));
 		UndoClose();
-		m_bGroundRedraw = TRUE;
+		m_bGroundRedraw = true;
 	}
 }
 
 // Indique s'il est possible d'effectuer un undo.
 
-BOOL CDecor::IsUndo()
+bool CDecor::IsUndo()
 {
 	return ( m_pUndoDecor != NULL );
 }

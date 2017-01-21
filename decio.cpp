@@ -32,8 +32,8 @@ DescFile;
 
 typedef struct
 {
-	BOOL	bExist;			// TRUE -> utilisé
-	BOOL	bHili;			// TRUE -> sélectionné
+	int		bExist;			// true -> utilisé
+	int		bHili;			// true -> sélectionné
 
 	short	perso;			// personnage, voir (*)
 
@@ -73,14 +73,14 @@ typedef struct
 	short	jaugePhase;
 	short	jaugeMax;
 	short	stop;			// 1 -> devra stopper
-	short	bArrow;			// TRUE -> flèche en dessus de blupi
-	short	bRepeat;		// TRUE -> répète l'action
+	short	bArrow;			// true -> flèche en dessus de blupi
+	short	bRepeat;		// true -> répète l'action
 	short	nLoop;			// nb de boucles pour GOAL_OTHERLOOP
 	short	cLoop;			// boucle en cours
 	short	vIcon;			// icône variable
 	POINT	goalHili;		// but visé
-	short	bMalade;		// TRUE -> blupi malade
-	short	bCache;			// TRUE -> caché (pas dessiné)
+	short	bMalade;		// true -> blupi malade
+	short	bCache;			// true -> caché (pas dessiné)
 	short	vehicule;		// véhicule utilisé par blupi, voir (**)
 	char	busyCount;
 	char	busyDelay;
@@ -93,7 +93,7 @@ OldBlupi;
 
 // Sauve le décor sur disque.
 
-BOOL CDecor::Write(int rank, BOOL bUser, int world, int time, int total)
+bool CDecor::Write(int rank, bool bUser, int world, int time, int total)
 {
 	char		filename[MAX_PATH];
 	FILE*		file    = NULL;
@@ -165,17 +165,17 @@ BOOL CDecor::Write(int rank, BOOL bUser, int world, int time, int total)
 
 	free(pBuffer);
 	fclose(file);
-	return TRUE;
+	return true;
 
 	error:
 	if ( pBuffer != NULL )  free(pBuffer);
 	if ( file    != NULL )  fclose(file);
-	return FALSE;
+	return false;
 }
 
 // Lit le décor sur disque.
 
-BOOL CDecor::Read(int rank, BOOL bUser, int &world, int &time, int &total)
+bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
 {
 	char		filename[MAX_PATH];
 	FILE*		file    = NULL;
@@ -307,19 +307,19 @@ BOOL CDecor::Read(int rank, BOOL bUser, int &world, int &time, int &total)
 
 	free(pBuffer);
 	fclose(file);
-	return TRUE;
+	return true;
 
 	error:
 	if ( pBuffer != NULL )  free(pBuffer);
 	if ( file    != NULL )  fclose(file);
 
 	Flush();  // initialise un décor neutre
-	return FALSE;
+	return false;
 }
 
 // Indique si un fichier existe sur disque.
 
-BOOL CDecor::FileExist(int rank, BOOL bUser, int &world, int &time, int &total)
+bool CDecor::FileExist(int rank, bool bUser, int &world, int &time, int &total)
 {
 	char		filename[MAX_PATH];
 	FILE*		file    = NULL;
@@ -380,12 +380,12 @@ BOOL CDecor::FileExist(int rank, BOOL bUser, int &world, int &time, int &total)
 
 	free(pBuffer);
 	fclose(file);
-	return TRUE;
+	return true;
 
 	error:
 	if ( pBuffer != NULL )  free(pBuffer);
 	if ( file    != NULL )  fclose(file);
-	return FALSE;
+	return false;
 }
 
 
@@ -462,7 +462,7 @@ void CDecor::Flush()
 
 	for ( i=0 ; i<MAXBLUPI ; i++ )
 	{
-		m_blupi[i].bExist = FALSE;
+		m_blupi[i].bExist = false;
 	}
 
 	BlupiCreate(GetCel(102,100), ACTION_STOP, DIRECT_S, 0, MAXENERGY);
@@ -483,7 +483,7 @@ void CDecor::Flush()
 	}
 
 	memset(&m_term, 0, sizeof(Term));
-	m_term.bHomeBlupi = TRUE;
+	m_term.bHomeBlupi = true;
 	m_term.nbMinBlupi = 1;
 	m_term.nbMaxBlupi = 1;
 

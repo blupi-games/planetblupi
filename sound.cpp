@@ -14,7 +14,7 @@
 
 
 // The following macro are used for proper error handling for DirectSound.
-#define TRY_DS(exp) { { HRESULT rval = exp; if (rval != DS_OK) { TraceErrorDS(rval, __FILE__, __LINE__); return FALSE; } } }
+#define TRY_DS(exp) { { HRESULT rval = exp; if (rval != DS_OK) { TraceErrorDS(rval, __FILE__, __LINE__); return false; } } }
 
 
 struct WaveHeader
@@ -39,7 +39,7 @@ struct WaveHeader
 
 // Creates a DirectSound buffer.
 
-BOOL CSound::CreateSoundBuffer(int dwBuf, DWORD dwBufSize, DWORD dwFreq, DWORD dwBitsPerSample, DWORD dwBlkAlign, BOOL bStereo)
+bool CSound::CreateSoundBuffer(int dwBuf, DWORD dwBufSize, DWORD dwFreq, DWORD dwBitsPerSample, DWORD dwBlkAlign, bool bStereo)
 {
     PCMWAVEFORMAT	pcmwf;
     DSBUFFERDESC	dsbdesc;
@@ -61,19 +61,19 @@ BOOL CSound::CreateSoundBuffer(int dwBuf, DWORD dwBufSize, DWORD dwFreq, DWORD d
     dsbdesc.lpwfxFormat      = (LPWAVEFORMATEX)&pcmwf;
 
     TRY_DS(m_lpDS->CreateSoundBuffer(&dsbdesc, &m_lpDSB[dwBuf], NULL))
-    return TRUE;
+    return true;
 }
 
 // Reads in data from a wave file.
 
-BOOL CSound::ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWORD dwPos) 
+bool CSound::ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWORD dwPos) 
 {
     // Seek to correct position in file (if necessary)
     if ( dwPos != 0xffffffff ) 
     {
         if ( fseek(pFile, dwPos, SEEK_SET) != 0 ) 
         {
-            return FALSE;
+            return false;
         }
     }
 
@@ -87,7 +87,7 @@ BOOL CSound::ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWOR
     rval = lpDSB->Lock(0, dwSize, &pData1, &dwData1Size, &pData2, &dwData2Size, DSBLOCK_FROMWRITECURSOR);
     if ( rval != DS_OK )
     {
-        return FALSE;
+        return false;
     }
 
     // Read in first chunk of data
@@ -98,7 +98,7 @@ BOOL CSound::ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWOR
                         char holder[256];
                         wsprintf(holder,"Data1 : %d, dwdata: %d, pFile: %d",pData1,dwData1Size,pFile);
                         OutputDebug(holder);
-            return FALSE;
+            return false;
         }
     }
 
@@ -107,7 +107,7 @@ BOOL CSound::ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWOR
     {
         if ( fread(pData2, dwData2Size, 1, pFile) != 1 ) 
         {
-            return FALSE;
+            return false;
         }
     }
 
@@ -115,19 +115,19 @@ BOOL CSound::ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWOR
     rval = lpDSB->Unlock(pData1, dwData1Size, pData2, dwData2Size);
     if ( rval != DS_OK )
     {
-        return FALSE;
+        return false;
     }
 
-    return TRUE;
+    return true;
 }
 
 // Creates a DirectSound buffer from a wave file.
 
-BOOL CSound::CreateBufferFromWaveFile(int dwBuf, char *pFileName)
+bool CSound::CreateBufferFromWaveFile(int dwBuf, char *pFileName)
 {
     // Open the wave file       
     FILE* pFile = fopen(pFileName, "rb");
-    if ( pFile == NULL ) return FALSE;
+    if ( pFile == NULL ) return false;
 
     // Read in the wave header          
     WaveHeader wavHdr;
@@ -141,7 +141,7 @@ BOOL CSound::CreateBufferFromWaveFile(int dwBuf, char *pFileName)
     DWORD dwSize = wavHdr.dwDSize;
 
     // Is this a stereo or mono file?
-    BOOL bStereo = wavHdr.wChnls > 1 ? TRUE : FALSE;
+    bool bStereo = wavHdr.wChnls > 1 ? true : false;
 
     // Create the sound buffer for the wave file
     if ( !CreateSoundBuffer(dwBuf, dwSize, wavHdr.dwSRate,
@@ -150,25 +150,25 @@ BOOL CSound::CreateBufferFromWaveFile(int dwBuf, char *pFileName)
         // Close the file
         fclose(pFile);
         
-        return FALSE;
+        return false;
     }
 
     // Read the data for the wave file into the sound buffer
     if ( !ReadData(m_lpDSB[dwBuf], pFile, dwSize, sizeof(wavHdr)) )
     {
         fclose(pFile);
-        return FALSE;
+        return false;
     }
 
     // Close out the wave file
     fclose(pFile);
 
-    return TRUE;
+    return true;
 }
 
 // Stops all sounds.
 
-BOOL CSound::StopAllSounds()
+bool CSound::StopAllSounds()
 {
     // Make sure we have a valid sound buffer
     for (int i = 0; i < MAXSOUND; i ++)
@@ -185,15 +185,15 @@ BOOL CSound::StopAllSounds()
         }
     }
 
-    return TRUE;
+    return true;
 }
 
 // Plays a sound using direct sound.
 
-BOOL CSound::PlaySoundDS(DWORD dwSound, DWORD dwFlags)
+bool CSound::PlaySoundDS(DWORD dwSound, DWORD dwFlags)
 {
     // Make sure the sound is valid
-    if ( dwSound >= MAXSOUND )  return FALSE;    
+    if ( dwSound >= MAXSOUND )  return false;    
 
     // Make sure we have a valid sound buffer
     if ( m_lpDSB[dwSound] )
@@ -208,7 +208,7 @@ BOOL CSound::PlaySoundDS(DWORD dwSound, DWORD dwFlags)
         }
     }
 
-    return TRUE;
+    return true;
 }
 
 
@@ -282,8 +282,8 @@ CSound::CSound()
 {
 	int		i;
 	
-	m_bEnable         = FALSE;
-	m_bState          = FALSE;
+	m_bEnable         = false;
+	m_bState          = false;
 	m_MidiDeviceID    = 0;
 	m_MIDIFilename[0] = 0;
 	m_audioVolume     = 20;
@@ -334,25 +334,25 @@ CSound::~CSound()
 
 // Initialisation de DirectSound.
 
-BOOL CSound::Create(HWND hWnd)
+bool CSound::Create(HWND hWnd)
 {
 	if ( !DirectSoundCreate(NULL, &m_lpDS, NULL) == DS_OK )
 	{
 		OutputDebug("Fatal error: DirectSoundCreate\n");
-		m_bEnable = FALSE;
-		return FALSE;
+		m_bEnable = false;
+		return false;
 	}
 
 	m_lpDS->SetCooperativeLevel(hWnd, DSSCL_NORMAL);
-	m_bEnable = TRUE;
+	m_bEnable = true;
 	m_hWnd    = hWnd;
-	return TRUE;
+	return true;
 }
 
 
 // Retourne l'état de DirectSound.
 
-BOOL CSound::GetEnable()
+bool CSound::GetEnable()
 {
 	return m_bEnable;
 }
@@ -360,7 +360,7 @@ BOOL CSound::GetEnable()
 
 // Enclenche ou déclenche le son.
 
-void CSound::SetState(BOOL bState)
+void CSound::SetState(bool bState)
 {
 	m_bState = bState;
 }
@@ -409,10 +409,10 @@ void CSound::CacheAll()
 
 // Charge un fichier son (.wav).
 	
-BOOL CSound::Cache(int channel, char *pFilename)
+bool CSound::Cache(int channel, char *pFilename)
 {
-	if ( !m_bEnable )  return FALSE;
-	if ( channel < 0 || channel >= MAXSOUND )  return FALSE;
+	if ( !m_bEnable )  return false;
+	if ( channel < 0 || channel >= MAXSOUND )  return false;
 
 	if ( m_lpDSB[channel] != NULL )
 	{
@@ -441,31 +441,31 @@ void CSound::Flush(int channel)
 // Le panoramique est compris entre -10000 (gauche), 0 (centre)
 // et +10000 (droite).
 
-BOOL CSound::Play(int channel, int volume, int pan)
+bool CSound::Play(int channel, int volume, int pan)
 {
-	if ( !m_bEnable )  return TRUE;
-	if ( !m_bState || m_audioVolume == 0 )  return TRUE;
+	if ( !m_bEnable )  return true;
+	if ( !m_bState || m_audioVolume == 0 )  return true;
 
 	volume -= (MAXVOLUME-m_audioVolume)*((10000/4)/MAXVOLUME);
 
-//?	if ( volume == -10000 )  return TRUE;
-	if ( volume <= -10000/4 )  return TRUE;
+//?	if ( volume == -10000 )  return true;
+	if ( volume <= -10000/4 )  return true;
 
-	if ( channel < 0 || channel >= MAXSOUND )  return FALSE;
-	if ( m_lpDSB[channel] == NULL )            return FALSE;
+	if ( channel < 0 || channel >= MAXSOUND )  return false;
+	if ( m_lpDSB[channel] == NULL )            return false;
 
 	m_lpDSB[channel]->SetVolume(volume);
 	m_lpDSB[channel]->SetPan(pan);
 	m_lpDSB[channel]->Play(0, 0, 0);
 
-	return TRUE;
+	return true;
 }
 
 // Fait entendre un son dans une image.
 // Si rank != -1, il indique le rang du blupi dont il faudra
 // éventuellement stopper le dernier son en cours !
 
-BOOL CSound::PlayImage(int channel, POINT pos, int rank)
+bool CSound::PlayImage(int channel, POINT pos, int rank)
 {
 	int		stopCh, volumex, volumey, volume, pan;
 
@@ -519,15 +519,15 @@ BOOL CSound::PlayImage(int channel, POINT pos, int rank)
 // Uses MCI to play a MIDI file. The window procedure
 // is notified when playback is complete.
 
-BOOL CSound::PlayMusic(HWND hWnd, LPSTR lpszMIDIFilename)
+bool CSound::PlayMusic(HWND hWnd, LPSTR lpszMIDIFilename)
 {
 	MCI_OPEN_PARMS	mciOpenParms;
 	MCI_PLAY_PARMS	mciPlayParms;
 	DWORD			dwReturn;
 	char			string[MAX_PATH];
 
-	if ( !m_bEnable )  return TRUE;
-	if ( m_midiVolume == 0 )  return TRUE;
+	if ( !m_bEnable )  return true;
+	if ( m_midiVolume == 0 )  return true;
 	InitMidiVolume(m_midiVolume);
 	m_lastMidiVolume = m_midiVolume;
 
@@ -555,7 +555,7 @@ BOOL CSound::PlayMusic(HWND hWnd, LPSTR lpszMIDIFilename)
 		mciGetErrorString(dwReturn, string, 128);
 		OutputDebug(string);
 		// Failed to open device. Don't close it; just return error.
-		return FALSE;
+		return false;
 	}
 
 	// The device opened successfully; get the device ID.
@@ -573,22 +573,22 @@ BOOL CSound::PlayMusic(HWND hWnd, LPSTR lpszMIDIFilename)
 		mciGetErrorString(dwReturn, string, 128);
 		OutputDebug(string);
 		StopMusic();
-		return FALSE;
+		return false;
 	}
 
 	strcpy(m_MIDIFilename, lpszMIDIFilename);
 
-	return TRUE;
+	return true;
 }
 
 // Restart the MIDI player.
 
-BOOL CSound::RestartMusic()
+bool CSound::RestartMusic()
 {
 	OutputDebug("RestartMusic\n");
-	if ( !m_bEnable )  return TRUE;
-	if ( m_midiVolume == 0 )  return TRUE;
-	if ( m_MIDIFilename[0] == 0 )  return FALSE;
+	if ( !m_bEnable )  return true;
+	if ( m_midiVolume == 0 )  return true;
+	if ( m_MIDIFilename[0] == 0 )  return false;
 
 	return PlayMusic(m_hWnd, m_MIDIFilename);
 }
@@ -620,9 +620,9 @@ void CSound::StopMusic()
 	m_MIDIFilename[0] = 0;
 }
 
-// Retourne TRUE si une musique est en cours.
+// Retourne true si une musique est en cours.
 
-BOOL CSound::IsPlayingMusic()
+bool CSound::IsPlayingMusic()
 {
 	return (m_MIDIFilename[0] != 0);
 }

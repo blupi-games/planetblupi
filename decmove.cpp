@@ -536,7 +536,7 @@ void CDecor::MoveFlush()
 
 	for ( i=0 ; i<MAXMOVE ; i++ )
 	{
-		m_move[i].bExist = FALSE;
+		m_move[i].bExist = false;
 	}
 
 	for ( x=0 ; x<MAXCELX/2 ; x++ )
@@ -578,19 +578,19 @@ void CDecor::MoveFixInit()
 			// Démarre les éclairs entre les tours.
 			if ( m_decor[x/2][y/2].objectIcon == 10000 )  // éclair n-s
 			{
-				if ( MoveCreate(GetCel(x,y), -1, FALSE, CHOBJECT,-1,
-								-1,-1, 9999,1,0, TRUE) )
+				if ( MoveCreate(GetCel(x,y), -1, false, CHOBJECT,-1,
+								-1,-1, 9999,1,0, true) )
 				{
-					MoveAddIcons(GetCel(x,y), 4, TRUE);  // éclairs n-s
+					MoveAddIcons(GetCel(x,y), 4, true);  // éclairs n-s
 				}
 			}
 
 			if ( m_decor[x/2][y/2].objectIcon == 10001 )  // éclair e-o
 			{
-				if ( MoveCreate(GetCel(x,y), -1, FALSE, CHOBJECT,-1,
-								-1,-1, 9999,1,0, TRUE) )
+				if ( MoveCreate(GetCel(x,y), -1, false, CHOBJECT,-1,
+								-1,-1, 9999,1,0, true) )
 				{
-					MoveAddIcons(GetCel(x,y), 5, TRUE);  // éclairs e-o
+					MoveAddIcons(GetCel(x,y), 5, true);  // éclairs e-o
 				}
 			}
 		}
@@ -598,14 +598,14 @@ void CDecor::MoveFixInit()
 }
 
 // Crée un nouveau décor animé.
-// Si bMisc=TRUE, on garde 10 mouvements en réserve pour
-// des actions importantes (bMisc=FALSE).
+// Si bMisc=true, on garde 10 mouvements en réserve pour
+// des actions importantes (bMisc=false).
 
-BOOL CDecor::MoveCreate(POINT cel, int rankBlupi, BOOL bFloor,
+bool CDecor::MoveCreate(POINT cel, int rankBlupi, bool bFloor,
 						int channel, int icon,
 						int maskChannel, int maskIcon,
 						int total, int delai, int stepY,
-						BOOL bMisc, BOOL bNotIfExist)
+						bool bMisc, bool bNotIfExist)
 {
 	int		rank, max;
 
@@ -615,7 +615,7 @@ BOOL CDecor::MoveCreate(POINT cel, int rankBlupi, BOOL bFloor,
 			 m_move[rank].cel.x == cel.x &&
 			 m_move[rank].cel.y == cel.y )
 		{
-			if ( bNotIfExist )  return FALSE;
+			if ( bNotIfExist )  return false;
 			goto create;
 		}
 	}
@@ -625,15 +625,15 @@ BOOL CDecor::MoveCreate(POINT cel, int rankBlupi, BOOL bFloor,
 	{
 		if ( !m_move[rank].bExist )
 		{
-			if ( bMisc && max > MAXMOVE-10 )  return FALSE;
+			if ( bMisc && max > MAXMOVE-10 )  return false;
 			goto create;
 		}
 		max ++;
 	}
-	return FALSE;
+	return false;
 
 	create:
-	m_move[rank].bExist      = TRUE;
+	m_move[rank].bExist      = true;
 	m_move[rank].cel         = cel;
 	m_move[rank].rankBlupi   = rankBlupi;
 	m_move[rank].bFloor      = bFloor;
@@ -651,12 +651,12 @@ BOOL CDecor::MoveCreate(POINT cel, int rankBlupi, BOOL bFloor,
 	m_move[rank].phase       = 0;
 
 	m_decor[cel.x/2][cel.y/2].rankMove = rank;
-	return TRUE;
+	return true;
 }
 
 // Ajoute un mouvement.
 
-BOOL CDecor::MoveAddMoves(POINT cel, int rankMoves)
+bool CDecor::MoveAddMoves(POINT cel, int rankMoves)
 {
 	int		rank;
 
@@ -669,16 +669,16 @@ BOOL CDecor::MoveAddMoves(POINT cel, int rankMoves)
 			m_move[rank].rankMoves = rankMoves;
 			m_move[rank].phase  = 0;
 
-			return TRUE;
+			return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Ajoute un mouvement.
 
-BOOL CDecor::MoveAddIcons(POINT cel, int rankIcons, BOOL bContinue)
+bool CDecor::MoveAddIcons(POINT cel, int rankIcons, bool bContinue)
 {
 	int		rank;
 
@@ -696,17 +696,17 @@ BOOL CDecor::MoveAddIcons(POINT cel, int rankIcons, BOOL bContinue)
 				m_move[rank].cTotal = Random(0,10);
 			}
 
-			return TRUE;
+			return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Démarre le feu sur une cellule.
-// Retourne TRUE si c'est possible.
+// Retourne true si c'est possible.
 
-BOOL CDecor::MoveStartFire(POINT cel)
+bool CDecor::MoveStartFire(POINT cel)
 {
 	int		channel, icon;
 
@@ -727,16 +727,16 @@ BOOL CDecor::MoveStartFire(POINT cel)
 		   icon == 121 ||                 // mine de fer ?
 		   icon == 122) )                 // mine de fer ?
 	{
-		if ( !MoveCreate(cel, -1, FALSE, CHOBJECT,-1,
-						 -1,-1, 9999,1,0, TRUE) )  return FALSE;
-		MoveAddIcons(cel, 1, TRUE);  // petites flammes
+		if ( !MoveCreate(cel, -1, false, CHOBJECT,-1,
+						 -1,-1, 9999,1,0, true) )  return false;
+		MoveAddIcons(cel, 1, true);  // petites flammes
 
 		m_decor[cel.x/2][cel.y/2].fire = 2;
-		return TRUE;
+		return true;
 	}
 
 	// S'il y a un autre objet -> pas de feu !
-	if ( channel >= 0 )  return FALSE;
+	if ( channel >= 0 )  return false;
 
 	channel = m_decor[cel.x/2][cel.y/2].floorChannel;
 	icon    = m_decor[cel.x/2][cel.y/2].floorIcon;
@@ -745,15 +745,15 @@ BOOL CDecor::MoveStartFire(POINT cel)
 		 (icon == 20 ||    // herbe foncée ?
 		 (icon >= 59 && icon <= 64)) )  // pont ?
 	{
-		if ( !MoveCreate(cel, -1, FALSE, CHOBJECT,-1,
-						 -1,-1, 9999,1,0, TRUE) )  return FALSE;
-		MoveAddIcons(cel, 1, TRUE);  // petites flammes
+		if ( !MoveCreate(cel, -1, false, CHOBJECT,-1,
+						 -1,-1, 9999,1,0, true) )  return false;
+		MoveAddIcons(cel, 1, true);  // petites flammes
 
 		m_decor[cel.x/2][cel.y/2].fire = 2;
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Démarre le feu si c'est possible par proximité.
@@ -850,7 +850,7 @@ void CDecor::MoveFire(int rank)
 		// Début grandes flammes.
 		if ( m_decor[x/2][y/2].fire == (MoveMaxFire()-DIMOBJY*2)/2 )
 		{
-			MoveAddIcons(GetCel(x,y), 2, TRUE);  // grandes flammes
+			MoveAddIcons(GetCel(x,y), 2, true);  // grandes flammes
 		}
 
 		// Début objet squelette.
@@ -869,15 +869,15 @@ void CDecor::MoveFire(int rank)
 			if ( icon == 113 )  newIcon =  15;  // maison ?
 			if ( icon == 121 )  newIcon = 126;  // mine de fer ?
 			if ( icon == 122 )  newIcon = 126;  // mine de fer ?
-			MoveCreate(GetCel(x,y), -1, FALSE, CHOBJECT,newIcon,
+			MoveCreate(GetCel(x,y), -1, false, CHOBJECT,newIcon,
 					   -1,-1, DIMOBJY*2,1,-1*50);
-			MoveAddIcons(GetCel(x,y), 2, TRUE);  // grandes flammes
+			MoveAddIcons(GetCel(x,y), 2, true);  // grandes flammes
 		}
 
 		// Fin grandes flammes.
 		if ( m_decor[x/2][y/2].fire == MoveMaxFire()-DIMOBJY )
 		{
-			MoveAddIcons(GetCel(x,y), 1, TRUE);  // petites flammes
+			MoveAddIcons(GetCel(x,y), 1, true);  // petites flammes
 		}
 
 		// Fin feu.
@@ -954,7 +954,7 @@ void CDecor::MoveFire(int rank)
 
 // Fait évoluer tous les décors animés.
 
-void CDecor::MoveStep(BOOL bFirst)
+void CDecor::MoveStep(bool bFirst)
 {
 	int		rank, rankBlupi;
 
@@ -1033,7 +1033,7 @@ void CDecor::MoveFinish(POINT cel)
 			}
 
 			m_decor[cel.x/2][cel.y/2].rankMove = -1;
-			m_move[rank].bExist = FALSE;
+			m_move[rank].bExist = false;
 		}
 	}
 }
@@ -1056,7 +1056,7 @@ void CDecor::MoveFinish(int rankBlupi)
 
 // Vérifie si une cellule est déjà utilisée.
 
-BOOL CDecor::MoveIsUsed(POINT cel)
+bool CDecor::MoveIsUsed(POINT cel)
 {
 	int		rank;
 
@@ -1066,16 +1066,16 @@ BOOL CDecor::MoveIsUsed(POINT cel)
 			 m_move[rank].cel.x == cel.x &&
 			 m_move[rank].cel.y == cel.y )
 		{
-			return TRUE;
+			return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Retourne l'objet en construction à un endroit donné.
 
-BOOL CDecor::MoveGetObject(POINT cel, int &channel, int &icon)
+bool CDecor::MoveGetObject(POINT cel, int &channel, int &icon)
 {
 	int		rank;
 
@@ -1084,20 +1084,20 @@ BOOL CDecor::MoveGetObject(POINT cel, int &channel, int &icon)
 		if ( m_move[rank].bExist &&
 			 m_move[rank].cel.x == cel.x &&
 			 m_move[rank].cel.y == cel.y &&
-			 m_move[rank].bFloor == FALSE )
+			 m_move[rank].bFloor == false )
 		{
 			channel = m_move[rank].channel;
 			icon    = m_move[rank].icon;
-			return TRUE;
+			return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 // Modifie un objet en construction à un endroit donné.
 
-BOOL CDecor::MovePutObject(POINT cel, int channel, int icon)
+bool CDecor::MovePutObject(POINT cel, int channel, int icon)
 {
 	int		rank;
 
@@ -1106,14 +1106,14 @@ BOOL CDecor::MovePutObject(POINT cel, int channel, int icon)
 		if ( m_move[rank].bExist &&
 			 m_move[rank].cel.x == cel.x &&
 			 m_move[rank].cel.y == cel.y &&
-			 m_move[rank].bFloor == FALSE )
+			 m_move[rank].bFloor == false )
 		{
 			m_move[rank].channel = channel;
 			m_move[rank].icon    = icon;
-			return TRUE;
+			return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 

@@ -13,7 +13,7 @@
 extern "C" {            /* Assume C declarations for C++ */
 #endif  /* __cplusplus */
 
-extern void DDSetDebug(BOOL bDebug);
+extern void DDSetDebug(bool bDebug);
 extern IDirectDrawSurface * DDConnectBitmap(IDirectDraw *pdd, HBITMAP hbm);
 extern IDirectDrawPalette * DDLoadPalette(IDirectDraw *pdd, LPCSTR szBitmap);
 extern IDirectDrawSurface * DDLoadBitmap(IDirectDraw *pdd, LPCSTR szBitmap, int dx, int dy);

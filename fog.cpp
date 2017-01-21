@@ -27,21 +27,21 @@ static char tableFog[15*4] =
 
 // Retourne les bits contenant du brouillard.
 
-BOOL GetFogBits(int icon, char *pBits)
+bool GetFogBits(int icon, char *pBits)
 {
 	pBits[0] = 0;
 	pBits[1] = 0;
 	pBits[2] = 0;
 	pBits[3] = 0;
 
-	if ( icon < 0 || icon >= 15 )  return TRUE;
+	if ( icon < 0 || icon >= 15 )  return true;
 
 	pBits[0] = tableFog[icon*4+0];
 	pBits[1] = tableFog[icon*4+1];
 	pBits[2] = tableFog[icon*4+2];
 	pBits[3] = tableFog[icon*4+3];
 
-	return TRUE;
+	return true;
 }
 
 // Retourne l'icône correspondant aux bits de brouillard.

@@ -26,7 +26,7 @@
 
 // Initialize avi libraries.
 
-BOOL CMovie::initAVI()
+bool CMovie::initAVI()
 {
 	MCI_DGV_OPEN_PARMS	mciOpen;
 		
@@ -67,7 +67,7 @@ void CMovie::positionMovie(HWND hWnd, RECT rect)
 	// reposition the playback (child) window
 	MoveWindow(m_hwndMovie,
 			   rect.left, rect.top,
-			   rect.right, rect.bottom, TRUE);
+			   rect.right, rect.bottom, true);
 }
 
 // Close the movie and anything associated with it.					|
@@ -80,11 +80,11 @@ void CMovie::fileCloseMovie(HWND hWnd)
 	mciSendCommand(m_wMCIDeviceID, MCI_CLOSE, 0L,
 				   (DWORD)(LPMCI_GENERIC_PARMS)&mciGeneric);
 
-	m_fPlaying   = FALSE;	// can't be playing any longer
-	m_fMovieOpen = FALSE;	// no more movies open
+	m_fPlaying   = false;	// can't be playing any longer
+	m_fMovieOpen = false;	// no more movies open
 	
 	// cause a total repaint to occur
-	InvalidateRect(hWnd, NULL, TRUE);
+	InvalidateRect(hWnd, NULL, true);
 	UpdateWindow(hWnd);
 }
 
@@ -95,7 +95,7 @@ void CMovie::fileCloseMovie(HWND hWnd)
 // the movie paused when opened.
 // Sets <m_fMovieOpen> on success.
 
-BOOL CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
+bool CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 {
 	MCI_DGV_OPEN_PARMS		mciOpen;
 	MCI_DGV_WINDOW_PARMS	mciWindow;
@@ -132,7 +132,7 @@ BOOL CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 	{
 		// we opened the file o.k., now set up to play it.
 		m_wMCIDeviceID = mciOpen.wDeviceID;	// save ID
-		m_fMovieOpen = TRUE;	 // a movie was opened
+		m_fMovieOpen = true;	 // a movie was opened
 
 		// show the playback window
 		mciWindow.dwCallback = 0L;
@@ -154,17 +154,17 @@ BOOL CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 		positionMovie(hWnd, rect);
 
 		// cause an update to occur
-		InvalidateRect(hWnd, NULL, FALSE);
+		InvalidateRect(hWnd, NULL, false);
 		UpdateWindow(hWnd);
 
-		return TRUE;
+		return true;
 	}
 	else
 	{
 		// generic error for open
-		m_fMovieOpen = FALSE;
+		m_fMovieOpen = false;
 
-		return FALSE;
+		return false;
 	}
 }
 
@@ -177,7 +177,7 @@ void CMovie::playMovie(HWND hWnd, int nDirection)
 	m_fPlaying = !m_fPlaying;	// swap the play flag
 
 	if( !nDirection )
-		m_fPlaying = FALSE;	// wDirection == NULL means PAUSE
+		m_fPlaying = false;	// wDirection == NULL means PAUSE
 
 	// play/pause the AVI movie
 	if ( m_fPlaying )
@@ -213,10 +213,10 @@ void CMovie::playMovie(HWND hWnd, int nDirection)
 
 CMovie::CMovie()
 {
-	m_bEnable      = FALSE;
+	m_bEnable      = false;
 	m_wMCIDeviceID = 0;
-	m_fPlaying     = FALSE;
-	m_fMovieOpen   = FALSE;
+	m_fPlaying     = false;
+	m_fMovieOpen   = false;
 }
 
 // Destructeur.
@@ -228,35 +228,35 @@ CMovie::~CMovie()
 
 // Ouvre la librairie avi.
 
-BOOL CMovie::Create()
+bool CMovie::Create()
 {
 #if _EGAMES
-	m_bEnable = FALSE;
-	return FALSE;
+	m_bEnable = false;
+	return false;
 #else
 	if ( initAVI() )
 	{
-		m_bEnable = TRUE;
-		return TRUE;
+		m_bEnable = true;
+		return true;
 	}
 	else
 	{
-		m_bEnable = FALSE;
-		return FALSE;
+		m_bEnable = false;
+		return false;
 	}
 #endif
 }
 
 // Retourne l'état de DirectMovie.
 
-BOOL CMovie::GetEnable()
+bool CMovie::GetEnable()
 {
 	return m_bEnable;
 }
 
 // Indique si un film existe.
 
-BOOL CMovie::IsExist(char *pFilename)
+bool CMovie::IsExist(char *pFilename)
 {
 	char	string[MAX_PATH];
 	FILE*	file;
@@ -272,21 +272,21 @@ BOOL CMovie::IsExist(char *pFilename)
 	}
 
 	file = fopen(string, "rb");
-	if ( file == NULL )  return FALSE;
+	if ( file == NULL )  return false;
 
 	fclose(file);
-	return TRUE;
+	return true;
 }
 
 // Montre un film avi.
 
-BOOL CMovie::Play(HWND hWnd, RECT rect, char *pFilename)
+bool CMovie::Play(HWND hWnd, RECT rect, char *pFilename)
 {
-	if ( !m_bEnable )  return FALSE;
-	if ( !fileOpenMovie(hWnd, rect, pFilename) )  return FALSE;
+	if ( !m_bEnable )  return false;
+	if ( !fileOpenMovie(hWnd, rect, pFilename) )  return false;
 	playMovie(hWnd, IDM_PLAY);
 
-	return TRUE;
+	return true;
 }
 
 // Stoppe le film avi.

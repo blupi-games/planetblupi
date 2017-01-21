@@ -19,9 +19,9 @@
 // First-chance exception in Blupi.exe (GDI32.DLL): 0xC0000005: Access Violation.
 // apparaît au endroits marqués par (@) ...
 
-BOOL g_bDebug = TRUE;
+bool g_bDebug = true;
 
-void DDSetDebug(BOOL bDebug)
+void DDSetDebug(bool bDebug)
 {
 	g_bDebug = bDebug;
 }

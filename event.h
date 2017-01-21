@@ -18,7 +18,7 @@ typedef struct
 {
 	UINT	phase;
 	char	backName[20];
-	BOOL	bCDrom;
+	int		bCDrom;
 	Button	buttons[MAXBUTTON];
 }
 Phase;
@@ -54,13 +54,13 @@ public:
 
 	POINT	GetMousePos();
 	void	Create(HWND hWnd, CPixmap *pPixmap, CDecor *pDecor, CSound *pSound, CMovie *pMovie);
-	void	SetFullScreen(BOOL bFullScreen);
+	void	SetFullScreen(bool bFullScreen);
 	void	SetMouseType(int mouseType);
 	int		GetWorld();
 	int		GetPhysicalWorld();
 	int		GetImageWorld();
-	BOOL	IsHelpHide();
-	BOOL	ChangePhase(UINT phase);
+	bool	IsHelpHide();
+	bool	ChangePhase(UINT phase);
 	void	MovieToStart();
 	UINT	GetPhase();
 	void	TryInsert();
@@ -69,37 +69,37 @@ public:
 	int		GetButtonIndex(int button);
 	int		GetState(int button);
 	void	SetState(int button, int state);
-	BOOL	GetEnable(int button);
-	void	SetEnable(int button, BOOL bEnable);
-	BOOL	GetHide(int button);
-	void	SetHide(int button, BOOL bHide);
+	bool	GetEnable(int button);
+	void	SetEnable(int button, bool bEnable);
+	bool	GetHide(int button);
+	void	SetHide(int button, bool bHide);
 	int		GetMenu(int button);
 	void	SetMenu(int button, int menu);
 
-	BOOL	DrawButtons();
+	bool	DrawButtons();
 	int		MousePosToSprite(POINT pos);
 	void	MouseSprite(POINT pos);
-	void	WaitMouse(BOOL bWait);
-	void	HideMouse(BOOL bHide);
+	void	WaitMouse(bool bWait);
+	void	HideMouse(bool bHide);
 	POINT	GetLastMousePos();
-	BOOL	TreatEvent(UINT message, WPARAM wParam, LPARAM lParam);
-	BOOL	TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam);
+	bool	TreatEvent(UINT message, WPARAM wParam, LPARAM lParam);
+	bool	TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam);
 
 	void	DecorAutoShift(POINT pos);
 	
-	BOOL	StartMovie(char *pFilename);
+	bool	StartMovie(char *pFilename);
 	void	StopMovie();
-	BOOL	IsMovie();
+	bool	IsMovie();
 
-	BOOL	FlipObject();
+	bool	FlipObject();
 
 	void	Read(int message);
 	void	Write(int message);
 
 	void	SetSpeed(int speed);
 	int		GetSpeed();
-	BOOL	GetPause();
-	BOOL	IsShift();
+	bool	GetPause();
+	bool	IsShift();
 
 	void	DemoStep();
 	void	DebugDisplay(char m);
@@ -108,31 +108,31 @@ public:
 
 protected:
 	void	DrawTextCenter(int res, int x, int y, int font=0);
-	BOOL	CreateButtons();
-	BOOL	EventButtons(UINT message, WPARAM wParam, LPARAM lParam);
-	BOOL	MouseOnButton(POINT pos);
+	bool	CreateButtons();
+	bool	EventButtons(UINT message, WPARAM wParam, LPARAM lParam);
+	bool	MouseOnButton(POINT pos);
 	int		SearchPhase(UINT phase);
 	void	DecorShift(int dx, int dy);
 
-	BOOL	PlayDown(POINT pos, int fwKeys);
-	BOOL	PlayMove(POINT pos, int fwKeys);
-	BOOL	PlayUp(POINT pos, int fwKeys);
+	bool	PlayDown(POINT pos, int fwKeys);
+	bool	PlayMove(POINT pos, int fwKeys);
+	bool	PlayUp(POINT pos, int fwKeys);
 	void	ChangeButtons(int message);
 
 	void	BuildFloor(POINT cel, int insIcon);
 	void	BuildWater(POINT cel, int insIcon);
-	BOOL	BuildDown(POINT pos, int fwKeys, BOOL bMix=TRUE);
-	BOOL	BuildMove(POINT pos, int fwKeys);
-	BOOL	BuildUp(POINT pos, int fwKeys);
+	bool	BuildDown(POINT pos, int fwKeys, bool bMix=true);
+	bool	BuildMove(POINT pos, int fwKeys);
+	bool	BuildUp(POINT pos, int fwKeys);
 
 	void	PrivateLibelle();
-	BOOL	ReadLibelle(int world, BOOL bSchool, BOOL bHelp);
-	BOOL	WriteInfo();
-	BOOL	ReadInfo();
+	bool	ReadLibelle(int world, bool bSchool, bool bHelp);
+	bool	WriteInfo();
+	bool	ReadInfo();
 
 	void	DemoRecStart();
 	void	DemoRecStop();
-	BOOL	DemoPlayStart();
+	bool	DemoPlayStart();
 	void	DemoPlayStop();
 	void	DemoRecEvent(UINT message, WPARAM wParam, LPARAM lParam);
 
@@ -144,10 +144,10 @@ protected:
 	int			m_maxMission;
 	int			m_phase;
 	int			m_index;
-	BOOL		m_bSchool;
-	BOOL		m_bPrivate;
-	BOOL		m_bAccessBuild;
-	BOOL		m_bFullScreen;
+	bool		m_bSchool;
+	bool		m_bPrivate;
+	bool		m_bAccessBuild;
+	bool		m_bFullScreen;
 	int			m_mouseType;
 	HWND		m_hWnd;
 	CPixmap*	m_pPixmap;
@@ -160,11 +160,11 @@ protected:
 	int			m_lastFloor[MAXBUTTON];
 	int			m_lastObject[MAXBUTTON];
 	int			m_lastHome[MAXBUTTON];
-	BOOL		m_bRunMovie;
-	BOOL		m_bBuildModify;
+	bool		m_bRunMovie;
+	bool		m_bBuildModify;
 	CJauge		m_jauges[2];
 	CMenu		m_menu;
-	BOOL		m_bMenu;
+	bool		m_bMenu;
 	POINT		m_menuPos;
 	int			m_menuNb;
 	int			m_menuButtons[MAXBUTTON];
@@ -172,28 +172,28 @@ protected:
 	int			m_menuPerso;
 	POINT		m_menuCel;
 	POINT		m_oldMousePos;
-	BOOL		m_bMousePress;
-	BOOL		m_bMouseDown;
-	BOOL		m_bHili;
+	bool		m_bMousePress;
+	bool		m_bMouseDown;
+	bool		m_bHili;
 	int			m_fileWorld[10];
 	int			m_fileTime[10];
 	POINT		m_posToolTips;
 	char		m_textToolTips[50];
 	int			m_mouseSprite;
-	BOOL		m_bFillMouse;
-	BOOL		m_bWaitMouse;
-	BOOL		m_bHideMouse;
-	BOOL		m_bShowMouse;
+	bool		m_bFillMouse;
+	bool		m_bWaitMouse;
+	bool		m_bHideMouse;
+	bool		m_bShowMouse;
 	int			m_rankCheat;
 	int			m_posCheat;
-	BOOL		m_bMovie;
-	BOOL		m_bSpeed;
-	BOOL		m_bHelp;
-	BOOL		m_bAllMissions;
-	BOOL		m_bChangeCheat;
+	bool		m_bMovie;
+	bool		m_bSpeed;
+	bool		m_bHelp;
+	bool		m_bAllMissions;
+	bool		m_bChangeCheat;
 	int			m_scrollSpeed;
-	BOOL		m_bPause;
-	BOOL		m_bShift;
+	bool		m_bPause;
+	bool		m_bShift;
 	int			m_shiftPhase;
 	POINT		m_shiftVector;
 	POINT		m_shiftOffset;
@@ -202,17 +202,17 @@ protected:
 	int			m_tryInsertCount;
 	POINT		m_posInfoButton;
 	POINT		m_posHelpButton;
-	BOOL		m_bHiliInfoButton;
-	BOOL		m_bHiliHelpButton;
-	BOOL		m_bInfoHelp;
-	BOOL		m_bDemoRec;
-	BOOL		m_bDemoPlay;
+	bool		m_bHiliInfoButton;
+	bool		m_bHiliHelpButton;
+	bool		m_bInfoHelp;
+	bool		m_bDemoRec;
+	bool		m_bDemoPlay;
 	DemoEvent*	m_pDemoBuffer;
 	int			m_demoTime;
 	int			m_demoIndex;
 	int			m_demoEnd;
 	int			m_demoNumber;
-	BOOL		m_bCtrlDown;
+	bool		m_bCtrlDown;
 	POINT		m_debugPos;
 	int			m_introTime;
 };

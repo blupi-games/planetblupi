@@ -10,7 +10,7 @@ public:
 	CMenu();
 	~CMenu();
 
-	BOOL	Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
+	bool	Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
 				   POINT pos, int nb, int *pButtons, int *pErrors,
 				   int perso);
 	void	Update(int nb, int *pButtons, int *pErrors);
@@ -18,17 +18,17 @@ public:
 	void	Draw();
 	int		GetSel();
 	int		GetRank();
-	BOOL	IsError();
-	BOOL	IsExist();
+	bool	IsError();
+	bool	IsExist();
 	void	Message();
 
-	BOOL	TreatEvent(UINT message, WPARAM wParam, LPARAM lParam);
+	bool	TreatEvent(UINT message, WPARAM wParam, LPARAM lParam);
 
 protected:
 	int		Detect(POINT pos);
-	BOOL	MouseDown(POINT pos);
-	BOOL	MouseMove(POINT pos);
-	BOOL	MouseUp(POINT pos);
+	bool	MouseDown(POINT pos);
+	bool	MouseMove(POINT pos);
+	bool	MouseUp(POINT pos);
 
 protected:
 	HWND		m_hWnd;

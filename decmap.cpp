@@ -33,7 +33,7 @@
 
 static char g_map8_bits[DIMMAPY][DIMMAPX];
 static unsigned short g_map16_bits[DIMMAPY][DIMMAPX];
-static BOOL g_bPalette;
+static bool g_bPalette;
 
 
 
@@ -127,7 +127,7 @@ POINT CDecor::ConvMapToCel(POINT pos)
 
 // Déplace le décor suite à un clic dans la carte.
 
-BOOL CDecor::MapMove(POINT pos)
+bool CDecor::MapMove(POINT pos)
 {
 	POINT		cel;
 
@@ -141,10 +141,10 @@ BOOL CDecor::MapMove(POINT pos)
 		cel.y = cel.y;
 		SetCoin(cel);
 		NextPhase(0);  // faudra refaire la carte tout de suite
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -494,13 +494,13 @@ void CDecor::MapPutCel(POINT pos)
 
 // Génère la carte.
 
-BOOL CDecor::GenerateMap()
+bool CDecor::GenerateMap()
 {
 	HBITMAP		hbm;
 	POINT		dim, pos, cel;
 	int			dx, rank, i;
 
-	if ( m_phase != -1 && m_phase%20 != 0 )  return TRUE;
+	if ( m_phase != -1 && m_phase%20 != 0 )  return true;
 
 	// Dessine le décor (sol, objets et brouillard).
 	for ( pos.y=0 ; pos.y<DIMMAPY ; pos.y++ )
@@ -581,7 +581,7 @@ BOOL CDecor::GenerateMap()
 	{
 		hbm = CreateBitmap(DIMMAPX, DIMMAPY, 1, 16, g_map16_bits);
 	}
-	if ( hbm == NULL )  return FALSE;
+	if ( hbm == NULL )  return false;
 
 	dim.x = DIMMAPX;
 	dim.y = DIMMAPY;
@@ -592,6 +592,6 @@ BOOL CDecor::GenerateMap()
 	m_pPixmap->DrawIcon(-1, CHMAP, 0, pos);
 
 	DeleteObject(hbm);
-	return TRUE;
+	return true;
 }
 
