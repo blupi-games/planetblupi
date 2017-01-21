@@ -217,6 +217,7 @@
     <None Include="arrowup.cur" />
     <None Include="arrowur.cur" />
     <None Include="cursor1.cur" />
+    <None Include="data\config.def" />
     <None Include="empty.cur" />
     <None Include="fill.cur" />
     <None Include="map.cur" />

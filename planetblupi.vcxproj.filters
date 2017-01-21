@@ -9,6 +9,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{7afac595-449b-49eb-b3fd-d4a7328dbbc0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="action.cpp">
@@ -197,6 +200,9 @@
     </None>
     <None Include="arrowdl.cur">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="data\config.def">
+      <Filter>Data</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
