@@ -100,9 +100,6 @@
     <ClInclude Include="action.h">
       <Filter>Sources</Filter>
     </ClInclude>
-    <ClInclude Include="actions.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
     <ClInclude Include="button.h">
       <Filter>Sources</Filter>
     </ClInclude>

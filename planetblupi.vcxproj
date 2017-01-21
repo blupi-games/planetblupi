@@ -186,7 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="action.h" />
-    <ClInclude Include="actions.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="ddutil.h" />
     <ClInclude Include="decgoal.h" />
