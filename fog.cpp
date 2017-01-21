@@ -1,7 +1,5 @@
 // Fog.cpp
 
-#include <Windows.h>
-
 #include "DECOR.H"
 
 // Cette table indique les quarts de cases contenant du

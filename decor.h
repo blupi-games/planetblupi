@@ -2,8 +2,6 @@
 
 #pragma once
 
-#include <Windows.h>
-
 #include "DEF.H"
 #include "SOUND.H"
 #include "PIXMAP.H"

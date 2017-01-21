@@ -1,7 +1,6 @@
 // Class CFifo, gestion d'une liste en fifo
 
-
-#include <windows.h>
+#include <stdlib.h>
 #include "fifo.h"
 
 

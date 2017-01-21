@@ -1,8 +1,6 @@
 // DecStat.cpp
 //
 
-#include <Windows.h>
-
 #include "RESOURCE.H"
 #include "DECOR.H"
 #include "TEXT.H"

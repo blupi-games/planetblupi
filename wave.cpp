@@ -9,7 +9,6 @@
  *
  ******************************************************************/
 
-#include <windows.h>
 #include "wave.h"
 
 typedef struct tagWAVEFILE

@@ -1,7 +1,6 @@
 // DecIO.cpp
 //
 
-#include <Windows.h>
 #include "DEF.H"
 #include "DECOR.H"
 #include "MISC.H"

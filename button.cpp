@@ -1,7 +1,6 @@
 // Button.cpp
 //
 
-#include <windows.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <ddraw.h>

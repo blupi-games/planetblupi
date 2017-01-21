@@ -1,7 +1,6 @@
 // DecMove.cpp
 //
 
-#include <Windows.h>
 #include "DECOR.H"
 #include "MISC.H"
 #include "DECMOVE.h"
