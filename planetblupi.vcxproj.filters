@@ -142,9 +142,6 @@
     <ClInclude Include="resource.h">
       <Filter>Sources</Filter>
     </ClInclude>
-    <ClInclude Include="resrc1.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
     <ClInclude Include="sound.h">
       <Filter>Sources</Filter>
     </ClInclude>

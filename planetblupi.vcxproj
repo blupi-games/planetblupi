@@ -200,7 +200,6 @@
     <ClInclude Include="movie.h" />
     <ClInclude Include="pixmap.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="resrc1.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="wave.h" />
