@@ -225,7 +225,7 @@ void InitMidiVolume(int volume)
 	MMRESULT		result;
 	HMIDIOUT		hmo = 0;
 
-	static int table[21] =
+	static unsigned int table[21] =
 	{
 		0x00000000,
 		0x11111111,

@@ -4151,7 +4151,7 @@ BOOL CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 		test = goalHili2;
 		if ( IsBuildPont(test, icon) != 0 )  return FALSE;
 
-		m_blupi[rank].nLoop = abs((test.x-cel.x)+(test.y-cel.y))/2;
+		m_blupi[rank].nLoop = static_cast<short> (abs((test.x-cel.x)+(test.y-cel.y))/2);
 		m_blupi[rank].cLoop = 0;
 		m_blupi[rank].vIcon = icon;
 		m_blupi[rank].fix   = cel;
