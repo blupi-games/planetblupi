@@ -1,17 +1,218 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Sources">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="action.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="arrange.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="blupi.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="button.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="chemin.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ddutil.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="decblupi.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="decgoal.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="decio.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="decmap.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="decmove.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="decor.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="decstat.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="event.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="fifo.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="fog.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="jauge.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="menu.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="misc.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="movie.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="obstacle.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="pixmap.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="sound.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="tablefloor.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="tableobj.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="text.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="wave.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="action.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="actions.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="ddutil.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="decgoal.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="decmove.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="decor.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="def.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="event.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="fifo.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="jauge.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="menu.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="misc.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="movie.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="pixmap.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="resrc1.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="sound.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="text.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+    <ClInclude Include="wave.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="arrow.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="arrowdow.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="arrowlef.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="arrowrig.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="arrowul.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="arrowup.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="arrowur.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="cursor1.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="empty.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="fill.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="map.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="wait.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="arrowdr.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="arrowdl.cur">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="blupi-d.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="blupi-e.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="blupi-f.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="blupi.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
