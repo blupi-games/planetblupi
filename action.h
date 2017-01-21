@@ -1,6 +1,8 @@
 // Action.h
 //
 
+#pragma once
+
 extern
 BOOL Action(short action, short direct,
 			short &phase, short &step,

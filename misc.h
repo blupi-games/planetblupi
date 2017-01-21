@@ -1,6 +1,8 @@
 // misc.h
 //
 
+#pragma once
+
 extern void InitHInstance(HINSTANCE hInstance);
 extern void OutputDebug(char *pMessage);
 extern void LoadString(UINT nID, char *pBuffer, int lgBuffer);

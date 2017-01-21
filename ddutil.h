@@ -7,6 +7,8 @@
  *
  ***************************************************************************/
 
+#pragma once
+
 #ifdef __cplusplus
 extern "C" {            /* Assume C declarations for C++ */
 #endif  /* __cplusplus */

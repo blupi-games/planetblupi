@@ -1,6 +1,8 @@
 // movie.h
 //
 
+#pragma once
+
 class CMovie
 {
 public:

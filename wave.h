@@ -7,6 +7,8 @@
  *
  ***************************************************************************/
 
+#pragma once
+
 #include <dsound.h>
 
 void LoadWave(HINSTANCE hinst, int ResourceID,
