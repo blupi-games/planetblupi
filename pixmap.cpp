@@ -3,11 +3,17 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <io.h>
+#include <string>
 #include <ddraw.h>
+#include <SDL.h>
+#include <SDL_surface.h>
+#include <SDL_log.h>
 #include "def.h"
 #include "pixmap.h"
 #include "misc.h"
 #include "ddutil.h"
+#include "blupi.h"
 
 
 
@@ -188,6 +194,33 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
 		OutputDebug("Fatal error: CreateSurface\n");
         return false;
     }
+
+	/* Create a 32-bit surface with the bytes of each pixel in R,G,B,A order,
+	as expected by OpenGL for textures */
+	Uint32 rmask, gmask, bmask, amask;
+
+	/* SDL interprets each pixel as a 32-bit number, so our masks must depend
+	on the endianness (byte order) of the machine */
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	rmask = 0xff000000;
+	gmask = 0x00ff0000;
+	bmask = 0x0000ff00;
+	amask = 0x000000ff;
+#else
+	rmask = 0x000000ff;
+	gmask = 0x0000ff00;
+	bmask = 0x00ff0000;
+	amask = 0xff000000;
+#endif
+
+	/*m_lpSDLPrimary = SDL_CreateRGBSurface (0, dim.x, dim.y, 32,
+									rmask, gmask, bmask, amask);
+	if (m_lpSDLPrimary == NULL)
+	{
+		SDL_Log ("SDL_CreateRGBSurfaceWithFormat() failed: %s", SDL_GetError ());
+		return false;
+	}*/
+	m_lpSDLPrimary = SDL_GetWindowSurface (g_window);
 	
 	// Create the back buffer.
 	ZeroMemory(&ddsd, sizeof(ddsd));
@@ -206,6 +239,14 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
 		return false;
 	}
 
+	m_lpSDLBack = SDL_CreateRGBSurface (0, dim.x, dim.y, 32,
+									rmask, gmask, bmask, amask);
+	if (m_lpSDLBack == NULL)
+	{
+		SDL_Log ("SDL_CreateRGBSurfaceWithFormat() failed: %s", SDL_GetError ());
+		return false;
+	}
+
 	// Create the mouse buffer.
 	ZeroMemory(&ddsd, sizeof(ddsd));
 	ddsd.dwSize         = sizeof(ddsd);
@@ -220,6 +261,14 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
 	{
 		TraceErrorDD(ddrval, "pixmap", 0);
 		OutputDebug("Fatal error: CreateMouseSurface\n");
+		return false;
+	}
+
+	m_lpSDLMouse = SDL_CreateRGBSurface (0, DIMBLUPIX, DIMBLUPIY, 32,
+										rmask, gmask, bmask, amask);
+	if (m_lpSDLMouse == NULL)
+	{
+		SDL_Log ("SDL_CreateRGBSurfaceWithFormat() failed: %s", SDL_GetError ());
 		return false;
 	}
 
@@ -391,15 +440,34 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
     {
 		if ( chDst < 0 )
 		{
+			SDL_Rect srcRect, dstRect;
+			srcRect.x = rcRect.left;
+			srcRect.y = rcRect.top;
+			srcRect.w = rcRect.right - rcRect.left;
+			srcRect.h = rcRect.bottom - rcRect.top;
+			dstRect = srcRect;
+			dstRect.x = dst.x;
+			dstRect.y = dst.y;
+			SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, m_lpSDLBack, &dstRect);
 			ddrval = m_lpDDSBack->BltFast(dst.x, dst.y,
 										  m_lpDDSurface[channel],
 										  &rcRect, dwTrans);
+
 		}
 		else
 		{
 			ddrval = m_lpDDSurface[chDst]->BltFast(dst.x, dst.y,
 										  m_lpDDSurface[channel],
 										  &rcRect, dwTrans);
+			SDL_Rect srcRect, dstRect;
+			srcRect.x = rcRect.left;
+			srcRect.y = rcRect.top;
+			srcRect.w = rcRect.right - rcRect.left;
+			srcRect.h = rcRect.bottom - rcRect.top;
+			dstRect = srcRect;
+			dstRect.x = dst.x;
+			dstRect.y = dst.y;
+			SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, m_lpSDLSurface[chDst], &dstRect);
 		}
         if ( ddrval == DD_OK )  break;
         
@@ -418,7 +486,7 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 // Effectue un appel BltFast.
 // Les modes sont 0=transparent, 1=opaque.
 
-HRESULT CPixmap::BltFast(LPDIRECTDRAWSURFACE lpDD,
+HRESULT CPixmap::BltFast(LPDIRECTDRAWSURFACE lpDD, SDL_Surface *lpSDL,
 						 int channel, POINT dst, RECT rcRect, int mode)
 {
 	DWORD		dwTrans;
@@ -432,6 +500,15 @@ HRESULT CPixmap::BltFast(LPDIRECTDRAWSURFACE lpDD,
 		ddrval = lpDD->BltFast(dst.x, dst.y,
 							   m_lpDDSurface[channel],
 							   &rcRect, dwTrans);
+		SDL_Rect srcRect, dstRect;
+		srcRect.x = rcRect.left;
+		srcRect.y = rcRect.top;
+		srcRect.w = rcRect.right - rcRect.left;
+		srcRect.h = rcRect.bottom - rcRect.top;
+		dstRect = srcRect;
+		dstRect.x = dst.x;
+		dstRect.y = dst.y;
+		SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, lpSDL, &dstRect);
         if ( ddrval == DD_OK )  break;
         
         if ( ddrval == DDERR_SURFACELOST )
@@ -590,6 +667,11 @@ bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
 
     // Create the offscreen surface, by loading our bitmap.
     m_lpDDSurface[channel] = DDLoadBitmap(m_lpDD, pFilename, 0, 0);
+	std::string file = pFilename;
+	if (_access ((file + ".bmp").c_str (), 0 /* F_OK */) != -1)
+		file += ".bmp";
+	m_lpSDLSurface[channel] = SDL_LoadBMP (file.c_str ());
+
 
     if ( m_lpDDSurface[channel] == NULL )
     {
@@ -938,7 +1020,7 @@ bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 	rect.bottom = rect.top  + m_iconDim[channel].y;
 	posDst.x    = (rankDst%nbx)*m_iconDim[channel].x;
 	posDst.y    = (rankDst/nbx)*m_iconDim[channel].y;
-	ddrval = BltFast(m_lpDDSurface[channel], channel, posDst, rect, 1);
+	ddrval = BltFast(m_lpDDSurface[channel], m_lpSDLSurface[channel], channel, posDst, rect, 1);
 	if ( ddrval != DD_OK )  return false;
 
 	if ( m_iconDim[channelMask].x == 0 ||
@@ -953,7 +1035,7 @@ bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 	rect.top    = (rankMask/nbx)*m_iconDim[channelMask].y;
 	rect.right  = rect.left + m_iconDim[channelMask].x;
 	rect.bottom = rect.top  + m_iconDim[channelMask].y;
-	ddrval = BltFast(m_lpDDSurface[channel], channelMask, posDst, rect, 0);
+	ddrval = BltFast(m_lpDDSurface[channel], m_lpSDLSurface[channel], channelMask, posDst, rect, 0);
 	if ( ddrval != DD_OK )  return false;
 
 	return true;
@@ -989,6 +1071,30 @@ bool CPixmap::Display()
 					DDBLT_WAIT,
 					&m_DDbltfx
 				);
+	/*SDL_Rect srcRect, dstRect;
+	srcRect.x = MapRect.left;
+	srcRect.y = MapRect.top;
+	srcRect.w = MapRect.right - MapRect.left;
+	srcRect.h = MapRect.bottom - MapRect.top;
+	dstRect.x = DestRect.left;
+	dstRect.y = DestRect.top;
+	dstRect.w = DestRect.right - DestRect.left;
+	dstRect.h = DestRect.bottom - DestRect.top;
+	SDL_BlitSurface (m_lpSDLPrimary, &srcRect, m_lpSDLBack, &dstRect);*/
+
+	/*
+	* Copies the bmp surface to the window surface
+	*/
+	SDL_BlitSurface (m_lpSDLBack,
+					 NULL,
+					 m_lpSDLPrimary,
+					 NULL);
+
+	/*
+	* Now updating the window
+	*/
+	SDL_UpdateWindowSurface (g_window);
+
     if ( ddrval == DDERR_SURFACELOST )
     {
         ddrval = RestoreAll();
@@ -1120,6 +1226,16 @@ bool CPixmap::MouseQuickDraw(RECT rect)
 					DDBLT_WAIT,
 					&m_DDbltfx
 				);
+	SDL_Rect srcRect, dstRect;
+	srcRect.x =rect.left;
+	srcRect.y =rect.top;
+	srcRect.w =rect.right - rect.left;
+	srcRect.h =rect.bottom - rect.top;
+	dstRect.x = DestRect.left;
+	dstRect.y = DestRect.top;
+	dstRect.w = DestRect.right - DestRect.left;
+	dstRect.h = DestRect.bottom - DestRect.top;
+	SDL_BlitSurface (m_lpSDLPrimary, &srcRect, m_lpSDLBack, &dstRect);
     if ( ddrval == DDERR_SURFACELOST )
     {
         ddrval = RestoreAll();
@@ -1181,7 +1297,7 @@ void CPixmap::MouseBackDraw()
 	}
 
 	// Dessine le lutin dans m_lpDDSBack.
-	BltFast(m_lpDDSBack, CHBLUPI, dst, rcRect, 0);
+	BltFast(m_lpDDSBack, m_lpSDLBack, CHBLUPI, dst, rcRect, 0);
 }
 
 // Sauve le fond sous la souris.
@@ -1234,6 +1350,15 @@ void CPixmap::MouseBackSave()
 		ddrval = m_lpDDSMouse->BltFast(dst.x, dst.y,
 									   m_lpDDSBack,
 									   &rcRect, DDBLTFAST_NOCOLORKEY);
+		SDL_Rect srcRect, dstRect;
+		srcRect.x = rcRect.left;
+		srcRect.y = rcRect.top;
+		srcRect.w = rcRect.right - rcRect.left;
+		srcRect.h = rcRect.bottom - rcRect.top;
+		dstRect = srcRect;
+		dstRect.x = dst.x;
+		dstRect.y = dst.y;
+		SDL_BlitSurface (m_lpSDLBack, &srcRect, m_lpSDLMouse, &dstRect);
         if ( ddrval == DD_OK )  break;
         
         if ( ddrval == DDERR_SURFACELOST )
@@ -1290,6 +1415,15 @@ void CPixmap::MouseBackRestore()
 		ddrval = m_lpDDSBack->BltFast(dst.x, dst.y,
 									  m_lpDDSMouse,
 									  &rcRect, DDBLTFAST_NOCOLORKEY);
+		SDL_Rect srcRect, dstRect;
+		srcRect.x = rcRect.left;
+		srcRect.y = rcRect.top;
+		srcRect.w = rcRect.right - rcRect.left;
+		srcRect.h = rcRect.bottom - rcRect.top;
+		dstRect = srcRect;
+		dstRect.x = dst.x;
+		dstRect.y = dst.y;
+		SDL_BlitSurface (m_lpSDLMouse, &srcRect, m_lpSDLBack, &dstRect);
         if ( ddrval == DD_OK )  break;
         
         if ( ddrval == DDERR_SURFACELOST )

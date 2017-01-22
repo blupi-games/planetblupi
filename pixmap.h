@@ -3,11 +3,11 @@
 #pragma once
 
 #include <ddraw.h>
+#include <SDL_surface.h>
 
 /////////////////////////////////////////////////////////////////////////////
 
 #define MAXIMAGE	100
-
 
 class CPixmap
 {
@@ -60,7 +60,7 @@ public:
 protected:
 	HRESULT	RestoreAll();
 	HRESULT	BltFast(int chDst, int channel, POINT dst, RECT rcRect, int mode);
-	HRESULT	BltFast(LPDIRECTDRAWSURFACE lpDD,
+	HRESULT	BltFast(LPDIRECTDRAWSURFACE lpDD, SDL_Surface *lpSDL,
 					int channel, POINT dst, RECT rcRect, int mode);
 
 	void	MouseUpdate();
@@ -90,10 +90,14 @@ protected:
 
 	LPDIRECTDRAW			m_lpDD;					// DirectDraw object
 	LPDIRECTDRAWSURFACE		m_lpDDSPrimary;			// DirectDraw primary surface
+	SDL_Surface *			m_lpSDLPrimary;
 	LPDIRECTDRAWSURFACE		m_lpDDSBack;			// DirectDraw back surface
+	SDL_Surface *			m_lpSDLBack;
 	LPDIRECTDRAWSURFACE		m_lpDDSMouse;			// DirectDraw back surface
+	SDL_Surface *			m_lpSDLMouse;
 	LPDIRECTDRAWPALETTE		m_lpDDPal;				// the primary surface palette
 	LPDIRECTDRAWSURFACE		m_lpDDSurface[MAXIMAGE]; // offscreen surfaces
+	SDL_Surface *			m_lpSDLSurface[MAXIMAGE];
 	LPDIRECTDRAWCLIPPER		m_lpClipper;
     PALETTEENTRY			m_pal[256];				// sauvegarde palette
     PALETTEENTRY			m_sysPal[256];			// sauvegarde palette

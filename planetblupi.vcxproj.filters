@@ -151,6 +151,9 @@
     <ClInclude Include="wave.h">
       <Filter>Sources</Filter>
     </ClInclude>
+    <ClInclude Include="blupi.h">
+      <Filter>Sources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="arrow.cur">

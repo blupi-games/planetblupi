@@ -1,6 +1,8 @@
 // blupi.cpp
 //
 
+#include "blupi.h"
+
 #define WIN32_LEAN_AND_MEAN
 
 #define SDL_MAIN_HANDLED
