@@ -3,6 +3,8 @@
 
 #define WIN32_LEAN_AND_MEAN
 
+#define SDL_MAIN_HANDLED
+#include <SDL.h>
 #include <windowsx.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -586,6 +588,12 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	wc.lpszClassName = NAME;
 	RegisterClass(&wc);
 
+	SDL_SetMainReady ();
+	auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+	if (res < 0)
+		return false;
+
+
 	// Create a window.
 	if ( g_bFullScreen )
 	{
@@ -838,7 +846,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		{
 			if ( !GetMessage(&msg, NULL, 0, 0) )
 			{
-				return static_cast<int> (msg.wParam);
+				goto out;
 			}
 			TranslateMessage(&msg); 
 			DispatchMessage(&msg);
@@ -850,6 +858,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 	}
 
+out:
+	SDL_Quit ();
 	return static_cast<int> (msg.wParam);
 }
 
