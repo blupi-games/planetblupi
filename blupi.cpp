@@ -33,6 +33,7 @@
 // Variables globales
 
 HWND		g_hWnd;					// handle à la fenêtre
+SDL_Window *g_window;
 CEvent*		g_pEvent  = NULL;
 CPixmap*	g_pPixmap = NULL;		// pixmap principal
 CSound*		g_pSound  = NULL;		// sound principal
@@ -611,6 +612,14 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 						hInstance,
 						NULL
 					);
+
+		g_window = SDL_CreateWindow (
+			NAME,
+			0, 0,
+			GetSystemMetrics (SM_CXSCREEN),
+			GetSystemMetrics (SM_CYSCREEN),
+			SDL_WINDOW_FULLSCREEN
+		);
 	}
 	else
 	{
@@ -638,8 +647,22 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 						hInstance,
 						NULL
 					);
+
+		g_window = SDL_CreateWindow (
+			NAME,
+			(sx - LXIMAGE) / 2, (sy - LYIMAGE) / 2,
+			WindowRect.right - WindowRect.left,
+			WindowRect.bottom - WindowRect.top,
+			0
+		);
 	}
 	if ( !g_hWnd )  return false;
+
+	if (!g_window)
+	{
+		printf ("Could not create window: %s\n", SDL_GetError ());
+		return false;
+	}
 
 	ShowWindow(g_hWnd, nCmdShow);
 	UpdateWindow(g_hWnd);
@@ -859,6 +882,9 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	}
 
 out:
+	if (g_window)
+		SDL_DestroyWindow (g_window);
+
 	SDL_Quit ();
 	return static_cast<int> (msg.wParam);
 }
