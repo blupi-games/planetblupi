@@ -1,7 +1,7 @@
 // misc.cpp
 //
 
-
+#include <SDL_mouse.h>
 #include <dsound.h>
 #include <ddraw.h>
 #include <stdio.h>
@@ -49,6 +49,7 @@ void LoadString(UINT nID, char *pBuffer, int lgBuffer)
 void ChangeSprite(int sprite)
 {
 	HCURSOR		hCursor = nullptr;
+	SDL_Cursor * cursor;
 
 	if ( g_mouseType == MOUSETYPEGRA )  return;
 	if ( g_lastSprite == sprite )  return;
@@ -65,9 +66,11 @@ void ChangeSprite(int sprite)
 	if ( sprite == SPRITE_ARROWDL )  hCursor = LoadCursor(g_hInstance, "IDC_ARROWDL");
 	if ( sprite == SPRITE_ARROWDR )  hCursor = LoadCursor(g_hInstance, "IDC_ARROWDR");
 	if ( sprite == SPRITE_WAIT    )  hCursor = LoadCursor(g_hInstance, "IDC_WAIT");
+	cursor = SDL_CreateSystemCursor (SDL_SYSTEM_CURSOR_WAIT);
 	if ( sprite == SPRITE_EMPTY   )  hCursor = LoadCursor(g_hInstance, "IDC_EMPTY");
 	if ( sprite == SPRITE_FILL    )  hCursor = LoadCursor(g_hInstance, "IDC_FILL");
 	SetCursor(hCursor);
+	SDL_SetCursor (cursor);
 
 	g_lastSprite = sprite;
 }
