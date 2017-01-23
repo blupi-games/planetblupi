@@ -4562,15 +4562,15 @@ void CEvent::DemoRecEvent(UINT message, WPARAM wParam, LPARAM lParam)
 			 m_pDemoBuffer[m_demoIndex-1].time    == m_demoTime &&
 			 m_pDemoBuffer[m_demoIndex-1].message == message )
 		{
-			m_pDemoBuffer[m_demoIndex-1].wParam  = wParam;
-			m_pDemoBuffer[m_demoIndex-1].lParam  = lParam;
+			m_pDemoBuffer[m_demoIndex-1].wParam  = static_cast<UINT> (wParam);
+			m_pDemoBuffer[m_demoIndex-1].lParam  = static_cast<UINT> (lParam);
 		}
 		else
 		{
 			m_pDemoBuffer[m_demoIndex].time    = m_demoTime;
 			m_pDemoBuffer[m_demoIndex].message = message;
-			m_pDemoBuffer[m_demoIndex].wParam  = wParam;
-			m_pDemoBuffer[m_demoIndex].lParam  = lParam;
+			m_pDemoBuffer[m_demoIndex].wParam  = static_cast<UINT> (wParam);
+			m_pDemoBuffer[m_demoIndex].lParam  = static_cast<UINT> (lParam);
 
 			m_demoIndex ++;
 			if ( m_demoIndex >= MAXDEMO )

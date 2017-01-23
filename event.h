@@ -40,8 +40,8 @@ typedef struct
 {
 	int		time;
 	UINT	message;
-	WPARAM	wParam;
-	LPARAM	lParam;
+	UINT	wParam; // WPARAM
+	UINT	lParam; // LPARAM
 }
 DemoEvent;
 
