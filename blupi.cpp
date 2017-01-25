@@ -36,6 +36,7 @@
 
 HWND		g_hWnd;					// handle à la fenêtre
 SDL_Window *g_window;
+SDL_Renderer *g_renderer;
 CEvent*		g_pEvent  = NULL;
 CPixmap*	g_pPixmap = NULL;		// pixmap principal
 CSound*		g_pSound  = NULL;		// sound principal
@@ -650,14 +651,10 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 						NULL
 					);
 
-		g_window = SDL_CreateWindow (
-			NAME,
-			(sx - LXIMAGE) / 2, (sy - LYIMAGE) / 2,
-			WindowRect.right - WindowRect.left,
-			WindowRect.bottom - WindowRect.top,
-			0
-		);
+		g_window = SDL_CreateWindow (NAME, (sx - LXIMAGE) / 2, (sy - LYIMAGE) / 2, WindowRect.right - WindowRect.left, WindowRect.bottom - WindowRect.top, 0);
+		g_renderer = SDL_CreateRenderer (g_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
 	}
+
 	if ( !g_hWnd )  return false;
 
 	if (!g_window)

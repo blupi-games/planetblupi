@@ -220,7 +220,7 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
 		SDL_Log ("SDL_CreateRGBSurfaceWithFormat() failed: %s", SDL_GetError ());
 		return false;
 	}*/
-	m_lpSDLPrimary = SDL_GetWindowSurface (g_window);
+	//m_lpSDLPrimary = SDL_GetWindowSurface (g_window);
 	
 	// Create the back buffer.
 	ZeroMemory(&ddsd, sizeof(ddsd));
@@ -239,13 +239,13 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
 		return false;
 	}
 
-	m_lpSDLBack = SDL_CreateRGBSurface (0, dim.x, dim.y, 32,
+	/*m_lpSDLBack = SDL_CreateRGBSurface (0, dim.x, dim.y, 32,
 									rmask, gmask, bmask, amask);
 	if (m_lpSDLBack == NULL)
 	{
 		SDL_Log ("SDL_CreateRGBSurfaceWithFormat() failed: %s", SDL_GetError ());
 		return false;
-	}
+	}*/
 
 	// Create the mouse buffer.
 	ZeroMemory(&ddsd, sizeof(ddsd));
@@ -264,13 +264,13 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
 		return false;
 	}
 
-	m_lpSDLMouse = SDL_CreateRGBSurface (0, DIMBLUPIX, DIMBLUPIY, 32,
+	/*m_lpSDLMouse = SDL_CreateRGBSurface (0, DIMBLUPIX, DIMBLUPIY, 32,
 										rmask, gmask, bmask, amask);
 	if (m_lpSDLMouse == NULL)
 	{
 		SDL_Log ("SDL_CreateRGBSurfaceWithFormat() failed: %s", SDL_GetError ());
 		return false;
-	}
+	}*/
 
 	// Create a DirectDrawClipper object. The object enables clipping to the 
 	// window boundaries in the IDirectDrawSurface::Blt function for the 
@@ -448,7 +448,8 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 			dstRect = srcRect;
 			dstRect.x = dst.x;
 			dstRect.y = dst.y;
-			SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, m_lpSDLBack, &dstRect);
+			//SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, m_lpSDLBack, &dstRect);
+			SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
 			ddrval = m_lpDDSBack->BltFast(dst.x, dst.y,
 										  m_lpDDSurface[channel],
 										  &rcRect, dwTrans);
@@ -467,7 +468,13 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 			dstRect = srcRect;
 			dstRect.x = dst.x;
 			dstRect.y = dst.y;
-			SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, m_lpSDLSurface[chDst], &dstRect);
+			//SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, m_lpSDLSurface[chDst], &dstRect);
+
+			//SDL_SetTextureBlendMode (m_lpSDLTexture[chDst], SDL_BLENDMODE_BLEND);
+			SDL_SetRenderTarget (g_renderer, m_lpSDLTexture[chDst]);
+			SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
+			SDL_SetRenderTarget (g_renderer, nullptr);
+			//SDL_RenderCopy (g_renderer, m_lpSDLTexture[chDst], NULL, NULL);
 		}
         if ( ddrval == DD_OK )  break;
         
@@ -486,7 +493,7 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 // Effectue un appel BltFast.
 // Les modes sont 0=transparent, 1=opaque.
 
-HRESULT CPixmap::BltFast(LPDIRECTDRAWSURFACE lpDD, SDL_Surface *lpSDL,
+HRESULT CPixmap::BltFast(LPDIRECTDRAWSURFACE lpDD, SDL_Texture *lpSDL,
 						 int channel, POINT dst, RECT rcRect, int mode)
 {
 	DWORD		dwTrans;
@@ -508,7 +515,10 @@ HRESULT CPixmap::BltFast(LPDIRECTDRAWSURFACE lpDD, SDL_Surface *lpSDL,
 		dstRect = srcRect;
 		dstRect.x = dst.x;
 		dstRect.y = dst.y;
-		SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, lpSDL, &dstRect);
+		//SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, lpSDL, &dstRect);
+		SDL_SetRenderTarget (g_renderer, lpSDL);
+		SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
+		SDL_SetRenderTarget (g_renderer, nullptr);
         if ( ddrval == DD_OK )  break;
         
         if ( ddrval == DDERR_SURFACELOST )
@@ -670,8 +680,29 @@ bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
 	std::string file = pFilename;
 	if (_access ((file + ".bmp").c_str (), 0 /* F_OK */) != -1)
 		file += ".bmp";
-	m_lpSDLSurface[channel] = SDL_LoadBMP (file.c_str ());
 
+	SDL_Surface *surface = SDL_LoadBMP (file.c_str ());
+	SDL_Texture *texture = SDL_CreateTextureFromSurface (g_renderer, surface);
+	unsigned int format;
+	int access, w, h;
+	SDL_QueryTexture (texture, &format, &access, &w, &h);
+
+	m_lpSDLTexture[channel] = SDL_CreateTexture (g_renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, w, h);
+	SDL_SetTextureBlendMode (m_lpSDLTexture[channel], SDL_BLENDMODE_BLEND);
+
+	SDL_SetRenderTarget (g_renderer, m_lpSDLTexture[channel]);
+	SDL_RenderCopy (g_renderer, texture, nullptr, nullptr);
+	SDL_SetRenderTarget (g_renderer, nullptr);
+
+	SDL_DestroyTexture (texture);
+
+	//m_lpSDLTexture[channel] = SDL_CreateTextureFromSurface (g_renderer, surface);
+	if (!m_lpSDLTexture[channel])
+	{
+		SDL_LogError (SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture from surface: %s", SDL_GetError ());
+		return false;
+	}
+	SDL_FreeSurface (surface);
 
     if ( m_lpDDSurface[channel] == NULL )
     {
@@ -1020,7 +1051,7 @@ bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 	rect.bottom = rect.top  + m_iconDim[channel].y;
 	posDst.x    = (rankDst%nbx)*m_iconDim[channel].x;
 	posDst.y    = (rankDst/nbx)*m_iconDim[channel].y;
-	ddrval = BltFast(m_lpDDSurface[channel], m_lpSDLSurface[channel], channel, posDst, rect, 1);
+	ddrval = BltFast(m_lpDDSurface[channel], m_lpSDLTexture[channel], channel, posDst, rect, 1);
 	if ( ddrval != DD_OK )  return false;
 
 	if ( m_iconDim[channelMask].x == 0 ||
@@ -1035,7 +1066,7 @@ bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 	rect.top    = (rankMask/nbx)*m_iconDim[channelMask].y;
 	rect.right  = rect.left + m_iconDim[channelMask].x;
 	rect.bottom = rect.top  + m_iconDim[channelMask].y;
-	ddrval = BltFast(m_lpDDSurface[channel], m_lpSDLSurface[channel], channelMask, posDst, rect, 0);
+	ddrval = BltFast(m_lpDDSurface[channel], m_lpSDLTexture[channel], channelMask, posDst, rect, 0);
 	if ( ddrval != DD_OK )  return false;
 
 	return true;
@@ -1085,15 +1116,17 @@ bool CPixmap::Display()
 	/*
 	* Copies the bmp surface to the window surface
 	*/
-	SDL_BlitSurface (m_lpSDLBack,
+	/*SDL_BlitSurface (m_lpSDLBack,
 					 NULL,
 					 m_lpSDLPrimary,
-					 NULL);
+					 NULL);*/
 
 	/*
 	* Now updating the window
 	*/
-	SDL_UpdateWindowSurface (g_window);
+	//SDL_UpdateWindowSurface (g_window);
+
+	SDL_RenderPresent (g_renderer);
 
     if ( ddrval == DDERR_SURFACELOST )
     {
@@ -1235,7 +1268,7 @@ bool CPixmap::MouseQuickDraw(RECT rect)
 	dstRect.y = DestRect.top;
 	dstRect.w = DestRect.right - DestRect.left;
 	dstRect.h = DestRect.bottom - DestRect.top;
-	SDL_BlitSurface (m_lpSDLPrimary, &srcRect, m_lpSDLBack, &dstRect);
+	//SDL_BlitSurface (m_lpSDLPrimary, &srcRect, m_lpSDLBack, &dstRect);
     if ( ddrval == DDERR_SURFACELOST )
     {
         ddrval = RestoreAll();
@@ -1297,7 +1330,7 @@ void CPixmap::MouseBackDraw()
 	}
 
 	// Dessine le lutin dans m_lpDDSBack.
-	BltFast(m_lpDDSBack, m_lpSDLBack, CHBLUPI, dst, rcRect, 0);
+	BltFast(m_lpDDSBack, nullptr, CHBLUPI, dst, rcRect, 0);
 }
 
 // Sauve le fond sous la souris.
@@ -1358,7 +1391,7 @@ void CPixmap::MouseBackSave()
 		dstRect = srcRect;
 		dstRect.x = dst.x;
 		dstRect.y = dst.y;
-		SDL_BlitSurface (m_lpSDLBack, &srcRect, m_lpSDLMouse, &dstRect);
+		//SDL_BlitSurface (m_lpSDLBack, &srcRect, m_lpSDLMouse, &dstRect);
         if ( ddrval == DD_OK )  break;
         
         if ( ddrval == DDERR_SURFACELOST )
@@ -1423,7 +1456,7 @@ void CPixmap::MouseBackRestore()
 		dstRect = srcRect;
 		dstRect.x = dst.x;
 		dstRect.y = dst.y;
-		SDL_BlitSurface (m_lpSDLMouse, &srcRect, m_lpSDLBack, &dstRect);
+		//SDL_BlitSurface (m_lpSDLMouse, &srcRect, m_lpSDLBack, &dstRect);
         if ( ddrval == DD_OK )  break;
         
         if ( ddrval == DDERR_SURFACELOST )

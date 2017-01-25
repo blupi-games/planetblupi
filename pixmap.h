@@ -4,6 +4,7 @@
 
 #include <ddraw.h>
 #include <SDL_surface.h>
+#include <SDL_render.h>
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -60,7 +61,7 @@ public:
 protected:
 	HRESULT	RestoreAll();
 	HRESULT	BltFast(int chDst, int channel, POINT dst, RECT rcRect, int mode);
-	HRESULT	BltFast(LPDIRECTDRAWSURFACE lpDD, SDL_Surface *lpSDL,
+	HRESULT	BltFast(LPDIRECTDRAWSURFACE lpDD, SDL_Texture *lpSDL,
 					int channel, POINT dst, RECT rcRect, int mode);
 
 	void	MouseUpdate();
@@ -98,6 +99,7 @@ protected:
 	LPDIRECTDRAWPALETTE		m_lpDDPal;				// the primary surface palette
 	LPDIRECTDRAWSURFACE		m_lpDDSurface[MAXIMAGE]; // offscreen surfaces
 	SDL_Surface *			m_lpSDLSurface[MAXIMAGE];
+	SDL_Texture *			m_lpSDLTexture[MAXIMAGE];
 	LPDIRECTDRAWCLIPPER		m_lpClipper;
     PALETTEENTRY			m_pal[256];				// sauvegarde palette
     PALETTEENTRY			m_sysPal[256];			// sauvegarde palette
