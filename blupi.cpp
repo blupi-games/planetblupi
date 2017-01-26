@@ -652,8 +652,9 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 					);
 
 		g_window = SDL_CreateWindow (NAME, (sx - LXIMAGE) / 2, (sy - LYIMAGE) / 2, WindowRect.right - WindowRect.left, WindowRect.bottom - WindowRect.top, 0);
-		g_renderer = SDL_CreateRenderer (g_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
 	}
+
+	g_renderer = SDL_CreateRenderer (g_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
 
 	if ( !g_hWnd )  return false;
 
