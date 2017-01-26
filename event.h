@@ -183,7 +183,6 @@ protected:
 	bool		m_bFillMouse;
 	bool		m_bWaitMouse;
 	bool		m_bHideMouse;
-	bool		m_bShowMouse;
 	int			m_rankCheat;
 	int			m_posCheat;
 	bool		m_bMovie;

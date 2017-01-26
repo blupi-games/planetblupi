@@ -37,7 +37,6 @@ CPixmap::CPixmap()
 	m_mousePos.y   = LYIMAGE/2;
 	m_mouseBackPos = m_mousePos;
 	m_bMouseBack   = false;
-	m_bMouseShow   = true;
 	m_bBackDisplayed = false;
 
 	m_lpDD         = NULL;
@@ -125,22 +124,11 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
 {
 	DDSURFACEDESC		ddsd;
 	HRESULT				ddrval;
-	POINT				pos;
 
 	m_hWnd        = hwnd;
 	m_bFullScreen = bFullScreen;
 	m_mouseType   = mouseType;
 	m_dim         = dim;
-
-	if ( m_mouseType == MOUSETYPEGRA )
-	{
-		// Cache définitivement la vilaine souris Windows.
-		ShowCursor(false);
-
-		pos = m_mousePos;
-		ClientToScreen(m_hWnd, &pos);
-		SetCursorPos(pos.x, pos.y);  // met la souris au centre
-	}
 
 	m_clipRect.left   = 0;
 	m_clipRect.top    = 0;
@@ -1173,7 +1161,6 @@ void CPixmap::SetMouseSprite(int sprite, bool bDemoPlay)
 
 void CPixmap::MouseShow(bool bShow)
 {
-	m_bMouseShow = bShow;
 	SDL_ShowCursor (bShow);
 }
 
@@ -1186,7 +1173,6 @@ void CPixmap::MouseUpdate()
 	if ( m_lpDDSurface[CHBLUPI] == NULL )  return;
 	if ( m_mouseType != MOUSETYPEGRA )  return;
 	if ( m_mouseSprite == SPRITE_EMPTY )  return;
-	if ( !m_bMouseShow )  return;
 
 	oldRect.left   = m_mouseBackPos.x;
 	oldRect.top    = m_mouseBackPos.y;
@@ -1287,7 +1273,6 @@ void CPixmap::MouseBackDraw()
 	if ( m_lpDDSurface[CHBLUPI] == NULL )  return;
 	if ( m_mouseType != MOUSETYPEGRA )  return;
 	if ( m_mouseSprite == SPRITE_EMPTY )  return;
-	if ( !m_bMouseShow )  return;
 
 	MouseBackSave();  // sauve ce qui sera sous la souris
 
@@ -1330,7 +1315,6 @@ void CPixmap::MouseBackSave()
 	if ( m_lpDDSurface[CHBLUPI] == NULL )  return;
 	if ( m_mouseType != MOUSETYPEGRA )  return;
 	if ( m_mouseSprite == SPRITE_EMPTY )  return;
-	if ( !m_bMouseShow )  return;
 
 	m_mouseBackPos.x = m_mousePos.x - m_mouseHotSpot.x;
 	m_mouseBackPos.y = m_mousePos.y - m_mouseHotSpot.y;

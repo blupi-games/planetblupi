@@ -1462,7 +1462,6 @@ CEvent::CEvent()
 	m_bFillMouse    = false;
 	m_bWaitMouse    = false;
 	m_bHideMouse    = false;
-	m_bShowMouse    = false;
 	m_rankCheat     = -1;
 	m_posCheat      = 0;
 	m_speed         = 1;
@@ -2771,12 +2770,6 @@ bool CEvent::ChangePhase(UINT phase)
 	char*	pButtonExist;
 	bool	bEnable, bHide;
 	Term*	pTerm;
-
-	if ( m_mouseType == MOUSETYPEGRA && m_bFullScreen )
-	{
-		ShowCursor(false);  // cache la vilaine souris Windows
-		m_bShowMouse = false;
-	}
 
 	if ( phase != WM_PHASE_SETUPp &&
 		 phase != WM_PHASE_WRITEp &&
@@ -4966,15 +4959,6 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 
 		case WM_MOUSEMOVE:
-			if ( m_mouseType == MOUSETYPEGRA )
-			{
-				if ( m_bShowMouse )
-				{
-					ShowCursor(false);  // cache la souris
-					m_pPixmap->MouseShow(true);  // montre sprite
-					m_bShowMouse = false;
-				}
-			}
 			if ( m_mouseType == MOUSETYPEWINPOS &&
 				 (pos.x != m_oldMousePos.x ||
 				  pos.y != m_oldMousePos.y ) )
@@ -4998,15 +4982,6 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 			break;
 
 		case WM_NCMOUSEMOVE:
-			if ( m_mouseType == MOUSETYPEGRA )
-			{
-				if ( !m_bShowMouse )
-				{
-					ShowCursor(true);  // montre la souris
-					m_pPixmap->MouseShow(false);  // cache sprite
-					m_bShowMouse = true;
-				}
-			}
 			break;
 
 		case WM_LBUTTONUP:

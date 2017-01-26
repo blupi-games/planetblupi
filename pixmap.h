@@ -89,7 +89,6 @@ protected:
 	POINT					m_mouseHotSpot;
 	POINT					m_mouseBackPos;
 	bool					m_bMouseBack;
-	bool					m_bMouseShow;
 	bool					m_bBackDisplayed;
 
 	LPDIRECTDRAW			m_lpDD;					// DirectDraw object
