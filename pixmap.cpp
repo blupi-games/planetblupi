@@ -182,17 +182,6 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
 		OutputDebug("Fatal error: CreateSurface\n");
         return false;
     }
-
-	
-
-	/*m_lpSDLPrimary = SDL_CreateRGBSurface (0, dim.x, dim.y, 32,
-									rmask, gmask, bmask, amask);
-	if (m_lpSDLPrimary == NULL)
-	{
-		SDL_Log ("SDL_CreateRGBSurfaceWithFormat() failed: %s", SDL_GetError ());
-		return false;
-	}*/
-	//m_lpSDLPrimary = SDL_GetWindowSurface (g_window);
 	
 	// Create the back buffer.
 	ZeroMemory(&ddsd, sizeof(ddsd));
@@ -210,14 +199,6 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
 		OutputDebug("Fatal error: CreateBackSurface\n");
 		return false;
 	}
-
-	/*m_lpSDLBack = SDL_CreateRGBSurface (0, dim.x, dim.y, 32,
-									rmask, gmask, bmask, amask);
-	if (m_lpSDLBack == NULL)
-	{
-		SDL_Log ("SDL_CreateRGBSurfaceWithFormat() failed: %s", SDL_GetError ());
-		return false;
-	}*/
 
 	// Create the mouse buffer.
 	ZeroMemory(&ddsd, sizeof(ddsd));
