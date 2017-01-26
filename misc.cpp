@@ -66,11 +66,8 @@ void ChangeSprite(int sprite)
 	if ( sprite == SPRITE_ARROWDL )  hCursor = LoadCursor(g_hInstance, "IDC_ARROWDL");
 	if ( sprite == SPRITE_ARROWDR )  hCursor = LoadCursor(g_hInstance, "IDC_ARROWDR");
 	if ( sprite == SPRITE_WAIT    )  hCursor = LoadCursor(g_hInstance, "IDC_WAIT");
-	cursor = SDL_CreateSystemCursor (SDL_SYSTEM_CURSOR_WAIT);
 	if ( sprite == SPRITE_EMPTY   )  hCursor = LoadCursor(g_hInstance, "IDC_EMPTY");
 	if ( sprite == SPRITE_FILL    )  hCursor = LoadCursor(g_hInstance, "IDC_FILL");
-	SetCursor(hCursor);
-	SDL_SetCursor (cursor);
 
 	g_lastSprite = sprite;
 }

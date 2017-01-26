@@ -3,12 +3,12 @@
 #pragma once
 
 #include <ddraw.h>
-#include <SDL_surface.h>
-#include <SDL_render.h>
+#include <SDL.h>
 
 /////////////////////////////////////////////////////////////////////////////
 
 #define MAXIMAGE	100
+#define MAXCURSORS	14
 
 class CPixmap
 {
@@ -57,6 +57,7 @@ public:
 	void	MouseInvalidate();
 	void	MouseBackClear();
 	void	MouseBackDraw();
+	void	LoadCursors ();
 
 protected:
 	HRESULT	RestoreAll();
@@ -71,6 +72,8 @@ protected:
 	void	MouseBackDebug();
 	RECT	MouseRectSprite();
 	void	MouseHotSpot();
+	SDL_Point GetCursorHotSpot (int sprite);
+	SDL_Rect GetCursorRect (int sprite);
 
 protected:
 	bool					m_bFullScreen;
@@ -95,7 +98,8 @@ protected:
 	LPDIRECTDRAWSURFACE		m_lpDDSBack;			// DirectDraw back surface
 	SDL_Surface *			m_lpSDLBack;
 	LPDIRECTDRAWSURFACE		m_lpDDSMouse;			// DirectDraw back surface
-	SDL_Surface *			m_lpSDLMouse;
+	SDL_Cursor *			m_lpSDLCursors[MAXCURSORS];
+	SDL_Surface *			m_lpSDLBlupi;
 	LPDIRECTDRAWPALETTE		m_lpDDPal;				// the primary surface palette
 	LPDIRECTDRAWSURFACE		m_lpDDSurface[MAXIMAGE]; // offscreen surfaces
 	SDL_Surface *			m_lpSDLSurface[MAXIMAGE];

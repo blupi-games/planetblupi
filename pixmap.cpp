@@ -195,23 +195,7 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
         return false;
     }
 
-	/* Create a 32-bit surface with the bytes of each pixel in R,G,B,A order,
-	as expected by OpenGL for textures */
-	Uint32 rmask, gmask, bmask, amask;
-
-	/* SDL interprets each pixel as a 32-bit number, so our masks must depend
-	on the endianness (byte order) of the machine */
-#if SDL_BYTEORDER == SDL_BIG_ENDIAN
-	rmask = 0xff000000;
-	gmask = 0x00ff0000;
-	bmask = 0x0000ff00;
-	amask = 0x000000ff;
-#else
-	rmask = 0x000000ff;
-	gmask = 0x0000ff00;
-	bmask = 0x00ff0000;
-	amask = 0xff000000;
-#endif
+	
 
 	/*m_lpSDLPrimary = SDL_CreateRGBSurface (0, dim.x, dim.y, 32,
 									rmask, gmask, bmask, amask);
@@ -263,14 +247,6 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
 		OutputDebug("Fatal error: CreateMouseSurface\n");
 		return false;
 	}
-
-	/*m_lpSDLMouse = SDL_CreateRGBSurface (0, DIMBLUPIX, DIMBLUPIY, 32,
-										rmask, gmask, bmask, amask);
-	if (m_lpSDLMouse == NULL)
-	{
-		SDL_Log ("SDL_CreateRGBSurfaceWithFormat() failed: %s", SDL_GetError ());
-		return false;
-	}*/
 
 	// Create a DirectDrawClipper object. The object enables clipping to the 
 	// window boundaries in the IDirectDrawSurface::Blt function for the 
@@ -682,6 +658,10 @@ bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
 		file += ".bmp";
 
 	SDL_Surface *surface = SDL_LoadBMP (file.c_str ());
+
+	if (channel == CHBLUPI)
+		m_lpSDLBlupi = surface;
+
 	SDL_Texture *texture = SDL_CreateTextureFromSurface (g_renderer, surface);
 	unsigned int format;
 	int access, w, h;
@@ -702,7 +682,9 @@ bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
 		SDL_LogError (SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture from surface: %s", SDL_GetError ());
 		return false;
 	}
-	SDL_FreeSurface (surface);
+
+	if (channel != CHBLUPI)
+		SDL_FreeSurface (surface);
 
     if ( m_lpDDSurface[channel] == NULL )
     {
@@ -1183,6 +1165,8 @@ void CPixmap::SetMouseSprite(int sprite, bool bDemoPlay)
 	{
 		MouseUpdate();
 	}
+
+	SDL_SetCursor (m_lpSDLCursors[sprite - 1]);
 }
 
 // Montre ou cache la souris.
@@ -1190,6 +1174,7 @@ void CPixmap::SetMouseSprite(int sprite, bool bDemoPlay)
 void CPixmap::MouseShow(bool bShow)
 {
 	m_bMouseShow = bShow;
+	SDL_ShowCursor (bShow);
 }
 
 // Met à jour le dessin de la souris.
@@ -1391,7 +1376,6 @@ void CPixmap::MouseBackSave()
 		dstRect = srcRect;
 		dstRect.x = dst.x;
 		dstRect.y = dst.y;
-		//SDL_BlitSurface (m_lpSDLBack, &srcRect, m_lpSDLMouse, &dstRect);
         if ( ddrval == DD_OK )  break;
         
         if ( ddrval == DDERR_SURFACELOST )
@@ -1456,7 +1440,6 @@ void CPixmap::MouseBackRestore()
 		dstRect = srcRect;
 		dstRect.x = dst.x;
 		dstRect.y = dst.y;
-		//SDL_BlitSurface (m_lpSDLMouse, &srcRect, m_lpSDLBack, &dstRect);
         if ( ddrval == DD_OK )  break;
         
         if ( ddrval == DDERR_SURFACELOST )
@@ -1544,7 +1527,7 @@ void CPixmap::MouseHotSpot()
 {
 	int		rank;
 
-	static int table_mouse_hotspot[14*2] =
+	static int table_mouse_hotspot[MAXCURSORS * 2] =
 	{
 		30, 30,		// SPRITE_ARROW
 		20, 15,		// SPRITE_POINTER
@@ -1577,4 +1560,125 @@ void CPixmap::MouseHotSpot()
 	}
 }
 
+SDL_Point CPixmap::GetCursorHotSpot (int sprite)
+{
+	static const int hotspots[MAXCURSORS * 2] =
+	{
+		30, 30, // SPRITE_ARROW
+		20, 15, // SPRITE_POINTER
+		31, 26, // SPRITE_MAP
+		25, 14, // SPRITE_ARROWU
+		24, 35, // SPRITE_ARROWD
+		15, 24, // SPRITE_ARROWL
+		35, 24, // SPRITE_ARROWR
+		18, 16, // SPRITE_ARROWUL
+		32, 18, // SPRITE_ARROWUR
+		17, 30, // SPRITE_ARROWDL
+		32, 32, // SPRITE_ARROWDR
+		30, 30, // SPRITE_WAIT
+		30, 30, // SPRITE_EMPTY
+		21, 51, // SPRITE_FILL
+	};
 
+	SDL_Point hotspot = { 0, 0 };
+
+	if (sprite >= SPRITE_BEGIN && sprite <= SPRITE_END)
+	{
+		const int rank = sprite - SPRITE_BEGIN;  // rank <- 0..n
+
+		hotspot.x = hotspots[rank * 2 + 0];
+		hotspot.y = hotspots[rank * 2 + 1];
+	}
+
+	return hotspot;
+}
+
+SDL_Rect CPixmap::GetCursorRect (int sprite)
+{
+	int rank;
+	SDL_Rect rcRect;
+
+	switch (sprite)
+	{
+	default:
+	case SPRITE_ARROW:
+		rank = 348;
+		break;
+	case SPRITE_POINTER:
+		rank = 349;
+		break;
+	case SPRITE_MAP:
+		rank = 350;
+		break;
+	case SPRITE_WAIT:
+		rank = 351;
+		break;
+	case SPRITE_FILL:
+		rank = 352;
+		break;
+	case SPRITE_ARROWL:
+		rank = 353;
+		break;
+	case SPRITE_ARROWR:
+		rank = 354;
+		break;
+	case SPRITE_ARROWU:
+		rank = 355;
+		break;
+	case SPRITE_ARROWD:
+		rank = 356;
+		break;
+	case SPRITE_ARROWDL:
+		rank = 357;
+		break;
+	case SPRITE_ARROWDR:
+		rank = 358;
+		break;
+	case SPRITE_ARROWUL:
+		rank = 359;
+		break;
+	case SPRITE_ARROWUR:
+		rank = 360;
+		break;
+	}
+
+	int nbx = m_totalDim[CHBLUPI].x / m_iconDim[CHBLUPI].x;
+
+	rcRect.x = (rank % nbx) * m_iconDim[CHBLUPI].x;
+	rcRect.y = (rank / nbx) * m_iconDim[CHBLUPI].y;
+	rcRect.w = m_iconDim[CHBLUPI].x;
+	rcRect.h = m_iconDim[CHBLUPI].y;
+
+	return rcRect;
+}
+
+void CPixmap::LoadCursors ()
+{
+	Uint32 rmask, gmask, bmask, amask;
+
+	/* SDL interprets each pixel as a 32-bit number, so our masks must depend
+	on the endianness (byte order) of the machine */
+#if SDL_BYTEORDER == SDL_BIG_ENDIAN
+	rmask = 0xff000000;
+	gmask = 0x00ff0000;
+	bmask = 0x0000ff00;
+	amask = 0x000000ff;
+#else
+	rmask = 0x000000ff;
+	gmask = 0x0000ff00;
+	bmask = 0x00ff0000;
+	amask = 0xff000000;
+#endif
+
+	for (int sprite = SPRITE_BEGIN; sprite <= SPRITE_END; ++sprite)
+	{
+		SDL_Point hotspot = this->GetCursorHotSpot (sprite);
+		SDL_Rect rect = this->GetCursorRect (sprite);
+
+		SDL_Surface *surface = SDL_CreateRGBSurface (0, rect.w, rect.h, 32, rmask, gmask, bmask, amask);
+		SDL_BlitSurface (m_lpSDLBlupi, &rect, surface, nullptr);
+
+		// FIXME: change cursor first value to 0
+		m_lpSDLCursors[sprite - 1] = SDL_CreateColorCursor (surface, hotspot.x, hotspot.y);
+	}
+}

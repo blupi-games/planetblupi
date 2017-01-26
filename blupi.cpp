@@ -810,6 +810,9 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 		return InitFail("Cache bignum.blp", true);
 	g_pPixmap->SetTransparent(CHBIGNUM, RGB(0,0,255));  // bleu
 
+	// Load all cursors
+	g_pPixmap->LoadCursors ();
+
 	// Crée le gestionnaire de son.
 	g_pSound = new CSound;
 	if ( g_pSound == NULL )  return InitFail("New sound", true);
