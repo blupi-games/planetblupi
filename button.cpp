@@ -10,7 +10,7 @@
 #include "decor.h"
 #include "button.h"
 #include "misc.h"
-
+#include "event.h"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -241,27 +241,39 @@ void CButton::SetHide(bool bHide)
 
 // Traitement d'un événement.
 
-bool CButton::TreatEvent(UINT message, WPARAM wParam, LPARAM lParam)
+bool CButton::TreatEvent(const SDL_Event &event)
 {
 	POINT		pos;
 
 	if ( m_bHide || !m_bEnable )  return false;
 
-	pos = ConvLongToPos(lParam);
+	//pos = ConvLongToPos(lParam);
 
-    switch( message )
+    switch (event.type)
     {
-		case WM_LBUTTONDOWN:
-		case WM_RBUTTONDOWN:
+	case SDL_MOUSEBUTTONDOWN:
+		if (   event.button.button != SDL_BUTTON_LEFT
+			&& event.button.button != SDL_BUTTON_RIGHT)
+			break;
+
+		pos.x = event.button.x;
+		pos.y = event.button.y;
 			if ( MouseDown(pos) )  return true;
 			break;
 
-		case WM_MOUSEMOVE:
+	case SDL_MOUSEMOTION:
+		pos.x = event.motion.x;
+		pos.y = event.motion.y;
 			if ( MouseMove(pos) )  return true;
 			break;
 
-		case WM_LBUTTONUP:
-		case WM_RBUTTONUP:
+	case SDL_MOUSEBUTTONUP:
+		if (   event.button.button != SDL_BUTTON_LEFT
+			&& event.button.button != SDL_BUTTON_RIGHT)
+			break;
+
+		pos.x = event.button.x;
+		pos.y = event.button.y;
 			if ( MouseUp(pos) )  return false;  // (*)
 			break;
 	}
@@ -350,7 +362,7 @@ bool CButton::MouseDown(POINT pos)
 	m_mouseState = 1;
 	m_bMouseDown = true;
 	m_bRedraw    = true;
-	PostMessage(m_hWnd, WM_UPDATE, 0, 0);
+	CEvent::PushUserEvent (WM_UPDATE);
 
 	m_pSound->PlayImage(SOUND_CLICK, pos);
 	return true;
@@ -394,7 +406,7 @@ bool CButton::MouseMove(POINT pos)
 		 iMenu  != m_selMenu    )
 	{
 		m_bRedraw = true;
-		PostMessage(m_hWnd, WM_UPDATE, 0, 0);
+		CEvent::PushUserEvent (WM_UPDATE);
 	}
 
 	return m_bMouseDown;
@@ -416,7 +428,7 @@ bool CButton::MouseUp(POINT pos)
 
 	if ( m_message != -1 )
 	{
-		PostMessage(m_hWnd, m_message, 0, 0);
+		CEvent::PushUserEvent (m_message);
 	}
 
 	return true;

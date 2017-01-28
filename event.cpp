@@ -51,15 +51,15 @@ DescInfo;
 
 static char cheat_code[9][20] =
 {
-	"VISION",		// 0
-	"POWER",		// 1
-	"LONESOME",		// 2
-	"ALLMISSIONS",	// 3
-	"QUICK",		// 4
-	"HELPME",		// 5
-	"INVINCIBLE",	// 6
-	"SUPERBLUPI",	// 7
-	"CONSTRUIRE",	// 8 (CPOTUSVJSF)
+	"vision",		// 0
+	"power",		// 1
+	"lonesome",		// 2
+	"allmissions",	// 3
+	"quick",		// 4
+	"helpme",		// 5
+	"invincible",	// 6
+	"superblupi",	// 7
+	"construire",	// 8 (CPOTUSVJSF)
 };
 
 
@@ -1454,11 +1454,10 @@ CEvent::CEvent()
 	m_bAccessBuild  = false;
 	m_bRunMovie     = false;
 	m_bBuildModify  = false;
-	m_bMousePress   = false;
 	m_bMouseDown    = false;
 	m_oldMousePos.x = 0;
 	m_oldMousePos.y = 0;
-	m_mouseSprite   = 0;
+	m_mouseSprite   = SPRITE_ARROW;
 	m_bFillMouse    = false;
 	m_bWaitMouse    = false;
 	m_bHideMouse    = false;
@@ -1480,7 +1479,7 @@ CEvent::CEvent()
 	m_bDemoPlay     = false;
 	m_pDemoBuffer   = NULL;
 	m_demoTime      = 0;
-	m_bCtrlDown     = false;
+	m_keymod        = 0;
 
 	for ( i=0 ; i<MAXBUTTON ; i++ )
 	{
@@ -1511,9 +1510,11 @@ CEvent::~CEvent()
 POINT CEvent::GetMousePos()
 {
 	POINT		pos;
+	int x, y;
 
-	GetCursorPos(&pos);
-	ScreenToClient(m_hWnd, &pos);
+	SDL_GetMouseState (&x, &y);
+	pos.x = x;
+	pos.y = y;
 
 	return pos;
 }
@@ -2401,9 +2402,9 @@ bool CEvent::DrawButtons()
 
 // Retourne le lutin à utiliser à une position donnée.
 
-int CEvent::MousePosToSprite(POINT pos)
+MouseSprites CEvent::MousePosToSprite(POINT pos)
 {
-	int		sprite;
+	MouseSprites sprite;
 	bool	bUp=false, bDown=false, bLeft=false, bRight=false;
 
 	sprite = SPRITE_POINTER;
@@ -2494,7 +2495,7 @@ void CEvent::MouseSprite(POINT pos)
 	m_mouseSprite = MousePosToSprite(pos);
 
 	m_pPixmap->SetMousePosSprite(pos, m_mouseSprite, m_bDemoPlay);
-	ChangeSprite(m_mouseSprite);
+	m_pPixmap->ChangeSprite(m_mouseSprite);
 }
 
 // Met ou enlève le sablier de la souris.
@@ -2512,7 +2513,7 @@ void CEvent::WaitMouse(bool bWait)
 		m_mouseSprite = MousePosToSprite(GetMousePos());
 	}
 	m_pPixmap->SetMouseSprite(m_mouseSprite, m_bDemoPlay);
-	ChangeSprite(m_mouseSprite);
+	m_pPixmap->ChangeSprite(m_mouseSprite);
 }
 
 // Cache ou montre la souris.
@@ -2530,17 +2531,15 @@ void CEvent::HideMouse(bool bHide)
 		m_mouseSprite = MousePosToSprite(GetMousePos());
 	}
 	m_pPixmap->SetMouseSprite(m_mouseSprite, m_bDemoPlay);
-	ChangeSprite(m_mouseSprite);
+	m_pPixmap->ChangeSprite(m_mouseSprite);
 }
 
 // Traite les événements pour tous les boutons.
 
-bool CEvent::EventButtons(UINT message, WPARAM wParam, LPARAM lParam)
+bool CEvent::EventButtons(const SDL_Event &event, POINT pos)
 {
-	POINT		pos, test;
+	POINT		test;
 	int			i, lg, oldx, sound, res;
-
-	pos = ConvLongToPos(lParam);
 
 	// Cherche le tool tips à utiliser pour la souris.
 	m_textToolTips[0] = 0;
@@ -2606,15 +2605,17 @@ bool CEvent::EventButtons(UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			m_bHiliInfoButton = true;
 
-			if ( message == WM_LBUTTONDOWN ||
-				 message == WM_RBUTTONDOWN )
+			if (event.type == SDL_MOUSEBUTTONDOWN
+				&& (   event.button.button == SDL_BUTTON_LEFT
+				    || event.button.button == SDL_BUTTON_RIGHT))
 			{
 				if ( m_pDecor->GetInfoMode() )  sound = SOUND_CLOSE;
 				else                            sound = SOUND_OPEN;
 				m_pSound->PlayImage(sound, pos);
 			}
-			if ( message == WM_LBUTTONUP ||
-				 message == WM_RBUTTONUP )
+			if (event.type == SDL_MOUSEBUTTONUP
+				&& (   event.button.button == SDL_BUTTON_LEFT
+				    || event.button.button == SDL_BUTTON_RIGHT))
 			{
 				// Montre ou cache les infos tout en haut.
 				m_pDecor->SetInfoMode(!m_pDecor->GetInfoMode());
@@ -2630,13 +2631,15 @@ bool CEvent::EventButtons(UINT message, WPARAM wParam, LPARAM lParam)
 		{
 			m_bHiliHelpButton = true;
 
-			if ( message == WM_LBUTTONDOWN ||
-				 message == WM_RBUTTONDOWN )
+			if (event.type == SDL_MOUSEBUTTONDOWN
+				&& (   event.button.button == SDL_BUTTON_LEFT
+				    || event.button.button == SDL_BUTTON_RIGHT))
 			{
 				m_pSound->PlayImage(SOUND_CLICK, pos);
 			}
-			if ( message == WM_LBUTTONUP ||
-				 message == WM_RBUTTONUP )
+			if (event.type == SDL_MOUSEBUTTONUP
+				&& (   event.button.button == SDL_BUTTON_LEFT
+				    || event.button.button == SDL_BUTTON_RIGHT))
 			{
 				// Inverse le mode aide dans les infos.
 				m_bInfoHelp = !m_bInfoHelp;
@@ -2655,13 +2658,15 @@ bool CEvent::EventButtons(UINT message, WPARAM wParam, LPARAM lParam)
 
 	if ( m_phase == WM_PHASE_BUILD )
 	{
-		if ( message == WM_LBUTTONDOWN ||
-			 message == WM_RBUTTONDOWN )
+		if (event.type == SDL_MOUSEBUTTONDOWN
+			&& (   event.button.button == SDL_BUTTON_LEFT
+				|| event.button.button == SDL_BUTTON_RIGHT))
 		{
 			m_pDecor->HideTooltips(true);  // plus de tooltips pour décor
 		}
-		if ( message == WM_LBUTTONUP ||
-			 message == WM_RBUTTONUP )
+		if (event.type == SDL_MOUSEBUTTONUP
+			&& (   event.button.button == SDL_BUTTON_LEFT
+				|| event.button.button == SDL_BUTTON_RIGHT))
 		{
 			m_pDecor->HideTooltips(false);
 		}
@@ -2671,13 +2676,13 @@ bool CEvent::EventButtons(UINT message, WPARAM wParam, LPARAM lParam)
 	i = 0;
 	while ( table[m_index].buttons[i].message != 0 )
 	{
-		if ( m_buttons[i].TreatEvent(message, wParam, lParam) )  return true;
+		if ( m_buttons[i].TreatEvent(event) )  return true;
 		i ++;
 	}
 
 	if ( m_phase == WM_PHASE_PLAY )
 	{
-		if ( m_menu.TreatEvent(message, wParam, lParam) )  return true;
+		if ( m_menu.TreatEvent(event) )  return true;
 	}
 
 	return false;
@@ -2785,7 +2790,7 @@ bool CEvent::ChangePhase(UINT phase)
 	m_textToolTips[0] = 0;
 	m_posToolTips.x = -1;
 	m_bPause = false;
-	m_bCtrlDown = false;
+	m_keymod = 0;
 	m_bMouseDown = false;
 	m_debugPos.x = 0;
 	m_debugPos.y = 0;
@@ -3252,9 +3257,6 @@ void CEvent::DecorAutoShift(POINT pos)
 
 	max = 4-m_scrollSpeed;  // max <- 3..1
 
-//?	if ( m_bMousePress &&
-//?		 (m_phase == WM_PHASE_PLAY  ||
-//?		  m_phase == WM_PHASE_BUILD) )
 	if ( m_phase == WM_PHASE_PLAY  ||
 		 m_phase == WM_PHASE_BUILD )
 	{
@@ -3366,7 +3368,7 @@ bool CEvent::IsShift()
 
 // Modifie le décor lorsque le bouton de la souris est pressé.
 
-bool CEvent::PlayDown(POINT pos, int fwKeys)
+bool CEvent::PlayDown(POINT pos, const SDL_Event &event)
 {
 	bool	bDecor = false;
 	bool	bMap   = false;
@@ -3386,7 +3388,7 @@ bool CEvent::PlayDown(POINT pos, int fwKeys)
 		return true;
 	}
 
-	m_pDecor->StatisticDown(pos, fwKeys);
+	m_pDecor->StatisticDown(pos);
 
 	if ( pos.x >= POSMAPX && pos.x <= POSMAPX+DIMMAPX &&
 		 pos.y >= POSMAPY && pos.y <= POSMAPY+DIMMAPY )
@@ -3403,7 +3405,7 @@ bool CEvent::PlayDown(POINT pos, int fwKeys)
 	if ( !bDecor && !bMap )  return false;
 
 	cel = m_pDecor->ConvPosToCel(pos, true);
-	if ( fwKeys&MK_RBUTTON )
+	if (event.button.button == SDL_BUTTON_RIGHT)
 	{
 		if ( bMap )
 		{
@@ -3430,7 +3432,7 @@ bool CEvent::PlayDown(POINT pos, int fwKeys)
 	{
 		m_bHili = true;
 		m_bMouseDown = true;
-		m_pDecor->BlupiHiliDown(pos, !!(fwKeys & MK_SHIFT));
+		m_pDecor->BlupiHiliDown(pos, !!(m_keymod & KMOD_SHIFT));
 	}
 	else
 	{
@@ -3443,7 +3445,7 @@ bool CEvent::PlayDown(POINT pos, int fwKeys)
 
 // Modifie le décor lorsque la souris est déplacée.
 
-bool CEvent::PlayMove(POINT pos, int fwKeys)
+bool CEvent::PlayMove(POINT pos, Uint16 mod)
 {
 	if ( m_bMenu )
 	{
@@ -3456,13 +3458,13 @@ bool CEvent::PlayMove(POINT pos, int fwKeys)
 		return true;
 	}
 
-	m_pDecor->StatisticMove(pos, fwKeys);
+	m_pDecor->StatisticMove(pos);
 
 	if ( m_bMouseDown )  // bouton souris pressé ?
 	{
 		if ( m_bHili )
 		{
-			m_pDecor->BlupiHiliMove(pos, !!(fwKeys & MK_SHIFT));
+			m_pDecor->BlupiHiliMove(pos, !!(mod & KMOD_SHIFT));
 		}
 		else
 		{
@@ -3479,7 +3481,7 @@ bool CEvent::PlayMove(POINT pos, int fwKeys)
 
 // Modifie le décor lorsque le bouton de la souris est relâché.
 
-bool CEvent::PlayUp(POINT pos, int fwKeys)
+bool CEvent::PlayUp(POINT pos, Uint16 mod)
 {
 	static int table_sound_boing[3] =
 	{
@@ -3488,13 +3490,13 @@ bool CEvent::PlayUp(POINT pos, int fwKeys)
 		SOUND_BOING3,
 	};
 
-	m_pDecor->StatisticUp(pos, fwKeys);
+	m_pDecor->StatisticUp(pos);
 
 	if ( m_bMouseDown )  // bouton souris pressé ?
 	{
 		if ( m_bHili )
 		{
-			m_pDecor->BlupiHiliUp(pos, !!(fwKeys & MK_SHIFT));
+			m_pDecor->BlupiHiliUp(pos, !!(mod & KMOD_SHIFT));
 		}
 		else
 		{
@@ -3802,7 +3804,7 @@ static int tableHome[] =
 
 // Modifie le décor lorsque le bouton de la souris est pressé.
 
-bool CEvent::BuildDown(POINT pos, int fwKeys, bool bMix)
+bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 {
 	POINT		cel;
 	int			menu, channel, icon;
@@ -3833,7 +3835,7 @@ bool CEvent::BuildDown(POINT pos, int fwKeys, bool bMix)
 			}
 		}
 
-		if ( fwKeys & MK_CONTROL )  // touche Ctrl enfoncée ?
+		if (mod & KMOD_CTRL)  // touche Ctrl enfoncée ?
 		{
 			WaitMouse(true);
 			m_pDecor->ArrangeFill(cel, CHFLOOR, tableFloor[menu*10+m_lastFloor[menu]], true);
@@ -3867,7 +3869,7 @@ bool CEvent::BuildDown(POINT pos, int fwKeys, bool bMix)
 			}
 		}
 
-		if ( fwKeys & MK_CONTROL )  // touche Ctrl enfoncée ?
+		if (mod & KMOD_CTRL)  // touche Ctrl enfoncée ?
 		{
 			WaitMouse(true);
 			m_pDecor->ArrangeFill(cel, CHOBJECT, tableObject[menu*10+m_lastObject[menu]], false);
@@ -3898,7 +3900,7 @@ bool CEvent::BuildDown(POINT pos, int fwKeys, bool bMix)
 			}
 		}
 
-		if ( fwKeys & MK_CONTROL )  // touche Ctrl enfoncée ?
+		if (mod & KMOD_CTRL)  // touche Ctrl enfoncée ?
 		{
 			WaitMouse(true);
 			m_pDecor->ArrangeFill(cel, CHOBJECT, tableHome[menu*10+m_lastHome[menu]], false);
@@ -3982,11 +3984,11 @@ bool CEvent::BuildDown(POINT pos, int fwKeys, bool bMix)
 
 // Modifie le décor lorsque la souris est déplacée.
 
-bool CEvent::BuildMove(POINT pos, int fwKeys)
+bool CEvent::BuildMove(POINT pos, Uint16 mod, const SDL_Event &event)
 {
-	if ( fwKeys & MK_LBUTTON )  // bouton souris pressé ?
+	if (event.motion.state & SDL_BUTTON (SDL_BUTTON_LEFT)) // bouton souris pressé ?
 	{
-		BuildDown(pos, fwKeys, false);
+		BuildDown(pos, mod, false);
 	}
 
 	if ( GetState(WM_DECOR4) == 1 )  // pose d'un blupi
@@ -4003,7 +4005,7 @@ bool CEvent::BuildMove(POINT pos, int fwKeys)
 
 // Modifie le décor lorsque le bouton de la souris est relâché.
 
-bool CEvent::BuildUp(POINT pos, int fwKeys)
+bool CEvent::BuildUp(POINT pos)
 {
 	return true;
 }
@@ -4519,7 +4521,7 @@ void CEvent::DemoStep()
 				SetCursorPos(pos.x, pos.y);
 			}
 
-			TreatEventBase(message, wParam, lParam);
+			TreatEventBase(nullptr); // XXX: use SDL_Event
 
 			if ( m_demoIndex >= m_demoEnd )
 			{
@@ -4584,55 +4586,50 @@ POINT CEvent::GetLastMousePos()
 
 // Traitement d'un événement.
 
-bool CEvent::TreatEvent(UINT message, WPARAM wParam, LPARAM lParam)
+bool CEvent::TreatEvent(const SDL_Event *event)
 {
 	if ( m_bDemoPlay )  // démo en lecture ?
 	{
-		if ( message == WM_KEYDOWN     ||  // l'utilisateur clique ?
-			 message == WM_KEYUP       ||
-//			 message == WM_LBUTTONDOWN ||
-//			 message == WM_RBUTTONDOWN ||
-			 message == WM_LBUTTONUP   ||
-			 message == WM_RBUTTONUP   )
+		if (event->type == SDL_KEYDOWN ||
+			event->type == SDL_KEYUP ||
+			event->type == SDL_MOUSEBUTTONUP) // is the user clicking?
 		{
-			DemoPlayStop();
+			DemoPlayStop ();
 			return true;
 		}
-		if ( message == WM_MOUSEMOVE )  // l'utilisateur bouge ?
-		{
+
+		if (event->type == SDL_MOUSEMOTION) // is the user moving?
 			return true;
-		}
 	}
 
-	return TreatEventBase(message, wParam, lParam);
+	return TreatEventBase(event);
 }
 
 // Traitement d'un événement.
 
-bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
+bool CEvent::TreatEventBase(const SDL_Event *event)
 {
 	POINT		pos;
-	int			fwKeys;
 	int			i, sound;
 	char		c;
 	bool		bEnable;
 
-	pos = ConvLongToPos(lParam);
-	fwKeys = static_cast<int> (wParam);
+	//DemoRecEvent(message, wParam, lParam); XXX: use SDL_Event
 
-	DemoRecEvent(message, wParam, lParam);
+	if (!event)
+		return false;
 
-    switch( message )
+    switch (event->type)
     {
-		case WM_KEYDOWN:
-			if ( wParam >= 'A' && wParam <= 'Z' )
+	case SDL_KEYDOWN:
+			if ( event->key.keysym.sym >= SDLK_a && event->key.keysym.sym <= SDLK_z )
 			{
 				if ( m_posCheat == 0 )  // première lettre ?
 				{
 					m_rankCheat = -1;
 					for ( i=0 ; i<9 ; i++ )
 					{
-						if ( (char)wParam == cheat_code[i][0] )
+						if ( (char) event->key.keysym.sym == cheat_code[i][0] )
 						{
 							m_rankCheat = i;
 							break;
@@ -4643,7 +4640,7 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 				{
 					c = cheat_code[m_rankCheat][m_posCheat];
 					if ( m_posCheat != 0 && m_rankCheat == 8 )  c++;  // CONSTRUIRE ?
-					if ( (char)wParam == c )
+					if ( (char) event->key.keysym.sym == c )
 					{
 						m_posCheat ++;
 						if ( cheat_code[m_rankCheat][m_posCheat] == 0 )
@@ -4746,15 +4743,17 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 
 			if ( m_phase == WM_PHASE_BYE )
 			{
-				PostMessage(m_hWnd, WM_CLOSE, 0, 0);
+				SDL_Event ev;
+				ev.type = SDL_QUIT;
+				SDL_PushEvent (&ev);
 			}
 
-			switch( wParam )
+			switch (event->key.keysym.sym)
 			{
-				case VK_END:
+			case SDLK_END:
 					DemoRecStop();
 					return true;
-				case VK_ESCAPE:
+			case SDLK_ESCAPE:
 					if ( m_bRunMovie )
 					{
 						StopMovie();
@@ -4799,11 +4798,13 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 					}
 					if ( m_phase == WM_PHASE_BYE )
 					{
-						PostMessage(m_hWnd, WM_CLOSE, 0, 0);
+						SDL_Event ev;
+						ev.type = SDL_QUIT;
+						SDL_PushEvent (&ev);
 						break;
 					}
 					return true;
-				case VK_RETURN:
+			case SDLK_RETURN:
 					if ( m_phase == WM_PHASE_PLAY  ||
 						 m_phase == WM_PHASE_READ  ||
 						 m_phase == WM_PHASE_WRITE ||
@@ -4837,27 +4838,27 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 						return true;
 					}
 					return true;
-				case VK_LEFT:
+			case SDLK_LEFT:
 //?					DecorShift(-4,4);
 					DecorShift(-2,2);
 					return true;
-				case VK_RIGHT:
+			case SDLK_RIGHT:
 //?					DecorShift(4,-4);
 					DecorShift(2,-2);
 					return true;
-				case VK_UP:
+			case SDLK_UP:
 //?					DecorShift(-6,-6);
 					DecorShift(-3,-3);
 					return true;
-				case VK_DOWN:
+			case SDLK_DOWN:
 //?					DecorShift(6,6);
 					DecorShift(3,3);
 					return true;
-				case VK_HOME:
+			case SDLK_HOME:
 					pos = m_pDecor->GetHome();
 					m_pDecor->SetCoin(pos);
 					return true;
-				case VK_SPACE:
+			case SDLK_SPACE:
 					if ( m_bRunMovie )
 					{
 						StopMovie();
@@ -4866,7 +4867,7 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 					}
 					m_pDecor->FlipOutline();
 					return true;
-				case VK_PAUSE:
+			case SDLK_PAUSE:
 					m_bPause = !m_bPause;
 					if ( m_phase == WM_PHASE_PLAY )
 					{
@@ -4880,8 +4881,16 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 						}
 					}
 					return true;
-				case VK_CONTROL:
-					m_bCtrlDown = true;
+
+			case SDLK_LSHIFT:
+			case SDLK_RSHIFT:
+				m_keymod |= KMOD_SHIFT;
+				break;
+
+			case SDLK_LCTRL:
+			case SDLK_RCTRL:
+				m_keymod |= KMOD_CTRL;
+				OutputDebugString ("CTRL: DOWN");
 					if ( m_phase == WM_PHASE_BUILD )
 					{
 						m_bFillMouse = true;
@@ -4892,7 +4901,7 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 						m_bFillMouse = false;
 					}
 					return true;
-				case VK_F1:
+			case SDLK_F1:
 					if ( m_phase == WM_PHASE_PLAY )
 					{
 						// Montre ou cache les infos tout en haut.
@@ -4904,116 +4913,130 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 						m_pDecor->SetInfoMode(!m_pDecor->GetInfoMode());
 					}
 					return true;
-				case VK_F9:
+			case SDLK_F8:
 					if ( m_phase == WM_PHASE_PLAY )
 					{
-						m_pDecor->MemoPos(0, m_bCtrlDown);
+						m_pDecor->MemoPos(0, !!(m_keymod & KMOD_CTRL));
 					}
 					return true;
-				case VK_F10:
+			case SDLK_F10:
 					if ( m_phase == WM_PHASE_PLAY )
 					{
-						m_pDecor->MemoPos(1, m_bCtrlDown);
+						m_pDecor->MemoPos(1, !!(m_keymod & KMOD_CTRL));
 					}
 					return true;
-				case VK_F11:
+			case SDLK_F11:
 					if ( m_phase == WM_PHASE_PLAY )
 					{
-						m_pDecor->MemoPos(2, m_bCtrlDown);
+						m_pDecor->MemoPos(2, !!(m_keymod & KMOD_CTRL));
 					}
 					return true;
-				case VK_F12:
+			case SDLK_F12:
 					if ( m_phase == WM_PHASE_PLAY )
 					{
-						m_pDecor->MemoPos(3, m_bCtrlDown);
+						m_pDecor->MemoPos(3, !!(m_keymod & KMOD_CTRL));
 					}
 					return true;
 			}
 			break;
 
-		case WM_KEYUP:
-			switch( wParam )
+	case SDL_KEYUP:
+			switch (event->key.keysym.sym)
 			{
-				case VK_CONTROL:
-					m_bCtrlDown = false;
+			case SDLK_LSHIFT:
+			case SDLK_RSHIFT:
+				m_keymod &= ~KMOD_SHIFT;
+				break;
+
+				case SDLK_LCTRL:
+				case SDLK_RCTRL:
+					m_keymod &= ~KMOD_CTRL;
+					OutputDebugString ("CTRL: UP");
 					m_bFillMouse = false;
 					MouseSprite(GetMousePos());
 					return true;
 			}
 			break;
 
-		case WM_LBUTTONDOWN:
-		case WM_RBUTTONDOWN:
-			m_bMousePress = true;
+	case SDL_MOUSEBUTTONDOWN:
+		if (   event->button.button != SDL_BUTTON_LEFT
+			&& event->button.button != SDL_BUTTON_RIGHT)
+			break;
+
+		pos.x = event->button.x;
+		pos.y = event->button.y;
+
 			MouseSprite(pos);
 //?			DecorAutoShift(pos);
-			if ( EventButtons(message, wParam, lParam) )  return true;
+			if ( EventButtons(*event, pos) )  return true;
 			if ( m_phase == WM_PHASE_BUILD )
 			{
-				if ( BuildDown(pos, fwKeys) )  return true;
+				if ( BuildDown(pos, m_keymod) )  return true;
 			}
 			if ( m_phase == WM_PHASE_PLAY )
 			{
-				if ( PlayDown(pos, fwKeys) )  return true;
+				if ( PlayDown(pos, *event) )  return true;
 			}
 			break;
 
-		case WM_MOUSEMOVE:
-			if ( m_mouseType == MOUSETYPEWINPOS &&
-				 (pos.x != m_oldMousePos.x ||
-				  pos.y != m_oldMousePos.y ) )
-			{
-				m_oldMousePos = pos;
-				ClientToScreen(m_hWnd, &m_oldMousePos);
-				SetCursorPos(m_oldMousePos.x, m_oldMousePos.y);  // (*)
-			}
+	case SDL_MOUSEMOTION:
+		pos.x = event->motion.x;
+		pos.y = event->motion.y;
+
 			m_oldMousePos = pos;
 
 			MouseSprite(pos);
-			if ( EventButtons(message, wParam, lParam) )  return true;
+			if ( EventButtons(*event, pos) )  return true;
 			if ( m_phase == WM_PHASE_BUILD )
 			{
-				if ( BuildMove(pos, fwKeys) )  return true;
+				if ( BuildMove(pos, m_keymod, *event) )  return true;
 			}
 			if ( m_phase == WM_PHASE_PLAY )
 			{
-				if ( PlayMove(pos, fwKeys) )  return true;
+				if ( PlayMove(pos, m_keymod) )  return true;
 			}
 			break;
 
-		case WM_NCMOUSEMOVE:
+	case SDL_MOUSEBUTTONUP:
+		if (   event->button.button != SDL_BUTTON_LEFT
+			&& event->button.button != SDL_BUTTON_RIGHT)
 			break;
 
-		case WM_LBUTTONUP:
-		case WM_RBUTTONUP:
-			m_bMousePress = false;
-			if ( EventButtons(message, wParam, lParam) )  return true;
+		pos.x = event->button.x;
+		pos.y = event->button.y;
+
+			if ( EventButtons(*event, pos) )  return true;
 			if ( m_phase == WM_PHASE_BUILD )
 			{
-				if ( BuildUp(pos, fwKeys) )  return true;
+				if ( BuildUp(pos) )  return true;
 			}
 			if ( m_phase == WM_PHASE_PLAY )
 			{
-				if ( PlayUp(pos, fwKeys) )  return true;
+				if ( PlayUp(pos, m_keymod) )  return true;
 			}
 			if ( m_phase == WM_PHASE_BYE )
 			{
-				PostMessage(m_hWnd, WM_CLOSE, 0, 0);
+				SDL_Event ev;
+				ev.type = SDL_QUIT;
+				SDL_PushEvent (&ev);
 			}
 			break;
 
-		case WM_PHASE_DEMO:
+	case SDL_USEREVENT:
+		switch (event->user.code)
+		{
+	case WM_PHASE_DEMO:
 			m_demoNumber = 0;
 			DemoPlayStart();
 			break;
 
-		case WM_PHASE_SCHOOL:
+	case WM_PHASE_SCHOOL:
 			m_bSchool  = true;
 			m_bPrivate = false;
 			if ( ChangePhase(WM_PHASE_INFO) )  return true;
 			break;
 
-		case WM_PHASE_MISSION:
+	case WM_PHASE_MISSION:
 			m_bSchool  = false;
 			m_bPrivate = false;
 			if ( m_mission == 0 )  // première mission ?
@@ -5026,45 +5049,45 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 
-		case WM_PHASE_PRIVATE:
+	case WM_PHASE_PRIVATE:
 			m_bSchool  = false;
 			m_bPrivate = true;
 			if ( ChangePhase(WM_PHASE_INFO) )  return true;
 			break;
 
-		case WM_PHASE_INTRO1:
-		case WM_PHASE_INTRO2:
-		case WM_PHASE_INIT:
-		case WM_PHASE_HISTORY0:
-		case WM_PHASE_HISTORY1:
-		case WM_PHASE_INFO:
-		case WM_PHASE_PLAY:
-		case WM_PHASE_READ:
-		case WM_PHASE_WRITE:
-		case WM_PHASE_WRITEp:
-		case WM_PHASE_BUILD:
-		case WM_PHASE_BUTTON:
-		case WM_PHASE_TERM:
-		case WM_PHASE_STOP:
-		case WM_PHASE_HELP:
-		case WM_PHASE_MUSIC:
-		case WM_PHASE_REGION:
-		case WM_PHASE_SETUP:
-		case WM_PHASE_SETUPp:
-		case WM_PHASE_PLAYMOVIE:
-		case WM_PHASE_H0MOVIE:
-		case WM_PHASE_H1MOVIE:
-		case WM_PHASE_H2MOVIE:
-		case WM_PHASE_WINMOVIE:
-		case WM_PHASE_BYE:
-			if ( ChangePhase(message) )  return true;
+	case WM_PHASE_INTRO1:
+	case WM_PHASE_INTRO2:
+	case WM_PHASE_INIT:
+	case WM_PHASE_HISTORY0:
+	case WM_PHASE_HISTORY1:
+	case WM_PHASE_INFO:
+	case WM_PHASE_PLAY:
+	case WM_PHASE_READ:
+	case WM_PHASE_WRITE:
+	case WM_PHASE_WRITEp:
+	case WM_PHASE_BUILD:
+	case WM_PHASE_BUTTON:
+	case WM_PHASE_TERM:
+	case WM_PHASE_STOP:
+	case WM_PHASE_HELP:
+	case WM_PHASE_MUSIC:
+	case WM_PHASE_REGION:
+	case WM_PHASE_SETUP:
+	case WM_PHASE_SETUPp:
+	case WM_PHASE_PLAYMOVIE:
+	case WM_PHASE_H0MOVIE:
+	case WM_PHASE_H1MOVIE:
+	case WM_PHASE_H2MOVIE:
+	case WM_PHASE_WINMOVIE:
+	case WM_PHASE_BYE:
+			if ( ChangePhase(event->user.code) )  return true;
 			break;
 
-		case WM_PHASE_UNDO:
+	case WM_PHASE_UNDO:
 			m_pDecor->UndoBack();  // revient en arrière
 			break;
 
-		case WM_PREV:
+	case WM_PREV:
 			m_pDecor->SetInvincible(false);
 			m_pDecor->SetSuper(false);
 			if ( m_bPrivate )
@@ -5093,7 +5116,7 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 
-		case WM_NEXT:
+	case WM_NEXT:
 			m_pDecor->SetInvincible(false);
 			m_pDecor->SetSuper(false);
 			if ( m_bPrivate )
@@ -5126,7 +5149,7 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 
-		case WM_DECOR1:
+	case WM_DECOR1:
 			SetState(WM_DECOR1, 1);
 			SetState(WM_DECOR2, 0);
 			SetState(WM_DECOR3, 0);
@@ -5134,7 +5157,7 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 			SetState(WM_DECOR5, 0);
 			break;
 
-		case WM_DECOR2:
+	case WM_DECOR2:
 			SetState(WM_DECOR1, 0);
 			SetState(WM_DECOR2, 1);
 			SetState(WM_DECOR3, 0);
@@ -5142,7 +5165,7 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 			SetState(WM_DECOR5, 0);
 			break;
 
-		case WM_DECOR3:
+	case WM_DECOR3:
 			SetState(WM_DECOR1, 0);
 			SetState(WM_DECOR2, 0);
 			SetState(WM_DECOR3, 1);
@@ -5150,7 +5173,7 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 			SetState(WM_DECOR5, 0);
 			break;
 
-		case WM_DECOR4:
+	case WM_DECOR4:
 			SetState(WM_DECOR1, 0);
 			SetState(WM_DECOR2, 0);
 			SetState(WM_DECOR3, 0);
@@ -5158,7 +5181,7 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 			SetState(WM_DECOR5, 0);
 			break;
 
-		case WM_DECOR5:
+	case WM_DECOR5:
 			SetState(WM_DECOR1, 0);
 			SetState(WM_DECOR2, 0);
 			SetState(WM_DECOR3, 0);
@@ -5166,85 +5189,85 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 			SetState(WM_DECOR5, 1);
 			break;
 
-		case WM_PHASE_SKILL1:
+	case WM_PHASE_SKILL1:
 			m_pDecor->SetSkill(0);
 			SetState(WM_PHASE_SKILL1, true);
 			SetState(WM_PHASE_SKILL2, false);
 			break;
-		case WM_PHASE_SKILL2:
+	case WM_PHASE_SKILL2:
 			m_pDecor->SetSkill(1);
 			SetState(WM_PHASE_SKILL1, false);
 			SetState(WM_PHASE_SKILL2, true);
 			break;
 
-		case WM_BUTTON0:
-		case WM_BUTTON1:
-		case WM_BUTTON2:
-		case WM_BUTTON3:
-		case WM_BUTTON4:
-		case WM_BUTTON5:
-		case WM_BUTTON6:
-		case WM_BUTTON7:
-		case WM_BUTTON8:
-		case WM_BUTTON9:
-		case WM_BUTTON10:
-		case WM_BUTTON11:
-		case WM_BUTTON12:
-		case WM_BUTTON13:
-		case WM_BUTTON14:
-		case WM_BUTTON15:
-		case WM_BUTTON16:
-		case WM_BUTTON17:
-		case WM_BUTTON18:
-		case WM_BUTTON19:
-		case WM_BUTTON20:
-		case WM_BUTTON21:
-		case WM_BUTTON22:
-		case WM_BUTTON23:
-		case WM_BUTTON24:
-		case WM_BUTTON25:
-		case WM_BUTTON26:
-		case WM_BUTTON27:
-		case WM_BUTTON28:
-		case WM_BUTTON29:
-		case WM_BUTTON30:
-		case WM_BUTTON31:
-		case WM_BUTTON32:
-		case WM_BUTTON33:
-		case WM_BUTTON34:
-		case WM_BUTTON35:
-		case WM_BUTTON36:
-		case WM_BUTTON37:
-		case WM_BUTTON38:
-		case WM_BUTTON39:
-			ChangeButtons(message);
+	case WM_BUTTON0:
+	case WM_BUTTON1:
+	case WM_BUTTON2:
+	case WM_BUTTON3:
+	case WM_BUTTON4:
+	case WM_BUTTON5:
+	case WM_BUTTON6:
+	case WM_BUTTON7:
+	case WM_BUTTON8:
+	case WM_BUTTON9:
+	case WM_BUTTON10:
+	case WM_BUTTON11:
+	case WM_BUTTON12:
+	case WM_BUTTON13:
+	case WM_BUTTON14:
+	case WM_BUTTON15:
+	case WM_BUTTON16:
+	case WM_BUTTON17:
+	case WM_BUTTON18:
+	case WM_BUTTON19:
+	case WM_BUTTON20:
+	case WM_BUTTON21:
+	case WM_BUTTON22:
+	case WM_BUTTON23:
+	case WM_BUTTON24:
+	case WM_BUTTON25:
+	case WM_BUTTON26:
+	case WM_BUTTON27:
+	case WM_BUTTON28:
+	case WM_BUTTON29:
+	case WM_BUTTON30:
+	case WM_BUTTON31:
+	case WM_BUTTON32:
+	case WM_BUTTON33:
+	case WM_BUTTON34:
+	case WM_BUTTON35:
+	case WM_BUTTON36:
+	case WM_BUTTON37:
+	case WM_BUTTON38:
+	case WM_BUTTON39:
+			ChangeButtons(event->user.code);
 			break;
 
-		case WM_READ0:
-		case WM_READ1:
-		case WM_READ2:
-		case WM_READ3:
-		case WM_READ4:
-		case WM_READ5:
-		case WM_READ6:
-		case WM_READ7:
-		case WM_READ8:
-		case WM_READ9:
-			Read(message);
+	case WM_READ0:
+	case WM_READ1:
+	case WM_READ2:
+	case WM_READ3:
+	case WM_READ4:
+	case WM_READ5:
+	case WM_READ6:
+	case WM_READ7:
+	case WM_READ8:
+	case WM_READ9:
+			Read(event->user.code);
 			ChangePhase(WM_PHASE_PLAY);  // joue
 			break;
 
-		case WM_WRITE0:
-		case WM_WRITE1:
-		case WM_WRITE2:
-		case WM_WRITE3:
-		case WM_WRITE4:
-		case WM_WRITE5:
-		case WM_WRITE6:
-		case WM_WRITE7:
-		case WM_WRITE8:
-		case WM_WRITE9:
-			Write(message);
+	case WM_WRITE0:
+	case WM_WRITE1:
+	case WM_WRITE2:
+	case WM_WRITE3:
+	case WM_WRITE4:
+	case WM_WRITE5:
+	case WM_WRITE6:
+	case WM_WRITE7:
+	case WM_WRITE8:
+	case WM_WRITE9:
+			Write(event->user.code);
 			if ( m_phase == WM_PHASE_WRITEp )
 			{
 				ChangePhase(WM_PHASE_PLAY);  // joue
@@ -5255,10 +5278,11 @@ bool CEvent::TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam)
 			}
 			break;
 
-		case WM_MOVIE:
+	case WM_MOVIE:
 			StartMovie("movie\\essai.avi");
 			ChangePhase(WM_PHASE_INIT);
 			break;
+	}
 	}
 
 	return false;
@@ -5317,5 +5341,18 @@ void CEvent::IntroStep()
 			return;
 		}
 	}
+}
+
+void CEvent::PushUserEvent (int code)
+{
+	SDL_Event event;
+
+	event.type = SDL_USEREVENT;
+	event.user.code = code;
+	event.user.data1 = nullptr;
+	event.user.data2 = nullptr;
+
+	SDL_PushEvent (&event);
+
 }
 

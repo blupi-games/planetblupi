@@ -32,7 +32,6 @@ CPixmap::CPixmap()
 	m_bPalette     = true;
 
 	m_mouseSprite  = SPRITE_WAIT;
-	MouseHotSpot();
 	m_mousePos.x   = LXIMAGE/2;
 	m_mousePos.y   = LYIMAGE/2;
 	m_mouseBackPos = m_mousePos;
@@ -53,7 +52,9 @@ CPixmap::CPixmap()
 
 	// initialize special effects structure
 	ZeroMemory(&m_DDbltfx, sizeof(m_DDbltfx));
-	m_DDbltfx.dwSize = sizeof(m_DDbltfx);   
+	m_DDbltfx.dwSize = sizeof(m_DDbltfx);
+
+	m_lpCurrentCursor = nullptr;
 }
 
 // Destructeur.
@@ -966,7 +967,6 @@ bool CPixmap::DrawImage(int chDst, int channel, RECT rect, int mode)
 
 	if ( channel == CHBACK )
 	{
-		MouseBackSave();  // sauve ce qui sera sous la souris
 		m_bBackDisplayed = false;
 	}
 
@@ -1098,12 +1098,6 @@ void CPixmap::SetMousePosSprite(POINT pos, int sprite, bool bDemoPlay)
 
 	m_mousePos    = pos;
 	m_mouseSprite = sprite;
-	MouseHotSpot();
-
-	if ( !bDemoPlay )
-	{
-		MouseUpdate();
-	}
 }
 
 // Positionne la souris.
@@ -1114,11 +1108,6 @@ void CPixmap::SetMousePos(POINT pos, bool bDemoPlay)
 		 m_mousePos.y == pos.y )  return;
 
 	m_mousePos = pos;
-
-	if ( !bDemoPlay )
-	{
-		MouseUpdate();
-	}
 }
 
 // Change le lutin de la souris.
@@ -1128,12 +1117,6 @@ void CPixmap::SetMouseSprite(int sprite, bool bDemoPlay)
 	if ( m_mouseSprite == sprite )  return;
 
 	m_mouseSprite = sprite;
-	MouseHotSpot();
-
-	if ( !bDemoPlay )
-	{
-		MouseUpdate();
-	}
 
 	SDL_SetCursor (m_lpSDLCursors[sprite - 1]);
 }
@@ -1145,312 +1128,11 @@ void CPixmap::MouseShow(bool bShow)
 	SDL_ShowCursor (bShow);
 }
 
-// Met à jour le dessin de la souris.
-
-void CPixmap::MouseUpdate()
-{
-	RECT	oldRect, newRect, rcRect;
-
-	if ( m_lpDDSurface[CHBLUPI] == NULL )  return;
-	if ( m_mouseType != MOUSETYPEGRA )  return;
-	if ( m_mouseSprite == SPRITE_EMPTY )  return;
-
-	oldRect.left   = m_mouseBackPos.x;
-	oldRect.top    = m_mouseBackPos.y;
-	oldRect.right  = m_mouseBackPos.x + DIMBLUPIX;
-	oldRect.bottom = m_mouseBackPos.y + DIMBLUPIY;
-
-	newRect.left   = m_mousePos.x - m_mouseHotSpot.x;
-	newRect.top    = m_mousePos.y - m_mouseHotSpot.y;
-	newRect.right  = newRect.left + DIMBLUPIX;
-	newRect.bottom = newRect.top  + DIMBLUPIY;
-
-	MouseBackRestore();  // enlève la souris dans m_lpDDSBack
-	MouseBackDraw();     // dessine la souris dans m_lpDDSBack
-
-	if ( m_bBackDisplayed )
-	{
-		if ( IntersectRect(&rcRect, &oldRect, &newRect) )
-		{
-			UnionRect(&rcRect, &oldRect, &newRect);
-			MouseQuickDraw(rcRect);
-		}
-		else
-		{
-			MouseQuickDraw(oldRect);
-			MouseQuickDraw(newRect);
-		}
-	}
-}
-
-// Dessine rapidement la souris dans l'écran.
-// Il s'agit en fait de dessiner un petit morceau rectangulaire
-// de m_lpDDSBack dans l'écran.
-
-bool CPixmap::MouseQuickDraw(RECT rect)
-{
-	HRESULT		ddrval;
-	RECT		DestRect;
-
-	if ( rect.left   < 0       )  rect.left   = 0;
-	if ( rect.right  > LXIMAGE )  rect.right  = LXIMAGE;
-	if ( rect.top    < 0       )  rect.top    = 0;
-	if ( rect.bottom > LYIMAGE )  rect.bottom = LYIMAGE;
-
-	// Get screen coordinates of client window for blit
-	DestRect = rect;
-	ClientToScreen(m_hWnd, (LPPOINT)&DestRect);
-	ClientToScreen(m_hWnd, (LPPOINT)&DestRect+1);
-	
-	// do the blit from back surface
-	ddrval = m_lpDDSPrimary->Blt
-				(
-					&DestRect,		// destination rect
-					m_lpDDSBack,
-					&rect,			// source rect     
-					DDBLT_WAIT,
-					&m_DDbltfx
-				);
-	SDL_Rect srcRect, dstRect;
-	srcRect.x =rect.left;
-	srcRect.y =rect.top;
-	srcRect.w =rect.right - rect.left;
-	srcRect.h =rect.bottom - rect.top;
-	dstRect.x = DestRect.left;
-	dstRect.y = DestRect.top;
-	dstRect.w = DestRect.right - DestRect.left;
-	dstRect.h = DestRect.bottom - DestRect.top;
-	//SDL_BlitSurface (m_lpSDLPrimary, &srcRect, m_lpSDLBack, &dstRect);
-    if ( ddrval == DDERR_SURFACELOST )
-    {
-        ddrval = RestoreAll();
-    }
-	if ( ddrval != DD_OK )  return false;
-	return true;
-}
-
 // Invalide la copie sous la souris.
 
 void CPixmap::MouseInvalidate()
 {
 	m_bMouseBack = false;
-}
-
-// Enlève la souris dans m_lpDDSBack.
-
-void CPixmap::MouseBackClear()
-{
-	if ( m_mouseType != MOUSETYPEGRA )  return;
-	MouseBackRestore();  // enlève la souris dans m_lpDDSBack
-}
-
-// Dessine la souris dans m_lpDDSBack.
-
-void CPixmap::MouseBackDraw()
-{
-	POINT	dst;
-	RECT	rcRect;
-
-	if ( m_lpDDSurface[CHBLUPI] == NULL )  return;
-	if ( m_mouseType != MOUSETYPEGRA )  return;
-	if ( m_mouseSprite == SPRITE_EMPTY )  return;
-
-	MouseBackSave();  // sauve ce qui sera sous la souris
-
-	dst.x  = m_mousePos.x - m_mouseHotSpot.x;
-	dst.y  = m_mousePos.y - m_mouseHotSpot.y;
-	rcRect = MouseRectSprite();
-
-	if ( dst.x < 0 )
-	{
-		rcRect.left -= dst.x;
-		dst.x = 0;
-	}
-	if ( dst.x+DIMBLUPIX > LXIMAGE )
-	{
-		rcRect.right -= (dst.x+DIMBLUPIX)-LXIMAGE;
-	}
-	if ( dst.y < 0 )
-	{
-		rcRect.top -= dst.y;
-		dst.y = 0;
-	}
-	if ( dst.y+DIMBLUPIY > LYIMAGE )
-	{
-		rcRect.bottom -= (dst.y+DIMBLUPIY)-LYIMAGE;
-	}
-
-	// Dessine le lutin dans m_lpDDSBack.
-	BltFast(m_lpDDSBack, nullptr, CHBLUPI, dst, rcRect, 0);
-}
-
-// Sauve le fond sous la souris.
-// m_lpDDSMouse <- m_lpDDSBack
-
-void CPixmap::MouseBackSave()
-{
-    HRESULT		ddrval;
-	POINT		dst;
-	RECT		rcRect;
-
-	if ( m_lpDDSurface[CHBLUPI] == NULL )  return;
-	if ( m_mouseType != MOUSETYPEGRA )  return;
-	if ( m_mouseSprite == SPRITE_EMPTY )  return;
-
-	m_mouseBackPos.x = m_mousePos.x - m_mouseHotSpot.x;
-	m_mouseBackPos.y = m_mousePos.y - m_mouseHotSpot.y;
-	m_bMouseBack = true;
-
-	dst.x = 0;
-	dst.y = 0;
-
-	rcRect.left   = m_mouseBackPos.x;
-	rcRect.top    = m_mouseBackPos.y;
-	rcRect.right  = m_mouseBackPos.x + DIMBLUPIX;
-	rcRect.bottom = m_mouseBackPos.y + DIMBLUPIY;
-
-	if ( rcRect.left < 0 )
-	{
-		dst.x -= rcRect.left;
-		rcRect.left = 0;
-	}
-	if ( rcRect.right > LXIMAGE )
-	{
-		rcRect.right = LXIMAGE;
-	}
-	if ( rcRect.top < 0 )
-	{
-		dst.y -= rcRect.top;
-		rcRect.top = 0;
-	}
-	if ( rcRect.bottom > LYIMAGE )
-	{
-		rcRect.bottom = LYIMAGE;
-	}
-
-    while( true )
-    {
-		ddrval = m_lpDDSMouse->BltFast(dst.x, dst.y,
-									   m_lpDDSBack,
-									   &rcRect, DDBLTFAST_NOCOLORKEY);
-		SDL_Rect srcRect, dstRect;
-		srcRect.x = rcRect.left;
-		srcRect.y = rcRect.top;
-		srcRect.w = rcRect.right - rcRect.left;
-		srcRect.h = rcRect.bottom - rcRect.top;
-		dstRect = srcRect;
-		dstRect.x = dst.x;
-		dstRect.y = dst.y;
-        if ( ddrval == DD_OK )  break;
-        
-        if ( ddrval == DDERR_SURFACELOST )
-        {
-            ddrval = RestoreAll();
-            if ( ddrval != DD_OK )  break;
-        }
-
-        if ( ddrval != DDERR_WASSTILLDRAWING )  break;
-    }
-}
-
-// Restitue le fond sous la souris.
-// m_lpDDSBack <- m_lpDDSMouse
-
-void CPixmap::MouseBackRestore()
-{
-    HRESULT		ddrval;
-	POINT		dst;
-	RECT		rcRect;
-
-	if ( m_lpDDSurface[CHBLUPI] == NULL )  return;
-	if ( !m_bMouseBack )  return;
-
-	dst.x = m_mouseBackPos.x;
-	dst.y = m_mouseBackPos.y;
-
-	rcRect.left   = 0;
-	rcRect.top    = 0;
-	rcRect.right  = DIMBLUPIX;
-	rcRect.bottom = DIMBLUPIY;
-
-	if ( dst.x < 0 )
-	{
-		rcRect.left -= dst.x;
-		dst.x = 0;
-	}
-	if ( dst.x+DIMBLUPIX > LXIMAGE )
-	{
-		rcRect.right -= (dst.x+DIMBLUPIX)-LXIMAGE;
-	}
-	if ( dst.y < 0 )
-	{
-		rcRect.top -= dst.y;
-		dst.y = 0;
-	}
-	if ( dst.y+DIMBLUPIY > LYIMAGE )
-	{
-		rcRect.bottom -= (dst.y+DIMBLUPIY)-LYIMAGE;
-	}
-
-    while( true )
-    {
-		ddrval = m_lpDDSBack->BltFast(dst.x, dst.y,
-									  m_lpDDSMouse,
-									  &rcRect, DDBLTFAST_NOCOLORKEY);
-		SDL_Rect srcRect, dstRect;
-		srcRect.x = rcRect.left;
-		srcRect.y = rcRect.top;
-		srcRect.w = rcRect.right - rcRect.left;
-		srcRect.h = rcRect.bottom - rcRect.top;
-		dstRect = srcRect;
-		dstRect.x = dst.x;
-		dstRect.y = dst.y;
-        if ( ddrval == DD_OK )  break;
-        
-        if ( ddrval == DDERR_SURFACELOST )
-        {
-            ddrval = RestoreAll();
-            if ( ddrval != DD_OK )  break;
-        }
-
-        if ( ddrval != DDERR_WASSTILLDRAWING )  break;
-    }
-}
-
-// Affiche le contenu de m_lpDDSMouse dans le
-// coin sup/gauche.
-
-void CPixmap::MouseBackDebug()
-{
-	HRESULT		ddrval;
-	RECT		DestRect, MapRect;
-
-	// Get screen coordinates of client window for blit
-	GetClientRect(m_hWnd, &DestRect);
-	ClientToScreen(m_hWnd, (LPPOINT)&DestRect);
-	ClientToScreen(m_hWnd, (LPPOINT)&DestRect+1);
-	
-	MapRect.left   = 0;
-	MapRect.top    = 0;
-	MapRect.right  = DIMBLUPIX;
-	MapRect.bottom = DIMBLUPIY;
-
-	DestRect.right  = DestRect.left + DIMBLUPIX;
-	DestRect.bottom = DestRect.top  + DIMBLUPIY;
-
-	// do the blit from back surface
-	ddrval = m_lpDDSPrimary->Blt
-				(
-					&DestRect,		// destination rect
-					m_lpDDSMouse,
-					&MapRect,		// source rect     
-					DDBLT_WAIT,
-					&m_DDbltfx
-				);
-    if ( ddrval == DDERR_SURFACELOST )
-    {
-        ddrval = RestoreAll();
-    }
 }
 
 // Retourne le rectangle correspondant au sprite
@@ -1484,45 +1166,6 @@ RECT CPixmap::MouseRectSprite()
 	rcRect.bottom = rcRect.top +m_iconDim[CHBLUPI].y;
 
 	return rcRect;
-}
-
-// Initialise le hot spot selon le sprite en cours.
-
-void CPixmap::MouseHotSpot()
-{
-	int		rank;
-
-	static int table_mouse_hotspot[MAXCURSORS * 2] =
-	{
-		30, 30,		// SPRITE_ARROW
-		20, 15,		// SPRITE_POINTER
-		31, 26,		// SPRITE_MAP
-		25, 14,		// SPRITE_ARROWU
-		24, 35,		// SPRITE_ARROWD
-		15, 24,		// SPRITE_ARROWL
-		35, 24,		// SPRITE_ARROWR
-		18, 16,		// SPRITE_ARROWUL
-		32, 18,		// SPRITE_ARROWUR
-		17, 30,		// SPRITE_ARROWDL
-		32, 32,		// SPRITE_ARROWDR
-		30, 30,		// SPRITE_WAIT
-		30, 30,		// SPRITE_EMPTY
-		21, 51,		// SPRITE_FILL
-	};
-
-	if ( m_mouseSprite >= SPRITE_ARROW &&
-		 m_mouseSprite <= SPRITE_FILL  )
-	{
-		rank = m_mouseSprite - SPRITE_ARROW;  // rank <- 0..n
-
-		m_mouseHotSpot.x = table_mouse_hotspot[rank*2+0];
-		m_mouseHotSpot.y = table_mouse_hotspot[rank*2+1];
-	}
-	else
-	{
-		m_mouseHotSpot.x = 0;
-		m_mouseHotSpot.y = 0;
-	}
 }
 
 SDL_Point CPixmap::GetCursorHotSpot (int sprite)
@@ -1646,4 +1289,13 @@ void CPixmap::LoadCursors ()
 		// FIXME: change cursor first value to 0
 		m_lpSDLCursors[sprite - 1] = SDL_CreateColorCursor (surface, hotspot.x, hotspot.y);
 	}
+}
+
+void CPixmap::ChangeSprite (MouseSprites sprite)
+{
+	if (m_lpCurrentCursor == m_lpSDLCursors[sprite - 1])
+		return;
+
+	SDL_SetCursor (m_lpSDLCursors[sprite - 1]);
+	m_lpCurrentCursor = m_lpSDLCursors[sprite - 1];
 }

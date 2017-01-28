@@ -55,9 +55,8 @@ public:
 	void	SetMouseSprite(int sprite, bool bDemoPlay);
 	void	MouseShow(bool bShow);
 	void	MouseInvalidate();
-	void	MouseBackClear();
-	void	MouseBackDraw();
 	void	LoadCursors ();
+	void	ChangeSprite (MouseSprites sprite);
 
 protected:
 	HRESULT	RestoreAll();
@@ -65,13 +64,7 @@ protected:
 	HRESULT	BltFast(LPDIRECTDRAWSURFACE lpDD, SDL_Texture *lpSDL,
 					int channel, POINT dst, RECT rcRect, int mode);
 
-	void	MouseUpdate();
-	bool	MouseQuickDraw(RECT rect);
-	void	MouseBackSave();
-	void	MouseBackRestore();
-	void	MouseBackDebug();
 	RECT	MouseRectSprite();
-	void	MouseHotSpot();
 	SDL_Point GetCursorHotSpot (int sprite);
 	SDL_Rect GetCursorRect (int sprite);
 
@@ -86,7 +79,6 @@ protected:
 
 	POINT					m_mousePos;
 	int						m_mouseSprite;
-	POINT					m_mouseHotSpot;
 	POINT					m_mouseBackPos;
 	bool					m_bMouseBack;
 	bool					m_bBackDisplayed;
@@ -97,6 +89,7 @@ protected:
 	LPDIRECTDRAWSURFACE		m_lpDDSBack;			// DirectDraw back surface
 	SDL_Surface *			m_lpSDLBack;
 	LPDIRECTDRAWSURFACE		m_lpDDSMouse;			// DirectDraw back surface
+	SDL_Cursor *			m_lpCurrentCursor;
 	SDL_Cursor *			m_lpSDLCursors[MAXCURSORS];
 	SDL_Surface *			m_lpSDLBlupi;
 	LPDIRECTDRAWPALETTE		m_lpDDPal;				// the primary surface palette

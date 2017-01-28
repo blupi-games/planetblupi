@@ -177,7 +177,6 @@ void UpdateFrame(void)
 	POINT			posMouse;
 	int				i, term, speed;
 
-	g_pPixmap->MouseBackClear();  // enlève la souris dans "back"
 	posMouse = g_pEvent->GetLastMousePos();
 
 	phase = g_pEvent->GetPhase();
@@ -277,8 +276,6 @@ void UpdateFrame(void)
 		if ( term == 1 )  g_pEvent->ChangePhase(WM_PHASE_LOST);  // perdu
 		if ( term == 2 )  g_pEvent->ChangePhase(WM_PHASE_WINMOVIE);   // gagné
 	}
-
-	g_pPixmap->MouseBackDraw();  // remet la souris dans "back"
 }
 
 
@@ -360,21 +357,12 @@ static void FinishObjects(void)
 	}
 }
 
-
-LRESULT CALLBACK WindowProc (HWND hWnd, UINT message, 
-							 WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
+							 WPARAM wParam, LPARAM lParam,
+							 const SDL_Event *event)
 {
 	static HINSTANCE	hInstance;
 	POINT				mousePos, totalDim, iconDim;
-
-#if 0
-	if ( message != WM_TIMER )
-	{
-		char s[100];
-		sprintf(s, "message=%d,%d\n", message, wParam);
-		OutputDebug(s);
-	}
-#endif
 
 	// La touche F10 envoie un autre message pour activer
 	// le menu dans les applications Windows standard !
@@ -388,7 +376,7 @@ LRESULT CALLBACK WindowProc (HWND hWnd, UINT message,
 	}
 
 	if ( g_pEvent != NULL &&
-		 g_pEvent->TreatEvent(message, wParam, lParam) )  return 0;
+		 g_pEvent->TreatEvent(event) )  return 0;
 
     switch( message )
     {
@@ -547,6 +535,11 @@ LRESULT CALLBACK WindowProc (HWND hWnd, UINT message,
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
 
+LRESULT CALLBACK WindowProc (HWND hWnd, UINT message,
+					WPARAM wParam, LPARAM lParam)
+{
+	return WindowProc2 (hWnd, message, wParam, lParam, nullptr);
+}
 
 // Erreur dans DoInit.
 
@@ -667,8 +660,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	ShowWindow(g_hWnd, nCmdShow);
 	UpdateWindow(g_hWnd);
 	SetFocus(g_hWnd);
-
-	ChangeSprite(SPRITE_WAIT);  // met le sablier maison
 
 	if ( !bOK )  // config.def pas correct ?
 	{
@@ -812,6 +803,7 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 
 	// Load all cursors
 	g_pPixmap->LoadCursors ();
+	g_pPixmap->ChangeSprite (SPRITE_WAIT); // met le sablier maison
 
 	// Crée le gestionnaire de son.
 	g_pSound = new CSound;
@@ -866,7 +858,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	SetTimer(g_hWnd, 1, g_timerInterval, NULL);
 
-	while ( true )
+	while (SDL_TRUE)
 	{
 		if ( PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE) )
 		{
@@ -880,8 +872,18 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		else
 		{
 			// make sure we go to sleep if we have nothing else to do
-			if ( !g_bActive )  WaitMessage();
+			if (!g_bActive)
+				WaitMessage ();
+			else
+				Sleep (1);
 		}
+
+		SDL_Event event;
+		while (SDL_PollEvent (&event))
+		{
+			WindowProc2 (nullptr, 0, 0, 0, &event);
+		}
+
 	}
 
 out:

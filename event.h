@@ -2,6 +2,11 @@
 
 #pragma once
 
+#include "jauge.h"
+#include "menu.h"
+
+class CMovie;
+
 /////////////////////////////////////////////////////////////////////////////
 
 typedef struct
@@ -77,21 +82,19 @@ public:
 	void	SetMenu(int button, int menu);
 
 	bool	DrawButtons();
-	int		MousePosToSprite(POINT pos);
+	MouseSprites MousePosToSprite(POINT pos);
 	void	MouseSprite(POINT pos);
 	void	WaitMouse(bool bWait);
 	void	HideMouse(bool bHide);
 	POINT	GetLastMousePos();
-	bool	TreatEvent(UINT message, WPARAM wParam, LPARAM lParam);
-	bool	TreatEventBase(UINT message, WPARAM wParam, LPARAM lParam);
+	bool	TreatEvent(const SDL_Event *event);
+	bool	TreatEventBase(const SDL_Event *event);
 
 	void	DecorAutoShift(POINT pos);
 	
 	bool	StartMovie(char *pFilename);
 	void	StopMovie();
 	bool	IsMovie();
-
-	bool	FlipObject();
 
 	void	Read(int message);
 	void	Write(int message);
@@ -106,24 +109,27 @@ public:
 
 	void	IntroStep();
 
+public:
+	static void PushUserEvent (int code);
+
 protected:
 	void	DrawTextCenter(int res, int x, int y, int font=0);
 	bool	CreateButtons();
-	bool	EventButtons(UINT message, WPARAM wParam, LPARAM lParam);
+	bool	EventButtons(const SDL_Event &event, POINT pos);
 	bool	MouseOnButton(POINT pos);
 	int		SearchPhase(UINT phase);
 	void	DecorShift(int dx, int dy);
 
-	bool	PlayDown(POINT pos, int fwKeys);
-	bool	PlayMove(POINT pos, int fwKeys);
-	bool	PlayUp(POINT pos, int fwKeys);
+	bool	PlayDown(POINT pos, const SDL_Event &event);
+	bool	PlayMove(POINT pos, Uint16 mod);
+	bool	PlayUp(POINT pos, Uint16 mod);
 	void	ChangeButtons(int message);
 
 	void	BuildFloor(POINT cel, int insIcon);
 	void	BuildWater(POINT cel, int insIcon);
-	bool	BuildDown(POINT pos, int fwKeys, bool bMix=true);
-	bool	BuildMove(POINT pos, int fwKeys);
-	bool	BuildUp(POINT pos, int fwKeys);
+	bool	BuildDown(POINT pos, Uint16 mod, bool bMix=true);
+	bool	BuildMove(POINT pos, Uint16 mod, const SDL_Event &event);
+	bool	BuildUp(POINT pos);
 
 	void	PrivateLibelle();
 	bool	ReadLibelle(int world, bool bSchool, bool bHelp);
@@ -172,14 +178,13 @@ protected:
 	int			m_menuPerso;
 	POINT		m_menuCel;
 	POINT		m_oldMousePos;
-	bool		m_bMousePress;
 	bool		m_bMouseDown;
 	bool		m_bHili;
 	int			m_fileWorld[10];
 	int			m_fileTime[10];
 	POINT		m_posToolTips;
 	char		m_textToolTips[50];
-	int			m_mouseSprite;
+	MouseSprites m_mouseSprite;
 	bool		m_bFillMouse;
 	bool		m_bWaitMouse;
 	bool		m_bHideMouse;
@@ -211,7 +216,7 @@ protected:
 	size_t		m_demoIndex;
 	size_t		m_demoEnd;
 	int			m_demoNumber;
-	bool		m_bCtrlDown;
+	Uint16		m_keymod;
 	POINT		m_debugPos;
 	int			m_introTime;
 };

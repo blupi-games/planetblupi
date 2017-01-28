@@ -12,7 +12,6 @@
 // Variables globales
 
 HINSTANCE		g_hInstance;
-int				g_lastSprite = 0;
 extern bool		g_bFullScreen;	// false si mode de test
 extern int		g_mouseType;
 extern char		g_CDPath[MAX_PATH];
@@ -43,34 +42,6 @@ void LoadString(UINT nID, char *pBuffer, int lgBuffer)
 {
 	LoadString(g_hInstance, nID, pBuffer, lgBuffer);
 }
-
-// Change le lutin de la souris.
-
-void ChangeSprite(int sprite)
-{
-	HCURSOR		hCursor = nullptr;
-
-	if ( g_mouseType == MOUSETYPEGRA )  return;
-	if ( g_lastSprite == sprite )  return;
-
-	if ( sprite == SPRITE_ARROW   )  hCursor = LoadCursor(g_hInstance, "IDC_ARROW");
-	if ( sprite == SPRITE_POINTER )  hCursor = LoadCursor(g_hInstance, "IDC_POINTER");
-	if ( sprite == SPRITE_MAP     )  hCursor = LoadCursor(g_hInstance, "IDC_MAP");
-	if ( sprite == SPRITE_ARROWU  )  hCursor = LoadCursor(g_hInstance, "IDC_ARROWU");
-	if ( sprite == SPRITE_ARROWD  )  hCursor = LoadCursor(g_hInstance, "IDC_ARROWD");
-	if ( sprite == SPRITE_ARROWL  )  hCursor = LoadCursor(g_hInstance, "IDC_ARROWL");
-	if ( sprite == SPRITE_ARROWR  )  hCursor = LoadCursor(g_hInstance, "IDC_ARROWR");
-	if ( sprite == SPRITE_ARROWUL )  hCursor = LoadCursor(g_hInstance, "IDC_ARROWUL");
-	if ( sprite == SPRITE_ARROWUR )  hCursor = LoadCursor(g_hInstance, "IDC_ARROWUR");
-	if ( sprite == SPRITE_ARROWDL )  hCursor = LoadCursor(g_hInstance, "IDC_ARROWDL");
-	if ( sprite == SPRITE_ARROWDR )  hCursor = LoadCursor(g_hInstance, "IDC_ARROWDR");
-	if ( sprite == SPRITE_WAIT    )  hCursor = LoadCursor(g_hInstance, "IDC_WAIT");
-	if ( sprite == SPRITE_EMPTY   )  hCursor = LoadCursor(g_hInstance, "IDC_EMPTY");
-	if ( sprite == SPRITE_FILL    )  hCursor = LoadCursor(g_hInstance, "IDC_FILL");
-
-	g_lastSprite = sprite;
-}
-
 
 // Conversion de la position de la souris.
 

@@ -6,7 +6,6 @@
 extern void InitHInstance(HINSTANCE hInstance);
 extern void OutputDebug(char *pMessage);
 extern void LoadString(UINT nID, char *pBuffer, int lgBuffer);
-extern void ChangeSprite(int sprite);
 
 extern POINT ConvLongToPos(LPARAM lParam);
 

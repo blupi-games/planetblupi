@@ -802,7 +802,7 @@ void CDecor::GenerateStatictic()
 
 // Bouton pressé dans les statistiques.
 
-bool CDecor::StatisticDown(POINT pos, int fwKeys)
+bool CDecor::StatisticDown(POINT pos)
 {
 	int			hili, rank, x, y, show, icon;
 	POINT		cel;
@@ -991,7 +991,7 @@ bool CDecor::StatisticDown(POINT pos, int fwKeys)
 
 // Souris déplacée dans les statistiques.
 
-bool CDecor::StatisticMove(POINT pos, int fwKeys)
+bool CDecor::StatisticMove(POINT pos)
 {
 	int		rank;
 
@@ -1008,7 +1008,7 @@ bool CDecor::StatisticMove(POINT pos, int fwKeys)
 
 // Bouton relâché dans les statistiques.
 
-bool CDecor::StatisticUp(POINT pos, int fwKeys)
+bool CDecor::StatisticUp(POINT pos)
 {
 	return false;
 }

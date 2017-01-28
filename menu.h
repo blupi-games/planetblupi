@@ -22,7 +22,7 @@ public:
 	bool	IsExist();
 	void	Message();
 
-	bool	TreatEvent(UINT message, WPARAM wParam, LPARAM lParam);
+	bool	TreatEvent(const SDL_Event &event);
 
 protected:
 	int		Detect(POINT pos);

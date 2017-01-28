@@ -13,6 +13,7 @@
 #include "menu.h"
 #include "text.h"
 #include "misc.h"
+#include "event.h"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -346,27 +347,39 @@ bool CMenu::IsExist()
 
 // Traitement d'un événement.
 
-bool CMenu::TreatEvent(UINT message, WPARAM wParam, LPARAM lParam)
+bool CMenu::TreatEvent(const SDL_Event &event)
 {
 	POINT		pos;
 
 	if ( m_nbButtons == 0 )  return false;
 
-	pos = ConvLongToPos(lParam);
+	//pos = ConvLongToPos(lParam);
 
-    switch( message )
-    {
-		case WM_LBUTTONDOWN:
-		case WM_RBUTTONDOWN:
+	switch (event.type)
+	{
+	case SDL_MOUSEBUTTONDOWN:
+		if (   event.button.button != SDL_BUTTON_LEFT
+			&& event.button.button != SDL_BUTTON_RIGHT)
+			break;
+
+		pos.x = event.button.x;
+		pos.y = event.button.y;
 			if ( MouseDown(pos) )  return true;
 			break;
 
-		case WM_MOUSEMOVE:
+	case SDL_MOUSEMOTION:
+		pos.x = event.motion.x;
+		pos.y = event.motion.y;
 			if ( MouseMove(pos) )  return true;
 			break;
 
-		case WM_LBUTTONUP:
-		case WM_RBUTTONUP:
+	case SDL_MOUSEBUTTONUP:
+		if (   event.button.button != SDL_BUTTON_LEFT
+			&& event.button.button != SDL_BUTTON_RIGHT)
+			break;
+
+		pos.x = event.button.x;
+		pos.y = event.button.y;
 			if ( MouseUp(pos) )  return true;
 			break;
 	}
@@ -431,7 +444,7 @@ void CMenu::Message()
 {
 	if ( m_selRank != -1 )
 	{
-		PostMessage(m_hWnd, WM_BUTTON0+m_selRank, 0, 0);
+		CEvent::PushUserEvent (WM_BUTTON0 + m_selRank);
 	}
 }
 

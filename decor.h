@@ -341,9 +341,9 @@ public:
 	int		StatisticGetFire();
 	void	StatisticDraw();
 	void	GenerateStatictic();
-	bool	StatisticDown(POINT pos, int fwKeys);
-	bool	StatisticMove(POINT pos, int fwKeys);
-	bool	StatisticUp(POINT pos, int fwKeys);
+	bool	StatisticDown(POINT pos);
+	bool	StatisticMove(POINT pos);
+	bool	StatisticUp(POINT pos);
 	int		StatisticDetect(POINT pos);
 
 	// Chemin.cpp

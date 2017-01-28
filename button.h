@@ -30,7 +30,7 @@ public:
 	bool	GetHide();
 	void	SetHide(bool bHide);
 
-	bool	TreatEvent(UINT message, WPARAM wParam, LPARAM lParam);
+	bool	TreatEvent(const SDL_Event &event);
 	bool	MouseOnButton(POINT pos);
 	int		GetToolTips(POINT pos);
 
