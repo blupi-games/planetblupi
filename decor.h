@@ -465,7 +465,7 @@ protected:
 	bool		m_bBuild;			// true -> construction
 	bool		m_bInvincible;		// true -> cheat code
 	bool		m_bSuper;			// true -> cheat code
-	short		m_colors[100];
+	Uint32		m_colors[100];
 	int			m_time;				// temps relatif global
 	int			m_timeConst;		// temps relatif global constant
 	int			m_timeFlipOutline;	// temps quand basculer mode outline

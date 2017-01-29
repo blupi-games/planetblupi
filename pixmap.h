@@ -30,7 +30,7 @@ public:
 	int		SearchColor(int red, int green, int blue);
 	bool	Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim, bool bUsePalette);
 	bool	Cache(int channel, char *pFilename, POINT totalDim, bool bUsePalette);
-	bool	Cache(int channel, HBITMAP hbm, POINT totalDim);
+	bool	Cache(int channel, SDL_Surface *surface, POINT totalDim);
 	void	Flush(int channel);
 	void	SetTransparent(int channel, COLORREF color);
 	void	SetTransparent2(int channel, COLORREF color1, COLORREF color2);

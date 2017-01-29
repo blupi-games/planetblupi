@@ -1,6 +1,7 @@
 // DecMap.cpp
 //
 
+#include "blupi.h"
 #include "DEF.H"
 #include "DECOR.H"
 
@@ -31,8 +32,7 @@
 
 // Bitmap de la carte.
 
-static char g_map8_bits[DIMMAPY][DIMMAPX];
-static unsigned short g_map16_bits[DIMMAPY][DIMMAPX];
+static Uint32 g_map32_bits[DIMMAPY][DIMMAPX];
 static bool g_bPalette;
 
 
@@ -42,51 +42,55 @@ static bool g_bPalette;
 
 void CDecor::MapInitColors()
 {
-	g_bPalette = m_pPixmap->IsPalette();
+	SDL_PixelFormat *fmt;
 
-	m_colors[MAP_CADRE] = m_pPixmap->SearchColor(255,0,0);      // rouge
-	m_colors[MAP_FOG]   = m_pPixmap->SearchColor(0,0,0);        // noir
-	m_colors[MAP_BLUPI] = m_pPixmap->SearchColor(255,255,0);    // jaune
-	m_colors[MAP_SEE]   = m_pPixmap->SearchColor(102,102,204);  // bleu
-	m_colors[MAP_DALLE] = m_pPixmap->SearchColor(192,192,192);  // gris
-	m_colors[MAP_PERSO] = m_pPixmap->SearchColor(255,0,0);      // rouge
-	m_colors[MAP_NURSE] = m_pPixmap->SearchColor(255,0,0);      // rouge
-	m_colors[MAP_ROC]   = m_pPixmap->SearchColor(214,214,214);  // gris clair
-	m_colors[MAP_MUR]   = m_pPixmap->SearchColor(100,100,100);  // gris moyen
-	m_colors[MAP_EGG]   = m_pPixmap->SearchColor(255,255,255);  // blanc
-	m_colors[MAP_FIRE]  = m_pPixmap->SearchColor(255,0,0);      // rouge
-	m_colors[MAP_TOMAT] = m_pPixmap->SearchColor(255,0,0);      // rouge
-	m_colors[MAP_BUILD] = m_pPixmap->SearchColor(0,0,0);        // noir
-	m_colors[MAP_ENNEMI]= m_pPixmap->SearchColor(0,192,255);    // bleu métal
-	m_colors[MAP_FLEUR] = m_pPixmap->SearchColor(255,206,0);    // jaune
+	fmt = SDL_GetWindowSurface (g_window)->format;
 
-	m_colors[MAP_TREE]  = m_pPixmap->SearchColor(0,102,0);      // vert foncé
-	m_colors[MAP_HERB1] = m_pPixmap->SearchColor(0,204,51);     // vert clair
-	m_colors[MAP_HERB2] = m_pPixmap->SearchColor(0,156,8);      // vert moyen
-	m_colors[MAP_TERRE] = m_pPixmap->SearchColor(94,78,12);     // brun
+	//g_bPalette = m_pPixmap->IsPalette();
+
+	m_colors[MAP_CADRE] = SDL_MapRGB (fmt, 255, 0, 0);      // rouge
+	m_colors[MAP_FOG]   = SDL_MapRGB (fmt, 0, 0, 0);        // noir
+	m_colors[MAP_BLUPI] = SDL_MapRGB (fmt, 255, 255, 0);    // jaune
+	m_colors[MAP_SEE]   = SDL_MapRGB (fmt, 102, 102, 204);  // bleu
+	m_colors[MAP_DALLE] = SDL_MapRGB (fmt, 192, 192, 192);  // gris
+	m_colors[MAP_PERSO] = SDL_MapRGB (fmt, 255, 0, 0);      // rouge
+	m_colors[MAP_NURSE] = SDL_MapRGB (fmt, 255, 0, 0);      // rouge
+	m_colors[MAP_ROC]   = SDL_MapRGB (fmt, 214, 214, 214);  // gris clair
+	m_colors[MAP_MUR]   = SDL_MapRGB (fmt, 100, 100, 100);  // gris moyen
+	m_colors[MAP_EGG]   = SDL_MapRGB (fmt, 255, 255, 255);  // blanc
+	m_colors[MAP_FIRE]  = SDL_MapRGB (fmt, 255, 0, 0);      // rouge
+	m_colors[MAP_TOMAT] = SDL_MapRGB (fmt, 255, 0, 0);      // rouge
+	m_colors[MAP_BUILD] = SDL_MapRGB (fmt, 0, 0, 0);        // noir
+	m_colors[MAP_ENNEMI]= SDL_MapRGB (fmt, 0, 192, 255);    // bleu métal
+	m_colors[MAP_FLEUR] = SDL_MapRGB (fmt, 255, 206, 0);    // jaune
+
+	m_colors[MAP_TREE]  = SDL_MapRGB (fmt, 0 ,102, 0);      // vert foncé
+	m_colors[MAP_HERB1] = SDL_MapRGB (fmt, 0 ,204, 51);     // vert clair
+	m_colors[MAP_HERB2] = SDL_MapRGB (fmt, 0 ,156, 8);      // vert moyen
+	m_colors[MAP_TERRE] = SDL_MapRGB (fmt, 94, 78, 12);     // brun
 
 	if ( m_region == 1 )  // palmiers
 	{
-		m_colors[MAP_TREE]  = m_pPixmap->SearchColor(38,197,42);
-		m_colors[MAP_HERB1] = m_pPixmap->SearchColor(184,140,1);
-		m_colors[MAP_HERB2] = m_pPixmap->SearchColor(145,110,5);
-		m_colors[MAP_TERRE] = m_pPixmap->SearchColor(192,192,192);
+		m_colors[MAP_TREE]  = SDL_MapRGB (fmt, 38, 197, 42);
+		m_colors[MAP_HERB1] = SDL_MapRGB (fmt, 184, 140, 1);
+		m_colors[MAP_HERB2] = SDL_MapRGB (fmt, 145, 110, 5);
+		m_colors[MAP_TERRE] = SDL_MapRGB (fmt, 192, 192, 192);
 	}
 
 	if ( m_region == 2 )  // hiver
 	{
-		m_colors[MAP_TREE]  = m_pPixmap->SearchColor(152,205,222);
-		m_colors[MAP_HERB1] = m_pPixmap->SearchColor(219,234,239);
-		m_colors[MAP_HERB2] = m_pPixmap->SearchColor(223,173,90);
-		m_colors[MAP_TERRE] = m_pPixmap->SearchColor(152,205,222);
+		m_colors[MAP_TREE]  = SDL_MapRGB (fmt, 152, 205, 222);
+		m_colors[MAP_HERB1] = SDL_MapRGB (fmt, 219, 234, 239);
+		m_colors[MAP_HERB2] = SDL_MapRGB (fmt, 223, 173, 90);
+		m_colors[MAP_TERRE] = SDL_MapRGB (fmt, 152, 205, 222);
 	}
 
 	if ( m_region == 3 )  // sapins
 	{
-		m_colors[MAP_TREE]  = m_pPixmap->SearchColor(0,102,0);
-		m_colors[MAP_HERB1] = m_pPixmap->SearchColor(38,197,42);
-		m_colors[MAP_HERB2] = m_pPixmap->SearchColor(140,140,0);
-		m_colors[MAP_TERRE] = m_pPixmap->SearchColor(172,178,173);
+		m_colors[MAP_TREE]  = SDL_MapRGB (fmt, 0, 102, 0);
+		m_colors[MAP_HERB1] = SDL_MapRGB (fmt, 38, 197, 42);
+		m_colors[MAP_HERB2] = SDL_MapRGB (fmt, 140, 140, 0);
+		m_colors[MAP_TERRE] = SDL_MapRGB (fmt, 172, 178, 173);
 	}
 }
 
@@ -461,8 +465,6 @@ void CDecor::MapPutCel(POINT pos)
 	else                            pColors = color_deffloor;
 
 	color:
-	if ( g_bPalette )
-	{
 		for ( i=0 ; i<4 ; i++ )
 		{
 			if ( pos.x+i >= 0 && pos.x+i < DIMMAPX )
@@ -470,25 +472,10 @@ void CDecor::MapPutCel(POINT pos)
 				icon = *pColors++;
 				if ( icon != 0 )
 				{
-					g_map8_bits[pos.y][pos.x+i] = (char)m_colors[icon];
+					g_map32_bits[pos.y][pos.x+i] = m_colors[icon];
 				}
 			}
 		}
-	}
-	else
-	{
-		for ( i=0 ; i<4 ; i++ )
-		{
-			if ( pos.x+i >= 0 && pos.x+i < DIMMAPX )
-			{
-				icon = *pColors++;
-				if ( icon != 0 )
-				{
-					g_map16_bits[pos.y][pos.x+i] = m_colors[icon];
-				}
-			}
-		}
-	}
 }
 
 
@@ -524,20 +511,11 @@ bool CDecor::GenerateMap()
 				if ( m_blupi[rank].perso == 0 ||
 					 m_blupi[rank].perso == 8 )  i = MAP_BLUPI;
 				else                             i = MAP_PERSO;
-				if ( g_bPalette )
-				{
-					g_map8_bits[pos.y+0][pos.x+0] = (char)m_colors[i];
-					g_map8_bits[pos.y+0][pos.x+1] = (char)m_colors[i];
-					g_map8_bits[pos.y+1][pos.x+0] = (char)m_colors[i];
-					g_map8_bits[pos.y+1][pos.x+1] = (char)m_colors[i];
-				}
-				else
-				{
-					g_map16_bits[pos.y+0][pos.x+0] = m_colors[i];
-					g_map16_bits[pos.y+0][pos.x+1] = m_colors[i];
-					g_map16_bits[pos.y+1][pos.x+0] = m_colors[i];
-					g_map16_bits[pos.y+1][pos.x+1] = m_colors[i];
-				}
+
+					g_map32_bits[pos.y+0][pos.x+0] = m_colors[i];
+					g_map32_bits[pos.y+0][pos.x+1] = m_colors[i];
+					g_map32_bits[pos.y+1][pos.x+0] = m_colors[i];
+					g_map32_bits[pos.y+1][pos.x+1] = m_colors[i];
 			}
 		}
 	}
@@ -546,46 +524,27 @@ bool CDecor::GenerateMap()
 	cel = m_celCoin;
 	pos = ConvCelToMap(cel);
 
-	if ( g_bPalette )
-	{
 		for ( i=pos.x ; i<pos.x+MAPCADREX ; i++ )
 		{
-			g_map8_bits[pos.y]          [i] = (char)m_colors[MAP_CADRE];
-			g_map8_bits[pos.y+MAPCADREY][i] = (char)m_colors[MAP_CADRE];
+			g_map32_bits[pos.y]          [i] = m_colors[MAP_CADRE];
+			g_map32_bits[pos.y+MAPCADREY][i] = m_colors[MAP_CADRE];
 		}
 		for ( i=pos.y ; i<=pos.y+MAPCADREY ; i++ )
 		{
-			g_map8_bits[i][pos.x]           = (char)m_colors[MAP_CADRE];
-			g_map8_bits[i][pos.x+MAPCADREX] = (char)m_colors[MAP_CADRE];
+			g_map32_bits[i][pos.x]           = m_colors[MAP_CADRE];
+			g_map32_bits[i][pos.x+MAPCADREX] = m_colors[MAP_CADRE];
 		}
-	}
-	else
-	{
-		for ( i=pos.x ; i<pos.x+MAPCADREX ; i++ )
-		{
-			g_map16_bits[pos.y]          [i] = m_colors[MAP_CADRE];
-			g_map16_bits[pos.y+MAPCADREY][i] = m_colors[MAP_CADRE];
-		}
-		for ( i=pos.y ; i<=pos.y+MAPCADREY ; i++ )
-		{
-			g_map16_bits[i][pos.x]           = m_colors[MAP_CADRE];
-			g_map16_bits[i][pos.x+MAPCADREX] = m_colors[MAP_CADRE];
-		}
-	}
 
-	if ( g_bPalette )
-	{
-		hbm = CreateBitmap(DIMMAPX, DIMMAPY, 1, 8, g_map8_bits);
-	}
-	else
-	{
-		hbm = CreateBitmap(DIMMAPX, DIMMAPY, 1, 16, g_map16_bits);
-	}
+
+		hbm = CreateBitmap(DIMMAPX, DIMMAPY, 1, 32, g_map32_bits);
+
 	if ( hbm == NULL )  return false;
+
+	SDL_Surface *surface = SDL_CreateRGBSurfaceFrom(g_map32_bits, DIMMAPX, DIMMAPY, 32, 4 * DIMMAPX, 0, 0, 0, 0);
 
 	dim.x = DIMMAPX;
 	dim.y = DIMMAPY;
-	m_pPixmap->Cache(CHMAP, hbm, dim);
+	m_pPixmap->Cache(CHMAP, surface, dim);
 
 	pos.x = POSMAPX;
 	pos.y = POSMAPY;

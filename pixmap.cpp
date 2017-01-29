@@ -351,7 +351,7 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 						 POINT dst, RECT rcRect, int mode)
 {
 	DWORD		dwTrans;
-    HRESULT		ddrval;
+    HRESULT		ddrval = DD_OK;
 	int			limit;
 
 	if ( mode == 0 )  dwTrans = DDBLTFAST_SRCCOLORKEY;
@@ -396,6 +396,7 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 			dstRect.y = dst.y;
 			//SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, m_lpSDLBack, &dstRect);
 			SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
+			if (channel != CHMAP)
 			ddrval = m_lpDDSBack->BltFast(dst.x, dst.y,
 										  m_lpDDSurface[channel],
 										  &rcRect, dwTrans);
@@ -403,6 +404,7 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 		}
 		else
 		{
+			if (channel != CHMAP)
 			ddrval = m_lpDDSurface[chDst]->BltFast(dst.x, dst.y,
 										  m_lpDDSurface[channel],
 										  &rcRect, dwTrans);
@@ -690,7 +692,7 @@ bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, bool bUsePalet
 
 // Cache une image provenant d'un bitmap.
 
-bool CPixmap::Cache(int channel, HBITMAP hbm, POINT totalDim)
+bool CPixmap::Cache(int channel, SDL_Surface *surface, POINT totalDim)
 {
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 
@@ -700,16 +702,16 @@ bool CPixmap::Cache(int channel, HBITMAP hbm, POINT totalDim)
 	}
 
     // Create the offscreen surface, by loading our bitmap.
-    m_lpDDSurface[channel] = DDConnectBitmap(m_lpDD, hbm);
+	m_lpSDLTexture[channel] = SDL_CreateTextureFromSurface (g_renderer, surface);
 
-    if ( m_lpDDSurface[channel] == NULL )
+    if (m_lpSDLTexture[channel] == NULL )
     {
 		OutputDebug("Fatal error: DDLoadBitmap\n");
         return false;
     }
 
     // Set the color key to white
-    DDSetColorKey(m_lpDDSurface[channel], RGB(255,255,255));  // blanc
+    //DDSetColorKey(m_lpDDSurface[channel], RGB(255,255,255));  // blanc
 	
 	m_totalDim[channel] = totalDim;
 	m_iconDim[channel]  = totalDim;
@@ -813,7 +815,7 @@ bool CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos,
 	COLORREF	oldColor1, oldColor2;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
-	if (  m_lpDDSurface[channel] == NULL )     return false;
+	if ( channel != CHMAP && m_lpDDSurface[channel] == NULL )     return false;
 
 	if ( m_iconDim[channel].x == 0 ||
 		 m_iconDim[channel].y == 0 )  return false;
@@ -830,9 +832,9 @@ bool CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos,
 
 	oldColor1 = m_colorSurface[2*channel+0];
 	oldColor2 = m_colorSurface[2*channel+1];
-	if ( bMask )  SetTransparent(channel, RGB(255,255,255));  // blanc
+	if (channel != CHMAP && bMask )  SetTransparent(channel, RGB(255,255,255));  // blanc
 	ddrval = BltFast(chDst, channel, pos, rect, mode);
-	if ( bMask )  SetTransparent2(channel, oldColor1, oldColor2);
+	if (channel != CHMAP && bMask )  SetTransparent2(channel, oldColor1, oldColor2);
 
 	if ( ddrval != DD_OK )  return false;
 	return true;
