@@ -396,41 +396,6 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 			hInstance = ((LPCREATESTRUCT)lParam)->hInstance;
 			return 0;
 
-		case WM_ACTIVATEAPP:
-			g_bActive = (wParam != 0);
-			if ( g_bActive )  // active ?
-			{
-				if ( g_bFullScreen )
-				{
-					RestoreGame();
-					g_lastPhase = 999;
-				}
-				if ( !g_bFullScreen && g_bTermInit )
-				{
-					totalDim.x = 64;
-					totalDim.y = 66;
-					iconDim.x = 64;
-					iconDim.y = 66/2;
-					g_pPixmap->Cache(CHHILI, "image\\hili.blp", totalDim, iconDim, true);
-					g_pPixmap->SetTransparent(CHHILI, RGB(0,0,255));  // bleu
-
-					g_pPixmap->SavePalette();
-					g_pPixmap->InitSysPalette();
-				}
-				SetWindowText(hWnd, "Blupi");
-				if ( g_pSound != NULL )  g_pSound->RestartMusic();
-			}
-			else		// désactive ?
-			{
-				if ( g_bFullScreen )
-				{
-					FlushGame();
-				}
-				SetWindowText(hWnd, "Blupi -- stop");
-				if ( g_pSound != NULL )  g_pSound->SuspendMusic();
-			}
-			return 0;
-
 		case MM_MCINOTIFY:
 			OutputDebug("Event MM_MCINOTIFY\n");
 			if ( g_pEvent->IsMovie() )  // film en cours ?
@@ -498,6 +463,43 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 			PostQuitMessage(0);
 			break;
     }
+
+	if (event && event->type == SDL_WINDOWEVENT)
+	{
+		switch (event->window.event)
+		{
+		case SDL_WINDOWEVENT_FOCUS_GAINED:
+			if (g_bFullScreen)
+			{
+				RestoreGame ();
+				g_lastPhase = 999;
+			}
+			if (!g_bFullScreen && g_bTermInit)
+			{
+				totalDim.x = 64;
+				totalDim.y = 66;
+				iconDim.x = 64;
+				iconDim.y = 66 / 2;
+				g_pPixmap->Cache (CHHILI, "image\\hili.blp", totalDim, iconDim, true);
+				g_pPixmap->SetTransparent (CHHILI, RGB (0, 0, 255));  // bleu
+
+				g_pPixmap->SavePalette ();
+				g_pPixmap->InitSysPalette ();
+			}
+			SDL_SetWindowTitle (g_window, "Blupi");
+			if (g_pSound != NULL)  g_pSound->RestartMusic ();
+			return 0;
+
+		case SDL_WINDOWEVENT_FOCUS_LOST:
+			if (g_bFullScreen)
+			{
+				FlushGame ();
+			}
+			SDL_SetWindowTitle (g_window, "Blupi -- stop");
+			if (g_pSound != NULL)  g_pSound->SuspendMusic ();
+			return 0;
+		}
+	}
 
     return DefWindowProc(hWnd, message, wParam, lParam);
 }
