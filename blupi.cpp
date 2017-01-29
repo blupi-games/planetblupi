@@ -431,22 +431,6 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 			}
 			return 0;
 
-		case WM_SYSCOLORCHANGE:
-			OutputDebug("Event WM_SYSCOLORCHANGE\n");
-			break;
-
-	    case WM_QUERYNEWPALETTE:
-			OutputDebug("Event WM_QUERYNEWPALETTE\n");
-			break;
-
-		case WM_PALETTECHANGED:
-			OutputDebug("Event WM_PALETTECHANGED\n");
-			break;
-
-		case WM_DISPLAYCHANGE:
-			OutputDebug("Event WM_DISPLAYCHANGE\n");
-			break;
-
 		case MM_MCINOTIFY:
 			OutputDebug("Event MM_MCINOTIFY\n");
 			if ( g_pEvent->IsMovie() )  // film en cours ?
@@ -477,12 +461,9 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 			break;
 
 		case WM_SETCURSOR:
-//			ChangeSprite();
-//			SetCursor(NULL);  // pas de souris visible !
 			return true;
 
 		case WM_LBUTTONDOWN:
-//?			Benchmark();
 			GetCursorPos(&mousePos);
 			ScreenToClient(hWnd, &mousePos);
 			break;
@@ -508,20 +489,6 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 				case VK_F8:
 					g_pEvent->SetSpeed(8);
 					break;
-#if 0
-				case VK_F2:
-					KillTimer(g_hWnd, 1);
-					SetTimer(g_hWnd, 1, g_timerInterval/2, NULL);
-					break;
-				case VK_F3:
-					KillTimer(g_hWnd, 1);
-					SetTimer(g_hWnd, 1, g_timerInterval, NULL);
-					break;
-				case VK_F4:
-					KillTimer(g_hWnd, 1);
-					SetTimer(g_hWnd, 1, g_timerInterval*2, NULL);
-					break;
-#endif
 			}
 			break;
 
