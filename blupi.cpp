@@ -413,36 +413,9 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 			}
 			break;
 
-		case WM_SETCURSOR:
-			return true;
-
 		case WM_LBUTTONDOWN:
 			GetCursorPos(&mousePos);
 			ScreenToClient(hWnd, &mousePos);
-			break;
-
-		case WM_RBUTTONDOWN:
-			break;
-
-		case WM_MOUSEMOVE:
-			break;
-
-		case WM_KEYDOWN:
-			switch( wParam )
-			{
-				case VK_F5:
-					g_pEvent->SetSpeed(1);
-					break;
-				case VK_F6:
-					g_pEvent->SetSpeed(2);
-					break;
-				case VK_F7:
-					g_pEvent->SetSpeed(4);
-					break;
-				case VK_F8:
-					g_pEvent->SetSpeed(8);
-					break;
-			}
 			break;
 
 		case WM_DESTROY:
@@ -493,6 +466,24 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 			}
 			break;
 		}
+
+		case SDL_KEYDOWN:
+			switch (event->key.keysym.sym)
+			{
+			case SDLK_F5:
+				g_pEvent->SetSpeed (1);
+				break;
+			case SDLK_F6:
+				g_pEvent->SetSpeed (2);
+				break;
+			case SDLK_F7:
+				g_pEvent->SetSpeed (4);
+				break;
+			case SDLK_F8:
+				g_pEvent->SetSpeed (8);
+				break;
+			}
+			break;
 
 		case SDL_USEREVENT:
 		{
