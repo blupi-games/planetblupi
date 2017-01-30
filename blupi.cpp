@@ -380,18 +380,6 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 
     switch( message )
     {
-		case WM_TIMER:
-		case WM_UPDATE:
-			if ( !g_pEvent->IsMovie() )  // pas de film en cours ?
-			{
-				if ( g_bActive )
-				{
-					UpdateFrame();
-				}
-				g_pPixmap->Display();
-			}
-			break;
-
 		case WM_CREATE:
 			hInstance = ((LPCREATESTRUCT)lParam)->hInstance;
 			return 0;
@@ -464,40 +452,66 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 			break;
     }
 
-	if (event && event->type == SDL_WINDOWEVENT)
+	if (event)
 	{
-		switch (event->window.event)
+		switch (event->type)
 		{
-		case SDL_WINDOWEVENT_FOCUS_GAINED:
-			if (g_bFullScreen)
+		case SDL_WINDOWEVENT:
+		{
+			switch (event->window.event)
 			{
-				RestoreGame ();
-				g_lastPhase = 999;
-			}
-			if (!g_bFullScreen && g_bTermInit)
-			{
-				totalDim.x = 64;
-				totalDim.y = 66;
-				iconDim.x = 64;
-				iconDim.y = 66 / 2;
-				g_pPixmap->Cache (CHHILI, "image\\hili.blp", totalDim, iconDim, true);
-				g_pPixmap->SetTransparent (CHHILI, RGB (0, 0, 255));  // bleu
+			case SDL_WINDOWEVENT_FOCUS_GAINED:
+				if (g_bFullScreen)
+				{
+					RestoreGame ();
+					g_lastPhase = 999;
+				}
+				if (!g_bFullScreen && g_bTermInit)
+				{
+					totalDim.x = 64;
+					totalDim.y = 66;
+					iconDim.x = 64;
+					iconDim.y = 66 / 2;
+					g_pPixmap->Cache (CHHILI, "image\\hili.blp", totalDim, iconDim, true);
+					g_pPixmap->SetTransparent (CHHILI, RGB (0, 0, 255));  // bleu
 
-				g_pPixmap->SavePalette ();
-				g_pPixmap->InitSysPalette ();
-			}
-			SDL_SetWindowTitle (g_window, "Blupi");
-			if (g_pSound != NULL)  g_pSound->RestartMusic ();
-			return 0;
+					g_pPixmap->SavePalette ();
+					g_pPixmap->InitSysPalette ();
+				}
+				SDL_SetWindowTitle (g_window, "Blupi");
+				if (g_pSound != NULL)  g_pSound->RestartMusic ();
+				return 0;
 
-		case SDL_WINDOWEVENT_FOCUS_LOST:
-			if (g_bFullScreen)
-			{
-				FlushGame ();
+			case SDL_WINDOWEVENT_FOCUS_LOST:
+				if (g_bFullScreen)
+				{
+					FlushGame ();
+				}
+				SDL_SetWindowTitle (g_window, "Blupi -- stop");
+				if (g_pSound != NULL)  g_pSound->SuspendMusic ();
+				return 0;
 			}
-			SDL_SetWindowTitle (g_window, "Blupi -- stop");
-			if (g_pSound != NULL)  g_pSound->SuspendMusic ();
-			return 0;
+			break;
+		}
+
+		case SDL_USEREVENT:
+		{
+			switch (event->user.code)
+			{
+			case WM_TIMER:
+			case WM_UPDATE:
+				if (!g_pEvent->IsMovie ())  // pas de film en cours ?
+				{
+					if (g_bActive)
+					{
+						UpdateFrame ();
+					}
+					g_pPixmap->Display ();
+				}
+				break;
+			}
+			break;
+		}
 		}
 	}
 
@@ -555,7 +569,7 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	RegisterClass(&wc);
 
 	SDL_SetMainReady ();
-	auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+	auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
 	if (res < 0)
 		return false;
 
@@ -825,7 +839,12 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		return false;
 	}
 
-	SetTimer(g_hWnd, 1, g_timerInterval, NULL);
+	SDL_TimerID my_timer_id = SDL_AddTimer (g_timerInterval, [] (Uint32 interval, void *param) -> Uint32
+	{
+		CEvent::PushUserEvent (WM_UPDATE);
+		return interval;
+	}, nullptr);
+
 
 	while (SDL_TRUE)
 	{
