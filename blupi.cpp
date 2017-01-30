@@ -362,7 +362,7 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 							 const SDL_Event *event)
 {
 	static HINSTANCE	hInstance;
-	POINT				mousePos, totalDim, iconDim;
+	POINT				totalDim, iconDim;
 
 	// La touche F10 envoie un autre message pour activer
 	// le menu dans les applications Windows standard !
@@ -411,11 +411,6 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 					OutputDebug(s);
 				}
 			}
-			break;
-
-		case WM_LBUTTONDOWN:
-			GetCursorPos(&mousePos);
-			ScreenToClient(hWnd, &mousePos);
 			break;
 
 		case WM_DESTROY:

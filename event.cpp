@@ -2493,8 +2493,6 @@ MouseSprites CEvent::MousePosToSprite(POINT pos)
 void CEvent::MouseSprite(POINT pos)
 {
 	m_mouseSprite = MousePosToSprite(pos);
-
-	m_pPixmap->SetMousePosSprite(pos, m_mouseSprite, m_bDemoPlay);
 	m_pPixmap->ChangeSprite(m_mouseSprite);
 }
 
@@ -4047,7 +4045,6 @@ void CEvent::StopMovie()
 {
 	m_pMovie->Stop(m_hWnd);
 	m_pPixmap->RestorePalette();
-	m_pPixmap->MouseInvalidate();
 	m_pSound->Flush(SOUND_MOVIE);
 //	m_pSound->RestartMusic();
 	ChangePhase(m_phase);

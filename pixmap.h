@@ -50,11 +50,8 @@ public:
 	
 	bool	Display();
 
-	void	SetMousePosSprite(POINT pos, int sprite, bool bDemoPlay);
-	void	SetMousePos(POINT pos, bool bDemoPlay);
 	void	SetMouseSprite(int sprite, bool bDemoPlay);
 	void	MouseShow(bool bShow);
-	void	MouseInvalidate();
 	void	LoadCursors ();
 	void	ChangeSprite (MouseSprites sprite);
 
@@ -77,10 +74,7 @@ protected:
 	POINT					m_dim;					// dimensions totales
 	RECT					m_clipRect;				// rectangle de clipping
 
-	POINT					m_mousePos;
 	int						m_mouseSprite;
-	POINT					m_mouseBackPos;
-	bool					m_bMouseBack;
 	bool					m_bBackDisplayed;
 
 	LPDIRECTDRAW			m_lpDD;					// DirectDraw object

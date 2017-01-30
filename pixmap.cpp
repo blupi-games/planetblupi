@@ -32,10 +32,6 @@ CPixmap::CPixmap()
 	m_bPalette     = true;
 
 	m_mouseSprite  = SPRITE_WAIT;
-	m_mousePos.x   = LXIMAGE/2;
-	m_mousePos.y   = LYIMAGE/2;
-	m_mouseBackPos = m_mousePos;
-	m_bMouseBack   = false;
 	m_bBackDisplayed = false;
 
 	m_lpDD         = NULL;
@@ -1089,29 +1085,6 @@ bool CPixmap::Display()
 	return true;
 }
 
-
-// Positionne la souris et change le lutin.
-
-void CPixmap::SetMousePosSprite(POINT pos, int sprite, bool bDemoPlay)
-{
-	if ( m_mousePos.x == pos.x &&
-		 m_mousePos.y == pos.y &&
-		 m_mouseSprite == sprite )  return;
-
-	m_mousePos    = pos;
-	m_mouseSprite = sprite;
-}
-
-// Positionne la souris.
-
-void CPixmap::SetMousePos(POINT pos, bool bDemoPlay)
-{
-	if ( m_mousePos.x == pos.x &&
-		 m_mousePos.y == pos.y )  return;
-
-	m_mousePos = pos;
-}
-
 // Change le lutin de la souris.
 
 void CPixmap::SetMouseSprite(int sprite, bool bDemoPlay)
@@ -1128,13 +1101,6 @@ void CPixmap::SetMouseSprite(int sprite, bool bDemoPlay)
 void CPixmap::MouseShow(bool bShow)
 {
 	SDL_ShowCursor (bShow);
-}
-
-// Invalide la copie sous la souris.
-
-void CPixmap::MouseInvalidate()
-{
-	m_bMouseBack = false;
 }
 
 // Retourne le rectangle correspondant au sprite

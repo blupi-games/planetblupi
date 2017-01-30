@@ -44,7 +44,6 @@ protected:
 	int			m_errors[MAXBUTTON];
 	UINT		m_messages[MAXBUTTON];
 	int			m_selRank;
-	POINT		m_mousePos;
 };
 
 /////////////////////////////////////////////////////////////////////////////

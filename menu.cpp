@@ -414,7 +414,6 @@ bool CMenu::MouseDown(POINT pos)
 
 bool CMenu::MouseMove(POINT pos)
 {
-	m_mousePos = pos;
 	m_selRank = Detect(pos);
 
 	if ( pos.x < m_pos.x-(DIMBUTTONX+MARGMENU) ||
@@ -432,7 +431,6 @@ bool CMenu::MouseMove(POINT pos)
 
 bool CMenu::MouseUp(POINT pos)
 {
-	m_mousePos = pos;
 	m_selRank = Detect(pos);
 
 	return false;
