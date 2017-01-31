@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <ddraw.h>
+#include "blupi.h"
 #include "def.h"
 #include "resource.h"
 #include "pixmap.h"
@@ -118,8 +119,7 @@ bool CMenu::Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
 		pos = m_pos;
 		pos.x += DIMBUTTONX/2;
 		pos.y += DIMBUTTONY/2;
-		ClientToScreen(m_hWnd, &pos);
-		SetCursorPos(pos.x, pos.y);
+		SDL_WarpMouseInWindow (g_window, pos.x, pos.y);
 	}
 
 	m_selRank = Detect(pos);

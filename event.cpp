@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <ddraw.h>
+#include "blupi.h"
 #include "def.h"
 #include "resource.h"
 #include "pixmap.h"
@@ -4504,8 +4505,7 @@ void CEvent::DemoStep()
 				 m_mouseType == MOUSETYPEWIN )
 			{
 				pos = ConvLongToPos(lParam);
-				ClientToScreen(m_hWnd, &pos);
-				SetCursorPos(pos.x, pos.y);
+				SDL_WarpMouseInWindow (g_window, pos.x, pos.y);
 			}
 
 			TreatEventBase(nullptr); // XXX: use SDL_Event
