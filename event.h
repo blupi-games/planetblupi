@@ -105,7 +105,6 @@ public:
 	bool	IsShift();
 
 	void	DemoStep();
-	void	DebugDisplay(char m);
 
 	void	IntroStep();
 

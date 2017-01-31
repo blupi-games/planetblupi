@@ -5270,39 +5270,6 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 	return false;
 }
 
-// (*)	Sans cela, il existe un drôle de problème sur
-//		certains PC: la souris ne suis pas le mouvement
-//		réel effectué.
-//		Problème résolu par Denis !
-
-
-// Affiche un caractère de debug tout en haut.
-
-void CEvent::DebugDisplay(char m)
-{
-	char	text[10];
-	POINT	pos;
-	RECT	rect;
-
-	m_debugPos.x += 8;
-	if ( m_debugPos.x > LXIMAGE-8 )
-	{
-		m_debugPos.x = 0;
-		pos.x = 0;
-		pos.y = 0;
-		rect.left   = pos.x;
-		rect.right  = pos.x+LXIMAGE;
-		rect.top    = pos.y;
-		rect.bottom = pos.y+DIMLITTLEY;
-		m_pPixmap->DrawPart(-1, CHBACK, pos, rect, 1);  // dessine le fond
-	}
-
-	text[0] = m;
-	text[1] = 0;
-
-	DrawText(m_pPixmap, m_debugPos, text, FONTLITTLE);
-}
-
 // Passe les images d'introduction.
 
 void CEvent::IntroStep()
