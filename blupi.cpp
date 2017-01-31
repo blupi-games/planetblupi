@@ -42,7 +42,6 @@ CPixmap*	g_pPixmap = NULL;		// pixmap principal
 CSound*		g_pSound  = NULL;		// sound principal
 CMovie*		g_pMovie  = NULL;		// movie principal
 CDecor*		g_pDecor  = NULL;
-char		g_CDPath[MAX_PATH];		// chemin d'accès au CD-Rom
 bool		g_bFullScreen = false;	// false si mode de test
 int			g_speedRate = 1;
 int			g_timerInterval = 50;	// inverval = 50ms
@@ -85,53 +84,6 @@ bool ReadConfig(LPSTR lpCmdLine)
 	nb = fread(buffer, sizeof(char), 200-1, file);
 	buffer[nb] = 0;
 	fclose(file);
-
-#if 0
-	pText = strstr(buffer, "CD-Rom=");
-	if ( pText == NULL )
-	{
-#if _DEMO
-		GetCurrentDirectory(MAX_PATH, g_CDPath);
-		i = strlen(g_CDPath);
-		if ( i > 0 && g_CDPath[i-1] != '\\' )
-		{
-			g_CDPath[i++] = '\\';
-			g_CDPath[i] = 0;  // met le terminateur
-		}
-#else
-		return false;
-#endif
-	}
-	else
-	{
-		pText += 7;
-		i = 0;
-		while ( pText[i] != 0 && pText[i] != '\n' && pText[i] != '\r' )
-		{
-			g_CDPath[i] = pText[i];
-			i ++;
-		}
-		if ( i > 0 && g_CDPath[i-1] != '\\' )
-		{
-			g_CDPath[i++] = '\\';
-		}
-		g_CDPath[i] = 0;  // met le terminateur
-	}
-
-#if !_DEMO & !_EGAMES
-	if ( strstr(lpCmdLine, "-nocd") == NULL )
-	{
-		char		drive[10];
-
-		drive[0] = g_CDPath[0];
-		drive[1] = ':';
-		drive[2] = '\\';
-		drive[3] = 0;
-		nb = GetDriveType(drive);
-		if ( nb != DRIVE_CDROM )  return false;
-	}
-#endif
-#endif
 
 	pText = strstr(buffer, "SpeedRate=");
 	if ( pText != NULL )

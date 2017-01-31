@@ -2849,10 +2849,6 @@ bool CEvent::ChangePhase(UINT phase)
 	{
 		sprintf(filename, table[m_index].backName, GetImageWorld());
 	}
-	if ( table[m_index].bCDrom )  // sur le CD-rom ?
-	{
-		AddCDPath(filename);
-	}
 	totalDim.x = LXIMAGE;
 	totalDim.y = LYIMAGE;
 	iconDim.x  = 0;
@@ -3133,35 +3129,30 @@ bool CEvent::ChangePhase(UINT phase)
 	if ( phase == WM_PHASE_H0MOVIE )
 	{
 		strcpy(m_movieToStart, "movie\\history0.avi");
-		AddCDPath(m_movieToStart);
 		m_phaseAfterMovie = WM_PHASE_HISTORY0;
 	}
 
 	if ( phase == WM_PHASE_H1MOVIE )
 	{
 		strcpy(m_movieToStart, "movie\\history1.avi");
-		AddCDPath(m_movieToStart);
 		m_phaseAfterMovie = WM_PHASE_HISTORY1;
 	}
 
 	if ( phase == WM_PHASE_H2MOVIE )
 	{
 		strcpy(m_movieToStart, "movie\\history2.avi");
-		AddCDPath(m_movieToStart);
 		m_phaseAfterMovie = WM_PHASE_INFO;
 	}
 
 	if ( phase == WM_PHASE_PLAYMOVIE )
 	{
 		sprintf(m_movieToStart, "movie\\play%.3d.avi", GetPhysicalWorld());
-		AddCDPath(m_movieToStart);
 		m_phaseAfterMovie = WM_PHASE_PLAY;
 	}
 
 	if ( phase == WM_PHASE_WINMOVIE )
 	{
 		sprintf(m_movieToStart, "movie\\win%.3d.avi", GetPhysicalWorld());
-		AddCDPath(m_movieToStart);
 		m_phaseAfterMovie = WM_PHASE_WIN;
 
 		if ( !m_bPrivate &&
@@ -4423,7 +4414,6 @@ bool CEvent::DemoPlayStart()
 	memset(m_pDemoBuffer, 0, MAXDEMO*sizeof(DemoEvent));
 
 	sprintf(filename, "data\\demo%.3d.blp", m_demoNumber);
-	AddCDPath(filename);  // ajoute l'accès au CD-Rom
 	file = fopen(filename, "rb");
 	if ( file == NULL )
 	{

@@ -109,10 +109,6 @@ bool CDecor::Write(int rank, bool bUser, int world, int time, int total)
 	else
 	{
 		sprintf(filename, "data\\world%.3d.blp", rank);
-		if ( rank < 200 )
-		{
-			AddCDPath(filename);  // ajoute l'accès au CD-Rom
-		}
 	}
 
 	file = fopen(filename, "wb");
@@ -196,10 +192,6 @@ bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
 	else
 	{
 		sprintf(filename, "data\\world%.3d.blp", rank);
-		if ( rank < 200 )
-		{
-			AddCDPath(filename);  // ajoute l'accès au CD-Rom
-		}
 	}
 
 	file = fopen(filename, "rb");
@@ -337,10 +329,6 @@ bool CDecor::FileExist(int rank, bool bUser, int &world, int &time, int &total)
 	else
 	{
 		sprintf(filename, "data\\world%.3d.blp", rank);
-		if ( rank < 200 )
-		{
-			AddCDPath(filename);  // ajoute l'accès au CD-Rom
-		}
 	}
 
 	file = fopen(filename, "rb");

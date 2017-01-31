@@ -13,7 +13,6 @@ extern void	InitRandom();
 extern int	Random(int min, int max);
 
 extern void GetCurrentDir(char *pName, size_t lg);
-extern void AddCDPath(char *pFilename);
 extern void AddUserPath(char *pFilename);
 
 extern void TraceErrorDD(HRESULT hErr, char *sFile, int nLine);

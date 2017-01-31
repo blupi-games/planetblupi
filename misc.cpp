@@ -14,8 +14,6 @@
 HINSTANCE		g_hInstance;
 extern bool		g_bFullScreen;	// false si mode de test
 extern int		g_mouseType;
-extern char		g_CDPath[MAX_PATH];
-
 
 
 // Initialise HInstance.
@@ -115,46 +113,6 @@ void GetCurrentDir(char *pName, size_t lg)
 	}
 }
 
-
-// Ajoute le chemin permettant de lire un fichier
-// sur le CD-Rom.
-
-void AddCDPath(char *pFilename)
-{
-	char	temp[MAX_PATH];
-	size_t	lg;
-	bool	bDaniel = false;
-
-	if ( g_CDPath[0] == 0 )  return;
-
-	lg = strlen(g_CDPath);
-	if ( lg > 14 && strstr(g_CDPath+lg-14, "\\daniel\\blupi\\") )
-	{
-		bDaniel = true;
-	}
-
-#if _DEMO
-	strcpy(temp, g_CDPath);
-	strcat(temp, pFilename);
-#else
-	if ( !bDaniel &&
-		 (strstr(pFilename, "image\\") == pFilename ||
-		  strstr(pFilename, "movie\\") == pFilename) )
-	{
-		strcpy(temp, g_CDPath);
-		strcat(temp, "..\\");
-		strcat(temp, pFilename);
-	}
-	else
-	{
-		strcpy(temp, g_CDPath);
-		strcat(temp, pFilename);
-	}
-#endif
-
-	strcpy(pFilename, temp);
-}
-
 // Ajoute le chemin permettant de lire un fichier
 // utilisateur.
 
@@ -165,8 +123,6 @@ void AddUserPath(char *pFilename)
 	size_t					pos;
 	char					last;
 	SECURITY_ATTRIBUTES		att;
-
-	if ( g_CDPath[0] != 0 )  return;
 
 #if _EGAMES
 	strcpy(temp, "c:\\Planet Blupi Full\\");
