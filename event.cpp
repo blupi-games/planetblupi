@@ -4619,323 +4619,318 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
     switch (event->type)
     {
 	case SDL_KEYDOWN:
-			if ( event->key.keysym.sym >= SDLK_a && event->key.keysym.sym <= SDLK_z )
+		if ( event->key.keysym.sym >= SDLK_a && event->key.keysym.sym <= SDLK_z )
+		{
+			if ( m_posCheat == 0 )  // première lettre ?
 			{
-				if ( m_posCheat == 0 )  // première lettre ?
+				m_rankCheat = -1;
+				for ( i=0 ; i<9 ; i++ )
 				{
-					m_rankCheat = -1;
-					for ( i=0 ; i<9 ; i++ )
+					if ( (char) event->key.keysym.sym == cheat_code[i][0] )
 					{
-						if ( (char) event->key.keysym.sym == cheat_code[i][0] )
-						{
-							m_rankCheat = i;
-							break;
-						}
-					}
-				}
-				if ( m_rankCheat != -1 )
-				{
-					c = cheat_code[m_rankCheat][m_posCheat];
-					if ( m_posCheat != 0 && m_rankCheat == 8 )  c++;  // CONSTRUIRE ?
-					if ( (char) event->key.keysym.sym == c )
-					{
-						m_posCheat ++;
-						if ( cheat_code[m_rankCheat][m_posCheat] == 0 )
-						{
-							bEnable = true;
-							if ( m_phase == WM_PHASE_PLAY )
-							{
-								if ( m_rankCheat == 0 )  // vision ?
-								{
-									m_pDecor->EnableFog(false);
-								}
-								if ( m_rankCheat == 1 ||  // power ?
-									 m_rankCheat == 2 )   // lonesome ?
-								{
-									m_pDecor->BlupiCheat(m_rankCheat);
-								}
-							}
-
-							if ( m_rankCheat == 3 )  // allmissions ?
-							{
-								m_bAllMissions = !m_bAllMissions;
-								bEnable = m_bAllMissions;
-								m_bChangeCheat = true;
-							}
-							if ( m_rankCheat == 4 )  // quick ?
-							{
-								m_bSpeed = !m_bSpeed;
-								bEnable = m_bSpeed;
-								m_bChangeCheat = true;
-							}
-#if !_DEMO
-							if ( m_rankCheat == 5 )  // helpme ?
-							{
-								m_bHelp = !m_bHelp;
-								bEnable = m_bHelp;
-								m_bChangeCheat = true;
-							}
-#endif
-
-							if ( m_rankCheat == 6 )  // invincible ?
-							{
-								m_pDecor->SetInvincible(!m_pDecor->GetInvincible());
-								bEnable = m_pDecor->GetInvincible();
-								m_bChangeCheat = true;
-							}
-
-							if ( m_rankCheat == 7 )  // superblupi ?
-							{
-								m_pDecor->SetSuper(!m_pDecor->GetSuper());
-								bEnable = m_pDecor->GetSuper();
-								m_bChangeCheat = true;
-							}
-
-#if !_DEMO
-							if ( m_rankCheat == 8 )  // construire ?
-							{
-								m_bAccessBuild = !m_bAccessBuild;
-								bEnable = m_bAccessBuild;
-								m_bChangeCheat = true;
-							}
-#endif
-
-							if ( m_phase != WM_PHASE_PLAY )
-							{
-								ChangePhase(m_phase);
-							}
-
-							pos.x = LXIMAGE/2;
-							pos.y = LYIMAGE/2;
-							if ( bEnable )
-							{
-								m_pSound->PlayImage(SOUND_BUT, pos);
-							}
-							else
-							{
-								m_pSound->PlayImage(SOUND_BOING, pos);
-							}
-
-							m_rankCheat = -1;
-							m_posCheat = 0;
-						}
-						return true;
+						m_rankCheat = i;
+						break;
 					}
 				}
 			}
-			m_rankCheat = -1;
-			m_posCheat = 0;
-
-			if ( m_phase == WM_PHASE_INTRO1 )
+			if ( m_rankCheat != -1 )
 			{
-				ChangePhase(WM_PHASE_INTRO2);
+				c = cheat_code[m_rankCheat][m_posCheat];
+				if ( m_posCheat != 0 && m_rankCheat == 8 )  c++;  // CONSTRUIRE ?
+				if ( (char) event->key.keysym.sym == c )
+				{
+					m_posCheat ++;
+					if ( cheat_code[m_rankCheat][m_posCheat] == 0 )
+					{
+						bEnable = true;
+						if ( m_phase == WM_PHASE_PLAY )
+						{
+							if ( m_rankCheat == 0 )  // vision ?
+							{
+								m_pDecor->EnableFog(false);
+							}
+							if ( m_rankCheat == 1 ||  // power ?
+									m_rankCheat == 2 )   // lonesome ?
+							{
+								m_pDecor->BlupiCheat(m_rankCheat);
+							}
+						}
+
+						if ( m_rankCheat == 3 )  // allmissions ?
+						{
+							m_bAllMissions = !m_bAllMissions;
+							bEnable = m_bAllMissions;
+							m_bChangeCheat = true;
+						}
+						if ( m_rankCheat == 4 )  // quick ?
+						{
+							m_bSpeed = !m_bSpeed;
+							bEnable = m_bSpeed;
+							m_bChangeCheat = true;
+						}
+#if !_DEMO
+						if ( m_rankCheat == 5 )  // helpme ?
+						{
+							m_bHelp = !m_bHelp;
+							bEnable = m_bHelp;
+							m_bChangeCheat = true;
+						}
+#endif
+
+						if ( m_rankCheat == 6 )  // invincible ?
+						{
+							m_pDecor->SetInvincible(!m_pDecor->GetInvincible());
+							bEnable = m_pDecor->GetInvincible();
+							m_bChangeCheat = true;
+						}
+
+						if ( m_rankCheat == 7 )  // superblupi ?
+						{
+							m_pDecor->SetSuper(!m_pDecor->GetSuper());
+							bEnable = m_pDecor->GetSuper();
+							m_bChangeCheat = true;
+						}
+
+#if !_DEMO
+						if ( m_rankCheat == 8 )  // construire ?
+						{
+							m_bAccessBuild = !m_bAccessBuild;
+							bEnable = m_bAccessBuild;
+							m_bChangeCheat = true;
+						}
+#endif
+
+						if ( m_phase != WM_PHASE_PLAY )
+						{
+							ChangePhase(m_phase);
+						}
+
+						pos.x = LXIMAGE/2;
+						pos.y = LYIMAGE/2;
+						if ( bEnable )
+						{
+							m_pSound->PlayImage(SOUND_BUT, pos);
+						}
+						else
+						{
+							m_pSound->PlayImage(SOUND_BOING, pos);
+						}
+
+						m_rankCheat = -1;
+						m_posCheat = 0;
+					}
+					return true;
+				}
+			}
+		}
+		m_rankCheat = -1;
+		m_posCheat = 0;
+
+		if ( m_phase == WM_PHASE_INTRO1 )
+		{
+			ChangePhase(WM_PHASE_INTRO2);
+			return true;
+		}
+
+		if ( m_phase == WM_PHASE_INTRO2 )
+		{
+			ChangePhase(WM_PHASE_INIT);
+			return true;
+		}
+
+		if ( m_phase == WM_PHASE_BYE )
+		{
+			SDL_Event ev;
+			ev.type = SDL_QUIT;
+			SDL_PushEvent (&ev);
+		}
+
+		switch (event->key.keysym.sym)
+		{
+		case SDLK_END:
+			DemoRecStop();
+			return true;
+		case SDLK_ESCAPE:
+			if ( m_bRunMovie )
+			{
+				StopMovie();
+				m_pSound->SetSuspendSkip(1);
 				return true;
 			}
-
-			if ( m_phase == WM_PHASE_INTRO2 )
+			if ( m_phase == WM_PHASE_PLAY   ||
+					m_phase == WM_PHASE_SETUP  ||
+					m_phase == WM_PHASE_SETUPp ||
+					m_phase == WM_PHASE_READ   ||
+					m_phase == WM_PHASE_WRITE  ||
+					m_phase == WM_PHASE_WRITEp ||
+					m_phase == WM_PHASE_HELP   )
+			{
+				ChangePhase(WM_PHASE_STOP);
+				return true;
+			}
+			if ( m_phase == WM_PHASE_STOP  ||
+					m_phase == WM_PHASE_LOST  ||
+					m_phase == WM_PHASE_BUILD )
+			{
+				ChangePhase(WM_PHASE_INFO);
+				return true;
+			}
+			if ( m_phase == WM_PHASE_INFO )
 			{
 				ChangePhase(WM_PHASE_INIT);
 				return true;
 			}
-
+			if ( m_phase == WM_PHASE_BUTTON ||
+					m_phase == WM_PHASE_TERM   ||
+					m_phase == WM_PHASE_MUSIC  ||
+					m_phase == WM_PHASE_REGION )
+			{
+				ChangePhase(WM_PHASE_BUILD);
+				return true;
+			}
+			if ( m_phase == WM_PHASE_INIT )
+			{
+				ChangePhase(WM_PHASE_BYE);
+				return true;
+			}
 			if ( m_phase == WM_PHASE_BYE )
 			{
 				SDL_Event ev;
 				ev.type = SDL_QUIT;
 				SDL_PushEvent (&ev);
-			}
-
-			switch (event->key.keysym.sym)
-			{
-			case SDLK_END:
-					DemoRecStop();
-					return true;
-			case SDLK_ESCAPE:
-					if ( m_bRunMovie )
-					{
-						StopMovie();
-						m_pSound->SetSuspendSkip(1);
-						return true;
-					}
-					if ( m_phase == WM_PHASE_PLAY   ||
-						 m_phase == WM_PHASE_SETUP  ||
-						 m_phase == WM_PHASE_SETUPp ||
-						 m_phase == WM_PHASE_READ   ||
-						 m_phase == WM_PHASE_WRITE  ||
-						 m_phase == WM_PHASE_WRITEp ||
-						 m_phase == WM_PHASE_HELP   )
-					{
-						ChangePhase(WM_PHASE_STOP);
-						return true;
-					}
-					if ( m_phase == WM_PHASE_STOP  ||
-						 m_phase == WM_PHASE_LOST  ||
-						 m_phase == WM_PHASE_BUILD )
-					{
-						ChangePhase(WM_PHASE_INFO);
-						return true;
-					}
-					if ( m_phase == WM_PHASE_INFO )
-					{
-						ChangePhase(WM_PHASE_INIT);
-						return true;
-					}
-					if ( m_phase == WM_PHASE_BUTTON ||
-						 m_phase == WM_PHASE_TERM   ||
-						 m_phase == WM_PHASE_MUSIC  ||
-						 m_phase == WM_PHASE_REGION )
-					{
-						ChangePhase(WM_PHASE_BUILD);
-						return true;
-					}
-					if ( m_phase == WM_PHASE_INIT )
-					{
-						ChangePhase(WM_PHASE_BYE);
-						return true;
-					}
-					if ( m_phase == WM_PHASE_BYE )
-					{
-						SDL_Event ev;
-						ev.type = SDL_QUIT;
-						SDL_PushEvent (&ev);
-						break;
-					}
-					return true;
-			case SDLK_RETURN:
-					if ( m_phase == WM_PHASE_PLAY  ||
-						 m_phase == WM_PHASE_READ  ||
-						 m_phase == WM_PHASE_WRITE ||
-						 m_phase == WM_PHASE_SETUP )
-					{
-						ChangePhase(WM_PHASE_STOP);
-						return true;
-					}
-					if ( m_phase == WM_PHASE_INIT  ||
-						 m_phase == WM_PHASE_LOST  ||
-						 m_phase == WM_PHASE_BUILD )
-					{
-						ChangePhase(WM_PHASE_INFO);
-						return true;
-					}
-					if ( m_phase == WM_PHASE_INFO   ||
-						 m_phase == WM_PHASE_STOP   ||
-						 m_phase == WM_PHASE_HELP   ||
-						 m_phase == WM_PHASE_SETUPp ||
-						 m_phase == WM_PHASE_WRITEp )
-					{
-						ChangePhase(WM_PHASE_PLAY);
-						return true;
-					}
-					if ( m_phase == WM_PHASE_BUTTON ||
-						 m_phase == WM_PHASE_TERM   ||
-						 m_phase == WM_PHASE_MUSIC  ||
-						 m_phase == WM_PHASE_REGION )
-					{
-						ChangePhase(WM_PHASE_BUILD);
-						return true;
-					}
-					return true;
-			case SDLK_LEFT:
-//?					DecorShift(-4,4);
-					DecorShift(-2,2);
-					return true;
-			case SDLK_RIGHT:
-//?					DecorShift(4,-4);
-					DecorShift(2,-2);
-					return true;
-			case SDLK_UP:
-//?					DecorShift(-6,-6);
-					DecorShift(-3,-3);
-					return true;
-			case SDLK_DOWN:
-//?					DecorShift(6,6);
-					DecorShift(3,3);
-					return true;
-			case SDLK_HOME:
-					pos = m_pDecor->GetHome();
-					m_pDecor->SetCoin(pos);
-					return true;
-			case SDLK_SPACE:
-					if ( m_bRunMovie )
-					{
-						StopMovie();
-						m_pSound->SetSuspendSkip(1);
-						return true;
-					}
-					m_pDecor->FlipOutline();
-					return true;
-			case SDLK_PAUSE:
-					m_bPause = !m_bPause;
-					if ( m_phase == WM_PHASE_PLAY )
-					{
-						if ( m_bPause )
-						{
-							m_pSound->SuspendMusic();
-						}
-						else
-						{
-							m_pSound->RestartMusic();
-						}
-					}
-					return true;
-
-			case SDLK_LSHIFT:
-			case SDLK_RSHIFT:
-				m_keymod |= KMOD_SHIFT;
 				break;
-
-			case SDLK_LCTRL:
-			case SDLK_RCTRL:
-				m_keymod |= KMOD_CTRL;
-				OutputDebugString ("CTRL: DOWN");
-					if ( m_phase == WM_PHASE_BUILD )
-					{
-						m_bFillMouse = true;
-						MouseSprite(GetMousePos());
-					}
-					else
-					{
-						m_bFillMouse = false;
-					}
-					return true;
-			case SDLK_F1:
-					if ( m_phase == WM_PHASE_PLAY )
-					{
-						// Montre ou cache les infos tout en haut.
-						if ( m_pDecor->GetInfoMode() )  sound = SOUND_CLOSE;
-						else                            sound = SOUND_OPEN;
-						pos.x = LXIMAGE/2;
-						pos.y = LYIMAGE/2;
-						m_pSound->PlayImage(sound, pos);
-						m_pDecor->SetInfoMode(!m_pDecor->GetInfoMode());
-					}
-					return true;
-			case SDLK_F8:
-					if ( m_phase == WM_PHASE_PLAY )
-					{
-						m_pDecor->MemoPos(0, !!(m_keymod & KMOD_CTRL));
-					}
-					return true;
-			case SDLK_F10:
-					if ( m_phase == WM_PHASE_PLAY )
-					{
-						m_pDecor->MemoPos(1, !!(m_keymod & KMOD_CTRL));
-					}
-					return true;
-			case SDLK_F11:
-					if ( m_phase == WM_PHASE_PLAY )
-					{
-						m_pDecor->MemoPos(2, !!(m_keymod & KMOD_CTRL));
-					}
-					return true;
-			case SDLK_F12:
-					if ( m_phase == WM_PHASE_PLAY )
-					{
-						m_pDecor->MemoPos(3, !!(m_keymod & KMOD_CTRL));
-					}
-					return true;
 			}
+			return true;
+		case SDLK_RETURN:
+			if ( m_phase == WM_PHASE_PLAY  ||
+					m_phase == WM_PHASE_READ  ||
+					m_phase == WM_PHASE_WRITE ||
+					m_phase == WM_PHASE_SETUP )
+			{
+				ChangePhase(WM_PHASE_STOP);
+				return true;
+			}
+			if ( m_phase == WM_PHASE_INIT  ||
+					m_phase == WM_PHASE_LOST  ||
+					m_phase == WM_PHASE_BUILD )
+			{
+				ChangePhase(WM_PHASE_INFO);
+				return true;
+			}
+			if ( m_phase == WM_PHASE_INFO   ||
+					m_phase == WM_PHASE_STOP   ||
+					m_phase == WM_PHASE_HELP   ||
+					m_phase == WM_PHASE_SETUPp ||
+					m_phase == WM_PHASE_WRITEp )
+			{
+				ChangePhase(WM_PHASE_PLAY);
+				return true;
+			}
+			if ( m_phase == WM_PHASE_BUTTON ||
+					m_phase == WM_PHASE_TERM   ||
+					m_phase == WM_PHASE_MUSIC  ||
+					m_phase == WM_PHASE_REGION )
+			{
+				ChangePhase(WM_PHASE_BUILD);
+				return true;
+			}
+			return true;
+		case SDLK_LEFT:
+			DecorShift(-2,2);
+			return true;
+		case SDLK_RIGHT:
+			DecorShift(2,-2);
+			return true;
+		case SDLK_UP:
+			DecorShift(-3,-3);
+			return true;
+		case SDLK_DOWN:
+			DecorShift(3,3);
+			return true;
+		case SDLK_HOME:
+			pos = m_pDecor->GetHome();
+			m_pDecor->SetCoin(pos);
+			return true;
+		case SDLK_SPACE:
+			if ( m_bRunMovie )
+			{
+				StopMovie();
+				m_pSound->SetSuspendSkip(1);
+				return true;
+			}
+			m_pDecor->FlipOutline();
+			return true;
+		case SDLK_PAUSE:
+			m_bPause = !m_bPause;
+			if ( m_phase == WM_PHASE_PLAY )
+			{
+				if ( m_bPause )
+				{
+					m_pSound->SuspendMusic();
+				}
+				else
+				{
+					m_pSound->RestartMusic();
+				}
+			}
+			return true;
+
+		case SDLK_LSHIFT:
+		case SDLK_RSHIFT:
+			m_keymod |= KMOD_SHIFT;
 			break;
+
+		case SDLK_LCTRL:
+		case SDLK_RCTRL:
+			m_keymod |= KMOD_CTRL;
+			if ( m_phase == WM_PHASE_BUILD )
+			{
+				m_bFillMouse = true;
+				MouseSprite(GetMousePos());
+			}
+			else
+			{
+				m_bFillMouse = false;
+			}
+			return true;
+		case SDLK_F1:
+			if ( m_phase == WM_PHASE_PLAY )
+			{
+				// Montre ou cache les infos tout en haut.
+				if ( m_pDecor->GetInfoMode() )  sound = SOUND_CLOSE;
+				else                            sound = SOUND_OPEN;
+				pos.x = LXIMAGE/2;
+				pos.y = LYIMAGE/2;
+				m_pSound->PlayImage(sound, pos);
+				m_pDecor->SetInfoMode(!m_pDecor->GetInfoMode());
+			}
+			return true;
+		case SDLK_F8:
+			if ( m_phase == WM_PHASE_PLAY )
+			{
+				m_pDecor->MemoPos(0, !!(m_keymod & KMOD_CTRL));
+			}
+			return true;
+		case SDLK_F10:
+			if ( m_phase == WM_PHASE_PLAY )
+			{
+				m_pDecor->MemoPos(1, !!(m_keymod & KMOD_CTRL));
+			}
+			return true;
+		case SDLK_F11:
+			if ( m_phase == WM_PHASE_PLAY )
+			{
+				m_pDecor->MemoPos(2, !!(m_keymod & KMOD_CTRL));
+			}
+			return true;
+		case SDLK_F12:
+			if ( m_phase == WM_PHASE_PLAY )
+			{
+				m_pDecor->MemoPos(3, !!(m_keymod & KMOD_CTRL));
+			}
+			return true;
+		}
+		break;
 
 	case SDL_KEYUP:
 			switch (event->key.keysym.sym)
@@ -5022,18 +5017,18 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 	case SDL_USEREVENT:
 		switch (event->user.code)
 		{
-	case WM_PHASE_DEMO:
+		case WM_PHASE_DEMO:
 			m_demoNumber = 0;
 			DemoPlayStart();
 			break;
 
-	case WM_PHASE_SCHOOL:
+		case WM_PHASE_SCHOOL:
 			m_bSchool  = true;
 			m_bPrivate = false;
 			if ( ChangePhase(WM_PHASE_INFO) )  return true;
 			break;
 
-	case WM_PHASE_MISSION:
+		case WM_PHASE_MISSION:
 			m_bSchool  = false;
 			m_bPrivate = false;
 			if ( m_mission == 0 )  // première mission ?
@@ -5046,45 +5041,45 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			}
 			break;
 
-	case WM_PHASE_PRIVATE:
+		case WM_PHASE_PRIVATE:
 			m_bSchool  = false;
 			m_bPrivate = true;
 			if ( ChangePhase(WM_PHASE_INFO) )  return true;
 			break;
 
-	case WM_PHASE_INTRO1:
-	case WM_PHASE_INTRO2:
-	case WM_PHASE_INIT:
-	case WM_PHASE_HISTORY0:
-	case WM_PHASE_HISTORY1:
-	case WM_PHASE_INFO:
-	case WM_PHASE_PLAY:
-	case WM_PHASE_READ:
-	case WM_PHASE_WRITE:
-	case WM_PHASE_WRITEp:
-	case WM_PHASE_BUILD:
-	case WM_PHASE_BUTTON:
-	case WM_PHASE_TERM:
-	case WM_PHASE_STOP:
-	case WM_PHASE_HELP:
-	case WM_PHASE_MUSIC:
-	case WM_PHASE_REGION:
-	case WM_PHASE_SETUP:
-	case WM_PHASE_SETUPp:
-	case WM_PHASE_PLAYMOVIE:
-	case WM_PHASE_H0MOVIE:
-	case WM_PHASE_H1MOVIE:
-	case WM_PHASE_H2MOVIE:
-	case WM_PHASE_WINMOVIE:
-	case WM_PHASE_BYE:
+		case WM_PHASE_INTRO1:
+		case WM_PHASE_INTRO2:
+		case WM_PHASE_INIT:
+		case WM_PHASE_HISTORY0:
+		case WM_PHASE_HISTORY1:
+		case WM_PHASE_INFO:
+		case WM_PHASE_PLAY:
+		case WM_PHASE_READ:
+		case WM_PHASE_WRITE:
+		case WM_PHASE_WRITEp:
+		case WM_PHASE_BUILD:
+		case WM_PHASE_BUTTON:
+		case WM_PHASE_TERM:
+		case WM_PHASE_STOP:
+		case WM_PHASE_HELP:
+		case WM_PHASE_MUSIC:
+		case WM_PHASE_REGION:
+		case WM_PHASE_SETUP:
+		case WM_PHASE_SETUPp:
+		case WM_PHASE_PLAYMOVIE:
+		case WM_PHASE_H0MOVIE:
+		case WM_PHASE_H1MOVIE:
+		case WM_PHASE_H2MOVIE:
+		case WM_PHASE_WINMOVIE:
+		case WM_PHASE_BYE:
 			if ( ChangePhase(event->user.code) )  return true;
 			break;
 
-	case WM_PHASE_UNDO:
+		case WM_PHASE_UNDO:
 			m_pDecor->UndoBack();  // revient en arrière
 			break;
 
-	case WM_PREV:
+		case WM_PREV:
 			m_pDecor->SetInvincible(false);
 			m_pDecor->SetSuper(false);
 			if ( m_bPrivate )
@@ -5113,7 +5108,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			}
 			break;
 
-	case WM_NEXT:
+		case WM_NEXT:
 			m_pDecor->SetInvincible(false);
 			m_pDecor->SetSuper(false);
 			if ( m_bPrivate )
@@ -5146,7 +5141,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			}
 			break;
 
-	case WM_DECOR1:
+		case WM_DECOR1:
 			SetState(WM_DECOR1, 1);
 			SetState(WM_DECOR2, 0);
 			SetState(WM_DECOR3, 0);
@@ -5154,7 +5149,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			SetState(WM_DECOR5, 0);
 			break;
 
-	case WM_DECOR2:
+		case WM_DECOR2:
 			SetState(WM_DECOR1, 0);
 			SetState(WM_DECOR2, 1);
 			SetState(WM_DECOR3, 0);
@@ -5162,7 +5157,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			SetState(WM_DECOR5, 0);
 			break;
 
-	case WM_DECOR3:
+		case WM_DECOR3:
 			SetState(WM_DECOR1, 0);
 			SetState(WM_DECOR2, 0);
 			SetState(WM_DECOR3, 1);
@@ -5170,7 +5165,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			SetState(WM_DECOR5, 0);
 			break;
 
-	case WM_DECOR4:
+		case WM_DECOR4:
 			SetState(WM_DECOR1, 0);
 			SetState(WM_DECOR2, 0);
 			SetState(WM_DECOR3, 0);
@@ -5178,7 +5173,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			SetState(WM_DECOR5, 0);
 			break;
 
-	case WM_DECOR5:
+		case WM_DECOR5:
 			SetState(WM_DECOR1, 0);
 			SetState(WM_DECOR2, 0);
 			SetState(WM_DECOR3, 0);
@@ -5186,84 +5181,84 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			SetState(WM_DECOR5, 1);
 			break;
 
-	case WM_PHASE_SKILL1:
+		case WM_PHASE_SKILL1:
 			m_pDecor->SetSkill(0);
 			SetState(WM_PHASE_SKILL1, true);
 			SetState(WM_PHASE_SKILL2, false);
 			break;
-	case WM_PHASE_SKILL2:
+		case WM_PHASE_SKILL2:
 			m_pDecor->SetSkill(1);
 			SetState(WM_PHASE_SKILL1, false);
 			SetState(WM_PHASE_SKILL2, true);
 			break;
 
-	case WM_BUTTON0:
-	case WM_BUTTON1:
-	case WM_BUTTON2:
-	case WM_BUTTON3:
-	case WM_BUTTON4:
-	case WM_BUTTON5:
-	case WM_BUTTON6:
-	case WM_BUTTON7:
-	case WM_BUTTON8:
-	case WM_BUTTON9:
-	case WM_BUTTON10:
-	case WM_BUTTON11:
-	case WM_BUTTON12:
-	case WM_BUTTON13:
-	case WM_BUTTON14:
-	case WM_BUTTON15:
-	case WM_BUTTON16:
-	case WM_BUTTON17:
-	case WM_BUTTON18:
-	case WM_BUTTON19:
-	case WM_BUTTON20:
-	case WM_BUTTON21:
-	case WM_BUTTON22:
-	case WM_BUTTON23:
-	case WM_BUTTON24:
-	case WM_BUTTON25:
-	case WM_BUTTON26:
-	case WM_BUTTON27:
-	case WM_BUTTON28:
-	case WM_BUTTON29:
-	case WM_BUTTON30:
-	case WM_BUTTON31:
-	case WM_BUTTON32:
-	case WM_BUTTON33:
-	case WM_BUTTON34:
-	case WM_BUTTON35:
-	case WM_BUTTON36:
-	case WM_BUTTON37:
-	case WM_BUTTON38:
-	case WM_BUTTON39:
+		case WM_BUTTON0:
+		case WM_BUTTON1:
+		case WM_BUTTON2:
+		case WM_BUTTON3:
+		case WM_BUTTON4:
+		case WM_BUTTON5:
+		case WM_BUTTON6:
+		case WM_BUTTON7:
+		case WM_BUTTON8:
+		case WM_BUTTON9:
+		case WM_BUTTON10:
+		case WM_BUTTON11:
+		case WM_BUTTON12:
+		case WM_BUTTON13:
+		case WM_BUTTON14:
+		case WM_BUTTON15:
+		case WM_BUTTON16:
+		case WM_BUTTON17:
+		case WM_BUTTON18:
+		case WM_BUTTON19:
+		case WM_BUTTON20:
+		case WM_BUTTON21:
+		case WM_BUTTON22:
+		case WM_BUTTON23:
+		case WM_BUTTON24:
+		case WM_BUTTON25:
+		case WM_BUTTON26:
+		case WM_BUTTON27:
+		case WM_BUTTON28:
+		case WM_BUTTON29:
+		case WM_BUTTON30:
+		case WM_BUTTON31:
+		case WM_BUTTON32:
+		case WM_BUTTON33:
+		case WM_BUTTON34:
+		case WM_BUTTON35:
+		case WM_BUTTON36:
+		case WM_BUTTON37:
+		case WM_BUTTON38:
+		case WM_BUTTON39:
 			ChangeButtons(event->user.code);
 			break;
 
-	case WM_READ0:
-	case WM_READ1:
-	case WM_READ2:
-	case WM_READ3:
-	case WM_READ4:
-	case WM_READ5:
-	case WM_READ6:
-	case WM_READ7:
-	case WM_READ8:
-	case WM_READ9:
+		case WM_READ0:
+		case WM_READ1:
+		case WM_READ2:
+		case WM_READ3:
+		case WM_READ4:
+		case WM_READ5:
+		case WM_READ6:
+		case WM_READ7:
+		case WM_READ8:
+		case WM_READ9:
 			Read(event->user.code);
 			ChangePhase(WM_PHASE_PLAY);  // joue
 			break;
 
-	case WM_WRITE0:
-	case WM_WRITE1:
-	case WM_WRITE2:
-	case WM_WRITE3:
-	case WM_WRITE4:
-	case WM_WRITE5:
-	case WM_WRITE6:
-	case WM_WRITE7:
-	case WM_WRITE8:
-	case WM_WRITE9:
+		case WM_WRITE0:
+		case WM_WRITE1:
+		case WM_WRITE2:
+		case WM_WRITE3:
+		case WM_WRITE4:
+		case WM_WRITE5:
+		case WM_WRITE6:
+		case WM_WRITE7:
+		case WM_WRITE8:
+		case WM_WRITE9:
 			Write(event->user.code);
 			if ( m_phase == WM_PHASE_WRITEp )
 			{
@@ -5275,7 +5270,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			}
 			break;
 
-	case WM_MOVIE:
+		case WM_MOVIE:
 			StartMovie("movie\\essai.avi");
 			ChangePhase(WM_PHASE_INIT);
 			break;
