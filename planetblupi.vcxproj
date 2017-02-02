@@ -206,6 +206,7 @@
     <ClInclude Include="wave.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".editorconfig" />
     <None Include="arrowdl.cur" />
     <None Include="arrow.cur" />
     <None Include="arrowdow.cur" />
