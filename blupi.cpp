@@ -313,7 +313,6 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 							 WPARAM wParam, LPARAM lParam,
 							 const SDL_Event *event)
 {
-	static HINSTANCE	hInstance;
 	POINT				totalDim, iconDim;
 
 	// La touche F10 envoie un autre message pour activer
@@ -332,10 +331,6 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 
     switch( message )
     {
-		case WM_CREATE:
-			hInstance = ((LPCREATESTRUCT)lParam)->hInstance;
-			return 0;
-
 		case MM_MCINOTIFY:
 			OutputDebug("Event MM_MCINOTIFY\n");
 			if ( g_pEvent->IsMovie() )  // film en cours ?
