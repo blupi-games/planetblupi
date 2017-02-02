@@ -366,7 +366,6 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 			break;
 
 		case WM_DESTROY:
-			KillTimer(g_hWnd, 1);
 			FinishObjects();
 			PostQuitMessage(0);
 			break;
@@ -777,12 +776,11 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		return false;
 	}
 
-	SDL_TimerID my_timer_id = SDL_AddTimer (g_timerInterval, [] (Uint32 interval, void *param) -> Uint32
+	SDL_TimerID updateTimer = SDL_AddTimer (g_timerInterval, [] (Uint32 interval, void *param) -> Uint32
 	{
 		CEvent::PushUserEvent (WM_UPDATE);
 		return interval;
 	}, nullptr);
-
 
 	while (SDL_TRUE)
 	{
@@ -816,6 +814,7 @@ out:
 	if (g_window)
 		SDL_DestroyWindow (g_window);
 
+	SDL_RemoveTimer (updateTimer);
 	SDL_Quit ();
 	return static_cast<int> (msg.wParam);
 }
