@@ -364,11 +364,6 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 				}
 			}
 			break;
-
-		case WM_DESTROY:
-			FinishObjects();
-			PostQuitMessage(0);
-			break;
     }
 
 	if (event)
@@ -815,6 +810,7 @@ out:
 		SDL_DestroyWindow (g_window);
 
 	SDL_RemoveTimer (updateTimer);
+	FinishObjects ();
 	SDL_Quit ();
 	return static_cast<int> (msg.wParam);
 }
