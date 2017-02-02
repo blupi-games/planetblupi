@@ -4553,7 +4553,6 @@ void CEvent::WinToSDLEvent (UINT msg, WPARAM wParam, LPARAM lParam, SDL_Event &e
 			// TODO: wParam CTRL or SHIFT
 			event.motion.x = GET_X_LPARAM (lParam);
 			event.motion.y = GET_Y_LPARAM (lParam);
-			SDL_WarpMouseInWindow (nullptr, event.motion.x, event.motion.y);
 			break;
 		}
 	}
@@ -4571,7 +4570,6 @@ void CEvent::DemoStep()
 	UINT		message;
 	WPARAM		wParam;
 	LPARAM		lParam;
-	POINT		pos;
 
 	if ( m_phase == WM_PHASE_INIT )
 	{
@@ -4595,10 +4593,9 @@ void CEvent::DemoStep()
 			lParam  = m_pDemoBuffer[m_demoIndex].lParam;
 			m_demoIndex ++;
 
-			if ( message == WM_MOUSEMOVE &&
-				 m_mouseType == MOUSETYPEWIN )
+			if (message == WM_MOUSEMOVE)
 			{
-				pos = ConvLongToPos(lParam);
+				POINT pos = ConvLongToPos (lParam);
 				SDL_WarpMouseInWindow (g_window, pos.x, pos.y);
 			}
 
