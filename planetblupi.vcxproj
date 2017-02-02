@@ -182,7 +182,6 @@
     <ClCompile Include="tablefloor.cpp" />
     <ClCompile Include="tableobj.cpp" />
     <ClCompile Include="text.cpp" />
-    <ClCompile Include="wave.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="action.h" />
@@ -203,7 +202,6 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="text.h" />
-    <ClInclude Include="wave.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />

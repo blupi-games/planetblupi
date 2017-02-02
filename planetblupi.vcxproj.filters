@@ -92,9 +92,6 @@
     <ClCompile Include="text.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="wave.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="action.h">
@@ -146,9 +143,6 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="text.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="wave.h">
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="blupi.h">
