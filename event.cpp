@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <unordered_map>
 #include <ddraw.h>
 #include "blupi.h"
 #include "def.h"
@@ -4469,6 +4470,99 @@ void CEvent::DemoPlayStop()
 	ChangePhase(WM_PHASE_INIT);
 }
 
+void CEvent::WinToSDLEvent (UINT msg, WPARAM wParam, LPARAM lParam, SDL_Event &event)
+{
+#define GET_X_LPARAM(lp) ((int) (short) LOWORD (lp))
+#define GET_Y_LPARAM(lp) ((int) (short) HIWORD (lp))
+
+	static const std::unordered_map<UINT, SDL_Keysym> keycodes = {
+		{ '0',      { SDL_SCANCODE_0,     SDLK_0,     0, 0 } },
+		{ '1',      { SDL_SCANCODE_1,     SDLK_1,     0, 0 } },
+		{ '2',      { SDL_SCANCODE_2,     SDLK_2,     0, 0 } },
+		{ '3',      { SDL_SCANCODE_3,     SDLK_3,     0, 0 } },
+		{ '4',      { SDL_SCANCODE_4,     SDLK_4,     0, 0 } },
+		{ '5',      { SDL_SCANCODE_5,     SDLK_5,     0, 0 } },
+		{ '6',      { SDL_SCANCODE_6,     SDLK_6,     0, 0 } },
+		{ '7',      { SDL_SCANCODE_7,     SDLK_7,     0, 0 } },
+		{ '8',      { SDL_SCANCODE_8,     SDLK_8,     0, 0 } },
+		{ '9',      { SDL_SCANCODE_9,     SDLK_9,     0, 0 } },
+		{ 'A',      { SDL_SCANCODE_A,     SDLK_a,     0, 0 } },
+		{ 'B',      { SDL_SCANCODE_B,     SDLK_b,     0, 0 } },
+		{ 'C',      { SDL_SCANCODE_C,     SDLK_c,     0, 0 } },
+		{ 'D',      { SDL_SCANCODE_D,     SDLK_d,     0, 0 } },
+		{ 'E',      { SDL_SCANCODE_E,     SDLK_e,     0, 0 } },
+		{ 'F',      { SDL_SCANCODE_F,     SDLK_f,     0, 0 } },
+		{ 'G',      { SDL_SCANCODE_G,     SDLK_g,     0, 0 } },
+		{ 'H',      { SDL_SCANCODE_H,     SDLK_h,     0, 0 } },
+		{ 'I',      { SDL_SCANCODE_I,     SDLK_i,     0, 0 } },
+		{ 'J',      { SDL_SCANCODE_J,     SDLK_j,     0, 0 } },
+		{ 'K',      { SDL_SCANCODE_K,     SDLK_k,     0, 0 } },
+		{ 'L',      { SDL_SCANCODE_L,     SDLK_l,     0, 0 } },
+		{ 'M',      { SDL_SCANCODE_M,     SDLK_m,     0, 0 } },
+		{ 'N',      { SDL_SCANCODE_N,     SDLK_n,     0, 0 } },
+		{ 'O',      { SDL_SCANCODE_O,     SDLK_o,     0, 0 } },
+		{ 'P',      { SDL_SCANCODE_P,     SDLK_p,     0, 0 } },
+		{ 'Q',      { SDL_SCANCODE_Q,     SDLK_q,     0, 0 } },
+		{ 'R',      { SDL_SCANCODE_R,     SDLK_r,     0, 0 } },
+		{ 'S',      { SDL_SCANCODE_S,     SDLK_0,     0, 0 } },
+		{ 'T',      { SDL_SCANCODE_T,     SDLK_t,     0, 0 } },
+		{ 'U',      { SDL_SCANCODE_U,     SDLK_u,     0, 0 } },
+		{ 'V',      { SDL_SCANCODE_V,     SDLK_v,     0, 0 } },
+		{ 'W',      { SDL_SCANCODE_W,     SDLK_w,     0, 0 } },
+		{ 'X',      { SDL_SCANCODE_X,     SDLK_x,     0, 0 } },
+		{ 'Y',      { SDL_SCANCODE_Y,     SDLK_y,     0, 0 } },
+		{ 'Z',      { SDL_SCANCODE_Z,     SDLK_z,     0, 0 } },
+		{ VK_LEFT,  { SDL_SCANCODE_LEFT,  SDLK_LEFT,  0, 0 } },
+		{ VK_UP,    { SDL_SCANCODE_UP,    SDLK_UP,    0, 0 } },
+		{ VK_RIGHT, { SDL_SCANCODE_RIGHT, SDLK_RIGHT, 0, 0 } },
+		{ VK_DOWN,  { SDL_SCANCODE_DOWN,  SDLK_DOWN,  0, 0 } },
+		{ VK_END,   { SDL_SCANCODE_END,   SDLK_END,   0, 0 } },
+	};
+
+	try
+	{
+		switch (msg)
+		{
+		case WM_KEYUP:
+		case WM_KEYDOWN:
+			event.type = msg == WM_KEYDOWN ? SDL_KEYDOWN : SDL_KEYUP;
+			event.key.keysym = keycodes.at (wParam);
+			// TODO: lParam
+			break;
+
+		case WM_LBUTTONUP:
+		case WM_LBUTTONDOWN:
+			event.type = msg == WM_LBUTTONDOWN ? SDL_MOUSEBUTTONDOWN : SDL_MOUSEBUTTONUP;
+			event.button.button = SDL_BUTTON_LEFT;
+			// TODO: wParam CTRL or SHIFT
+			event.button.x = GET_X_LPARAM (lParam);
+			event.button.y = GET_Y_LPARAM (lParam);
+			break;
+
+		case WM_RBUTTONUP:
+		case WM_RBUTTONDOWN:
+			event.type = msg == WM_RBUTTONDOWN ? SDL_MOUSEBUTTONDOWN : SDL_MOUSEBUTTONUP;
+			event.button.button = SDL_BUTTON_RIGHT;
+			// TODO: wParam CTRL or SHIFT
+			event.button.x = GET_X_LPARAM (lParam);
+			event.button.y = GET_Y_LPARAM (lParam);
+			break;
+
+		case WM_MOUSEMOVE:
+			event.type = SDL_MOUSEMOTION;
+			// TODO: wParam CTRL or SHIFT
+			event.motion.x = GET_X_LPARAM (lParam);
+			event.motion.y = GET_Y_LPARAM (lParam);
+			SDL_WarpMouseInWindow (nullptr, event.motion.x, event.motion.y);
+			break;
+		}
+	}
+	catch (const std::exception &ex)
+	{
+		SDL_LogError (SDL_LOG_CATEGORY_APPLICATION, "unsupported keycode");
+	}
+}
+
 // Avance l'index d'enregistrement ou de reproduction.
 
 void CEvent::DemoStep()
@@ -4508,7 +4602,9 @@ void CEvent::DemoStep()
 				SDL_WarpMouseInWindow (g_window, pos.x, pos.y);
 			}
 
-			TreatEventBase(nullptr); // XXX: use SDL_Event
+			SDL_Event event = { 0 };
+			CEvent::WinToSDLEvent (message, wParam, lParam, event);
+			TreatEventBase(&event);
 
 			if ( m_demoIndex >= m_demoEnd )
 			{

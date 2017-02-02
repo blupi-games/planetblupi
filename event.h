@@ -139,6 +139,7 @@ protected:
 	void	DemoRecStop();
 	bool	DemoPlayStart();
 	void	DemoPlayStop();
+	static void WinToSDLEvent (UINT msg, WPARAM wParam, LPARAM lParam, SDL_Event &event);
 	void	DemoRecEvent(UINT message, WPARAM wParam, LPARAM lParam);
 
 protected:
