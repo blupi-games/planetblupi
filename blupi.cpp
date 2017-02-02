@@ -766,10 +766,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 {
 	MSG		msg;
 
-	if ( !DoInit(hInstance, lpCmdLine, nCmdShow) )
-	{
+	if (!DoInit(hInstance, lpCmdLine, nCmdShow))
 		return false;
-	}
 
 	SDL_TimerID updateTimer = SDL_AddTimer (g_timerInterval, [] (Uint32 interval, void *param) -> Uint32
 	{
@@ -799,10 +797,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		SDL_Event event;
 		while (SDL_PollEvent (&event))
-		{
 			WindowProc2 (nullptr, 0, 0, 0, &event);
-		}
-
 	}
 
 out:
