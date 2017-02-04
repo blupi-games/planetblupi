@@ -42,8 +42,6 @@ public:
 	bool	IsPlayingMusic();
 	void	AdaptVolumeMusic();
 	void	SetSuspendSkip(int nb);
-
-protected:
 	bool	StopAllSounds();
 
 protected:
