@@ -44,7 +44,6 @@ public:
 	void	SetSuspendSkip(int nb);
 
 protected:
-	bool	ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWORD dwPos);
 	bool	StopAllSounds();
 
 protected:
