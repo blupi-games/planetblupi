@@ -2,7 +2,6 @@
 //
 
 #include <SDL.h>
-#include <dsound.h>
 #include <stdio.h>
 #include "sound.h"
 #include "event.h"
@@ -33,7 +32,6 @@ CSound::CSound()
 	
 	m_bEnable         = false;
 	m_bState          = false;
-	m_MidiDeviceID    = 0;
 	m_MIDIFilename[0] = 0;
 	m_audioVolume     = 20;
 	m_midiVolume      = 15;
@@ -268,7 +266,7 @@ bool CSound::PlayImage(int channel, POINT pos, int rank)
 // Uses MCI to play a MIDI file. The window procedure
 // is notified when playback is complete.
 
-bool CSound::PlayMusic(HWND hWnd, LPSTR lpszMIDIFilename)
+bool CSound::PlayMusic(LPSTR lpszMIDIFilename)
 {
 	char string[MAX_PATH];
 
@@ -315,7 +313,7 @@ bool CSound::RestartMusic()
 	if ( m_midiVolume == 0 )  return true;
 	if ( m_MIDIFilename[0] == 0 )  return false;
 
-	return PlayMusic(m_hWnd, m_MIDIFilename);
+	return PlayMusic(m_MIDIFilename);
 }
 
 // Shuts down the MIDI player.

@@ -4,6 +4,7 @@
 #pragma once
 
 #include <stdio.h>
+#include <Windows.h>
 #include <SDL_mixer.h>
 
 
@@ -34,7 +35,7 @@ public:
 
 	bool	Play(int channel, int volume=0, Uint8 panLeft = 255, Uint8 panRight = 255);
 	bool	PlayImage(int channel, POINT pos, int rank=-1);
-	bool	PlayMusic(HWND hWnd, LPSTR lpszMIDIFilename);
+	bool	PlayMusic(LPSTR lpszMIDIFilename);
 	bool	RestartMusic();
 	void	SuspendMusic();
 	void	StopMusic();
@@ -45,14 +46,12 @@ public:
 	bool	StopAllSounds();
 
 protected:
-	HWND				m_hWnd;
 	bool				m_bEnable;
 	bool				m_bState;
 	bool				m_bStopped;
 	Mix_Music			*m_pMusic;
 	Mix_Chunk			*m_lpSDL[MAXSOUND];
 	short				m_channelBlupi[MAXBLUPI];
-	UINT				m_MidiDeviceID;
 	char				m_MIDIFilename[50];
 	int					m_audioVolume;
 	int					m_midiVolume;

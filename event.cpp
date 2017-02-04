@@ -3128,7 +3128,7 @@ bool CEvent::ChangePhase(UINT phase)
 			{
 				sprintf(filename, "sound\\music%.3d.blp", music-1);
 				m_pSound->StopMusic ();
-				m_pSound->PlayMusic(m_hWnd, filename);
+				m_pSound->PlayMusic(filename);
 			}
 		}
 	}
