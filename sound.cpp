@@ -1,6 +1,7 @@
 // sound.cpp
 //
 
+#include <SDL.h>
 #include <dsound.h>
 #include <stdio.h>
 #include "sound.h"
@@ -121,51 +122,6 @@ bool CSound::ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWOR
     return true;
 }
 
-// Creates a DirectSound buffer from a wave file.
-
-bool CSound::CreateBufferFromWaveFile(int dwBuf, char *pFileName)
-{
-    // Open the wave file       
-    FILE* pFile = fopen(pFileName, "rb");
-    if ( pFile == NULL ) return false;
-
-    // Read in the wave header          
-    WaveHeader wavHdr;
-    if ( fread(&wavHdr, sizeof(wavHdr), 1, pFile) != 1 ) 
-    {
-        fclose(pFile);
-        return NULL;
-    }
-
-    // Figure out the size of the data region
-    DWORD dwSize = wavHdr.dwDSize;
-
-    // Is this a stereo or mono file?
-    bool bStereo = wavHdr.wChnls > 1 ? true : false;
-
-    // Create the sound buffer for the wave file
-    if ( !CreateSoundBuffer(dwBuf, dwSize, wavHdr.dwSRate,
-							wavHdr.BitsPerSample, wavHdr.wBlkAlign, bStereo) )
-    {
-        // Close the file
-        fclose(pFile);
-        
-        return false;
-    }
-
-    // Read the data for the wave file into the sound buffer
-    if ( !ReadData(m_lpDSB[dwBuf], pFile, dwSize, sizeof(wavHdr)) )
-    {
-        fclose(pFile);
-        return false;
-    }
-
-    // Close out the wave file
-    fclose(pFile);
-
-    return true;
-}
-
 // Stops all sounds.
 
 bool CSound::StopAllSounds()
@@ -207,6 +163,8 @@ bool CSound::PlaySoundDS(DWORD dwSound, DWORD dwFlags)
            TRY_DS(m_lpDSB[dwSound]->Play(0, 0, dwFlags));
         }
     }
+
+	Mix_PlayChannel (-1, m_lpSDL[dwSound], 0);
 
     return true;
 }
@@ -336,16 +294,12 @@ CSound::~CSound()
 
 bool CSound::Create(HWND hWnd)
 {
-	if ( !DirectSoundCreate(NULL, &m_lpDS, NULL) == DS_OK )
-	{
-		OutputDebug("Fatal error: DirectSoundCreate\n");
-		m_bEnable = false;
-		return false;
-	}
-
-	m_lpDS->SetCooperativeLevel(hWnd, DSSCL_NORMAL);
 	m_bEnable = true;
-	m_hWnd    = hWnd;
+
+	if (Mix_OpenAudio (44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096) == -1)
+		return false;
+
+	Mix_AllocateChannels (MAXSOUND);
 	return true;
 }
 
@@ -418,8 +372,15 @@ bool CSound::Cache(int channel, char *pFilename)
 	{
 		Flush(channel);
 	}
-	
-	return CreateBufferFromWaveFile(channel, pFilename);
+
+	m_lpSDL[channel] = Mix_LoadWAV (pFilename);
+	if (!m_lpSDL[channel])
+	{
+		SDL_Log ("Mix_LoadWAV: %s\n", Mix_GetError ());
+		return false;
+	}
+
+	return true;
 }
 
 // Décharge un son.
@@ -434,29 +395,37 @@ void CSound::Flush(int channel)
 		m_lpDSB[channel]->Release();
 		m_lpDSB[channel]= NULL;
 	}
+
+	if (m_lpSDL[channel])
+	{
+		Mix_FreeChunk (m_lpSDL[channel]);
+		m_lpSDL[channel] = nullptr;
+	}
 }
 
 // Fait entendre un son.
-// Le volume est compris entre 0 (max) et -10000 (silence).
-// Le panoramique est compris entre -10000 (gauche), 0 (centre)
-// et +10000 (droite).
+// Le volume est compris entre 128 (max) et 0 (silence).
+// Le panoramique est compris entre 255,0 (gauche), 127,128 (centre)
+// et 0,255 (droite).
 
-bool CSound::Play(int channel, int volume, int pan)
+bool CSound::Play(int channel, int volume, Uint8 panLeft, Uint8 panRight)
 {
-	if ( !m_bEnable )  return true;
-	if ( !m_bState || m_audioVolume == 0 )  return true;
+	if (!m_bEnable)
+		return true;
 
-	volume -= (MAXVOLUME-m_audioVolume)*((10000/4)/MAXVOLUME);
+	if (!m_bState || !m_audioVolume)
+		return true;
 
-//?	if ( volume == -10000 )  return true;
-	if ( volume <= -10000/4 )  return true;
+	if (channel < 0 || channel >= MAXSOUND)
+		return false;
 
-	if ( channel < 0 || channel >= MAXSOUND )  return false;
-	if ( m_lpDSB[channel] == NULL )            return false;
+	Mix_SetPanning (channel + 1, panLeft, panRight);
 
-	m_lpDSB[channel]->SetVolume(volume);
-	m_lpDSB[channel]->SetPan(pan);
-	m_lpDSB[channel]->Play(0, 0, 0);
+	volume = volume * 100 * m_audioVolume / 20 / 100;
+	Mix_Volume (channel + 1, volume);
+
+	if (Mix_Playing (channel + 1) == SDL_FALSE)
+		Mix_PlayChannel (channel + 1, m_lpSDL[channel], 0);
 
 	return true;
 }
@@ -472,47 +441,54 @@ bool CSound::PlayImage(int channel, POINT pos, int rank)
 	if ( rank >= 0 && rank < MAXBLUPI )
 	{
 		stopCh = m_channelBlupi[rank];
-		if ( stopCh >= 0 && m_lpDSB[stopCh] != NULL )
-		{
-			m_lpDSB[stopCh]->Stop();  // stoppe le son précédent
-			m_lpDSB[stopCh]->SetCurrentPosition(0);
-		}
+		if ( stopCh >= 0 && m_lpSDL[stopCh] != NULL )
+			Mix_FadeOutChannel (stopCh + 1, 500);
 
 		m_channelBlupi[rank] = channel;
 	}
 
-//?	pan = (int)(((long)pos.x*20000L)/LXIMAGE)-10000L;
-//?	pan = (int)(((long)pos.x*10000L)/LXIMAGE)-5000L;
-	pan = (int)(((long)pos.x*5000L)/LXIMAGE)-2500L;
+	Uint8 panRight, panLeft;
+	volumex = MIX_MAX_VOLUME;
+	volumey = MIX_MAX_VOLUME;
 
-	volumex = 0;  // volume maximum
-	if ( pos.x < 0 )
+	if (pos.x < 0)
 	{
-		volumex = (pos.x*2500)/LXIMAGE;
+		panRight = 0;
+		panLeft  = 255;
+		volumex += pos.x;
+		if (volumex < 0)
+			volumex = 0;
 	}
-	if ( pos.x > LXIMAGE )
+	else if (pos.x > LXIMAGE)
 	{
-		pos.x -= LXIMAGE;
-		volumex = (-pos.x*2500)/LXIMAGE;
+		panRight = 255;
+		panLeft  = 0;
+		volumex -= pos.x - LXIMAGE;
+		if (volumex < 0)
+			volumex = 0;
 	}
-	if ( volumex < -10000 )  volumex = -10000;
+	else
+	{
+		panRight = 255 * static_cast<Uint16> (pos.x) / LXIMAGE;
+		panLeft  = 255 - panRight;
+	}
 
-	volumey = 0;  // volume maximum
-	if ( pos.y < 0 )
+	if (pos.y < 0)
 	{
-		volumey = (pos.y*2500)/LYIMAGE;
+		volumey += pos.y;
+		if (volumey < 0)
+			volumey = 0;
 	}
-	if ( pos.y > LYIMAGE )
+	else if (pos.y > LYIMAGE)
 	{
-		pos.y -= LYIMAGE;
-		volumey = (-pos.y*2500)/LYIMAGE;
+		volumey -= pos.y - LYIMAGE;
+		if (volumey < 0)
+			volumey = 0;
 	}
-	if ( volumey < -10000 )  volumey = -10000;
 
-	if ( volumex < volumey )  volume = volumex;
-	else                      volume = volumey;
+	volume = volumex < volumey ? volumex : volumey;
 
-	return Play(channel, volume, pan);
+	return Play(channel, volume, panLeft, panRight);
 }
 
 

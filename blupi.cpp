@@ -500,7 +500,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	if (res < 0)
 		return false;
 
-
 	// Create a window.
 	if ( g_bFullScreen )
 	{

@@ -5,6 +5,7 @@
 
 #include <dsound.h>
 #include <stdio.h>
+#include <SDL_mixer.h>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -32,7 +33,7 @@ public:
 	bool	Cache(int channel, char *pFilename);
 	void	Flush(int channel);
 
-	bool	Play(int channel, int volume=0, int pan=0);
+	bool	Play(int channel, int volume=0, Uint8 panLeft = 255, Uint8 panRight = 255);
 	bool	PlayImage(int channel, POINT pos, int rank=-1);
 	bool	PlayMusic(HWND hWnd, LPSTR lpszMIDIFilename);
 	bool	RestartMusic();
@@ -45,7 +46,6 @@ public:
 protected:
 	bool	CreateSoundBuffer(int dwBuf, DWORD dwBufSize, DWORD dwFreq, DWORD dwBitsPerSample, DWORD dwBlkAlign, bool bStereo);
 	bool	ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWORD dwPos);
-	bool	CreateBufferFromWaveFile(int dwBuf, char *pFileName);
 	bool	StopAllSounds();
 	bool	PlaySoundDS(DWORD dwSound, DWORD dwFlags);
 
@@ -55,6 +55,7 @@ protected:
 	bool				m_bState;
 	LPDIRECTSOUND		m_lpDS;
 	LPDIRECTSOUNDBUFFER	m_lpDSB[MAXSOUND];
+	Mix_Chunk			*m_lpSDL[MAXSOUND];
 	short				m_channelBlupi[MAXBLUPI];
 	UINT				m_MidiDeviceID;
 	char				m_MIDIFilename[50];
