@@ -4561,7 +4561,7 @@ void CEvent::WinToSDLEvent (UINT msg, WPARAM wParam, LPARAM lParam, SDL_Event &e
 			break;
 		}
 	}
-	catch (const std::exception &ex)
+	catch (...)
 	{
 		SDL_LogError (SDL_LOG_CATEGORY_APPLICATION, "unsupported keycode");
 	}
