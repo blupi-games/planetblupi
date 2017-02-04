@@ -722,7 +722,7 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	g_pSound = new CSound;
 	if ( g_pSound == NULL )  return InitFail("New sound", true);
 
-	g_pSound->Create(g_hWnd);
+	g_pSound->Create();
 	g_pSound->CacheAll();
 	g_pSound->SetState(true);
 

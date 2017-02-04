@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <dsound.h>
 #include <stdio.h>
 #include <SDL_mixer.h>
 
@@ -20,7 +19,7 @@ public:
 	CSound();
 	~CSound();
 
-	bool	Create(HWND hWnd);
+	bool	Create();
 	void	SetState(bool bState);
 	bool	GetEnable();
 
@@ -48,8 +47,6 @@ protected:
 	HWND				m_hWnd;
 	bool				m_bEnable;
 	bool				m_bState;
-	LPDIRECTSOUND		m_lpDS;
-	LPDIRECTSOUNDBUFFER	m_lpDSB[MAXSOUND];
 	Mix_Chunk			*m_lpSDL[MAXSOUND];
 	short				m_channelBlupi[MAXBLUPI];
 	UINT				m_MidiDeviceID;

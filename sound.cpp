@@ -104,13 +104,6 @@ CSound::CSound()
 	m_lastMidiVolume  = 0;
 	m_nbSuspendSkip   = 0;
 
-	m_lpDS = NULL;
-
-	for ( i=0 ; i<MAXSOUND ; i++ )
-	{
-		m_lpDSB[i] = NULL;
-	}
-
 	for ( i=0 ; i<MAXBLUPI ; i++ )
 	{
 		m_channelBlupi[i] = -1;
@@ -130,24 +123,18 @@ CSound::~CSound()
 
 	for ( i=0 ; i<MAXSOUND ; i++ )
 	{
-		if ( m_lpDSB[i] != NULL )
-		{
-//?			m_lpDSB[i]->Release();
-			m_lpDSB[i]= NULL;
-		}
-	}
+		if (!m_lpSDL[i])
+			continue;
 
-	if ( m_lpDS != NULL )
-	{
-		m_lpDS->Release();
-		m_lpDS = NULL;
+		Mix_FreeChunk (m_lpSDL[i]);
+		m_lpSDL[i] = nullptr;
 	}
 }
 
 
 // Initialisation de DirectSound.
 
-bool CSound::Create(HWND hWnd)
+bool CSound::Create()
 {
 	m_bEnable = true;
 
@@ -223,10 +210,8 @@ bool CSound::Cache(int channel, char *pFilename)
 	if ( !m_bEnable )  return false;
 	if ( channel < 0 || channel >= MAXSOUND )  return false;
 
-	if ( m_lpDSB[channel] != NULL )
-	{
+	if (m_lpSDL[channel])
 		Flush(channel);
-	}
 
 	m_lpSDL[channel] = Mix_LoadWAV (pFilename);
 	if (!m_lpSDL[channel])
@@ -244,12 +229,6 @@ void CSound::Flush(int channel)
 {
 	if ( !m_bEnable )  return;
 	if ( channel < 0 || channel >= MAXSOUND )  return;
-
-	if ( m_lpDSB[channel] != NULL )
-	{
-		m_lpDSB[channel]->Release();
-		m_lpDSB[channel]= NULL;
-	}
 
 	if (m_lpSDL[channel])
 	{
@@ -291,7 +270,7 @@ bool CSound::Play(int channel, int volume, Uint8 panLeft, Uint8 panRight)
 
 bool CSound::PlayImage(int channel, POINT pos, int rank)
 {
-	int		stopCh, volumex, volumey, volume, pan;
+	int stopCh, volumex, volumey, volume;
 
 	if ( rank >= 0 && rank < MAXBLUPI )
 	{
