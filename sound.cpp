@@ -10,14 +10,6 @@
 #include "resource.h"
 
 
-/////////////////////////////////////////////////////////////////////////////
-
-
-
-// The following macro are used for proper error handling for DirectSound.
-#define TRY_DS(exp) { { HRESULT rval = exp; if (rval != DS_OK) { TraceErrorDS(rval, __FILE__, __LINE__); return false; } } }
-
-
 struct WaveHeader
 {
     BYTE        RIFF[4];          // "RIFF"
@@ -96,22 +88,16 @@ bool CSound::ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWOR
 
 bool CSound::StopAllSounds()
 {
-    // Make sure we have a valid sound buffer
-    for (int i = 0; i < MAXSOUND; i ++)
-    {
-        if ( m_lpDSB[i] )
-        {
-            DWORD dwStatus;
-            TRY_DS(m_lpDSB[i]->GetStatus(&dwStatus));
+	for (int i = 0; i < MAXSOUND; i ++)
+	{
+		if (!m_lpSDL[i])
+			continue;
 
-            if ( (dwStatus & DSBSTATUS_PLAYING) == DSBSTATUS_PLAYING )
-            {
-                TRY_DS(m_lpDSB[i]->Stop())
-            }
-        }
-    }
+		if (Mix_Playing (i + 1) == SDL_TRUE)
+			Mix_FadeOutChannel (i + 1, 500);
+	}
 
-    return true;
+	return true;
 }
 
 /////////////////////////////////////////////////////////////////////////////
