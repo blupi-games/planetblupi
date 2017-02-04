@@ -5,6 +5,7 @@
 #include <dsound.h>
 #include <stdio.h>
 #include "sound.h"
+#include "event.h"
 #include "misc.h"
 #include "def.h"
 #include "resource.h"
@@ -26,71 +27,6 @@ bool CSound::StopAllSounds()
 	return true;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-
-// Modifie le volume midi.
-// Le volume est compris entre 0 et 20 !
-
-void InitMidiVolume(int volume)
-{
-	int				nb, i, n;
-	MMRESULT		result;
-	HMIDIOUT		hmo = 0;
-
-	static unsigned int table[21] =
-	{
-		0x00000000,
-		0x11111111,
-		0x22222222,
-		0x33333333,
-		0x44444444,
-		0x55555555,
-		0x66666666,
-		0x77777777,
-		0x88888888,
-		0x99999999,
-		0xAAAAAAAA,
-		0xBBBBBBBB,
-		0xCCCCCCCC,
-		0xDDDDDDDD,
-		0xEEEEEEEE,
-		0xF222F222,
-		0xF555F555,
-		0xF777F777,
-		0xFAAAFAAA,
-		0xFDDDFDDD,
-		0xFFFFFFFF,
-	};
-
-	if ( volume < 0         )  volume = 0;
-	if ( volume > MAXVOLUME )  volume = MAXVOLUME;
-
-	nb = midiOutGetNumDevs();
-	for ( i=0 ; i<nb ; i++ )
-	{
-		result = midiOutOpen((LPHMIDIOUT)&hmo, i, 0L, 0L, 0L);
-		if ( result != MMSYSERR_NOERROR )
-		{
-			continue;
-		}
-
-		result = midiOutSetVolume(hmo, table[volume]);
-		if ( result != MMSYSERR_NOERROR )
-		{
-			n = 1;
-		}
-		midiOutClose(hmo);
-		hmo = 0;
-	}
-}
-
-
-/////////////////////////////////////////////////////////////////////////////
-
-
-// Constructeur.
-
 CSound::CSound()
 {
 	int		i;
@@ -103,6 +39,8 @@ CSound::CSound()
 	m_midiVolume      = 15;
 	m_lastMidiVolume  = 0;
 	m_nbSuspendSkip   = 0;
+	m_pMusic          = nullptr;
+	m_bStopped        = false;
 
 	for ( i=0 ; i<MAXBLUPI ; i++ )
 	{
@@ -115,11 +53,6 @@ CSound::CSound()
 CSound::~CSound()
 {
 	int		i;
-
-	if ( m_bEnable )
-	{
-		InitMidiVolume(15);  // remet un volume moyen !
-	}
 
 	for ( i=0 ; i<MAXSOUND ; i++ )
 	{
@@ -142,6 +75,12 @@ bool CSound::Create()
 		return false;
 
 	Mix_AllocateChannels (MAXSOUND);
+
+	Mix_HookMusicFinished ([] ()
+	{
+		CEvent::PushUserEvent (WM_MUSIC_STOP);
+	});
+
 	return true;
 }
 
@@ -331,14 +270,12 @@ bool CSound::PlayImage(int channel, POINT pos, int rank)
 
 bool CSound::PlayMusic(HWND hWnd, LPSTR lpszMIDIFilename)
 {
-	MCI_OPEN_PARMS	mciOpenParms;
-	MCI_PLAY_PARMS	mciPlayParms;
-	DWORD			dwReturn;
-	char			string[MAX_PATH];
+	char string[MAX_PATH];
 
 	if ( !m_bEnable )  return true;
 	if ( m_midiVolume == 0 )  return true;
-	InitMidiVolume(m_midiVolume);
+
+	Mix_VolumeMusic (MIX_MAX_VOLUME * 100 * m_midiVolume / 20 / 100);
 	m_lastMidiVolume = m_midiVolume;
 
 	if ( lpszMIDIFilename[1] == ':' )  // nom complet "D:\REP..." ?
@@ -351,43 +288,21 @@ bool CSound::PlayMusic(HWND hWnd, LPSTR lpszMIDIFilename)
 		strcat(string, lpszMIDIFilename);
 	}
 
-	// Open the device by specifying the device and filename.
-	// MCI will attempt to choose the MIDI mapper as the output port.
-	mciOpenParms.lpstrDeviceType = "sequencer";
-	mciOpenParms.lpstrElementName = string;
-	dwReturn = mciSendCommand(NULL,
-							  MCI_OPEN,
-							  MCI_OPEN_TYPE|MCI_OPEN_ELEMENT,
-							  (DWORD_PTR)(LPVOID)&mciOpenParms);
-	if ( dwReturn != 0 )
+	m_pMusic = Mix_LoadMUS (string);
+	if (!m_pMusic)
 	{
-		OutputDebug("PlayMusic-1\n");
-		mciGetErrorString(dwReturn, string, 128);
-		OutputDebug(string);
-		// Failed to open device. Don't close it; just return error.
+		printf ("%s\n", Mix_GetError ());
 		return false;
 	}
 
-	// The device opened successfully; get the device ID.
-	m_MidiDeviceID = mciOpenParms.wDeviceID;
-
-	// Begin playback. 
-	mciPlayParms.dwCallback = (DWORD_PTR)hWnd;
-	dwReturn = mciSendCommand(m_MidiDeviceID,
-							  MCI_PLAY,
-							  MCI_NOTIFY, 
-							  (DWORD_PTR)(LPVOID)&mciPlayParms);
-	if ( dwReturn != 0 )
+	if (Mix_PlayMusic (m_pMusic, 0) == -1)
 	{
-		OutputDebug("PlayMusic-2\n");
-		mciGetErrorString(dwReturn, string, 128);
-		OutputDebug(string);
-		StopMusic();
+		printf ("%s\n", Mix_GetError ());
 		return false;
 	}
 
+	m_bStopped = false;
 	strcpy(m_MIDIFilename, lpszMIDIFilename);
-
 	return true;
 }
 
@@ -415,11 +330,8 @@ void CSound::SuspendMusic()
 		return;
 	}
 
-	if ( m_MidiDeviceID && m_midiVolume != 0 )
-	{
-		mciSendCommand(m_MidiDeviceID, MCI_CLOSE, 0, NULL);
-	}
-	m_MidiDeviceID = 0;
+	m_bStopped = true;
+	Mix_HaltMusic ();
 }
 
 // Shuts down the MIDI player.
@@ -437,15 +349,19 @@ bool CSound::IsPlayingMusic()
 	return (m_MIDIFilename[0] != 0);
 }
 
+bool CSound::IsStoppedOnDemand ()
+{
+	return m_bStopped;
+}
+
 // Adapte le volume de la musique en cours, si nécessaire.
 
 void CSound::AdaptVolumeMusic()
 {
-	if ( m_midiVolume != m_lastMidiVolume )
+	if (m_midiVolume != m_lastMidiVolume)
 	{
-		InitMidiVolume(m_midiVolume);
+		Mix_VolumeMusic (MIX_MAX_VOLUME * 100 * m_midiVolume / 20 / 100);
 		m_lastMidiVolume = m_midiVolume;
-		RestartMusic();
 	}
 }
 

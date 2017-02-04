@@ -4,6 +4,7 @@
 
 #include "jauge.h"
 #include "menu.h"
+#include "button.h"
 
 class CMovie;
 

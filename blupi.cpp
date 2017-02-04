@@ -329,38 +329,6 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 	if ( g_pEvent != NULL &&
 		 g_pEvent->TreatEvent(event) )  return 0;
 
-    switch( message )
-    {
-		case MM_MCINOTIFY:
-			OutputDebug("Event MM_MCINOTIFY\n");
-			if ( g_pEvent->IsMovie() )  // film en cours ?
-			{
-				if ( wParam == MCI_NOTIFY_SUCCESSFUL )
-				{
-					g_pEvent->StopMovie();
-				}
-			}
-			else
-			{
-				// music over, play it again
-				g_pSound->SuspendMusic();
-				// if music finished, play it again. Otherwise assume that
-				// it was aborted by the user or otherwise
-				if ( wParam == MCI_NOTIFY_SUCCESSFUL )
-				{
-					OutputDebug("Event MCI_NOTIFY_SUCCESSFUL\n");
-					g_pSound->RestartMusic();
-				}
-				else
-				{
-					char s[50];
-					sprintf(s, "wParam=%d\n", static_cast<int> (wParam));
-					OutputDebug(s);
-				}
-			}
-			break;
-    }
-
 	if (event)
 	{
 		switch (event->type)
@@ -435,6 +403,16 @@ LRESULT CALLBACK WindowProc2 (HWND hWnd, UINT message,
 					}
 					g_pPixmap->Display ();
 				}
+				break;
+
+			case WM_MUSIC_STOP:
+				if (g_pSound->IsStoppedOnDemand ())
+					break;
+
+				if (g_pEvent->IsMovie ())
+					g_pEvent->StopMovie ();
+				else
+					g_pSound->RestartMusic ();
 				break;
 			}
 			break;

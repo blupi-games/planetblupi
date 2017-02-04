@@ -3127,6 +3127,7 @@ bool CEvent::ChangePhase(UINT phase)
 			if ( music > 0 )
 			{
 				sprintf(filename, "sound\\music%.3d.blp", music-1);
+				m_pSound->StopMusic ();
 				m_pSound->PlayMusic(m_hWnd, filename);
 			}
 		}
@@ -3651,7 +3652,7 @@ void CEvent::ChangeButtons(int message)
 			if ( volume > 0 )
 			{
 				m_pSound->SetMidiVolume(volume-1);
-				m_pSound->SuspendMusic();
+				m_pSound->AdaptVolumeMusic ();
 			}
 		}
 		if ( message == WM_BUTTON6 )
@@ -3660,7 +3661,7 @@ void CEvent::ChangeButtons(int message)
 			if ( volume < MAXVOLUME )
 			{
 				m_pSound->SetMidiVolume(volume+1);
-				m_pSound->SuspendMusic();
+				m_pSound->AdaptVolumeMusic ();
 			}
 		}
 

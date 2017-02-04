@@ -39,6 +39,7 @@ public:
 	void	SuspendMusic();
 	void	StopMusic();
 	bool	IsPlayingMusic();
+	bool	IsStoppedOnDemand ();
 	void	AdaptVolumeMusic();
 	void	SetSuspendSkip(int nb);
 	bool	StopAllSounds();
@@ -47,6 +48,8 @@ protected:
 	HWND				m_hWnd;
 	bool				m_bEnable;
 	bool				m_bState;
+	bool				m_bStopped;
+	Mix_Music			*m_pMusic;
 	Mix_Chunk			*m_lpSDL[MAXSOUND];
 	short				m_channelBlupi[MAXBLUPI];
 	UINT				m_MidiDeviceID;

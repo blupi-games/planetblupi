@@ -588,6 +588,8 @@ enum MouseSprites
 #define WM_PHASE_INTRO1			(WM_USER+536)
 #define WM_PHASE_INTRO2			(WM_USER+537)
 
+#define WM_MUSIC_STOP			(WM_USER+550)
+
 #define WM_PREV					(WM_USER+600)
 #define WM_NEXT					(WM_USER+601)
 #define WM_MOVIE				(WM_USER+602)
