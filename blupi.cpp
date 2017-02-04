@@ -556,13 +556,17 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 		g_window = SDL_CreateWindow (NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, LXIMAGE, LYIMAGE, 0);
 	}
 
-	g_renderer = SDL_CreateRenderer (g_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
-
-	if ( !g_hWnd )  return false;
-
 	if (!g_window)
 	{
-		printf ("Could not create window: %s\n", SDL_GetError ());
+		printf (SDL_GetError ());
+		return false;
+	}
+
+	g_renderer = SDL_CreateRenderer (g_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+	if (!g_renderer)
+	{
+		printf (SDL_GetError ());
+		SDL_DestroyWindow (g_window);
 		return false;
 	}
 
