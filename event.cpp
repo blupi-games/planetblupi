@@ -4606,7 +4606,7 @@ void CEvent::DemoStep()
 
 			SDL_Event event = { 0 };
 			CEvent::WinToSDLEvent (message, wParam, lParam, event);
-			TreatEventBase(&event);
+			TreatEventBase(event);
 
 			if ( m_demoIndex >= m_demoEnd )
 			{
@@ -4671,19 +4671,19 @@ POINT CEvent::GetLastMousePos()
 
 // Traitement d'un événement.
 
-bool CEvent::TreatEvent(const SDL_Event *event)
+bool CEvent::TreatEvent(const SDL_Event &event)
 {
-	if ( m_bDemoPlay && event)  // démo en lecture ?
+	if (m_bDemoPlay)
 	{
-		if (event->type == SDL_KEYDOWN ||
-			event->type == SDL_KEYUP ||
-			event->type == SDL_MOUSEBUTTONUP) // is the user clicking?
+		if (event.type == SDL_KEYDOWN ||
+			event.type == SDL_KEYUP ||
+			event.type == SDL_MOUSEBUTTONUP) // is the user clicking?
 		{
 			DemoPlayStop ();
 			return true;
 		}
 
-		if (event->type == SDL_MOUSEMOTION) // is the user moving?
+		if (event.type == SDL_MOUSEMOTION) // is the user moving?
 			return true;
 	}
 
@@ -4692,7 +4692,7 @@ bool CEvent::TreatEvent(const SDL_Event *event)
 
 // Traitement d'un événement.
 
-bool CEvent::TreatEventBase(const SDL_Event *event)
+bool CEvent::TreatEventBase(const SDL_Event &event)
 {
 	POINT		pos;
 	int			i, sound;
@@ -4701,20 +4701,17 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 
 	//DemoRecEvent(message, wParam, lParam); XXX: use SDL_Event
 
-	if (!event)
-		return false;
-
-    switch (event->type)
+    switch (event.type)
     {
 	case SDL_KEYDOWN:
-		if ( event->key.keysym.sym >= SDLK_a && event->key.keysym.sym <= SDLK_z )
+		if ( event.key.keysym.sym >= SDLK_a && event.key.keysym.sym <= SDLK_z )
 		{
 			if ( m_posCheat == 0 )  // première lettre ?
 			{
 				m_rankCheat = -1;
 				for ( i=0 ; i<9 ; i++ )
 				{
-					if ( (char) event->key.keysym.sym == cheat_code[i][0] )
+					if ( (char) event.key.keysym.sym == cheat_code[i][0] )
 					{
 						m_rankCheat = i;
 						break;
@@ -4725,7 +4722,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			{
 				c = cheat_code[m_rankCheat][m_posCheat];
 				if ( m_posCheat != 0 && m_rankCheat == 8 )  c++;  // CONSTRUIRE ?
-				if ( (char) event->key.keysym.sym == c )
+				if ( (char) event.key.keysym.sym == c )
 				{
 					m_posCheat ++;
 					if ( cheat_code[m_rankCheat][m_posCheat] == 0 )
@@ -4833,7 +4830,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			SDL_PushEvent (&ev);
 		}
 
-		switch (event->key.keysym.sym)
+		switch (event.key.keysym.sym)
 		{
 		case SDLK_END:
 			DemoRecStop();
@@ -5021,7 +5018,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 		break;
 
 	case SDL_KEYUP:
-			switch (event->key.keysym.sym)
+			switch (event.key.keysym.sym)
 			{
 			case SDLK_LSHIFT:
 			case SDLK_RSHIFT:
@@ -5039,37 +5036,37 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			break;
 
 	case SDL_MOUSEBUTTONDOWN:
-		if (   event->button.button != SDL_BUTTON_LEFT
-			&& event->button.button != SDL_BUTTON_RIGHT)
+		if (   event.button.button != SDL_BUTTON_LEFT
+			&& event.button.button != SDL_BUTTON_RIGHT)
 			break;
 
-		pos.x = event->button.x;
-		pos.y = event->button.y;
+		pos.x = event.button.x;
+		pos.y = event.button.y;
 
 			MouseSprite(pos);
 //?			DecorAutoShift(pos);
-			if ( EventButtons(*event, pos) )  return true;
+			if ( EventButtons(event, pos) )  return true;
 			if ( m_phase == WM_PHASE_BUILD )
 			{
 				if ( BuildDown(pos, m_keymod) )  return true;
 			}
 			if ( m_phase == WM_PHASE_PLAY )
 			{
-				if ( PlayDown(pos, *event) )  return true;
+				if ( PlayDown(pos, event) )  return true;
 			}
 			break;
 
 	case SDL_MOUSEMOTION:
-		pos.x = event->motion.x;
-		pos.y = event->motion.y;
+		pos.x = event.motion.x;
+		pos.y = event.motion.y;
 
 			m_oldMousePos = pos;
 
 			MouseSprite(pos);
-			if ( EventButtons(*event, pos) )  return true;
+			if ( EventButtons(event, pos) )  return true;
 			if ( m_phase == WM_PHASE_BUILD )
 			{
-				if ( BuildMove(pos, m_keymod, *event) )  return true;
+				if ( BuildMove(pos, m_keymod, event) )  return true;
 			}
 			if ( m_phase == WM_PHASE_PLAY )
 			{
@@ -5078,14 +5075,14 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			break;
 
 	case SDL_MOUSEBUTTONUP:
-		if (   event->button.button != SDL_BUTTON_LEFT
-			&& event->button.button != SDL_BUTTON_RIGHT)
+		if (   event.button.button != SDL_BUTTON_LEFT
+			&& event.button.button != SDL_BUTTON_RIGHT)
 			break;
 
-		pos.x = event->button.x;
-		pos.y = event->button.y;
+		pos.x = event.button.x;
+		pos.y = event.button.y;
 
-			if ( EventButtons(*event, pos) )  return true;
+			if ( EventButtons(event, pos) )  return true;
 			if ( m_phase == WM_PHASE_BUILD )
 			{
 				if ( BuildUp(pos) )  return true;
@@ -5103,7 +5100,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 			break;
 
 	case SDL_USEREVENT:
-		switch (event->user.code)
+		switch (event.user.code)
 		{
 		case WM_PHASE_DEMO:
 			m_demoNumber = 0;
@@ -5160,7 +5157,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 		case WM_PHASE_H2MOVIE:
 		case WM_PHASE_WINMOVIE:
 		case WM_PHASE_BYE:
-			if ( ChangePhase(event->user.code) )  return true;
+			if ( ChangePhase(event.user.code) )  return true;
 			break;
 
 		case WM_PHASE_UNDO:
@@ -5320,7 +5317,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 		case WM_BUTTON37:
 		case WM_BUTTON38:
 		case WM_BUTTON39:
-			ChangeButtons(event->user.code);
+			ChangeButtons(event.user.code);
 			break;
 
 		case WM_READ0:
@@ -5333,7 +5330,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 		case WM_READ7:
 		case WM_READ8:
 		case WM_READ9:
-			Read(event->user.code);
+			Read(event.user.code);
 			ChangePhase(WM_PHASE_PLAY);  // joue
 			break;
 
@@ -5347,7 +5344,7 @@ bool CEvent::TreatEventBase(const SDL_Event *event)
 		case WM_WRITE7:
 		case WM_WRITE8:
 		case WM_WRITE9:
-			Write(event->user.code);
+			Write(event.user.code);
 			if ( m_phase == WM_PHASE_WRITEp )
 			{
 				ChangePhase(WM_PHASE_PLAY);  // joue

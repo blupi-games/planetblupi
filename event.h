@@ -88,8 +88,8 @@ public:
 	void	WaitMouse(bool bWait);
 	void	HideMouse(bool bHide);
 	POINT	GetLastMousePos();
-	bool	TreatEvent(const SDL_Event *event);
-	bool	TreatEventBase(const SDL_Event *event);
+	bool	TreatEvent(const SDL_Event &event);
+	bool	TreatEventBase(const SDL_Event &event);
 
 	void	DecorAutoShift(POINT pos);
 	
