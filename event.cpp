@@ -4668,7 +4668,7 @@ POINT CEvent::GetLastMousePos()
 
 bool CEvent::TreatEvent(const SDL_Event *event)
 {
-	if ( m_bDemoPlay )  // démo en lecture ?
+	if ( m_bDemoPlay && event)  // démo en lecture ?
 	{
 		if (event->type == SDL_KEYDOWN ||
 			event->type == SDL_KEYUP ||
