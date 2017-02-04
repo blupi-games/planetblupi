@@ -35,36 +35,6 @@ struct WaveHeader
     DWORD       dwDSize;          // Number of Samples
 };
 
-
-
-
-// Creates a DirectSound buffer.
-
-bool CSound::CreateSoundBuffer(int dwBuf, DWORD dwBufSize, DWORD dwFreq, DWORD dwBitsPerSample, DWORD dwBlkAlign, bool bStereo)
-{
-    PCMWAVEFORMAT	pcmwf;
-    DSBUFFERDESC	dsbdesc;
-    
-    // Set up wave format structure.
-    memset( &pcmwf, 0, sizeof(PCMWAVEFORMAT) );
-    pcmwf.wf.wFormatTag      = WAVE_FORMAT_PCM;      
-    pcmwf.wf.nChannels       = bStereo ? 2 : 1;
-    pcmwf.wf.nSamplesPerSec  = dwFreq;
-    pcmwf.wf.nBlockAlign     = (WORD)dwBlkAlign;
-    pcmwf.wf.nAvgBytesPerSec = pcmwf.wf.nSamplesPerSec * pcmwf.wf.nBlockAlign;
-    pcmwf.wBitsPerSample     = (WORD)dwBitsPerSample;
-
-    // Set up DSBUFFERDESC structure.
-    memset(&dsbdesc, 0, sizeof(DSBUFFERDESC));  // Zero it out. 
-    dsbdesc.dwSize           = sizeof(DSBUFFERDESC);
-    dsbdesc.dwFlags          = DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME;
-    dsbdesc.dwBufferBytes    = dwBufSize; 
-    dsbdesc.lpwfxFormat      = (LPWAVEFORMATEX)&pcmwf;
-
-    TRY_DS(m_lpDS->CreateSoundBuffer(&dsbdesc, &m_lpDSB[dwBuf], NULL))
-    return true;
-}
-
 // Reads in data from a wave file.
 
 bool CSound::ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWORD dwPos) 
@@ -143,33 +113,6 @@ bool CSound::StopAllSounds()
 
     return true;
 }
-
-// Plays a sound using direct sound.
-
-bool CSound::PlaySoundDS(DWORD dwSound, DWORD dwFlags)
-{
-    // Make sure the sound is valid
-    if ( dwSound >= MAXSOUND )  return false;    
-
-    // Make sure we have a valid sound buffer
-    if ( m_lpDSB[dwSound] )
-    {
-        DWORD dwStatus;
-        TRY_DS(m_lpDSB[dwSound]->GetStatus(&dwStatus));
-
-        if ( (dwStatus & DSBSTATUS_PLAYING) != DSBSTATUS_PLAYING )
-        {
-            // Play the sound
-           TRY_DS(m_lpDSB[dwSound]->Play(0, 0, dwFlags));
-        }
-    }
-
-	Mix_PlayChannel (-1, m_lpSDL[dwSound], 0);
-
-    return true;
-}
-
-
 
 /////////////////////////////////////////////////////////////////////////////
 

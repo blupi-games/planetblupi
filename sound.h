@@ -44,10 +44,8 @@ public:
 	void	SetSuspendSkip(int nb);
 
 protected:
-	bool	CreateSoundBuffer(int dwBuf, DWORD dwBufSize, DWORD dwFreq, DWORD dwBitsPerSample, DWORD dwBlkAlign, bool bStereo);
 	bool	ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWORD dwPos);
 	bool	StopAllSounds();
-	bool	PlaySoundDS(DWORD dwSound, DWORD dwFlags);
 
 protected:
 	HWND				m_hWnd;
