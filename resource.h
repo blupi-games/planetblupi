@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
-// Used by Blupi.rc
+// Microsoft Visual C++ generated include file.
+// Used by blupi-e.rc
 //
 #define TX_ACTION_GO                    1
 #define TX_ACTION_STOP                  2

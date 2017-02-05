@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -16,10 +16,8 @@
 // French (Switzerland) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRS)
-#ifdef _WIN32
 LANGUAGE LANG_FRENCH, SUBLANG_FRENCH_SWISS
 #pragma code_page(1252)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -28,9 +26,9 @@ LANGUAGE LANG_FRENCH, SUBLANG_FRENCH_SWISS
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON    DISCARDABLE     "blupi.ico"
+IDR_MAINFRAME           ICON                    "blupi.ico"
 
-#ifndef _MAC
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -53,14 +51,14 @@ BEGIN
     BEGIN
         BLOCK "100c04b0"
         BEGIN
-            VALUE "CompanyName", "EPSITEC\0"
-            VALUE "FileDescription", "Blupi\0"
-            VALUE "FileVersion", "0, 4, 0, 0\0"
-            VALUE "InternalName", "Planet Blupi\0"
-            VALUE "LegalCopyright", "Copyright © 1997\0"
-            VALUE "OriginalFilename", "Blupi.exe\0"
-            VALUE "ProductName", "EPSITEC Planet Blupi\0"
-            VALUE "ProductVersion", "0, 4, 0, 0\0"
+            VALUE "CompanyName", "EPSITEC"
+            VALUE "FileDescription", "Blupi"
+            VALUE "FileVersion", "0, 4, 0, 0"
+            VALUE "InternalName", "Planet Blupi"
+            VALUE "LegalCopyright", "Copyright © 1997"
+            VALUE "OriginalFilename", "Blupi.exe"
+            VALUE "ProductName", "EPSITEC Planet Blupi"
+            VALUE "ProductVersion", "0, 4, 0, 0"
         END
     END
     BLOCK "VarFileInfo"
@@ -69,28 +67,6 @@ BEGIN
     END
 END
 
-#endif    // !_MAC
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Cursor
-//
-
-IDC_POINTER             CURSOR  DISCARDABLE     "cursor1.cur"
-IDC_MAP                 CURSOR  DISCARDABLE     "map.cur"
-IDC_ARROWU              CURSOR  DISCARDABLE     "arrowup.cur"
-IDC_ARROWD              CURSOR  DISCARDABLE     "arrowdow.cur"
-IDC_ARROWL              CURSOR  DISCARDABLE     "arrowlef.cur"
-IDC_ARROWR              CURSOR  DISCARDABLE     "arrowrig.cur"
-IDC_ARROWUL             CURSOR  DISCARDABLE     "arrowul.cur"
-IDC_ARROWUR             CURSOR  DISCARDABLE     "arrowur.cur"
-IDC_ARROWDR             CURSOR  DISCARDABLE     "arrowdr.cur"
-IDC_ARROWDL             CURSOR  DISCARDABLE     "arrowdl.cur"
-IDC_WAIT                CURSOR  DISCARDABLE     "wait.cur"
-IDC_EMPTY               CURSOR  DISCARDABLE     "empty.cur"
-IDC_FILL                CURSOR  DISCARDABLE     "fill.cur"
-IDC_ARROW               CURSOR  DISCARDABLE     "arrow.cur"
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -98,18 +74,18 @@ IDC_ARROW               CURSOR  DISCARDABLE     "arrow.cur"
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE 
 BEGIN
     "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE 
 BEGIN
     "\r\n"
     "\0"
@@ -123,7 +99,7 @@ END
 // String Table
 //
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_ACTION_GO            "Go"
     TX_ACTION_STOP          "Stop"
@@ -142,7 +118,7 @@ BEGIN
     TX_ACTION_MUR           "Wall"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_ACTION_PALIS         "Palisade"
     TX_ACTION_ABATn         "Cut down  trees"
@@ -162,7 +138,7 @@ BEGIN
     TX_ACTION_FABMINE       "Make a time bomb"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_ERROR_MISC           "Impossible"
     TX_ERROR_GROUND         "Inadequate ground"
@@ -174,7 +150,7 @@ BEGIN
     TX_ERROR_TELE2          "Already two teleporters"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_IONAMEEX             "training %d, time %d"
     TX_IOFREE               "free slot"
@@ -190,7 +166,7 @@ BEGIN
     TX_BUTTON_TERM          "Finish"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_BUTTON_READP         "Open another game "
     TX_BUTTON_WRITEP        "Save this game"
@@ -210,7 +186,7 @@ BEGIN
     TX_JAUGE2               "Work done"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_BUTTON_SETUP         "Settings"
     TX_BUTTON_MUSIC         "Music choice"
@@ -230,7 +206,7 @@ BEGIN
     TX_BUTTON_MUSIC10       "Music number 9"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_BUTTON_REGION        "Scenery choice"
     TX_BUTTON_TERMMBLUPI    "Blupi in house"
@@ -250,7 +226,7 @@ BEGIN
     TX_NON                  "No"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_OBJ_BLUPIm           "Sick Blupi"
     TX_OBJ_BLUPIf           "Tired Blupi"
@@ -270,7 +246,7 @@ BEGIN
     TX_OBJ_FLEUR1           "Flowers"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_OBJ_FLEUR2           "Flowers"
     TX_OBJ_FLEUR3           "Flowers"
@@ -290,7 +266,7 @@ BEGIN
     TX_OBJ_MUR              "Wall"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_OBJ_ARBREb           "Tree trunks"
     TX_OBJ_ROC              "Rocks"
@@ -310,7 +286,7 @@ BEGIN
     TX_OBJ_MAISON           "Blupi's house"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_OBJ_HACHURE          "Striped paving stones"
     TX_OBJ_MOUSSEb          "Burnt ground"
@@ -330,7 +306,7 @@ BEGIN
     TX_OBJ_BATENNEMIS       "Enemy buildings"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_WIN1                 "Well done !"
     TX_WIN2                 "Yes, great ..."
@@ -339,7 +315,7 @@ BEGIN
     TX_WIN5                 "Mission over..."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_LOST1                "You have failed, try again..."
     TX_LOST2                "No, wrong way ..."
@@ -347,19 +323,19 @@ BEGIN
     TX_LOST4                "Another mistake..."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_LOST5                "No, not that way !"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_LASTWIN1             "Now go on mission."
     TX_LASTWIN2             "Very good, success on all missions !"
     TX_LASTWIN3             "Last construction resolved !"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_BUTTON_SETUP9        "Slower"
     TX_BUTTON_SETUP10       "Faster"
@@ -373,7 +349,7 @@ BEGIN
     TX_BUTTON_REGION2       "Desert"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_BUTTON_REGION3       "Forest under snow"
     TX_BUTTON_REGION4       "Forest"
@@ -393,7 +369,7 @@ BEGIN
     TX_PRIVATE_HACHBLUPI    "1|Go on striped\n1| paving stones."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_ACTION_FABDISC       "Make a helper robot"
     TX_ACTION_REPEAT        "Repeat"
@@ -401,7 +377,7 @@ BEGIN
     TX_ACTION_FABARMURE     "Make armour"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_PRIVATE_HACHPLANCHE  "1|Drop planks on striped \n1|paving stones."
     TX_PRIVATE_HACHTOMATE   "1|Drop tomatoes on striped \n1|paving stones."
@@ -417,7 +393,7 @@ BEGIN
     TX_PRIVATE_OBJECTIF     "1|Goal :"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_PRIVATE_NBBLUPI      "1|The Blupi population must \n1|be of at least  %d Blupis."
     TX_BUTTON_SKILL         "Skill level"
@@ -430,7 +406,7 @@ BEGIN
     TX_PRIVATE_HACHROBOT    "1|The robot must reach\n1|the striped paving stones."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_REPEAT_CULTIVE       "1: Grow tomatoes\n2: Eat"
     TX_REPEAT_FLEUR         "1: Make a bunch\n2: Transform"
@@ -446,7 +422,7 @@ BEGIN
     TX_REPEAT_FABARMURE     "1: Extract iron\n2: Make an armour"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_OBJ_MURPAL           "Wall or palisade"
     TX_OBJ_OBJET            "Items"
@@ -460,7 +436,7 @@ BEGIN
     TX_OBJ_BARENNEMIS       "Enemy barrier"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_DIRECT_N             "N"
     TX_DIRECT_S             "S"

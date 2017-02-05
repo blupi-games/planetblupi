@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -16,10 +16,8 @@
 // French (Switzerland) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRS)
-#ifdef _WIN32
 LANGUAGE LANG_FRENCH, SUBLANG_FRENCH_SWISS
 #pragma code_page(1252)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -28,9 +26,9 @@ LANGUAGE LANG_FRENCH, SUBLANG_FRENCH_SWISS
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON    DISCARDABLE     "blupi.ico"
+IDR_MAINFRAME           ICON                    "blupi.ico"
 
-#ifndef _MAC
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -53,14 +51,14 @@ BEGIN
     BEGIN
         BLOCK "100c04b0"
         BEGIN
-            VALUE "CompanyName", "EPSITEC\0"
-            VALUE "FileDescription", "Blupi\0"
-            VALUE "FileVersion", "0, 4, 0, 0\0"
-            VALUE "InternalName", "Planet Blupi\0"
-            VALUE "LegalCopyright", "Copyright © 1997\0"
-            VALUE "OriginalFilename", "Blupi.exe\0"
-            VALUE "ProductName", "EPSITEC Planet Blupi\0"
-            VALUE "ProductVersion", "0, 4, 0, 0\0"
+            VALUE "CompanyName", "EPSITEC"
+            VALUE "FileDescription", "Blupi"
+            VALUE "FileVersion", "0, 4, 0, 0"
+            VALUE "InternalName", "Planet Blupi"
+            VALUE "LegalCopyright", "Copyright © 1997"
+            VALUE "OriginalFilename", "Blupi.exe"
+            VALUE "ProductName", "EPSITEC Planet Blupi"
+            VALUE "ProductVersion", "0, 4, 0, 0"
         END
     END
     BLOCK "VarFileInfo"
@@ -69,28 +67,6 @@ BEGIN
     END
 END
 
-#endif    // !_MAC
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Cursor
-//
-
-IDC_POINTER             CURSOR  DISCARDABLE     "cursor1.cur"
-IDC_MAP                 CURSOR  DISCARDABLE     "map.cur"
-IDC_ARROWU              CURSOR  DISCARDABLE     "arrowup.cur"
-IDC_ARROWD              CURSOR  DISCARDABLE     "arrowdow.cur"
-IDC_ARROWL              CURSOR  DISCARDABLE     "arrowlef.cur"
-IDC_ARROWR              CURSOR  DISCARDABLE     "arrowrig.cur"
-IDC_ARROWUL             CURSOR  DISCARDABLE     "arrowul.cur"
-IDC_ARROWUR             CURSOR  DISCARDABLE     "arrowur.cur"
-IDC_ARROWDR             CURSOR  DISCARDABLE     "arrowdr.cur"
-IDC_ARROWDL             CURSOR  DISCARDABLE     "arrowdl.cur"
-IDC_WAIT                CURSOR  DISCARDABLE     "wait.cur"
-IDC_EMPTY               CURSOR  DISCARDABLE     "empty.cur"
-IDC_FILL                CURSOR  DISCARDABLE     "fill.cur"
-IDC_ARROW               CURSOR  DISCARDABLE     "arrow.cur"
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -98,18 +74,18 @@ IDC_ARROW               CURSOR  DISCARDABLE     "arrow.cur"
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE 
 BEGIN
     "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE 
 BEGIN
     "\r\n"
     "\0"
@@ -123,7 +99,7 @@ END
 // String Table
 //
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_ACTION_GO            "Va"
     TX_ACTION_STOP          "Stoppe"
@@ -142,7 +118,7 @@ BEGIN
     TX_ACTION_MUR           "Mur anti-feu"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_ACTION_PALIS         "Palissade"
     TX_ACTION_ABATn         "Abat des arbres"
@@ -162,7 +138,7 @@ BEGIN
     TX_ACTION_FABMINE       "Fabrique une bombe"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_ERROR_MISC           "Impossible ici"
     TX_ERROR_GROUND         "Terrain pas adapté"
@@ -174,7 +150,7 @@ BEGIN
     TX_ERROR_TELE2          "Déjà 2 téléporteurs"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_IONAMEEX             "entraînement %d, temps %d"
     TX_IOFREE               "libre"
@@ -190,7 +166,7 @@ BEGIN
     TX_BUTTON_TERM          "Terminer"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_BUTTON_READP         "Ouvrir une autre partie"
     TX_BUTTON_WRITEP        "Enregistrer la partie en cours"
@@ -210,7 +186,7 @@ BEGIN
     TX_JAUGE2               "Travail en cours"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_BUTTON_SETUP         "Réglages"
     TX_BUTTON_MUSIC         "Choix de la musique"
@@ -230,7 +206,7 @@ BEGIN
     TX_BUTTON_MUSIC10       "Musique numéro 9"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_BUTTON_REGION        "Choix des décors"
     TX_BUTTON_TERMMBLUPI    "Blupi dans sa maison"
@@ -250,7 +226,7 @@ BEGIN
     TX_NON                  "Non"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_OBJ_BLUPIm           "Blupi malade"
     TX_OBJ_BLUPIf           "Blupi fatigué"
@@ -270,7 +246,7 @@ BEGIN
     TX_OBJ_FLEUR1           "Fleurs"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_OBJ_FLEUR2           "Fleurs"
     TX_OBJ_FLEUR3           "Fleurs"
@@ -290,7 +266,7 @@ BEGIN
     TX_OBJ_MUR              "Mur anti-feu"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_OBJ_ARBREb           "Troncs"
     TX_OBJ_ROC              "Rochers"
@@ -310,7 +286,7 @@ BEGIN
     TX_OBJ_MAISON           "Maison de blupi"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_OBJ_HACHURE          "Dalles hachurées"
     TX_OBJ_MOUSSEb          "Mousse brûlée"
@@ -330,7 +306,7 @@ BEGIN
     TX_OBJ_BATENNEMIS       "Bâtiments ennemis"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_WIN1                 "Bravo, c'est réussi !"
     TX_WIN2                 "Oui, super ..."
@@ -339,7 +315,7 @@ BEGIN
     TX_WIN5                 "Mission accomplie."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_LOST1                "C'est raté, essaie encore une fois"
     TX_LOST2                "Et non, ce n'est pas ça ..."
@@ -347,19 +323,19 @@ BEGIN
     TX_LOST4                "Caramba, encore raté ..."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_LOST5                "Mais non, pas comme ça !"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_LASTWIN1             "Passe maintenant aux missions."
     TX_LASTWIN2             "Magnifique, le jeu est terminé !"
     TX_LASTWIN3             "Dernière construction résolue !"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_BUTTON_SETUP9        "Diminue la vitesse"
     TX_BUTTON_SETUP10       "Augmente la vitesse"
@@ -373,7 +349,7 @@ BEGIN
     TX_BUTTON_REGION2       "Désert"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_BUTTON_REGION3       "Forêt enneigée"
     TX_BUTTON_REGION4       "Forêt"
@@ -393,7 +369,7 @@ BEGIN
     TX_PRIVATE_HACHBLUPI    "1|Aller sur les dalles\n1|hachurées."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_ACTION_FABDISC       "Fabrique un robot"
     TX_ACTION_REPEAT        "Répète"
@@ -401,7 +377,7 @@ BEGIN
     TX_ACTION_FABARMURE     "Fabrique une armure"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_PRIVATE_HACHPLANCHE  "1|Déposer des planches\n1|sur les dalles hachurées."
     TX_PRIVATE_HACHTOMATE   "1|Déposer des tomates\n1|sur les dalles hachurées."
@@ -417,7 +393,7 @@ BEGIN
     TX_PRIVATE_OBJECTIF     "1|Objectif :"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_PRIVATE_NBBLUPI      "1|La population doit être\n1|d'au moins %d Blupi."
     TX_BUTTON_SKILL         "Niveau de difficulté"
@@ -430,7 +406,7 @@ BEGIN
     TX_PRIVATE_HACHROBOT    "1|Le robot doit atteindre\n1|les dalles hachurées."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_REPEAT_CULTIVE       "1: Cultive ...\n2: Mange"
     TX_REPEAT_FLEUR         "1: Fait un bouquet\n2: Transforme"
@@ -446,7 +422,7 @@ BEGIN
     TX_REPEAT_FABARMURE     "1: Extrait du fer\n2: Fabrique armure"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_OBJ_MURPAL           "Mur ou palissade"
     TX_OBJ_OBJET            "Objets"
@@ -460,7 +436,7 @@ BEGIN
     TX_OBJ_BARENNEMIS       "Barrière ennemie"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE
 BEGIN
     TX_DIRECT_N             "N"
     TX_DIRECT_S             "S"
