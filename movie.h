@@ -38,10 +38,8 @@ protected:
 	int m_ret;
 	SDL_AudioDeviceID m_audioDev;
 
-	char m_audiobuf[AUDIOBUFFER_SIZE];
+	char		m_audiobuf[AUDIOBUFFER_SIZE];
 	bool		m_bEnable;
-	MCIDEVICEID	m_wMCIDeviceID;	// MCI Device ID for the AVI file
-	HWND		m_hwndMovie;	// window handle of the movie
 	bool		m_fPlaying;		// Play flag: true == playing, false == paused
 	bool		m_fMovieOpen;	// Open flag: true == movie open, false = none
 };

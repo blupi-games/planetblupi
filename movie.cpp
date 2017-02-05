@@ -166,14 +166,13 @@ void CMovie::playMovie(int nDirection)
 CMovie::CMovie()
 {
 	m_bEnable      = false;
-	m_wMCIDeviceID = 0;
 	m_fPlaying     = false;
 	m_fMovieOpen   = false;
 
-	m_movie = nullptr;
-	m_player = nullptr;
+	m_movie    = nullptr;
+	m_player   = nullptr;
 	m_videoTex = nullptr;
-	pinfo = nullptr;
+	pinfo      = nullptr;
 }
 
 // Destructeur.
