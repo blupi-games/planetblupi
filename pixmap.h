@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include <ddraw.h>
 #include <SDL.h>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -16,8 +15,6 @@ public:
 	CPixmap();
 	~CPixmap();
 
-	void	SetDebug(bool bDebug);
-	
 	bool	Create(POINT dim, bool bFullScreen, int mouseType);
 	bool	Flush();
 	void	Fill(RECT rect, COLORREF color);
@@ -30,11 +27,11 @@ public:
 
 	bool	IsIconPixel(int channel, int rank, POINT pos);
 
-	bool	DrawIcon(int chDst, int channel, int rank, POINT pos, int mode=0, bool bMask=false);
-	bool	DrawIconDemi(int chDst, int channel, int rank, POINT pos, int mode=0, bool bMask=false);
-	bool	DrawIconPart(int chDst, int channel, int rank, POINT pos, int startY, int endY, int mode=0, bool bMask=false);
-	bool	DrawPart(int chDst, int channel, POINT dest, RECT rect, int mode=0, bool bMask=false);
-	bool	DrawImage(int chDst, int channel, RECT rect, int mode=0);
+	bool	DrawIcon(int chDst, int channel, int rank, POINT pos, bool bMask=false);
+	bool	DrawIconDemi(int chDst, int channel, int rank, POINT pos, bool bMask=false);
+	bool	DrawIconPart(int chDst, int channel, int rank, POINT pos, int startY, int endY, bool bMask=false);
+	bool	DrawPart(int chDst, int channel, POINT dest, RECT rect, bool bMask=false);
+	bool	DrawImage(int chDst, int channel, RECT rect);
 
 	bool	BuildIconMask(int channelMask, int rankMask,
 						  int channel, int rankSrc, int rankDst);
@@ -47,9 +44,8 @@ public:
 	void	ChangeSprite (MouseSprites sprite);
 
 protected:
-	HRESULT	BltFast(int chDst, int channel, POINT dst, RECT rcRect, int mode);
-	HRESULT	BltFast(SDL_Texture *lpSDL,
-					int channel, POINT dst, RECT rcRect, int mode);
+	int	BltFast(int chDst, int channel, POINT dst, RECT rcRect);
+	int	BltFast(SDL_Texture *lpSDL, int channel, POINT dst, RECT rcRect);
 
 	RECT	MouseRectSprite();
 	SDL_Point GetCursorHotSpot (int sprite);
@@ -75,7 +71,6 @@ protected:
 	char					m_filename[MAXIMAGE][20];
 	POINT					m_totalDim[MAXIMAGE];	// dimensions totale image
 	POINT					m_iconDim[MAXIMAGE];	// dimensions d'une icône
-	DDBLTFX					m_DDbltfx;
 };
 
 /////////////////////////////////////////////////////////////////////////////

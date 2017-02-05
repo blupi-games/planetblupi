@@ -644,8 +644,7 @@ void CDecor::BuildMoveFloor(int x, int y, POINT pos, int rank)
 								 m_move[rank].channel,
 								 m_move[rank].icon, 0);
 
-		m_pPixmap->DrawIcon(-1, m_move[rank].channel, 0,
-							pos, 0, true);
+		m_pPixmap->DrawIcon(-1, m_move[rank].channel, 0, pos, true);
 	}
 	else
 	{
@@ -1032,7 +1031,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 	}
 
 	// Dessine tous les sols fixes.
-	m_pPixmap->DrawImage(-1, CHGROUND, clip, 1);
+	m_pPixmap->DrawImage(-1, CHGROUND, clip);
 
 	width  = clip.right-clip.left;
 	height = clip.bottom-clip.top;

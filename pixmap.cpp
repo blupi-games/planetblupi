@@ -5,14 +5,12 @@
 #include <stdio.h>
 #include <io.h>
 #include <string>
-#include <ddraw.h>
 #include <SDL.h>
 #include <SDL_surface.h>
 #include <SDL_log.h>
 #include "def.h"
 #include "pixmap.h"
 #include "misc.h"
-#include "ddutil.h"
 #include "blupi.h"
 
 
@@ -42,10 +40,6 @@ CPixmap::CPixmap()
 		m_lpSDLTexture[i] = NULL;
 	}
 
-	// initialize special effects structure
-	ZeroMemory(&m_DDbltfx, sizeof(m_DDbltfx));
-	m_DDbltfx.dwSize = sizeof(m_DDbltfx);
-
 	m_lpCurrentCursor = nullptr;
 }
 
@@ -73,14 +67,6 @@ CPixmap::~CPixmap()
 		}
 	}
 }
-
-
-void CPixmap::SetDebug(bool bDebug)
-{
-	m_bDebug = bDebug;
-	DDSetDebug(bDebug);
-}
-
 
 // Crée l'objet DirectDraw principal.
 // Retourne false en cas d'erreur.
@@ -117,15 +103,9 @@ void CPixmap::Fill(RECT rect, COLORREF color)
 // Effectue un appel BltFast.
 // Les modes sont 0=transparent, 1=opaque.
 
-HRESULT CPixmap::BltFast(int chDst, int channel,
-						 POINT dst, RECT rcRect, int mode)
+int CPixmap::BltFast(int chDst, int channel, POINT dst, RECT rcRect)
 {
-	DWORD		dwTrans;
-    HRESULT		ddrval = DD_OK;
-	int			limit;
-
-	if ( mode == 0 )  dwTrans = DDBLTFAST_SRCCOLORKEY;
-	else              dwTrans = DDBLTFAST_NOCOLORKEY;
+	int			res, limit;
 
 	// Effectue un peu de clipping.
 	if ( dst.x < m_clipRect.left )
@@ -150,7 +130,8 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 	}
 
 	if ( rcRect.left >= rcRect.right ||
-		 rcRect.top  >= rcRect.bottom )  return DD_OK;
+		 rcRect.top  >= rcRect.bottom )
+		return 0;
 
 	if ( chDst < 0 )
 	{
@@ -163,7 +144,7 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 		dstRect.x = dst.x;
 		dstRect.y = dst.y;
 
-		SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
+		res = SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
 	}
 	else
 	{
@@ -177,24 +158,19 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 		dstRect.y = dst.y;
 
 		SDL_SetRenderTarget (g_renderer, m_lpSDLTexture[chDst]);
-		SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
+		res = SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
 		SDL_SetRenderTarget (g_renderer, nullptr);
 	}
 
-	return ddrval;
+	return res;
 }
 
 // Effectue un appel BltFast.
 // Les modes sont 0=transparent, 1=opaque.
 
-HRESULT CPixmap::BltFast(SDL_Texture *lpSDL,
-						 int channel, POINT dst, RECT rcRect, int mode)
+int CPixmap::BltFast(SDL_Texture *lpSDL, int channel, POINT dst, RECT rcRect)
 {
-	DWORD		dwTrans;
-    HRESULT		ddrval = DD_OK;
-
-	if ( mode == 0 )  dwTrans = DDBLTFAST_SRCCOLORKEY;
-	else              dwTrans = DDBLTFAST_NOCOLORKEY;
+	int			res;
 
 	SDL_Rect srcRect, dstRect;
 	srcRect.x = rcRect.left;
@@ -206,10 +182,10 @@ HRESULT CPixmap::BltFast(SDL_Texture *lpSDL,
 	dstRect.y = dst.y;
 
 	SDL_SetRenderTarget (g_renderer, lpSDL);
-	SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
+	res = SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
 	SDL_SetRenderTarget (g_renderer, nullptr);
 
-	return ddrval;
+	return res;
 }
 
 // Cache une image contenant des icônes.
@@ -363,12 +339,10 @@ bool CPixmap::IsIconPixel(int channel, int rank, POINT pos)
 // Dessine une partie d'image rectangulaire.
 // Les modes sont 0=transparent, 1=opaque.
 
-bool CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos,
-					   int mode, bool bMask)
+bool CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos, bool bMask)
 {
 	int			nbx, nby;
 	RECT		rect;
-	HRESULT		ddrval;
 	COLORREF	oldColor1, oldColor2;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
@@ -390,10 +364,7 @@ bool CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos,
 	oldColor1 = m_colorSurface[2*channel+0];
 	oldColor2 = m_colorSurface[2*channel+1];
 
-	ddrval = BltFast(chDst, channel, pos, rect, mode);
-
-	if ( ddrval != DD_OK )  return false;
-	return true;
+	return !BltFast (chDst, channel, pos, rect);
 }
 
 // Dessine une partie d'image rectangulaire.
@@ -406,12 +377,10 @@ bool CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos,
 //	32,32	34,33
 //	33,48	35,49
 
-bool CPixmap::DrawIconDemi(int chDst, int channel, int rank, POINT pos,
-						   int mode, bool bMask)
+bool CPixmap::DrawIconDemi(int chDst, int channel, int rank, POINT pos, bool bMask)
 {
 	int			nbx, nby;
 	RECT		rect;
-	HRESULT		ddrval;
 	COLORREF	oldColor1, oldColor2;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
@@ -435,22 +404,16 @@ bool CPixmap::DrawIconDemi(int chDst, int channel, int rank, POINT pos,
 	oldColor1 = m_colorSurface[2*channel+0];
 	oldColor2 = m_colorSurface[2*channel+1];
 
-	ddrval = BltFast(chDst, channel, pos, rect, mode);
-
-	if ( ddrval != DD_OK )  return false;
-	return true;
+	return !BltFast (chDst, channel, pos, rect);
 }
 
 // Dessine une partie d'image rectangulaire.
-// Les modes sont 0=transparent, 1=opaque.
 
 bool CPixmap::DrawIconPart(int chDst, int channel, int rank, POINT pos,
-						   int startY, int endY,
-						   int mode, bool bMask)
+						   int startY, int endY, bool bMask)
 {
 	int			nbx, nby;
 	RECT		rect;
-	HRESULT		ddrval;
 	COLORREF	oldColor1, oldColor2;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
@@ -475,19 +438,13 @@ bool CPixmap::DrawIconPart(int chDst, int channel, int rank, POINT pos,
 	oldColor1 = m_colorSurface[2*channel+0];
 	oldColor2 = m_colorSurface[2*channel+1];
 
-	ddrval = BltFast(chDst, channel, pos, rect, mode);
-
-	if ( ddrval != DD_OK )  return false;
-	return true;
+	return !BltFast (chDst, channel, pos, rect);
 }
 
 // Dessine une partie d'image n'importe où.
-// Les modes sont 0=transparent, 1=opaque.
 
-bool CPixmap::DrawPart(int chDst, int channel, POINT dest, RECT rect,
-					   int mode, bool bMask)
+bool CPixmap::DrawPart(int chDst, int channel, POINT dest, RECT rect, bool bMask)
 {
-	HRESULT		ddrval;
 	COLORREF	oldColor1, oldColor2;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
@@ -496,19 +453,15 @@ bool CPixmap::DrawPart(int chDst, int channel, POINT dest, RECT rect,
 	oldColor1 = m_colorSurface[2*channel+0];
 	oldColor2 = m_colorSurface[2*channel+1];
 
-	ddrval = BltFast(chDst, channel, dest, rect, mode);
-
-	if ( ddrval != DD_OK )  return false;
-	return true;
+	return !BltFast (chDst, channel, dest, rect);
 }
 
 // Dessine une partie d'image rectangulaire.
-// Les modes sont 0=transparent, 1=opaque.
 
-bool CPixmap::DrawImage(int chDst, int channel, RECT rect, int mode)
+bool CPixmap::DrawImage(int chDst, int channel, RECT rect)
 {
 	POINT		dst;
-	HRESULT		ddrval;
+	int			res;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 	if (m_lpSDLTexture[channel] == NULL )     return false;
@@ -516,9 +469,10 @@ bool CPixmap::DrawImage(int chDst, int channel, RECT rect, int mode)
 	dst.x = rect.left;
 	dst.y = rect.top;
 
-	ddrval = BltFast(chDst, channel, dst, rect, mode);
+	res = BltFast(chDst, channel, dst, rect);
 
-	if ( ddrval != DD_OK )  return false;
+	if (res)
+		return false;
 
 	if ( channel == CHBACK )
 	{
@@ -537,7 +491,7 @@ bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 	int			nbx, nby;
 	POINT		posDst;
 	RECT		rect;
-	HRESULT		ddrval;
+	int			res;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 	if (m_lpSDLTexture[channel] == NULL )     return false;
@@ -557,8 +511,9 @@ bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 	rect.bottom = rect.top  + m_iconDim[channel].y;
 	posDst.x    = (rankDst%nbx)*m_iconDim[channel].x;
 	posDst.y    = (rankDst/nbx)*m_iconDim[channel].y;
-	ddrval = BltFast(m_lpSDLTexture[channel], channel, posDst, rect, 1);
-	if ( ddrval != DD_OK )  return false;
+	res = BltFast(m_lpSDLTexture[channel], channel, posDst, rect);
+	if (res)
+		return false;
 
 	if ( m_iconDim[channelMask].x == 0 ||
 		 m_iconDim[channelMask].y == 0 )  return false;
@@ -572,10 +527,9 @@ bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 	rect.top    = (rankMask/nbx)*m_iconDim[channelMask].y;
 	rect.right  = rect.left + m_iconDim[channelMask].x;
 	rect.bottom = rect.top  + m_iconDim[channelMask].y;
-	ddrval = BltFast(m_lpSDLTexture[channel], channelMask, posDst, rect, 0);
-	if ( ddrval != DD_OK )  return false;
+	res = BltFast(m_lpSDLTexture[channel], channelMask, posDst, rect);
 
-	return true;
+	return !res;
 }
 
 

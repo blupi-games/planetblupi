@@ -147,7 +147,7 @@ void UpdateFrame(void)
 		rcRect.top    = 0;
 		rcRect.right  = LXIMAGE;
 		rcRect.bottom = LYIMAGE;
-		g_pPixmap->DrawImage(-1, CHBACK, rcRect, 1);  // dessine le fond
+		g_pPixmap->DrawImage(-1, CHBACK, rcRect);  // dessine le fond
 	}
 
 	if ( phase == WM_PHASE_INTRO1 ||
@@ -499,13 +499,11 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	if ( !g_pPixmap->Cache(CHGROUND, "image\\init.blp", totalDim, iconDim) )
 		return false;
 
-	g_pPixmap->SetDebug(false);
-
 	rcRect.left   = 0;
 	rcRect.top    = 0;
 	rcRect.right  = LXIMAGE;
 	rcRect.bottom = LYIMAGE;
-	g_pPixmap->DrawImage(-1, CHBACK, rcRect, 1);  // dessine le fond
+	g_pPixmap->DrawImage(-1, CHBACK, rcRect);  // dessine le fond
 	g_pPixmap->Display();
 
 	totalDim.x = DIMCELX*2*16;
