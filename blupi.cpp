@@ -657,8 +657,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					LPSTR lpCmdLine, int nCmdShow)
 {
-	MSG		msg;
-
 	if (!DoInit(hInstance, lpCmdLine, nCmdShow))
 		return false;
 
@@ -668,11 +666,13 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		return interval;
 	}, nullptr);
 
-	while (SDL_TRUE)
+	SDL_Event event;
+	while (SDL_WaitEvent (&event))
 	{
-		SDL_Event event;
-		while (SDL_WaitEvent (&event))
-			WindowProc2 (event);
+		WindowProc2 (event);
+
+		if (event.type == SDL_QUIT)
+			break;
 	}
 
 	if (g_window)
@@ -681,6 +681,6 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	SDL_RemoveTimer (updateTimer);
 	FinishObjects ();
 	SDL_Quit ();
-	return static_cast<int> (msg.wParam);
+	return 0;
 }
 
