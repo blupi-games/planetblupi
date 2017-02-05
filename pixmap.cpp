@@ -34,10 +34,6 @@ CPixmap::CPixmap()
 	m_mouseSprite  = SPRITE_WAIT;
 	m_bBackDisplayed = false;
 
-	m_lpDD         = NULL;
-	m_lpDDSPrimary = NULL;
-	m_lpDDSBack    = NULL;
-
 	for (i = 0; i < MAXCURSORS; i++)
 		m_lpSDLCursors[i] = nullptr;
 
@@ -59,41 +55,23 @@ CPixmap::~CPixmap()
 {
 	int		i;
 
-    if ( m_lpDD != NULL )
-    {
-        if ( m_lpDDSPrimary != NULL )
-        {
-            m_lpDDSPrimary->Release();
-            m_lpDDSPrimary = NULL;
-        }
-
-		if ( m_lpDDSBack != NULL )
+	for (i = 0; i < MAXIMAGE; i++)
+	{
+		if (m_lpSDLCursors[i])
 		{
-			m_lpDDSBack->Release();
-			m_lpDDSBack = NULL;
+			SDL_FreeCursor (m_lpSDLCursors[i]);
+			m_lpSDLCursors[i] = nullptr;
 		}
+	}
 
-		for (i = 0; i < MAXIMAGE; i++)
+	for ( i=0 ; i<MAXIMAGE ; i++ )
+	{
+		if ( m_lpSDLTexture[i] != NULL )
 		{
-			if (m_lpSDLCursors[i])
-			{
-				SDL_FreeCursor (m_lpSDLCursors[i]);
-				m_lpSDLCursors[i] = nullptr;
-			}
+			SDL_DestroyTexture (m_lpSDLTexture[i]);
+			m_lpSDLTexture[i] = NULL;
 		}
-
-		for ( i=0 ; i<MAXIMAGE ; i++ )
-		{
-			if ( m_lpSDLTexture[i] != NULL )
-			{
-				SDL_DestroyTexture (m_lpSDLTexture[i]);
-				m_lpSDLTexture[i] = NULL;
-			}
-		}
-
-        m_lpDD->Release();
-        m_lpDD = NULL;
-    }
+	}
 }
 
 
@@ -110,8 +88,6 @@ void CPixmap::SetDebug(bool bDebug)
 bool CPixmap::Create(POINT dim,
 					 bool bFullScreen, int mouseType)
 {
-	HRESULT				ddrval;
-
 	m_bFullScreen = bFullScreen;
 	m_mouseType   = mouseType;
 	m_dim         = dim;
@@ -120,31 +96,6 @@ bool CPixmap::Create(POINT dim,
 	m_clipRect.top    = 0;
 	m_clipRect.right  = dim.x;
 	m_clipRect.bottom = dim.y;
-
-	// Create the main DirectDraw object
-    ddrval = DirectDrawCreate(NULL, &m_lpDD, NULL);
-    if ( ddrval != DD_OK )
-    {
-		OutputDebug("Fatal error: DirectDrawCreate\n");
-        return false;
-    }
-
-    if ( ddrval != DD_OK )
-    {
-		OutputDebug("Fatal error: SetCooperativeLevel\n");
-        return false;
-    }
-
-    // Set the video mode to 640x480x8.
-	if ( m_bFullScreen )
-	{
-		ddrval = m_lpDD->SetDisplayMode(dim.x, dim.y, 8);
-		if ( ddrval != DD_OK )
-		{
-			OutputDebug("Fatal error: SetDisplayMode\n");
-			return false;
-		}
-	}
 
 	return true;
 }

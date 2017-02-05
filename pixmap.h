@@ -66,11 +66,6 @@ protected:
 	int						m_mouseSprite;
 	bool					m_bBackDisplayed;
 
-	LPDIRECTDRAW			m_lpDD;					// DirectDraw object
-	LPDIRECTDRAWSURFACE		m_lpDDSPrimary;			// DirectDraw primary surface
-	SDL_Surface *			m_lpSDLPrimary;
-	LPDIRECTDRAWSURFACE		m_lpDDSBack;			// DirectDraw back surface
-	SDL_Surface *			m_lpSDLBack;
 	SDL_Cursor *			m_lpCurrentCursor;
 	SDL_Cursor *			m_lpSDLCursors[MAXCURSORS];
 	SDL_Surface *			m_lpSDLBlupi;
