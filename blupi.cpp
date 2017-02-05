@@ -44,7 +44,6 @@ bool		g_bFullScreen = false;	// false si mode de test
 int			g_speedRate = 1;
 int			g_timerInterval = 50;	// inverval = 50ms
 int			g_mouseType = MOUSETYPEGRA;
-MMRESULT    g_updateTimer;			// timer général
 bool		g_bActive = true;		// is application active ?
 bool		g_bTermInit = false;	// initialisation en cours
 
@@ -131,16 +130,7 @@ void UpdateFrame(void)
 
 	phase = g_pEvent->GetPhase();
 
-	if ( phase == g_lastPhase &&
-		 phase == WM_PHASE_PLAY )
-	{
-//?		rcRect.left   = POSDRAWX;
-//?		rcRect.top    = POSDRAWY;
-//?		rcRect.right  = POSDRAWX+DIMDRAWX;
-//?		rcRect.bottom = POSDRAWY+DIMDRAWY;
-//?		g_pPixmap->DrawImage(-1, CHBACK, rcRect, 1);  // dessine le fond
-	}
-	else
+	if (!(phase == g_lastPhase && phase == WM_PHASE_PLAY))
 	{
 		rcRect.left   = 0;
 		rcRect.top    = 0;
