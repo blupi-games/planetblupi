@@ -2021,13 +2021,10 @@ bool CEvent::DrawButtons()
 		 m_phase == WM_PHASE_WRITEp )
 	{
 		if ( m_phase == WM_PHASE_READ )
-		{
-			LoadString(TX_BUTTON_READP, res, 50);
-		}
+			snprintf (res, sizeof (res), "%s", gettext ("Open another game"));
 		else
-		{
-			LoadString(TX_BUTTON_WRITEP, res, 50);
-		}
+			snprintf (res, sizeof (res), "%s", gettext ("Save this game"));
+
 		pos.x = 420;
 		pos.y = 8;
 		DrawText(m_pPixmap, pos, res);
@@ -2047,28 +2044,17 @@ bool CEvent::DrawButtons()
 
 			if ( world >= 0 )
 			{
-				if ( world >= 200 )
-				{
-					LoadString(TX_IONAMEPR, res, 50);
-					sprintf(text, res, (world-200)+1, time/100);
-				}
+				if (world >= 200)
+					snprintf (text, sizeof (text), gettext ("construction %d, time %d"), (world - 200) + 1, time / 100);
 				else if ( world >= 100 )
-				{
-					LoadString(TX_IONAMEMI, res, 50);
-					sprintf(text, res, (world-100)+1, time/100);
-				}
+					snprintf(text, sizeof (text), gettext ("mission %d, time %d"), (world - 100) + 1, time / 100);
 				else
-				{
-					LoadString(TX_IONAMEEX, res, 50);
-					sprintf(text, res, world+1, time/100);
-				}
+					snprintf(text, sizeof (text), gettext ("training %d, time %d"), world + 1, time / 100);
+
 				DrawText(m_pPixmap, pos, text);  // partie x, temps t
 			}
 			else
-			{
-				LoadString(TX_IOFREE, res, 50);
-				DrawText(m_pPixmap, pos, res, FONTRED);  // libre
-			}
+				DrawText(m_pPixmap, pos, gettext ("free slot"), FONTRED);  // libre
 		}
 	}
 
@@ -2081,14 +2067,12 @@ bool CEvent::DrawButtons()
 
 		pos.x = 170+42*2+4;
 		pos.y = 30+12+42*4;
-		LoadString(TX_TERMMIN, res, 50);
-		sprintf(text, res, pTerm->nbMinBlupi);
+		snprintf(text, sizeof (text), gettext ("Lost if less than %d Blupi"), pTerm->nbMinBlupi);
 		DrawText(m_pPixmap, pos, text);
 
 		pos.x = 170+42*2+4;
 		pos.y = 30+12+42*5;
-		LoadString(TX_TERMMAX, res, 50);
-		sprintf(text, res, pTerm->nbMaxBlupi);
+		snprintf(text, sizeof (text), gettext ("Impossible to win if less than %d Blupi"), pTerm->nbMaxBlupi);
 		DrawText(m_pPixmap, pos, text);
 	}
 
@@ -2113,9 +2097,13 @@ bool CEvent::DrawButtons()
 	// Ajoute "Mission numéro".
 	if ( m_phase == WM_PHASE_INFO )
 	{
-		if ( m_bSchool  )  LoadString(TX_SCHOOL,  res, 50);
-		else               LoadString(TX_MISSION, res, 50);
-		if ( m_bPrivate )  LoadString(TX_PRIVATE, res, 50);
+		if (m_bSchool)
+			snprintf (res, sizeof (res), gettext ("Training number"));
+		else
+			snprintf (res, sizeof (res), gettext ("Mission number"));
+
+		if (m_bPrivate)
+			snprintf (res, sizeof (res), gettext ("Construction number"));
 
 		lg = GetTextWidth(res);
 		pos.x = (140+270)/2-lg/2;
@@ -2129,27 +2117,27 @@ bool CEvent::DrawButtons()
 	// Ajoute le texte "Partie interrompue".
 	if ( m_phase == WM_PHASE_STOP )
 	{
-		LoadString(TX_PAUSE, res, 50);
-		lg = GetTextWidth(res);
+		char *text = gettext ("Game paused");
+		lg = GetTextWidth(text);
 		pos.x = (140+270)/2-lg/2;
 		pos.y = 70;
 		if ( m_bSchool  )  pos.x -= 40;
 		if ( m_bPrivate )  pos.x -= 100;
 		if ( m_bPrivate )  pos.y += 14;
-		DrawText(m_pPixmap, pos, res, FONTRED);
+		DrawText(m_pPixmap, pos, text, FONTRED);
 	}
 
 	// Ajoute le texte "Informations complémentaires".
 	if ( m_phase == WM_PHASE_HELP )
 	{
-		LoadString(TX_HELP, res, 50);
-		lg = GetTextWidth(res);
+		char *text = gettext ("Help number");
+		lg = GetTextWidth(text);
 		pos.x = (140+270)/2-lg/2;
 		pos.y = 70;
 		if ( m_bSchool  )  pos.x -= 40;
 		if ( m_bPrivate )  pos.x -= 100;
 		if ( m_bPrivate )  pos.y += 14;
-		DrawText(m_pPixmap, pos, res, FONTRED);
+		DrawText(m_pPixmap, pos, text, FONTRED);
 	}
 
 	// Ajoute le numéro du monde.
@@ -2177,7 +2165,6 @@ bool CEvent::DrawButtons()
 		{
 			if ( m_pDecor->GetSkill() == 0 )
 			{
-				LoadString(TX_SKILL1, res, 50);
 				if ( m_bPrivate )
 				{
 					pos.x = 117+50;
@@ -2188,12 +2175,11 @@ bool CEvent::DrawButtons()
 					pos.x = 150+50;
 					pos.y = 230+13;
 				}
-				DrawText(m_pPixmap, pos, res, FONTSLIM);
+				DrawText(m_pPixmap, pos, gettext ("Easy"), FONTSLIM);
 			}
 
 			if ( m_pDecor->GetSkill() == 1 )
 			{
-				LoadString(TX_SKILL2, res, 50);
 				if ( m_bPrivate )
 				{
 					pos.x = 117+50;
@@ -2204,7 +2190,7 @@ bool CEvent::DrawButtons()
 					pos.x = 150+50;
 					pos.y = 230+42+13;
 				}
-				DrawText(m_pPixmap, pos, res, FONTSLIM);
+				DrawText(m_pPixmap, pos, gettext ("Difficult"), FONTSLIM);
 			}
 		}
 	}
@@ -2232,30 +2218,50 @@ bool CEvent::DrawButtons()
 	// Affiche le texte lorsque c'est raté.
 	if ( m_phase == WM_PHASE_LOST )
 	{
-		LoadString(TX_LOST1+GetWorld()%5, res, 50);
+		static char *list[] = {
+			gettext ("You have failed, try again..."),
+			gettext ("No, wrong way ..."),
+			gettext ("Bang, failed again !"),
+			gettext ("Another mistake..."),
+			gettext ("No, not that way !"),
+		};
+
 		pos.x = 60;
 		pos.y = 443;
-		DrawText(m_pPixmap, pos, res);
+		DrawText(m_pPixmap, pos, list[GetWorld () % 5]);
 	}
 
 	// Affiche le texte lorsque c'est réussi.
 	if ( m_phase == WM_PHASE_WIN )
 	{
-		LoadString(TX_WIN1+GetWorld()%5, res, 50);
+		static char *list[] = {
+			gettext ("Well done !"),
+			gettext ("Yes, great ..."),
+			gettext ("Very good."),
+			gettext ("Excellent..."),
+			gettext ("Mission over..."),
+		};
+
 		pos.x = 60;
 		pos.y = 443;
-		DrawText(m_pPixmap, pos, res);
+		DrawText(m_pPixmap, pos, list[GetWorld () % 5]);
 	}
 
 	// Affiche le texte lorsque c'est fini.
 	if ( m_phase == WM_PHASE_LASTWIN )
 	{
-		if ( m_bSchool  )  LoadString(TX_LASTWIN1, res, 50);
-		else               LoadString(TX_LASTWIN2, res, 50);
-		if ( m_bPrivate )  LoadString(TX_LASTWIN3, res, 50);
+		char *text;
+		if (m_bSchool)
+			text = gettext ("Now go on mission.");
+		else
+			text = gettext ("Very good, success on all missions !");
+
+		if (m_bPrivate)
+			text = gettext ("Last construction resolved !");
+
 		pos.x = 60;
 		pos.y = 443;
-		DrawText(m_pPixmap, pos, res);
+		DrawText(m_pPixmap, pos, text);
 	}
 
 	// Dessine les réglages.
