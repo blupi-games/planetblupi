@@ -324,6 +324,8 @@ void WindowProc2 (const SDL_Event &event)
 			}
 			SDL_SetWindowTitle (g_window, "Blupi");
 			if (g_pSound != nullptr)  g_pSound->RestartMusic ();
+			if (g_pMovie)
+				g_pMovie->Resume ();
 			return;
 
 		case SDL_WINDOWEVENT_FOCUS_LOST:
@@ -333,6 +335,8 @@ void WindowProc2 (const SDL_Event &event)
 			}
 			SDL_SetWindowTitle (g_window, "Blupi -- stop");
 			if (g_pSound != nullptr)  g_pSound->SuspendMusic ();
+			if (g_pMovie)
+				g_pMovie->Pause ();
 			return;
 		}
 		break;

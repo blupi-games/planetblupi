@@ -250,6 +250,28 @@ void CMovie::Stop()
 	SDL_RenderSetLogicalSize (g_renderer, 0, 0);
 }
 
+void CMovie::Pause ()
+{
+	if (!m_bEnable || !m_fPlaying)
+		return;
+
+	if (Kit_GetPlayerState (m_player) != KIT_PLAYING)
+		return;
+
+	Kit_PlayerPause (m_player);
+}
+
+void CMovie::Resume ()
+{
+	if (!m_bEnable || !m_fPlaying)
+		return;
+
+	if (Kit_GetPlayerState (m_player) != KIT_PAUSED)
+		return;
+
+	Kit_PlayerPlay (m_player);
+}
+
 bool CMovie::Render ()
 {
 	if (!m_bEnable || !m_fPlaying)

@@ -21,6 +21,8 @@ public:
 	bool	IsExist(char *pFilename);
 	bool	Play(RECT rect, char *pFilename);
 	void	Stop();
+	void	Pause ();
+	void	Resume ();
 	bool	Render ();
 
 protected:
