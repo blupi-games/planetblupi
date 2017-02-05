@@ -16,7 +16,3 @@ extern int	Random(int min, int max);
 
 extern void GetCurrentDir(char *pName, size_t lg);
 extern void AddUserPath(char *pFilename);
-
-extern void TraceErrorDD(HRESULT hErr, char *sFile, int nLine);
-extern void TraceErrorDS(HRESULT hErr, char *sFile, int nLine);
-

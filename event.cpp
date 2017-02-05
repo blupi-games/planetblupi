@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unordered_map>
-#include <ddraw.h>
 #include "blupi.h"
 #include "def.h"
 #include "resource.h"

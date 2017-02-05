@@ -2,7 +2,6 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <ddraw.h>
 #include "def.h"
 #include "pixmap.h"
 #include "text.h"

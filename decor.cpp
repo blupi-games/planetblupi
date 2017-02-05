@@ -3,7 +3,6 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <ddraw.h>
 #include "def.h"
 #include "resource.h"
 #include "pixmap.h"

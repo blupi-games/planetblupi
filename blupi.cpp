@@ -7,11 +7,8 @@
 
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
-#include <windowsx.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <ddraw.h>
-#include <mmsystem.h>        // link WINMM.LIB as well
 #include "def.h"
 #include "resource.h"
 #include "pixmap.h"
