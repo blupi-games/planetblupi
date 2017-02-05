@@ -92,14 +92,13 @@ CMenu::~CMenu()
 
 // Crée un nouveau bouton.
 
-bool CMenu::Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
+bool CMenu::Create(CPixmap *pPixmap, CSound *pSound,
 				   POINT pos, int nb, int *pButtons, int *pErrors,
 				   int perso)
 {
 	pos.x -= DIMBUTTONX/2;
 	pos.y -= DIMBUTTONY/2;
 
-	m_hWnd      = hWnd;
 	m_pPixmap   = pPixmap;
 	m_pSound    = pSound;
 	m_nbButtons = nb;

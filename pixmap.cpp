@@ -43,7 +43,7 @@ CPixmap::CPixmap()
 
 	for ( i=0 ; i<MAXIMAGE ; i++ )
 	{
-		m_lpDDSurface[i] = NULL;
+		m_lpSDLTexture[i] = NULL;
 	}
 
 	// initialize special effects structure
@@ -87,10 +87,10 @@ CPixmap::~CPixmap()
 
 		for ( i=0 ; i<MAXIMAGE ; i++ )
 		{
-			if ( m_lpDDSurface[i] != NULL )
+			if ( m_lpSDLTexture[i] != NULL )
 			{
-				m_lpDDSurface[i]->Release();
-				m_lpDDSurface[i]= NULL;
+				SDL_DestroyTexture (m_lpSDLTexture[i]);
+				m_lpSDLTexture[i] = NULL;
 			}
 		}
 
@@ -116,13 +116,11 @@ void CPixmap::SetDebug(bool bDebug)
 // Crée l'objet DirectDraw principal.
 // Retourne false en cas d'erreur.
 
-bool CPixmap::Create(HWND hwnd, POINT dim,
+bool CPixmap::Create(POINT dim,
 					 bool bFullScreen, int mouseType)
 {
-	DDSURFACEDESC		ddsd;
 	HRESULT				ddrval;
 
-	m_hWnd        = hwnd;
 	m_bFullScreen = bFullScreen;
 	m_mouseType   = mouseType;
 	m_dim         = dim;
@@ -140,15 +138,6 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
         return false;
     }
 
-    // Get exclusive mode.
-	if ( m_bFullScreen )
-	{
-		ddrval = m_lpDD->SetCooperativeLevel(hwnd, DDSCL_EXCLUSIVE|DDSCL_FULLSCREEN);
-	}
-	else
-	{
-	    ddrval = m_lpDD->SetCooperativeLevel(hwnd, DDSCL_NORMAL);
-	}
     if ( ddrval != DD_OK )
     {
 		OutputDebug("Fatal error: SetCooperativeLevel\n");
@@ -166,54 +155,6 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
 		}
 	}
 
-    // Create the primary surface with 1 back buffer.
-	ZeroMemory(&ddsd, sizeof(ddsd));
-    ddsd.dwSize         = sizeof(ddsd);
-    ddsd.dwFlags        = DDSD_CAPS;
-	ddsd.ddsCaps.dwCaps = DDSCAPS_PRIMARYSURFACE;
-
-    ddrval = m_lpDD->CreateSurface(&ddsd, &m_lpDDSPrimary, NULL);
-    if ( ddrval != DD_OK )
-    {
-		TraceErrorDD(ddrval, "pixmap", 0);
-		OutputDebug("Fatal error: CreateSurface\n");
-        return false;
-    }
-	
-	// Create the back buffer.
-	ZeroMemory(&ddsd, sizeof(ddsd));
-	ddsd.dwSize         = sizeof(ddsd);
-	ddsd.dwFlags        = DDSD_CAPS|DDSD_HEIGHT|DDSD_WIDTH;
-//?	ddsd.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
-	ddsd.ddsCaps.dwCaps = DDSCAPS_SYSTEMMEMORY;
-	ddsd.dwWidth        = dim.x;
-	ddsd.dwHeight       = dim.y;
-
-	ddrval = m_lpDD->CreateSurface(&ddsd, &m_lpDDSBack, NULL);
-	if ( ddrval != DD_OK )
-	{
-		TraceErrorDD(ddrval, "pixmap", 0);
-		OutputDebug("Fatal error: CreateBackSurface\n");
-		return false;
-	}
-
-	// Create the mouse buffer.
-	ZeroMemory(&ddsd, sizeof(ddsd));
-	ddsd.dwSize         = sizeof(ddsd);
-	ddsd.dwFlags        = DDSD_CAPS|DDSD_HEIGHT|DDSD_WIDTH;
-//?	ddsd.ddsCaps.dwCaps = DDSCAPS_OFFSCREENPLAIN;
-	ddsd.ddsCaps.dwCaps = DDSCAPS_SYSTEMMEMORY;
-	ddsd.dwWidth        = DIMBLUPIX;
-	ddsd.dwHeight       = DIMBLUPIY;
-
-	ddrval = m_lpDD->CreateSurface(&ddsd, &m_lpDDSMouse, NULL);
-	if ( ddrval != DD_OK )
-	{
-		TraceErrorDD(ddrval, "pixmap", 0);
-		OutputDebug("Fatal error: CreateMouseSurface\n");
-		return false;
-	}
-
 	// Create a DirectDrawClipper object. The object enables clipping to the 
 	// window boundaries in the IDirectDrawSurface::Blt function for the 
 	// primary surface.
@@ -227,19 +168,11 @@ bool CPixmap::Create(HWND hwnd, POINT dim,
 			return false;
 		}
 
-		ddrval = m_lpClipper->SetHWnd(0, hwnd);
+		ddrval = m_lpClipper->SetHWnd(0, nullptr);
 		if ( ddrval != DD_OK )
 		{
 			TraceErrorDD(ddrval, "pixmap", 0);
 			OutputDebug("Can't set clipper window handle\n");
-			return false;
-		}
-
-		ddrval = m_lpDDSPrimary->SetClipper(m_lpClipper);
-		if ( ddrval != DD_OK )
-		{
-			TraceErrorDD(ddrval, "pixmap", 0);
-			OutputDebug("Can't attach clipper to primary surface\n");
 			return false;
 		}
     }
@@ -305,7 +238,6 @@ void CPixmap::Fill(RECT rect, COLORREF color)
 HRESULT CPixmap::RestoreAll()
 {
 	if ( m_bDebug )  OutputDebug("CPixmap::RestoreAll\n");
-	int			i;
 	HRESULT     ddrval;
 
 	if ( m_lpDDSPrimary && m_lpDDSPrimary->IsLost() )
@@ -326,17 +258,6 @@ HRESULT CPixmap::RestoreAll()
 //		if( ddrval != DD_OK )  return ddrval;
 	}
 
-	for ( i=0 ; i<MAXIMAGE ; i++ )
-	{
-		if ( m_lpDDSurface[i] && m_lpDDSurface[i]->IsLost() )
-		{
-			ddrval = m_lpDDSurface[i]->Restore();
-			if( ddrval == DD_OK )
-			{
-				DDReLoadBitmap(m_lpDDSurface[i], m_filename[i]);
-			}
-		}
-	}
 	return DD_OK;
 }
 
@@ -392,18 +313,9 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 			dstRect.y = dst.y;
 			//SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, m_lpSDLBack, &dstRect);
 			SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
-			if (channel != CHMAP)
-			ddrval = m_lpDDSBack->BltFast(dst.x, dst.y,
-										  m_lpDDSurface[channel],
-										  &rcRect, dwTrans);
-
 		}
 		else
 		{
-			if (channel != CHMAP)
-			ddrval = m_lpDDSurface[chDst]->BltFast(dst.x, dst.y,
-										  m_lpDDSurface[channel],
-										  &rcRect, dwTrans);
 			SDL_Rect srcRect, dstRect;
 			srcRect.x = rcRect.left;
 			srcRect.y = rcRect.top;
@@ -437,20 +349,15 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 // Effectue un appel BltFast.
 // Les modes sont 0=transparent, 1=opaque.
 
-HRESULT CPixmap::BltFast(LPDIRECTDRAWSURFACE lpDD, SDL_Texture *lpSDL,
+HRESULT CPixmap::BltFast(SDL_Texture *lpSDL,
 						 int channel, POINT dst, RECT rcRect, int mode)
 {
 	DWORD		dwTrans;
-    HRESULT		ddrval;
+    HRESULT		ddrval = DD_OK;
 
 	if ( mode == 0 )  dwTrans = DDBLTFAST_SRCCOLORKEY;
 	else              dwTrans = DDBLTFAST_NOCOLORKEY;
 
-    while( true )
-    {
-		ddrval = lpDD->BltFast(dst.x, dst.y,
-							   m_lpDDSurface[channel],
-							   &rcRect, dwTrans);
 		SDL_Rect srcRect, dstRect;
 		srcRect.x = rcRect.left;
 		srcRect.y = rcRect.top;
@@ -463,16 +370,6 @@ HRESULT CPixmap::BltFast(LPDIRECTDRAWSURFACE lpDD, SDL_Texture *lpSDL,
 		SDL_SetRenderTarget (g_renderer, lpSDL);
 		SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
 		SDL_SetRenderTarget (g_renderer, nullptr);
-        if ( ddrval == DD_OK )  break;
-        
-        if ( ddrval == DDERR_SURFACELOST )
-        {
-            ddrval = RestoreAll();
-            if ( ddrval != DD_OK )  break;
-        }
-
-        if ( ddrval != DDERR_WASSTILLDRAWING )  break;
-    }
 
 	return ddrval;
 }
@@ -589,11 +486,6 @@ bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 
-	if ( m_lpDDSurface[channel] != NULL )
-	{
-		Flush(channel);
-	}
-
     // Create and set the palette.
 	if ( bUsePalette )
 	{
@@ -619,8 +511,6 @@ bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
 		}
 	}
 
-    // Create the offscreen surface, by loading our bitmap.
-    m_lpDDSurface[channel] = DDLoadBitmap(m_lpDD, pFilename, 0, 0);
 	std::string file = pFilename;
 	if (_access ((file + ".bmp").c_str (), 0 /* F_OK */) != -1)
 		file += ".bmp";
@@ -635,8 +525,18 @@ bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
 	int access, w, h;
 	SDL_QueryTexture (texture, &format, &access, &w, &h);
 
-	m_lpSDLTexture[channel] = SDL_CreateTexture (g_renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, w, h);
-	SDL_SetTextureBlendMode (m_lpSDLTexture[channel], SDL_BLENDMODE_BLEND);
+	if (!m_lpSDLTexture[channel])
+	{
+		m_lpSDLTexture[channel] = SDL_CreateTexture (g_renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, w, h);
+		SDL_SetTextureBlendMode (m_lpSDLTexture[channel], SDL_BLENDMODE_BLEND);
+	}
+	else
+	{
+		SDL_SetRenderTarget (g_renderer, m_lpSDLTexture[channel]);
+		SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 0);
+		SDL_RenderClear (g_renderer);
+		SDL_SetRenderTarget (g_renderer, nullptr);
+	}
 
 	SDL_SetRenderTarget (g_renderer, m_lpSDLTexture[channel]);
 	SDL_RenderCopy (g_renderer, texture, nullptr, nullptr);
@@ -654,16 +554,6 @@ bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
 	if (channel != CHBLUPI)
 		SDL_FreeSurface (surface);
 
-    if ( m_lpDDSurface[channel] == NULL )
-    {
-		OutputDebug("Fatal error: DDLoadBitmap\n");
-        return false;
-    }
-
-    // Set the color key to white
-	if ( m_bDebug )  OutputDebug("DDSetColorKey\n");
-    DDSetColorKey(m_lpDDSurface[channel], RGB(255,255,255));  // blanc
-	
 	strcpy(m_filename[channel], pFilename);
 
 	m_totalDim[channel] = totalDim;
@@ -692,12 +582,10 @@ bool CPixmap::Cache(int channel, SDL_Surface *surface, POINT totalDim)
 {
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 
-	if ( m_lpDDSurface[channel] != NULL )
-	{
-		Flush(channel);
-	}
-
     // Create the offscreen surface, by loading our bitmap.
+	if (m_lpSDLTexture[channel])
+		SDL_DestroyTexture (m_lpSDLTexture[channel]);
+
 	m_lpSDLTexture[channel] = SDL_CreateTextureFromSurface (g_renderer, surface);
 
     if (m_lpSDLTexture[channel] == NULL )
@@ -715,25 +603,13 @@ bool CPixmap::Cache(int channel, SDL_Surface *surface, POINT totalDim)
 	return true;
 }
 
-// Purge une image.
-
-void CPixmap::Flush(int channel)
-{
-	if ( channel < 0 || channel >= MAXIMAGE )  return;
-	if (  m_lpDDSurface[channel] == NULL )     return;
-
-	m_lpDDSurface[channel]->Release();
-	m_lpDDSurface[channel]= NULL;
-}
-
 // Définition de la couleur transparente.
 
 void CPixmap::SetTransparent(int channel, COLORREF color)
 {
 	if ( channel < 0 || channel >= MAXIMAGE )  return;
-	if (  m_lpDDSurface[channel] == NULL )     return;
+	if (m_lpSDLTexture[channel] == NULL )     return;
 
-    DDSetColorKey(m_lpDDSurface[channel], color);
 	m_colorSurface[2*channel+0] = color;
 	m_colorSurface[2*channel+1] = color;
 }
@@ -743,9 +619,8 @@ void CPixmap::SetTransparent(int channel, COLORREF color)
 void CPixmap::SetTransparent2(int channel, COLORREF color1, COLORREF color2)
 {
 	if ( channel < 0 || channel >= MAXIMAGE )  return;
-	if (  m_lpDDSurface[channel] == NULL )     return;
+	if (m_lpSDLTexture[channel] == NULL )     return;
 
-    DDSetColorKey2(m_lpDDSurface[channel], color1, color2);
 	m_colorSurface[2*channel+0] = color1;
 	m_colorSurface[2*channel+1] = color2;
 }
@@ -772,10 +647,9 @@ bool CPixmap::IsIconPixel(int channel, int rank, POINT pos)
 {
 	int			nbx, nby;
     COLORREF	rgb;
-    HDC			hDC;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
-	if (  m_lpDDSurface[channel] == NULL )     return false;
+	if (m_lpSDLTexture[channel] == NULL )     return false;
 
 	if ( m_iconDim[channel].x == 0 ||
 		 m_iconDim[channel].y == 0 )  return false;
@@ -785,17 +659,21 @@ bool CPixmap::IsIconPixel(int channel, int rank, POINT pos)
 
 	if ( rank < 0 || rank >= nbx*nby )  return false;
 
-	pos.x += (rank%nbx)*m_iconDim[channel].x;
-	pos.y += (rank/nbx)*m_iconDim[channel].y;
+	pos.x += (rank % nbx) * m_iconDim[channel].x;
+	pos.y += (rank / nbx) * m_iconDim[channel].y;
 
-	if ( m_lpDDSurface[channel]->GetDC(&hDC) != DD_OK )  return false;
-	rgb = GetPixel(hDC, pos.x, pos.y);
-	m_lpDDSurface[channel]->ReleaseDC(hDC);
+	SDL_Rect rect;
+	rect.x = pos.x;
+	rect.y = pos.y;
+	rect.w = 1;
+	rect.h = 1;
+	Uint32 pixel = 0;
 
-	if ( rgb == m_colorSurface[2*channel+0] ||
-		 rgb == m_colorSurface[2*channel+1] )  return false;
+	SDL_SetRenderTarget (g_renderer, m_lpSDLTexture[channel]);
+	SDL_RenderReadPixels (g_renderer, &rect, 0, &pixel, 4);
+	SDL_SetRenderTarget (g_renderer, nullptr);
 
-	return true;
+	return !!pixel;
 }
 
 
@@ -811,7 +689,7 @@ bool CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos,
 	COLORREF	oldColor1, oldColor2;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
-	if ( channel != CHMAP && m_lpDDSurface[channel] == NULL )     return false;
+	if ( channel != CHMAP && m_lpSDLTexture[channel] == NULL )     return false;
 
 	if ( m_iconDim[channel].x == 0 ||
 		 m_iconDim[channel].y == 0 )  return false;
@@ -855,7 +733,7 @@ bool CPixmap::DrawIconDemi(int chDst, int channel, int rank, POINT pos,
 	COLORREF	oldColor1, oldColor2;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
-	if (  m_lpDDSurface[channel] == NULL )     return false;
+	if (m_lpSDLTexture[channel] == NULL )     return false;
 
 	if ( m_iconDim[channel].x == 0 ||
 		 m_iconDim[channel].y == 0 )  return false;
@@ -895,7 +773,7 @@ bool CPixmap::DrawIconPart(int chDst, int channel, int rank, POINT pos,
 	COLORREF	oldColor1, oldColor2;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
-	if (  m_lpDDSurface[channel] == NULL )     return false;
+	if (m_lpSDLTexture[channel] == NULL )     return false;
 
 	if ( m_iconDim[channel].x == 0 ||
 		 m_iconDim[channel].y == 0 )  return false;
@@ -933,7 +811,7 @@ bool CPixmap::DrawPart(int chDst, int channel, POINT dest, RECT rect,
 	COLORREF	oldColor1, oldColor2;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
-	if (  m_lpDDSurface[channel] == NULL )     return false;
+	if (m_lpSDLTexture[channel] == NULL )     return false;
 
 	oldColor1 = m_colorSurface[2*channel+0];
 	oldColor2 = m_colorSurface[2*channel+1];
@@ -954,7 +832,7 @@ bool CPixmap::DrawImage(int chDst, int channel, RECT rect, int mode)
 	HRESULT		ddrval;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
-	if (  m_lpDDSurface[channel] == NULL )     return false;
+	if (m_lpSDLTexture[channel] == NULL )     return false;
 
 	dst.x = rect.left;
 	dst.y = rect.top;
@@ -983,7 +861,7 @@ bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 	HRESULT		ddrval;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
-	if (  m_lpDDSurface[channel] == NULL )     return false;
+	if (m_lpSDLTexture[channel] == NULL )     return false;
 
 	if ( m_iconDim[channel].x == 0 ||
 		 m_iconDim[channel].y == 0 )  return false;
@@ -1000,7 +878,7 @@ bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 	rect.bottom = rect.top  + m_iconDim[channel].y;
 	posDst.x    = (rankDst%nbx)*m_iconDim[channel].x;
 	posDst.y    = (rankDst/nbx)*m_iconDim[channel].y;
-	ddrval = BltFast(m_lpDDSurface[channel], m_lpSDLTexture[channel], channel, posDst, rect, 1);
+	ddrval = BltFast(m_lpSDLTexture[channel], channel, posDst, rect, 1);
 	if ( ddrval != DD_OK )  return false;
 
 	if ( m_iconDim[channelMask].x == 0 ||
@@ -1015,7 +893,7 @@ bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 	rect.top    = (rankMask/nbx)*m_iconDim[channelMask].y;
 	rect.right  = rect.left + m_iconDim[channelMask].x;
 	rect.bottom = rect.top  + m_iconDim[channelMask].y;
-	ddrval = BltFast(m_lpDDSurface[channel], m_lpSDLTexture[channel], channelMask, posDst, rect, 0);
+	ddrval = BltFast(m_lpSDLTexture[channel], channelMask, posDst, rect, 0);
 	if ( ddrval != DD_OK )  return false;
 
 	return true;
@@ -1027,61 +905,16 @@ bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 
 bool CPixmap::Display()
 {
-	HRESULT		ddrval;
-	RECT		DestRect, MapRect;
+	RECT		MapRect;
 
 	m_bBackDisplayed = true;
 
-	// Get screen coordinates of client window for blit
-	GetClientRect(m_hWnd, &DestRect);
-	ClientToScreen(m_hWnd, (LPPOINT)&DestRect);
-	ClientToScreen(m_hWnd, (LPPOINT)&DestRect+1);
-	
 	MapRect.left   = 0;
 	MapRect.top    = 0;
 	MapRect.right  = m_dim.x;
 	MapRect.bottom = m_dim.y;
 
-	// do the blit from back surface
-	ddrval = m_lpDDSPrimary->Blt
-				(
-					&DestRect,		// destination rect
-					m_lpDDSBack,
-					&MapRect,		// source rect     
-					DDBLT_WAIT,
-					&m_DDbltfx
-				);
-	/*SDL_Rect srcRect, dstRect;
-	srcRect.x = MapRect.left;
-	srcRect.y = MapRect.top;
-	srcRect.w = MapRect.right - MapRect.left;
-	srcRect.h = MapRect.bottom - MapRect.top;
-	dstRect.x = DestRect.left;
-	dstRect.y = DestRect.top;
-	dstRect.w = DestRect.right - DestRect.left;
-	dstRect.h = DestRect.bottom - DestRect.top;
-	SDL_BlitSurface (m_lpSDLPrimary, &srcRect, m_lpSDLBack, &dstRect);*/
-
-	/*
-	* Copies the bmp surface to the window surface
-	*/
-	/*SDL_BlitSurface (m_lpSDLBack,
-					 NULL,
-					 m_lpSDLPrimary,
-					 NULL);*/
-
-	/*
-	* Now updating the window
-	*/
-	//SDL_UpdateWindowSurface (g_window);
-
 	SDL_RenderPresent (g_renderer);
-
-    if ( ddrval == DDERR_SURFACELOST )
-    {
-        ddrval = RestoreAll();
-    }
-	if ( ddrval != DD_OK )  return false;
 	return true;
 }
 

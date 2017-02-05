@@ -12,14 +12,14 @@ public:
 	bool	Create();
 	bool	GetEnable();
 	bool	IsExist(char *pFilename);
-	bool	Play(HWND hWnd, RECT rect, char *pFilename);
-	void	Stop(HWND hWnd);
+	bool	Play(RECT rect, char *pFilename);
+	void	Stop();
 
 protected:
-	void	playMovie(HWND hWnd, int nDirection);
-	bool	fileOpenMovie(HWND hWnd, RECT rect, char *pFilename);
-	void	fileCloseMovie(HWND hWnd);
-	void	positionMovie(HWND hWnd, RECT rect);
+	void	playMovie(int nDirection);
+	bool	fileOpenMovie(RECT rect, char *pFilename);
+	void	fileCloseMovie();
+	void	positionMovie(RECT rect);
 	void	termAVI();
 	bool	initAVI();
 

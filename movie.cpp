@@ -62,7 +62,7 @@ void CMovie::termAVI()
 // Sets the movie rectange <rcMovie> to be
 // centered within the app's window.
 
-void CMovie::positionMovie(HWND hWnd, RECT rect)
+void CMovie::positionMovie(RECT rect)
 {
 	// reposition the playback (child) window
 	MoveWindow(m_hwndMovie,
@@ -73,7 +73,7 @@ void CMovie::positionMovie(HWND hWnd, RECT rect)
 // Close the movie and anything associated with it.					|
 // This function clears the <m_fPlaying> and <m_fMovieOpen> flags	|
 
-void CMovie::fileCloseMovie(HWND hWnd)
+void CMovie::fileCloseMovie()
 {
 	MCI_GENERIC_PARMS  mciGeneric;
 
@@ -82,10 +82,6 @@ void CMovie::fileCloseMovie(HWND hWnd)
 
 	m_fPlaying   = false;	// can't be playing any longer
 	m_fMovieOpen = false;	// no more movies open
-	
-	// cause a total repaint to occur
-	InvalidateRect(hWnd, NULL, true);
-	UpdateWindow(hWnd);
 }
 
 
@@ -95,7 +91,7 @@ void CMovie::fileCloseMovie(HWND hWnd)
 // the movie paused when opened.
 // Sets <m_fMovieOpen> on success.
 
-bool CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
+bool CMovie::fileOpenMovie(RECT rect, char *pFilename)
 {
 	MCI_DGV_OPEN_PARMS		mciOpen;
 	MCI_DGV_WINDOW_PARMS	mciWindow;
@@ -113,7 +109,7 @@ bool CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 	}
 
 	// we got a filename, now close any old movie and open the new one.					*/
-	if ( m_fMovieOpen )  fileCloseMovie(hWnd);	
+	if ( m_fMovieOpen )  fileCloseMovie();	
 
 	// we have a .AVI movie to open, use MCI
 	// set up the open parameters
@@ -123,7 +119,7 @@ bool CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 	mciOpen.lpstrElementName = string;
 	mciOpen.lpstrAlias       = NULL;
 	mciOpen.dwStyle          = WS_CHILD;
-	mciOpen.hWndParent       = hWnd;
+	mciOpen.hWndParent       = nullptr;
 
 	// try to open the file
 	if ( mciSendCommand(0, MCI_OPEN,
@@ -151,12 +147,7 @@ bool CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 		m_hwndMovie = (HWND)mciStatus.dwReturn;
 
 		// now get the movie centered
-		positionMovie(hWnd, rect);
-
-		// cause an update to occur
-		InvalidateRect(hWnd, NULL, false);
-		UpdateWindow(hWnd);
-
+		positionMovie(rect);
 		return true;
 	}
 	else
@@ -172,7 +163,7 @@ bool CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 // of the <m_fPlaying> flag.			|
 // This function sets the <m_fPlaying> flag appropriately when done|
 
-void CMovie::playMovie(HWND hWnd, int nDirection)
+void CMovie::playMovie(int nDirection)
 {
 	m_fPlaying = !m_fPlaying;	// swap the play flag
 
@@ -186,7 +177,7 @@ void CMovie::playMovie(HWND hWnd, int nDirection)
 		MCI_DGV_PLAY_PARMS	mciPlay;
 		
 		// init to play all
-		mciPlay.dwCallback = MAKELONG(hWnd,0);
+		mciPlay.dwCallback = MAKELONG(nullptr,0);
 		mciPlay.dwFrom = mciPlay.dwTo = 0;
 		dwFlags = MCI_NOTIFY;
 		if ( nDirection == IDM_RPLAY )
@@ -280,19 +271,19 @@ bool CMovie::IsExist(char *pFilename)
 
 // Montre un film avi.
 
-bool CMovie::Play(HWND hWnd, RECT rect, char *pFilename)
+bool CMovie::Play(RECT rect, char *pFilename)
 {
 	if ( !m_bEnable )  return false;
-	if ( !fileOpenMovie(hWnd, rect, pFilename) )  return false;
-	playMovie(hWnd, IDM_PLAY);
+	if ( !fileOpenMovie(rect, pFilename) )  return false;
+	playMovie(IDM_PLAY);
 
 	return true;
 }
 
 // Stoppe le film avi.
 
-void CMovie::Stop(HWND hWnd)
+void CMovie::Stop()
 {
 	if ( !m_bEnable )  return;
-	fileCloseMovie(hWnd);
+	fileCloseMovie();
 }

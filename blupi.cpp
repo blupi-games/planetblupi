@@ -34,7 +34,6 @@
 
 // Variables globales
 
-HWND		g_hWnd;					// handle à la fenêtre
 SDL_Window *g_window;
 SDL_Renderer *g_renderer;
 CEvent*		g_pEvent  = NULL;
@@ -416,10 +415,10 @@ bool InitFail(char *msg, bool bDirectX)
 	else             strcpy(buffer, "Error (");
 	strcat(buffer, msg);
 	strcat(buffer, ")");
-    MessageBox(g_hWnd, buffer, TITLE, MB_OK);
+
+	SDL_ShowSimpleMessageBox (SDL_MessageBoxFlags::SDL_MESSAGEBOX_ERROR, "Error", buffer, g_window);
 
     FinishObjects();
-    DestroyWindow(g_hWnd);
     return false;
 }
 
@@ -427,7 +426,6 @@ bool InitFail(char *msg, bool bDirectX)
 
 static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	WNDCLASS		wc;
 	POINT			totalDim, iconDim;
 	RECT			rcRect;
 	bool			bOK;
@@ -444,21 +442,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	// Create a window.
 	if ( g_bFullScreen )
 	{
-		g_hWnd = CreateWindowEx
-					(
-						WS_EX_TOPMOST,
-						NAME,
-						TITLE,
-						WS_POPUP,
-						0, 0,
-						GetSystemMetrics(SM_CXSCREEN),
-						GetSystemMetrics(SM_CYSCREEN),
-						NULL,
-						NULL,
-						hInstance,
-						NULL
-					);
-
 		g_window = SDL_CreateWindow (
 			NAME,
 			0, 0,
@@ -469,31 +452,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	}
 	else
 	{
-		int			sx, sy;
-		RECT		WindowRect;
-
-		sx = GetSystemMetrics(SM_CXSCREEN);
-		sy = GetSystemMetrics(SM_CYSCREEN);
-
-		SetRect(&WindowRect, (sx-LXIMAGE)/2, (sy-LYIMAGE)/2,
-							 (sx+LXIMAGE)/2, (sy+LYIMAGE)/2);
-		AdjustWindowRect(&WindowRect,  WS_POPUPWINDOW|WS_CAPTION, true);
-		WindowRect.top += GetSystemMetrics(SM_CYCAPTION);
-
-		g_hWnd = CreateWindow
-					(
-						NAME,
-						TITLE,
-						WS_POPUPWINDOW|WS_CAPTION|WS_VISIBLE,
-						(sx-LXIMAGE)/2, (sy-LYIMAGE)/2,
-						WindowRect.right - WindowRect.left,
-						WindowRect.bottom - WindowRect.top,
-						HWND_DESKTOP,
-						NULL,
-						hInstance,
-						NULL
-					);
-
 		g_window = SDL_CreateWindow (NAME, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, LXIMAGE, LYIMAGE, 0);
 	}
 
@@ -511,10 +469,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 		return false;
 	}
 
-	ShowWindow(g_hWnd, nCmdShow);
-	UpdateWindow(g_hWnd);
-	SetFocus(g_hWnd);
-
 	if ( !bOK )  // config.def pas correct ?
 	{
 		return InitFail("Game not correctly installed", false);
@@ -526,7 +480,7 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 
 	totalDim.x = LXIMAGE;
 	totalDim.y = LYIMAGE;
-	if ( !g_pPixmap->Create(g_hWnd, totalDim, g_bFullScreen, g_mouseType) )
+	if ( !g_pPixmap->Create(totalDim, g_bFullScreen, g_mouseType) )
 		return InitFail("Create pixmap", true);
 
 	OutputDebug("Image: init\n");
@@ -677,14 +631,14 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	g_pDecor = new CDecor;
 	if ( g_pDecor == NULL )  return InitFail("New decor", false);
 
-	g_pDecor->Create(g_hWnd, g_pSound, g_pPixmap);
+	g_pDecor->Create(g_pSound, g_pPixmap);
 	g_pDecor->MapInitColors();
 
 	// Crée le gestionnaire d'événements.
 	g_pEvent = new CEvent;
 	if ( g_pEvent == NULL )  return InitFail("New event", false);
 
-	g_pEvent->Create(g_hWnd, g_pPixmap, g_pDecor, g_pSound, g_pMovie);
+	g_pEvent->Create(g_pPixmap, g_pDecor, g_pSound, g_pMovie);
 	g_pEvent->SetFullScreen(g_bFullScreen);
 	g_pEvent->SetMouseType(g_mouseType);
 #if _INTRO

@@ -59,7 +59,7 @@ public:
 	~CEvent();
 
 	POINT	GetMousePos();
-	void	Create(HWND hWnd, CPixmap *pPixmap, CDecor *pDecor, CSound *pSound, CMovie *pMovie);
+	void	Create(CPixmap *pPixmap, CDecor *pDecor, CSound *pSound, CMovie *pMovie);
 	void	SetFullScreen(bool bFullScreen);
 	void	SetMouseType(int mouseType);
 	int		GetWorld();
@@ -156,7 +156,6 @@ protected:
 	bool		m_bAccessBuild;
 	bool		m_bFullScreen;
 	int			m_mouseType;
-	HWND		m_hWnd;
 	CPixmap*	m_pPixmap;
 	CDecor*		m_pDecor;
 	CSound*		m_pSound;

@@ -363,7 +363,7 @@ public:
 	POINT	ConvPosToCel(POINT pos, bool bMap=false);
 	POINT	ConvPosToCel2(POINT pos);
 
-	void	Create(HWND hWnd, CSound *pSound, CPixmap *pPixmap);
+	void	Create(CSound *pSound, CPixmap *pPixmap);
 	void	Init(int channel, int icon);
 	void	InitAfterBuild();
 	void	ResetHili();
@@ -439,7 +439,6 @@ protected:
 	int		GetSeeIcon(char *pBits, int index);
 
 protected:
-	HWND		m_hWnd;
 	CSound*		m_pSound;
 	CPixmap*	m_pPixmap;
 	Cellule*	m_pUndoDecor;

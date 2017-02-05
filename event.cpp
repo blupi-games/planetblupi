@@ -1538,12 +1538,11 @@ void CEvent::SetMouseType(int mouseType)
 
 // Crée le gestionnaire d'événements.
 
-void CEvent::Create(HWND hWnd, CPixmap *pPixmap, CDecor *pDecor,
+void CEvent::Create(CPixmap *pPixmap, CDecor *pDecor,
 					CSound *pSound, CMovie *pMovie)
 {
 	POINT	pos;
 
-	m_hWnd    = hWnd;
 	m_pPixmap = pPixmap;
 	m_pDecor  = pDecor;
 	m_pSound  = pSound;
@@ -1553,10 +1552,10 @@ void CEvent::Create(HWND hWnd, CPixmap *pPixmap, CDecor *pDecor,
 
 	pos.x = 10;
 	pos.y = 158;
-	m_jauges[0].Create(m_hWnd, m_pPixmap, m_pSound, pos, 1, true);
+	m_jauges[0].Create(m_pPixmap, m_pSound, pos, 1, true);
 
 	pos.y += DIMJAUGEY+2;
-	m_jauges[1].Create(m_hWnd, m_pPixmap, m_pSound, pos, 3, true);
+	m_jauges[1].Create(m_pPixmap, m_pSound, pos, 3, true);
 }
 
 
@@ -1720,7 +1719,7 @@ bool CEvent::CreateButtons()
 			}
 		}
 
-		m_buttons[i].Create(m_hWnd, m_pPixmap, m_pSound, pos,
+		m_buttons[i].Create(m_pPixmap, m_pSound, pos,
 							table[m_index].buttons[i].type,
 							bMinimizeRedraw,
 							table[m_index].buttons[i].iconMenu+1,
@@ -3506,7 +3505,7 @@ bool CEvent::PlayUp(POINT pos, Uint16 mod)
 			{
 				m_menuCel = m_pDecor->ConvPosToCel(pos);
 				m_menuPos = pos;
-				m_menu.Create(m_hWnd, m_pPixmap, m_pSound,
+				m_menu.Create(m_pPixmap, m_pSound,
 							  pos, m_menuNb, m_menuButtons, m_menuErrors,
 							  m_menuPerso);
 				m_bMenu = true;
@@ -4031,7 +4030,7 @@ bool CEvent::StartMovie(char *pFilename)
 	strcpy(filename+strlen(filename)-4, ".blp");  // remplace .avi par .blp
 	m_pSound->Cache(SOUND_MOVIE, filename);
 
-	if ( !m_pMovie->Play(m_hWnd, rect, pFilename) )  return false;
+	if ( !m_pMovie->Play(rect, pFilename) )  return false;
 	m_bRunMovie = true;
 	m_pSound->Play(SOUND_MOVIE, 0, 0);
 	return true;
@@ -4041,7 +4040,7 @@ bool CEvent::StartMovie(char *pFilename)
 
 void CEvent::StopMovie()
 {
-	m_pMovie->Stop(m_hWnd);
+	m_pMovie->Stop();
 	m_pPixmap->RestorePalette();
 	m_pSound->Flush(SOUND_MOVIE);
 //	m_pSound->RestartMusic();

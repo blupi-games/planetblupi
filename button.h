@@ -10,7 +10,7 @@ public:
 	CButton();
 	~CButton();
 
-	bool	Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
+	bool	Create(CPixmap *pPixmap, CSound *pSound,
 				   POINT pos, int type, bool bMinimizeRedraw,
 				   int *pMenu, int nbMenu,
 				   int *pTooltips, int nbToolTips,
@@ -42,7 +42,6 @@ protected:
 	bool	MouseUp(POINT pos);
 
 protected:
-	HWND		m_hWnd;
 	CPixmap*	m_pPixmap;
 	CDecor*		m_pDecor;
 	CSound*		m_pSound;

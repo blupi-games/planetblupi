@@ -18,7 +18,7 @@ public:
 
 	void	SetDebug(bool bDebug);
 	
-	bool	Create(HWND hwnd, POINT dim, bool bFullScreen, int mouseType);
+	bool	Create(POINT dim, bool bFullScreen, int mouseType);
 	bool	Flush();
 	bool	Restore();
 	bool	InitSysPalette();
@@ -31,7 +31,6 @@ public:
 	bool	Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim, bool bUsePalette);
 	bool	Cache(int channel, char *pFilename, POINT totalDim, bool bUsePalette);
 	bool	Cache(int channel, SDL_Surface *surface, POINT totalDim);
-	void	Flush(int channel);
 	void	SetTransparent(int channel, COLORREF color);
 	void	SetTransparent2(int channel, COLORREF color1, COLORREF color2);
 	void	SetClipping(RECT clip);
@@ -58,7 +57,7 @@ public:
 protected:
 	HRESULT	RestoreAll();
 	HRESULT	BltFast(int chDst, int channel, POINT dst, RECT rcRect, int mode);
-	HRESULT	BltFast(LPDIRECTDRAWSURFACE lpDD, SDL_Texture *lpSDL,
+	HRESULT	BltFast(SDL_Texture *lpSDL,
 					int channel, POINT dst, RECT rcRect, int mode);
 
 	RECT	MouseRectSprite();
@@ -70,7 +69,6 @@ protected:
 	int						m_mouseType;
 	bool					m_bDebug;
 	bool					m_bPalette;
-	HWND					m_hWnd;
 	POINT					m_dim;					// dimensions totales
 	RECT					m_clipRect;				// rectangle de clipping
 
@@ -87,7 +85,6 @@ protected:
 	SDL_Cursor *			m_lpSDLCursors[MAXCURSORS];
 	SDL_Surface *			m_lpSDLBlupi;
 	LPDIRECTDRAWPALETTE		m_lpDDPal;				// the primary surface palette
-	LPDIRECTDRAWSURFACE		m_lpDDSurface[MAXIMAGE]; // offscreen surfaces
 	SDL_Surface *			m_lpSDLSurface[MAXIMAGE];
 	SDL_Texture *			m_lpSDLTexture[MAXIMAGE];
 	LPDIRECTDRAWCLIPPER		m_lpClipper;

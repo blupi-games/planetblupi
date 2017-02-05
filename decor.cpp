@@ -99,7 +99,6 @@ POINT GetVector(int direct)
 
 CDecor::CDecor()
 {
-	m_hWnd   = NULL;
 	m_pSound = NULL;
 	m_pUndoDecor = NULL;
 
@@ -149,9 +148,8 @@ CDecor::~CDecor()
 
 // Initialisation générale.
 
-void CDecor::Create(HWND hWnd, CSound *pSound, CPixmap *pPixmap)
+void CDecor::Create(CSound *pSound, CPixmap *pPixmap)
 {
-	m_hWnd     = hWnd;
 	m_pSound   = pSound;
 	m_pPixmap  = pPixmap;
 	m_bOutline = false;

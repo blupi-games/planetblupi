@@ -12,7 +12,7 @@ public:
 	CMenu();
 	~CMenu();
 
-	bool	Create(HWND hWnd, CPixmap *pPixmap, CSound *pSound,
+	bool	Create(CPixmap *pPixmap, CSound *pSound,
 				   POINT pos, int nb, int *pButtons, int *pErrors,
 				   int perso);
 	void	Update(int nb, int *pButtons, int *pErrors);
@@ -33,7 +33,6 @@ protected:
 	bool	MouseUp(POINT pos);
 
 protected:
-	HWND		m_hWnd;
 	CPixmap*	m_pPixmap;
 	CDecor*		m_pDecor;
 	CSound*		m_pSound;
