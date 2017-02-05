@@ -137,18 +137,13 @@ bool CMovie::fileOpenMovie(RECT rect, char *pFilename)
 }
 
 // Play/pause the movie depending on the state
-// of the <m_fPlaying> flag.			|
-// This function sets the <m_fPlaying> flag appropriately when done|
 
-void CMovie::playMovie(int nDirection)
+void CMovie::playMovie()
 {
 	m_fPlaying = !m_fPlaying;	// swap the play flag
 
-	if( !nDirection )
-		m_fPlaying = false;	// wDirection == nullptr means PAUSE
-
 	// play/pause the AVI movie
-	if ( m_fPlaying )
+	if (m_fPlaying)
 	{
 		SDL_RenderSetLogicalSize (g_renderer, pinfo->video.width, pinfo->video.height);
 		Kit_PlayerPlay (m_player);
@@ -235,7 +230,7 @@ bool CMovie::Play(RECT rect, char *pFilename)
 {
 	if ( !m_bEnable )  return false;
 	if ( !fileOpenMovie(rect, pFilename) )  return false;
-	playMovie(IDM_PLAY);
+	playMovie();
 	CEvent::PushUserEvent (WM_MOVIE_PLAY);
 
 	return true;

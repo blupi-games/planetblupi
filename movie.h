@@ -26,7 +26,7 @@ public:
 	bool	Render ();
 
 protected:
-	void	playMovie(int nDirection);
+	void	playMovie();
 	bool	fileOpenMovie(RECT rect, char *pFilename);
 	void	fileCloseMovie();
 	void	termAVI();
