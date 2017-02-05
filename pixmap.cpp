@@ -272,14 +272,8 @@ bool CPixmap::Cache(int channel, SDL_Surface *surface, POINT totalDim)
 	m_lpSDLTexture[channel] = SDL_CreateTextureFromSurface (g_renderer, surface);
 
     if (m_lpSDLTexture[channel] == NULL )
-    {
-		OutputDebug("Fatal error: DDLoadBitmap\n");
         return false;
-    }
 
-    // Set the color key to white
-    //DDSetColorKey(m_lpDDSurface[channel], RGB(255,255,255));  // blanc
-	
 	m_totalDim[channel] = totalDim;
 	m_iconDim[channel]  = totalDim;
 

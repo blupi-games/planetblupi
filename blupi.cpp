@@ -14,7 +14,6 @@
 #include <mmsystem.h>        // link WINMM.LIB as well
 #include "def.h"
 #include "resource.h"
-#include "ddutil.h"
 #include "pixmap.h"
 #include "sound.h"
 #include "decor.h"

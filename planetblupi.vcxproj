@@ -181,7 +181,6 @@
     <ClCompile Include="blupi.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="chemin.cpp" />
-    <ClCompile Include="ddutil.cpp" />
     <ClCompile Include="decblupi.cpp" />
     <ClCompile Include="decgoal.cpp" />
     <ClCompile Include="decio.cpp" />
@@ -207,7 +206,6 @@
     <ClInclude Include="action.h" />
     <ClInclude Include="blupi.h" />
     <ClInclude Include="button.h" />
-    <ClInclude Include="ddutil.h" />
     <ClInclude Include="decgoal.h" />
     <ClInclude Include="decmove.h" />
     <ClInclude Include="decor.h" />

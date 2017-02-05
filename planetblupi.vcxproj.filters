@@ -29,9 +29,6 @@
     <ClCompile Include="chemin.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="ddutil.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="decblupi.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -98,9 +95,6 @@
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="button.h">
-      <Filter>Sources</Filter>
-    </ClInclude>
-    <ClInclude Include="ddutil.h">
       <Filter>Sources</Filter>
     </ClInclude>
     <ClInclude Include="decgoal.h">
@@ -197,7 +191,6 @@
     </None>
     <None Include="packages.config" />
     <None Include=".editorconfig" />
-    <None Include="SDL2_mixer-2.0.1\lib\x86\SDL2_mixer.dll" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="blupi-d.rc">
