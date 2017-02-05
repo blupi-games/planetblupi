@@ -39,7 +39,6 @@ CPixmap::CPixmap()
 	m_lpDDSBack    = NULL;
 	m_lpDDSMouse   = NULL;
 	m_lpDDPal      = NULL;
-	m_lpClipper    = NULL;
 
 	for ( i=0 ; i<MAXIMAGE ; i++ )
 	{
@@ -92,12 +91,6 @@ CPixmap::~CPixmap()
 				SDL_DestroyTexture (m_lpSDLTexture[i]);
 				m_lpSDLTexture[i] = NULL;
 			}
-		}
-
-		if ( m_lpClipper != NULL )
-		{
-			m_lpClipper->Release();
-			m_lpClipper = NULL;
 		}
 
         m_lpDD->Release();
@@ -155,29 +148,7 @@ bool CPixmap::Create(POINT dim,
 		}
 	}
 
-	// Create a DirectDrawClipper object. The object enables clipping to the 
-	// window boundaries in the IDirectDrawSurface::Blt function for the 
-	// primary surface.
-	if ( !m_bFullScreen )
-	{
-		ddrval = m_lpDD->CreateClipper(0, &m_lpClipper, NULL);
-		if ( ddrval != DD_OK )
-		{
-			TraceErrorDD(ddrval, "pixmap", 0);
-			OutputDebug("Can't create clipper\n");
-			return false;
-		}
-
-		ddrval = m_lpClipper->SetHWnd(0, nullptr);
-		if ( ddrval != DD_OK )
-		{
-			TraceErrorDD(ddrval, "pixmap", 0);
-			OutputDebug("Can't set clipper window handle\n");
-			return false;
-		}
-    }
-
-    return true;
+	return true;
 }
 
 // Libère les bitmaps.

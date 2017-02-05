@@ -80,7 +80,6 @@ protected:
 	LPDIRECTDRAWPALETTE		m_lpDDPal;				// the primary surface palette
 	SDL_Surface *			m_lpSDLSurface[MAXIMAGE];
 	SDL_Texture *			m_lpSDLTexture[MAXIMAGE];
-	LPDIRECTDRAWCLIPPER		m_lpClipper;
     PALETTEENTRY			m_pal[256];				// sauvegarde palette
     PALETTEENTRY			m_sysPal[256];			// sauvegarde palette
 	COLORREF				m_colorSurface[2*MAXIMAGE];
