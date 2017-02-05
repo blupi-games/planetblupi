@@ -2858,7 +2858,7 @@ bool CEvent::ChangePhase(UINT phase)
 	totalDim.y = LYIMAGE;
 	iconDim.x  = 0;
 	iconDim.y  = 0;
-	if ( !m_pPixmap->Cache(CHBACK, filename, totalDim, iconDim, false) )
+	if ( !m_pPixmap->Cache(CHBACK, filename, totalDim, iconDim) )
 	{
 		WaitMouse(false);  // enlève le sablier
 		m_tryInsertCount = 40;

@@ -38,7 +38,6 @@ CPixmap::CPixmap()
 	m_lpDDSPrimary = NULL;
 	m_lpDDSBack    = NULL;
 	m_lpDDSMouse   = NULL;
-	m_lpDDPal      = NULL;
 
 	for ( i=0 ; i<MAXIMAGE ; i++ )
 	{
@@ -77,12 +76,6 @@ CPixmap::~CPixmap()
 			m_lpDDSMouse->Release();
 			m_lpDDSMouse = NULL;
 		}
-
-        if ( m_lpDDPal != NULL )
-        {
-            m_lpDDPal->Release();
-            m_lpDDPal = NULL;
-        }
 
 		for ( i=0 ; i<MAXIMAGE ; i++ )
 		{
@@ -265,37 +258,9 @@ HRESULT CPixmap::BltFast(SDL_Texture *lpSDL,
 
 // Cache une image contenant des icônes.
 
-bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
-					bool bUsePalette)
+bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim)
 {
-    HRESULT     ddrval;
-
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
-
-    // Create and set the palette.
-	if ( bUsePalette )
-	{
-		if ( m_bDebug )  OutputDebug("Use palette\n");
-		if ( m_lpDDPal != NULL )
-		{
-			if ( m_bDebug )  OutputDebug("Release palette\n");
-			m_lpDDPal->Release();
-			m_lpDDPal = NULL;
-		}
-
-		m_lpDDPal = DDLoadPalette(m_lpDD, pFilename);
-
-		if ( m_lpDDPal )
-		{
-			if ( m_bDebug )  OutputDebug("Set palette\n");
-			m_lpDDSPrimary->SetPalette(NULL);  // indispensable !
-			ddrval = m_lpDDSPrimary->SetPalette(m_lpDDPal);
-			if ( ddrval != DD_OK )
-			{
-				TraceErrorDD(ddrval, pFilename, 1);
-			}
-		}
-	}
 
 	std::string file = pFilename;
 	if (_access ((file + ".bmp").c_str (), 0 /* F_OK */) != -1)
@@ -350,7 +315,7 @@ bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim,
 
 // Cache une image globale.
 
-bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, bool bUsePalette)
+bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim)
 {
 	POINT		iconDim;
 
@@ -359,7 +324,7 @@ bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, bool bUsePalet
 	iconDim.x = 0;
 	iconDim.y = 0;
 
-	return Cache(channel, pFilename, totalDim, iconDim, bUsePalette);
+	return Cache(channel, pFilename, totalDim, iconDim);
 }
 
 // Cache une image provenant d'un bitmap.

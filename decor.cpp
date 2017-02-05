@@ -224,7 +224,7 @@ bool CDecor::LoadImages()
 	iconDim.x = DIMCELX*2;
 	iconDim.y = DIMCELY*2;
 	sprintf(filename, "image\\floor%.3d.blp", m_region);
-	if ( !m_pPixmap->Cache(CHFLOOR, filename, totalDim, iconDim, false) )
+	if ( !m_pPixmap->Cache(CHFLOOR, filename, totalDim, iconDim) )
 		return false;
 	m_pPixmap->SetTransparent(CHFLOOR, RGB(0,0,255));  // bleu
 
@@ -233,12 +233,12 @@ bool CDecor::LoadImages()
 	iconDim.x = DIMOBJX;
 	iconDim.y = DIMOBJY;
 	sprintf(filename, "image\\obj%.3d.blp", m_region);
-	if ( !m_pPixmap->Cache(CHOBJECT, filename, totalDim, iconDim, false) )
+	if ( !m_pPixmap->Cache(CHOBJECT, filename, totalDim, iconDim) )
 		return false;
 	m_pPixmap->SetTransparent(CHOBJECT, RGB(0,0,255));  // bleu
 
 	sprintf(filename, "image\\obj-o%.3d.blp", m_region);
-	if ( !m_pPixmap->Cache(CHOBJECTo, filename, totalDim, iconDim, false) )
+	if ( !m_pPixmap->Cache(CHOBJECTo, filename, totalDim, iconDim) )
 		return false;
 	m_pPixmap->SetTransparent(CHOBJECTo, RGB(255,255,255));  // blanc
 

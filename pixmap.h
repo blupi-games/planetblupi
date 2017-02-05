@@ -22,8 +22,8 @@ public:
 	bool	Flush();
 	void	Fill(RECT rect, COLORREF color);
 	
-	bool	Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim, bool bUsePalette);
-	bool	Cache(int channel, char *pFilename, POINT totalDim, bool bUsePalette);
+	bool	Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim);
+	bool	Cache(int channel, char *pFilename, POINT totalDim);
 	bool	Cache(int channel, SDL_Surface *surface, POINT totalDim);
 	void	SetTransparent(int channel, COLORREF color);
 	void	SetTransparent2(int channel, COLORREF color1, COLORREF color2);
@@ -77,11 +77,8 @@ protected:
 	SDL_Cursor *			m_lpCurrentCursor;
 	SDL_Cursor *			m_lpSDLCursors[MAXCURSORS];
 	SDL_Surface *			m_lpSDLBlupi;
-	LPDIRECTDRAWPALETTE		m_lpDDPal;				// the primary surface palette
 	SDL_Surface *			m_lpSDLSurface[MAXIMAGE];
 	SDL_Texture *			m_lpSDLTexture[MAXIMAGE];
-    PALETTEENTRY			m_pal[256];				// sauvegarde palette
-    PALETTEENTRY			m_sysPal[256];			// sauvegarde palette
 	COLORREF				m_colorSurface[2*MAXIMAGE];
 
 	char					m_filename[MAXIMAGE][20];
