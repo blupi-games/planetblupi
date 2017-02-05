@@ -277,6 +277,10 @@ xcopy /Y ffmpeg-3.2.2-win32-shared\bin\*.dll $(SolutionDir)\$(Configuration)\</C
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\sdl2.2.0.5\build\native\sdl2.targets" Condition="Exists('packages\sdl2.2.0.5\build\native\sdl2.targets')" />
     <Import Project="packages\sdl2.redist.2.0.5\build\native\sdl2.redist.targets" Condition="Exists('packages\sdl2.redist.2.0.5\build\native\sdl2.redist.targets')" />
+    <Import Project="packages\libiconv.vp.redist.1.14.0.1\build\native\libiconv.vp.redist.targets" Condition="Exists('packages\libiconv.vp.redist.1.14.0.1\build\native\libiconv.vp.redist.targets')" />
+    <Import Project="packages\libiconv.vp.1.14.0.1\build\native\libiconv.vp.targets" Condition="Exists('packages\libiconv.vp.1.14.0.1\build\native\libiconv.vp.targets')" />
+    <Import Project="packages\libintl.vp.redist.0.19.8.3\build\native\libintl.vp.redist.targets" Condition="Exists('packages\libintl.vp.redist.0.19.8.3\build\native\libintl.vp.redist.targets')" />
+    <Import Project="packages\libintl.vp.0.19.8.3\build\native\libintl.vp.targets" Condition="Exists('packages\libintl.vp.0.19.8.3\build\native\libintl.vp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -284,5 +288,9 @@ xcopy /Y ffmpeg-3.2.2-win32-shared\bin\*.dll $(SolutionDir)\$(Configuration)\</C
     </PropertyGroup>
     <Error Condition="!Exists('packages\sdl2.2.0.5\build\native\sdl2.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\sdl2.2.0.5\build\native\sdl2.targets'))" />
     <Error Condition="!Exists('packages\sdl2.redist.2.0.5\build\native\sdl2.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\sdl2.redist.2.0.5\build\native\sdl2.redist.targets'))" />
+    <Error Condition="!Exists('packages\libiconv.vp.redist.1.14.0.1\build\native\libiconv.vp.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libiconv.vp.redist.1.14.0.1\build\native\libiconv.vp.redist.targets'))" />
+    <Error Condition="!Exists('packages\libiconv.vp.1.14.0.1\build\native\libiconv.vp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libiconv.vp.1.14.0.1\build\native\libiconv.vp.targets'))" />
+    <Error Condition="!Exists('packages\libintl.vp.redist.0.19.8.3\build\native\libintl.vp.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libintl.vp.redist.0.19.8.3\build\native\libintl.vp.redist.targets'))" />
+    <Error Condition="!Exists('packages\libintl.vp.0.19.8.3\build\native\libintl.vp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libintl.vp.0.19.8.3\build\native\libintl.vp.targets'))" />
   </Target>
 </Project>
