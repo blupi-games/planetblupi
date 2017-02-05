@@ -634,7 +634,6 @@ RECT CPixmap::GetClipping()
 bool CPixmap::IsIconPixel(int channel, int rank, POINT pos)
 {
 	int			nbx, nby;
-    COLORREF	rgb;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 	if (m_lpSDLTexture[channel] == NULL )     return false;
