@@ -354,29 +354,6 @@ bool CPixmap::Cache(int channel, SDL_Surface *surface, POINT totalDim)
 	return true;
 }
 
-// Définition de la couleur transparente.
-
-void CPixmap::SetTransparent(int channel, COLORREF color)
-{
-	if ( channel < 0 || channel >= MAXIMAGE )  return;
-	if (m_lpSDLTexture[channel] == NULL )     return;
-
-	m_colorSurface[2*channel+0] = color;
-	m_colorSurface[2*channel+1] = color;
-}
-
-// Définition de la couleur transparente.
-
-void CPixmap::SetTransparent2(int channel, COLORREF color1, COLORREF color2)
-{
-	if ( channel < 0 || channel >= MAXIMAGE )  return;
-	if (m_lpSDLTexture[channel] == NULL )     return;
-
-	m_colorSurface[2*channel+0] = color1;
-	m_colorSurface[2*channel+1] = color2;
-}
-
-
 // Modifie la région de clipping.
 
 void CPixmap::SetClipping(RECT clip)
@@ -456,9 +433,8 @@ bool CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos,
 
 	oldColor1 = m_colorSurface[2*channel+0];
 	oldColor2 = m_colorSurface[2*channel+1];
-	if (channel != CHMAP && bMask )  SetTransparent(channel, RGB(255,255,255));  // blanc
+
 	ddrval = BltFast(chDst, channel, pos, rect, mode);
-	if (channel != CHMAP && bMask )  SetTransparent2(channel, oldColor1, oldColor2);
 
 	if ( ddrval != DD_OK )  return false;
 	return true;
@@ -502,9 +478,8 @@ bool CPixmap::DrawIconDemi(int chDst, int channel, int rank, POINT pos,
 
 	oldColor1 = m_colorSurface[2*channel+0];
 	oldColor2 = m_colorSurface[2*channel+1];
-	if ( bMask )  SetTransparent(channel, RGB(255,255,255));  // blanc
+
 	ddrval = BltFast(chDst, channel, pos, rect, mode);
-	if ( bMask )  SetTransparent2(channel, oldColor1, oldColor2);
 
 	if ( ddrval != DD_OK )  return false;
 	return true;
@@ -543,9 +518,8 @@ bool CPixmap::DrawIconPart(int chDst, int channel, int rank, POINT pos,
 
 	oldColor1 = m_colorSurface[2*channel+0];
 	oldColor2 = m_colorSurface[2*channel+1];
-	if ( bMask )  SetTransparent(channel, RGB(255,255,255));  // blanc
+
 	ddrval = BltFast(chDst, channel, pos, rect, mode);
-	if ( bMask )  SetTransparent2(channel, oldColor1, oldColor2);
 
 	if ( ddrval != DD_OK )  return false;
 	return true;
@@ -565,9 +539,8 @@ bool CPixmap::DrawPart(int chDst, int channel, POINT dest, RECT rect,
 
 	oldColor1 = m_colorSurface[2*channel+0];
 	oldColor2 = m_colorSurface[2*channel+1];
-	if ( bMask )  SetTransparent(channel, RGB(255,255,255));  // blanc
+
 	ddrval = BltFast(chDst, channel, dest, rect, mode);
-	if ( bMask )  SetTransparent2(channel, oldColor1, oldColor2);
 
 	if ( ddrval != DD_OK )  return false;
 	return true;

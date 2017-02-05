@@ -335,7 +335,6 @@ void WindowProc2 (const SDL_Event &event)
 				iconDim.x = 64;
 				iconDim.y = 66 / 2;
 				g_pPixmap->Cache (CHHILI, "image\\hili.blp", totalDim, iconDim);
-				g_pPixmap->SetTransparent (CHHILI, RGB (0, 0, 255));  // bleu
 			}
 			SDL_SetWindowTitle (g_window, "Blupi");
 			if (g_pSound != NULL)  g_pSound->RestartMusic ();
@@ -515,7 +514,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	iconDim.y = DIMCELY*2;
 	if ( !g_pPixmap->Cache(CHFLOOR, "image\\floor000.blp", totalDim, iconDim) )
 		return InitFail("Cache floor000.blp", true);
-	g_pPixmap->SetTransparent(CHFLOOR, RGB(0,0,255));  // bleu
 
 	totalDim.x = DIMOBJX*16;
 	totalDim.y = DIMOBJY*8;
@@ -523,11 +521,9 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	iconDim.y = DIMOBJY;
 	if ( !g_pPixmap->Cache(CHOBJECT, "image\\obj000.blp", totalDim, iconDim) )
 		return InitFail("Cache obj000.blp", true);
-	g_pPixmap->SetTransparent(CHOBJECT, RGB(0,0,255));  // bleu
 
 	if ( !g_pPixmap->Cache(CHOBJECTo, "image\\obj-o000.blp", totalDim, iconDim) )
 		return InitFail("Cache obj-o000.blp", true);
-	g_pPixmap->SetTransparent(CHOBJECTo, RGB(255,255,255));  // blanc
 
 	totalDim.x = DIMBLUPIX*16;
 	totalDim.y = DIMBLUPIY*23;
@@ -535,7 +531,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	iconDim.y = DIMBLUPIY;
 	if ( !g_pPixmap->Cache(CHBLUPI, "image\\blupi.blp", totalDim, iconDim) )
 		return InitFail("Cache blupi.blp", true);
-	g_pPixmap->SetTransparent(CHBLUPI, RGB(0,0,255));  // bleu
 
 	totalDim.x = 64;
 	totalDim.y = 66;
@@ -543,7 +538,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	iconDim.y = 66/2;
 	if ( !g_pPixmap->Cache(CHHILI, "image\\hili.blp", totalDim, iconDim) )
 		return InitFail("Cache hili.blp", true);
-	g_pPixmap->SetTransparent(CHHILI, RGB(0,0,255));  // bleu
 
 	totalDim.x = DIMCELX*2*3;
 	totalDim.y = DIMCELY*2*5;
@@ -551,7 +545,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	iconDim.y = DIMCELY*2;
 	if ( !g_pPixmap->Cache(CHFOG, "image\\fog.blp", totalDim, iconDim) )
 		return InitFail("Cache fog.blp", true);
-	g_pPixmap->SetTransparent(CHFOG, RGB(255,255,255));  // blanc
 
 	totalDim.x = DIMCELX*2*16;
 	totalDim.y = DIMCELY*2*1;
@@ -559,7 +552,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	iconDim.y = DIMCELY*2;
 	if ( !g_pPixmap->Cache(CHMASK1, "image\\mask1.blp", totalDim, iconDim) )
 		return InitFail("Cache mask1.blp", true);
-	g_pPixmap->SetTransparent(CHMASK1, RGB(0,0,0));  // noir
 
 	totalDim.x = DIMBUTTONX*6;
 	totalDim.y = DIMBUTTONY*21;
@@ -567,7 +559,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	iconDim.y = DIMBUTTONY;
 	if ( !g_pPixmap->Cache(CHBUTTON, "image\\button00.blp", totalDim, iconDim) )
 		return InitFail("Cache button00.blp", true);
-	g_pPixmap->SetTransparent(CHBUTTON, RGB(0,0,255));  // bleu
 
 	totalDim.x = DIMJAUGEX*1;
 	totalDim.y = DIMJAUGEY*4;
@@ -575,7 +566,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	iconDim.y = DIMJAUGEY;
 	if ( !g_pPixmap->Cache(CHJAUGE, "image\\jauge.blp", totalDim, iconDim) )
 		return InitFail("Cache jauge.blp", true);
-	g_pPixmap->SetTransparent(CHJAUGE, RGB(0,0,255));  // bleu
 
 	totalDim.x = DIMTEXTX*16;
 	totalDim.y = DIMTEXTY*8*3;
@@ -583,7 +573,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	iconDim.y = DIMTEXTY;
 	if ( !g_pPixmap->Cache(CHTEXT, "image\\text.blp", totalDim, iconDim) )
 		return InitFail("Cache text.blp", true);
-	g_pPixmap->SetTransparent(CHTEXT, RGB(0,0,255));  // bleu
 
 	totalDim.x = DIMLITTLEX*16;
 	totalDim.y = DIMLITTLEY*8;
@@ -591,7 +580,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	iconDim.y = DIMLITTLEY;
 	if ( !g_pPixmap->Cache(CHLITTLE, "image\\little.blp", totalDim, iconDim) )
 		return InitFail("Cache little.blp", true);
-	g_pPixmap->SetTransparent(CHLITTLE, RGB(0,0,255));  // bleu
 
 	totalDim.x = 426;
 	totalDim.y = 52;
@@ -599,7 +587,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	iconDim.y = 52;
 	if ( !g_pPixmap->Cache(CHBIGNUM, "image\\bignum.blp", totalDim, iconDim) )
 		return InitFail("Cache bignum.blp", true);
-	g_pPixmap->SetTransparent(CHBIGNUM, RGB(0,0,255));  // bleu
 
 	// Load all cursors
 	g_pPixmap->LoadCursors ();

@@ -25,8 +25,6 @@ public:
 	bool	Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim);
 	bool	Cache(int channel, char *pFilename, POINT totalDim);
 	bool	Cache(int channel, SDL_Surface *surface, POINT totalDim);
-	void	SetTransparent(int channel, COLORREF color);
-	void	SetTransparent2(int channel, COLORREF color1, COLORREF color2);
 	void	SetClipping(RECT clip);
 	RECT	GetClipping();
 

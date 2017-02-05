@@ -226,7 +226,6 @@ bool CDecor::LoadImages()
 	sprintf(filename, "image\\floor%.3d.blp", m_region);
 	if ( !m_pPixmap->Cache(CHFLOOR, filename, totalDim, iconDim) )
 		return false;
-	m_pPixmap->SetTransparent(CHFLOOR, RGB(0,0,255));  // bleu
 
 	totalDim.x = DIMOBJX*16;
 	totalDim.y = DIMOBJY*8;
@@ -235,12 +234,10 @@ bool CDecor::LoadImages()
 	sprintf(filename, "image\\obj%.3d.blp", m_region);
 	if ( !m_pPixmap->Cache(CHOBJECT, filename, totalDim, iconDim) )
 		return false;
-	m_pPixmap->SetTransparent(CHOBJECT, RGB(0,0,255));  // bleu
 
 	sprintf(filename, "image\\obj-o%.3d.blp", m_region);
 	if ( !m_pPixmap->Cache(CHOBJECTo, filename, totalDim, iconDim) )
 		return false;
-	m_pPixmap->SetTransparent(CHOBJECTo, RGB(255,255,255));  // blanc
 
 	MapInitColors();  // init les couleurs pour la carte
 
