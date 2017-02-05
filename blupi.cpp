@@ -32,11 +32,11 @@
 
 SDL_Window *g_window;
 SDL_Renderer *g_renderer;
-CEvent*		g_pEvent  = NULL;
-CPixmap*	g_pPixmap = NULL;		// pixmap principal
-CSound*		g_pSound  = NULL;		// sound principal
-CMovie*		g_pMovie  = NULL;		// movie principal
-CDecor*		g_pDecor  = NULL;
+CEvent*		g_pEvent  = nullptr;
+CPixmap*	g_pPixmap = nullptr;		// pixmap principal
+CSound*		g_pSound  = nullptr;		// sound principal
+CMovie*		g_pMovie  = nullptr;		// movie principal
+CDecor*		g_pDecor  = nullptr;
 bool		g_bFullScreen = false;	// false si mode de test
 int			g_speedRate = 1;
 int			g_timerInterval = 50;	// inverval = 50ms
@@ -68,19 +68,19 @@ int GetNum(char *p)
 
 bool ReadConfig(LPSTR lpCmdLine)
 {
-	FILE*		file    = NULL;
+	FILE*		file    = nullptr;
 	char		buffer[200];
 	char*		pText;
 	size_t		nb;
 
 	file = fopen("data\\config.def", "rb");
-	if ( file == NULL )  return false;
+	if ( file == nullptr )  return false;
 	nb = fread(buffer, sizeof(char), 200-1, file);
 	buffer[nb] = 0;
 	fclose(file);
 
 	pText = strstr(buffer, "SpeedRate=");
-	if ( pText != NULL )
+	if ( pText != nullptr )
 	{
 		g_speedRate = GetNum(pText+10);
 		if ( g_speedRate < 1 )  g_speedRate = 1;
@@ -88,7 +88,7 @@ bool ReadConfig(LPSTR lpCmdLine)
 	}
 
 	pText = strstr(buffer, "Timer=");
-	if ( pText != NULL )
+	if ( pText != nullptr )
 	{
 		g_timerInterval = GetNum(pText+6);
 		if ( g_timerInterval <   10 )  g_timerInterval =   10;
@@ -96,14 +96,14 @@ bool ReadConfig(LPSTR lpCmdLine)
 	}
 
 	pText = strstr(buffer, "FullScreen=");
-	if ( pText != NULL )
+	if ( pText != nullptr )
 	{
 		g_bFullScreen = !!GetNum(pText+11);
 		if ( g_bFullScreen != 0 )  g_bFullScreen = 1;
 	}
 
 	pText = strstr(buffer, "MouseType=");
-	if ( pText != NULL )
+	if ( pText != nullptr )
 	{
 		g_mouseType = GetNum(pText+10);
 		if ( g_mouseType < 1 )  g_mouseType = 1;
@@ -239,7 +239,7 @@ void Benchmark()
 
 bool RestoreGame()
 {
-	if ( g_pPixmap == NULL )  return false;
+	if ( g_pPixmap == nullptr )  return false;
 
 	g_pEvent->RestoreGame();
 	return true;
@@ -249,7 +249,7 @@ bool RestoreGame()
 
 bool FlushGame()
 {
-	if ( g_pPixmap == NULL )  return false;
+	if ( g_pPixmap == nullptr )  return false;
 
 	return g_pPixmap->Flush();
 }
@@ -259,38 +259,38 @@ bool FlushGame()
 
 static void FinishObjects(void)
 {
-	if ( g_pMovie != NULL )
+	if ( g_pMovie != nullptr )
 	{
 		g_pEvent->StopMovie();
 
 		delete g_pMovie;
-		g_pMovie = NULL;
+		g_pMovie = nullptr;
 	}
 
-	if ( g_pEvent != NULL )
+	if ( g_pEvent != nullptr )
 	{
 		delete g_pEvent;
-		g_pEvent = NULL;
+		g_pEvent = nullptr;
 	}
 
-	if ( g_pDecor != NULL )
+	if ( g_pDecor != nullptr )
 	{
 		delete g_pDecor;
-		g_pDecor = NULL;
+		g_pDecor = nullptr;
 	}
 
-	if ( g_pSound != NULL )
+	if ( g_pSound != nullptr )
 	{
 		g_pSound->StopMusic();  // stoppe la musique Midi
 
 		delete g_pSound;
-		g_pSound = NULL;
+		g_pSound = nullptr;
 	}
 
-	if ( g_pPixmap != NULL )
+	if ( g_pPixmap != nullptr )
 	{
 		delete g_pPixmap;
-		g_pPixmap = NULL;
+		g_pPixmap = nullptr;
 	}
 }
 
@@ -298,7 +298,7 @@ void WindowProc2 (const SDL_Event &event)
 {
 	POINT				totalDim, iconDim;
 
-	if ( g_pEvent != NULL &&
+	if ( g_pEvent != nullptr &&
 		 g_pEvent->TreatEvent(event) )
 		return;
 
@@ -323,7 +323,7 @@ void WindowProc2 (const SDL_Event &event)
 				g_pPixmap->Cache (CHHILI, "image\\hili.blp", totalDim, iconDim);
 			}
 			SDL_SetWindowTitle (g_window, "Blupi");
-			if (g_pSound != NULL)  g_pSound->RestartMusic ();
+			if (g_pSound != nullptr)  g_pSound->RestartMusic ();
 			return;
 
 		case SDL_WINDOWEVENT_FOCUS_LOST:
@@ -332,7 +332,7 @@ void WindowProc2 (const SDL_Event &event)
 				FlushGame ();
 			}
 			SDL_SetWindowTitle (g_window, "Blupi -- stop");
-			if (g_pSound != NULL)  g_pSound->SuspendMusic ();
+			if (g_pSound != nullptr)  g_pSound->SuspendMusic ();
 			return;
 		}
 		break;
@@ -462,7 +462,7 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 
 	// Crée le pixmap principal.
 	g_pPixmap = new CPixmap;
-	if ( g_pPixmap == NULL )  return InitFail("New pixmap", true);
+	if ( g_pPixmap == nullptr )  return InitFail("New pixmap", true);
 
 	totalDim.x = LXIMAGE;
 	totalDim.y = LYIMAGE;
@@ -582,7 +582,7 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 
 	// Crée le gestionnaire de son.
 	g_pSound = new CSound;
-	if ( g_pSound == NULL )  return InitFail("New sound", true);
+	if ( g_pSound == nullptr )  return InitFail("New sound", true);
 
 	g_pSound->Create();
 	g_pSound->CacheAll();
@@ -590,20 +590,20 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 
 	// Crée le gestionnaire de films.
 	g_pMovie = new CMovie;
-	if ( g_pMovie == NULL )  return InitFail("New movie", false);
+	if ( g_pMovie == nullptr )  return InitFail("New movie", false);
 
 	g_pMovie->Create();
 
 	// Crée le gestionnaire de décors.
 	g_pDecor = new CDecor;
-	if ( g_pDecor == NULL )  return InitFail("New decor", false);
+	if ( g_pDecor == nullptr )  return InitFail("New decor", false);
 
 	g_pDecor->Create(g_pSound, g_pPixmap);
 	g_pDecor->MapInitColors();
 
 	// Crée le gestionnaire d'événements.
 	g_pEvent = new CEvent;
-	if ( g_pEvent == NULL )  return InitFail("New event", false);
+	if ( g_pEvent == nullptr )  return InitFail("New event", false);
 
 	g_pEvent->Create(g_pPixmap, g_pDecor, g_pSound, g_pMovie);
 	g_pEvent->SetFullScreen(g_bFullScreen);

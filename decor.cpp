@@ -98,8 +98,8 @@ POINT GetVector(int direct)
 
 CDecor::CDecor()
 {
-	m_pSound = NULL;
-	m_pUndoDecor = NULL;
+	m_pSound = nullptr;
+	m_pUndoDecor = nullptr;
 
 	m_celCoin.x = 90;
 	m_celCoin.y = 98;
@@ -3363,7 +3363,7 @@ char* CDecor::GetButtonExist()
 
 void CDecor::UndoOpen()
 {
-	if ( m_pUndoDecor == NULL )
+	if ( m_pUndoDecor == nullptr )
 	{
 		m_pUndoDecor = (Cellule*)malloc(sizeof(Cellule)*(MAXCELX/2)*(MAXCELY/2));
 	}
@@ -3373,10 +3373,10 @@ void CDecor::UndoOpen()
 
 void CDecor::UndoClose()
 {
-	if ( m_pUndoDecor != NULL )
+	if ( m_pUndoDecor != nullptr )
 	{
 		free(m_pUndoDecor);
-		m_pUndoDecor = NULL;
+		m_pUndoDecor = nullptr;
 	}
 }
 
@@ -3386,7 +3386,7 @@ void CDecor::UndoCopy()
 {
 	UndoOpen();  // ouvre le buffer du undo si nécessaire
 
-	if ( m_pUndoDecor != NULL )
+	if ( m_pUndoDecor != nullptr )
 	{
 		memcpy(m_pUndoDecor, &m_decor, sizeof(Cellule)*(MAXCELX/2)*(MAXCELY/2));
 	}
@@ -3396,7 +3396,7 @@ void CDecor::UndoCopy()
 
 void CDecor::UndoBack()
 {
-	if ( m_pUndoDecor != NULL )
+	if ( m_pUndoDecor != nullptr )
 	{
 		memcpy(&m_decor, m_pUndoDecor, sizeof(Cellule)*(MAXCELX/2)*(MAXCELY/2));
 		UndoClose();
@@ -3408,5 +3408,5 @@ void CDecor::UndoBack()
 
 bool CDecor::IsUndo()
 {
-	return ( m_pUndoDecor != NULL );
+	return ( m_pUndoDecor != nullptr );
 }

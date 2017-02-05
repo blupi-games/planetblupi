@@ -101,7 +101,7 @@ bool CMovie::fileOpenMovie(RECT rect, char *pFilename)
 	{
 		// Create the player
 		m_player = Kit_CreatePlayer (m_movie);
-		if (m_player == NULL)
+		if (m_player == nullptr)
 			return false;
 
 		pinfo = new Kit_PlayerInfo;
@@ -123,7 +123,7 @@ bool CMovie::fileOpenMovie(RECT rect, char *pFilename)
 			pinfo->video.width,
 			pinfo->video.height
 		);
-		if (m_videoTex == NULL)
+		if (m_videoTex == nullptr)
 			return false;
 
 		return true;
@@ -145,7 +145,7 @@ void CMovie::playMovie(int nDirection)
 	m_fPlaying = !m_fPlaying;	// swap the play flag
 
 	if( !nDirection )
-		m_fPlaying = false;	// wDirection == NULL means PAUSE
+		m_fPlaying = false;	// wDirection == nullptr means PAUSE
 
 	// play/pause the AVI movie
 	if ( m_fPlaying )
@@ -223,7 +223,7 @@ bool CMovie::IsExist(char *pFilename)
 	}
 
 	file = fopen(string, "rb");
-	if ( file == NULL )  return false;
+	if ( file == nullptr )  return false;
 
 	fclose(file);
 	return true;

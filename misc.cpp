@@ -125,12 +125,12 @@ void AddUserPath(char *pFilename)
 	strcpy(temp, "c:\\Planète Blupi\\");
 
 	att.nLength = sizeof(SECURITY_ATTRIBUTES);
-	att.lpSecurityDescriptor = NULL;
+	att.lpSecurityDescriptor = nullptr;
 	att.bInheritHandle = false;
 	CreateDirectory(temp, &att);
 
 	pText = strstr(pFilename, "\\");
-	if ( pText != NULL )
+	if ( pText != nullptr )
 	{
 		pos = strlen(temp)+(pText-pFilename)+1;
 		strcat(temp, pFilename);

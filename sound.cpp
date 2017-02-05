@@ -212,7 +212,7 @@ bool CSound::PlayImage(int channel, POINT pos, int rank)
 	if ( rank >= 0 && rank < MAXBLUPI )
 	{
 		stopCh = m_channelBlupi[rank];
-		if ( stopCh >= 0 && m_lpSDL[stopCh] != NULL )
+		if ( stopCh >= 0 && m_lpSDL[stopCh] != nullptr )
 			Mix_FadeOutChannel (stopCh + 1, 500);
 
 		m_channelBlupi[rank] = channel;

@@ -384,7 +384,7 @@ short* GetListMoves(int rank)
 	if ( rank == 11 )  return table_move11;
 	if ( rank == 12 )  return table_move12;
 
-	return NULL;
+	return nullptr;
 }
 
 
@@ -522,7 +522,7 @@ short* GetListIcons(int rank)
 	if ( rank == 10 )  return table_icon10;
 	if ( rank == 11 )  return table_icon11;
 
-	return NULL;
+	return nullptr;
 }
 
 

@@ -538,7 +538,7 @@ bool CDecor::GenerateMap()
 
 		hbm = CreateBitmap(DIMMAPX, DIMMAPY, 1, 32, g_map32_bits);
 
-	if ( hbm == NULL )  return false;
+	if ( hbm == nullptr )  return false;
 
 	SDL_Surface *surface = SDL_CreateRGBSurfaceFrom(g_map32_bits, DIMMAPX, DIMMAPY, 32, 4 * DIMMAPX, 0, 0, 0, 0);
 

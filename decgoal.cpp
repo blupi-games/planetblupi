@@ -3525,7 +3525,7 @@ static short* table_pGoal[] =
 	table_goal_teleporte10,
 	table_goal_teleporte01,
 	table_goal_teleporte11,
-	NULL
+	nullptr
 };
 
 // Retourne le pointeur à la table table_goal_*.
@@ -3534,7 +3534,7 @@ short* GetTableGoal(int action)
 {
 	short**	ppTable = table_pGoal;
 
-	while ( *ppTable != NULL )
+	while ( *ppTable != nullptr )
 	{
 		if ( **ppTable == action )
 		{
@@ -3544,6 +3544,6 @@ short* GetTableGoal(int action)
 		ppTable ++;
 	}
 
-	return NULL;
+	return nullptr;
 }
 

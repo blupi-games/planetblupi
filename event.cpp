@@ -1468,7 +1468,7 @@ CEvent::CEvent()
 	m_bInfoHelp     = false;
 	m_bDemoRec      = false;
 	m_bDemoPlay     = false;
-	m_pDemoBuffer   = NULL;
+	m_pDemoBuffer   = nullptr;
 	m_demoTime      = 0;
 	m_keymod        = 0;
 
@@ -2808,7 +2808,7 @@ bool CEvent::ChangePhase(UINT phase)
 	m_index = index;
 
 	strcpy(filename, table[m_index].backName);
-	if ( strstr(filename, "%.3d") != NULL )  // "%.3d" dans le nom ?
+	if ( strstr(filename, "%.3d") != nullptr )  // "%.3d" dans le nom ?
 	{
 		sprintf(filename, table[m_index].backName, GetImageWorld());
 	}
@@ -4123,8 +4123,8 @@ void CEvent::PrivateLibelle()
 
 bool CEvent::ReadLibelle(int world, bool bSchool, bool bHelp)
 {
-	FILE*		file    = NULL;
-	char*		pBuffer = NULL;
+	FILE*		file    = nullptr;
+	char*		pBuffer = nullptr;
 	char*		pText;
 	char*		pDest;
 	char		indic;
@@ -4136,11 +4136,11 @@ bool CEvent::ReadLibelle(int world, bool bSchool, bool bHelp)
 	if ( bHelp )    indic = '@';
 
 	pBuffer = (char*)malloc(sizeof(char)*50000);
-	if ( pBuffer == NULL )  goto error;
+	if ( pBuffer == nullptr )  goto error;
 	memset(pBuffer, 0, sizeof(char)*50000);
 
 	file = fopen("data\\enigmes.blp", "rb");
-	if ( file == NULL )  goto error;
+	if ( file == nullptr )  goto error;
 
 	nb = fread(pBuffer, sizeof(char), 50000-1, file);
 	pBuffer[nb] = 0;
@@ -4178,8 +4178,8 @@ bool CEvent::ReadLibelle(int world, bool bSchool, bool bHelp)
 	return true;
 
 	error:
-	if ( pBuffer != NULL )  free(pBuffer);
-	if ( file    != NULL )  fclose(file);
+	if ( pBuffer != nullptr )  free(pBuffer);
+	if ( file    != nullptr )  fclose(file);
 	return false;
 }
 
@@ -4189,7 +4189,7 @@ bool CEvent::ReadLibelle(int world, bool bSchool, bool bHelp)
 bool CEvent::WriteInfo()
 {
 	char		filename[MAX_PATH];
-	FILE*		file = NULL;
+	FILE*		file = nullptr;
 	DescInfo	info;
 	size_t		nb;
 
@@ -4197,7 +4197,7 @@ bool CEvent::WriteInfo()
 	AddUserPath(filename);
 
 	file = fopen(filename, "wb");
-	if ( file == NULL )  goto error;
+	if ( file == nullptr )  goto error;
 
 	info.majRev       = 1;
 	info.minRev       = 0;
@@ -4222,7 +4222,7 @@ bool CEvent::WriteInfo()
 	return true;
 
 	error:
-	if ( file != NULL )  fclose(file);
+	if ( file != nullptr )  fclose(file);
 	return false;
 }
 
@@ -4231,7 +4231,7 @@ bool CEvent::WriteInfo()
 bool CEvent::ReadInfo()
 {
 	char		filename[MAX_PATH];
-	FILE*		file = NULL;
+	FILE*		file = nullptr;
 	DescInfo	info;
 	size_t		nb;
 
@@ -4239,7 +4239,7 @@ bool CEvent::ReadInfo()
 	AddUserPath(filename);
 
 	file = fopen(filename, "rb");
-	if ( file == NULL )  goto error;
+	if ( file == nullptr )  goto error;
 
 	nb = fread(&info, sizeof(DescInfo), 1, file);
 	if ( nb < 1 )  goto error;
@@ -4262,7 +4262,7 @@ bool CEvent::ReadInfo()
 	return true;
 
 	error:
-	if ( file != NULL )  fclose(file);
+	if ( file != nullptr )  fclose(file);
 	return false;
 }
 
@@ -4297,7 +4297,7 @@ bool CEvent::GetPause()
 void CEvent::DemoRecStart()
 {
 	m_pDemoBuffer = (DemoEvent*)malloc(MAXDEMO*sizeof(DemoEvent));
-	if ( m_pDemoBuffer == NULL )  return;
+	if ( m_pDemoBuffer == nullptr )  return;
 	memset(m_pDemoBuffer, 0, MAXDEMO*sizeof(DemoEvent));
 
 	m_demoTime  = 0;
@@ -4315,16 +4315,16 @@ void CEvent::DemoRecStart()
 
 void CEvent::DemoRecStop()
 {
-	FILE*		file = NULL;
+	FILE*		file = nullptr;
 	DemoHeader	header;
 
 	if ( m_bDemoPlay )  return;
 
-	if ( m_pDemoBuffer != NULL )
+	if ( m_pDemoBuffer != nullptr )
 	{
 		DeleteFile("data\\demo.blp");
 		file = fopen("data\\demo.blp", "wb");
-		if ( file != NULL )
+		if ( file != nullptr )
 		{
 			memset(&header, 0, sizeof(DemoHeader));
 			header.majRev   = 1;
@@ -4338,7 +4338,7 @@ void CEvent::DemoRecStop()
 			fclose(file);
 		}
 		free(m_pDemoBuffer);
-		m_pDemoBuffer = NULL;
+		m_pDemoBuffer = nullptr;
 	}
 
 	m_bDemoRec = false;
@@ -4351,18 +4351,18 @@ void CEvent::DemoRecStop()
 bool CEvent::DemoPlayStart()
 {
 	char		filename[MAX_PATH];
-	FILE*		file = NULL;
+	FILE*		file = nullptr;
 	DemoHeader	header;
 	int			world, time, total;
 	size_t		nb;
 
 	m_pDemoBuffer = (DemoEvent*)malloc(MAXDEMO*sizeof(DemoEvent));
-	if ( m_pDemoBuffer == NULL )  return false;
+	if ( m_pDemoBuffer == nullptr )  return false;
 	memset(m_pDemoBuffer, 0, MAXDEMO*sizeof(DemoEvent));
 
 	sprintf(filename, "data\\demo%.3d.blp", m_demoNumber);
 	file = fopen(filename, "rb");
-	if ( file == NULL )
+	if ( file == nullptr )
 	{
 		DemoPlayStop();
 		return false;
@@ -4403,10 +4403,10 @@ bool CEvent::DemoPlayStart()
 
 void CEvent::DemoPlayStop()
 {
-	if ( m_pDemoBuffer != NULL )
+	if ( m_pDemoBuffer != nullptr )
 	{
 		free(m_pDemoBuffer);
-		m_pDemoBuffer = NULL;
+		m_pDemoBuffer = nullptr;
 	}
 	m_bDemoPlay = false;
 	m_bDemoRec  = false;
@@ -4526,7 +4526,7 @@ void CEvent::DemoStep()
 	}
 
 	if ( m_bDemoPlay &&  // démo en lecture ?
-		 m_pDemoBuffer != NULL )
+		 m_pDemoBuffer != nullptr )
 	{
 		while ( true )
 		{
@@ -4568,7 +4568,7 @@ void CEvent::DemoStep()
 
 void CEvent::DemoRecEvent(UINT message, WPARAM wParam, LPARAM lParam)
 {
-	if ( m_bDemoRec && m_pDemoBuffer != NULL &&
+	if ( m_bDemoRec && m_pDemoBuffer != nullptr &&
 		 (message == WM_KEYDOWN     ||
 		  message == WM_KEYUP       ||
 		  message == WM_LBUTTONDOWN ||

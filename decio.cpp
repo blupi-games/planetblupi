@@ -96,8 +96,8 @@ OldBlupi;
 bool CDecor::Write(int rank, bool bUser, int world, int time, int total)
 {
 	char		filename[MAX_PATH];
-	FILE*		file    = NULL;
-	DescFile*	pBuffer = NULL;
+	FILE*		file    = nullptr;
+	DescFile*	pBuffer = nullptr;
 	int			i;
 	size_t		nb;
 
@@ -112,10 +112,10 @@ bool CDecor::Write(int rank, bool bUser, int world, int time, int total)
 	}
 
 	file = fopen(filename, "wb");
-	if ( file == NULL )  goto error;
+	if ( file == nullptr )  goto error;
 
 	pBuffer = (DescFile*)malloc(sizeof(DescFile));
-	if ( pBuffer == NULL )  goto error;
+	if ( pBuffer == nullptr )  goto error;
 	memset(pBuffer, 0, sizeof(DescFile));
 
 	pBuffer->majRev    = 1;
@@ -165,8 +165,8 @@ bool CDecor::Write(int rank, bool bUser, int world, int time, int total)
 	return true;
 
 	error:
-	if ( pBuffer != NULL )  free(pBuffer);
-	if ( file    != NULL )  fclose(file);
+	if ( pBuffer != nullptr )  free(pBuffer);
+	if ( file    != nullptr )  fclose(file);
 	return false;
 }
 
@@ -175,8 +175,8 @@ bool CDecor::Write(int rank, bool bUser, int world, int time, int total)
 bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
 {
 	char		filename[MAX_PATH];
-	FILE*		file    = NULL;
-	DescFile*	pBuffer = NULL;
+	FILE*		file    = nullptr;
+	DescFile*	pBuffer = nullptr;
 	int			majRev, minRev;
 	int			i, x, y;
 	size_t		nb;
@@ -195,10 +195,10 @@ bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
 	}
 
 	file = fopen(filename, "rb");
-	if ( file == NULL )  goto error;
+	if ( file == nullptr )  goto error;
 
 	pBuffer = (DescFile*)malloc(sizeof(DescFile));
-	if ( pBuffer == NULL )  goto error;
+	if ( pBuffer == nullptr )  goto error;
 
 	nb = fread(pBuffer, sizeof(DescFile), 1, file);
 	if ( nb < 1 )  goto error;
@@ -304,8 +304,8 @@ bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
 	return true;
 
 	error:
-	if ( pBuffer != NULL )  free(pBuffer);
-	if ( file    != NULL )  fclose(file);
+	if ( pBuffer != nullptr )  free(pBuffer);
+	if ( file    != nullptr )  fclose(file);
 
 	Flush();  // initialise un décor neutre
 	return false;
@@ -316,8 +316,8 @@ bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
 bool CDecor::FileExist(int rank, bool bUser, int &world, int &time, int &total)
 {
 	char		filename[MAX_PATH];
-	FILE*		file    = NULL;
-	DescFile*	pBuffer = NULL;
+	FILE*		file    = nullptr;
+	DescFile*	pBuffer = nullptr;
 	int			majRev, minRev;
 	size_t		nb;
 
@@ -332,10 +332,10 @@ bool CDecor::FileExist(int rank, bool bUser, int &world, int &time, int &total)
 	}
 
 	file = fopen(filename, "rb");
-	if ( file == NULL )  goto error;
+	if ( file == nullptr )  goto error;
 
 	pBuffer = (DescFile*)malloc(sizeof(DescFile));
-	if ( pBuffer == NULL )  goto error;
+	if ( pBuffer == nullptr )  goto error;
 
 	nb = fread(pBuffer, sizeof(DescFile), 1, file);
 	if ( nb < 1 )  goto error;
@@ -373,8 +373,8 @@ bool CDecor::FileExist(int rank, bool bUser, int &world, int &time, int &total)
 	return true;
 
 	error:
-	if ( pBuffer != NULL )  free(pBuffer);
-	if ( file    != NULL )  fclose(file);
+	if ( pBuffer != nullptr )  free(pBuffer);
+	if ( file    != nullptr )  fclose(file);
 	return false;
 }
 

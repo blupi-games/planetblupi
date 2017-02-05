@@ -223,7 +223,7 @@ void CMenu::Draw()
 		{
 			LoadString(m_errors[i], text, 50);
 			pText = strchr(text, '\n');
-			if ( pText != NULL )  *pText = 0;
+			if ( pText != nullptr )  *pText = 0;
 		}
 		else
 		{
@@ -261,7 +261,7 @@ void CMenu::Draw()
 			{
 				LoadString(m_errors[i], text, 50);
 				pText = strchr(text, '\n');
-				if ( pText != NULL )  strcpy(text, pText+1);
+				if ( pText != nullptr )  strcpy(text, pText+1);
 			}
 			else
 			{

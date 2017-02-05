@@ -1318,7 +1318,7 @@ bool CDecor::GoalNextPhase(int rank)
 	if ( m_blupi[rank].goalAction == 0 )  return false;
 
 	pTable = GetTableGoal(m_blupi[rank].goalAction);
-	if ( pTable == NULL )
+	if ( pTable == nullptr )
 	{
 		GoalStop(rank, true);
 		return false;
@@ -1363,7 +1363,7 @@ void CDecor::GoalInitJauge(int rank)
 	if ( m_blupi[rank].goalAction == 0 )  return;
 
 	pTable = GetTableGoal(m_blupi[rank].goalAction);
-	if ( pTable == NULL )  goto term;
+	if ( pTable == nullptr )  goto term;
 
 	while ( true )
 	{

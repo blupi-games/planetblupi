@@ -936,7 +936,7 @@ void CDecor::ArrangeFill(POINT pos, int channel, int icon, bool bFloor)
 	}
 
 	m_pFillMap = (char*)malloc(MAXCELX*MAXCELY*sizeof(char)/4);
-	if ( m_pFillMap == NULL )  return;
+	if ( m_pFillMap == nullptr )  return;
 	memset(m_pFillMap, 0, MAXCELX*MAXCELY*sizeof(char)/4);
 
 	ArrangeFillSearch(pos);
