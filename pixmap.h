@@ -22,7 +22,6 @@ public:
 	bool	Flush();
 	void	Fill(RECT rect, COLORREF color);
 	
-	int		SearchColor(int red, int green, int blue);
 	bool	Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim, bool bUsePalette);
 	bool	Cache(int channel, char *pFilename, POINT totalDim, bool bUsePalette);
 	bool	Cache(int channel, SDL_Surface *surface, POINT totalDim);
