@@ -671,7 +671,7 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	while (SDL_TRUE)
 	{
 		SDL_Event event;
-		while (SDL_PollEvent (&event))
+		while (SDL_WaitEvent (&event))
 			WindowProc2 (event);
 	}
 
