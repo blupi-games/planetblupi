@@ -37,7 +37,9 @@ CPixmap::CPixmap()
 	m_lpDD         = NULL;
 	m_lpDDSPrimary = NULL;
 	m_lpDDSBack    = NULL;
-	m_lpDDSMouse   = NULL;
+
+	for (i = 0; i < MAXCURSORS; i++)
+		m_lpSDLCursors[i] = nullptr;
 
 	for ( i=0 ; i<MAXIMAGE ; i++ )
 	{
@@ -71,10 +73,13 @@ CPixmap::~CPixmap()
 			m_lpDDSBack = NULL;
 		}
 
-		if ( m_lpDDSMouse != NULL )
+		for (i = 0; i < MAXIMAGE; i++)
 		{
-			m_lpDDSMouse->Release();
-			m_lpDDSMouse = NULL;
+			if (m_lpSDLCursors[i])
+			{
+				SDL_FreeCursor (m_lpSDLCursors[i]);
+				m_lpSDLCursors[i] = nullptr;
+			}
 		}
 
 		for ( i=0 ; i<MAXIMAGE ; i++ )

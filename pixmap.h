@@ -71,11 +71,9 @@ protected:
 	SDL_Surface *			m_lpSDLPrimary;
 	LPDIRECTDRAWSURFACE		m_lpDDSBack;			// DirectDraw back surface
 	SDL_Surface *			m_lpSDLBack;
-	LPDIRECTDRAWSURFACE		m_lpDDSMouse;			// DirectDraw back surface
 	SDL_Cursor *			m_lpCurrentCursor;
 	SDL_Cursor *			m_lpSDLCursors[MAXCURSORS];
 	SDL_Surface *			m_lpSDLBlupi;
-	SDL_Surface *			m_lpSDLSurface[MAXIMAGE];
 	SDL_Texture *			m_lpSDLTexture[MAXIMAGE];
 	COLORREF				m_colorSurface[2*MAXIMAGE];
 
