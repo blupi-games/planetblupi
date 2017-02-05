@@ -1,18 +1,15 @@
 // movie.cpp
 //
 
-#include <windows.h>
-#include <windowsx.h>
-#include <commdlg.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include <direct.h>
-#include <mmsystem.h>		
-#include <digitalv.h>		
 #include "def.h"
+#include "blupi.h"
 #include "movie.h"
 #include "misc.h"
+#include "event.h"
+#include "kitchensink/kitchensink.h"
 
 
 //----------------------------------------------------------------------------
@@ -20,7 +17,6 @@
 #define AVI_VIDEO "avivideo"
 
 #define IDM_PLAY   10
-#define IDM_RPLAY  11
 
 //----------------------------------------------------------------------------
 
@@ -28,46 +24,22 @@
 
 bool CMovie::initAVI()
 {
-	MCI_DGV_OPEN_PARMS	mciOpen;
-		
-	// set up the open parameters
-	mciOpen.dwCallback 		 = 0L;
-	mciOpen.wDeviceID 		 = 0;
-	mciOpen.lpstrDeviceType  = AVI_VIDEO;
-	mciOpen.lpstrElementName = NULL;
-	mciOpen.lpstrAlias 		 = NULL;
-	mciOpen.dwStyle 		 = 0;
-	mciOpen.hWndParent 		 = NULL;
-		
-	// try to open the driver
-	return (mciSendCommand(0, MCI_OPEN, (DWORD)(MCI_OPEN_TYPE),
-                           (DWORD_PTR)(LPMCI_DGV_OPEN_PARMS)&mciOpen) == 0);
+	// Initialize Kitchensink with network support and all formats.
+	int err = Kit_Init (KIT_INIT_FORMATS);
+	if (err != 0)
+	{
+		fprintf (stderr, "Unable to initialize Kitchensink: %s", Kit_GetError ());
+		return false;
+	}
+
+	return true;
 }
 
 // Closes the opened AVI file and the opened device type.                                               |
 
 void CMovie::termAVI()
 {
-	MCIDEVICEID        mciID;
-	MCI_GENERIC_PARMS  mciClose;
-	
-	// Get the device ID for the opened device type and then close
-	// the device type.
-	mciID = mciGetDeviceID(AVI_VIDEO);
-	mciSendCommand(mciID, MCI_CLOSE, 0L,
-                   (DWORD_PTR)(LPMCI_GENERIC_PARMS)&mciClose);
-}
-
-
-// Sets the movie rectange <rcMovie> to be
-// centered within the app's window.
-
-void CMovie::positionMovie(RECT rect)
-{
-	// reposition the playback (child) window
-	MoveWindow(m_hwndMovie,
-			   rect.left, rect.top,
-			   rect.right, rect.bottom, true);
+	Kit_Quit ();
 }
 
 // Close the movie and anything associated with it.					|
@@ -75,13 +47,27 @@ void CMovie::positionMovie(RECT rect)
 
 void CMovie::fileCloseMovie()
 {
-	MCI_GENERIC_PARMS  mciGeneric;
-
-	mciSendCommand(m_wMCIDeviceID, MCI_CLOSE, 0L,
-				   (DWORD_PTR)(LPMCI_GENERIC_PARMS)&mciGeneric);
-
 	m_fPlaying   = false;	// can't be playing any longer
 	m_fMovieOpen = false;	// no more movies open
+
+	if (m_videoTex)
+	{
+		SDL_DestroyTexture (m_videoTex);
+		m_videoTex = nullptr;
+	}
+
+	if (m_player)
+	{
+		SDL_CloseAudioDevice (m_audioDev);
+		Kit_ClosePlayer (m_player);
+		m_player = nullptr;
+	}
+
+	if (m_movie)
+	{
+		Kit_CloseSource (m_movie);
+		m_movie = nullptr;
+	}
 }
 
 
@@ -93,9 +79,6 @@ void CMovie::fileCloseMovie()
 
 bool CMovie::fileOpenMovie(RECT rect, char *pFilename)
 {
-	MCI_DGV_OPEN_PARMS		mciOpen;
-	MCI_DGV_WINDOW_PARMS	mciWindow;
-	MCI_DGV_STATUS_PARMS	mciStatus;
 	char					string[MAX_PATH];
 
 	if ( pFilename[1] == ':' )  // nom complet "D:\REP..." ?
@@ -111,50 +94,44 @@ bool CMovie::fileOpenMovie(RECT rect, char *pFilename)
 	// we got a filename, now close any old movie and open the new one.					*/
 	if ( m_fMovieOpen )  fileCloseMovie();	
 
-	// we have a .AVI movie to open, use MCI
-	// set up the open parameters
-	mciOpen.dwCallback       = 0L;
-	mciOpen.wDeviceID        = 0;
-	mciOpen.lpstrDeviceType  = NULL;
-	mciOpen.lpstrElementName = string;
-	mciOpen.lpstrAlias       = NULL;
-	mciOpen.dwStyle          = WS_CHILD;
-	mciOpen.hWndParent       = nullptr;
-
-	// try to open the file
-	if ( mciSendCommand(0, MCI_OPEN,
-				(DWORD)(MCI_OPEN_ELEMENT|MCI_DGV_OPEN_PARENT|MCI_DGV_OPEN_WS),
-				(DWORD_PTR)(LPMCI_DGV_OPEN_PARMS)&mciOpen) == 0 )
+	// Open up the sourcefile.
+	// This can be a local file, network url, ...
+	m_movie = Kit_CreateSourceFromUrl (string);
+	if (m_movie)
 	{
-		// we opened the file o.k., now set up to play it.
-		m_wMCIDeviceID = mciOpen.wDeviceID;	// save ID
-		m_fMovieOpen = true;	 // a movie was opened
+		// Create the player
+		m_player = Kit_CreatePlayer (m_movie);
+		if (m_player == NULL)
+			return false;
 
-		// show the playback window
-		mciWindow.dwCallback = 0L;
-		mciWindow.hWnd       = NULL;
-		mciWindow.nCmdShow   = SW_SHOW;
-		mciWindow.lpstrText  = (LPSTR)NULL;
-//		mciSendCommand(m_wMCIDeviceID, MCI_WINDOW,
-//					   MCI_DGV_WINDOW_STATE,
-//					   (DWORD)(LPMCI_DGV_WINDOW_PARMS)&mciWindow);
+		pinfo = new Kit_PlayerInfo;
+		Kit_GetPlayerInfo (m_player, pinfo);
 
-		// get the window handle
-		mciStatus.dwItem = MCI_DGV_STATUS_HWND;
-		mciSendCommand(m_wMCIDeviceID,
-					   MCI_STATUS, MCI_STATUS_ITEM,
-					   (DWORD_PTR)(LPMCI_STATUS_PARMS)&mciStatus);
-		m_hwndMovie = (HWND)mciStatus.dwReturn;
+		SDL_AudioSpec wanted_spec, audio_spec;
 
-		// now get the movie centered
-		positionMovie(rect);
+		SDL_memset (&wanted_spec, 0, sizeof (wanted_spec));
+		wanted_spec.freq = pinfo->audio.samplerate;
+		wanted_spec.format = pinfo->audio.format;
+		wanted_spec.channels = pinfo->audio.channels;
+		m_audioDev = SDL_OpenAudioDevice (nullptr, 0, &wanted_spec, &audio_spec, 0);
+		SDL_PauseAudioDevice (m_audioDev, 0);
+
+		m_videoTex = SDL_CreateTexture (
+			g_renderer,
+			pinfo->video.format,
+			SDL_TEXTUREACCESS_STATIC,
+			pinfo->video.width,
+			pinfo->video.height
+		);
+		if (m_videoTex == NULL)
+			return false;
+
 		return true;
 	}
 	else
 	{
 		// generic error for open
 		m_fMovieOpen = false;
-
 		return false;
 	}
 }
@@ -173,27 +150,11 @@ void CMovie::playMovie(int nDirection)
 	// play/pause the AVI movie
 	if ( m_fPlaying )
 	{
-		DWORD			dwFlags;
-		MCI_DGV_PLAY_PARMS	mciPlay;
-		
-		// init to play all
-		mciPlay.dwCallback = MAKELONG(nullptr,0);
-		mciPlay.dwFrom = mciPlay.dwTo = 0;
-		dwFlags = MCI_NOTIFY;
-		if ( nDirection == IDM_RPLAY )
-			dwFlags |= MCI_DGV_PLAY_REVERSE;
-		
-		mciSendCommand(m_wMCIDeviceID, MCI_PLAY, dwFlags,
-		               (DWORD_PTR)(LPMCI_DGV_PLAY_PARMS)&mciPlay);
+		SDL_RenderSetLogicalSize (g_renderer, pinfo->video.width, pinfo->video.height);
+		Kit_PlayerPlay (m_player);
 	}
 	else
-	{
-		MCI_DGV_PAUSE_PARMS	mciPause;
-	
-		// tell it to pause
-		mciSendCommand(m_wMCIDeviceID,MCI_PAUSE,0L,
-                      (DWORD_PTR)(LPMCI_DGV_PAUSE_PARMS)&mciPause);
-	}
+		Kit_PlayerPause (m_player);
 }
 
 
@@ -208,6 +169,11 @@ CMovie::CMovie()
 	m_wMCIDeviceID = 0;
 	m_fPlaying     = false;
 	m_fMovieOpen   = false;
+
+	m_movie = nullptr;
+	m_player = nullptr;
+	m_videoTex = nullptr;
+	pinfo = nullptr;
 }
 
 // Destructeur.
@@ -271,6 +237,7 @@ bool CMovie::Play(RECT rect, char *pFilename)
 	if ( !m_bEnable )  return false;
 	if ( !fileOpenMovie(rect, pFilename) )  return false;
 	playMovie(IDM_PLAY);
+	CEvent::PushUserEvent (WM_MOVIE_PLAY);
 
 	return true;
 }
@@ -281,4 +248,50 @@ void CMovie::Stop()
 {
 	if ( !m_bEnable )  return;
 	fileCloseMovie();
+	SDL_RenderSetLogicalSize (g_renderer, 0, 0);
+}
+
+bool CMovie::Render ()
+{
+	if (!m_bEnable || !m_fPlaying)
+		return false;
+
+	if (Kit_GetPlayerState (m_player) == KIT_STOPPED)
+		return false;
+
+	// Refresh audio
+	if (SDL_GetQueuedAudioSize (m_audioDev) < AUDIOBUFFER_SIZE)
+	{
+		int need = AUDIOBUFFER_SIZE - m_ret;
+
+		SDL_LockAudio ();
+		while (need > 0)
+		{
+			m_ret = Kit_GetAudioData (m_player, (unsigned char*) m_audiobuf,
+									  AUDIOBUFFER_SIZE, (size_t) SDL_GetQueuedAudioSize (m_audioDev));
+			need -= m_ret;
+			if (m_ret > 0)
+			{
+				SDL_QueueAudio (m_audioDev, m_audiobuf, m_ret);
+			}
+			else
+			{
+				break;
+			}
+		}
+		SDL_UnlockAudio ();
+		SDL_PauseAudioDevice (m_audioDev, 0);
+	}
+
+	// Clear screen with black
+	SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 255);
+	SDL_RenderClear (g_renderer);
+
+	// Refresh videotexture and render it
+	Kit_GetVideoData (m_player, m_videoTex);
+	SDL_RenderCopy (g_renderer, m_videoTex, nullptr, nullptr);
+
+	SDL_RenderPresent (g_renderer);
+	CEvent::PushUserEvent (WM_MOVIE_PLAY);
+	return true;
 }

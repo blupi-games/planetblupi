@@ -189,8 +189,8 @@
     <None Include="data\config.def">
       <Filter>Data</Filter>
     </None>
-    <None Include="packages.config" />
     <None Include=".editorconfig" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="blupi-d.rc">

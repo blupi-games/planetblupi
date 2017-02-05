@@ -292,7 +292,6 @@
 #define SOUND_ARMURECLOSE	82
 #define SOUND_WIN			83
 #define SOUND_LOST			84
-#define SOUND_MOVIE			99
 
 
 // Boutons (play) :
@@ -590,7 +589,7 @@ enum MouseSprites
 #define WM_PREV					(WM_USER+600)
 #define WM_NEXT					(WM_USER+601)
 #define WM_MOVIE				(WM_USER+602)
-
+#define WM_MOVIE_PLAY			(WM_USER+603)
 
 
 // Types de gestion de la souris.

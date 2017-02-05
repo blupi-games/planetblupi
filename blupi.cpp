@@ -379,10 +379,12 @@ void WindowProc2 (const SDL_Event &event)
 			if (g_pSound->IsStoppedOnDemand ())
 				break;
 
-			if (g_pEvent->IsMovie ())
+			g_pSound->RestartMusic ();
+			break;
+
+		case WM_MOVIE_PLAY:
+			if (!g_pMovie->Render ())
 				g_pEvent->StopMovie ();
-			else
-				g_pSound->RestartMusic ();
 			break;
 		}
 		break;
@@ -446,13 +448,15 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 		return false;
 	}
 
-	g_renderer = SDL_CreateRenderer (g_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+	g_renderer = SDL_CreateRenderer (g_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE | SDL_RENDERER_PRESENTVSYNC);
 	if (!g_renderer)
 	{
 		printf (SDL_GetError ());
 		SDL_DestroyWindow (g_window);
 		return false;
 	}
+
+	SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "linear");
 
 	if ( !bOK )  // config.def pas correct ?
 	{

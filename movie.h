@@ -3,6 +3,13 @@
 
 #pragma once
 
+struct Kit_Source;
+struct Kit_Player;
+struct Kit_PlayerInfo;
+struct SDL_Texture;
+
+#define AUDIOBUFFER_SIZE (32768)
+
 class CMovie
 {
 public:
@@ -14,16 +21,24 @@ public:
 	bool	IsExist(char *pFilename);
 	bool	Play(RECT rect, char *pFilename);
 	void	Stop();
+	bool	Render ();
 
 protected:
 	void	playMovie(int nDirection);
 	bool	fileOpenMovie(RECT rect, char *pFilename);
 	void	fileCloseMovie();
-	void	positionMovie(RECT rect);
 	void	termAVI();
 	bool	initAVI();
 
 protected:
+	Kit_PlayerInfo *pinfo;
+	Kit_Source	*m_movie;
+	Kit_Player	*m_player;
+	SDL_Texture *m_videoTex;
+	int m_ret;
+	SDL_AudioDeviceID m_audioDev;
+
+	char m_audiobuf[AUDIOBUFFER_SIZE];
 	bool		m_bEnable;
 	MCIDEVICEID	m_wMCIDeviceID;	// MCI Device ID for the AVI file
 	HWND		m_hwndMovie;	// window handle of the movie

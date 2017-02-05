@@ -3086,31 +3086,31 @@ bool CEvent::ChangePhase(UINT phase)
 
 	if ( phase == WM_PHASE_H0MOVIE )
 	{
-		strcpy(m_movieToStart, "movie\\history0.avi");
+		strcpy(m_movieToStart, "movie\\history0.mkv");
 		m_phaseAfterMovie = WM_PHASE_HISTORY0;
 	}
 
 	if ( phase == WM_PHASE_H1MOVIE )
 	{
-		strcpy(m_movieToStart, "movie\\history1.avi");
+		strcpy(m_movieToStart, "movie\\history1.mkv");
 		m_phaseAfterMovie = WM_PHASE_HISTORY1;
 	}
 
 	if ( phase == WM_PHASE_H2MOVIE )
 	{
-		strcpy(m_movieToStart, "movie\\history2.avi");
+		strcpy(m_movieToStart, "movie\\history2.mkv");
 		m_phaseAfterMovie = WM_PHASE_INFO;
 	}
 
 	if ( phase == WM_PHASE_PLAYMOVIE )
 	{
-		sprintf(m_movieToStart, "movie\\play%.3d.avi", GetPhysicalWorld());
+		sprintf(m_movieToStart, "movie\\play%.3d.mkv", GetPhysicalWorld());
 		m_phaseAfterMovie = WM_PHASE_PLAY;
 	}
 
 	if ( phase == WM_PHASE_WINMOVIE )
 	{
-		sprintf(m_movieToStart, "movie\\win%.3d.avi", GetPhysicalWorld());
+		sprintf(m_movieToStart, "movie\\win%.3d.mkv", GetPhysicalWorld());
 		m_phaseAfterMovie = WM_PHASE_WIN;
 
 		if ( !m_bPrivate &&
@@ -3963,7 +3963,6 @@ bool CEvent::BuildUp(POINT pos)
 bool CEvent::StartMovie(char *pFilename)
 {
 	RECT		rect;
-	char		filename[MAX_PATH];
 
 	if ( !m_pMovie->GetEnable() )  return false;
 	if ( !m_bMovie )  return false;
@@ -3977,13 +3976,8 @@ bool CEvent::StartMovie(char *pFilename)
 
 	m_pSound->StopMusic();
 
-	strcpy(filename, pFilename);
-	strcpy(filename+strlen(filename)-4, ".blp");  // remplace .avi par .blp
-	m_pSound->Cache(SOUND_MOVIE, filename);
-
 	if ( !m_pMovie->Play(rect, pFilename) )  return false;
 	m_bRunMovie = true;
-	m_pSound->Play(SOUND_MOVIE, 0, 0);
 	return true;
 }
 
@@ -3992,8 +3986,6 @@ bool CEvent::StartMovie(char *pFilename)
 void CEvent::StopMovie()
 {
 	m_pMovie->Stop();
-	m_pSound->Flush(SOUND_MOVIE);
-//	m_pSound->RestartMusic();
 	ChangePhase(m_phase);
 	m_bRunMovie = false;
 }
