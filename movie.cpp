@@ -221,10 +221,6 @@ CMovie::~CMovie()
 
 bool CMovie::Create()
 {
-#if _EGAMES
-	m_bEnable = false;
-	return false;
-#else
 	if ( initAVI() )
 	{
 		m_bEnable = true;
@@ -235,7 +231,6 @@ bool CMovie::Create()
 		m_bEnable = false;
 		return false;
 	}
-#endif
 }
 
 // Retourne l'état de DirectMovie.

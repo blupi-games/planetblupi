@@ -6,8 +6,6 @@
 #include <Windows.h>
 
 #define _INTRO			false	// true si images d'introduction
-#define _EGAMES			false	// true version pour eGames
-#define _SE				false	// true eGames Special Edition
 
 
 #define LXIMAGE			640		// dimensions de la fenêtre de jeu

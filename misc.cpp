@@ -124,14 +124,7 @@ void AddUserPath(char *pFilename)
 	char					last;
 	SECURITY_ATTRIBUTES		att;
 
-#if _EGAMES
-	strcpy(temp, "c:\\Planet Blupi Full\\");
-#if _SE
-	strcpy(temp, "c:\\Planet Blupi SE\\");
-#endif
-#else
 	strcpy(temp, "c:\\Planète Blupi\\");
-#endif
 
 	att.nLength = sizeof(SECURITY_ATTRIBUTES);
 	att.lpSecurityDescriptor = NULL;

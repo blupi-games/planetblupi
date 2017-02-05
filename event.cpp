@@ -415,7 +415,6 @@ static Phase table[] =
 				399+40, 330,
 				{1,TX_BUTTON_SETUP6},
 			},
-#if !_EGAMES
 			{
 				WM_BUTTON7,
 				0, {1,50},
@@ -428,7 +427,6 @@ static Phase table[] =
 				514+40, 330,
 				{1,TX_BUTTON_SETUP8},
 			},
-#endif
 			{
 				WM_BUTTON9,
 				0, {1,50},
@@ -494,7 +492,6 @@ static Phase table[] =
 				399+40, 330,
 				{1,TX_BUTTON_SETUP6},
 			},
-#if !_EGAMES
 			{
 				WM_BUTTON7,
 				0, {1,50},
@@ -507,7 +504,6 @@ static Phase table[] =
 				514+40, 330,
 				{1,TX_BUTTON_SETUP8},
 			},
-#endif
 			{
 				WM_BUTTON9,
 				0, {1,50},
@@ -1833,16 +1829,7 @@ bool CEvent::DrawButtons()
 	{
 		pos.x = 580;
 		pos.y = 465;
-#if _EGAMES
-		DrawText(m_pPixmap, pos, "Version 1.0", FONTLITTLE);
-#else
 		DrawText(m_pPixmap, pos, "Version 1.7", FONTLITTLE);
-#endif
-#if _SE
-		pos.x = 580;
-		pos.y = 465-20;
-		DrawText(m_pPixmap, pos, "S E", FONTRED);
-#endif
 	}
 
 	if ( m_phase == WM_PHASE_SETUP  ||
@@ -2280,9 +2267,7 @@ bool CEvent::DrawButtons()
 		DrawTextCenter(TX_INFO_SETUP5, 169+40, 80);
 		DrawTextCenter(TX_INFO_SETUP2, 284+40, 80);
 		DrawTextCenter(TX_INFO_SETUP3, 399+40, 80);
-#if !_EGAMES
 		DrawTextCenter(TX_INFO_SETUP4, 514+40, 80);
-#endif
 
 		sprintf(res, "x%d", m_speed);
 		lg = GetTextWidth(res);
@@ -2302,7 +2287,6 @@ bool CEvent::DrawButtons()
 		pos.y = 330-20;
 		DrawText(m_pPixmap, pos, res);
 
-#if !_EGAMES
 		if ( m_pMovie->GetEnable() )
 		{
 			if ( m_bMovie )  LoadString(TX_OUI, res, 50);
@@ -2316,7 +2300,6 @@ bool CEvent::DrawButtons()
 		pos.x = (514+40)-lg/2;
 		pos.y = 330-20;
 		DrawText(m_pPixmap, pos, res);
-#endif
 
 		if ( m_scrollSpeed == 0 )  LoadString(TX_INFO_NOSCROLL, res, 50);
 		else                       sprintf(res, "%d", m_scrollSpeed);
