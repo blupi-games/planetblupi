@@ -5,7 +5,6 @@
 
 #include <Windows.h>
 
-#define _DEMO			false	// true=demo, false=complet
 #define _INTRO			false	// true si images d'introduction
 #define _EGAMES			false	// true version pour eGames
 #define _SE				false	// true eGames Special Edition

@@ -126,9 +126,6 @@ void AddUserPath(char *pFilename)
 
 #if _EGAMES
 	strcpy(temp, "c:\\Planet Blupi Full\\");
-#if _DEMO
-	strcpy(temp, "c:\\Planet Blupi Demo\\");
-#endif
 #if _SE
 	strcpy(temp, "c:\\Planet Blupi SE\\");
 #endif

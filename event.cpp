@@ -127,14 +127,12 @@ static Phase table[] =
 				16, 424-60-42*1,
 				{1,TX_BUTTON_JOUER},
 			},
-#if !_DEMO
 			{
 				WM_PHASE_PRIVATE,
 				0, {1,49},
 				16, 424-60-42*0,
 				{1,TX_BUTTON_PRIVE},
 			},
-#endif
 			{
 				WM_PHASE_BYE,
 //?				WM_CLOSE,
@@ -229,7 +227,6 @@ static Phase table[] =
 				42+42*7, 433,
 				{1,TX_BUTTON_SETUP},
 			},
-#if !_DEMO
 			{
 				WM_PHASE_BUILD,
 				0, {1,49},
@@ -248,7 +245,6 @@ static Phase table[] =
 				150, 230+42,
 				{1,TX_BUTTON_SKILL},
 			},
-#endif
 			{
 				WM_PHASE_INIT,
 				0, {1,40},
@@ -325,14 +321,12 @@ static Phase table[] =
 				42+42*0, 433,
 				{1,TX_BUTTON_CANCELP},
 			},
-#if !_DEMO
 			{
 				WM_PHASE_HELP,
 				0, {1,86},
 				42+42*9, 433,
 				{1,TX_BUTTON_HELP},
 			},
-#endif
 			{
 				0
 			},
@@ -1844,11 +1838,6 @@ bool CEvent::DrawButtons()
 #else
 		DrawText(m_pPixmap, pos, "Version 1.7", FONTLITTLE);
 #endif
-#if _DEMO
-		pos.x = 580;
-		pos.y = 465-20;
-		DrawText(m_pPixmap, pos, "D E M O", FONTRED);
-#endif
 #if _SE
 		pos.x = 580;
 		pos.y = 465-20;
@@ -2195,7 +2184,6 @@ bool CEvent::DrawButtons()
 		DrawBignum(m_pPixmap, pos, world+1);
 	}
 
-#if !_DEMO
 	// Affiche facile/difficile.
 	if ( m_phase == WM_PHASE_INFO )
 	{
@@ -2234,7 +2222,6 @@ bool CEvent::DrawButtons()
 			}
 		}
 	}
-#endif
 
 	// Affiche le libellé de l'énigme.
 	if ( m_phase == WM_PHASE_INFO     ||
@@ -2342,39 +2329,29 @@ bool CEvent::DrawButtons()
 	// Affiche le texte de fin de la version demo.
 	if ( m_phase == WM_PHASE_BYE )
 	{
-#if _DEMO
-		LoadString(TX_DEMO_END1, res, 100);
-#else
 		LoadString(TX_FULL_END1, res, 100);
-#endif
+
 		lg = GetTextWidth(res);
 		pos.x = LXIMAGE/2-lg/2;
 		pos.y = 20;
 		DrawText(m_pPixmap, pos, res);
-#if _DEMO
-		LoadString(TX_DEMO_END2, res, 100);
-#else
+
 		LoadString(TX_FULL_END2, res, 100);
-#endif
+
 		lg = GetTextWidth(res);
 		pos.x = LXIMAGE/2-lg/2;
 		pos.y = 40;
 		DrawText(m_pPixmap, pos, res);
 
-#if _DEMO
-		LoadString(TX_DEMO_END3, res, 100);
-#else
 		LoadString(TX_FULL_END3, res, 100);
-#endif
+
 		lg = GetTextWidth(res);
 		pos.x = LXIMAGE/2-lg/2;
 		pos.y = 430;
 		DrawText(m_pPixmap, pos, res);
-#if _DEMO
-		LoadString(TX_DEMO_END4, res, 100);
-#else
+
 		LoadString(TX_FULL_END4, res, 100);
-#endif
+
 		lg = GetTextWidth(res);
 		pos.x = LXIMAGE/2-lg/2;
 		pos.y = 450;
@@ -2751,7 +2728,6 @@ bool CEvent::IsHelpHide()
 {
 	bool	bHide = true;
 
-#if !_DEMO
 	if ( m_bHelp || m_pDecor->GetTotalTime() > DEF_TIME_HELP )
 	{
 		bHide = false;
@@ -2760,7 +2736,7 @@ bool CEvent::IsHelpHide()
 	{
 		bHide = true;  // pas d'aide pour les exercices
 	}
-#endif
+
 	return bHide;
 }
 
@@ -3009,23 +2985,18 @@ bool CEvent::ChangePhase(UINT phase)
 		{
 			bEnable = false;
 		}
-#if !_DEMO
+
 		if ( m_bAccessBuild ||
 			 m_pDecor->GetTotalTime() > DEF_TIME_HELP*6 )
 		{
 			bEnable = true;
 		}
-#endif
+
 		if ( GetWorld() >= 99 )
 		{
 			bEnable = false;
 		}
-#if _DEMO
-		if ( GetWorld() >= 4-1 )
-		{
-			bEnable = false;
-		}
-#endif
+
 		if ( m_bPrivate )
 		{
 			bEnable = GetWorld()<20-1;
@@ -3039,7 +3010,6 @@ bool CEvent::ChangePhase(UINT phase)
 		}
 		SetHide(WM_PHASE_BUILD, bHide);
 
-#if !_DEMO
 		if ( m_bSchool )
 		{
 			SetHide(WM_PHASE_SKILL1, true);
@@ -3050,7 +3020,6 @@ bool CEvent::ChangePhase(UINT phase)
 			SetState(WM_PHASE_SKILL1, m_pDecor->GetSkill()==0?1:0);
 			SetState(WM_PHASE_SKILL2, m_pDecor->GetSkill()==1?1:0);
 		}
-#endif
 	}
 
 	if ( m_phase == WM_PHASE_STOP )
@@ -4750,14 +4719,13 @@ bool CEvent::TreatEventBase(const SDL_Event &event)
 							bEnable = m_bSpeed;
 							m_bChangeCheat = true;
 						}
-#if !_DEMO
+
 						if ( m_rankCheat == 5 )  // helpme ?
 						{
 							m_bHelp = !m_bHelp;
 							bEnable = m_bHelp;
 							m_bChangeCheat = true;
 						}
-#endif
 
 						if ( m_rankCheat == 6 )  // invincible ?
 						{
@@ -4773,14 +4741,12 @@ bool CEvent::TreatEventBase(const SDL_Event &event)
 							m_bChangeCheat = true;
 						}
 
-#if !_DEMO
 						if ( m_rankCheat == 8 )  // construire ?
 						{
 							m_bAccessBuild = !m_bAccessBuild;
 							bEnable = m_bAccessBuild;
 							m_bChangeCheat = true;
 						}
-#endif
 
 						if ( m_phase != WM_PHASE_PLAY )
 						{

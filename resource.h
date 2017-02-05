@@ -137,10 +137,6 @@
 #define TX_PRIVATE_HOMEBLUPI            196
 #define TX_PRIVATE_KILLROBOTS           197
 #define TX_BUTTON_UNDO                  198
-#define TX_DEMO_END1                    199
-#define TX_DEMO_END2                    200
-#define TX_DEMO_END3                    201
-#define TX_DEMO_END4                    202
 #define TX_FULL_END1                    203
 #define TX_FULL_END2                    204
 #define TX_FULL_END3                    205
