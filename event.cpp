@@ -4024,7 +4024,6 @@ bool CEvent::StartMovie(char *pFilename)
 	rect.bottom = LYIMAGE-2;
 
 	m_pSound->StopMusic();
-	m_pPixmap->SavePalette();
 
 	strcpy(filename, pFilename);
 	strcpy(filename+strlen(filename)-4, ".blp");  // remplace .avi par .blp

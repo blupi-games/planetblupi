@@ -256,7 +256,7 @@ bool RestoreGame()
 	if ( g_pPixmap == NULL )  return false;
 
 	g_pEvent->RestoreGame();
-	return g_pPixmap->Restore();
+	return true;
 }
 
 // Libère le jeu avant une désactivation en mode fullScreen.
@@ -336,9 +336,6 @@ void WindowProc2 (const SDL_Event &event)
 				iconDim.y = 66 / 2;
 				g_pPixmap->Cache (CHHILI, "image\\hili.blp", totalDim, iconDim, true);
 				g_pPixmap->SetTransparent (CHHILI, RGB (0, 0, 255));  // bleu
-
-				g_pPixmap->SavePalette ();
-				g_pPixmap->InitSysPalette ();
 			}
 			SDL_SetWindowTitle (g_window, "Blupi");
 			if (g_pSound != NULL)  g_pSound->RestartMusic ();
@@ -494,11 +491,6 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	if ( !g_pPixmap->Cache(CHBACK, "image\\init.blp", totalDim, iconDim, true) )
 #endif
 		return false;
-
-	OutputDebug("SavePalette\n");
-	g_pPixmap->SavePalette();
-	OutputDebug("InitSysPalette\n");
-	g_pPixmap->InitSysPalette();
 
 	OutputDebug("Image: init\n");
 	totalDim.x = LXIMAGE;

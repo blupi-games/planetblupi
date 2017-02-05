@@ -187,78 +187,11 @@ bool CPixmap::Flush()
 	return true;
 }
 
-// Restitue les bitmaps.
-
-bool CPixmap::Restore()
-{
-	RestoreAll();
-	return true;
-}
-
-// Initialise la palette système.
-
-bool CPixmap::InitSysPalette()
-{
-    HDC			hdc;
-	int			caps;
-
-    hdc = CreateCompatibleDC(NULL);
-    if ( hdc == NULL )  return false;
-
-	if ( !m_bFullScreen )
-	{
-		caps = GetDeviceCaps(hdc, SIZEPALETTE);
-		if ( caps == 0 )  m_bPalette = false;
-		else              m_bPalette = true;
-	}
-
-	GetSystemPaletteEntries(hdc, 0, 256, m_sysPal);
-    DeleteDC(hdc);
-	return true;
-}
-
-// Indique si l'on utilise une palette.
-
-bool CPixmap::IsPalette()
-{
-	return m_bPalette;
-}
-
-
 // Rempli une zone rectangulaire avec une couleur uniforme.
 
 void CPixmap::Fill(RECT rect, COLORREF color)
 {
 	// à faire si nécessaire ...
-}
-
-
-// Restore all lost objects.
-
-HRESULT CPixmap::RestoreAll()
-{
-	if ( m_bDebug )  OutputDebug("CPixmap::RestoreAll\n");
-	HRESULT     ddrval;
-
-	if ( m_lpDDSPrimary && m_lpDDSPrimary->IsLost() )
-	{
-		ddrval = m_lpDDSPrimary->Restore();
-//		if( ddrval != DD_OK )  return ddrval;
-	}
-
-	if ( m_lpDDSBack && m_lpDDSBack->IsLost() )
-	{
-		ddrval = m_lpDDSBack->Restore();
-//		if( ddrval != DD_OK )  return ddrval;
-	}
-
-	if ( m_lpDDSMouse && m_lpDDSMouse->IsLost() )
-	{
-		ddrval = m_lpDDSMouse->Restore();
-//		if( ddrval != DD_OK )  return ddrval;
-	}
-
-	return DD_OK;
 }
 
 // Effectue un appel BltFast.
@@ -299,8 +232,6 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 	if ( rcRect.left >= rcRect.right ||
 		 rcRect.top  >= rcRect.bottom )  return DD_OK;
 
-    while( true )
-    {
 		if ( chDst < 0 )
 		{
 			SDL_Rect srcRect, dstRect;
@@ -332,16 +263,6 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 			SDL_SetRenderTarget (g_renderer, nullptr);
 			//SDL_RenderCopy (g_renderer, m_lpSDLTexture[chDst], NULL, NULL);
 		}
-        if ( ddrval == DD_OK )  break;
-        
-        if ( ddrval == DDERR_SURFACELOST )
-        {
-            ddrval = RestoreAll();
-            if ( ddrval != DD_OK )  break;
-        }
-
-        if ( ddrval != DDERR_WASSTILLDRAWING )  break;
-    }
 
 	return ddrval;
 }
@@ -372,21 +293,6 @@ HRESULT CPixmap::BltFast(SDL_Texture *lpSDL,
 		SDL_SetRenderTarget (g_renderer, nullptr);
 
 	return ddrval;
-}
-
-
-// Sauve toute la palette de couleurs.
-
-bool CPixmap::SavePalette()
-{
-    HRESULT     ddrval;
-
-	if ( m_lpDDPal == NULL )  return false;
-
-    ddrval = m_lpDDPal->GetEntries(0, 0, 256, m_pal);
-
-	if ( ddrval != DD_OK )  return false;
-	return true;
 }
 
 // Cherche une couleur dans la palette principale.

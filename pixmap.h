@@ -20,12 +20,8 @@ public:
 	
 	bool	Create(POINT dim, bool bFullScreen, int mouseType);
 	bool	Flush();
-	bool	Restore();
-	bool	InitSysPalette();
-	bool	IsPalette();
 	void	Fill(RECT rect, COLORREF color);
 	
-	bool	SavePalette();
 	int		SearchColor(int red, int green, int blue);
 	bool	Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim, bool bUsePalette);
 	bool	Cache(int channel, char *pFilename, POINT totalDim, bool bUsePalette);
@@ -54,7 +50,6 @@ public:
 	void	ChangeSprite (MouseSprites sprite);
 
 protected:
-	HRESULT	RestoreAll();
 	HRESULT	BltFast(int chDst, int channel, POINT dst, RECT rcRect, int mode);
 	HRESULT	BltFast(SDL_Texture *lpSDL,
 					int channel, POINT dst, RECT rcRect, int mode);
