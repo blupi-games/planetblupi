@@ -232,37 +232,34 @@ HRESULT CPixmap::BltFast(int chDst, int channel,
 	if ( rcRect.left >= rcRect.right ||
 		 rcRect.top  >= rcRect.bottom )  return DD_OK;
 
-		if ( chDst < 0 )
-		{
-			SDL_Rect srcRect, dstRect;
-			srcRect.x = rcRect.left;
-			srcRect.y = rcRect.top;
-			srcRect.w = rcRect.right - rcRect.left;
-			srcRect.h = rcRect.bottom - rcRect.top;
-			dstRect = srcRect;
-			dstRect.x = dst.x;
-			dstRect.y = dst.y;
-			//SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, m_lpSDLBack, &dstRect);
-			SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
-		}
-		else
-		{
-			SDL_Rect srcRect, dstRect;
-			srcRect.x = rcRect.left;
-			srcRect.y = rcRect.top;
-			srcRect.w = rcRect.right - rcRect.left;
-			srcRect.h = rcRect.bottom - rcRect.top;
-			dstRect = srcRect;
-			dstRect.x = dst.x;
-			dstRect.y = dst.y;
-			//SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, m_lpSDLSurface[chDst], &dstRect);
+	if ( chDst < 0 )
+	{
+		SDL_Rect srcRect, dstRect;
+		srcRect.x = rcRect.left;
+		srcRect.y = rcRect.top;
+		srcRect.w = rcRect.right - rcRect.left;
+		srcRect.h = rcRect.bottom - rcRect.top;
+		dstRect = srcRect;
+		dstRect.x = dst.x;
+		dstRect.y = dst.y;
 
-			//SDL_SetTextureBlendMode (m_lpSDLTexture[chDst], SDL_BLENDMODE_BLEND);
-			SDL_SetRenderTarget (g_renderer, m_lpSDLTexture[chDst]);
-			SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
-			SDL_SetRenderTarget (g_renderer, nullptr);
-			//SDL_RenderCopy (g_renderer, m_lpSDLTexture[chDst], NULL, NULL);
-		}
+		SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
+	}
+	else
+	{
+		SDL_Rect srcRect, dstRect;
+		srcRect.x = rcRect.left;
+		srcRect.y = rcRect.top;
+		srcRect.w = rcRect.right - rcRect.left;
+		srcRect.h = rcRect.bottom - rcRect.top;
+		dstRect = srcRect;
+		dstRect.x = dst.x;
+		dstRect.y = dst.y;
+
+		SDL_SetRenderTarget (g_renderer, m_lpSDLTexture[chDst]);
+		SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
+		SDL_SetRenderTarget (g_renderer, nullptr);
+	}
 
 	return ddrval;
 }
@@ -279,18 +276,18 @@ HRESULT CPixmap::BltFast(SDL_Texture *lpSDL,
 	if ( mode == 0 )  dwTrans = DDBLTFAST_SRCCOLORKEY;
 	else              dwTrans = DDBLTFAST_NOCOLORKEY;
 
-		SDL_Rect srcRect, dstRect;
-		srcRect.x = rcRect.left;
-		srcRect.y = rcRect.top;
-		srcRect.w = rcRect.right - rcRect.left;
-		srcRect.h = rcRect.bottom - rcRect.top;
-		dstRect = srcRect;
-		dstRect.x = dst.x;
-		dstRect.y = dst.y;
-		//SDL_BlitSurface (m_lpSDLSurface[channel], &srcRect, lpSDL, &dstRect);
-		SDL_SetRenderTarget (g_renderer, lpSDL);
-		SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
-		SDL_SetRenderTarget (g_renderer, nullptr);
+	SDL_Rect srcRect, dstRect;
+	srcRect.x = rcRect.left;
+	srcRect.y = rcRect.top;
+	srcRect.w = rcRect.right - rcRect.left;
+	srcRect.h = rcRect.bottom - rcRect.top;
+	dstRect = srcRect;
+	dstRect.x = dst.x;
+	dstRect.y = dst.y;
+
+	SDL_SetRenderTarget (g_renderer, lpSDL);
+	SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
+	SDL_SetRenderTarget (g_renderer, nullptr);
 
 	return ddrval;
 }
