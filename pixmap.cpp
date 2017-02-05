@@ -389,18 +389,6 @@ bool CPixmap::SavePalette()
 	return true;
 }
 
-// Restitue toute la palette de couleurs.
-
-bool CPixmap::RestorePalette()
-{
-    HRESULT     ddrval;
-
-    ddrval = m_lpDDPal->SetEntries(0, 0, 256, m_pal);
-
-	if ( ddrval != DD_OK )  return false;
-	return true;
-}
-
 // Cherche une couleur dans la palette principale.
 // En mode plein écran, il faut chercher dans la palette
 // correspondant aux images (obtenue avec SavePalette),

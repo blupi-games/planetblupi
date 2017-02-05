@@ -26,7 +26,6 @@ public:
 	void	Fill(RECT rect, COLORREF color);
 	
 	bool	SavePalette();
-	bool	RestorePalette();
 	int		SearchColor(int red, int green, int blue);
 	bool	Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim, bool bUsePalette);
 	bool	Cache(int channel, char *pFilename, POINT totalDim, bool bUsePalette);

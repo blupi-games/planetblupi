@@ -4041,7 +4041,6 @@ bool CEvent::StartMovie(char *pFilename)
 void CEvent::StopMovie()
 {
 	m_pMovie->Stop();
-	m_pPixmap->RestorePalette();
 	m_pSound->Flush(SOUND_MOVIE);
 //	m_pSound->RestartMusic();
 	ChangePhase(m_phase);
