@@ -2501,44 +2501,49 @@ void CEvent::HideMouse(bool bHide)
 bool CEvent::EventButtons(const SDL_Event &event, POINT pos)
 {
 	POINT		test;
-	int			i, lg, oldx, sound, res;
+	int			lg, oldx, sound, res;
 
 	// Cherche le tool tips à utiliser pour la souris.
 	m_textToolTips[0] = 0;
 	oldx = m_posToolTips.x;
 	m_posToolTips.x = -1;
+
+	const auto progress = [&] (CJauge &progress, const char *text) -> bool
+	{
+		if (progress.GetHide ())
+			return false;
+	
+		test = progress.GetPos ();
+		if (   pos.x >= test.x
+			&& pos.x <= test.x + DIMJAUGEX
+			&& pos.y >= test.y
+			&& pos.y <= test.y + DIMJAUGEY)
+		{
+			snprintf (m_textToolTips, sizeof (m_textToolTips), "%s", text);
+			lg = GetTextWidth (m_textToolTips);
+			test.x += (DIMJAUGEX - lg) / 2;
+			test.y += 4;
+			m_posToolTips = test;
+			return true;
+		}
+		return false;
+	};
+
 	if ( m_phase == WM_PHASE_PLAY )
 	{
-		for ( i=0 ; i<2 ; i++ )
-		{
-			if ( !m_jauges[i].GetHide() )
-			{
-				test = m_jauges[i].GetPos();
-				if ( pos.x >= test.x           &&
-					 pos.x <= test.x+DIMJAUGEX &&
-					 pos.y >= test.y           &&
-					 pos.y <= test.y+DIMJAUGEY )
-				{
-					LoadString(TX_JAUGE1+i, m_textToolTips, 50);
-					lg = GetTextWidth(m_textToolTips);
-					test.x += (DIMJAUGEX-lg)/2;
-					test.y += 4;
-					m_posToolTips = test;
-					break;
-				}
-			}
-		}
+		const auto spotted = progress (m_jauges[0], gettext ("Blupi's energy"));
+		if (!spotted)
+			progress (m_jauges[1], gettext ("Work done"));
+
 		if ( oldx != m_posToolTips.x )
 		{
-			for ( i=0 ; i<2 ; i++ )
-			{
+			for (int i = 0; i < 2; i++)
 				m_jauges[i].SetRedraw();
-			}
 		}
 	}
 	else
 	{
-		i = 0;
+		int i = 0;
 		while ( table[m_index].buttons[i].message != 0 )
 		{
 			res = m_buttons[i].GetToolTips(pos);
@@ -2635,7 +2640,7 @@ bool CEvent::EventButtons(const SDL_Event &event, POINT pos)
 	}
 
 
-	i = 0;
+	int i = 0;
 	while ( table[m_index].buttons[i].message != 0 )
 	{
 		if ( m_buttons[i].TreatEvent(event) )  return true;
