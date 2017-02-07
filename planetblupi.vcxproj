@@ -222,6 +222,7 @@ xcopy /Y ffmpeg-3.2.2-win32-shared\bin\*.dll $(SolutionDir)\$(Configuration)\</C
     <ClInclude Include="def.h" />
     <ClInclude Include="event.h" />
     <ClInclude Include="fifo.h" />
+    <ClInclude Include="gettext.h" />
     <ClInclude Include="jauge.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="misc.h" />
