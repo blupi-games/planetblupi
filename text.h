@@ -8,7 +8,7 @@
 #define FONTLITTLE	10
 
 extern
-void DrawText(CPixmap *pPixmap, POINT pos, char *pText, int font=0);
+void DrawText(CPixmap *pPixmap, POINT pos, const char *pText, int font=0);
 
 extern
 void DrawTextPente(CPixmap *pPixmap, POINT pos, char *pText,
@@ -25,7 +25,7 @@ extern
 int GetTextHeight(char *pText, int font=0, int part=-1);
 
 extern
-int GetTextWidth(char *pText, int font=0);
+int GetTextWidth(const char *pText, int font=0);
 
 extern
 void DrawBignum(CPixmap *pPixmap, POINT pos, int num);

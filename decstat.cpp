@@ -1,6 +1,7 @@
 // DecStat.cpp
 //
 
+#include "gettext.h"
 #include "RESOURCE.H"
 #include "DECOR.H"
 #include "TEXT.H"
@@ -29,7 +30,7 @@ typedef struct
 	short		lastIcon;	// négatif si sol
 	short		drawIcon;
 	short		bBigIcon;
-	short		text;
+	const char *text;
 	short		nb;
 	short		lastShow;
 }
@@ -44,7 +45,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		76,
 		false,
-		TX_OBJ_BLUPIm,
+		gettext ("Sick Blupi"),
 		0, 0,
 	},
 	{				// STATBLUPIf = 1
@@ -53,7 +54,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		13,
 		false,
-		TX_OBJ_BLUPIf,
+		gettext ("Tired Blupi"),
 		0, 0,
 	},
 	{				// STATBLUPI = 2
@@ -62,7 +63,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		14,
 		false,
-		TX_OBJ_BLUPI,
+		gettext ("Blupi"),
 		0, 0,
 	},
 	{				// STATDISCIPLE = 3
@@ -71,7 +72,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		85,
 		false,
-		TX_OBJ_DISCIPLE,
+		gettext ("Helper robot"),
 		0, 0,
 	},
 	{				// 4
@@ -80,7 +81,7 @@ static Statistic table_statistic[] =
 		117,117,	// bateau
 		58,
 		false,
-		TX_OBJ_BATEAU,
+		gettext ("Boat"),
 		0, 0,
 	},
 	{				// 5
@@ -89,7 +90,7 @@ static Statistic table_statistic[] =
 		118,118,	// jeep
 		65,
 		false,
-		TX_OBJ_JEEP,
+		gettext ("Jeep"),
 		0, 0,
 	},
 	{				// 6
@@ -98,7 +99,7 @@ static Statistic table_statistic[] =
 		16,16,		// armure
 		106,
 		false,
-		TX_OBJ_ARMURE,
+		gettext ("Armour"),
 		0, 0,
 	},
 	{				// 7
@@ -107,7 +108,7 @@ static Statistic table_statistic[] =
 		93,93,		// piège
 		70,
 		false,
-		TX_OBJ_PIEGE,
+		gettext ("Sticky trap"),
 		0, 0,
 	},
 	{				// 8
@@ -116,7 +117,7 @@ static Statistic table_statistic[] =
 		92,92,		// poison
 		71,
 		false,
-		TX_OBJ_POISON,
+		gettext ("Poison"),
 		0, 0,
 	},
 	{				// 9
@@ -125,7 +126,7 @@ static Statistic table_statistic[] =
 		85,85,		// dynamite
 		57,
 		false,
-		TX_OBJ_DYNAMITE,
+		gettext ("Dynamite"),
 		0, 0,
 	},
 	{				// 10
@@ -134,7 +135,7 @@ static Statistic table_statistic[] =
 		125,125,	// mine
 		63,
 		false,
-		TX_OBJ_MINE,
+		gettext ("Time bomb"),
 		0, 0,
 	},
 	{				// 11
@@ -143,7 +144,7 @@ static Statistic table_statistic[] =
 		60,60,		// tomate
 		28,
 		false,
-		TX_OBJ_TOMATE,
+		gettext ("Tomatoes"),
 		0, 0,
 	},
 	{				// 12
@@ -152,7 +153,7 @@ static Statistic table_statistic[] =
 		80,80,		// bouteille
 		34,
 		false,
-		TX_OBJ_POTION,
+		gettext ("Medical potion"),
 		0, 0,
 	},
 	{				// 13
@@ -161,7 +162,7 @@ static Statistic table_statistic[] =
 		36,36,		// planches
 		22,
 		false,
-		TX_OBJ_PLANCHE,
+		gettext ("Planks"),
 		0, 0,
 	},
 	{				// 14
@@ -170,7 +171,7 @@ static Statistic table_statistic[] =
 		44,44,		// pierres
 		27,
 		false,
-		TX_OBJ_PIERRE,
+		gettext ("Stones"),
 		0, 0,
 	},
 	{				// 15
@@ -179,7 +180,7 @@ static Statistic table_statistic[] =
 		124,124,	// drapeau
 		64,
 		true,
-		TX_OBJ_DRAPEAU,
+		gettext ("Flag"),
 		0, 0,
 	},
 	{				// 16
@@ -188,7 +189,7 @@ static Statistic table_statistic[] =
 		123,123,	// fer
 		62,
 		false,
-		TX_OBJ_FER,
+		gettext ("Iron"),
 		0, 0,
 	},
 	{				// 17
@@ -197,7 +198,7 @@ static Statistic table_statistic[] =
 		82,82,		// fleurs1
 		72,
 		false,
-		TX_OBJ_FLEUR1,
+		pgettext ("Flower|1|", "Flowers"),
 		0, 0,
 	},
 	{				// 18
@@ -206,7 +207,7 @@ static Statistic table_statistic[] =
 		84,84,		// fleurs2
 		73,
 		false,
-		TX_OBJ_FLEUR2,
+		pgettext ("Flower|2|", "Flowers"),
 		0, 0,
 	},
 	{				// 19
@@ -215,7 +216,7 @@ static Statistic table_statistic[] =
 		95,95,		// fleurs3
 		74,
 		false,
-		TX_OBJ_FLEUR3,
+		pgettext ("Flower|3|", "Flowers"),
 		0, 0,
 	},
 	{				// 20
@@ -224,7 +225,7 @@ static Statistic table_statistic[] =
 		61,61,		// cabane
 		19,
 		true,
-		TX_OBJ_CABANE,
+		gettext ("Garden shed"),
 		0, 0,
 	},
 	{				// 21
@@ -233,7 +234,7 @@ static Statistic table_statistic[] =
 		-52,-56,	// couveuse
 		25,
 		false,
-		TX_OBJ_COUVEUSE,
+		gettext ("Incubator"),
 		0, 0,
 	},
 	{				// 22
@@ -242,7 +243,7 @@ static Statistic table_statistic[] =
 		-80,-84,	// téléporteur
 		101,
 		false,
-		TX_OBJ_TELEPORTE,
+		gettext ("Teleporter"),
 		0, 0,
 	},
 	{				// 23
@@ -251,7 +252,7 @@ static Statistic table_statistic[] =
 		28,29,		// laboratoire
 		35,
 		true,
-		TX_OBJ_LABO,
+		gettext ("Laboratory"),
 		0, 0,
 	},
 	{				// 24
@@ -260,7 +261,7 @@ static Statistic table_statistic[] =
 		121,122,	// mine de fer
 		61,
 		true,
-		TX_OBJ_MINEFER,
+		gettext ("Mine"),
 		0, 0,
 	},
 	{				// 25
@@ -269,7 +270,7 @@ static Statistic table_statistic[] =
 		119,120,	// usine
 		59,
 		true,
-		TX_OBJ_USINE,
+		gettext ("Workshop"),
 		0, 0,
 	},
 	{				// 26
@@ -278,7 +279,7 @@ static Statistic table_statistic[] =
 		27,27,		// tour
 		33,
 		true,
-		TX_OBJ_TOUR,
+		gettext ("Protection tower"),
 		0, 0,
 	},
 	{				// STATFEU = 27
@@ -287,7 +288,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		37,
 		true,
-		TX_OBJ_FEU,
+		gettext ("Fire"),
 		0, 0,
 	},
 	{				// STATROBOT = 28
@@ -296,7 +297,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		56,
 		false,
-		TX_OBJ_ROBOT,
+		gettext ("Master robot"),
 		0, 0,
 	},
 	{				// STATTRACKS = 29
@@ -305,7 +306,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		17,
 		false,
-		TX_OBJ_TRACKS,
+		gettext ("Bulldozer"),
 		0, 0,
 	},
 	{				// STATBOMBE = 30
@@ -314,7 +315,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		38,
 		false,
-		TX_OBJ_BOMBE,
+		gettext ("Bouncing bomb"),
 		0, 0,
 	},
 	{				// STATARAIGNEE = 31
@@ -323,7 +324,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		15,
 		false,
-		TX_OBJ_ARAIGNEE,
+		gettext ("Spider"),
 		0, 0,
 	},
 	{				// STATVIRUS = 32
@@ -332,7 +333,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		16,
 		false,
-		TX_OBJ_VIRUS,
+		gettext ("Virus"),
 		0, 0,
 	},
 	{				// STATELECTRO = 33
@@ -341,7 +342,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		75,
 		false,
-		TX_OBJ_ELECTRO,
+		gettext ("Electrocutor"),
 		0, 0,
 	},
 
@@ -351,7 +352,7 @@ static Statistic table_statistic[] =
 		0,0,
 		-1,
 		false,
-		0,
+		"",
 		999, 999,
 	},
 };
@@ -662,9 +663,10 @@ void CDecor::StatisticDraw()
 {
 	POINT		pos;
 	RECT		rect;
-	int			rank, icon, nb, textRes;
+	int			rank, icon, nb;
 	Statistic*	pStatistic;
 	char		text[50];
+	const char *textRes;
 
 	pStatistic = table_statistic;
 
@@ -684,7 +686,7 @@ void CDecor::StatisticDraw()
 		nb --;
 	}
 
-	textRes = 0;
+	textRes = "";
 	for ( rank=0 ; rank<STATNB ; rank++ )
 	{
 		pos.x = POSSTATX+DIMSTATX*(rank/(STATNB/2));
@@ -757,9 +759,9 @@ void CDecor::StatisticDraw()
 	// Dans un bouton stop/setup/write ?
 	if ( textRes == 0 && m_statHili >= 100 )
 	{
-		if ( m_statHili == 100 )  textRes = TX_BUTTON_PLAY_STOP;
-		if ( m_statHili == 101 )  textRes = TX_BUTTON_PLAY_SETUP;
-		if ( m_statHili == 102 )  textRes = TX_BUTTON_PLAY_WRITE;
+		if ( m_statHili == 100 )  textRes = gettext ("Interrupt");
+		if ( m_statHili == 101 )  textRes = gettext ("Settings");
+		if ( m_statHili == 102 )  textRes = gettext ("Save");
 	}
 
 	// Dessine le nom de la statistique survolée.
@@ -771,12 +773,11 @@ void CDecor::StatisticDraw()
 	rect.bottom = pos.y+16;
 	m_pPixmap->DrawPart(-1, CHBACK, pos, rect, 1);  // dessine le fond
 
-	if ( textRes != 0 )
+	if (strlen (textRes))
 	{
-		LoadString(textRes, text, 50);
-		nb = GetTextWidth(text);
+		nb = GetTextWidth(textRes);
 		pos.x += (POSDRAWX-nb)/2;
-		DrawText(m_pPixmap, pos, text);
+		DrawText(m_pPixmap, pos, textRes);
 	}
 
 	m_bStatRedraw = false;  // dessin plus nécessaire

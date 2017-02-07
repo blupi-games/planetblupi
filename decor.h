@@ -424,7 +424,7 @@ public:
 	void	CelHili(POINT pos, int action);
 	void	CelHiliButton(POINT cel, int button);
 	void	CelHiliRepeat(int list);
-	int		GetResHili(POINT posMouse);
+	const char *GetResHili(POINT posMouse);
 	void	HideTooltips(bool bHide);
 
 	void	UndoOpen();

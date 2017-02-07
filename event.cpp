@@ -2292,22 +2292,18 @@ bool CEvent::DrawButtons()
 		pos.y = 330-20;
 		DrawText(m_pPixmap, pos, res);
 
-		if ( m_pMovie->GetEnable() )
-		{
-			if ( m_bMovie )  LoadString(TX_OUI, res, 50);
-			else             LoadString(TX_NON, res, 50);
-		}
-		else
-		{
-			LoadString(TX_NON, res, 50);
-		}
-		lg = GetTextWidth(res);
+		char *text = gettext ("No");
+		if (m_pMovie->GetEnable() && m_bMovie)
+			text = gettext ("Yes");
+		lg = GetTextWidth(text);
 		pos.x = (514+40)-lg/2;
 		pos.y = 330-20;
-		DrawText(m_pPixmap, pos, res);
+		DrawText(m_pPixmap, pos, text);
 
-		if ( m_scrollSpeed == 0 )  LoadString(TX_INFO_NOSCROLL, res, 50);
-		else                       sprintf(res, "%d", m_scrollSpeed);
+		if (!m_scrollSpeed)
+			snprintf (res, sizeof (res), gettext ("None"));
+		else
+			sprintf(res, "%d", m_scrollSpeed);
 		lg = GetTextWidth(res);
 		pos.x = (169+40)-lg/2;
 		pos.y = 330-20;
@@ -2317,33 +2313,35 @@ bool CEvent::DrawButtons()
 	// Affiche le texte de fin de la version demo.
 	if ( m_phase == WM_PHASE_BYE )
 	{
-		LoadString(TX_FULL_END1, res, 100);
+		char *text;
 
-		lg = GetTextWidth(res);
+		text = gettext ("You have played Planet Blupi.");
+
+		lg = GetTextWidth(text);
 		pos.x = LXIMAGE/2-lg/2;
 		pos.y = 20;
-		DrawText(m_pPixmap, pos, res);
+		DrawText(m_pPixmap, pos, text);
 
-		LoadString(TX_FULL_END2, res, 100);
+		text = gettext ("We hope you have had as much fun playing the game as we had making it !");
 
-		lg = GetTextWidth(res);
+		lg = GetTextWidth(text);
 		pos.x = LXIMAGE/2-lg/2;
 		pos.y = 40;
-		DrawText(m_pPixmap, pos, res);
+		DrawText(m_pPixmap, pos, text);
 
-		LoadString(TX_FULL_END3, res, 100);
+		text = gettext ("This game is an original creation of EPSITEC SA, CH-1092 Belmont");
 
-		lg = GetTextWidth(res);
+		lg = GetTextWidth(text);
 		pos.x = LXIMAGE/2-lg/2;
 		pos.y = 430;
-		DrawText(m_pPixmap, pos, res);
+		DrawText(m_pPixmap, pos, text);
 
-		LoadString(TX_FULL_END4, res, 100);
+		text = gettext ("http://www.blupi.com            blupi@epsitec.ch");
 
-		lg = GetTextWidth(res);
+		lg = GetTextWidth(text);
 		pos.x = LXIMAGE/2-lg/2;
 		pos.y = 450;
-		DrawText(m_pPixmap, pos, res);
+		DrawText(m_pPixmap, pos, text);
 	}
 
 	// Affiche le texte lorsqu'il faut insérer le CD-Rom.

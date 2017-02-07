@@ -74,7 +74,7 @@ int GetCharWidth(char c, int font)
 
 // Affiche un texte.
 
-void DrawText(CPixmap *pPixmap, POINT pos, char *pText, int font)
+void DrawText(CPixmap *pPixmap, POINT pos, const char *pText, int font)
 {
 	int		rank;
 
@@ -269,7 +269,7 @@ int GetTextHeight(char *pText, int font, int part)
 
 // Retourne la longueur d'un texte.
 
-int GetTextWidth(char *pText, int font)
+int GetTextWidth(const char *pText, int font)
 {
 	int		width = 0;
 

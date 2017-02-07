@@ -3,6 +3,8 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <unordered_map>
+#include "gettext.h"
 #include "def.h"
 #include "resource.h"
 #include "pixmap.h"
@@ -1516,13 +1518,12 @@ void CDecor::Build(RECT clip, POINT posMouse)
 	{
 		if ( m_textCount == 0 )
 		{
-			n = GetResHili(posMouse);
-			if ( n != -1 )
+			const auto text = GetResHili(posMouse);
+			if (text)
 			{
-				LoadString(n, m_text, 50);
 				posMouse.x += 10;
 				posMouse.y += 20;
-				DrawText(m_pPixmap, posMouse, m_text);
+				DrawText(m_pPixmap, posMouse, text);
 			}
 		}
 		else
@@ -3009,188 +3010,274 @@ void CDecor::CelHiliRepeat(int list)
 // Retourne l'identificateur du texte correspondant à
 // l'objet ou au blupi visé par la souris.
 
-int CDecor::GetResHili(POINT posMouse)
+const char *CDecor::GetResHili(POINT posMouse)
 {
-	int		res, icon;
+	int icon;
+	const char *res = nullptr;
 
-	// Les valeurs négatives correspondent aux objets placés
-	// au coin inf/droite de la cellule.
-	static short table_object[] =
+	// Les valeurs `corner == true` correspondent aux objets placés
+	// au coin inf/droit de la cellule.
+	struct object_t
 	{
-		131,		// nb
-		0,0,0,0,0,0,
-		TX_OBJ_ARBRE, TX_OBJ_ARBRE, TX_OBJ_ARBRE,
-		TX_OBJ_ARBRE, TX_OBJ_ARBRE, TX_OBJ_ARBRE,
-		TX_OBJ_FUSEE,0,
-		TX_OBJ_METAL,
-		0, -TX_OBJ_ARMURE,
-		0,0,0,
-		TX_OBJ_MUR, TX_OBJ_MUR, TX_OBJ_MUR, TX_OBJ_MUR,
-		TX_OBJ_MUR, TX_OBJ_MUR, TX_OBJ_MUR,
-		TX_OBJ_TOUR,
-		TX_OBJ_LABO, TX_OBJ_LABO,
-		TX_OBJ_ARBREb, TX_OBJ_ARBREb, TX_OBJ_ARBREb,
-		TX_OBJ_ARBREb, TX_OBJ_ARBREb, TX_OBJ_ARBREb,
-		-TX_OBJ_PLANCHE,
-		TX_OBJ_ROC, TX_OBJ_ROC, TX_OBJ_ROC, TX_OBJ_ROC,
-		TX_OBJ_ROC, TX_OBJ_ROC, TX_OBJ_ROC,
-		-TX_OBJ_PIERRE,
-		TX_OBJ_FEU, TX_OBJ_FEU, TX_OBJ_FEU, TX_OBJ_FEU,
-		TX_OBJ_FEU, TX_OBJ_FEU, TX_OBJ_FEU, TX_OBJ_FEU,
-		0,0,0,0,
-		-TX_OBJ_TOMATE, -TX_OBJ_TOMATE, -TX_OBJ_TOMATE, -TX_OBJ_TOMATE,
-		TX_OBJ_CABANE, TX_OBJ_CABANE,
-		-TX_OBJ_OEUF, TX_OBJ_OEUF,
-		TX_OBJ_PALISSADE, TX_OBJ_PALISSADE, TX_OBJ_PALISSADE, TX_OBJ_PALISSADE,
-		TX_OBJ_PALISSADE, TX_OBJ_PALISSADE, TX_OBJ_PALISSADE,
-		TX_OBJ_PONT, TX_OBJ_PONT,
-		0,0,0,0,0,0,
-		-TX_OBJ_POTION,
-		TX_OBJ_FLEUR1, -TX_OBJ_BOUQUET1,
-		TX_OBJ_FLEUR2, -TX_OBJ_BOUQUET2,
-		-TX_OBJ_DYNAMITE, -TX_OBJ_DYNAMITE, -TX_OBJ_DYNAMITE,
-		0,0,0,0,
-		-TX_OBJ_POISON,
-		-TX_OBJ_PIEGE,
-		TX_OBJ_FLEUR3, -TX_OBJ_BOUQUET3,
-		-TX_OBJ_ENNEMIp, -TX_OBJ_ENNEMIp, -TX_OBJ_ENNEMIp,
-		TX_OBJ_ENNEMI, TX_OBJ_ENNEMI, TX_OBJ_ENNEMI, TX_OBJ_ENNEMI,
-		TX_OBJ_ENNEMI, TX_OBJ_ENNEMI, TX_OBJ_ENNEMI, TX_OBJ_ENNEMI,
-		TX_OBJ_ENNEMI, TX_OBJ_ENNEMI, TX_OBJ_ENNEMI, TX_OBJ_ENNEMI,
-		TX_OBJ_ENNEMI, TX_OBJ_ENNEMI,
-		TX_OBJ_MAISON,
-		-TX_OBJ_ENNEMIp,
-		TX_OBJ_ENNEMI, TX_OBJ_ENNEMI,
-		-TX_OBJ_BATEAU,
-		-TX_OBJ_JEEP,
-		TX_OBJ_USINE, TX_OBJ_USINE,
-		TX_OBJ_MINEFER, TX_OBJ_MINEFER,
-		-TX_OBJ_FER,
-		TX_OBJ_DRAPEAU,
-		-TX_OBJ_MINE,
-		TX_OBJ_MINEFER,
-		-TX_OBJ_MINE,
-		TX_OBJ_ENNEMI, TX_OBJ_ENNEMI,
-		-TX_OBJ_ENNEMIp,
+		bool corner;
+		const char *text;
 	};
 
-	static short table_floor[] =
-	{
-		85,			// nb
-		0,
-		TX_OBJ_HERBE,
-		TX_OBJ_RIVE, TX_OBJ_RIVE, TX_OBJ_RIVE, TX_OBJ_RIVE,
-		TX_OBJ_RIVE, TX_OBJ_RIVE, TX_OBJ_RIVE, TX_OBJ_RIVE,
-		TX_OBJ_RIVE, TX_OBJ_RIVE, TX_OBJ_RIVE, TX_OBJ_RIVE,
-		TX_OBJ_EAU,
-		TX_OBJ_DALLE, TX_OBJ_DALLE,
-		TX_OBJ_HACHURE,
-		TX_OBJ_GLACE,
-		TX_OBJ_MOUSSEb,
-		TX_OBJ_MOUSSE,
-		TX_OBJ_MIXTE, TX_OBJ_MIXTE, TX_OBJ_MIXTE, TX_OBJ_MIXTE,
-		TX_OBJ_MIXTE, TX_OBJ_MIXTE, TX_OBJ_MIXTE, TX_OBJ_MIXTE,
-		TX_OBJ_MIXTE, TX_OBJ_MIXTE, TX_OBJ_MIXTE, TX_OBJ_MIXTE,
-		TX_OBJ_TERRE,
-		TX_OBJ_MIXTE, TX_OBJ_MIXTE, TX_OBJ_MIXTE, TX_OBJ_MIXTE,
-		TX_OBJ_MIXTE, TX_OBJ_MIXTE, TX_OBJ_MIXTE, TX_OBJ_MIXTE,
-		TX_OBJ_MIXTE, TX_OBJ_MIXTE, TX_OBJ_MIXTE, TX_OBJ_MIXTE,
-		TX_OBJ_TERRE, TX_OBJ_TERRE, TX_OBJ_TERRE,
-		TX_OBJ_HERBE, TX_OBJ_HERBE, TX_OBJ_HERBE,
-		TX_OBJ_COUVEUSE, TX_OBJ_COUVEUSE, TX_OBJ_COUVEUSE,
-		TX_OBJ_COUVEUSE, TX_OBJ_COUVEUSE,
-		TX_OBJ_HERBE,
-		TX_OBJ_MOUSSE,
-		TX_OBJ_PONT, TX_OBJ_PONT, TX_OBJ_PONT,
-		TX_OBJ_PONT, TX_OBJ_PONT, TX_OBJ_PONT,
-		TX_OBJ_ENNEMIs, TX_OBJ_MIXTE, TX_OBJ_ENNEMIs,
-		TX_OBJ_EAU, TX_OBJ_EAU, TX_OBJ_EAU,
-		TX_OBJ_TERRE,
-		0,0,0,0,
-		0,0,
-		TX_OBJ_MIXTE, TX_OBJ_MIXTE,
-		TX_OBJ_TELEPORTE, TX_OBJ_TELEPORTE, TX_OBJ_TELEPORTE,
-		TX_OBJ_TELEPORTE, TX_OBJ_TELEPORTE,
+	static const std::unordered_map<size_t, object_t> tableObject = {
+		{ 6,   { false, gettext ("Tree")                           } },
+		{ 7,   { false, gettext ("Tree")                           } },
+		{ 8,   { false, gettext ("Tree")                           } },
+		{ 9,   { false, gettext ("Tree")                           } },
+		{ 10,  { false, gettext ("Tree")                           } },
+		{ 11,  { false, gettext ("Tree")                           } },
+		{ 12,  { false, gettext ("Enemy rocket")                   } },
+		{ 14,  { false, gettext ("Platinium")                      } },
+		{ 16,  { true,  gettext ("Armour")                         } },
+		{ 20,  { false, gettext ("Wall")                           } },
+		{ 21,  { false, gettext ("Wall")                           } },
+		{ 22,  { false, gettext ("Wall")                           } },
+		{ 23,  { false, gettext ("Wall")                           } },
+		{ 24,  { false, gettext ("Wall")                           } },
+		{ 25,  { false, gettext ("Wall")                           } },
+		{ 26,  { false, gettext ("Wall")                           } },
+		{ 27,  { false, gettext ("Protection tower")               } },
+		{ 28,  { false, gettext ("Laboratory")                     } },
+		{ 29,  { false, gettext ("Laboratory")                     } },
+		{ 30,  { false, gettext ("Tree trunks")                    } },
+		{ 31,  { false, gettext ("Tree trunks")                    } },
+		{ 32,  { false, gettext ("Tree trunks")                    } },
+		{ 33,  { false, gettext ("Tree trunks")                    } },
+		{ 34,  { false, gettext ("Tree trunks")                    } },
+		{ 35,  { false, gettext ("Tree trunks")                    } },
+		{ 36,  { true,  gettext ("Planks")                         } },
+		{ 37,  { false, gettext ("Rocks")                          } },
+		{ 38,  { false, gettext ("Rocks")                          } },
+		{ 39,  { false, gettext ("Rocks")                          } },
+		{ 40,  { false, gettext ("Rocks")                          } },
+		{ 41,  { false, gettext ("Rocks")                          } },
+		{ 42,  { false, gettext ("Rocks")                          } },
+		{ 43,  { false, gettext ("Rocks")                          } },
+		{ 44,  { true,  gettext ("Stones")                         } },
+		{ 45,  { false, gettext ("Fire")                           } },
+		{ 46,  { false, gettext ("Fire")                           } },
+		{ 47,  { false, gettext ("Fire")                           } },
+		{ 48,  { false, gettext ("Fire")                           } },
+		{ 49,  { false, gettext ("Fire")                           } },
+		{ 50,  { false, gettext ("Fire")                           } },
+		{ 51,  { false, gettext ("Fire")                           } },
+		{ 52,  { false, gettext ("Fire")                           } },
+		{ 57,  { true,  gettext ("Tomatoes")                       } },
+		{ 58,  { true,  gettext ("Tomatoes")                       } },
+		{ 59,  { true,  gettext ("Tomatoes")                       } },
+		{ 60,  { true,  gettext ("Tomatoes")                       } },
+		{ 61,  { false, gettext ("Garden shed")                    } },
+		{ 62,  { false, gettext ("Garden shed")                    } },
+		{ 63,  { true,  gettext ("Eggs")                           } },
+		{ 64,  { false, gettext ("Eggs")                           } },
+		{ 65,  { false, gettext ("Palisade")                       } },
+		{ 66,  { false, gettext ("Palisade")                       } },
+		{ 67,  { false, gettext ("Palisade")                       } },
+		{ 68,  { false, gettext ("Palisade")                       } },
+		{ 69,  { false, gettext ("Palisade")                       } },
+		{ 70,  { false, gettext ("Palisade")                       } },
+		{ 71,  { false, gettext ("Palisade")                       } },
+		{ 72,  { false, gettext ("Bridge")                         } },
+		{ 73,  { false, gettext ("Bridge")                         } },
+		{ 80,  { true,  gettext ("Medical potion")                 } },
+		{ 81,  { false, pgettext ("Flower|1|", "Flowers")          } },
+		{ 82,  { true,  pgettext ("Flower|1|", "Bunch of flowers") } },
+		{ 83,  { false, pgettext ("Flower|2|", "Flowers")          } },
+		{ 84,  { true,  pgettext ("Flower|2|", "Bunch of flowers") } },
+		{ 85,  { true,  gettext ("Dynamite")                       } },
+		{ 86,  { true,  gettext ("Dynamite")                       } },
+		{ 87,  { true,  gettext ("Dynamite")                       } },
+		{ 92,  { true,  gettext ("Poison")                         } },
+		{ 93,  { true,  gettext ("Sticky trap")                    } },
+		{ 94,  { false, pgettext ("Flower|3|", "Flowers")          } },
+		{ 95,  { true,  pgettext ("Flower|3|", "Bunch of flowers") } },
+		{ 96,  { true,  gettext ("Trapped enemy")                  } },
+		{ 97,  { true,  gettext ("Trapped enemy")                  } },
+		{ 98,  { true,  gettext ("Trapped enemy")                  } },
+		{ 99,  { false, gettext ("Enemy construction")             } },
+		{ 100, { false, gettext ("Enemy construction")             } },
+		{ 101, { false, gettext ("Enemy construction")             } },
+		{ 102, { false, gettext ("Enemy construction")             } },
+		{ 103, { false, gettext ("Enemy construction")             } },
+		{ 104, { false, gettext ("Enemy construction")             } },
+		{ 105, { false, gettext ("Enemy construction")             } },
+		{ 106, { false, gettext ("Enemy construction")             } },
+		{ 107, { false, gettext ("Enemy construction")             } },
+		{ 108, { false, gettext ("Enemy construction")             } },
+		{ 109, { false, gettext ("Enemy construction")             } },
+		{ 110, { false, gettext ("Enemy construction")             } },
+		{ 111, { false, gettext ("Enemy construction")             } },
+		{ 112, { false, gettext ("Enemy construction")             } },
+		{ 113, { false, gettext ("Blupi's house")                  } },
+		{ 114, { true,  gettext ("Trapped enemy")                  } },
+		{ 115, { false, gettext ("Enemy construction")             } },
+		{ 116, { false, gettext ("Enemy construction")             } },
+		{ 117, { true,  gettext ("Boat")                           } },
+		{ 118, { true,  gettext ("Jeep")                           } },
+		{ 119, { false, gettext ("Workshop")                       } },
+		{ 120, { false, gettext ("Workshop")                       } },
+		{ 121, { false, gettext ("Mine")                           } },
+		{ 122, { false, gettext ("Mine")                           } },
+		{ 123, { true,  gettext ("Iron")                           } },
+		{ 124, { false, gettext ("Flag")                           } },
+		{ 125, { true,  gettext ("Time bomb")                      } },
+		{ 126, { false, gettext ("Mine")                           } },
+		{ 127, { true,  gettext ("Time bomb")                      } },
+		{ 128, { false, gettext ("Enemy construction")             } },
+		{ 129, { false, gettext ("Enemy construction")             } },
+		{ 130, { true,  gettext ("Trapped enemy")                  } },
 	};
 
-	if ( m_bHideTooltips )  return -1;  // rien si menu présent
+	static const std::unordered_map<size_t, object_t> tableFloor = {
+		{ 1,   { false, gettext ("Normal ground")                  } },
+		{ 2,   { false, gettext ("Bank")                           } },
+		{ 3,   { false, gettext ("Bank")                           } },
+		{ 4,   { false, gettext ("Bank")                           } },
+		{ 5,   { false, gettext ("Bank")                           } },
+		{ 6,   { false, gettext ("Bank")                           } },
+		{ 7,   { false, gettext ("Bank")                           } },
+		{ 8,   { false, gettext ("Bank")                           } },
+		{ 9,   { false, gettext ("Bank")                           } },
+		{ 10,  { false, gettext ("Bank")                           } },
+		{ 11,  { false, gettext ("Bank")                           } },
+		{ 12,  { false, gettext ("Bank")                           } },
+		{ 13,  { false, gettext ("Bank")                           } },
+		{ 14,  { false, gettext ("Water")                          } },
+		{ 15,  { false, gettext ("Paving stones")                  } },
+		{ 16,  { false, gettext ("Paving stones")                  } },
+		{ 17,  { false, gettext ("Striped paving stones")          } },
+		{ 18,  { false, gettext ("Ice")                            } },
+		{ 19,  { false, gettext ("Burnt ground")                   } },
+		{ 20,  { false, gettext ("Inflammable ground")             } },
+		{ 21,  { false, gettext ("Miscellaneous ground")           } },
+		{ 22,  { false, gettext ("Miscellaneous ground")           } },
+		{ 23,  { false, gettext ("Miscellaneous ground")           } },
+		{ 24,  { false, gettext ("Miscellaneous ground")           } },
+		{ 25,  { false, gettext ("Miscellaneous ground")           } },
+		{ 26,  { false, gettext ("Miscellaneous ground")           } },
+		{ 27,  { false, gettext ("Miscellaneous ground")           } },
+		{ 28,  { false, gettext ("Miscellaneous ground")           } },
+		{ 29,  { false, gettext ("Miscellaneous ground")           } },
+		{ 30,  { false, gettext ("Miscellaneous ground")           } },
+		{ 31,  { false, gettext ("Miscellaneous ground")           } },
+		{ 32,  { false, gettext ("Miscellaneous ground")           } },
+		{ 33,  { false, gettext ("Sterile ground")                 } },
+		{ 34,  { false, gettext ("Miscellaneous ground")           } },
+		{ 35,  { false, gettext ("Miscellaneous ground")           } },
+		{ 36,  { false, gettext ("Miscellaneous ground")           } },
+		{ 37,  { false, gettext ("Miscellaneous ground")           } },
+		{ 38,  { false, gettext ("Miscellaneous ground")           } },
+		{ 39,  { false, gettext ("Miscellaneous ground")           } },
+		{ 40,  { false, gettext ("Miscellaneous ground")           } },
+		{ 41,  { false, gettext ("Miscellaneous ground")           } },
+		{ 42,  { false, gettext ("Miscellaneous ground")           } },
+		{ 43,  { false, gettext ("Miscellaneous ground")           } },
+		{ 44,  { false, gettext ("Miscellaneous ground")           } },
+		{ 45,  { false, gettext ("Miscellaneous ground")           } },
+		{ 46,  { false, gettext ("Sterile ground")                 } },
+		{ 47,  { false, gettext ("Sterile ground")                 } },
+		{ 48,  { false, gettext ("Sterile ground")                 } },
+		{ 49,  { false, gettext ("Normal ground")                  } },
+		{ 50,  { false, gettext ("Normal ground")                  } },
+		{ 51,  { false, gettext ("Normal ground")                  } },
+		{ 52,  { false, gettext ("Incubator")                      } },
+		{ 53,  { false, gettext ("Incubator")                      } },
+		{ 54,  { false, gettext ("Incubator")                      } },
+		{ 55,  { false, gettext ("Incubator")                      } },
+		{ 56,  { false, gettext ("Incubator")                      } },
+		{ 57,  { false, gettext ("Normal ground")                  } },
+		{ 58,  { false, gettext ("Inflammable ground")             } },
+		{ 59,  { false, gettext ("Bridge")                         } },
+		{ 60,  { false, gettext ("Bridge")                         } },
+		{ 61,  { false, gettext ("Bridge")                         } },
+		{ 62,  { false, gettext ("Bridge")                         } },
+		{ 63,  { false, gettext ("Bridge")                         } },
+		{ 64,  { false, gettext ("Bridge")                         } },
+		{ 65,  { false, gettext ("Enemy ground")                   } },
+		{ 66,  { false, gettext ("Miscellaneous ground")           } },
+		{ 67,  { false, gettext ("Enemy ground")                   } },
+		{ 68,  { false, gettext ("Water")                          } },
+		{ 69,  { false, gettext ("Water")                          } },
+		{ 70,  { false, gettext ("Water")                          } },
+		{ 71,  { false, gettext ("Sterile ground")                 } },
+		{ 78,  { false, gettext ("Miscellaneous ground")           } },
+		{ 79,  { false, gettext ("Miscellaneous ground")           } },
+		{ 80,  { false, gettext ("Teleporter")                     } },
+		{ 81,  { false, gettext ("Teleporter")                     } },
+		{ 82,  { false, gettext ("Teleporter")                     } },
+		{ 83,  { false, gettext ("Teleporter")                     } },
+		{ 84,  { false, gettext ("Teleporter")                     } },
+	};
 
-	if ( posMouse.x < POSDRAWX          ||
-		 posMouse.x > POSDRAWX+DIMDRAWX ||
-		 posMouse.y < POSDRAWY          ||
-		 posMouse.y > POSDRAWY+DIMDRAWY )  return -1;
+	if (m_bHideTooltips)
+		return nullptr;  // rien si menu présent
+
+	if (   posMouse.x < POSDRAWX
+		|| posMouse.x > POSDRAWX + DIMDRAWX
+		|| posMouse.y < POSDRAWY
+		|| posMouse.y > POSDRAWY + DIMDRAWY)
+		return nullptr;
 
 	if ( m_celHili.x != -1 )
 	{
 		if ( m_rankHili != -1 )  // blupi visé ?
 		{
-			if ( m_blupi[m_rankHili].perso == 0 )  // blupi ?
+			switch (m_blupi[m_rankHili].perso)
 			{
-				res = TX_OBJ_BLUPI;
-				if ( m_blupi[m_rankHili].energy <= MAXENERGY/4 )
-				{
-					res = TX_OBJ_BLUPIf;
-				}
-				if ( m_blupi[m_rankHili].bMalade )
-				{
-					res = TX_OBJ_BLUPIm;
-				}
-			}
-			if ( m_blupi[m_rankHili].perso == 1 )  // araignée ?
-			{
-				res = TX_OBJ_ARAIGNEE;
-			}
-			if ( m_blupi[m_rankHili].perso == 2 )  // virus ?
-			{
-				res = TX_OBJ_VIRUS;
-			}
-			if ( m_blupi[m_rankHili].perso == 3 )  // tracks ?
-			{
-				res = TX_OBJ_TRACKS;
-			}
-			if ( m_blupi[m_rankHili].perso == 4 )  // robot ?
-			{
-				res = TX_OBJ_ROBOT;
-			}
-			if ( m_blupi[m_rankHili].perso == 5 )  // bombe ?
-			{
-				res = TX_OBJ_BOMBE;
-			}
-			if ( m_blupi[m_rankHili].perso == 7 )  // electro ?
-			{
-				res = TX_OBJ_ELECTRO;
-			}
-			if ( m_blupi[m_rankHili].perso == 8 )  // disciple ?
-			{
-				res = TX_OBJ_DISCIPLE;
+			case 0:  // blupi ?
+				if (m_blupi[m_rankHili].energy <= MAXENERGY / 4)
+					return gettext ("Tired Blupi");
+				if (m_blupi[m_rankHili].bMalade)
+					return gettext ("Sick Blupi");
+				return gettext ("Blupi");
+			case 1:  // araignée ?
+				return gettext ("Spider");
+			case 2:  // virus ?
+				return gettext ("Virus");
+			case 3:  // tracks ?
+				return gettext ("Bulldozer");
+			case 4:  // robot ?
+				return gettext ("Master robot");
+			case 5:  // bombe ?
+				return gettext ("Bouncing bomb");
+			case 7:  // electro ?
+				return gettext ("Electrocutor");
+			case 8:  // disciple ?
+				return gettext ("Helper robot");
 			}
 
-			return res;
+			return nullptr;
 		}
-		else
-		{
-			icon = m_decor[m_celHili.x/2][m_celHili.y/2].objectIcon;
-			if ( icon != -1 && icon < table_object[0] )
-			{
-				res = table_object[1+icon];
-				if ( res != 0 )
-				{
-					if ( res > 0 )  return res;
-					if ( m_celHili.x%2 != 0 &&
-						 m_celHili.y%2 != 0 )  return -res;
-				}
-			}
 
-			icon = m_decor[m_celHili.x/2][m_celHili.y/2].floorIcon;
-			if ( icon != -1 && icon < table_floor[0] )
+		icon = m_decor[m_celHili.x/2][m_celHili.y/2].objectIcon;
+		if (icon != -1)
+		{
+			const auto obj = tableObject.find (icon);
+			if (obj != tableObject.end ())
 			{
-				res = table_floor[1+icon];
-				if ( res != 0 )  return res;
+				if (!obj->second.corner)
+					return obj->second.text;
+
+				if (   m_celHili.x % 2
+					&& m_celHili.y % 2)
+					return obj->second.text;
 			}
+		}
+
+		icon = m_decor[m_celHili.x/2][m_celHili.y/2].floorIcon;
+		if (icon != -1)
+		{
+			const auto obj = tableFloor.find (icon);
+			if (obj != tableFloor.end ())
+				return obj->second.text;
 		}
 	}
 
-	return -1;
+	return nullptr;
 }
 
 // Indique si le menu est présent et qu'il faut cacher
