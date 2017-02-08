@@ -4067,10 +4067,11 @@ void CEvent::Write(int message)
 
 void CEvent::PrivateLibelle()
 {
-	int			i, res, nb, h1, h2;
+	int			i, nb, h1, h2;
 	Term		term;
 	char		string[100];
 	char		buffer[100];
+	const char *text = nullptr;
 
 	snprintf (m_libelle, sizeof (m_libelle), "%s", "1|Goal :");
 
@@ -4078,52 +4079,54 @@ void CEvent::PrivateLibelle()
 	nb = 0;
 	for ( i=0 ; i<2 ; i++ )  // 2 objectifs au maximum !
 	{
-		res = 0;
+		text = nullptr;
+
 		if ( term.bKillRobots )
 		{
 			term.bKillRobots = false;
-			res = TX_PRIVATE_KILLROBOTS;
+			text = gettext ("1|Kill all\n1|enemies !");
 		}
 		else if ( term.bHachBlupi )
 		{
 			term.bHachBlupi = false;
-			res = TX_PRIVATE_HACHBLUPI;
+			text = gettext ("1|Go on striped\n1| paving stones.");
 		}
 		else if ( term.bHachPlanche )
 		{
 			term.bHachPlanche = false;
-			res = TX_PRIVATE_HACHPLANCHE;
+			text = gettext ("1|Drop planks on striped \n1|paving stones.");
 		}
 		else if ( term.bHachTomate )
 		{
 			term.bHachTomate = false;
-			res = TX_PRIVATE_HACHTOMATE;
+			text = gettext ("1|Drop tomatoes on striped \n1|paving stones.");
 		}
 		else if ( term.bHachMetal )
 		{
 			term.bHachMetal = false;
-			res = TX_PRIVATE_HACHMETAL;
+			text = gettext ("1|Drop platinium on striped \n1|paving stones.");
 		}
 		else if ( term.bHachRobot )
 		{
 			term.bHachRobot = false;
-			res = TX_PRIVATE_HACHROBOT;
+			text = gettext ("1|The robot must reach\n1|the striped paving stones.");
 		}
 		else if ( term.bHomeBlupi )
 		{
 			term.bHomeBlupi = false;
-			res = TX_PRIVATE_HOMEBLUPI;
+			text = gettext ("1|Each Blupi in\n1|his house.");
 		}
 		else if ( term.bStopFire )
 		{
 			term.bStopFire = false;
-			res = TX_PRIVATE_STOPFIRE;
+			text = gettext ("1|Resist until\n1|fire extinction ...");
 		}
-		if ( res == 0 )  break;
 
-		LoadString(res, string, 100);
+		if (!text)
+			break;
+
 		strcat(m_libelle, "\n1|\n");
-		strcat(m_libelle, string);
+		strcat(m_libelle, text);
 		nb ++;
 	}
 
