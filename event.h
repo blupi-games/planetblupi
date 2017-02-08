@@ -114,7 +114,7 @@ public:
 	static void PushUserEvent (int code);
 
 protected:
-	void	DrawTextCenter(int res, int x, int y, int font=0);
+	void	DrawTextCenter(const char *text, int x, int y, int font=0);
 	bool	CreateButtons();
 	bool	EventButtons(const SDL_Event &event, POINT pos);
 	bool	MouseOnButton(POINT pos);

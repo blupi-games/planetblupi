@@ -1760,12 +1760,9 @@ void AddCheatCode(char *pDst, char *pSrc)
 
 // Dessine un texte multi-lignes centré.
 
-void CEvent::DrawTextCenter(int res, int x, int y, int font)
+void CEvent::DrawTextCenter(const char *text, int x, int y, int font)
 {
-	char	text[100];
 	POINT	pos;
-
-	LoadString(res, text, 100);
 	pos.x = x;
 	pos.y = y;
 	::DrawTextCenter(m_pPixmap, pos, text, font);
@@ -1940,27 +1937,27 @@ bool CEvent::DrawButtons()
 		// Dessine la pause.
 		if ( m_bPause )
 		{
-			DrawTextCenter(TX_PAUSE, (10+134)/2, 20);
+			DrawTextCenter(gettext ("Game paused"), (10+134)/2, 20);
 		}
 		else
 		{
 			if ( m_bDemoRec )  // démo en enregistrement ?
 			{
-				DrawTextCenter(TX_DEMOREC, (10+134)/2, 20, FONTRED);
+				DrawTextCenter(gettext ("REC"), (10+134)/2, 20, FONTRED);
 			}
 			if ( m_bDemoPlay )  // démo en restitution ?
 			{
-				DrawTextCenter(TX_DEMOPLAY, (10+134)/2, 20, FONTRED);
+				DrawTextCenter(gettext ("Demo"), (10+134)/2, 20, FONTRED);
 			}
 		}
 
 		// Dessine la rose des vents.
 		if ( !m_bPause && !m_bDemoRec && !m_bDemoPlay )
 		{
-			DrawTextCenter(TX_DIRECT_N, (10+134)/2, 17);
-			DrawTextCenter(TX_DIRECT_S, (10+134)/2, 126);
-			DrawTextCenter(TX_DIRECT_O, 14, 70);
-			DrawTextCenter(TX_DIRECT_E, 129, 70);
+			DrawTextCenter(gettext ("N"), (10+134)/2, 17);
+			DrawTextCenter(gettext ("S"), (10+134)/2, 126);
+			DrawTextCenter(gettext ("E"), 14, 70);
+			DrawTextCenter(gettext ("W"), 129, 70);
 		}
 
 		// Dessine la vitesse.
@@ -2079,7 +2076,7 @@ bool CEvent::DrawButtons()
 	{
 		Term*	pTerm = m_pDecor->GetTerminated();
 
-		DrawTextCenter(TX_TERM, (10+134)/2, 20);
+		DrawTextCenter(gettext ("Ending conditions"), (10+134)/2, 20);
 
 		pos.x = 170+42*2+4;
 		pos.y = 30+12+42*4;
@@ -2095,19 +2092,19 @@ bool CEvent::DrawButtons()
 	// Dessine les textes pour les choix des boutons.
 	if ( m_phase == WM_PHASE_BUTTON )
 	{
-		DrawTextCenter(TX_BUTTON, (10+134)/2, 20);
+		DrawTextCenter(gettext ("Available buttons"), (10+134)/2, 20);
 	}
 
 	// Dessine les textes pour le choix des musiques.
 	if ( m_phase == WM_PHASE_MUSIC )
 	{
-		DrawTextCenter(TX_MUSIC, (10+134)/2, 20);
+		DrawTextCenter(gettext ("Music choice"), (10+134)/2, 20);
 	}
 
 	// Dessine les textes pour le choix de la région.
 	if ( m_phase == WM_PHASE_REGION )
 	{
-		DrawTextCenter(TX_REGION, (10+134)/2, 20);
+		DrawTextCenter(gettext ("Scenery choice"), (10+134)/2, 20);
 	}
 
 	// Ajoute "Mission numéro".
@@ -2284,11 +2281,11 @@ bool CEvent::DrawButtons()
 	if ( m_phase == WM_PHASE_SETUP  ||
 		 m_phase == WM_PHASE_SETUPp )
 	{
-		DrawTextCenter(TX_INFO_SETUP1,  54+40, 80);
-		DrawTextCenter(TX_INFO_SETUP5, 169+40, 80);
-		DrawTextCenter(TX_INFO_SETUP2, 284+40, 80);
-		DrawTextCenter(TX_INFO_SETUP3, 399+40, 80);
-		DrawTextCenter(TX_INFO_SETUP4, 514+40, 80);
+		DrawTextCenter(gettext ("Global game\nspeed"),  54+40, 80);
+		DrawTextCenter(gettext ("Scroll speed\nwith mouse"), 169+40, 80);
+		DrawTextCenter(gettext ("Sound effect\nvolume"), 284+40, 80);
+		DrawTextCenter(gettext ("Music\nvolume"), 399+40, 80);
+		DrawTextCenter(gettext ("Video\nsequences"), 514+40, 80);
 
 		sprintf(res, "x%d", m_speed);
 		lg = GetTextWidth(res);
@@ -2363,7 +2360,7 @@ bool CEvent::DrawButtons()
 	// Affiche le texte lorsqu'il faut insérer le CD-Rom.
 	if ( m_phase == WM_PHASE_INSERT )
 	{
-		DrawTextCenter(TX_INSERT, LXIMAGE/2, 20);
+		DrawTextCenter(gettext ("Insert CD-Rom Planet Blupi and wait a few seconds..."), LXIMAGE/2, 20);
 	}
 
 	if ( m_phase == WM_PHASE_BUILD )

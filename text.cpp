@@ -183,7 +183,7 @@ void DrawTextRect(CPixmap *pPixmap, POINT pos, char *pText,
 // Affiche un texte centré pouvant éventuellement
 // contenir plusieurs lignes séparées par des '\n'.
 
-void DrawTextCenter(CPixmap *pPixmap, POINT pos, char *pText, int font)
+void DrawTextCenter(CPixmap *pPixmap, POINT pos, const char *pText, int font)
 {
 	char		text[100];
 	char*		pDest;

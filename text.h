@@ -19,7 +19,7 @@ void DrawTextRect(CPixmap *pPixmap, POINT pos, char *pText,
 				  int pente, int font=0, int part=-1);
 
 extern
-void DrawTextCenter(CPixmap *pPixmap, POINT pos, char *pText, int font=0);
+void DrawTextCenter(CPixmap *pPixmap, POINT pos, const char *pText, int font=0);
 
 extern
 int GetTextHeight(char *pText, int font=0, int part=-1);
