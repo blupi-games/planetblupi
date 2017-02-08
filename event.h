@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include <vector>
 #include "jauge.h"
 #include "menu.h"
 #include "button.h"
@@ -16,7 +17,7 @@ typedef struct
 	int		type;
 	int		iconMenu[20];
 	int		x, y;
-	int		toolTips[20];
+	const char *toolTips[16];
 }
 Button;
 

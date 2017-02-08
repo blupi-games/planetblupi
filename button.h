@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include <vector>
+
 /////////////////////////////////////////////////////////////////////////////
 
 class CButton
@@ -13,7 +15,7 @@ public:
 	bool	Create(CPixmap *pPixmap, CSound *pSound,
 				   POINT pos, int type, bool bMinimizeRedraw,
 				   int *pMenu, int nbMenu,
-				   int *pTooltips, int nbToolTips,
+				   const char **pToolTips,
 				   int region, UINT message);
 	void	Draw();
 	void	Redraw();
@@ -32,7 +34,7 @@ public:
 
 	bool	TreatEvent(const SDL_Event &event);
 	bool	MouseOnButton(POINT pos);
-	int		GetToolTips(POINT pos);
+	const char *GetToolTips(POINT pos);
 
 	
 protected:
@@ -54,7 +56,7 @@ protected:
 	int			m_state;		// 0=relâché, 1=pressé, +2=survollé
 	int			m_mouseState;	// 0=relâché, 1=pressé, +2=survollé
 	int			m_iconMenu[20];	// icônes du sous-menu
-	int			m_toolTips[20];	// info-bulles
+	const char **m_toolTips;	// info-bulles
 	int			m_nbMenu;		// nb de case du sous-menu
 	int			m_nbToolTips;	// nb d'info-bulles
 	int			m_selMenu;		// sous-menu sélectionné

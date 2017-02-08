@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "gettext.h"
 #include "def.h"
 #include "pixmap.h"
 #include "sound.h"
@@ -43,7 +44,7 @@ CButton::~CButton()
 bool CButton::Create(CPixmap *pPixmap, CSound *pSound,
 					 POINT pos, int type, bool bMinimizeRedraw,
 					 int *pMenu, int nbMenu,
-					 int *pToolTips, int nbToolTips,
+					 const char **pToolTips,
 					 int region, UINT message)
 {
 	POINT		iconDim;
@@ -69,12 +70,15 @@ bool CButton::Create(CPixmap *pPixmap, CSound *pSound,
 	m_pos             = pos;
 	m_dim             = iconDim;
 	m_nbMenu          = nbMenu;
-	m_nbToolTips      = nbToolTips;
 	m_selMenu         = 0;
 	m_state           = 0;
 	m_mouseState      = 0;
 	m_bMouseDown      = false;
 	m_bRedraw         = true;
+
+	m_nbToolTips = 0;
+	while (pToolTips[m_nbToolTips])
+		++m_nbToolTips;
 
 	for ( i=0 ; i<nbMenu ; i++ )
 	{
@@ -108,10 +112,7 @@ bool CButton::Create(CPixmap *pPixmap, CSound *pSound,
 		m_iconMenu[i] = icon;
 	}
 
-	for ( i=0 ; i<nbToolTips ; i++ )
-	{
-		m_toolTips[i] = pToolTips[i];
-	}
+	m_toolTips = pToolTips;
 
 	return true;
 }
@@ -293,26 +294,29 @@ bool CButton::MouseOnButton(POINT pos)
 // Retourne le tooltips pour un bouton, en fonction
 // de la position de la souris.
 
-int CButton::GetToolTips(POINT pos)
+const char *CButton::GetToolTips(POINT pos)
 {
 	int		width = m_dim.x;
 	int		rank;
 
-	if ( m_bHide || !m_bEnable )  return -1;
+	if (m_bHide || !m_bEnable)
+		return nullptr;
 
 	if ( m_nbMenu > 1 && m_bMouseDown )  // sous-menu déroulé ?
 	{
 		width += 2+(m_dim.x-1)*m_nbMenu;
 	}
 
-	if ( pos.x < m_pos.x         ||
-		 pos.x > m_pos.x+width   ||
-		 pos.y < m_pos.y         ||
-		 pos.y > m_pos.y+m_dim.y )  return -1;
+	if (   pos.x < m_pos.x
+		|| pos.x > m_pos.x+width
+		|| pos.y < m_pos.y
+		|| pos.y > m_pos.y+m_dim.y)
+		return nullptr;
 
 	rank = (pos.x-(m_pos.x+2+1))/(m_dim.x-1);
 	if ( rank < 0 )  rank = 0;
-	if ( rank > m_nbToolTips )  return -1;
+	if (rank > m_nbToolTips)
+		return nullptr;
 
 	if ( m_nbMenu > 1 )
 	{
@@ -326,7 +330,7 @@ int CButton::GetToolTips(POINT pos)
 		}
 	}
 
-	return m_toolTips[rank];
+	return gettext (m_toolTips[rank]);
 }
 
 

@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unordered_map>
+#include "gettext.h"
 #include "blupi.h"
 #include "def.h"
 #include "resource.h"
@@ -112,32 +113,31 @@ static Phase table[] =
 				WM_PHASE_DEMO,
 				0, {1,108},
 				16, 424-60-42*3-18,
-				{1,TX_BUTTON_DEMO},
+				{ translate ("Demo") },
 			},
 			{
 				WM_PHASE_SCHOOL,
 				0, {1,79},
 				16, 424-60-42*2,
-				{1,TX_BUTTON_APPRENDRE},
+				{ translate ("Training") },
 			},
 			{
 				WM_PHASE_MISSION,
 				0, {1,80},
 				16, 424-60-42*1,
-				{1,TX_BUTTON_JOUER},
+				{ translate ("Missions") },
 			},
 			{
 				WM_PHASE_PRIVATE,
 				0, {1,49},
 				16, 424-60-42*0,
-				{1,TX_BUTTON_PRIVE},
+				{ translate ("Construction") },
 			},
 			{
 				WM_PHASE_BYE,
-//?				WM_CLOSE,
 				0, {1,36},
 				16, 424,
-				{1,TX_BUTTON_QUITTER},
+				{ translate ("Quit BLUPI") },
 			},
 			{
 				0
@@ -154,13 +154,13 @@ static Phase table[] =
 				WM_PHASE_INIT,
 				0, {1,50},
 				42+42*0, 433,
-				{1,TX_BUTTON_PREVH},
+				{ translate ("Previous page") },
 			},
 			{
 				WM_PHASE_H1MOVIE,
 				0, {1,51},
 				558-42*0, 433,
-				{1,TX_BUTTON_NEXTH},
+				{ translate ("Next page") },
 			},
 			{
 				0
@@ -177,13 +177,13 @@ static Phase table[] =
 				WM_PHASE_HISTORY0,
 				0, {1,50},
 				42+42*0, 433,
-				{1,TX_BUTTON_PREVH},
+				{ translate ("Previous page") },
 			},
 			{
 				WM_PHASE_H2MOVIE,
 				0, {1,51},
 				558-42*0, 433,
-				{1,TX_BUTTON_NEXTH},
+				{ translate ("Next page") },
 			},
 			{
 				0
@@ -200,55 +200,55 @@ static Phase table[] =
 				WM_PREV,
 				0, {1,50},
 				558-42*2, 433,
-				{1,TX_BUTTON_PREVP},
+				{ translate ("Previous game") },
 			},
 			{
 				WM_PHASE_PLAYMOVIE,
 				0, {1,48},
 				558-42*1, 433,
-				{1,TX_BUTTON_PLAYP},
+				{ translate ("Play this game") },
 			},
 			{
 				WM_NEXT,
 				0, {1,51},
 				558-42*0, 433,
-				{1,TX_BUTTON_NEXTP},
+				{ translate ("Next game") },
 			},
 			{
 				WM_PHASE_READ,
 				0, {1,52},
 				42+42*4, 433,
-				{1,TX_BUTTON_READP},
+				{ translate ("Open another game") },
 			},
 			{
 				WM_PHASE_SETUP,
 				0, {1,47},
 				42+42*7, 433,
-				{1,TX_BUTTON_SETUP},
+				{ translate ("Settings") },
 			},
 			{
 				WM_PHASE_BUILD,
 				0, {1,49},
 				42+42*8, 433,
-				{1,TX_BUTTON_BUILDP},
+				{ translate ("Construct this game") },
 			},
 			{
 				WM_PHASE_SKILL1,
 				0, {1,94},
 				150, 230,
-				{1,TX_BUTTON_SKILL},
+				{ translate ("Skill level") },
 			},
 			{
 				WM_PHASE_SKILL2,
 				0, {1,95},
 				150, 230+42,
-				{1,TX_BUTTON_SKILL},
+				{ translate ("Skill level") },
 			},
 			{
 				WM_PHASE_INIT,
 				0, {1,40},
 				42+42*0, 433,
-				{1,TX_BUTTON_TERM},
+				{ translate ("Finish") },
 			},
 			{
 				0
@@ -265,19 +265,19 @@ static Phase table[] =
 				WM_PHASE_STOP,
 				0, {1,40},
 				10+42*0, 422,
-				0,
+				{},
 			},
 			{
 				WM_PHASE_SETUPp,
 				0, {1,47},
 				10+42*1, 422,
-				0,
+				{},
 			},
 			{
 				WM_PHASE_WRITEp,
 				0, {1,53},
 				10+42*2, 422,
-				0,
+				{},
 			},
 			{
 				0
@@ -294,37 +294,37 @@ static Phase table[] =
 				WM_PHASE_PLAY,
 				0, {1,77},
 				558-42*1, 433,
-				{1,TX_BUTTON_CONTP},
+				{ translate ("Continue this game") },
 			},
 			{
 				WM_PHASE_READ,
 				0, {1,52},
 				42+42*4, 433,
-				{1,TX_BUTTON_READP},
+				{ translate ("Open another game") },
 			},
 			{
 				WM_PHASE_WRITE,
 				0, {1,53},
 				42+42*5, 433,
-				{1,TX_BUTTON_WRITEP},
+				{ translate ("Save this game") },
 			},
 			{
 				WM_PHASE_SETUP,
 				0, {1,47},
 				42+42*7, 433,
-				{1,TX_BUTTON_SETUP},
+				{ translate ("Settings") },
 			},
 			{
 				WM_PHASE_INFO,
 				0, {1,78},
 				42+42*0, 433,
-				{1,TX_BUTTON_CANCELP},
+				{ translate ("Quit this game") },
 			},
 			{
 				WM_PHASE_HELP,
 				0, {1,86},
 				42+42*9, 433,
-				{1,TX_BUTTON_HELP},
+				{ translate ("Help") },
 			},
 			{
 				0
@@ -341,31 +341,31 @@ static Phase table[] =
 				WM_PHASE_PLAY,
 				0, {1,77},
 				558-42*1, 433,
-				{1,TX_BUTTON_CONTP},
+				{ translate ("Continue this game") },
 			},
 			{
 				WM_PHASE_READ,
 				0, {1,52},
 				42+42*4, 433,
-				{1,TX_BUTTON_READP},
+				{ translate ("Open another game") },
 			},
 			{
 				WM_PHASE_WRITE,
 				0, {1,53},
 				42+42*5, 433,
-				{1,TX_BUTTON_WRITEP},
+				{ translate ("Save this game") },
 			},
 			{
 				WM_PHASE_SETUP,
 				0, {1,47},
 				42+42*7, 433,
-				{1,TX_BUTTON_SETUP},
+				{ translate ("Settings") },
 			},
 			{
 				WM_PHASE_STOP,
 				0, {1,50},
 				42+42*0, 433,
-				{1,TX_BUTTON_PREVH},
+				{ translate ("Previous page") },
 			},
 			{
 				0
@@ -382,67 +382,67 @@ static Phase table[] =
 				WM_BUTTON1,
 				0, {1,50},
 				54, 330,
-				{1,TX_BUTTON_SETUP1},
+				{ translate ("Slower") },
 			},
 			{
 				WM_BUTTON2,
 				0, {1,51},
 				54+40, 330,
-				{1,TX_BUTTON_SETUP2},
+				{ translate ("Faster") },
 			},
 			{
 				WM_BUTTON3,
 				0, {1,50},
 				284, 330,
-				{1,TX_BUTTON_SETUP3},
+				{ translate ("Reduce volume") },
 			},
 			{
 				WM_BUTTON4,
 				0, {1,51},
 				284+40, 330,
-				{1,TX_BUTTON_SETUP4},
+				{ translate ("Increase volume") },
 			},
 			{
 				WM_BUTTON5,
 				0, {1,50},
 				399, 330,
-				{1,TX_BUTTON_SETUP5},
+				{ translate ("Reduce volume") },
 			},
 			{
 				WM_BUTTON6,
 				0, {1,51},
 				399+40, 330,
-				{1,TX_BUTTON_SETUP6},
+				{ translate ("Increase volume") },
 			},
 			{
 				WM_BUTTON7,
 				0, {1,50},
 				514, 330,
-				{1,TX_BUTTON_SETUP7},
+				{ translate ("No video") },
 			},
 			{
 				WM_BUTTON8,
 				0, {1,51},
 				514+40, 330,
-				{1,TX_BUTTON_SETUP8},
+				{ translate ("Show videos") },
 			},
 			{
 				WM_BUTTON9,
 				0, {1,50},
 				169, 330,
-				{1,TX_BUTTON_SETUP9},
+				{ translate ("Slower") },
 			},
 			{
 				WM_BUTTON10,
 				0, {1,51},
 				169+40, 330,
-				{1,TX_BUTTON_SETUP10},
+				{ translate ("Faster") },
 			},
 			{
 				WM_PHASE_STOP,
 				0, {1,40},
 				11, 424,
-				{1,TX_BUTTON_TERM},
+				{ translate ("Finish") },
 			},
 			{
 				0
@@ -459,67 +459,67 @@ static Phase table[] =
 				WM_BUTTON1,
 				0, {1,50},
 				54, 330,
-				{1,TX_BUTTON_SETUP1},
+				{ translate ("Slower") },
 			},
 			{
 				WM_BUTTON2,
 				0, {1,51},
 				54+40, 330,
-				{1,TX_BUTTON_SETUP2},
+				{ translate ("Faster") },
 			},
 			{
 				WM_BUTTON3,
 				0, {1,50},
 				284, 330,
-				{1,TX_BUTTON_SETUP3},
+				{ translate ("Reduce volume") },
 			},
 			{
 				WM_BUTTON4,
 				0, {1,51},
 				284+40, 330,
-				{1,TX_BUTTON_SETUP4},
+				{ translate ("Increase volume") },
 			},
 			{
 				WM_BUTTON5,
 				0, {1,50},
 				399, 330,
-				{1,TX_BUTTON_SETUP5},
+				{ translate ("Reduce volume") },
 			},
 			{
 				WM_BUTTON6,
 				0, {1,51},
 				399+40, 330,
-				{1,TX_BUTTON_SETUP6},
+				{ translate ("Increase volume") },
 			},
 			{
 				WM_BUTTON7,
 				0, {1,50},
 				514, 330,
-				{1,TX_BUTTON_SETUP7},
+				{ translate ("No video") },
 			},
 			{
 				WM_BUTTON8,
 				0, {1,51},
 				514+40, 330,
-				{1,TX_BUTTON_SETUP8},
+				{ translate ("Show videos") },
 			},
 			{
 				WM_BUTTON9,
 				0, {1,50},
 				169, 330,
-				{1,TX_BUTTON_SETUP9},
+				{ translate ("Slower") },
 			},
 			{
 				WM_BUTTON10,
 				0, {1,51},
 				169+40, 330,
-				{1,TX_BUTTON_SETUP10},
+				{ translate ("Faster") },
 			},
 			{
 				WM_PHASE_PLAY,
 				0, {1,77},
 				11, 424,
-				{1,TX_BUTTON_CONTP},
+				{ translate ("Continue this game") },
 			},
 			{
 				0
@@ -536,67 +536,67 @@ static Phase table[] =
 				WM_READ0,
 				0, {0},
 				420, 30+42*0,
-				0,
+				{},
 			},
 			{
 				WM_READ1,
 				0, {0},
 				420, 30+42*1,
-				0,
+				{},
 			},
 			{
 				WM_READ2,
 				0, {0},
 				420, 30+42*2,
-				0,
+				{},
 			},
 			{
 				WM_READ3,
 				0, {0},
 				420, 30+42*3,
-				0,
+				{},
 			},
 			{
 				WM_READ4,
 				0, {0},
 				420, 30+42*4,
-				0,
+				{},
 			},
 			{
 				WM_READ5,
 				0, {0},
 				420, 30+42*5,
-				0,
+				{},
 			},
 			{
 				WM_READ6,
 				0, {0},
 				420, 30+42*6,
-				0,
+				{},
 			},
 			{
 				WM_READ7,
 				0, {0},
 				420, 30+42*7,
-				0,
+				{},
 			},
 			{
 				WM_READ8,
 				0, {0},
 				420, 30+42*8,
-				0,
+				{},
 			},
 			{
 				WM_READ9,
 				0, {0},
 				420, 30+42*9,
-				0,
+				{},
 			},
 			{
 				WM_PHASE_STOP,
 				0, {1,40},
 				16, 424,
-				{1,TX_BUTTON_TERM},
+				{ translate ("Finish") },
 			},
 			{
 				0
@@ -613,67 +613,67 @@ static Phase table[] =
 				WM_WRITE0,
 				0, {0},
 				420, 30+42*0,
-				0,
+				{},
 			},
 			{
 				WM_WRITE1,
 				0, {0},
 				420, 30+42*1,
-				0,
+				{},
 			},
 			{
 				WM_WRITE2,
 				0, {0},
 				420, 30+42*2,
-				0,
+				{},
 			},
 			{
 				WM_WRITE3,
 				0, {0},
 				420, 30+42*3,
-				0,
+				{},
 			},
 			{
 				WM_WRITE4,
 				0, {0},
 				420, 30+42*4,
-				0,
+				{},
 			},
 			{
 				WM_WRITE5,
 				0, {0},
 				420, 30+42*5,
-				0,
+				{},
 			},
 			{
 				WM_WRITE6,
 				0, {0},
 				420, 30+42*6,
-				0,
+				{},
 			},
 			{
 				WM_WRITE7,
 				0, {0},
 				420, 30+42*7,
-				0,
+				{},
 			},
 			{
 				WM_WRITE8,
 				0, {0},
 				420, 30+42*8,
-				0,
+				{},
 			},
 			{
 				WM_WRITE9,
 				0, {0},
 				420, 30+42*9,
-				0,
+				{},
 			},
 			{
 				WM_PHASE_STOP,
 				0, {1,40},
 				16, 424,
-				{1,TX_BUTTON_TERM},
+				{ translate ("Finish") },
 			},
 			{
 				0
@@ -690,67 +690,67 @@ static Phase table[] =
 				WM_WRITE0,
 				0, {0},
 				420, 30+42*0,
-				0,
+				{},
 			},
 			{
 				WM_WRITE1,
 				0, {0},
 				420, 30+42*1,
-				0,
+				{},
 			},
 			{
 				WM_WRITE2,
 				0, {0},
 				420, 30+42*2,
-				0,
+				{},
 			},
 			{
 				WM_WRITE3,
 				0, {0},
 				420, 30+42*3,
-				0,
+				{},
 			},
 			{
 				WM_WRITE4,
 				0, {0},
 				420, 30+42*4,
-				0,
+				{},
 			},
 			{
 				WM_WRITE5,
 				0, {0},
 				420, 30+42*5,
-				0,
+				{},
 			},
 			{
 				WM_WRITE6,
 				0, {0},
 				420, 30+42*6,
-				0,
+				{},
 			},
 			{
 				WM_WRITE7,
 				0, {0},
 				420, 30+42*7,
-				0,
+				{},
 			},
 			{
 				WM_WRITE8,
 				0, {0},
 				420, 30+42*8,
-				0,
+				{},
 			},
 			{
 				WM_WRITE9,
 				0, {0},
 				420, 30+42*9,
-				0,
+				{},
 			},
 			{
 				WM_PHASE_PLAY,
 				0, {1,77},
 				16, 424,
-				{1,TX_BUTTON_CONTP},
+				{ translate ("Continue this game") },
 			},
 			{
 				0
@@ -767,7 +767,7 @@ static Phase table[] =
 				WM_PHASE_INFO,
 				0, {1,50},
 				9, 431,
-				{1,TX_BUTTON_REPEAT},
+				{ translate ("Restart this game") },
 			},
 			{
 				0
@@ -784,7 +784,7 @@ static Phase table[] =
 				WM_NEXT,
 				0, {1,51},
 				9, 431,
-				{1,TX_BUTTON_NEXTP},
+				{ translate ("Next game") },
 			},
 			{
 				0
@@ -801,7 +801,7 @@ static Phase table[] =
 				WM_PHASE_INIT,
 				0, {1,51},
 				9, 431,
-				{1,TX_BUTTON_NEXTP},
+				{ translate ("Next game") },
 			},
 			{
 				0
@@ -818,75 +818,105 @@ static Phase table[] =
 				WM_DECOR1,		// pose des sols
 				0, {6, 0,1,2,3,4,25},
 				11+42*2, 190+42*0,
-				{6,TX_OBJ_HERBE,TX_OBJ_MOUSSE,TX_OBJ_TERRE,
-				   TX_OBJ_EAU,TX_OBJ_DALLESPEC,TX_OBJ_COUVTELE},
+				{
+					translate ("Normal ground"),
+					translate ("Inflammable ground"),
+					translate ("Sterile ground"),
+					translate ("Water"),
+					translate ("Special pavings"),
+					translate ("Incubator or teleporter")
+				},
 			},
 			{
 				WM_DECOR2,		// pose des plantes
 				0, {4, 6,7,8,11},
 				11+42*2, 190+42*1,
-				{4,TX_OBJ_DELOBJ,TX_OBJ_PLANTE,
-				   TX_OBJ_ARBRE,TX_OBJ_FLEUR1},
+				{
+					translate ("Delete item"),
+					translate ("Decorative plants"),
+					translate ("Tree"),
+					ptranslate ("Flower|1|", "Flowers")
+				},
 			},
 			{
 				WM_DECOR3,		// pose des batiments
 				0, {11, 18,81,33,61,82,93,20,21,22,57,58},
 				11+42*2, 190+42*2,
-				{11,TX_OBJ_DELOBJ,TX_OBJ_BATIMENT,TX_OBJ_TOUR,
-					TX_OBJ_MINEFER,TX_OBJ_BATENNEMIS,TX_OBJ_BARENNEMIS,
-					TX_OBJ_MURPAL,TX_OBJ_ROC,TX_OBJ_OBJET,
-					TX_OBJ_ARME,TX_OBJ_VEHICULE},
+				{
+					translate ("Delete item"),
+					translate ("Buildings"),
+					translate ("Protection tower"),
+					translate ("Mine"),
+					translate ("Enemy buildings"),
+					translate ("Enemy barrier"),
+					translate ("Wall or palisade"),
+					translate ("Rocks"),
+					translate ("Items"),
+					translate ("Weapons"),
+					translate ("Transport")
+				},
 			},
 			{
 				WM_DECOR4,		// pose des blupi
 				0, {10, 12,13,14,85,15,16,17,38,75,56},
 				11+42*2, 190+42*3,
-				{10,TX_OBJ_DELPERSO,TX_OBJ_BLUPIf,TX_OBJ_BLUPI,
-					TX_OBJ_DISCIPLE,TX_OBJ_ARAIGNEE,TX_OBJ_VIRUS,
-					TX_OBJ_TRACKS,TX_OBJ_BOMBE,TX_OBJ_ELECTRO,
-					TX_OBJ_ROBOT},
+				{
+					translate ("Delete figure"),
+					translate ("Tired Blupi"),
+					translate ("Blupi"),
+					translate ("Helper robot"),
+					translate ("Spider"),
+					translate ("Virus"),
+					translate ("Bulldozer"),
+					translate ("Bouncing bomb"),
+					translate ("Electrocutor"),
+					translate ("Master robot")
+				},
 			},
 			{
 				WM_DECOR5,		// pose les catastrophes
 				0, {2, 36,37},
 				11+42*2, 190+42*4,
-				{2,TX_OBJ_DELFEU,TX_OBJ_STARTFEU},
+				{
+					translate ("Delete fire"),
+					translate ("Starting fire")
+				},
 			},
 			{
 				WM_PHASE_REGION,
 				0, {1,5},
 				11+42*0, 190+42*1,
-				{1,TX_BUTTON_REGION},
+				{ translate ("Scenery choice") },
 			},
 			{
 				WM_PHASE_MUSIC,
 				0, {1,44},
 				11+42*0, 190+42*2,
-				{1,TX_BUTTON_MUSIC},
+				{ translate ("Music choice") },
 			},
 			{
 				WM_PHASE_BUTTON,
 				0, {1,46},
 				11+42*0, 190+42*3,
-				{1,TX_BUTTON_BUTTON},
+				{ translate ("Available buttons") },
 			},
 			{
 				WM_PHASE_TERM,
 				0, {1,45},
 				11+42*0, 190+42*4,
-				{1,TX_BUTTON_CTERM},
+				{ translate ("Ending conditions") },
 			},
 			{
 				WM_PHASE_INFO,
 				0, {1,40},
 				11+42*0, 424,
-				{1,TX_BUTTON_TERMC},
+				{ translate ("Quit construction") },
 			},
 			{
 				WM_PHASE_UNDO,
 				0, {1,87},
 				11+42*2, 424,
-				{1,TX_BUTTON_UNDO},
+				{ translate ("Cancel last operation") },
 			},
 			{
 				0
@@ -903,217 +933,210 @@ static Phase table[] =
 				WM_BUTTON1,		// stop
 				0, {1,40},
 				170+42*0, 30+52*0,
-				{1,TX_ACTION_STOP},
+				{ translate ("Stop") },
 			},
 			{
 				WM_BUTTON0,		// go
 				0, {1,24},
 				170+42*1, 30+52*0,
-				{1,TX_ACTION_GO},
+				{ translate ("Go") },
 			},
 			{
 				WM_BUTTON3,		// carry
 				0, {1,30},
 				170+42*3, 30+52*0,
-				{1,TX_ACTION_CARRY},
+				{ translate ("Take") },
 			},
 			{
 				WM_BUTTON4,		// depose
 				0, {1,31},
 				170+42*4, 30+52*0,
-				{1,TX_ACTION_DEPOSE},
+				{ translate ("Drop") },
 			},
 			{
 				WM_BUTTON32,	// répète
 				0, {1,100},
 				170+42*6, 30+52*0,
-				{1,TX_ACTION_REPEAT},
+				{ translate ("Repeat") },
 			},
 
 			{
 				WM_BUTTON5,		// abat
 				0, {1,22},
 				170+42*0, 30+52*1,
-				{1,TX_ACTION_ABAT},
+				{ translate ("Cut down a tree") },
 			},
 			{
 				WM_BUTTON16,	// abat n
 				0, {1,42},
 				170+42*1, 30+52*1,
-				{1,TX_ACTION_ABATn},
+				{ translate ("Cut down trees") },
 			},
 			{
 				WM_BUTTON6,		// roc
 				0, {1,27},
 				170+42*3, 30+52*1,
-				{1,TX_ACTION_ROC},
+				{ translate ("Carve a rock") },
 			},
 			{
 				WM_BUTTON17,	// roc n
 				0, {1,43},
 				170+42*4, 30+52*1,
-				{1,TX_ACTION_ROCn},
+				{ translate ("Carve rocks") },
 			},
 			{
 				WM_BUTTON22,	// fleurs
 				0, {1,54},
 				170+42*6, 30+52*1,
-				{1,TX_ACTION_FLEUR},
+				{ translate ("Make bunch of flowers") },
 			},
 			{
 				WM_BUTTON23,	// fleurs n
 				0, {1,55},
 				170+42*7, 30+52*1,
-				{1,TX_ACTION_FLEURn},
+				{ translate ("Make bunches of flowers") },
 			},
 
 			{
 				WM_BUTTON9,		// build2 (couveuse)
 				0, {1,25},
 				170+42*0, 30+52*2,
-				{1,TX_ACTION_BUILD2},
+				{ translate ("Incubator") },
 			},
 			{
 				WM_BUTTON15,	// palis
 				0, {1,26},
 				170+42*1, 30+52*2,
-				{1,TX_ACTION_PALIS},
+				{ translate ("Palisade") },
 			},
 			{
 				WM_BUTTON18,	// pont
 				0, {1,23},
 				170+42*2, 30+52*2,
-				{1,TX_ACTION_PONT},
+				{ translate ("Bridge") },
 			},
 			{
 				WM_BUTTON25,	// bateau
 				0, {1,58},
 				170+42*3, 30+52*2,
-				{1,TX_ACTION_BATEAU},
+				{ translate ("Boat") },
 			},
 			{
 				WM_BUTTON13,	// build6 (téléporteur)
 				0, {1,101},
 				170+42*4, 30+52*2,
-				{1,TX_ACTION_BUILD6},
+				{ translate ("Teleporter") },
 			},
 			{
 				WM_BUTTON14,	// mur
 				0, {1,20},
 				170+42*6, 30+52*2,
-				{1,TX_ACTION_MUR},
+				{ translate ("Wall") },
 			},
 			{
 				WM_BUTTON19,	// tour
 				0, {1,33},
 				170+42*7, 30+52*2,
-				{1,TX_ACTION_TOUR},
+				{ translate ("Protection tower") },
 			},
 
 			{
 				WM_BUTTON8,		// build1 (cabane)
 				0, {1,19},
 				170+42*0, 30+52*3,
-				{1,TX_ACTION_BUILD1},
+				{ translate ("Garden shed") },
 			},
 			{
 				WM_BUTTON7,		// cultive
 				0, {1,28},
 				170+42*1, 30+52*3,
-				{1,TX_ACTION_CULTIVE},
+				{ translate ("Grow tomatoes") },
 			},
 			{
 				WM_BUTTON2,		// mange
 				0, {1,32},
 				170+42*2, 30+52*3,
-				{1,TX_ACTION_MANGE},
+				{ translate ("Eat") },
 			},
 
 			{
 				WM_BUTTON10,	// build3 (laboratoire)
 				0, {1,35},
 				170+42*0, 30+52*4,
-				{1,TX_ACTION_BUILD3},
+				{ translate ("Laboratory") },
 			},
 			{
 				WM_BUTTON21,	// laboratoire
 				0, {1,39},
 				170+42*1, 30+52*4,
-				{1,TX_ACTION_LABO},
+				{ translate ("Transform") },
 			},
 			{
 				WM_BUTTON20,	// boit
 				0, {1,34},
 				170+42*2, 30+52*4,
-				{1,TX_ACTION_BOIT},
+				{ translate ("Drink") },
 			},
 			{
 				WM_BUTTON24,	// dynamite
 				0, {1,41},
 				170+42*3, 30+52*4,
-				{1,TX_ACTION_DYNAMITE},
+				{ translate ("Blow up") },
 			},
 
 			{
 				WM_BUTTON27,	// drapeau
 				0, {1,64},
 				170+42*0, 30+52*5,
-				{1,TX_ACTION_DRAPEAU},
+				{ translate ("Prospect for iron") },
 			},
 			{
 				WM_BUTTON11,	// build4 (mine)
 				0, {1,61},
 				170+42*1, 30+52*5,
-				{1,TX_ACTION_BUILD4},
+				{ translate ("Mine") },
 			},
 			{
 				WM_BUTTON28,	// extrait
 				0, {1,62},
 				170+42*2, 30+52*5,
-				{1,TX_ACTION_EXTRAIT},
+				{ translate ("Extract iron") },
 			},
 			{
 				WM_BUTTON12,	// build5 (usine)
 				0, {1,59},
 				170+42*4, 30+52*5,
-				{1,TX_ACTION_BUILD5},
+				{ translate ("Workshop") },
 			},
 			{
 				WM_BUTTON29,	// fabrique jeep
 				0, {1,65},
 				170+42*5, 30+52*5,
-				{1,TX_ACTION_FABJEEP},
+				{ translate ("Make a Jeep") },
 			},
 			{
 				WM_BUTTON30,	// fabrique mine
 				0, {1,63},
 				170+42*6, 30+52*5,
-				{1,TX_ACTION_FABMINE},
+				{ translate ("Make a time bomb") },
 			},
 			{
 				WM_BUTTON34,	// fabrique armure
 				0, {1,106},
 				170+42*7, 30+52*5,
-				{1,TX_ACTION_FABARMURE},
+				{ translate ("Make armour") },
 			},
 			{
 				WM_BUTTON31,	// fabrique disciple
 				0, {1,83},
 				170+42*8, 30+52*5,
-				{1,TX_ACTION_FABDISC},
+				{ translate ("Make a helper robot") },
 			},
-
-//			{
-//				WM_BUTTON13,	// build6
-//				0, {0},
-//				170+42*2, 30+52*5,
-//				{1,TX_ACTION_BUILD6},
-//			},
 			{
 				WM_PHASE_BUILD,
 				0, {1,50},
 				11, 424,
-				{1,TX_BUTTON_TERM},
+				{ translate ("Finish") },
 			},
 			{
 				0
@@ -1130,79 +1153,79 @@ static Phase table[] =
 				WM_BUTTON8,		// home blupi
 				0, {1,81},
 				170+42*0, 30+42*0,
-				{1,TX_BUTTON_TERMMBLUPI},
+				{ translate ("Blupi in house") },
 			},
 			{
 				WM_BUTTON9,		// kill robots
 				0, {1,57},
 				170+42*1, 30+42*0,
-				{1,TX_BUTTON_TERMKILL},
+				{ translate ("No more enemies") },
 			},
 			{
 				WM_BUTTON3,		// stop fire
 				0, {1,37},
 				170+42*2, 30+42*0,
-				{1,TX_BUTTON_TERMFIRE},
+				{ translate ("Fire out") },
 			},
 			{
 				WM_BUTTON1,		// hach blupi
 				0, {1,14},
 				170+42*0, 30+42*2,
-				{1,TX_BUTTON_TERMHBLUPI},
+				{ translate ("Blupi on striped paving stones") },
 			},
 			{
 				WM_BUTTON2,		// hach planche
 				0, {1,22},
 				170+42*1, 30+42*2,
-				{1,TX_BUTTON_TERMHPLANCHE},
+				{ translate ("Planks on striped paving stones") },
 			},
 			{
 				WM_BUTTON10,	// hach tomate
 				0, {1,28},
 				170+42*2, 30+42*2,
-				{1,TX_BUTTON_TERMHTOMATE},
+				{ translate ("Tomatoes on striped paving stones") },
 			},
 			{
 				WM_BUTTON11,	// hach métal
 				0, {1,84},
 				170+42*3, 30+42*2,
-				{1,TX_BUTTON_TERMHMETAL},
+				{ translate ("Platinium on striped paving stones") },
 			},
 			{
 				WM_BUTTON12,	// hach robot
 				0, {1,94},
 				170+42*4, 30+42*2,
-				{1,TX_BUTTON_TERMHROBOT},
+				{ translate ("Robot on striped paving stones") },
 			},
 			{
 				WM_BUTTON4,		// - min blupi
 				0, {1,50},
 				170+42*0, 30+42*4,
-				{1,TX_BUTTON_TERMDEC},
+				{ "(-)" },
 			},
 			{
 				WM_BUTTON5,		// + min blupi
 				0, {1,51},
 				170+42*1, 30+42*4,
-				{1,TX_BUTTON_TERMINC},
+				{ "(+)" },
 			},
 			{
 				WM_BUTTON6,		// - max blupi
 				0, {1,50},
 				170+42*0, 30+42*5,
-				{1,TX_BUTTON_TERMDEC},
+				{ "(-)" },
 			},
 			{
 				WM_BUTTON7,		// + max blupi
 				0, {1,51},
 				170+42*1, 30+42*5,
-				{1,TX_BUTTON_TERMINC},
+				{ "(+)" },
 			},
 			{
 				WM_PHASE_BUILD,
 				0, {1,50},
 				11, 424,
-				{1,TX_BUTTON_TERM},
+				{ translate ("Finish") },
 			},
 			{
 				0
@@ -1219,67 +1242,67 @@ static Phase table[] =
 				WM_BUTTON1,
 				0, {1,40},
 				170+42*0, 30+42*0,
-				{1,TX_BUTTON_MUSIC1},
+				{ translate ("No music") },
 			},
 			{
 				WM_BUTTON2,
 				0, {1,44},
 				170+42*0, 30+42*1,
-				{1,TX_BUTTON_MUSIC2},
+				{ translate ("Music number 1") },
 			},
 			{
 				WM_BUTTON3,
 				0, {1,44},
 				170+42*0, 30+42*2,
-				{1,TX_BUTTON_MUSIC3},
+				{ translate ("Music number 2") },
 			},
 			{
 				WM_BUTTON4,
 				0, {1,44},
 				170+42*0, 30+42*3,
-				{1,TX_BUTTON_MUSIC4},
+				{ translate ("Music number 3") },
 			},
 			{
 				WM_BUTTON5,
 				0, {1,44},
 				170+42*0, 30+42*4,
-				{1,TX_BUTTON_MUSIC5},
+				{ translate ("Music number 4") },
 			},
 			{
 				WM_BUTTON6,
 				0, {1,44},
 				170+42*0, 30+42*5,
-				{1,TX_BUTTON_MUSIC6},
+				{ translate ("Music number 5") },
 			},
 			{
 				WM_BUTTON7,
 				0, {1,44},
 				170+42*0, 30+42*6,
-				{1,TX_BUTTON_MUSIC7},
+				{ translate ("Music number 6") },
 			},
 			{
 				WM_BUTTON8,
 				0, {1,44},
 				170+42*0, 30+42*7,
-				{1,TX_BUTTON_MUSIC8},
+				{ translate ("Music number 7") },
 			},
 			{
 				WM_BUTTON9,
 				0, {1,44},
 				170+42*0, 30+42*8,
-				{1,TX_BUTTON_MUSIC9},
+				{ translate ("Music number 8") },
 			},
 			{
 				WM_BUTTON10,
 				0, {1,44},
 				170+42*0, 30+42*9,
-				{1,TX_BUTTON_MUSIC10},
+				{ translate ("Music number 9") },
 			},
 			{
 				WM_PHASE_BUILD,
 				0, {1,50},
 				11, 424,
-				{1,TX_BUTTON_TERM},
+				{ translate ("Finish") },
 			},
 			{
 				0
@@ -1296,31 +1319,31 @@ static Phase table[] =
 				WM_BUTTON1,		// normal
 				0, {0},
 				220, 60,
-				{1,TX_BUTTON_REGION1},
+				{ translate ("Prairie") },
 			},
 			{
 				WM_BUTTON4,		// sapins
 				0, {0},
 				220, 170,
-				{1,TX_BUTTON_REGION4},
+				{ translate ("Forest") },
 			},
 			{
 				WM_BUTTON2,		// palmiers
 				0, {0},
 				220, 280,
-				{1,TX_BUTTON_REGION2},
+				{ translate ("Desert") },
 			},
 			{
 				WM_BUTTON3,		// hivers
 				0, {0},
 				220, 390,
-				{1,TX_BUTTON_REGION3},
+				{ translate ("Forest under snow") },
 			},
 			{
 				WM_PHASE_BUILD,
 				0, {1,50},
 				11, 424,
-				{1,TX_BUTTON_TERM},
+				{ translate ("Finish") },
 			},
 			{
 				0
@@ -1399,17 +1422,11 @@ static Phase table[] =
 		"image\\insert.blp",
 		false,
 		{
-//?			{
-//?				WM_PHASE_INFO,
-//?				0, {1,48},
-//?				16, 424-42,
-//?				{1,TX_BUTTON_PLAYP},
-//?			},
 			{
 				WM_PHASE_INIT,
 				0, {1,40},
 				16, 424,
-				{1,TX_BUTTON_QUITTER},
+				{ translate ("Quit BLUPI") },
 			},
 			{
 				0
@@ -1713,8 +1730,7 @@ bool CEvent::CreateButtons()
 							bMinimizeRedraw,
 							table[m_index].buttons[i].iconMenu+1,
 							table[m_index].buttons[i].iconMenu[0],
-							table[m_index].buttons[i].toolTips+1,
-							table[m_index].buttons[i].toolTips[0],
+							table[m_index].buttons[i].toolTips,
 							m_pDecor->GetRegion(),
 							message);
 		i ++;
@@ -2501,7 +2517,7 @@ void CEvent::HideMouse(bool bHide)
 bool CEvent::EventButtons(const SDL_Event &event, POINT pos)
 {
 	POINT		test;
-	int			lg, oldx, sound, res;
+	int			lg, oldx, sound;
 
 	// Cherche le tool tips à utiliser pour la souris.
 	m_textToolTips[0] = 0;
@@ -2546,10 +2562,10 @@ bool CEvent::EventButtons(const SDL_Event &event, POINT pos)
 		int i = 0;
 		while ( table[m_index].buttons[i].message != 0 )
 		{
-			res = m_buttons[i].GetToolTips(pos);
-			if ( res != -1 )
+			const auto text = m_buttons[i].GetToolTips(pos);
+			if (text)
 			{
-				LoadString(res, m_textToolTips, 50);
+				snprintf (m_textToolTips, sizeof (m_textToolTips), text);
 				lg = GetTextWidth(m_textToolTips);
 				pos.x += 10;
 				pos.y += 20;
@@ -4059,7 +4075,7 @@ void CEvent::PrivateLibelle()
 	char		string[100];
 	char		buffer[100];
 
-	LoadString(TX_PRIVATE_OBJECTIF, m_libelle, 100);
+	snprintf (m_libelle, sizeof (m_libelle), "%s", "1|Goal :");
 
 	memcpy(&term, m_pDecor->GetTerminated(), sizeof(Term));
 	nb = 0;
@@ -4116,7 +4132,8 @@ void CEvent::PrivateLibelle()
 
 	if ( nb == 0 || term.nbMaxBlupi > 1 )
 	{
-		LoadString(TX_PRIVATE_NBBLUPI, buffer, 100);
+		snprintf (buffer, sizeof (buffer),
+				  "%s", "1|The Blupi population must \n1|be of at least %d Blupis.");
 		sprintf(string, buffer, term.nbMaxBlupi);
 		strcat(m_libelle, "\n1|\n");
 		strcat(m_libelle, string);

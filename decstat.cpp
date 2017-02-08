@@ -45,7 +45,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		76,
 		false,
-		gettext ("Sick Blupi"),
+		translate ("Sick Blupi"),
 		0, 0,
 	},
 	{				// STATBLUPIf = 1
@@ -54,7 +54,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		13,
 		false,
-		gettext ("Tired Blupi"),
+		translate ("Tired Blupi"),
 		0, 0,
 	},
 	{				// STATBLUPI = 2
@@ -63,7 +63,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		14,
 		false,
-		gettext ("Blupi"),
+		translate ("Blupi"),
 		0, 0,
 	},
 	{				// STATDISCIPLE = 3
@@ -72,7 +72,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		85,
 		false,
-		gettext ("Helper robot"),
+		translate ("Helper robot"),
 		0, 0,
 	},
 	{				// 4
@@ -81,7 +81,7 @@ static Statistic table_statistic[] =
 		117,117,	// bateau
 		58,
 		false,
-		gettext ("Boat"),
+		translate ("Boat"),
 		0, 0,
 	},
 	{				// 5
@@ -90,7 +90,7 @@ static Statistic table_statistic[] =
 		118,118,	// jeep
 		65,
 		false,
-		gettext ("Jeep"),
+		translate ("Jeep"),
 		0, 0,
 	},
 	{				// 6
@@ -99,7 +99,7 @@ static Statistic table_statistic[] =
 		16,16,		// armure
 		106,
 		false,
-		gettext ("Armour"),
+		translate ("Armour"),
 		0, 0,
 	},
 	{				// 7
@@ -108,7 +108,7 @@ static Statistic table_statistic[] =
 		93,93,		// piège
 		70,
 		false,
-		gettext ("Sticky trap"),
+		translate ("Sticky trap"),
 		0, 0,
 	},
 	{				// 8
@@ -117,7 +117,7 @@ static Statistic table_statistic[] =
 		92,92,		// poison
 		71,
 		false,
-		gettext ("Poison"),
+		translate ("Poison"),
 		0, 0,
 	},
 	{				// 9
@@ -126,7 +126,7 @@ static Statistic table_statistic[] =
 		85,85,		// dynamite
 		57,
 		false,
-		gettext ("Dynamite"),
+		translate ("Dynamite"),
 		0, 0,
 	},
 	{				// 10
@@ -135,7 +135,7 @@ static Statistic table_statistic[] =
 		125,125,	// mine
 		63,
 		false,
-		gettext ("Time bomb"),
+		translate ("Time bomb"),
 		0, 0,
 	},
 	{				// 11
@@ -144,7 +144,7 @@ static Statistic table_statistic[] =
 		60,60,		// tomate
 		28,
 		false,
-		gettext ("Tomatoes"),
+		translate ("Tomatoes"),
 		0, 0,
 	},
 	{				// 12
@@ -153,7 +153,7 @@ static Statistic table_statistic[] =
 		80,80,		// bouteille
 		34,
 		false,
-		gettext ("Medical potion"),
+		translate ("Medical potion"),
 		0, 0,
 	},
 	{				// 13
@@ -162,7 +162,7 @@ static Statistic table_statistic[] =
 		36,36,		// planches
 		22,
 		false,
-		gettext ("Planks"),
+		translate ("Planks"),
 		0, 0,
 	},
 	{				// 14
@@ -171,7 +171,7 @@ static Statistic table_statistic[] =
 		44,44,		// pierres
 		27,
 		false,
-		gettext ("Stones"),
+		translate ("Stones"),
 		0, 0,
 	},
 	{				// 15
@@ -180,7 +180,7 @@ static Statistic table_statistic[] =
 		124,124,	// drapeau
 		64,
 		true,
-		gettext ("Flag"),
+		translate ("Flag"),
 		0, 0,
 	},
 	{				// 16
@@ -189,7 +189,7 @@ static Statistic table_statistic[] =
 		123,123,	// fer
 		62,
 		false,
-		gettext ("Iron"),
+		translate ("Iron"),
 		0, 0,
 	},
 	{				// 17
@@ -198,7 +198,7 @@ static Statistic table_statistic[] =
 		82,82,		// fleurs1
 		72,
 		false,
-		pgettext ("Flower|1|", "Flowers"),
+		ptranslate ("Flower|1|", "Flowers"),
 		0, 0,
 	},
 	{				// 18
@@ -207,7 +207,7 @@ static Statistic table_statistic[] =
 		84,84,		// fleurs2
 		73,
 		false,
-		pgettext ("Flower|2|", "Flowers"),
+		ptranslate ("Flower|2|", "Flowers"),
 		0, 0,
 	},
 	{				// 19
@@ -216,7 +216,7 @@ static Statistic table_statistic[] =
 		95,95,		// fleurs3
 		74,
 		false,
-		pgettext ("Flower|3|", "Flowers"),
+		ptranslate ("Flower|3|", "Flowers"),
 		0, 0,
 	},
 	{				// 20
@@ -225,7 +225,7 @@ static Statistic table_statistic[] =
 		61,61,		// cabane
 		19,
 		true,
-		gettext ("Garden shed"),
+		translate ("Garden shed"),
 		0, 0,
 	},
 	{				// 21
@@ -234,7 +234,7 @@ static Statistic table_statistic[] =
 		-52,-56,	// couveuse
 		25,
 		false,
-		gettext ("Incubator"),
+		translate ("Incubator"),
 		0, 0,
 	},
 	{				// 22
@@ -243,7 +243,7 @@ static Statistic table_statistic[] =
 		-80,-84,	// téléporteur
 		101,
 		false,
-		gettext ("Teleporter"),
+		translate ("Teleporter"),
 		0, 0,
 	},
 	{				// 23
@@ -252,7 +252,7 @@ static Statistic table_statistic[] =
 		28,29,		// laboratoire
 		35,
 		true,
-		gettext ("Laboratory"),
+		translate ("Laboratory"),
 		0, 0,
 	},
 	{				// 24
@@ -261,7 +261,7 @@ static Statistic table_statistic[] =
 		121,122,	// mine de fer
 		61,
 		true,
-		gettext ("Mine"),
+		translate ("Mine"),
 		0, 0,
 	},
 	{				// 25
@@ -270,7 +270,7 @@ static Statistic table_statistic[] =
 		119,120,	// usine
 		59,
 		true,
-		gettext ("Workshop"),
+		translate ("Workshop"),
 		0, 0,
 	},
 	{				// 26
@@ -279,7 +279,7 @@ static Statistic table_statistic[] =
 		27,27,		// tour
 		33,
 		true,
-		gettext ("Protection tower"),
+		translate ("Protection tower"),
 		0, 0,
 	},
 	{				// STATFEU = 27
@@ -288,7 +288,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		37,
 		true,
-		gettext ("Fire"),
+		translate ("Fire"),
 		0, 0,
 	},
 	{				// STATROBOT = 28
@@ -297,7 +297,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		56,
 		false,
-		gettext ("Master robot"),
+		translate ("Master robot"),
 		0, 0,
 	},
 	{				// STATTRACKS = 29
@@ -306,7 +306,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		17,
 		false,
-		gettext ("Bulldozer"),
+		translate ("Bulldozer"),
 		0, 0,
 	},
 	{				// STATBOMBE = 30
@@ -315,7 +315,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		38,
 		false,
-		gettext ("Bouncing bomb"),
+		translate ("Bouncing bomb"),
 		0, 0,
 	},
 	{				// STATARAIGNEE = 31
@@ -324,7 +324,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		15,
 		false,
-		gettext ("Spider"),
+		translate ("Spider"),
 		0, 0,
 	},
 	{				// STATVIRUS = 32
@@ -333,7 +333,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		16,
 		false,
-		gettext ("Virus"),
+		translate ("Virus"),
 		0, 0,
 	},
 	{				// STATELECTRO = 33
@@ -342,7 +342,7 @@ static Statistic table_statistic[] =
 		0,0,		// 
 		75,
 		false,
-		gettext ("Electrocutor"),
+		translate ("Electrocutor"),
 		0, 0,
 	},
 
@@ -732,7 +732,7 @@ void CDecor::StatisticDraw()
 		if ( rank == m_statHili )  // statistique survolée ?
 		{
 			m_pPixmap->DrawIconDemi(-1, CHBLUPI, ICON_HILI_STAT, pos);
-			textRes = pStatistic->text;
+			textRes = gettext (pStatistic->text);
 		}
 
 		if ( pStatistic->nb > 0 )
