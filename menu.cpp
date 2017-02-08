@@ -22,7 +22,7 @@
 #define MARGMENU	0
 
 
-static short table_button_icon[] =
+static const short table_button_icon[] =
 {
 	24,		// go
 	40,		// stop
@@ -61,14 +61,63 @@ static short table_button_icon[] =
 	106,	// fabarmure
 };
 
-void GetText(int rank, char *pBuffer, int lgBuffer)
+static const char *GetText(int rank)
 {
-	LoadString(TX_ACTION_GO+rank, pBuffer, lgBuffer);
+	static const char *list[] = {
+		"Go",
+		"Stop",
+		"Eat",
+		"Take",
+		"Drop",
+		"Cut down a tree",
+		"Carve a rock",
+		"Grow tomatoes",
+		"Garden shed",
+		"Incubator",
+		"Laboratory",
+		"Mine",
+		"Workshop",
+		"Teleporter",
+		"Wall",
+		"Palisade",
+		"Cut down trees",
+		"Carve rocks",
+		"Bridge",
+		"Protection tower",
+		"Drink",
+		"Transform",
+		"Make bunch of flowers",
+		"Make bunches of flowers",
+		"Blow up",
+		"Boat",
+		"Leave Jeep",
+		"Prospect for iron",
+		"Extract iron",
+		"Make a Jeep",
+		"Make a time bomb",
+		"Make a helper robot",
+		"Repeat",
+		"Quit",
+		"Make armour",
+	};
+
+	return gettext (list[rank]);
 }
 
-void GetErr(int rank, char *pBuffer, int lgBuffer)
+static const char *GetErr(int rank)
 {
-	LoadString(TX_ERROR_MISC+rank, pBuffer, lgBuffer);
+	static const char *list[] = {
+		"Impossible",
+		"Inadequate ground",
+		"Occupied ground",
+		"Opposite bank no good",
+		"Bridge finished",
+		"(isolated tower)",
+		"Too close to water",
+		"Already two teleporters",
+	};
+
+	return gettext (list[rank]);
 }
 
 
@@ -227,7 +276,8 @@ void CMenu::Draw()
 		}
 		else
 		{
-			GetText(m_buttons[i], text, 50);
+			const auto tr = GetText(m_buttons[i]);
+			snprintf (text, sizeof (text), tr);
 		}
 
 		if ( m_nbCel.x > 1 && i < m_nbCel.y )
@@ -265,7 +315,8 @@ void CMenu::Draw()
 			}
 			else
 			{
-				GetErr(m_errors[i]-1, text, 50);  // impossible ici
+				const auto tr = GetErr (m_errors[i]-1);  // impossible ici
+				snprintf (text, sizeof (text), tr);
 			}
 
 			if ( m_nbCel.x > 1 && i < m_nbCel.y )
