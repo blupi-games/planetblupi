@@ -4,9 +4,8 @@
 #pragma once
 
 #include <stdio.h>
-#include <Windows.h>
 #include <SDL_mixer.h>
-
+#include "blupi.h"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -35,7 +34,7 @@ public:
 
 	bool	Play(int channel, int volume=0, Uint8 panLeft = 255, Uint8 panRight = 255);
 	bool	PlayImage(int channel, POINT pos, int rank=-1);
-	bool	PlayMusic(LPSTR lpszMIDIFilename);
+	bool	PlayMusic(const char *lpszMIDIFilename);
 	bool	RestartMusic();
 	void	SuspendMusic();
 	void	StopMusic();

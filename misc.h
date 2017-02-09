@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <Windows.h>
+#include "blupi.h"
 
 extern void OutputDebug(char *pMessage);
 

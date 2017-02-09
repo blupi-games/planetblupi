@@ -16,7 +16,7 @@ public:
 				   POINT pos, int type, bool bMinimizeRedraw,
 				   int *pMenu, int nbMenu,
 				   const char **pToolTips,
-				   int region, UINT message);
+				   int region, unsigned int message);
 	void	Draw();
 	void	Redraw();
 
@@ -50,7 +50,7 @@ protected:
 	int			m_type;			// type de bouton
 	bool		m_bEnable;		// true si bouton actif
 	bool		m_bHide;		// true si bouton caché
-	UINT		m_message;		// message envoyé si bouton actionné
+	unsigned int		m_message;		// message envoyé si bouton actionné
 	POINT		m_pos;			// coin sup/gauche
 	POINT		m_dim;			// dimensions
 	int			m_state;		// 0=relâché, 1=pressé, +2=survollé

@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "blupi.h"
+
 extern
 bool Action(short action, short direct,
 			short &phase, short &step,

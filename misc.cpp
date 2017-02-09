@@ -1,11 +1,14 @@
 // misc.cpp
 //
 
+#include <SDL_log.h>
 #include <SDL_mouse.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <direct.h>
+#include "blupi.h"
 #include "def.h"
-
 
 // Variables globales
 
@@ -17,9 +20,7 @@ extern int		g_mouseType;
 
 void OutputDebug(char *pMessage)
 {
-#ifdef _DEBUG
-	OutputDebugString(pMessage);
-#endif
+	SDL_LogDebug (SDL_LOG_CATEGORY_APPLICATION, "%s", pMessage);
 }
 
 // Conversion de la position de la souris.
@@ -65,18 +66,13 @@ int Random(int min, int max)
 
 void GetCurrentDir(char *pName, size_t lg)
 {
-	size_t		i;
-
-	strncpy(pName, _pgmptr, lg-1);
+	char *basePath = SDL_GetBasePath ();
+	strncpy(pName, basePath, lg-1);
 	pName[lg-1] = 0;
 
 	lg = strlen(pName);
-	if ( lg == 0 )  return;
-
-	for ( i=0 ; i<lg ; i++ )
-	{
-		pName[i] = tolower(pName[i]);
-	}
+	if (lg == 0)
+		goto out;
 
 	while ( lg > 0 )
 	{
@@ -88,10 +84,13 @@ void GetCurrentDir(char *pName, size_t lg)
 		}
 	}
 
-	if ( lg > 6 && strcmp(pName+lg-6, "\\debug\\") == 0 )
+	if ( lg > 6 && strcmp(pName+lg-6, "\\Debug\\") == 0 )
 	{
 		pName[lg-5] = 0;  // ignore le dossier \debug !
 	}
+
+out:
+	SDL_free (basePath);
 }
 
 // Ajoute le chemin permettant de lire un fichier
@@ -99,18 +98,12 @@ void GetCurrentDir(char *pName, size_t lg)
 
 void AddUserPath(char *pFilename)
 {
-	char					temp[MAX_PATH];
+	char					*temp;
 	char*					pText;
 	size_t					pos;
 	char					last;
-	SECURITY_ATTRIBUTES		att;
 
-	strcpy(temp, "c:\\Planète Blupi\\");
-
-	att.nLength = sizeof(SECURITY_ATTRIBUTES);
-	att.lpSecurityDescriptor = nullptr;
-	att.bInheritHandle = false;
-	CreateDirectory(temp, &att);
+	temp = SDL_GetPrefPath ("Epsitec SA", "Planet Blupi");
 
 	pText = strstr(pFilename, "\\");
 	if ( pText != nullptr )
@@ -119,7 +112,7 @@ void AddUserPath(char *pFilename)
 		strcat(temp, pFilename);
 		last = temp[pos];
 		temp[pos] = 0;
-		CreateDirectory(temp, &att);
+		_mkdir (temp);
 		temp[pos] = last;
 	}
 	else
@@ -128,4 +121,5 @@ void AddUserPath(char *pFilename)
 	}
 
 	strcpy(pFilename, temp);
+	SDL_free (temp);
 }

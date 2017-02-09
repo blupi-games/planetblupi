@@ -483,7 +483,6 @@ void CDecor::MapPutCel(POINT pos)
 
 bool CDecor::GenerateMap()
 {
-	HBITMAP		hbm;
 	POINT		dim, pos, cel;
 	int			dx, rank, i;
 
@@ -535,11 +534,6 @@ bool CDecor::GenerateMap()
 			g_map32_bits[i][pos.x+MAPCADREX] = m_colors[MAP_CADRE];
 		}
 
-
-		hbm = CreateBitmap(DIMMAPX, DIMMAPY, 1, 32, g_map32_bits);
-
-	if ( hbm == nullptr )  return false;
-
 	SDL_Surface *surface = SDL_CreateRGBSurfaceFrom(g_map32_bits, DIMMAPX, DIMMAPY, 32, 4 * DIMMAPX, 0, 0, 0, 0);
 
 	dim.x = DIMMAPX;
@@ -550,7 +544,7 @@ bool CDecor::GenerateMap()
 	pos.y = POSMAPY;
 	m_pPixmap->DrawIcon(-1, CHMAP, 0, pos);
 
-	DeleteObject(hbm);
+	SDL_FreeSurface (surface);
 	return true;
 }
 

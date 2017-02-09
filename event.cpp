@@ -1573,7 +1573,7 @@ int CEvent::GetButtonIndex(int button)
 
 	while ( table[m_index].buttons[i].message != 0 )
 	{
-		if ( (UINT)button == table[m_index].buttons[i].message )
+		if ( (unsigned int) button == table[m_index].buttons[i].message )
 		{
 			return i;
 		}
@@ -1753,7 +1753,7 @@ void AddCheatCode(char *pDst, char *pSrc)
 	j = strlen(pDst);
 	while ( pSrc[i] != 0 )
 	{
-		pDst[j++] = tolower(pSrc[i++]);
+		pDst[j++] = pSrc[i++];
 	}
 	pDst[j] = 0;
 }
@@ -2689,7 +2689,7 @@ bool CEvent::MouseOnButton(POINT pos)
 
 // Retourne l'index dans table pour une phase donnée.
 
-int CEvent::SearchPhase(UINT phase)
+int CEvent::SearchPhase(unsigned int phase)
 {
 	int		i=0;
 
@@ -2747,7 +2747,7 @@ bool CEvent::IsHelpHide()
 
 // Change de phase.
 
-bool CEvent::ChangePhase(UINT phase)
+bool CEvent::ChangePhase(unsigned int phase)
 {
 	int		index, world, time, total, music, i, max;
 	POINT	totalDim, iconDim;
@@ -3151,7 +3151,7 @@ bool CEvent::ChangePhase(UINT phase)
 
 // Retourne la phase en cours.
 
-UINT CEvent::GetPhase()
+unsigned int CEvent::GetPhase()
 {
 	return m_phase;
 }
@@ -4349,7 +4349,7 @@ void CEvent::DemoRecStop()
 
 	if ( m_pDemoBuffer != nullptr )
 	{
-		DeleteFile("data\\demo.blp");
+		_unlink ("data\\demo.blp");
 		file = fopen("data\\demo.blp", "wb");
 		if ( file != nullptr )
 		{
@@ -4442,12 +4442,12 @@ void CEvent::DemoPlayStop()
 	ChangePhase(WM_PHASE_INIT);
 }
 
-void CEvent::WinToSDLEvent (UINT msg, WPARAM wParam, LPARAM lParam, SDL_Event &event)
+void CEvent::WinToSDLEvent (unsigned int msg, WPARAM wParam, LPARAM lParam, SDL_Event &event)
 {
 #define GET_X_LPARAM(lp) ((int) (short) LOWORD (lp))
 #define GET_Y_LPARAM(lp) ((int) (short) HIWORD (lp))
 
-	static const std::unordered_map<UINT, SDL_Keysym> keycodes = {
+	static const std::unordered_map<unsigned int, SDL_Keysym> keycodes = {
 		{ '0',      { SDL_SCANCODE_0,     SDLK_0,     0, 0 } },
 		{ '1',      { SDL_SCANCODE_1,     SDLK_1,     0, 0 } },
 		{ '2',      { SDL_SCANCODE_2,     SDLK_2,     0, 0 } },
@@ -4539,7 +4539,7 @@ void CEvent::WinToSDLEvent (UINT msg, WPARAM wParam, LPARAM lParam, SDL_Event &e
 void CEvent::DemoStep()
 {
 	int			time;
-	UINT		message;
+	unsigned int		message;
 	WPARAM		wParam;
 	LPARAM		lParam;
 
@@ -4593,7 +4593,7 @@ void CEvent::DemoStep()
 
 // Mémorise un événement.
 
-void CEvent::DemoRecEvent(UINT message, WPARAM wParam, LPARAM lParam)
+void CEvent::DemoRecEvent(unsigned int message, WPARAM wParam, LPARAM lParam)
 {
 	if ( m_bDemoRec && m_pDemoBuffer != nullptr &&
 		 (message == WM_KEYDOWN     ||
@@ -4609,15 +4609,15 @@ void CEvent::DemoRecEvent(UINT message, WPARAM wParam, LPARAM lParam)
 			 m_pDemoBuffer[m_demoIndex-1].time    == m_demoTime &&
 			 m_pDemoBuffer[m_demoIndex-1].message == message )
 		{
-			m_pDemoBuffer[m_demoIndex-1].wParam  = static_cast<UINT> (wParam);
-			m_pDemoBuffer[m_demoIndex-1].lParam  = static_cast<UINT> (lParam);
+			m_pDemoBuffer[m_demoIndex-1].wParam  = static_cast<unsigned int> (wParam);
+			m_pDemoBuffer[m_demoIndex-1].lParam  = static_cast<unsigned int> (lParam);
 		}
 		else
 		{
 			m_pDemoBuffer[m_demoIndex].time    = m_demoTime;
 			m_pDemoBuffer[m_demoIndex].message = message;
-			m_pDemoBuffer[m_demoIndex].wParam  = static_cast<UINT> (wParam);
-			m_pDemoBuffer[m_demoIndex].lParam  = static_cast<UINT> (lParam);
+			m_pDemoBuffer[m_demoIndex].wParam  = static_cast<unsigned int> (wParam);
+			m_pDemoBuffer[m_demoIndex].lParam  = static_cast<unsigned int> (lParam);
 
 			m_demoIndex ++;
 			if ( m_demoIndex >= MAXDEMO )
@@ -4992,7 +4992,6 @@ bool CEvent::TreatEventBase(const SDL_Event &event)
 				case SDLK_LCTRL:
 				case SDLK_RCTRL:
 					m_keymod &= ~KMOD_CTRL;
-					OutputDebugString ("CTRL: UP");
 					m_bFillMouse = false;
 					MouseSprite(GetMousePos());
 					return true;

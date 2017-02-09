@@ -40,7 +40,7 @@ int			g_mouseType = MOUSETYPEGRA;
 bool		g_bActive = true;		// is application active ?
 bool		g_bTermInit = false;	// initialisation en cours
 
-UINT		g_lastPhase = 999;
+unsigned int		g_lastPhase = 999;
 
 
 
@@ -115,7 +115,7 @@ bool ReadConfig(int argc, char *argv[])
 void UpdateFrame(void)
 {
     RECT            clip, rcRect;
-	UINT			phase;
+	unsigned int			phase;
 	POINT			posMouse;
 	int				i, term, speed;
 
@@ -360,7 +360,6 @@ void WindowProc2 (const SDL_Event &event)
 	{
 		switch (event.user.code)
 		{
-		case WM_TIMER:
 		case WM_UPDATE:
 			if (!g_pEvent->IsMovie ())  // pas de film en cours ?
 			{
@@ -423,13 +422,7 @@ static bool DoInit(int argc, char *argv[])
 	// Create a window.
 	if ( g_bFullScreen )
 	{
-		g_window = SDL_CreateWindow (
-			NAME,
-			0, 0,
-			GetSystemMetrics (SM_CXSCREEN),
-			GetSystemMetrics (SM_CYSCREEN),
-			SDL_WINDOW_FULLSCREEN
-		);
+		g_window = SDL_CreateWindow (NAME, 0, 0, LXIMAGE, LYIMAGE, SDL_WINDOW_FULLSCREEN);
 	}
 	else
 	{

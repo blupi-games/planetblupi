@@ -286,7 +286,7 @@ bool CDecor::CheminCherche(int rank, int &action)
 		return false;
 	}
 
-	memset(m_cheminWork, 0, (BYTE)MAXCELX*(BYTE)MAXCELY);
+	memset(m_cheminWork, 0, (Uint8)MAXCELX*(Uint8)MAXCELY);
 	CheminMemPos(rank);
 	
 	// fait un remplissage du map de travail

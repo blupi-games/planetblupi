@@ -266,7 +266,7 @@ bool CSound::PlayImage(int channel, POINT pos, int rank)
 // Uses MCI to play a MIDI file. The window procedure
 // is notified when playback is complete.
 
-bool CSound::PlayMusic(LPSTR lpszMIDIFilename)
+bool CSound::PlayMusic(const char *lpszMIDIFilename)
 {
 	char string[MAX_PATH];
 

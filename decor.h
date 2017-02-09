@@ -516,7 +516,7 @@ protected:
 	int			m_infoHeight;
 	POINT		m_memoPos[4];
 
-	BYTE		m_cheminWork[MAXCELX*MAXCELY];
+	Uint8		m_cheminWork[MAXCELX*MAXCELY];
 	int			m_cheminNbPos;
 	POINT		m_cheminPos[MAXBLUPI*2];
 	int			m_cheminRank[MAXBLUPI*2];

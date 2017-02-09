@@ -3,8 +3,6 @@
 
 #pragma once
 
-#include <Windows.h>
-
 #define _INTRO			false	// true si images d'introduction
 
 
@@ -370,7 +368,7 @@ enum MouseSprites
 };
 
 
-// User define message
+#define WM_USER					0x0400
 
 #define WM_UPDATE				(WM_USER+1)
 

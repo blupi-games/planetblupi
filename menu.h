@@ -47,7 +47,7 @@ protected:
 	int			m_buttons[MAXBUTTON];
 	int			m_errors[MAXBUTTON];
 	std::unordered_map<int, const char *> m_texts;
-	UINT		m_messages[MAXBUTTON];
+	unsigned int		m_messages[MAXBUTTON];
 	int			m_selRank;
 };
 

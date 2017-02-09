@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <unordered_map>
+#include "blupi.h"
 #include "jauge.h"
 #include "menu.h"
 #include "button.h"
@@ -14,7 +15,7 @@ class CMovie;
 
 typedef struct
 {
-	UINT	message;
+	unsigned int message;
 	int		type;
 	int		iconMenu[20];
 	int		x, y;
@@ -24,7 +25,7 @@ Button;
 
 typedef struct
 {
-	UINT	phase;
+	unsigned int phase;
 	char	backName[20];
 	int		bCDrom;
 	Button	buttons[MAXBUTTON];
@@ -47,9 +48,9 @@ DemoHeader;
 typedef struct
 {
 	int		time;
-	UINT	message;
-	UINT	wParam; // WPARAM
-	UINT	lParam; // LPARAM
+	unsigned int message;
+	unsigned int wParam; // WPARAM
+	unsigned int lParam; // LPARAM
 }
 DemoEvent;
 
@@ -68,9 +69,9 @@ public:
 	int		GetPhysicalWorld();
 	int		GetImageWorld();
 	bool	IsHelpHide();
-	bool	ChangePhase(UINT phase);
+	bool	ChangePhase(unsigned int phase);
 	void	MovieToStart();
-	UINT	GetPhase();
+	unsigned int GetPhase();
 	void	TryInsert();
 	void	RestoreGame();
 
@@ -119,7 +120,7 @@ protected:
 	bool	CreateButtons();
 	bool	EventButtons(const SDL_Event &event, POINT pos);
 	bool	MouseOnButton(POINT pos);
-	int		SearchPhase(UINT phase);
+	int		SearchPhase(unsigned int phase);
 	void	DecorShift(int dx, int dy);
 
 	bool	PlayDown(POINT pos, const SDL_Event &event);
@@ -142,8 +143,8 @@ protected:
 	void	DemoRecStop();
 	bool	DemoPlayStart();
 	void	DemoPlayStop();
-	static void WinToSDLEvent (UINT msg, WPARAM wParam, LPARAM lParam, SDL_Event &event);
-	void	DemoRecEvent(UINT message, WPARAM wParam, LPARAM lParam);
+	static void WinToSDLEvent (unsigned int msg, WPARAM wParam, LPARAM lParam, SDL_Event &event);
+	void	DemoRecEvent(unsigned int message, WPARAM wParam, LPARAM lParam);
 
 protected:
 	int			m_speed;

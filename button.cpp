@@ -45,7 +45,7 @@ bool CButton::Create(CPixmap *pPixmap, CSound *pSound,
 					 POINT pos, int type, bool bMinimizeRedraw,
 					 int *pMenu, int nbMenu,
 					 const char **pToolTips,
-					 int region, UINT message)
+					 int region, unsigned int message)
 {
 	POINT		iconDim;
 	int			i, icon;
