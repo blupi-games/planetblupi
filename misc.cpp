@@ -9,17 +9,8 @@
 
 // Variables globales
 
-HINSTANCE		g_hInstance;
 extern bool		g_bFullScreen;	// false si mode de test
 extern int		g_mouseType;
-
-
-// Initialise HInstance.
-
-void InitHInstance(HINSTANCE hInstance)
-{
-	g_hInstance = hInstance;
-}
 
 
 // Affiche un message de debug.

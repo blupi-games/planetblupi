@@ -412,15 +412,13 @@ bool InitFail(char *msg, bool bDirectX)
 
 // Initialisation de l'application.
 
-static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
+static bool DoInit(LPSTR lpCmdLine, int nCmdShow)
 {
 	POINT			totalDim, iconDim;
 	RECT			rcRect;
 	bool			bOK;
 
 	bOK = ReadConfig(lpCmdLine);  // lit le fichier config.def
-
-	InitHInstance(hInstance);
 
 	SDL_SetMainReady ();
 	auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
@@ -628,7 +626,7 @@ static bool DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					LPSTR lpCmdLine, int nCmdShow)
 {
-	if (!DoInit(hInstance, lpCmdLine, nCmdShow))
+	if (!DoInit(lpCmdLine, nCmdShow))
 		return false;
 
 	SDL_TimerID updateTimer = SDL_AddTimer (g_timerInterval, [] (Uint32 interval, void *param) -> Uint32

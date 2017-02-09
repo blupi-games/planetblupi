@@ -5,7 +5,6 @@
 
 #include <Windows.h>
 
-extern void InitHInstance(HINSTANCE hInstance);
 extern void OutputDebug(char *pMessage);
 
 extern POINT ConvLongToPos(LPARAM lParam);
