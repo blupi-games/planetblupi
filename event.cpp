@@ -1926,8 +1926,9 @@ bool CEvent::DrawButtons()
 		{
 			m_pDecor->BlupiGetButtons(m_menuPos, m_menuNb,
 									  m_menuButtons, m_menuErrors,
+									  m_menuTexts,
 									  m_menuPerso);
-			m_menu.Update(m_menuNb, m_menuButtons, m_menuErrors);
+			m_menu.Update(m_menuNb, m_menuButtons, m_menuErrors, m_menuTexts);
 
 			button = m_menu.GetSel();
 			m_pDecor->CelHiliButton(m_menuCel, button);
@@ -3469,7 +3470,7 @@ bool CEvent::PlayUp(POINT pos, Uint16 mod)
 		else
 		{
 			m_pDecor->BlupiGetButtons(pos, m_menuNb, m_menuButtons,
-									  m_menuErrors, m_menuPerso);
+									  m_menuErrors, m_menuTexts, m_menuPerso);
 			if ( m_menuNb == 0 )
 			{
 				m_pDecor->BlupiSound(-1, table_sound_boing[Random(0,2)], pos);
@@ -3480,7 +3481,7 @@ bool CEvent::PlayUp(POINT pos, Uint16 mod)
 				m_menuPos = pos;
 				m_menu.Create(m_pPixmap, m_pSound,
 							  pos, m_menuNb, m_menuButtons, m_menuErrors,
-							  m_menuPerso);
+							  m_menuTexts, m_menuPerso);
 				m_bMenu = true;
 				m_pDecor->HideTooltips(true);  // plus de tooltips pour décor
 			}

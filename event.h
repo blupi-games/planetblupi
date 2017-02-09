@@ -3,6 +3,7 @@
 #pragma once
 
 #include <vector>
+#include <unordered_map>
 #include "jauge.h"
 #include "menu.h"
 #include "button.h"
@@ -176,6 +177,7 @@ protected:
 	int			m_menuNb;
 	int			m_menuButtons[MAXBUTTON];
 	int			m_menuErrors[MAXBUTTON];
+	std::unordered_map<int, const char *> m_menuTexts;
 	int			m_menuPerso;
 	POINT		m_menuCel;
 	POINT		m_oldMousePos;

@@ -1,6 +1,8 @@
 // DecBlupi.cpp
 //
 
+#include <unordered_map>
+#include "gettext.h"
 #include "DEF.H"
 #include "DECOR.H"
 #include "ACTION.H"
@@ -1041,46 +1043,61 @@ void CDecor::ListRemove(int rank)
 // Retourne -1 si aucune répétiton n'est possible.
 
 int CDecor::ListSearch(int rank, int button, POINT cel,
-					   int &textForButton)
+					   const char *&textForButton)
 {
 	int		i, j, param, nb;
 
+	static const char *errors[] = {
+		/*  0 */ translate ("1: Grow tomatoes\n2: Eat"),
+		/*  1 */ translate ("1: Make a bunch\n2: Transform"),
+		/*  2 */ translate ("1: Take\n2: Transform"),
+		/*  3 */ translate ("1: Extract iron\n2: Make a bomb"),
+		/*  4 */ translate ("1: Extract iron\n2: Make a Jeep"),
+		/*  5 */ translate ("1: Extract iron\n2: Make an armour"),
+		/*  6 */ translate ("1: Cut down a tree \n2: Make a palisade"),
+		/*  7 */ translate ("1: Take\n2: Build palisade"),
+		/*  8 */ translate ("1: Cut down a tree \n2: Build a bridge"),
+		/*  9 */ translate ("1: Take\n2: Build a bridge"),
+		/* 10 */ translate ("1: Cut down a tree \n2: Make a boat"),
+		/* 11 */ translate ("1: Take\n2: Make a boat"),
+	};
+
 	static int table_series[] =
 	{
-		TX_REPEAT_CULTIVE,
+		0, // errors
 		2, BUTTON_CULTIVE, BUTTON_MANGE,
 
-		TX_REPEAT_FLEUR,
+		1, // errors
 		4, BUTTON_FLEUR, BUTTON_CARRY, BUTTON_LABO, BUTTON_DEPOSE,
 
-		TX_REPEAT_FLEURQ,
+		2, // errors
 		3, BUTTON_CARRY, BUTTON_LABO, BUTTON_DEPOSE,
 
-		TX_REPEAT_FABMINE,
+		3, // errors
 		3, BUTTON_EXTRAIT, BUTTON_FABMINE, BUTTON_DEPOSE,
 
-		TX_REPEAT_FABJEEP,
+		4, // errors
 		3, BUTTON_EXTRAIT, BUTTON_FABJEEP, BUTTON_DJEEP,
 
-		TX_REPEAT_FABARMURE,
+		5, // errors
 		3, BUTTON_EXTRAIT, BUTTON_FABARMURE, BUTTON_DARMURE,
 
-		TX_REPEAT_PALIS,
+		6, // errors
 		4, BUTTON_ABAT, BUTTON_CARRY, BUTTON_DEPOSE, BUTTON_PALIS,
 
-		TX_REPEAT_PALISQ,
+		7, // errors
 		3, BUTTON_CARRY, BUTTON_DEPOSE, BUTTON_PALIS,
 
-		TX_REPEAT_PONT,
+		8, // errors
 		4, BUTTON_ABAT, BUTTON_CARRY, BUTTON_DEPOSE, BUTTON_PONT,
 
-		TX_REPEAT_PONTQ,
+		9, // errors
 		3, BUTTON_CARRY, BUTTON_DEPOSE, BUTTON_PONT,
 
-		TX_REPEAT_BATEAU,
+		10, // errors
 		4, BUTTON_ABAT, BUTTON_CARRY, BUTTON_DEPOSE, BUTTON_BATEAU,
 
-		TX_REPEAT_BATEAUQ,
+		11, // errors
 		3, BUTTON_CARRY, BUTTON_DEPOSE, BUTTON_BATEAU,
 
 		-1,
@@ -1107,7 +1124,7 @@ int CDecor::ListSearch(int rank, int button, POINT cel,
 					goto next;
 				}
 			}
-			textForButton = table_series[i];
+			textForButton = gettext (errors[table_series[i]]);
 			return nb-1;
 		}
 
@@ -4533,14 +4550,16 @@ bool CDecor::IsWorkBlupi(int rank)
 // pour le blupi sélectionné.
 
 void CDecor::BlupiGetButtons(POINT pos, int &nb,
-							 int *pButtons, int *pErrors, int &perso)
+							 int *pButtons, int *pErrors,
+							 std::unordered_map<int, const char *> &texts, int &perso)
 {
 	int*		pB = pButtons;
 	int*		pE = pErrors;
 	POINT		cel, cel2;
-	int			i, rank, button, error, channel, icon, textForButton;
+	int			i, rank, button, error, channel, icon;
 	bool		bBuild = false;
 	bool		bPut;
+	const char *textForButton;
 
 	static int table_buttons[] =
 	{
@@ -4713,7 +4732,8 @@ void CDecor::BlupiGetButtons(POINT pos, int &nb,
 			m_blupi[m_rankBlupiHili].repeatLevelHope = rank;
 
 			pButtons[nb] = BUTTON_REPEAT;
-			pErrors[nb]  = textForButton;
+			pErrors[nb]  = 500;
+			texts[nb]    = textForButton;
 			nb ++;
 			return;
 		}

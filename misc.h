@@ -7,7 +7,6 @@
 
 extern void InitHInstance(HINSTANCE hInstance);
 extern void OutputDebug(char *pMessage);
-extern void LoadString(UINT nID, char *pBuffer, int lgBuffer);
 
 extern POINT ConvLongToPos(LPARAM lParam);
 

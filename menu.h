@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include <unordered_map>
 #include "def.h"
 
 /////////////////////////////////////////////////////////////////////////////
@@ -14,8 +15,10 @@ public:
 
 	bool	Create(CPixmap *pPixmap, CSound *pSound,
 				   POINT pos, int nb, int *pButtons, int *pErrors,
+				   std::unordered_map<int, const char *> &texts,
 				   int perso);
-	void	Update(int nb, int *pButtons, int *pErrors);
+	void	Update(int nb, int *pButtons, int *pErrors,
+				   std::unordered_map<int, const char *> &texts);
 	void	Delete();
 	void	Draw();
 	int		GetSel();
@@ -43,6 +46,7 @@ protected:
 	int			m_perso;
 	int			m_buttons[MAXBUTTON];
 	int			m_errors[MAXBUTTON];
+	std::unordered_map<int, const char *> m_texts;
 	UINT		m_messages[MAXBUTTON];
 	int			m_selRank;
 };

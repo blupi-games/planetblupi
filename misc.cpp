@@ -31,14 +31,6 @@ void OutputDebug(char *pMessage)
 #endif
 }
 
-
-// Charge un texte dans une ressource.
-
-void LoadString(UINT nID, char *pBuffer, int lgBuffer)
-{
-	LoadString(g_hInstance, nID, pBuffer, lgBuffer);
-}
-
 // Conversion de la position de la souris.
 
 POINT ConvLongToPos(LPARAM lParam)

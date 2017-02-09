@@ -142,6 +142,7 @@ CMenu::~CMenu()
 
 bool CMenu::Create(CPixmap *pPixmap, CSound *pSound,
 				   POINT pos, int nb, int *pButtons, int *pErrors,
+				   std::unordered_map<int, const char *> &texts,
 				   int perso)
 {
 	pos.x -= DIMBUTTONX/2;
@@ -153,7 +154,7 @@ bool CMenu::Create(CPixmap *pPixmap, CSound *pSound,
 	m_pos       = pos;
 	m_perso     = perso;
 
-	Update(nb, pButtons, pErrors);
+	Update(nb, pButtons, pErrors, texts);
 
 	if ( m_pos.x < POSDRAWX )  m_pos.x = POSDRAWX;
 	if ( m_pos.y < POSDRAWY )  m_pos.y = POSDRAWY;
@@ -176,7 +177,8 @@ bool CMenu::Create(CPixmap *pPixmap, CSound *pSound,
 
 // Met à jour le menu.
 
-void CMenu::Update(int nb, int *pButtons, int *pErrors)
+void CMenu::Update(int nb, int *pButtons, int *pErrors,
+				   std::unordered_map<int, const char *> &texts)
 {
 	int			i;
 
@@ -195,6 +197,7 @@ void CMenu::Update(int nb, int *pButtons, int *pErrors)
 		m_buttons[i] = pButtons[i];
 		m_errors[i]  = pErrors[i];
 	}
+	m_texts = texts;
 }
 
 // Détruit le menu.
@@ -270,7 +273,7 @@ void CMenu::Draw()
 
 		if ( m_errors[i] >= 100 )  // no ressource au lieu erreur ?
 		{
-			LoadString(m_errors[i], text, 50);
+			snprintf (text, sizeof (text), m_texts[i]);
 			pText = strchr(text, '\n');
 			if ( pText != nullptr )  *pText = 0;
 		}
@@ -309,7 +312,7 @@ void CMenu::Draw()
 		{
 			if ( m_errors[i] >= 100 )  // no ressource au lieu erreur ?
 			{
-				LoadString(m_errors[i], text, 50);
+				snprintf (text, sizeof (text), m_texts[i]);
 				pText = strchr(text, '\n');
 				if ( pText != nullptr )  strcpy(text, pText+1);
 			}

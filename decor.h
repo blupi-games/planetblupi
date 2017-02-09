@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include <unordered_map>
 #include "DEF.H"
 #include "SOUND.H"
 #include "PIXMAP.H"
@@ -254,7 +255,7 @@ public:
 	int		ListGetParam(int rank, int button, POINT cel);
 	bool	ListPut(int rank, int button, POINT cel, POINT cMem);
 	void	ListRemove(int rank);
-	int		ListSearch(int rank, int button, POINT cel, int &textForButton);
+	int		ListSearch(int rank, int button, POINT cel, const char *&textForButton);
 	bool	RepeatAdjust(int rank, int button, POINT &cel, POINT &cMem,
 						 int param, int list);
 	void	GoalStart(int rank, int action, POINT cel);
@@ -294,7 +295,8 @@ public:
 	bool	IsBlupiHere(POINT cel, int direct, bool bSkipInMove);
 	void	GetLevelJauge(int *pLevels, int *pTypes);
 	bool	IsWorkBlupi(int rank);
-	void	BlupiGetButtons(POINT pos, int &nb, int *pButtons, int *pErrors, int &perso);
+	void	BlupiGetButtons(POINT pos, int &nb, int *pButtons, int *pErrors,
+							std::unordered_map<int, const char *> &texts, int &perso);
 	void	TerminatedInit();
 	int		IsTerminated();
 	Term*	GetTerminated();
