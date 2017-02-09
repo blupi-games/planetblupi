@@ -1,14 +1,10 @@
 // blupi.cpp
 //
 
-#include "blupi.h"
-
-#define WIN32_LEAN_AND_MEAN
-
-#define SDL_MAIN_HANDLED
 #include <SDL.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "blupi.h"
 #include "def.h"
 #include "resource.h"
 #include "pixmap.h"
@@ -66,7 +62,7 @@ int GetNum(char *p)
 
 // Lit le fichier de configuration.
 
-bool ReadConfig(LPSTR lpCmdLine)
+bool ReadConfig(int argc, char *argv[])
 {
 	FILE*		file    = nullptr;
 	char		buffer[200];
@@ -412,15 +408,14 @@ bool InitFail(char *msg, bool bDirectX)
 
 // Initialisation de l'application.
 
-static bool DoInit(LPSTR lpCmdLine, int nCmdShow)
+static bool DoInit(int argc, char *argv[])
 {
 	POINT			totalDim, iconDim;
 	RECT			rcRect;
 	bool			bOK;
 
-	bOK = ReadConfig(lpCmdLine);  // lit le fichier config.def
+	bOK = ReadConfig(argc, argv);  // lit le fichier config.def
 
-	SDL_SetMainReady ();
 	auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
 	if (res < 0)
 		return false;
@@ -623,11 +618,10 @@ static bool DoInit(LPSTR lpCmdLine, int nCmdShow)
 
 // Programme principal.
 
-int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
-					LPSTR lpCmdLine, int nCmdShow)
+int main (int argc, char *argv[])
 {
-	if (!DoInit(lpCmdLine, nCmdShow))
-		return false;
+	if (!DoInit(argc, argv))
+		return -1;
 
 	SDL_TimerID updateTimer = SDL_AddTimer (g_timerInterval, [] (Uint32 interval, void *param) -> Uint32
 	{
