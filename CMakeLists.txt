@@ -10,11 +10,6 @@ set (PB_VERSION_PATCH 0)
 
 set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-configure_file (
-  "${PROJECT_SOURCE_DIR}/src/config.h.in"
-  "${PROJECT_BINARY_DIR}/src/config.h"
-)
-
 file (GLOB_RECURSE sources src/*.cpp src/*.h)
 file (GLOB_RECURSE data    resources/data/*)
 file (GLOB_RECURSE image   resources/image/*)
