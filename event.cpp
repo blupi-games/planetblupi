@@ -1957,8 +1957,8 @@ bool CEvent::DrawButtons()
 		{
 			DrawTextCenter(gettext ("N"), (10+134)/2, 17);
 			DrawTextCenter(gettext ("S"), (10+134)/2, 126);
-			DrawTextCenter(gettext ("E"), 14, 70);
-			DrawTextCenter(gettext ("W"), 129, 70);
+			DrawTextCenter(gettext ("W"), 14, 70);
+			DrawTextCenter(gettext ("E"), 129, 70);
 		}
 
 		// Dessine la vitesse.
