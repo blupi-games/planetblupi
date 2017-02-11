@@ -103,12 +103,12 @@ bool CDecor::Write(int rank, bool bUser, int world, int time, int total)
 
 	if ( bUser )
 	{
-		sprintf(filename, "data\\user%.3d.blp", rank);
+		sprintf(filename, "data/user%.3d.blp", rank);
 		AddUserPath(filename);
 	}
 	else
 	{
-		sprintf(filename, "data\\world%.3d.blp", rank);
+		sprintf(filename, "data/world%.3d.blp", rank);
 	}
 
 	file = fopen(filename, "wb");
@@ -186,12 +186,12 @@ bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
 
 	if ( bUser )
 	{
-		sprintf(filename, "data\\user%.3d.blp", rank);
+		sprintf(filename, "data/user%.3d.blp", rank);
 		AddUserPath(filename);
 	}
 	else
 	{
-		sprintf(filename, "data\\world%.3d.blp", rank);
+		sprintf(filename, "data/world%.3d.blp", rank);
 	}
 
 	file = fopen(filename, "rb");
@@ -323,12 +323,12 @@ bool CDecor::FileExist(int rank, bool bUser, int &world, int &time, int &total)
 
 	if ( bUser )
 	{
-		sprintf(filename, "data\\user%.3d.blp", rank);
+		sprintf(filename, "data/user%.3d.blp", rank);
 		AddUserPath(filename);
 	}
 	else
 	{
-		sprintf(filename, "data\\world%.3d.blp", rank);
+		sprintf(filename, "data/world%.3d.blp", rank);
 	}
 
 	file = fopen(filename, "rb");

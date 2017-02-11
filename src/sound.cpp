@@ -136,7 +136,7 @@ void CSound::CacheAll()
 
 	for ( i=0 ; i<MAXSOUND ; i++ )
 	{
-		sprintf(name, "sound\\sound%.3d.blp", i);
+		sprintf(name, "sound/sound%.3d.blp", i);
 		if ( !Cache(i, name) )  break;
 	}
 }

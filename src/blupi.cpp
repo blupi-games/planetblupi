@@ -68,7 +68,7 @@ bool ReadConfig(int argc, char *argv[])
 	char*		pText;
 	size_t		nb;
 
-	file = fopen("data\\config.ini", "rb");
+	file = fopen("data/config.ini", "rb");
 	if ( file == nullptr )  return false;
 	nb = fread(buffer, sizeof(char), 200-1, file);
 	buffer[nb] = 0;
@@ -313,7 +313,7 @@ void WindowProc2 (const SDL_Event &event)
 				totalDim.y = 66;
 				iconDim.x = 64;
 				iconDim.y = 66 / 2;
-				g_pPixmap->Cache (CHHILI, "image\\hili.blp", totalDim, iconDim);
+				g_pPixmap->Cache (CHHILI, "image/hili.blp", totalDim, iconDim);
 			}
 			SDL_SetWindowTitle (g_window, "Blupi");
 			if (g_pSound != nullptr)  g_pSound->RestartMusic ();
@@ -462,9 +462,9 @@ static bool DoInit(int argc, char *argv[])
 	iconDim.x  = 0;
 	iconDim.y  = 0;
 #if _INTRO
-	if ( !g_pPixmap->Cache(CHBACK, "image\\intro1.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHBACK, "image/intro1.blp", totalDim, iconDim) )
 #else
-	if ( !g_pPixmap->Cache(CHBACK, "image\\init.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHBACK, "image/init.blp", totalDim, iconDim) )
 #endif
 		return false;
 
@@ -473,7 +473,7 @@ static bool DoInit(int argc, char *argv[])
 	totalDim.y = LYIMAGE;
 	iconDim.x  = 0;
 	iconDim.y  = 0;
-	if ( !g_pPixmap->Cache(CHGROUND, "image\\init.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHGROUND, "image/init.blp", totalDim, iconDim) )
 		return false;
 
 	rcRect.left   = 0;
@@ -487,80 +487,80 @@ static bool DoInit(int argc, char *argv[])
 	totalDim.y = DIMCELY*2*6;
 	iconDim.x = DIMCELX*2;
 	iconDim.y = DIMCELY*2;
-	if ( !g_pPixmap->Cache(CHFLOOR, "image\\floor000.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHFLOOR, "image/floor000.blp", totalDim, iconDim) )
 		return InitFail("Cache floor000.blp", true);
 
 	totalDim.x = DIMOBJX*16;
 	totalDim.y = DIMOBJY*8;
 	iconDim.x = DIMOBJX;
 	iconDim.y = DIMOBJY;
-	if ( !g_pPixmap->Cache(CHOBJECT, "image\\obj000.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHOBJECT, "image/obj000.blp", totalDim, iconDim) )
 		return InitFail("Cache obj000.blp", true);
 
-	if ( !g_pPixmap->Cache(CHOBJECTo, "image\\obj-o000.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHOBJECTo, "image/obj-o000.blp", totalDim, iconDim) )
 		return InitFail("Cache obj-o000.blp", true);
 
 	totalDim.x = DIMBLUPIX*16;
 	totalDim.y = DIMBLUPIY*23;
 	iconDim.x = DIMBLUPIX;
 	iconDim.y = DIMBLUPIY;
-	if ( !g_pPixmap->Cache(CHBLUPI, "image\\blupi.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHBLUPI, "image/blupi.blp", totalDim, iconDim) )
 		return InitFail("Cache blupi.blp", true);
 
 	totalDim.x = 64;
 	totalDim.y = 66;
 	iconDim.x = 64;
 	iconDim.y = 66/2;
-	if ( !g_pPixmap->Cache(CHHILI, "image\\hili.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHHILI, "image/hili.blp", totalDim, iconDim) )
 		return InitFail("Cache hili.blp", true);
 
 	totalDim.x = DIMCELX*2*3;
 	totalDim.y = DIMCELY*2*5;
 	iconDim.x = DIMCELX*2;
 	iconDim.y = DIMCELY*2;
-	if ( !g_pPixmap->Cache(CHFOG, "image\\fog.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHFOG, "image/fog.blp", totalDim, iconDim) )
 		return InitFail("Cache fog.blp", true);
 
 	totalDim.x = DIMCELX*2*16;
 	totalDim.y = DIMCELY*2*1;
 	iconDim.x = DIMCELX*2;
 	iconDim.y = DIMCELY*2;
-	if ( !g_pPixmap->Cache(CHMASK1, "image\\mask1.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHMASK1, "image/mask1.blp", totalDim, iconDim) )
 		return InitFail("Cache mask1.blp", true);
 
 	totalDim.x = DIMBUTTONX*6;
 	totalDim.y = DIMBUTTONY*21;
 	iconDim.x = DIMBUTTONX;
 	iconDim.y = DIMBUTTONY;
-	if ( !g_pPixmap->Cache(CHBUTTON, "image\\button00.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHBUTTON, "image/button00.blp", totalDim, iconDim) )
 		return InitFail("Cache button00.blp", true);
 
 	totalDim.x = DIMJAUGEX*1;
 	totalDim.y = DIMJAUGEY*4;
 	iconDim.x = DIMJAUGEX;
 	iconDim.y = DIMJAUGEY;
-	if ( !g_pPixmap->Cache(CHJAUGE, "image\\jauge.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHJAUGE, "image/jauge.blp", totalDim, iconDim) )
 		return InitFail("Cache jauge.blp", true);
 
 	totalDim.x = DIMTEXTX*16;
 	totalDim.y = DIMTEXTY*8*3;
 	iconDim.x = DIMTEXTX;
 	iconDim.y = DIMTEXTY;
-	if ( !g_pPixmap->Cache(CHTEXT, "image\\text.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHTEXT, "image/text.blp", totalDim, iconDim) )
 		return InitFail("Cache text.blp", true);
 
 	totalDim.x = DIMLITTLEX*16;
 	totalDim.y = DIMLITTLEY*8;
 	iconDim.x = DIMLITTLEX;
 	iconDim.y = DIMLITTLEY;
-	if ( !g_pPixmap->Cache(CHLITTLE, "image\\little.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHLITTLE, "image/little.blp", totalDim, iconDim) )
 		return InitFail("Cache little.blp", true);
 
 	totalDim.x = 426;
 	totalDim.y = 52;
 	iconDim.x = 426;
 	iconDim.y = 52;
-	if ( !g_pPixmap->Cache(CHBIGNUM, "image\\bignum.blp", totalDim, iconDim) )
+	if ( !g_pPixmap->Cache(CHBIGNUM, "image/bignum.blp", totalDim, iconDim) )
 		return InitFail("Cache bignum.blp", true);
 
 	// Load all cursors

@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL_log.h>
 #include <SDL2/SDL_mouse.h>
+#include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -67,22 +68,19 @@ int Random(int min, int max)
 
 std::string GetBaseDir ()
 {
-	char *sdlBasePath = nullptr;
 	static std::string basePath;
 
 	if (!basePath.size ())
 	{
-		sdlBasePath = SDL_GetBasePath ();
+		auto sdlBasePath = SDL_GetBasePath ();
 		sdlBasePath[strlen (sdlBasePath) - 1] = '\0';
+		basePath = sdlBasePath;
+		std::replace (basePath.begin (), basePath.end (), '\\', '/');
+		basePath = basePath.substr (0, basePath.find_last_of ("//") + 1);
+		SDL_free (sdlBasePath);
 	}
 
-	std::string path = sdlBasePath;
-	path = path.substr (0, path.find_last_of ("\\/") + 1);
-
-	if (sdlBasePath)
-		SDL_free (sdlBasePath);
-
-	return path;
+	return basePath;
 }
 
 // Ajoute le chemin permettant de lire un fichier
@@ -97,7 +95,7 @@ void AddUserPath(char *pFilename)
 
 	temp = SDL_GetPrefPath ("Epsitec SA", "Planet Blupi");
 
-	pText = strstr(pFilename, "\\");
+	pText = strstr(pFilename, "/");
 	if ( pText != nullptr )
 	{
 		pos = strlen(temp)+(pText-pFilename)+1;

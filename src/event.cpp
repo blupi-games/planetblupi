@@ -73,7 +73,7 @@ static Phase table[] =
 {
 	{
 		WM_PHASE_TESTCD,
-		"image\\init.blp",
+		"image/init.blp",
 		false,
 		{
 			{
@@ -84,7 +84,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_INTRO1,
-		"image\\intro1.blp",
+		"image/intro1.blp",
 		false,
 		{
 			{
@@ -95,7 +95,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_INTRO2,
-		"image\\intro2.blp",
+		"image/intro2.blp",
 		false,
 		{
 			{
@@ -106,7 +106,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_INIT,
-		"image\\init.blp",
+		"image/init.blp",
 		false,
 		{
 			{
@@ -147,7 +147,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_HISTORY0,
-		"image\\history0.blp",
+		"image/history0.blp",
 		true,
 		{
 			{
@@ -170,7 +170,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_HISTORY1,
-		"image\\history1.blp",
+		"image/history1.blp",
 		true,
 		{
 			{
@@ -193,7 +193,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_INFO,
-		"image\\info%.3d.blp",
+		"image/info%.3d.blp",
 		false,
 		{
 			{
@@ -258,7 +258,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_PLAY,
-		"image\\play.blp",
+		"image/play.blp",
 		false,
 		{
 			{
@@ -287,7 +287,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_STOP,
-		"image\\stop%.3d.blp",
+		"image/stop%.3d.blp",
 		false,
 		{
 			{
@@ -334,7 +334,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_HELP,
-		"image\\help.blp",
+		"image/help.blp",
 		true,
 		{
 			{
@@ -375,7 +375,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_SETUP,
-		"image\\setup.blp",
+		"image/setup.blp",
 		false,
 		{
 			{
@@ -452,7 +452,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_SETUPp,
-		"image\\setup.blp",
+		"image/setup.blp",
 		false,
 		{
 			{
@@ -529,7 +529,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_READ,
-		"image\\read.blp",
+		"image/read.blp",
 		false,
 		{
 			{
@@ -606,7 +606,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_WRITE,
-		"image\\write.blp",
+		"image/write.blp",
 		false,
 		{
 			{
@@ -683,7 +683,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_WRITEp,
-		"image\\write.blp",
+		"image/write.blp",
 		false,
 		{
 			{
@@ -760,7 +760,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_LOST,
-		"image\\lost.blp",
+		"image/lost.blp",
 		true,
 		{
 			{
@@ -777,7 +777,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_WIN,
-		"image\\win.blp",
+		"image/win.blp",
 		true,
 		{
 			{
@@ -794,7 +794,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_LASTWIN,
-		"image\\last%.3d.blp",
+		"image/last%.3d.blp",
 		true,
 		{
 			{
@@ -811,7 +811,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_BUILD,
-		"image\\build.blp",
+		"image/build.blp",
 		true,
 		{
 			{
@@ -926,7 +926,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_BUTTON,
-		"image\\button.blp",
+		"image/button.blp",
 		true,
 		{
 			{
@@ -1146,7 +1146,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_TERM,
-		"image\\term.blp",
+		"image/term.blp",
 		true,
 		{
 			{
@@ -1235,7 +1235,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_MUSIC,
-		"image\\music.blp",
+		"image/music.blp",
 		true,
 		{
 			{
@@ -1312,7 +1312,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_REGION,
-		"image\\region.blp",
+		"image/region.blp",
 		true,
 		{
 			{
@@ -1353,7 +1353,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_PLAYMOVIE,
-		"image\\movie.blp",
+		"image/movie.blp",
 		false,
 		{
 			{
@@ -1364,7 +1364,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_WINMOVIE,
-		"image\\movie.blp",
+		"image/movie.blp",
 		false,
 		{
 			{
@@ -1375,7 +1375,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_H0MOVIE,
-		"image\\movie.blp",
+		"image/movie.blp",
 		false,
 		{
 			{
@@ -1386,7 +1386,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_H1MOVIE,
-		"image\\movie.blp",
+		"image/movie.blp",
 		false,
 		{
 			{
@@ -1397,7 +1397,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_H2MOVIE,
-		"image\\movie.blp",
+		"image/movie.blp",
 		false,
 		{
 			{
@@ -1408,7 +1408,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_BYE,
-		"image\\bye.blp",
+		"image/bye.blp",
 		false,
 		{
 			{
@@ -1419,7 +1419,7 @@ static Phase table[] =
 
 	{
 		WM_PHASE_INSERT,
-		"image\\insert.blp",
+		"image/insert.blp",
 		false,
 		{
 			{
@@ -3099,7 +3099,7 @@ bool CEvent::ChangePhase(unsigned int phase)
 			music = m_pDecor->GetMusic();
 			if ( music > 0 )
 			{
-				sprintf(filename, "sound\\music%.3d.blp", music-1);
+				sprintf(filename, "sound/music%.3d.blp", music-1);
 				m_pSound->StopMusic ();
 				m_pSound->PlayMusic(filename);
 			}
@@ -3108,31 +3108,31 @@ bool CEvent::ChangePhase(unsigned int phase)
 
 	if ( phase == WM_PHASE_H0MOVIE )
 	{
-		strcpy(m_movieToStart, "movie\\history0.mkv");
+		strcpy(m_movieToStart, "movie/history0.mkv");
 		m_phaseAfterMovie = WM_PHASE_HISTORY0;
 	}
 
 	if ( phase == WM_PHASE_H1MOVIE )
 	{
-		strcpy(m_movieToStart, "movie\\history1.mkv");
+		strcpy(m_movieToStart, "movie/history1.mkv");
 		m_phaseAfterMovie = WM_PHASE_HISTORY1;
 	}
 
 	if ( phase == WM_PHASE_H2MOVIE )
 	{
-		strcpy(m_movieToStart, "movie\\history2.mkv");
+		strcpy(m_movieToStart, "movie/history2.mkv");
 		m_phaseAfterMovie = WM_PHASE_INFO;
 	}
 
 	if ( phase == WM_PHASE_PLAYMOVIE )
 	{
-		sprintf(m_movieToStart, "movie\\play%.3d.mkv", GetPhysicalWorld());
+		sprintf(m_movieToStart, "movie/play%.3d.mkv", GetPhysicalWorld());
 		m_phaseAfterMovie = WM_PHASE_PLAY;
 	}
 
 	if ( phase == WM_PHASE_WINMOVIE )
 	{
-		sprintf(m_movieToStart, "movie\\win%.3d.mkv", GetPhysicalWorld());
+		sprintf(m_movieToStart, "movie/win%.3d.mkv", GetPhysicalWorld());
 		m_phaseAfterMovie = WM_PHASE_WIN;
 
 		if ( !m_bPrivate &&
@@ -4166,7 +4166,7 @@ bool CEvent::ReadLibelle(int world, bool bSchool, bool bHelp)
 	if ( pBuffer == nullptr )  goto error;
 	memset(pBuffer, 0, sizeof(char)*50000);
 
-	file = fopen("data\\enigmes.blp", "rb");
+	file = fopen("data/enigmes.blp", "rb");
 	if ( file == nullptr )  goto error;
 
 	nb = fread(pBuffer, sizeof(char), 50000-1, file);
@@ -4220,7 +4220,7 @@ bool CEvent::WriteInfo()
 	DescInfo	info;
 	size_t		nb;
 
-	strcpy(filename, "data\\info.blp");
+	strcpy(filename, "data/info.blp");
 	AddUserPath(filename);
 
 	file = fopen(filename, "wb");
@@ -4262,7 +4262,7 @@ bool CEvent::ReadInfo()
 	DescInfo	info;
 	size_t		nb;
 
-	strcpy(filename, "data\\info.blp");
+	strcpy(filename, "data/info.blp");
 	AddUserPath(filename);
 
 	file = fopen(filename, "rb");
@@ -4349,8 +4349,8 @@ void CEvent::DemoRecStop()
 
 	if ( m_pDemoBuffer != nullptr )
 	{
-		_unlink ("data\\demo.blp");
-		file = fopen("data\\demo.blp", "wb");
+		_unlink ("data/demo.blp");
+		file = fopen("data/demo.blp", "wb");
 		if ( file != nullptr )
 		{
 			memset(&header, 0, sizeof(DemoHeader));
@@ -4387,7 +4387,7 @@ bool CEvent::DemoPlayStart()
 	if ( m_pDemoBuffer == nullptr )  return false;
 	memset(m_pDemoBuffer, 0, MAXDEMO*sizeof(DemoEvent));
 
-	sprintf(filename, "data\\demo%.3d.blp", m_demoNumber);
+	sprintf(filename, "data/demo%.3d.blp", m_demoNumber);
 	file = fopen(filename, "rb");
 	if ( file == nullptr )
 	{
@@ -5319,7 +5319,7 @@ bool CEvent::TreatEventBase(const SDL_Event &event)
 			break;
 
 		case WM_MOVIE:
-			StartMovie("movie\\essai.avi");
+			StartMovie("movie/essai.avi");
 			ChangePhase(WM_PHASE_INIT);
 			break;
 	}
