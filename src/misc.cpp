@@ -7,7 +7,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifdef _WIN32
 #include <direct.h>
+#define mkdir(a, b) _mkdir(a)
+#else /* _WIN32 */
+#include <sys/stat.h>
+#endif /*! _WIN32 */
+
 #include "misc.h"
 #include "blupi.h"
 #include "def.h"
@@ -102,7 +109,7 @@ void AddUserPath(char *pFilename)
 		strcat(temp, pFilename);
 		last = temp[pos];
 		temp[pos] = 0;
-		_mkdir (temp);
+		mkdir (temp, 755);
 		temp[pos] = last;
 	}
 	else

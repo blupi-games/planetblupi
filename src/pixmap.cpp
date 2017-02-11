@@ -3,8 +3,15 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include <io.h>
 #include <string>
+
+#ifdef _WIN32
+#include <io.h>
+#define access _access
+#else /* _WIN32 */
+#include <unistd.h>
+#endif /* !_WIN32 */
+
 #include "def.h"
 #include "pixmap.h"
 #include "misc.h"
@@ -192,7 +199,7 @@ bool CPixmap::Cache(int channel, const char *pFilename, POINT totalDim, POINT ic
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 
 	std::string file = pFilename;
-	if (_access ((file + ".bmp").c_str (), 0 /* F_OK */) != -1)
+	if (access ((file + ".bmp").c_str (), 0 /* F_OK */) != -1)
 		file += ".bmp";
 
 	SDL_Surface *surface = SDL_LoadBMP (file.c_str ());

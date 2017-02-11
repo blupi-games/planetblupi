@@ -3,9 +3,9 @@
 #pragma once
 
 #include <unordered_map>
-#include "DEF.H"
-#include "SOUND.H"
-#include "PIXMAP.H"
+#include "def.h"
+#include "sound.h"
+#include "pixmap.h"
 
 /////////////////////////////////////////////////////////////////////////////
 

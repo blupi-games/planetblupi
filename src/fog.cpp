@@ -1,6 +1,6 @@
 // Fog.cpp
 
-#include "DECOR.H"
+#include "decor.h"
 
 // Cette table indique les quarts de cases contenant du
 // brouillard lorsque la valeur est à un.

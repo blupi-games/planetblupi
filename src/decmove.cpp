@@ -1,9 +1,9 @@
 // DecMove.cpp
 //
 
-#include "DECOR.H"
-#include "MISC.H"
-#include "DECMOVE.h"
+#include "decor.h"
+#include "misc.h"
+#include "decmove.h"
 
 // Mouvement pour secouer un arbre
 // (synchrone avec ACTION_PIOCHE).

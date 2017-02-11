@@ -1,8 +1,8 @@
 // Arrange.cpp
 //
 
-#include "DECOR.H"
-#include "MISC.H"
+#include "decor.h"
+#include "misc.h"
 
 // Cette table indique les quarts de cases contenant de
 // l'eau lorsque la valeur est à un.

@@ -2,9 +2,9 @@
 
 // (c) 1997, Denis Dumoulin
 
-#include "DECOR.H"
-#include "FIFO.H"
-#include "ACTION.H"
+#include "decor.h"
+#include "fifo.h"
+#include "action.h"
 
 // Mémorise toutes les positions des blupi.
 

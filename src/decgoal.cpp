@@ -1,8 +1,8 @@
 // DecGoal.cpp
 
 #include "decgoal.h"
-#include "DEF.H"
-#include "DECOR.H"
+#include "def.h"
+#include "decor.h"
 
 short table_goal_nbop[] =
 {

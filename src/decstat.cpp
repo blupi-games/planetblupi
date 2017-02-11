@@ -2,10 +2,10 @@
 //
 
 #include "gettext.h"
-#include "RESOURCE.H"
-#include "DECOR.H"
-#include "TEXT.H"
-#include "MISC.H"
+#include "resource.h"
+#include "decor.h"
+#include "text.h"
+#include "misc.h"
 
 #define STATNB			12
 

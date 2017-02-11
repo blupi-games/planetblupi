@@ -20,6 +20,12 @@
 #include "text.h"
 #include "misc.h"
 
+#ifdef _WIN32
+#define unlink _unlink
+#else // _WIN32
+#include <unistd.h>
+#endif // !_WINE32
+
 
 #define DEF_TIME_HELP	10000		// ~10 minutes
 #define DEF_TIME_DEMO	1000		// ~1 minute
@@ -4349,7 +4355,7 @@ void CEvent::DemoRecStop()
 
 	if ( m_pDemoBuffer != nullptr )
 	{
-		_unlink ("data/demo.blp");
+		unlink ("data/demo.blp");
 		file = fopen("data/demo.blp", "wb");
 		if ( file != nullptr )
 		{

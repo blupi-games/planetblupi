@@ -1,9 +1,9 @@
 // Obstacle.cpp
 //
 
-#include "DECOR.H"
-#include "MISC.H"
-#include "ACTION.H"
+#include "decor.h"
+#include "misc.h"
+#include "action.h"
 
 // Cette table indique les obstacles sur les sols.
 // 0=passage, 1=obstacle

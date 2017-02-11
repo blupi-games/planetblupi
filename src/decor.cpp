@@ -14,7 +14,7 @@
 #include "text.h"
 #include "misc.h"
 #include "fifo.h"
-#include "DECMOVE.h"
+#include "decmove.h"
 
 
 /////////////////////////////////////////////////////////////////////////////
