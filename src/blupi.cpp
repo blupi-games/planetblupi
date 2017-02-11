@@ -256,8 +256,6 @@ static void FinishObjects(void)
 {
 	if ( g_pMovie != nullptr )
 	{
-		g_pEvent->StopMovie();
-
 		delete g_pMovie;
 		g_pMovie = nullptr;
 	}
