@@ -96,7 +96,7 @@ public:
 
 	void	DecorAutoShift(POINT pos);
 	
-	bool	StartMovie(char *pFilename);
+	bool	StartMovie(const char *pFilename);
 	void	StopMovie();
 	bool	IsMovie();
 

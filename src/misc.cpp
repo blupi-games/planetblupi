@@ -19,7 +19,7 @@ extern int		g_mouseType;
 
 // Affiche un message de debug.
 
-void OutputDebug(char *pMessage)
+void OutputDebug(const char *pMessage)
 {
 	SDL_LogDebug (SDL_LOG_CATEGORY_APPLICATION, "%s", pMessage);
 }

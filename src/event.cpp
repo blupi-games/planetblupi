@@ -3982,7 +3982,7 @@ bool CEvent::BuildUp(POINT pos)
 
 // Démarre un film non interractif.
 
-bool CEvent::StartMovie(char *pFilename)
+bool CEvent::StartMovie(const char *pFilename)
 {
 	RECT		rect;
 

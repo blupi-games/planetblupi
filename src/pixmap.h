@@ -19,8 +19,8 @@ public:
 	bool	Flush();
 	void	Fill(RECT rect, COLORREF color);
 
-	bool	Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim);
-	bool	Cache(int channel, char *pFilename, POINT totalDim);
+	bool	Cache(int channel, const char *pFilename, POINT totalDim, POINT iconDim);
+	bool	Cache(int channel, const char *pFilename, POINT totalDim);
 	bool	Cache(int channel, SDL_Surface *surface, POINT totalDim);
 	void	SetClipping(RECT clip);
 	RECT	GetClipping();

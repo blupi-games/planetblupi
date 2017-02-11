@@ -389,7 +389,7 @@ void WindowProc2 (const SDL_Event &event)
 
 // Erreur dans DoInit.
 
-bool InitFail(char *msg, bool bDirectX)
+static bool InitFail(const char *msg, bool bDirectX)
 {
 	char	buffer[100];
 

@@ -187,7 +187,7 @@ int CPixmap::BltFast(SDL_Texture *lpSDL, int channel, POINT dst, RECT rcRect)
 
 // Cache une image contenant des ic�nes.
 
-bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim)
+bool CPixmap::Cache(int channel, const char *pFilename, POINT totalDim, POINT iconDim)
 {
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 
@@ -244,7 +244,7 @@ bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim, POINT iconDim)
 
 // Cache une image globale.
 
-bool CPixmap::Cache(int channel, char *pFilename, POINT totalDim)
+bool CPixmap::Cache(int channel, const char *pFilename, POINT totalDim)
 {
 	POINT		iconDim;
 

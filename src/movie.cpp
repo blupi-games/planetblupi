@@ -77,7 +77,7 @@ void CMovie::fileCloseMovie()
 // the movie paused when opened.
 // Sets <m_fMovieOpen> on success.
 
-bool CMovie::fileOpenMovie(RECT rect, char *pFilename)
+bool CMovie::fileOpenMovie(RECT rect, const char *pFilename)
 {
 	std::string path = GetBaseDir ();
 	path += pFilename;
@@ -193,7 +193,7 @@ bool CMovie::GetEnable()
 
 // Indique si un film existe.
 
-bool CMovie::IsExist(char *pFilename)
+bool CMovie::IsExist(const char *pFilename)
 {
 	std::string path = GetBaseDir ();
 	FILE*	file;
@@ -209,7 +209,7 @@ bool CMovie::IsExist(char *pFilename)
 
 // Montre un film avi.
 
-bool CMovie::Play(RECT rect, char *pFilename)
+bool CMovie::Play(RECT rect, const char *pFilename)
 {
 	if ( !m_bEnable )  return false;
 	if ( !fileOpenMovie(rect, pFilename) )  return false;

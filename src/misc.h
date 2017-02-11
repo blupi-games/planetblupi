@@ -6,7 +6,7 @@
 #include <string>
 #include "blupi.h"
 
-extern void OutputDebug(char *pMessage);
+extern void OutputDebug(const char *pMessage);
 
 extern POINT ConvLongToPos(LPARAM lParam);
 

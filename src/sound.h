@@ -29,7 +29,7 @@ public:
 	int		GetMidiVolume();
 
 	void	CacheAll();
-	bool	Cache(int channel, char *pFilename);
+	bool	Cache(int channel, const char *pFilename);
 	void	Flush(int channel);
 
 	bool	Play(int channel, int volume=0, Uint8 panLeft = 255, Uint8 panRight = 255);

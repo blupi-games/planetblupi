@@ -143,7 +143,7 @@ void CSound::CacheAll()
 
 // Charge un fichier son (.wav).
 
-bool CSound::Cache(int channel, char *pFilename)
+bool CSound::Cache(int channel, const char *pFilename)
 {
 	if ( !m_bEnable )  return false;
 	if ( channel < 0 || channel >= MAXSOUND )  return false;

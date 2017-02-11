@@ -18,8 +18,8 @@ public:
 
 	bool	Create();
 	bool	GetEnable();
-	bool	IsExist(char *pFilename);
-	bool	Play(RECT rect, char *pFilename);
+	bool	IsExist(const char *pFilename);
+	bool	Play(RECT rect, const char *pFilename);
 	void	Stop();
 	void	Pause ();
 	void	Resume ();
@@ -27,7 +27,7 @@ public:
 
 protected:
 	void	playMovie();
-	bool	fileOpenMovie(RECT rect, char *pFilename);
+	bool	fileOpenMovie(RECT rect, const char *pFilename);
 	void	fileCloseMovie();
 	void	termAVI();
 	bool	initAVI();
