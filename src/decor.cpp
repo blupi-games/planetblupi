@@ -3013,7 +3013,6 @@ void CDecor::CelHiliRepeat(int list)
 const char *CDecor::GetResHili(POINT posMouse)
 {
 	int icon;
-	const char *res = nullptr;
 
 	// Les valeurs `corner == true` correspondent aux objets placés
 	// au coin inf/droit de la cellule.

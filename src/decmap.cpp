@@ -33,10 +33,6 @@
 // Bitmap de la carte.
 
 static Uint32 g_map32_bits[DIMMAPY][DIMMAPX];
-static bool g_bPalette;
-
-
-
 
 // Initialise les couleurs pour la carte.
 

@@ -215,8 +215,6 @@ void CMenu::Draw()
 	int			i, state, icon;
 	POINT		pos;
 	RECT		oldClip, clipRect;
-	bool		bLeft  = true;
-	bool		bRight = true;
 	char		text[50];
 	char*		pText;
 
@@ -228,9 +226,6 @@ void CMenu::Draw()
 	clipRect.right  = POSDRAWX+DIMDRAWX;
 	clipRect.bottom = POSDRAWY+DIMDRAWY;
 	m_pPixmap->SetClipping(clipRect);
-
-	if ( m_pos.x-150         < POSDRAWX          )  bLeft  = false;
-	if ( m_pos.x+m_dim.x+150 > POSDRAWX+DIMDRAWX )  bRight = false;
 
 	for ( i=0 ; i<m_nbButtons ; i++ )
 	{

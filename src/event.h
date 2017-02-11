@@ -152,7 +152,7 @@ protected:
 	int			m_mission;
 	int			m_private;
 	int			m_maxMission;
-	int			m_phase;
+	unsigned int m_phase;
 	int			m_index;
 	bool		m_bSchool;
 	bool		m_bPrivate;

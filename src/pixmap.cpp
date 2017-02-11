@@ -268,8 +268,8 @@ bool CPixmap::Cache(int channel, SDL_Surface *surface, POINT totalDim)
 
 	m_lpSDLTexture[channel] = SDL_CreateTextureFromSurface (g_renderer, surface);
 
-    if (m_lpSDLTexture[channel] == nullptr )
-        return false;
+	if (!m_lpSDLTexture[channel])
+		return false;
 
 	m_totalDim[channel] = totalDim;
 	m_iconDim[channel]  = totalDim;
@@ -334,7 +334,6 @@ bool CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos, bool bMask)
 {
 	int			nbx, nby;
 	RECT		rect;
-	COLORREF	oldColor1, oldColor2;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 	if ( channel != CHMAP && m_lpSDLTexture[channel] == nullptr )     return false;
@@ -351,9 +350,6 @@ bool CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos, bool bMask)
 	rect.top    = (rank/nbx)*m_iconDim[channel].y;
 	rect.right  = rect.left + m_iconDim[channel].x;
 	rect.bottom = rect.top  + m_iconDim[channel].y;
-
-	oldColor1 = m_colorSurface[2*channel+0];
-	oldColor2 = m_colorSurface[2*channel+1];
 
 	return !BltFast (chDst, channel, pos, rect);
 }
@@ -372,7 +368,6 @@ bool CPixmap::DrawIconDemi(int chDst, int channel, int rank, POINT pos, bool bMa
 {
 	int			nbx, nby;
 	RECT		rect;
-	COLORREF	oldColor1, oldColor2;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 	if (m_lpSDLTexture[channel] == nullptr )     return false;
@@ -392,9 +387,6 @@ bool CPixmap::DrawIconDemi(int chDst, int channel, int rank, POINT pos, bool bMa
 	rect.right  = rect.left + m_iconDim[channel].x;
 	rect.bottom = rect.top  +(m_iconDim[channel].y/2);
 
-	oldColor1 = m_colorSurface[2*channel+0];
-	oldColor2 = m_colorSurface[2*channel+1];
-
 	return !BltFast (chDst, channel, pos, rect);
 }
 
@@ -405,7 +397,6 @@ bool CPixmap::DrawIconPart(int chDst, int channel, int rank, POINT pos,
 {
 	int			nbx, nby;
 	RECT		rect;
-	COLORREF	oldColor1, oldColor2;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 	if (m_lpSDLTexture[channel] == nullptr )     return false;
@@ -426,9 +417,6 @@ bool CPixmap::DrawIconPart(int chDst, int channel, int rank, POINT pos,
 	pos.y    += startY;
 	rect.top += startY;
 
-	oldColor1 = m_colorSurface[2*channel+0];
-	oldColor2 = m_colorSurface[2*channel+1];
-
 	return !BltFast (chDst, channel, pos, rect);
 }
 
@@ -436,13 +424,8 @@ bool CPixmap::DrawIconPart(int chDst, int channel, int rank, POINT pos,
 
 bool CPixmap::DrawPart(int chDst, int channel, POINT dest, RECT rect, bool bMask)
 {
-	COLORREF	oldColor1, oldColor2;
-
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 	if (m_lpSDLTexture[channel] == nullptr )     return false;
-
-	oldColor1 = m_colorSurface[2*channel+0];
-	oldColor2 = m_colorSurface[2*channel+1];
 
 	return !BltFast (chDst, channel, dest, rect);
 }
@@ -529,15 +512,7 @@ bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 
 bool CPixmap::Display()
 {
-	RECT		MapRect;
-
 	m_bBackDisplayed = true;
-
-	MapRect.left   = 0;
-	MapRect.top    = 0;
-	MapRect.right  = m_dim.x;
-	MapRect.bottom = m_dim.y;
-
 	SDL_RenderPresent (g_renderer);
 	return true;
 }

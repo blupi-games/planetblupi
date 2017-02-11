@@ -30,6 +30,7 @@ CButton::CButton()
 	m_bMouseDown      = false;
 	m_bMinimizeRedraw = false;
 	m_bRedraw         = false;
+	m_message         = static_cast<unsigned int> (-1);
 }
 
 // Destructeur.
@@ -428,7 +429,7 @@ bool CButton::MouseUp(POINT pos)
 
 	if ( !bDetect )  return false;
 
-	if ( m_message != -1 )
+	if ( m_message != static_cast<unsigned int> (-1) )
 	{
 		CEvent::PushUserEvent (m_message);
 	}
