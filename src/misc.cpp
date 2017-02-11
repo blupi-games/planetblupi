@@ -101,22 +101,21 @@ void AddUserPath(char *pFilename)
 	char					last;
 
 	temp = SDL_GetPrefPath ("Epsitec SA", "Planet Blupi");
+	std::string path = temp;
 
 	pText = strstr(pFilename, "/");
 	if ( pText != nullptr )
 	{
-		pos = strlen(temp)+(pText-pFilename)+1;
-		strcat(temp, pFilename);
-		last = temp[pos];
-		temp[pos] = 0;
-		mkdir (temp, 755);
-		temp[pos] = last;
+		pos = path.size () + (pText - pFilename) + 1;
+		path += pFilename;
+		last = path[pos];
+		path[pos] = 0;
+		mkdir (path.c_str (), 755);
+		path[pos] = last;
 	}
 	else
-	{
-		strcat(temp, pFilename);
-	}
+		path += pFilename;
 
-	strcpy(pFilename, temp);
+	strcpy(pFilename, path.c_str ());
 	SDL_free (temp);
 }
