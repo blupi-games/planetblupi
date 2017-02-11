@@ -4393,7 +4393,7 @@ bool CEvent::DemoPlayStart()
 	if ( m_pDemoBuffer == nullptr )  return false;
 	memset(m_pDemoBuffer, 0, MAXDEMO*sizeof(DemoEvent));
 
-	sprintf(filename, "data/demo%.3d.blp", m_demoNumber);
+	sprintf(filename, (GetBaseDir () + "data/demo%.3d.blp").c_str (), m_demoNumber);
 	file = fopen(filename, "rb");
 	if ( file == nullptr )
 	{
