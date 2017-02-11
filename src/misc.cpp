@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <direct.h>
+#include "misc.h"
 #include "blupi.h"
 #include "def.h"
 
@@ -64,33 +65,24 @@ int Random(int min, int max)
 
 // Retourne le nom de dossier en cours.
 
-void GetCurrentDir(char *pName, size_t lg)
+std::string GetBaseDir ()
 {
-	char *basePath = SDL_GetBasePath ();
-	strncpy(pName, basePath, lg-1);
-	pName[lg-1] = 0;
+	char *sdlBasePath = nullptr;
+	static std::string basePath;
 
-	lg = strlen(pName);
-	if (lg == 0)
-		goto out;
-
-	while ( lg > 0 )
+	if (!basePath.size ())
 	{
-		lg --;
-		if ( pName[lg] == '\\' )
-		{
-			pName[lg+1] = 0;
-			break;
-		}
+		sdlBasePath = SDL_GetBasePath ();
+		sdlBasePath[strlen (sdlBasePath) - 1] = '\0';
 	}
 
-	if ( lg > 6 && strcmp(pName+lg-6, "\\Debug\\") == 0 )
-	{
-		pName[lg-5] = 0;  // ignore le dossier \debug !
-	}
+	std::string path = sdlBasePath;
+	path = path.substr (0, path.find_last_of ("\\/") + 1);
 
-out:
-	SDL_free (basePath);
+	if (sdlBasePath)
+		SDL_free (sdlBasePath);
+
+	return path;
 }
 
 // Ajoute le chemin permettant de lire un fichier

@@ -79,24 +79,15 @@ void CMovie::fileCloseMovie()
 
 bool CMovie::fileOpenMovie(RECT rect, char *pFilename)
 {
-	char					string[MAX_PATH];
-
-	if ( pFilename[1] == ':' )  // nom complet "D:\REP..." ?
-	{
-		strcpy(string, pFilename);
-	}
-	else
-	{
-		GetCurrentDir(string, MAX_PATH-30);
-		strcat(string, pFilename);
-	}
+	std::string path = GetBaseDir ();
+	path += pFilename;
 
 	// we got a filename, now close any old movie and open the new one.					*/
-	if ( m_fMovieOpen )  fileCloseMovie();	
+	if ( m_fMovieOpen )  fileCloseMovie();
 
 	// Open up the sourcefile.
 	// This can be a local file, network url, ...
-	m_movie = Kit_CreateSourceFromUrl (string);
+	m_movie = Kit_CreateSourceFromUrl (path.c_str ());
 	if (m_movie)
 	{
 		// Create the player
@@ -204,20 +195,12 @@ bool CMovie::GetEnable()
 
 bool CMovie::IsExist(char *pFilename)
 {
-	char	string[MAX_PATH];
+	std::string path = GetBaseDir ();
 	FILE*	file;
 
-	if ( pFilename[1] == ':' )  // nom complet "D:\REP..." ?
-	{
-		strcpy(string, pFilename);
-	}
-	else
-	{
-		GetCurrentDir(string, MAX_PATH-30);
-		strcat(string, pFilename);
-	}
+	path += pFilename;
 
-	file = fopen(string, "rb");
+	file = fopen(path.c_str (), "rb");
 	if ( file == nullptr )  return false;
 
 	fclose(file);

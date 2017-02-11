@@ -267,7 +267,7 @@ bool CSound::PlayImage(int channel, POINT pos, int rank)
 
 bool CSound::PlayMusic(const char *lpszMIDIFilename)
 {
-	char string[MAX_PATH];
+	std::string path = GetBaseDir ();
 
 	if ( !m_bEnable )  return true;
 	if ( m_midiVolume == 0 )  return true;
@@ -275,17 +275,9 @@ bool CSound::PlayMusic(const char *lpszMIDIFilename)
 	Mix_VolumeMusic (MIX_MAX_VOLUME * 100 * m_midiVolume / 20 / 100);
 	m_lastMidiVolume = m_midiVolume;
 
-	if ( lpszMIDIFilename[1] == ':' )  // nom complet "D:\REP..." ?
-	{
-		strcpy(string, lpszMIDIFilename);
-	}
-	else
-	{
-		GetCurrentDir(string, MAX_PATH-30);
-		strcat(string, lpszMIDIFilename);
-	}
+	path += lpszMIDIFilename;
 
-	m_pMusic = Mix_LoadMUS (string);
+	m_pMusic = Mix_LoadMUS (path.c_str ());
 	if (!m_pMusic)
 	{
 		printf ("%s\n", Mix_GetError ());
