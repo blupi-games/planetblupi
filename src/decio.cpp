@@ -191,7 +191,7 @@ bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
 	}
 	else
 	{
-		sprintf(filename, "data/world%.3d.blp", rank);
+		sprintf(filename, (GetBaseDir () + "data/world%.3d.blp").c_str (), rank);
 	}
 
 	file = fopen(filename, "rb");
