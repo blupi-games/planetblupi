@@ -198,7 +198,7 @@ bool CPixmap::Cache(int channel, const char *pFilename, POINT totalDim, POINT ic
 {
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 
-	std::string file = pFilename;
+	std::string file = GetBaseDir () + pFilename;
 	if (access ((file + ".bmp").c_str (), 0 /* F_OK */) != -1)
 		file += ".bmp";
 

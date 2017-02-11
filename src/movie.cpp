@@ -79,8 +79,7 @@ void CMovie::fileCloseMovie()
 
 bool CMovie::fileOpenMovie(RECT rect, const char *pFilename)
 {
-	std::string path = GetBaseDir ();
-	path += pFilename;
+	const auto path = GetBaseDir () + pFilename;
 
 	// we got a filename, now close any old movie and open the new one.					*/
 	if ( m_fMovieOpen )  fileCloseMovie();
@@ -195,10 +194,8 @@ bool CMovie::GetEnable()
 
 bool CMovie::IsExist(const char *pFilename)
 {
-	std::string path = GetBaseDir ();
+	const auto path = GetBaseDir () + pFilename;
 	FILE*	file;
-
-	path += pFilename;
 
 	file = fopen(path.c_str (), "rb");
 	if ( file == nullptr )  return false;

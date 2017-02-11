@@ -151,7 +151,9 @@ bool CSound::Cache(int channel, const char *pFilename)
 	if (m_lpSDL[channel])
 		Flush(channel);
 
-	m_lpSDL[channel] = Mix_LoadWAV (pFilename);
+	const auto file = GetBaseDir () + pFilename;
+
+	m_lpSDL[channel] = Mix_LoadWAV (file.c_str ());
 	if (!m_lpSDL[channel])
 	{
 		SDL_Log ("Mix_LoadWAV: %s\n", Mix_GetError ());

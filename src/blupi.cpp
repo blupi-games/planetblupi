@@ -68,7 +68,9 @@ bool ReadConfig(int argc, char *argv[])
 	char*		pText;
 	size_t		nb;
 
-	file = fopen("data/config.ini", "rb");
+	const auto config = GetBaseDir () + "data/config.ini";
+
+	file = fopen(config.c_str (), "rb");
 	if ( file == nullptr )  return false;
 	nb = fread(buffer, sizeof(char), 200-1, file);
 	buffer[nb] = 0;
