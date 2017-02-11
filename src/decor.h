@@ -21,7 +21,7 @@
 #define ICON_HILI_BUILD	118
 #define ICON_HILI_ERR	119
 
-// Descripteur d'une cellule du décor.
+// Descripteur d'une cellule du dÃ©cor.
 typedef struct
 {
 	short	floorChannel;
@@ -34,36 +34,36 @@ typedef struct
 	short	fire;
 }
 Cellule;
-// Cette structure doit être la plus petite possible, car
+// Cette structure doit Ãªtre la plus petite possible, car
 // il en existe un tableau de 100x100 = 10'000 cellules !
 
-// Descripteur d'un blupi animé.
+// Descripteur d'un blupi animÃ©.
 #define MAXBLUPI	100
 #define MAXUSED		50
 #define MAXLIST		10
 
 typedef struct
 {
-	int		bExist;			// true -> utilisé
-	int		bHili;			// true -> sélectionné
+	int		bExist;			// true -> utilisÃ©
+	int		bHili;			// true -> sÃ©lectionnÃ©
 
 	short	perso;			// personnage, voir (*)
 
 	short	goalAction;		// action (long terme)
 	short	goalPhase;		// phase (long terme)
-	POINT	goalCel;		// cellule visée (long terme)
+	POINT	goalCel;		// cellule visÃ©e (long terme)
 	POINT	passCel;		// cellule tranversante
 
-	short	energy;			// énergie restante
+	short	energy;			// Ã©nergie restante
 
 	POINT	cel;			// cellule actuelle
 	POINT	destCel;		// cellule destination
 	short	action;			// action en cours
 	short	aDirect;		// direction actuelle
-	short	sDirect;		// direction souhaitée
+	short	sDirect;		// direction souhaitÃ©e
 
-	POINT	pos;			// position relative à partir de la cellule
-	short	posZ;			// déplacement z
+	POINT	pos;			// position relative Ã  partir de la cellule
+	short	posZ;			// dÃ©placement z
 	short	channel;
 	short	lastIcon;
 	short	icon;
@@ -72,12 +72,12 @@ typedef struct
 	short	interrupt;		// 0=prioritaire, 1=normal, 2=misc
 	short	clipLeft;
 
-	int		nbUsed;			// nb de points déjà visités
+	int		nbUsed;			// nb de points dÃ©jÃ  visitÃ©s
 	char	nextRankUsed;
 	POINT	posUsed[MAXUSED];
 	char	rankUsed[MAXUSED];
 
-	short	takeChannel;	// objet transporté
+	short	takeChannel;	// objet transportÃ©
 	short	takeIcon;
 
 	POINT	fix;			// point fixe (cultive, pont)
@@ -85,15 +85,15 @@ typedef struct
 	short	jaugePhase;
 	short	jaugeMax;
 	short	stop;			// 1 -> devra stopper
-	short	bArrow;			// true -> flèche en dessus de blupi
-	short	bRepeat;		// true -> répète l'action
+	short	bArrow;			// true -> flÃ¨che en dessus de blupi
+	short	bRepeat;		// true -> rÃ©pÃ¨te l'action
 	short	nLoop;			// nb de boucles pour GOAL_OTHERLOOP
 	short	cLoop;			// boucle en cours
-	short	vIcon;			// icône variable
-	POINT	goalHili;		// but visé
+	short	vIcon;			// icÃ´ne variable
+	POINT	goalHili;		// but visÃ©
 	short	bMalade;		// true -> blupi malade
-	short	bCache;			// true -> caché (pas dessiné)
-	short	vehicule;		// véhicule utilisé par blupi, voir (**)
+	short	bCache;			// true -> cachÃ© (pas dessinÃ©)
+	short	vehicule;		// vÃ©hicule utilisÃ© par blupi, voir (**)
 	char	busyCount;
 	char	busyDelay;
 	char	clicCount;
@@ -110,31 +110,31 @@ Blupi;
 
 // (*)	Personnages :
 //		0 -> blupi
-//		1 -> araignée
+//		1 -> araignÃ©e
 //		2 -> virus
 //		3 -> tracks
 //		4 -> robot
 //		5 -> bombe
-//		6 -> détonnateur de mine (invisible)
-//		7 -> électro
+//		6 -> dÃ©tonnateur de mine (invisible)
+//		7 -> Ã©lectro
 //		8 -> disciple (robot2)
 
-// (**)	Véhicule :
-//		0 -> à pied
+// (**)	VÃ©hicule :
+//		0 -> Ã  pied
 //		1 -> en bateau
 //		2 -> en jeep
 //		3 -> armure
 
 
-// Descripteur d'un décor animé.
+// Descripteur d'un dÃ©cor animÃ©.
 #define MAXMOVE		100
 #define MOVEICONNB	1000
 
 typedef struct
 {
-	int		bExist;			// true -> utilisé
+	int		bExist;			// true -> utilisÃ©
 
-	POINT	cel;			// cellule du décor
+	POINT	cel;			// cellule du dÃ©cor
 	short	rankBlupi;		// blupi travaillant ici
 
 	int		bFloor;			// true -> floor, false -> object
@@ -146,8 +146,8 @@ typedef struct
 	short	rankMoves;		// *nb,dx,dy,...
 	short	rankIcons;		// *nb,i,i,...
 
-	short	total;			// nb total d'étapes
-	short	delai;			// délai entre deux pas
+	short	total;			// nb total d'Ã©tapes
+	short	delai;			// dÃ©lai entre deux pas
 	short	stepY;			// pas vertical *100
 
 	short	cTotal;
@@ -455,13 +455,13 @@ protected:
 	POINT		m_celOutline2;
 	POINT		m_shiftOffset;
 	int			m_iconHili[4][4];
-	int			m_rankHili;			// rang du blupi visé
+	int			m_rankHili;			// rang du blupi visÃ©
 	bool		m_bHiliRect;
-	POINT		m_p1Hili;			// coins rectangle de sélection
+	POINT		m_p1Hili;			// coins rectangle de sÃ©lection
 	POINT		m_p2Hili;
 	int			m_shiftHili;
-	int			m_nbBlupiHili;		// nb de blupi sélectionnés
-	int			m_rankBlupiHili;	// rang blupi sélectionné
+	int			m_nbBlupiHili;		// nb de blupi sÃ©lectionnÃ©s
+	int			m_rankBlupiHili;	// rang blupi sÃ©lectionnÃ©
 	bool		m_bFog;				// true -> brouillard (jeu)
 	bool		m_bBuild;			// true -> construction
 	bool		m_bInvincible;		// true -> cheat code
@@ -470,30 +470,30 @@ protected:
 	int			m_time;				// temps relatif global
 	int			m_timeConst;		// temps relatif global constant
 	int			m_timeFlipOutline;	// temps quand basculer mode outline
-	int			m_totalTime;		// temps total passé sur une partie
+	int			m_totalTime;		// temps total passÃ© sur une partie
 	int			m_phase;			// phase pour la carte
-	POINT		m_celArrow;			// cellule avec flèche
+	POINT		m_celArrow;			// cellule avec flÃ¨che
 	bool		m_bOutline;
 	bool		m_bGroundRedraw;
 	char		m_buttonExist[MAXBUTTON];
 	int			m_statNb;			// nb de statistiques
-	int			m_statFirst;		// première statistique visible
-	int			m_bStatUp;			// flèche up statistique
-	int			m_bStatDown;		// flèche down statistique
-	int			m_statHili;			// statistique survolée
+	int			m_statFirst;		// premiÃ¨re statistique visible
+	int			m_bStatUp;			// flÃ¨che up statistique
+	int			m_bStatDown;		// flÃ¨che down statistique
+	int			m_statHili;			// statistique survolÃ©e
 	bool		m_bStatRecalc;		// true -> recalcule les statistiques
 	bool		m_bStatRedraw;		// true -> redessine les statistiques
 	int			m_nbStatHach;		// nb de hachures
-	int			m_nbStatHachBlupi;	// hachures occupées par blupi
-	int			m_nbStatHachPlanche;// hachures occupées par planches
-	int			m_nbStatHachTomate;	// hachures occupées par tomates
-	int			m_nbStatHachMetal;	// hachures occupées par métal
-	int			m_nbStatHachRobot;	// hachures occupées par robot
+	int			m_nbStatHachBlupi;	// hachures occupÃ©es par blupi
+	int			m_nbStatHachPlanche;// hachures occupÃ©es par planches
+	int			m_nbStatHachTomate;	// hachures occupÃ©es par tomates
+	int			m_nbStatHachMetal;	// hachures occupÃ©es par mÃ©tal
+	int			m_nbStatHachRobot;	// hachures occupÃ©es par robot
 	int			m_nbStatHome;		// nb de maisons
-	int			m_nbStatHomeBlupi;	// maisons occupées par blupi
+	int			m_nbStatHomeBlupi;	// maisons occupÃ©es par blupi
 	int			m_nbStatRobots;		// nb d'ennemis
 	Term		m_term;				// conditions pour gagner
-	int			m_winCount;			// compteur avant gagné
+	int			m_winCount;			// compteur avant gagnÃ©
 	int			m_winLastHachBlupi;	// dernier nombre atteint
 	int			m_winLastHachPlanche;// dernier nombre atteint
 	int			m_winLastHachTomate;// dernier nombre atteint
@@ -502,12 +502,12 @@ protected:
 	int			m_winLastHome;		// dernier nombre atteint
 	int			m_winLastHomeBlupi;	// dernier nombre atteint
 	int			m_winLastRobots;	// dernier nombre atteint
-	int			m_music;			// numéro musique
-	int			m_region;			// numéro région (*)
-	int			m_lastRegion;		// numéro dernière région
+	int			m_music;			// numÃ©ro musique
+	int			m_region;			// numÃ©ro rÃ©gion (*)
+	int			m_lastRegion;		// numÃ©ro derniÃ¨re rÃ©gion
 	int			m_blupiHere;
 	POINT		m_lastDrapeau[MAXLASTDRAPEAU];
-	bool		m_bHideTooltips;	// true -> menu présent
+	bool		m_bHideTooltips;	// true -> menu prÃ©sent
 	char		m_text[50];
 	POINT		m_textLastPos;
 	int			m_textCount;
@@ -529,7 +529,7 @@ protected:
 	char*		m_pFillMap;
 };
 
-// (*)	Régions :
+// (*)	RÃ©gions :
 //		0 -> normal
 //		1 -> palmier
 //		2 -> hiver

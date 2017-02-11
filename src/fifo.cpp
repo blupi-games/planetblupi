@@ -4,8 +4,8 @@
 #include "fifo.h"
 
 
-// gestion d'une pile classÈe en valeur croissantes
-// typiquement reprend les coordonnÈes les plus proches
+// gestion d'une pile class√©e en valeur croissantes
+// typiquement reprend les coordonn√©es les plus proches
 // du but en premier lieu
 
 CPileTriee::CPileTriee(long taille)
@@ -36,10 +36,10 @@ void CPileTriee::put(long pos, long dist)
 	
 	while (i!=m_max)
 	{
-		// le point est-il plus proche que celui-l‡ ?
+		// le point est-il plus proche que celui-l√† ?
 		if (dist<m_data[i].dist)
 		{
-			// oui, insert et dÈcale le suivant
+			// oui, insert et d√©cale le suivant
 			p = m_data[i].pos;
 			d = m_data[i].dist;
 			m_data[i].pos = pos;
@@ -51,7 +51,7 @@ void CPileTriee::put(long pos, long dist)
 		if (i>=m_taille) i=0;
 	}
 	
-	// ajoute le point ÈloignÈ ‡ la suite
+	// ajoute le point √©loign√© √† la suite
 	m = m_max+1;
 	if (m>=m_taille) m=0;
 	if (m!=m_out)

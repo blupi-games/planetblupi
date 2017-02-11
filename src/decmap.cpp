@@ -56,10 +56,10 @@ void CDecor::MapInitColors()
 	m_colors[MAP_FIRE]  = MapRGB (255, 0, 0);      // rouge
 	m_colors[MAP_TOMAT] = MapRGB (255, 0, 0);      // rouge
 	m_colors[MAP_BUILD] = MapRGB (0, 0, 0);        // noir
-	m_colors[MAP_ENNEMI]= MapRGB (0, 192, 255);    // bleu métal
+	m_colors[MAP_ENNEMI]= MapRGB (0, 192, 255);    // bleu mÃ©tal
 	m_colors[MAP_FLEUR] = MapRGB (255, 206, 0);    // jaune
 
-	m_colors[MAP_TREE]  = MapRGB (0 ,102, 0);      // vert foncé
+	m_colors[MAP_TREE]  = MapRGB (0 ,102, 0);      // vert foncÃ©
 	m_colors[MAP_HERB1] = MapRGB (0 ,204, 51);     // vert clair
 	m_colors[MAP_HERB2] = MapRGB (0 ,156, 8);      // vert moyen
 	m_colors[MAP_TERRE] = MapRGB (94, 78, 12);     // brun
@@ -124,7 +124,7 @@ POINT CDecor::ConvMapToCel(POINT pos)
 }
 
 
-// Déplace le décor suite à un clic dans la carte.
+// DÃ©place le dÃ©cor suite Ã  un clic dans la carte.
 
 bool CDecor::MapMove(POINT pos)
 {
@@ -343,7 +343,7 @@ static char color_object[] =
 	MAP_FLEUR, MAP_FLEUR, MAP_FLEUR, MAP_FLEUR,
 	MAP_FLEUR, MAP_FLEUR, MAP_FLEUR, MAP_FLEUR,
 
-	MAP_HERB1, MAP_HERB1, MAP_HERB1, MAP_HERB1,	// ennemi piégé
+	MAP_HERB1, MAP_HERB1, MAP_HERB1, MAP_HERB1,	// ennemi piÃ©gÃ©
 	MAP_HERB1, MAP_HERB1, MAP_HERB1, MAP_HERB1,
 	MAP_HERB1, MAP_HERB1, MAP_HERB1, MAP_HERB1,
 
@@ -355,7 +355,7 @@ static char color_object[] =
 	MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,
 	MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,
 
-	MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,	// barrière
+	MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,	// barriÃ¨re
 	MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,
 	MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,
 	MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,
@@ -364,7 +364,7 @@ static char color_object[] =
 	MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,
 
 	MAP_BUILD, MAP_BUILD, MAP_BUILD, MAP_BUILD,	// maison
-	MAP_HERB1, MAP_HERB1, MAP_HERB1, MAP_HERB1,	// ennemi piégé
+	MAP_HERB1, MAP_HERB1, MAP_HERB1, MAP_HERB1,	// ennemi piÃ©gÃ©
 
 	MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,
 	MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,MAP_ENNEMI,
@@ -433,7 +433,7 @@ void CDecor::MapPutCel(POINT pos)
 		fogCel.y = (fogCel.y/4)*4;
 		if ( fogCel.x < 0 || fogCel.x >= MAXCELX ||
 			 fogCel.y < 0 || fogCel.y >= MAXCELY ||
-			 m_decor[fogCel.x/2][fogCel.y/2].fog == FOGHIDE )  // caché ?
+			 m_decor[fogCel.x/2][fogCel.y/2].fog == FOGHIDE )  // cachÃ© ?
 		{
 			pColors = color_deffog;
 			goto color;
@@ -474,7 +474,7 @@ void CDecor::MapPutCel(POINT pos)
 }
 
 
-// Génère la carte.
+// GÃ©nÃ¨re la carte.
 
 bool CDecor::GenerateMap()
 {
@@ -483,7 +483,7 @@ bool CDecor::GenerateMap()
 
 	if ( m_phase != -1 && m_phase%20 != 0 )  return true;
 
-	// Dessine le décor (sol, objets et brouillard).
+	// Dessine le dÃ©cor (sol, objets et brouillard).
 	for ( pos.y=0 ; pos.y<DIMMAPY ; pos.y++ )
 	{
 		dx = pos.y%2;

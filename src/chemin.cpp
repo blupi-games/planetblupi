@@ -6,7 +6,7 @@
 #include "fifo.h"
 #include "action.h"
 
-// Mémorise toutes les positions des blupi.
+// MÃ©morise toutes les positions des blupi.
 
 void CDecor::CheminMemPos(int exRank)
 {
@@ -17,7 +17,7 @@ void CDecor::CheminMemPos(int exRank)
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{
 		if ( m_blupi[rank].bExist &&
-			 m_blupi[rank].perso != 6 &&  // pas le détonnateur de mine
+			 m_blupi[rank].perso != 6 &&  // pas le dÃ©tonnateur de mine
 			 rank != exRank )
 		{
 			m_cheminPos[index]  = m_blupi[rank].cel;
@@ -37,7 +37,7 @@ void CDecor::CheminMemPos(int exRank)
 	}
 }
 
-// Teste si une positiion est occupée par un blupi.
+// Teste si une positiion est occupÃ©e par un blupi.
 
 bool CDecor::CheminTestPos(POINT pos, int &rank)
 {
@@ -57,10 +57,10 @@ bool CDecor::CheminTestPos(POINT pos, int &rank)
 }
 
 
-// une fois le but trouvé, reprend en arrière
-// à la recherche du chemin le plus court
+// une fois le but trouvÃ©, reprend en arriÃ¨re
+// Ã  la recherche du chemin le plus court
 
-// retourne la direction à prendre
+// retourne la direction Ã  prendre
 int CDecor::CheminARebours(int rank)
 {
 	int		pos, rebours, last, dir, set;
@@ -99,9 +99,9 @@ int CDecor::CheminARebours(int rank)
 }
 
 
-// troisième méthode de recherche
-// semblable à la précédente,
-// mais les points à explorer sont classés selon leur distance à la cible
+// troisiÃ¨me mÃ©thode de recherche
+// semblable Ã  la prÃ©cÃ©dente,
+// mais les points Ã  explorer sont classÃ©s selon leur distance Ã  la cible
 
 void CDecor::CheminFillTerrain(int rank)
 {
@@ -118,10 +118,10 @@ void CDecor::CheminFillTerrain(int rank)
 	
 	CPileTriee fifo(2*MAXCELX+2*MAXCELY);  // les variantes possibles
 	
-	fifo.put(pos, 0);  					// position de départ
-	m_cheminWork[pos] = 1;  			// première position
+	fifo.put(pos, 0);  					// position de dÃ©part
+	m_cheminWork[pos] = 1;  			// premiÃ¨re position
 
-	// répète jusqu'à trouvé ou plus de possibilités
+	// rÃ©pÃ¨te jusqu'Ã  trouvÃ© ou plus de possibilitÃ©s
 	max = 500;
 	while ( max-- > 0 )
 	{
@@ -131,11 +131,11 @@ void CDecor::CheminFillTerrain(int rank)
 
 		step = m_cheminWork[pos];
 		
-		// on est arrivé au but ?
+		// on est arrivÃ© au but ?
 //?		if ( pos == dest )  return;
 		if ( pos == dest )
 		{
-			but = step;  // hélas trop lent !
+			but = step;  // hÃ©las trop lent !
 			max = 50;
 		}
 		
@@ -153,7 +153,7 @@ void CDecor::CheminFillTerrain(int rank)
 				if ( m_cheminWork[last] == 0 ||
 					 m_cheminWork[last] > step+cout )
 				{
-					// marque les cases sautées
+					// marque les cases sautÃ©es
 					for (int i=1; i<ampli;i++)
 					{
 						m_cheminWork[pos+i*next] = step+cout-ampli+i;
@@ -175,10 +175,10 @@ void CDecor::CheminFillTerrain(int rank)
 }
 
 
-// routine déterninant si une direction est possible
-// retourne l'incrément pour passer à la nouvelle case
-// et le "prix à payer" pour aller dans cette direction
-// coût doit être déterminé en sortie
+// routine dÃ©terninant si une direction est possible
+// retourne l'incrÃ©ment pour passer Ã  la nouvelle case
+// et le "prix Ã  payer" pour aller dans cette direction
+// coÃ»t doit Ãªtre dÃ©terminÃ© en sortie
 
 bool CDecor::CheminTestDirection(int rank, int pos, int dir,
 								 int &next, int &ampli,
@@ -196,25 +196,25 @@ bool CDecor::CheminTestDirection(int rank, int pos, int dir,
 
 	// Peut-on glisser dans cette direction ?
 	bFree = IsFreeGlisse(cel, tryDirect, rank, action);
-	cout = 5;  // coût élevé
+	cout = 5;  // coÃ»t Ã©levÃ©
 
 	if ( !bFree )
 	{
 		// Peut-on marcher normalement ?
 		bFree = IsFreeDirect(cel, tryDirect, rank);
 		action = ACTION_MARCHE;
-		cout = 1;  // coût minimal
+		cout = 1;  // coÃ»t minimal
 	}
 
 	if ( !bFree )
 	{
 		// Peut-on sauter ?
 		bFree = IsFreeJump(cel, tryDirect, rank, action);
-		cout = 3;  // coût élevé
+		cout = 3;  // coÃ»t Ã©levÃ©
 	}
 
 	ampli = GetAmplitude(action);  	// a <- amplitude (1..5)
-	cout *= ampli; 					// coût plus élevé si grande amplitude
+	cout *= ampli; 					// coÃ»t plus Ã©levÃ© si grande amplitude
 
 	// Blupi peut aller sur le lieu de la construction.
 	if ( !bFree && m_blupi[rank].passCel.x != -1 )
@@ -234,12 +234,12 @@ bool CDecor::CheminTestDirection(int rank, int pos, int dir,
 	if ( bFree )  // chemin libre (sans tenir compte des perso) ?
 	{
 		newCel.x = cel.x + vector.x*ampli;
-		newCel.y = cel.y + vector.y*ampli;  // newCel <- arrivée suposée
+		newCel.y = cel.y + vector.y*ampli;  // newCel <- arrivÃ©e suposÃ©e
 
 		if ( m_blupi[rank].perso == 3 )   // tracks ?
 		{
 			// Le tracks peut aller sur les blupi
-			// pour les écraser !
+			// pour les Ã©craser !
 			if ( IsTracksHere(newCel, false) )  // autre perso ici ?
 			{
 				return false;
@@ -254,7 +254,7 @@ bool CDecor::CheminTestDirection(int rank, int pos, int dir,
 //?				if ( m_blupi[m_blupiHere].goalCel.x == -1 )  return false;
 				if ( m_blupi[rankHere].goalCel.x == -1 )  return false;
 
-				// Si blupi mobile, possible mais coût élevé.
+				// Si blupi mobile, possible mais coÃ»t Ã©levÃ©.
 				cout = 20;
 			}
 		}
@@ -267,20 +267,20 @@ bool CDecor::CheminTestDirection(int rank, int pos, int dir,
 
 
 
-// Retourne true si on a assigné une nouvelle direction à blupi.
+// Retourne true si on a assignÃ© une nouvelle direction Ã  blupi.
 bool CDecor::CheminCherche(int rank, int &action)
 {
 	int 	cout;		// prix pour aller dans une direction
 	int		pos, dir, next, ampli;
 
-	// Déjà à destination ?
+	// DÃ©jÃ  Ã  destination ?
 	if ( m_blupi[rank].cel.x == m_blupi[rank].goalCel.x &&
 		 m_blupi[rank].cel.y == m_blupi[rank].goalCel.y )
 	{
 		return false;
 	}
 
-	// Destination occupée ?
+	// Destination occupÃ©e ?
 	if ( IsBlupiHereEx(m_blupi[rank].goalCel, rank, false) )
 	{
 		return false;
@@ -290,10 +290,10 @@ bool CDecor::CheminCherche(int rank, int &action)
 	CheminMemPos(rank);
 	
 	// fait un remplissage du map de travail
-	// autour du point de départ
+	// autour du point de dÃ©part
 	CheminFillTerrain(rank);
     
-    // cherche le chemin à partir de la destination
+    // cherche le chemin Ã  partir de la destination
 	dir = CheminARebours(rank);
 	if ( dir < 0 )  return false;
 
@@ -310,7 +310,7 @@ bool CDecor::CheminCherche(int rank, int &action)
 }
 
 
-// Teste s'il est possible de se rendre à un endroit donné.
+// Teste s'il est possible de se rendre Ã  un endroit donnÃ©.
 
 bool CDecor::IsCheminFree(int rank, POINT dest, int button)
 {
@@ -338,7 +338,7 @@ bool CDecor::IsCheminFree(int rank, POINT dest, int button)
 		  m_decor[dest.x/2][dest.y/2].objectIcon == 16  ) &&  // armure ?
 		 dest.x%2 == 1 && dest.y%2 == 1 )
 	{
-		dest.y --;  // va à côté jeep/armure
+		dest.y --;  // va Ã  cÃ´tÃ© jeep/armure
 	}
 	if ( button == BUTTON_GO &&
 		 m_decor[dest.x/2][dest.y/2].objectChannel == CHOBJECT &&

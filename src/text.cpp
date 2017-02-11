@@ -10,7 +10,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 
-// Retourne l'offset pour un caractère donné.
+// Retourne l'offset pour un caractÃ¨re donnÃ©.
 
 int GetOffset(char c)
 {
@@ -29,12 +29,12 @@ int GetOffset(char c)
 			return 15+i;
 		}
 	}
-	if ( c<0 || c>128 )  return 1;  // carré
+	if ( c<0 || c>128 )  return 1;  // carrÃ©
 
 	return c;
 }
 
-// Retourne la longueur d'un caractère.
+// Retourne la longueur d'un caractÃ¨re.
 
 int GetCharWidth(char c, int font)
 {
@@ -101,7 +101,7 @@ void DrawText(CPixmap *pPixmap, POINT pos, const char *pText, int font)
 	}
 }
 
-// Affiche un texte penché.
+// Affiche un texte penchÃ©.
 
 void DrawTextPente(CPixmap *pPixmap, POINT pos, char *pText,
 				   int pente, int font)
@@ -123,8 +123,8 @@ void DrawTextPente(CPixmap *pPixmap, POINT pos, char *pText,
 	}
 }
 
-// Affiche un pavé de texte.
-// Une ligne vide est affichée avec un demi interligne !
+// Affiche un pavÃ© de texte.
+// Une ligne vide est affichÃ©e avec un demi interligne !
 // Si part != -1, n'affiche que les lignes qui commencent
 // par "n|", avec n=part.
 
@@ -175,13 +175,13 @@ void DrawTextRect(CPixmap *pPixmap, POINT pos, char *pText,
 		}
 		else
 		{
-			pos.y += itl;  // passe à la ligne suivante
+			pos.y += itl;  // passe Ã  la ligne suivante
 		}
 	}
 }
 
-// Affiche un texte centré pouvant éventuellement
-// contenir plusieurs lignes séparées par des '\n'.
+// Affiche un texte centrÃ© pouvant Ã©ventuellement
+// contenir plusieurs lignes sÃ©parÃ©es par des '\n'.
 
 void DrawTextCenter(CPixmap *pPixmap, POINT pos, const char *pText, int font)
 {
@@ -215,7 +215,7 @@ void DrawTextCenter(CPixmap *pPixmap, POINT pos, const char *pText, int font)
 		}
 		else
 		{
-			pos.y += itl;  // passe à la ligne suivante
+			pos.y += itl;  // passe Ã  la ligne suivante
 		}
 	}
 }
@@ -260,7 +260,7 @@ int GetTextHeight(char *pText, int font, int part)
 		}
 		else
 		{
-			h += itl;  // passe à la ligne suivante
+			h += itl;  // passe Ã  la ligne suivante
 		}
 	}
 

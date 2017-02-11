@@ -21,7 +21,7 @@
 
 
 
-#define TEXTDELAY		10		// dÈlai avant apparition tooltips
+#define TEXTDELAY		10		// d√©lai avant apparition tooltips
 
 POINT GetCel(int x, int y)
 {
@@ -41,9 +41,9 @@ POINT GetCel(POINT cel, int x, int y)
 	return cel;
 }
 
-// Indique si une coordonnÈe de cellule est valide.
-// On ne peut pas aller dans la derniËre cellule tout au
-// bord (-2) pour permettre de gÈrer le brouillard proprement
+// Indique si une coordonn√©e de cellule est valide.
+// On ne peut pas aller dans la derni√®re cellule tout au
+// bord (-2) pour permettre de g√©rer le brouillard proprement
 // jusque dans les bords !
 
 bool IsValid(POINT cel)
@@ -53,7 +53,7 @@ bool IsValid(POINT cel)
 	return true;
 }
 
-// Retourne un vecteur orientÈ dans une direction donnÈe.
+// Retourne un vecteur orient√© dans une direction donn√©e.
 
 POINT GetVector(int direct)
 {
@@ -110,7 +110,7 @@ CDecor::CDecor()
 	m_celOutline1.x = -1;
 	m_celOutline2.x = -1;
 
-	m_bHiliRect = false;  // pas de rectangle de sÈlection
+	m_bHiliRect = false;  // pas de rectangle de s√©lection
 	m_shiftHili = 0;
 
 	m_shiftOffset.x = 0;
@@ -143,11 +143,11 @@ CDecor::CDecor()
 
 CDecor::~CDecor()
 {
-	UndoClose();  // libËre le buffer du undo
+	UndoClose();  // lib√®re le buffer du undo
 }
 
 
-// Initialisation gÈnÈrale.
+// Initialisation g√©n√©rale.
 
 void CDecor::Create(CSound *pSound, CPixmap *pPixmap)
 {
@@ -156,7 +156,7 @@ void CDecor::Create(CSound *pSound, CPixmap *pPixmap)
 	m_bOutline = false;
 }
 
-// Initialise le dÈcor avec un sol plat partout.
+// Initialise le d√©cor avec un sol plat partout.
 
 void CDecor::Init(int channel, int icon)
 {
@@ -172,7 +172,7 @@ void CDecor::Init(int channel, int icon)
 			m_decor[x][y].objectChannel = -1;
 			m_decor[x][y].objectIcon    = -1;
 
-			m_decor[x][y].fog           =  FOGHIDE;  // cachÈ
+			m_decor[x][y].fog           =  FOGHIDE;  // cach√©
 			m_decor[x][y].rankMove      = -1;
 			m_decor[x][y].workBlupi     = -1;
 			m_decor[x][y].fire          = 0;
@@ -191,7 +191,7 @@ void CDecor::Init(int channel, int icon)
 	m_bGroundRedraw = true;
 }
 
-// Initialise le dÈcor aprËs une modification.
+// Initialise le d√©cor apr√®s une modification.
 
 void CDecor::InitAfterBuild()
 {
@@ -202,7 +202,7 @@ void CDecor::InitAfterBuild()
 	BlupiDeselect();
 }
 
-// Initialise les mises en Èvidence, avant de jouer.
+// Initialise les mises en √©vidence, avant de jouer.
 
 void CDecor::ResetHili()
 {
@@ -210,7 +210,7 @@ void CDecor::ResetHili()
 	InitOutlineRect();
 }
 
-// Charge les images nÈcessaires au dÈcor.
+// Charge les images n√©cessaires au d√©cor.
 
 bool CDecor::LoadImages()
 {
@@ -256,7 +256,7 @@ void CDecor::ClearFog()
 	{
 		for ( y=0 ; y<MAXCELY/2 ; y++ )
 		{
-			m_decor[x][y].fog = FOGHIDE;  // cachÈ
+			m_decor[x][y].fog = FOGHIDE;  // cach√©
 		}
 	}
 
@@ -271,7 +271,7 @@ void CDecor::ClearFog()
 	m_bOutline = false;
 }
 
-// Permet de nouveau aux cellules brulÈes de bruler.
+// Permet de nouveau aux cellules brul√©es de bruler.
 
 void CDecor::ClearFire()
 {
@@ -281,14 +281,14 @@ void CDecor::ClearFire()
 	{
 		for ( y=0 ; y<MAXCELY/2 ; y++ )
 		{
-			if ( m_decor[x][y].fire >= MoveMaxFire() )  // dÈj‡ brulÈ ?
+			if ( m_decor[x][y].fire >= MoveMaxFire() )  // d√©j√† brul√© ?
 			{
 				m_decor[x][y].fire = 0;  // pourra de nouveau bruler
 			}
 
 			if ( m_decor[x][y].fire > 1 )  // en train de bruler ?
 			{
-				m_decor[x][y].fire = 1;  // dÈbut du feu
+				m_decor[x][y].fire = 1;  // d√©but du feu
 			}
 		}
 	}
@@ -422,7 +422,7 @@ void CDecor::SetShiftOffset(POINT offset)
 	m_bGroundRedraw = true;
 }
 
-// Convertit la position d'une cellule en coordonnÈe graphique.
+// Convertit la position d'une cellule en coordonn√©e graphique.
 
 POINT CDecor::ConvCelToPos(POINT cel)
 {
@@ -437,7 +437,7 @@ POINT CDecor::ConvCelToPos(POINT cel)
 	return pos;
 }
 
-// Convertit une coordonnÈe graphique en cellule.
+// Convertit une coordonn√©e graphique en cellule.
 
 POINT CDecor::ConvPosToCel(POINT pos, bool bMap)
 {
@@ -467,7 +467,7 @@ POINT CDecor::ConvPosToCel(POINT pos, bool bMap)
 	return cel;
 }
 
-// Convertit une coordonnÈe graphique en grande cellule (2x2).
+// Convertit une coordonn√©e graphique en grande cellule (2x2).
 
 POINT CDecor::ConvPosToCel2(POINT pos)
 {
@@ -507,7 +507,7 @@ POINT CDecor::ConvPosToCel2(POINT pos)
 
 
 
-// Attribution des blupi aux diffÈrentes cellules.
+// Attribution des blupi aux diff√©rentes cellules.
 // Lorsque un blupi a deux positions (courante et destination),
 // il faut toujours mettre blupi le plus au fond possible
 // (minimiser x et y).
@@ -517,7 +517,7 @@ void CDecor::BuildPutBlupi()
 	int		x, y, dx, dy, xMin, yMin, rank, clipLeft;
 	POINT	pos;
 
-#if 0  // dÈj‡ fait au point (1), voir Build
+#if 0  // d√©j√† fait au point (1), voir Build
 	for ( x=0 ; x<MAXCELX ; x++ )
 	{
 		for ( y=0 ; y<MAXCELY ; y++ )
@@ -539,7 +539,7 @@ void CDecor::BuildPutBlupi()
 			if ( yMin > m_blupi[rank].cel.y )  yMin = m_blupi[rank].cel.y;
 
 			// Si blupi entre dans une maison, il faut initialiser
-			// le clipping ‡ gauche.
+			// le clipping √† gauche.
 			m_blupi[rank].clipLeft = 0;  // pas de clipping
 
 			if ( !m_bOutline &&
@@ -568,12 +568,12 @@ void CDecor::BuildPutBlupi()
 			dx = m_blupi[rank].destCel.x - x;
 			dy = m_blupi[rank].destCel.y - y;
 
-			if ( dx != -dy )  // dÈplacement non horizontal (ne/so) ?
+			if ( dx != -dy )  // d√©placement non horizontal (ne/so) ?
 			{
 				if ( dx < 0 )  x = m_blupi[rank].destCel.x;
 				if ( dy < 0 )  y = m_blupi[rank].destCel.y;
 			}
-			if ( dx == -1 && dy == 1 )  // dÈplacement "so" ?
+			if ( dx == -1 && dy == 1 )  // d√©placement "so" ?
 			{
 				x = m_blupi[rank].destCel.x;
 				y = m_blupi[rank].destCel.y;
@@ -595,7 +595,7 @@ void CDecor::BuildPutBlupi()
 				if ( !IsFreeCelObstacle(GetCel(x+1,y-1)) )  x ++;
 			}
 
-			if ( m_rankBlupi[x][y] != -1 )  // dÈj‡ occupÈ ?
+			if ( m_rankBlupi[x][y] != -1 )  // d√©j√† occup√© ?
 			{
 				if ( x == m_blupi[rank].cel.x )
 				{
@@ -606,7 +606,7 @@ void CDecor::BuildPutBlupi()
 					x = m_blupi[rank].cel.x;
 				}
 
-				if ( m_rankBlupi[x][y] != -1 )  // dÈj‡ occupÈ ?
+				if ( m_rankBlupi[x][y] != -1 )  // d√©j√† occup√© ?
 				{
 					if ( y == m_blupi[rank].cel.y )
 					{
@@ -617,7 +617,7 @@ void CDecor::BuildPutBlupi()
 						y = m_blupi[rank].cel.y;
 					}
 
-					if ( m_rankBlupi[x][y] != -1 )  // dÈj‡ occupÈ ?
+					if ( m_rankBlupi[x][y] != -1 )  // d√©j√† occup√© ?
 					{
 //?						OutputDebug(">>> Manque un blupi <<<\n");
 						continue;  // que faire d'autre ?
@@ -629,7 +629,7 @@ void CDecor::BuildPutBlupi()
 	}
 }
 
-// Dessine une cellule du dÈcor contenant un sol animÈ.
+// Dessine une cellule du d√©cor contenant un sol anim√©.
 
 void CDecor::BuildMoveFloor(int x, int y, POINT pos, int rank)
 {
@@ -668,7 +668,7 @@ void CDecor::BuildMoveFloor(int x, int y, POINT pos, int rank)
 	}
 }
 
-// Dessine une cellule du dÈcor contenant un objet animÈ.
+// Dessine une cellule du d√©cor contenant un objet anim√©.
 
 void CDecor::BuildMoveObject(int x, int y, POINT pos, int rank)
 {
@@ -720,7 +720,7 @@ void CDecor::BuildMoveObject(int x, int y, POINT pos, int rank)
 			if ( hBuild < -DIMOBJY )  hBuild = -DIMOBJY;
 		}
 
-		// Dessine l'objet actuellement dans le dÈcor.
+		// Dessine l'objet actuellement dans le d√©cor.
 		if ( m_decor[x/2][y/2].objectChannel >= 0 )
 		{
 			if ( hBuild >= 0 )
@@ -781,7 +781,7 @@ void CDecor::BuildMoveObject(int x, int y, POINT pos, int rank)
 	}
 }
 
-// DÈplace l'objet transportÈ par blupi.
+// D√©place l'objet transport√© par blupi.
 
 void BuildMoveTransport(int icon, POINT &pos)
 {
@@ -839,13 +839,13 @@ void BuildMoveTransport(int icon, POINT &pos)
 		pos.y += 1;
 	}
 
-	if ( icon == 106 )  // se penche (mËche dynamite) ?
+	if ( icon == 106 )  // se penche (m√®che dynamite) ?
 	{
 		pos.x += 8;
 		pos.y += 10;
 	}
 
-	if ( icon == 194 )  // se penche (mËche dynamite) ?
+	if ( icon == 194 )  // se penche (m√®che dynamite) ?
 	{
 		pos.x += 9;
 		pos.y += 9;
@@ -869,7 +869,7 @@ void BuildMoveTransport(int icon, POINT &pos)
 		pos.y += offset_jeep[(icon-250)*2+1];
 	}
 
-	if ( icon == 270 )  pos.y += 3;  // blupi ÈlectrocutÈ
+	if ( icon == 270 )  pos.y += 3;  // blupi √©lectrocut√©
 	if ( icon == 271 )  pos.y -= 2;
 	if ( icon == 272 )  pos.y -= 7;
 }
@@ -965,7 +965,7 @@ void CDecor::BuildGround(RECT clip)
 					icon    = 78;  // losange noir
 				}
 
-				if ( !m_bBuild && icon == 71 )  // terre ‡ fer ?
+				if ( !m_bBuild && icon == 71 )  // terre √† fer ?
 				{
 					icon = 33;  // terre normale !
 				}
@@ -1002,7 +1002,7 @@ void CDecor::BuildGround(RECT clip)
 	m_bGroundRedraw = false;
 }
 
-// Construit le dÈcor dans un pixmap.
+// Construit le d√©cor dans un pixmap.
 
 void CDecor::Build(RECT clip, POINT posMouse)
 {
@@ -1102,7 +1102,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 				{
 					icon = m_decor[x/2][y/2].floorIcon;
 
-					if ( !m_bBuild && icon == 71 )  // terre ‡ fer ?
+					if ( !m_bBuild && icon == 71 )  // terre √† fer ?
 					{
 						icon = 33;  // terre normale !
 					}
@@ -1125,7 +1125,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 					}
 
 					rank = m_decor[x/2][y/2].rankMove;
-					if ( rank != -1 &&  // dÈcor animÈ ?
+					if ( rank != -1 &&  // d√©cor anim√© ?
 						 m_move[rank].bFloor )
 					{
 						pos.x = cPos.x-DIMCELX/2;
@@ -1149,7 +1149,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 				}
 			}
 
-			if ( m_bHiliRect )  // rectangle de sÈlection existe ?
+			if ( m_bHiliRect )  // rectangle de s√©lection existe ?
 			{
 				if ( (m_p1Hili.x == x && m_p1Hili.y == y) ||
 					 (m_p2Hili.x == x && m_p2Hili.y == y) )
@@ -1202,7 +1202,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 		}
 	}
 
-	BlupiDrawHili();  // dessine le rectangle de sÈlection
+	BlupiDrawHili();  // dessine le rectangle de s√©lection
 
 	// Construit les objets et les blupi.
 	BuildPutBlupi();  // m_rankBlupi[x][y] <- rangs des blupi
@@ -1240,7 +1240,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 						{
 							tPos.y -= 6;
 						}
-						// Dessine la sÈlection/Ènergie
+						// Dessine la s√©lection/√©nergie
 						if ( m_blupi[rank].clipLeft == 0 )
 						{
 							m_pPixmap->DrawIconDemi(-1, CHBLUPI, icon, tPos);
@@ -1255,7 +1255,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 						}
 					}
 
-					// Dessine la flËche ronde "rÈpËte" sous blupi.
+					// Dessine la fl√®che ronde "r√©p√®te" sous blupi.
 					if ( m_blupi[rank].repeatLevel != -1 )
 					{
 						tPos = pos;
@@ -1264,7 +1264,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 						{
 							tPos.y -= 6;
 						}
-						// Dessine la sÈlection/Ènergie
+						// Dessine la s√©lection/√©nergie
 						if ( m_blupi[rank].clipLeft == 0 )
 						{
 							m_pPixmap->DrawIconDemi(-1, CHBLUPI, 116, tPos);
@@ -1279,7 +1279,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 						}
 					}
 
-					// Dessine la flËche jaune sur blupi.
+					// Dessine la fl√®che jaune sur blupi.
 					if ( m_blupi[rank].bArrow )
 					{
 						tPos = pos;
@@ -1311,7 +1311,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 						m_pPixmap->DrawIcon(-1, m_blupi[rank].channel,
 											m_blupi[rank].icon, pos);
 
-						// Dessine l'objet transportÈ.
+						// Dessine l'objet transport√©.
 						if ( m_blupi[rank].takeChannel != -1 )
 						{
 							BuildMoveTransport(m_blupi[rank].icon, pos);
@@ -1327,7 +1327,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 						m_pPixmap->DrawIcon(-1, m_blupi[rank].channel,
 											m_blupi[rank].icon, pos);
 
-						// Dessine l'objet transportÈ.
+						// Dessine l'objet transport√©.
 						if ( m_blupi[rank].takeChannel != -1 )
 						{
 							BuildMoveTransport(m_blupi[rank].icon, pos);
@@ -1347,7 +1347,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 						pos.y = cPos.y-(DIMOBJY-DIMCELY*2);
 
 						// Dessine l'objet
-						if ( rank == -1 ||  // dÈcor fixe ?
+						if ( rank == -1 ||  // d√©cor fixe ?
 							 m_move[rank].bFloor ||
 							 m_bBuild )
 						{
@@ -1367,20 +1367,20 @@ void CDecor::Build(RECT clip, POINT posMouse)
 												m_decor[x/2][y/2].objectIcon,
 												pos);
 
-							if ( m_decor[x/2][y/2].objectIcon == 12 )  // fusÈe ?
+							if ( m_decor[x/2][y/2].objectIcon == 12 )  // fus√©e ?
 							{
 								pos.y -= DIMOBJY;
 								m_pPixmap->DrawIcon(-1, channel, 13, pos);
 							}
 						}
-						else	// dÈcor animÈ ?
+						else	// d√©cor anim√© ?
 						{
 							BuildMoveObject(x, y, pos, rank);
 						}
 					}
 					else
 					{
-						if ( rank != -1 &&  // dÈcor animÈ ?
+						if ( rank != -1 &&  // d√©cor anim√© ?
 							 !m_move[rank].bFloor &&
 							 !m_bBuild )
 						{
@@ -1424,22 +1424,22 @@ void CDecor::Build(RECT clip, POINT posMouse)
 	// Construit le brouillard.
 	if ( !m_bFog )  goto term;
 
-	if ( m_shiftOffset.x < 0 )  // dÈcalage ‡ droite ?
+	if ( m_shiftOffset.x < 0 )  // d√©calage √† droite ?
 	{
 		nbx += 2;
 	}
-	if ( m_shiftOffset.y < 0 )  // dÈcalage en bas ?
+	if ( m_shiftOffset.y < 0 )  // d√©calage en bas ?
 	{
 		nby += 2;
 	}
-	if ( m_shiftOffset.x > 0 )  // dÈcalage ‡ gauche ?
+	if ( m_shiftOffset.x > 0 )  // d√©calage √† gauche ?
 	{
 		nbx += 2;
 		iCel.x --;
 		iCel.y ++;
 		iPos = ConvCelToPos(iCel);
 	}
-	if ( m_shiftOffset.y > 0 )  // dÈcalage en haut ?
+	if ( m_shiftOffset.y > 0 )  // d√©calage en haut ?
 	{
 		nby += 2;
 		iCel.x --;
@@ -1464,7 +1464,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 			}
 			else
 			{
-				icon = FOGHIDE;  // cachÈ
+				icon = FOGHIDE;  // cach√©
 			}
 
 			if ( abs(x)%4 == abs(y)%4 &&
@@ -1497,7 +1497,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 	}
 
 	term:
-	// Dessine la flËche jaune sur un objet.
+	// Dessine la fl√®che jaune sur un objet.
 	if ( m_celArrow.x != -1 )
 	{
 		tPos = ConvCelToPos(m_celArrow);
@@ -1512,7 +1512,7 @@ void CDecor::Build(RECT clip, POINT posMouse)
 		m_pPixmap->DrawIcon(-1, CHBLUPI,132, tPos);
 	}
 
-	// Dessine le nom de l'objet pointÈ par la souris.
+	// Dessine le nom de l'objet point√© par la souris.
 	if ( posMouse.x == m_textLastPos.x &&
 		 posMouse.y == m_textLastPos.y )
 	{
@@ -1545,9 +1545,9 @@ void CDecor::Build(RECT clip, POINT posMouse)
 
 
 // Augmente la phase.
-//	-1	mise ‡ jour continue
-//	 0	dÈbut de mise ‡ jour pÈriodique
-//	 1	mise ‡ jour pÈriodique suivante
+//	-1	mise √† jour continue
+//	 0	d√©but de mise √† jour p√©riodique
+//	 1	mise √† jour p√©riodique suivante
 
 void CDecor::NextPhase(int mode)
 {
@@ -1569,14 +1569,14 @@ void CDecor::NextPhase(int mode)
 	m_totalTime ++;
 }
 
-// Modifie le temps total passÈ dans cette partie.
+// Modifie le temps total pass√© dans cette partie.
 
 void CDecor::SetTotalTime(int total)
 {
 	m_totalTime = total;
 }
 
-// Retourne le temps total passÈ dans cette partie.
+// Retourne le temps total pass√© dans cette partie.
 
 int CDecor::GetTotalTime()
 {
@@ -1584,7 +1584,7 @@ int CDecor::GetTotalTime()
 }
 
 
-// Compte le nombre total de sols contenus dans les dÈcors.
+// Compte le nombre total de sols contenus dans les d√©cors.
 
 int CDecor::CountFloor(int channel, int icon)
 {
@@ -1604,8 +1604,8 @@ int CDecor::CountFloor(int channel, int icon)
 }
 
 // Indique si une cellule est ok pour une action.
-// Le rang du blupi qui effectuera le travail est donnÈe dans rank.
-//	action = 0			sÈlection jeu
+// Le rang du blupi qui effectuera le travail est donn√©e dans rank.
+//	action = 0			s√©lection jeu
 //			 1			construction d'une cellule 1x1
 //			 2			construction d'une cellule 2x2
 //			 WM_ACTION*	action
@@ -1657,11 +1657,11 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 		{
 			bTransport = true;
 		}
-		if ( m_blupi[rank].vehicule != 0 )  // pas ‡ pied ?
+		if ( m_blupi[rank].vehicule != 0 )  // pas √† pied ?
 		{
 			bVehicule = true;
 		}
-		if ( m_blupi[rank].vehicule != 0 &&  // pas ‡ pied ?
+		if ( m_blupi[rank].vehicule != 0 &&  // pas √† pied ?
 			 m_blupi[rank].vehicule != 3 )   // pas armure ?
 		{
 			bVehiculeA = true;
@@ -1754,7 +1754,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 					 IsFreeCelGo(GetCel(cel.x+x,cel.y+y), rank) &&
 					 !IsBlupiHere(GetCel(cel.x+x,cel.y+y), true) )
 				{
-//?					icons[1+x][1+y] = ICON_HILI_GO;  // flËche
+//?					icons[1+x][1+y] = ICON_HILI_GO;  // fl√®che
 					icons[1+x][1+y] = ICON_HILI_OP;  // action
 					error = 0;
 				}
@@ -1841,30 +1841,30 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 
 			if ( action == WM_ACTION_BUILD1 ||  // cabane ?
 				 action == WM_ACTION_BUILD2 ||  // couveuse ?
-				 action == WM_ACTION_BUILD6 )   // tÈlÈporteur ?
+				 action == WM_ACTION_BUILD6 )   // t√©l√©porteur ?
 			{
 				GetFloor(cel, channel, icon);
 				if ( channel != CHFLOOR ||
 					(icon != 1 &&                 // herbe claire ?
-					 (icon < 19 || icon > 32)) )  // herbe foncÈe ?
+					 (icon < 19 || icon > 32)) )  // herbe fonc√©e ?
 				{
-					error = ERROR_GROUND;  // sol pas adÈquat
+					error = ERROR_GROUND;  // sol pas ad√©quat
 				}
 			}
 
 			if ( action == WM_ACTION_BUILD4 )  // mine ?
 			{
 				GetFloor(cel, channel, icon);
-				if ( channel != CHFLOOR || icon != 71 )  // terre ‡ fer ?
+				if ( channel != CHFLOOR || icon != 71 )  // terre √† fer ?
 				{
-					error = ERROR_GROUND;  // sol pas adÈquat
+					error = ERROR_GROUND;  // sol pas ad√©quat
 				}
 			}
 
-			if ( action == WM_ACTION_BUILD6 &&   // tÈlÈporteur ?
-				 CountFloor(CHFLOOR, 80) >= 2 )  // dÈj‡ 2 ?
+			if ( action == WM_ACTION_BUILD6 &&   // t√©l√©porteur ?
+				 CountFloor(CHFLOOR, 80) >= 2 )  // d√©j√† 2 ?
 			{
-				error = ERROR_TELE2;  // dÈj‡ 2 tÈlÈporteurs
+				error = ERROR_TELE2;  // d√©j√† 2 t√©l√©porteurs
 			}
 
 			if ( action == WM_ACTION_BUILD3 ||
@@ -1978,9 +1978,9 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 //			GetFloor(cel, channel, icon);
 //			if ( channel != CHFLOOR ||
 //				(icon != 1 &&                 // herbe claire ?
-//				 (icon < 19 || icon > 32)) )  // herbe foncÈe ?
+//				 (icon < 19 || icon > 32)) )  // herbe fonc√©e ?
 //			{
-//				error = ERROR_GROUND;  // sol pas adÈquat
+//				error = ERROR_GROUND;  // sol pas ad√©quat
 //			}
 
 			GetObject(cel, channel, icon);
@@ -2002,7 +2002,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 			{
 				for ( y=-1 ; y<3 ; y++ )
 				{
-					if ( x<0 || x>1 || y<0 || y>1 )  // pÈriphÈrie ?
+					if ( x<0 || x>1 || y<0 || y>1 )  // p√©riph√©rie ?
 					{
 						GetFloor(GetCel(cel,x,y), channel, icon);
 						if ( channel == CHFLOOR &&
@@ -2160,7 +2160,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 			GetObject(GetCel(cel,-1,-1), channel, icon);
 			if ( bStrong && !bTransport && !bVehiculeA &&
 				 channel == CHOBJECT &&
-				 (icon ==  14 ||   // mÈtal ?
+				 (icon ==  14 ||   // m√©tal ?
 				  icon ==  36 ||   // planches ?
 				  icon ==  44 ||   // pierres ?
 				  icon ==  60 ||   // tomates ?
@@ -2171,7 +2171,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 				  icon ==  95 ||   // fleurs ?
 				  icon ==  85 ||   // dynamite ?
 				  icon ==  92 ||   // poison ?
-				  icon ==  93 ||   // piËge ?
+				  icon ==  93 ||   // pi√®ge ?
 				  icon == 123 ||   // fer ?
 				  icon == 125) &&  // mine ?
 				 (!IsBlupiHereEx(GetCel(cel,-1,0), rank, false) ||
@@ -2522,7 +2522,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 		error = ERROR_MISC;
 		if ( m_blupi[rank].vehicule == 2 &&  // en jeep ?
 			 m_decor[cel.x/2][cel.y/2].objectIcon == -1 &&
-			 m_decor[cel.x/2][cel.y/2].floorIcon != 80 )  // pas tÈlÈporteur ?
+			 m_decor[cel.x/2][cel.y/2].floorIcon != 80 )  // pas t√©l√©porteur ?
 		{
 			if ( IsFreeCelGo(GetCel(cel,+1, 0), rank) &&
 				 IsFreeCelGo(GetCel(cel,+1,+1), rank) &&
@@ -2553,7 +2553,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 		if ( m_blupi[rank].vehicule == 3 &&  // armure ?
 			 !bTransport &&
 			 m_decor[cel.x/2][cel.y/2].objectIcon == -1 &&
-			 m_decor[cel.x/2][cel.y/2].floorIcon != 80 )  // pas tÈlÈporteur ?
+			 m_decor[cel.x/2][cel.y/2].floorIcon != 80 )  // pas t√©l√©porteur ?
 		{
 			if ( IsFreeCelGo(GetCel(cel,+1, 0), rank) &&
 				 IsFreeCelGo(GetCel(cel,+1,+1), rank) &&
@@ -2587,13 +2587,13 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 		if ( (icon < 33 || icon > 48) &&
 			 icon != 71 )  // pas terre ?
 		{
-			error = ERROR_MISC;  // terrain pas adaptÈ
+			error = ERROR_MISC;  // terrain pas adapt√©
 		}
 
 		GetObject(cel, channel, icon);
 		if ( channel == CHOBJECT )  // y a-t-il un objet ?
 		{
-			error = ERROR_MISC;  // terrain pas adaptÈ
+			error = ERROR_MISC;  // terrain pas adapt√©
 		}
 
 		for ( x=0 ; x<2 ; x++ )
@@ -2712,7 +2712,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 		GetObject(cel, channel, icon);
 		if ( channel != CHOBJECT || icon != 120 ||  // usine ?
 			 m_blupi[rank].takeChannel != CHOBJECT ||
-			 m_blupi[rank].takeIcon != 14 )  // mÈtal ?
+			 m_blupi[rank].takeIcon != 14 )  // m√©tal ?
 		{
 			error = ERROR_MISC;  // pas d'usine !
 		}
@@ -2743,7 +2743,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank,
 }
 
 // Indique si une cellule est ok pour une action.
-// Le rang du blupi qui effectuera le travail est donnÈe dans rank.
+// Le rang du blupi qui effectuera le travail est donn√©e dans rank.
 
 int CDecor::CelOkForAction(POINT cel, int action, int rank)
 {
@@ -2754,7 +2754,7 @@ int CDecor::CelOkForAction(POINT cel, int action, int rank)
 						  celOutline1, celOutline2);
 }
 
-// Retourne le rang du niËme blupi sÈlectionnÈ.
+// Retourne le rang du ni√®me blupi s√©lectionn√©.
 
 int CDecor::GetHiliRankBlupi(int nb)
 {
@@ -2780,8 +2780,8 @@ int CDecor::GetHiliRankBlupi(int nb)
 	return -1;
 }
 
-// Marque la cellule visÈe par la souris.
-//	action = 0			sÈlection jeu
+// Marque la cellule vis√©e par la souris.
+//	action = 0			s√©lection jeu
 //			 1			construction d'une cellule 1x1
 //			 2			construction d'une cellule 2x2
 
@@ -2802,7 +2802,7 @@ void CDecor::CelHili(POINT pos, int action)
 	m_celOutline2.x = -1;
 	m_rankHili = -1;
 
-	if ( action == 0 )  // sÈlection pendant jeu ?
+	if ( action == 0 )  // s√©lection pendant jeu ?
 	{
 		rank = GetTargetBlupi(pos);
 		if ( rank >= 0 )
@@ -2852,7 +2852,7 @@ void CDecor::CelHili(POINT pos, int action)
 				m_celOutline1.y = (m_celHili.y/2)*2;
 				GetObject(m_celOutline1, channel, icon);
 				if ( channel == CHOBJECT &&
-					 (icon ==  14 ||	// mÈtal ?
+					 (icon ==  14 ||	// m√©tal ?
 					  icon ==  36 ||	// planches ?
 					  icon ==  44 ||	// pierres ?
 					  icon ==  60 ||	// tomates ?
@@ -2863,7 +2863,7 @@ void CDecor::CelHili(POINT pos, int action)
 					  icon ==  95 ||	// fleurs ?
 					  icon ==  85 ||	// dynamite ?
 					  icon ==  92 ||	// poison ?
-					  icon ==  93 ||	// piËge ?
+					  icon ==  93 ||	// pi√®ge ?
 					  icon == 123 ||	// fer ?
 					  icon == 125 ) )	// mine ?
 				{
@@ -2896,7 +2896,7 @@ void CDecor::CelHili(POINT pos, int action)
 	}
 }
 
-// Marque la cellule visÈe par la souris pour un bouton donnÈ.
+// Marque la cellule vis√©e par la souris pour un bouton donn√©.
 
 void CDecor::CelHiliButton(POINT cel, int button)
 {
@@ -2941,7 +2941,7 @@ void CDecor::CelHiliButton(POINT cel, int button)
 	}
 }
 
-// Marque la cellule visÈe par la souris pour une rÈpÈtition donnÈe.
+// Marque la cellule vis√©e par la souris pour une r√©p√©tition donn√©e.
 
 void CDecor::CelHiliRepeat(int list)
 {
@@ -3007,14 +3007,14 @@ void CDecor::CelHiliRepeat(int list)
 	m_celHili = cel;
 }
 
-// Retourne l'identificateur du texte correspondant ‡
-// l'objet ou au blupi visÈ par la souris.
+// Retourne l'identificateur du texte correspondant √†
+// l'objet ou au blupi vis√© par la souris.
 
 const char *CDecor::GetResHili(POINT posMouse)
 {
 	int icon;
 
-	// Les valeurs `corner == true` correspondent aux objets placÈs
+	// Les valeurs `corner == true` correspondent aux objets plac√©s
 	// au coin inf/droit de la cellule.
 	struct object_t
 	{
@@ -3213,7 +3213,7 @@ const char *CDecor::GetResHili(POINT posMouse)
 	};
 
 	if (m_bHideTooltips)
-		return nullptr;  // rien si menu prÈsent
+		return nullptr;  // rien si menu pr√©sent
 
 	if (   posMouse.x < POSDRAWX
 		|| posMouse.x > POSDRAWX + DIMDRAWX
@@ -3223,7 +3223,7 @@ const char *CDecor::GetResHili(POINT posMouse)
 
 	if ( m_celHili.x != -1 )
 	{
-		if ( m_rankHili != -1 )  // blupi visÈ ?
+		if ( m_rankHili != -1 )  // blupi vis√© ?
 		{
 			switch (m_blupi[m_rankHili].perso)
 			{
@@ -3233,7 +3233,7 @@ const char *CDecor::GetResHili(POINT posMouse)
 				if (m_blupi[m_rankHili].bMalade)
 					return gettext ("Sick Blupi");
 				return gettext ("Blupi");
-			case 1:  // araignÈe ?
+			case 1:  // araign√©e ?
 				return gettext ("Spider");
 			case 2:  // virus ?
 				return gettext ("Virus");
@@ -3279,8 +3279,8 @@ const char *CDecor::GetResHili(POINT posMouse)
 	return nullptr;
 }
 
-// Indique si le menu est prÈsent et qu'il faut cacher
-// les tooltips du dÈcor.
+// Indique si le menu est pr√©sent et qu'il faut cacher
+// les tooltips du d√©cor.
 
 void CDecor::HideTooltips(bool bHide)
 {
@@ -3288,7 +3288,7 @@ void CDecor::HideTooltips(bool bHide)
 }
 
 
-// Modifie l'origine supÈrieure/gauche du dÈcor.
+// Modifie l'origine sup√©rieure/gauche du d√©cor.
 
 void CDecor::SetCoin(POINT coin, bool bCenter)
 {
@@ -3320,7 +3320,7 @@ POINT CDecor::GetHome()
 }
 
 
-// MÈmoirise une position pendant le jeu.
+// M√©moirise une position pendant le jeu.
 
 void CDecor::MemoPos(int rank, bool bRecord)
 {
@@ -3380,7 +3380,7 @@ int CDecor::GetMusic()
 }
 
 
-// Gestion de la difficultÈ.
+// Gestion de la difficult√©.
 
 void CDecor::SetSkill(int skill)
 {
@@ -3393,7 +3393,7 @@ int CDecor::GetSkill()
 }
 
 
-// Gestion de la rÈgion.
+// Gestion de la r√©gion.
 //	0 = normal
 //	1 = palmier
 //	2 = hiver
@@ -3436,7 +3436,7 @@ int CDecor::GetInfoHeight()
 }
 
 
-// Retourne le pointeur ‡ la liste des boutons existants.
+// Retourne le pointeur √† la liste des boutons existants.
 
 char* CDecor::GetButtonExist()
 {
@@ -3466,11 +3466,11 @@ void CDecor::UndoClose()
 	}
 }
 
-// Copie le dÈcor dans le buffer pour le undo.
+// Copie le d√©cor dans le buffer pour le undo.
 
 void CDecor::UndoCopy()
 {
-	UndoOpen();  // ouvre le buffer du undo si nÈcessaire
+	UndoOpen();  // ouvre le buffer du undo si n√©cessaire
 
 	if ( m_pUndoDecor != nullptr )
 	{
@@ -3478,7 +3478,7 @@ void CDecor::UndoCopy()
 	}
 }
 
-// Revient en arriËre pour tout le dÈcor.
+// Revient en arri√®re pour tout le d√©cor.
 
 void CDecor::UndoBack()
 {

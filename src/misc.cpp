@@ -50,14 +50,14 @@ POINT ConvLongToPos(LPARAM lParam)
 }
 
 
-// R�initialise le g�n�rateur al�atoire.
+// Rï¿½initialise le gï¿½nï¿½rateur alï¿½atoire.
 
 void InitRandom()
 {
 	srand(1);
 }
 
-// Retourne un nombre al�atoire compris entre
+// Retourne un nombre alï¿½atoire compris entre
 // deux bornes (inclues).
 
 int Random(int min, int max)

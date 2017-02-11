@@ -70,7 +70,7 @@ protected:
 
 	char					m_filename[MAXIMAGE][20];
 	POINT					m_totalDim[MAXIMAGE];	// dimensions totale image
-	POINT					m_iconDim[MAXIMAGE];	// dimensions d'une ic�ne
+	POINT					m_iconDim[MAXIMAGE];	// dimensions d'une icï¿½ne
 };
 
 /////////////////////////////////////////////////////////////////////////////

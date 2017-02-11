@@ -1,7 +1,7 @@
 
 #pragma once
 
-// Méta opérations (goal).
+// MÃ©ta opÃ©rations (goal).
 
 #define GOAL_TERM			0	//
 #define GOAL_GOHILI			1	// dx,dy, bPass

@@ -614,7 +614,7 @@ static short table_goal_build1[] =
 		GOAL_GOBLUPI,		+1,0, true,
 		GOAL_ACTION,		ACTION_PIOCHE, DIRECT_E,
 //?		GOAL_ENERGY,		MAXENERGY/4,
-		// échaffaudage
+		// Ã©chaffaudage
 		GOAL_BUILDOBJECT,	-1,0, CHOBJECT,62, -1,-1, DIMOBJY/10,18,10*100,
 		GOAL_ACTION,		ACTION_SCIE, DIRECT_S,
 		GOAL_GOBLUPI,		0,-1, true,
@@ -663,7 +663,7 @@ static short table_goal_build2[] =
 		GOAL_ACTION,		ACTION_PIOCHE, DIRECT_E,
 		GOAL_GOBLUPI,		+1,0, true,
 		GOAL_ACTION,		ACTION_PIOCHE, DIRECT_E,
-		GOAL_PUTOBJECT,		-1,0, -1,-1,  // enlève les planches
+		GOAL_PUTOBJECT,		-1,0, -1,-1,  // enlÃ¨ve les planches
 		GOAL_GOBLUPI,		-1,+1, true,
 		GOAL_ACTION,		ACTION_BUILDSEC, DIRECT_S,
 		GOAL_GOBLUPI,		+1,0, true,
@@ -726,7 +726,7 @@ static short table_goal_build4[] =
 		GOAL_GROUP,			2,
 		 GOAL_INTERRUPT,	0,  // prioritaire
 		 GOAL_WORK,			0,-1,
-		// échaffaudage
+		// Ã©chaffaudage
 		GOAL_BUILDOBJECT,	0,-1, CHOBJECT,126, -1,-1, DIMOBJY/10,18,10*100,
 		GOAL_ACTION,		ACTION_BUILDSEC, DIRECT_S,
 		GOAL_GOBLUPI,		+1,-1, true,
@@ -794,7 +794,7 @@ static short table_goal_build5[] =
 	0
 };
 
-// Construction d'un téléporteur.
+// Construction d'un tÃ©lÃ©porteur.
 static short table_goal_build6[] =
 {
 	WM_ACTION_BUILD6,
@@ -804,7 +804,7 @@ static short table_goal_build6[] =
 		GOAL_GROUP,			3,
 		 GOAL_INTERRUPT,	0,  // prioritaire
 		 GOAL_WORK,			0,-1,
-		 GOAL_BUILDFLOOR,	0,-1, CHFLOOR,80, CHMASK1,0, 16,14,1*100,  // téléporteur
+		 GOAL_BUILDFLOOR,	0,-1, CHFLOOR,80, CHMASK1,0, 16,14,1*100,  // tÃ©lÃ©porteur
 		GOAL_ACTION,		ACTION_PIOCHE, DIRECT_E,
 		GOAL_ACTION,		ACTION_PIOCHE, DIRECT_E,
 		GOAL_GOBLUPI,		+1,-1, true,
@@ -813,7 +813,7 @@ static short table_goal_build6[] =
 		GOAL_ACTION,		ACTION_PIOCHE, DIRECT_E,
 		GOAL_GOBLUPI,		+1,0, true,
 		GOAL_ACTION,		ACTION_PIOCHE, DIRECT_E,
-		GOAL_PUTOBJECT,		-1,0, -1,-1,  // enlève les planches
+		GOAL_PUTOBJECT,		-1,0, -1,-1,  // enlÃ¨ve les planches
 		GOAL_GOBLUPI,		-1,+1, true,
 		GOAL_ACTION,		ACTION_BUILDSEC, DIRECT_S,
 		GOAL_GOBLUPI,		+1,0, true,
@@ -850,7 +850,7 @@ static short table_goal_mur[] =
 		GOAL_ACTION,		ACTION_PIOCHEPIERRE, DIRECT_E,
 		GOAL_ACTION,		ACTION_PIOCHEPIERRE, DIRECT_E,
 		GOAL_ACTION,		ACTION_PIOCHEPIERRE, DIRECT_E,
-		GOAL_PUTOBJECT,		0,0, -1,-1,  // enlève les pierres
+		GOAL_PUTOBJECT,		0,0, -1,-1,  // enlÃ¨ve les pierres
 		GOAL_GOBLUPI,		+1,+1, true,
 		GOAL_ACTION,		ACTION_PIOCHEPIERRE, DIRECT_E,
 		GOAL_ACTION,		ACTION_PIOCHEPIERRE, DIRECT_E,
@@ -890,7 +890,7 @@ static short table_goal_tour[] =
 		GOAL_GOBLUPI,		+1,-1, true,
 		GOAL_ACTION,		ACTION_PIOCHEPIERRE, DIRECT_E,
 		GOAL_ACTION,		ACTION_PIOCHEPIERRE, DIRECT_E,
-		GOAL_PUTOBJECT,		-1,0, -1,-1,  // enlève les pierres
+		GOAL_PUTOBJECT,		-1,0, -1,-1,  // enlÃ¨ve les pierres
 		GOAL_GOBLUPI,		0,+1, true,
 		GOAL_ACTION,		ACTION_BUILDBREF, DIRECT_O,
 		GOAL_ACTION,		ACTION_PIOCHEPIERRE, DIRECT_E,
@@ -924,7 +924,7 @@ static short table_goal_palis[] =
 		GOAL_ACTION,		ACTION_PIOCHE, DIRECT_E,
 		GOAL_GOBLUPI,		0,-1, true,
 		GOAL_ACTION,		ACTION_PIOCHE, DIRECT_E,
-		GOAL_PUTOBJECT,		0,0, -1,-1,  // enlève les planches
+		GOAL_PUTOBJECT,		0,0, -1,-1,  // enlÃ¨ve les planches
 		GOAL_GOBLUPI,		+1,+1, true,
 		GOAL_ACTION,		ACTION_PIOCHESOURD, DIRECT_E,
 		GOAL_ACTION,		ACTION_PIOCHESOURD, DIRECT_E,
@@ -983,7 +983,7 @@ static short table_goal_depose[] =
 		 GOAL_IFTERM,		+1,0,  // emplacement libre ?
 		 GOAL_INTERRUPT,	0,  // prioritaire
 		 GOAL_WORK,			0,-1,
-		 GOAL_PUTOBJECT,	0,-1, -3,-3,  // l'objet transporté
+		 GOAL_PUTOBJECT,	0,-1, -3,-3,  // l'objet transportÃ©
 		 GOAL_BUILDOBJECT,	0,-1, -2,-2, -1,-1, 11,1,1*100,
 		 GOAL_ADDMOVES,		0,-1, 4,
 		GOAL_DEPOSE,
@@ -1003,7 +1003,7 @@ static short table_goal_depose2[] =
 		 GOAL_IFTERM,		0,+1,  // emplacement libre ?
 		 GOAL_INTERRUPT,	0,  // prioritaire
 		 GOAL_WORK,			-1,0,
-		 GOAL_PUTOBJECT,	-1,0, -3,-3,  // l'objet transporté
+		 GOAL_PUTOBJECT,	-1,0, -3,-3,  // l'objet transportÃ©
 		 GOAL_BUILDOBJECT,	-1,0, -2,-2, -1,-1, 11,1,1*100,
 		 GOAL_ADDMOVES,		-1,0, 5,
 		GOAL_DEPOSE,
@@ -1022,7 +1022,7 @@ static short table_goal_newblupi[] =
 		GOAL_GROUP,			5,
 		 GOAL_INTERRUPT,	0,  // prioritaire
 		 GOAL_WORK,			0,-1,
-		 GOAL_PUTOBJECT,	0,-1, -3,-3,  // l'objet transporté
+		 GOAL_PUTOBJECT,	0,-1, -3,-3,  // l'objet transportÃ©
 		 GOAL_BUILDOBJECT,	0,-1, -2,-2, -1,-1, 11,1,1*100,
 		 GOAL_ADDMOVES,		0,-1, 4,
 		GOAL_DEPOSE,
@@ -1159,7 +1159,7 @@ static short table_goal_mange2[] =
 	0
 };
 
-// Boit à la bouteille (est).
+// Boit Ã  la bouteille (est).
 static short table_goal_boit[] =
 {
 	WM_ACTION_BOIT,
@@ -1178,7 +1178,7 @@ static short table_goal_boit[] =
 	0
 };
 
-// Boit à la bouteille (sud).
+// Boit Ã  la bouteille (sud).
 static short table_goal_boit2[] =
 {
 	WM_ACTION_BOIT2,
@@ -1323,7 +1323,7 @@ static short table_goal_labo[] =
 	0
 };
 
-// Blupi fait péter la dynamite.
+// Blupi fait pÃ©ter la dynamite.
 static short table_goal_dynamite[] =
 {
 	WM_ACTION_DYNAMITE,
@@ -1335,7 +1335,7 @@ static short table_goal_dynamite[] =
 		 GOAL_WORK,			0,-1,
 		 GOAL_PUTOBJECT,	0,-1, -1,-1,
 		 GOAL_BUILDOBJECT,	0,-1, CHOBJECT,-1, -1,-1, DIMOBJY,1,-1*100,
-		 GOAL_ADDICONS,		0,-1, 7,  // mèche
+		 GOAL_ADDICONS,		0,-1, 7,  // mÃ¨che
 		GOAL_ACTION,		ACTION_MECHE, DIRECT_E,
 		GOAL_SOUND,			SOUND_DYNAMITE,
 		GOAL_GROUP,			4,
@@ -1373,7 +1373,7 @@ static short table_goal_dynamite[] =
 	0
 };
 
-// Blupi fait péter la dynamite très fort.
+// Blupi fait pÃ©ter la dynamite trÃ¨s fort.
 static short table_goal_dynamite2[] =
 {
 	WM_ACTION_DYNAMITE2,
@@ -1385,7 +1385,7 @@ static short table_goal_dynamite2[] =
 		 GOAL_WORK,			0,-1,
 		 GOAL_PUTOBJECT,	0,-1, -1,-1,
 		 GOAL_BUILDOBJECT,	0,-1, CHOBJECT,-1, -1,-1, DIMOBJY,1,-1*100,
-		 GOAL_ADDICONS,		0,-1, 7,  // mèche
+		 GOAL_ADDICONS,		0,-1, 7,  // mÃ¨che
 		GOAL_ACTION,		ACTION_MECHE, DIRECT_E,
 		GOAL_SOUND,			SOUND_DYNAMITE,
 		GOAL_GROUP,			5,
@@ -1486,7 +1486,7 @@ static short table_goal_dynamite2[] =
 	0
 };
 
-// Tracks fait péter la dynamite.
+// Tracks fait pÃ©ter la dynamite.
 static short table_goal_t_dynamite[] =
 {
 	WM_ACTION_T_DYNAMITE,
@@ -1548,7 +1548,7 @@ static short table_goal_mine[] =
 	0
 };
 
-// Détonnateur de mine créé par GOAL_AMORCE (blupi invisible).
+// DÃ©tonnateur de mine crÃ©Ã© par GOAL_AMORCE (blupi invisible).
 static short table_goal_mine2[] =
 {
 	WM_ACTION_MINE2,
@@ -2006,7 +2006,7 @@ static short table_goal_bateaun[] =
 	0
 };
 
-// Départ en bateau.
+// DÃ©part en bateau.
 static short table_goal_bateaude[] =
 {
 	WM_ACTION_BATEAUDE,
@@ -2023,7 +2023,7 @@ static short table_goal_bateaude[] =
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_GROUP,			2,
-		 GOAL_PUTOBJECT,	-1,-1, -1,-1,  // enlève le bateau
+		 GOAL_PUTOBJECT,	-1,-1, -1,-1,  // enlÃ¨ve le bateau
 		 GOAL_VEHICULE,		1,  // en bateau
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_GOBLUPI,		+1,0, true,
@@ -2047,7 +2047,7 @@ static short table_goal_bateauds[] =
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_GROUP,			2,
-		 GOAL_PUTOBJECT,	-1,-1, -1,-1,  // enlève le bateau
+		 GOAL_PUTOBJECT,	-1,-1, -1,-1,  // enlÃ¨ve le bateau
 		 GOAL_VEHICULE,		1,  // en bateau
 		GOAL_GOBLUPI,		0,+1, true,
 		GOAL_TERM,
@@ -2070,7 +2070,7 @@ static short table_goal_bateaudo[] =
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_GROUP,			2,
-		 GOAL_PUTOBJECT,	-1,-1, -1,-1,  // enlève le bateau
+		 GOAL_PUTOBJECT,	-1,-1, -1,-1,  // enlÃ¨ve le bateau
 		 GOAL_VEHICULE,		1,  // en bateau
 		GOAL_GOBLUPI,		-1,0, true,
 		GOAL_TERM,
@@ -2093,14 +2093,14 @@ static short table_goal_bateaudn[] =
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_GROUP,			2,
-		 GOAL_PUTOBJECT,	-1,-1, -1,-1,  // enlève le bateau
+		 GOAL_PUTOBJECT,	-1,-1, -1,-1,  // enlÃ¨ve le bateau
 		 GOAL_VEHICULE,		1,  // en bateau
 		GOAL_GOBLUPI,		0,-1, true,
 		GOAL_TERM,
 	0
 };
 
-// Arrivée en bateau.
+// ArrivÃ©e en bateau.
 static short table_goal_bateauae[] =
 {
 	WM_ACTION_BATEAUAE,
@@ -2114,7 +2114,7 @@ static short table_goal_bateauae[] =
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_GROUP,			2,
 		 GOAL_PUTOBJECT,	-1,-1, CHOBJECT,117,  // remet le bateau
-		 GOAL_VEHICULE,		0,  // à pied
+		 GOAL_VEHICULE,		0,  // Ã  pied
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
@@ -2141,7 +2141,7 @@ static short table_goal_bateauas[] =
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_GROUP,			2,
 		 GOAL_PUTOBJECT,	-1,-1, CHOBJECT,117,  // remet le bateau
-		 GOAL_VEHICULE,		0,  // à pied
+		 GOAL_VEHICULE,		0,  // Ã  pied
 		GOAL_GOBLUPI,		0,-2, true,
 		GOAL_TERM,
 	0
@@ -2160,7 +2160,7 @@ static short table_goal_bateauao[] =
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_GROUP,			2,
 		 GOAL_PUTOBJECT,	-1,-1, CHOBJECT,117,  // remet le bateau
-		 GOAL_VEHICULE,		0,  // à pied
+		 GOAL_VEHICULE,		0,  // Ã  pied
 		GOAL_GOBLUPI,		+1,0, true,
 		GOAL_TERM,
 	0
@@ -2179,7 +2179,7 @@ static short table_goal_bateauan[] =
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_GROUP,			2,
 		 GOAL_PUTOBJECT,	-1,-1, CHOBJECT,117,  // remet le bateau
-		 GOAL_VEHICULE,		0,  // à pied
+		 GOAL_VEHICULE,		0,  // Ã  pied
 		GOAL_GOBLUPI,		0,+1, true,
 		GOAL_TERM,
 	0
@@ -2223,7 +2223,7 @@ static short table_goal_r_build1[] =
 	0
 };
 
-// Le robot construit une usine à araignées.
+// Le robot construit une usine Ã  araignÃ©es.
 static short table_goal_r_build2[] =
 {
 	WM_ACTION_R_BUILD2,
@@ -2261,7 +2261,7 @@ static short table_goal_r_build2[] =
 	0
 };
 
-// Le robot construit une usine à virus.
+// Le robot construit une usine Ã  virus.
 static short table_goal_r_build3[] =
 {
 	WM_ACTION_R_BUILD3,
@@ -2299,7 +2299,7 @@ static short table_goal_r_build3[] =
 	0
 };
 
-// Le robot construit une usine à tracks.
+// Le robot construit une usine Ã  tracks.
 static short table_goal_r_build4[] =
 {
 	WM_ACTION_R_BUILD4,
@@ -2337,7 +2337,7 @@ static short table_goal_r_build4[] =
 	0
 };
 
-// Le robot construit une usine à bombe.
+// Le robot construit une usine Ã  bombe.
 static short table_goal_r_build5[] =
 {
 	WM_ACTION_R_BUILD5,
@@ -2375,7 +2375,7 @@ static short table_goal_r_build5[] =
 	0
 };
 
-// Le robot construit une usine à électro.
+// Le robot construit une usine Ã  Ã©lectro.
 static short table_goal_r_build6[] =
 {
 	WM_ACTION_R_BUILD6,
@@ -2436,7 +2436,7 @@ static short table_goal_r_make1[] =
 	0
 };
 
-// Le robot construit une araignée.
+// Le robot construit une araignÃ©e.
 static short table_goal_r_make2[] =
 {
 	WM_ACTION_R_MAKE2,
@@ -2477,7 +2477,7 @@ static short table_goal_r_make2[] =
 		GOAL_GROUP,			2,
 		 GOAL_FINISHMOVE,
 		 GOAL_PUTOBJECT,	0,-1, CHOBJECT,101,  // ouvre la porte
-		GOAL_NEWPERSO,		+1,0, 1,  // araignée (qui sortira)
+		GOAL_NEWPERSO,		+1,0, 1,  // araignÃ©e (qui sortira)
 		GOAL_ACTION,		ACTION_R_DELAY, DIRECT_E,
 		GOAL_ACTION,		ACTION_R_DELAY, DIRECT_E,
 		GOAL_SOUND,			SOUND_PORTE,
@@ -2693,7 +2693,7 @@ static short table_goal_r_make5[] =
 	0
 };
 
-// Le robot construit un électro.
+// Le robot construit un Ã©lectro.
 static short table_goal_r_make6[] =
 {
 	WM_ACTION_R_MAKE6,
@@ -2734,7 +2734,7 @@ static short table_goal_r_make6[] =
 		GOAL_GROUP,			2,
 		 GOAL_FINISHMOVE,
 		 GOAL_PUTOBJECT,	0,-1, CHOBJECT,18,  // ouvre la porte
-		GOAL_NEWPERSO,		+1,0, 7,  // électro (qui sortira)
+		GOAL_NEWPERSO,		+1,0, 7,  // Ã©lectro (qui sortira)
 		GOAL_ACTION,		ACTION_R_DELAY, DIRECT_E,
 		GOAL_SOUND,			SOUND_PORTE,
 		GOAL_PUTOBJECT,		0,-1, CHOBJECT,17,  // ferme la porte
@@ -2770,7 +2770,7 @@ static short table_goal_mjeep[] =
 		 GOAL_WORK,			-1,0,
 		GOAL_ACTION,		ACTION_SAUTE1, DIRECT_S,
 		GOAL_GROUP,			2,
-		 GOAL_PUTOBJECT,	-1,-1, -1,-1,  // enlève la jeep
+		 GOAL_PUTOBJECT,	-1,-1, -1,-1,  // enlÃ¨ve la jeep
 		 GOAL_VEHICULE,		2,  // en jeep
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
@@ -2796,7 +2796,7 @@ static short table_goal_djeep[] =
 		 GOAL_INTERRUPT,	0,  // prioritaire
 		 GOAL_WORK,			-1,-1,
 		 GOAL_PUTOBJECT,	-1,-1, CHOBJECT,118,  // remet la jeep
-		 GOAL_VEHICULE,		0,  // à pied
+		 GOAL_VEHICULE,		0,  // Ã  pied
 		 GOAL_ACTUALISE,
 		GOAL_ACTION,		ACTION_SAUTE1, DIRECT_N,
 		GOAL_ACTION,		ACTION_STOP, DIRECT_N,
@@ -2825,7 +2825,7 @@ static short table_goal_marmure[] =
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
 		GOAL_GROUP,			2,
-		 GOAL_PUTOBJECT,	-1,-1, -1,-1,  // enlève l'armure
+		 GOAL_PUTOBJECT,	-1,-1, -1,-1,  // enlÃ¨ve l'armure
 		 GOAL_ACTION,		ACTION_ARMURECLOSE, DIRECT_E,
 		GOAL_VEHICULE,		3,  // en armure
 		GOAL_ACTION,		ACTION_STOP, DIRECT_E,
@@ -2867,13 +2867,13 @@ static short table_goal_darmure[] =
 		GOAL_GROUP,			3,
 		 GOAL_WORK,			-1,-1,
 		 GOAL_PUTOBJECT,	-1,-1, CHOBJECT,16,  // remet l'armure
-		 GOAL_VEHICULE,		0,  // à pied
+		 GOAL_VEHICULE,		0,  // Ã  pied
 		GOAL_GOBLUPI,		0,-1, true,
 		GOAL_TERM,
 	0
 };
 
-// Blupi cherche où planter des drapeaux.
+// Blupi cherche oÃ¹ planter des drapeaux.
 static short table_goal_drapeau[] =
 {
 	WM_ACTION_DRAPEAU,
@@ -3164,7 +3164,7 @@ static short table_goal_fabdisc[] =
 	0
 };
 
-// L'électro va sur un blupi puis lance ses rayons.
+// L'Ã©lectro va sur un blupi puis lance ses rayons.
 static short table_goal_e_rayon[] =
 {
 	WM_ACTION_E_RAYON,
@@ -3254,7 +3254,7 @@ static short table_goal_e_rayon[] =
 	0
 };
 
-// Blupi s'électrocute.
+// Blupi s'Ã©lectrocute.
 static short table_goal_electro[] =
 {
 	WM_ACTION_ELECTRO,
@@ -3307,7 +3307,7 @@ static short table_goal_grille[] =
 	0
 };
 
-// L'araignée meurt.
+// L'araignÃ©e meurt.
 static short table_goal_a_mort[] =
 {
 	WM_ACTION_A_MORT,
@@ -3318,12 +3318,12 @@ static short table_goal_a_mort[] =
 		GOAL_ACTION,		ACTION_A_MORT1, DIRECT_E,
 		GOAL_ACTION,		ACTION_A_MORT2, DIRECT_E,
 		GOAL_ACTION,		ACTION_A_MORT3, DIRECT_E,
-		GOAL_DELETE,		// l'araignée meurt brutalement
+		GOAL_DELETE,		// l'araignÃ©e meurt brutalement
 		GOAL_TERM,
 	0
 };
 
-// Blupi se prépare à répéter une liste.
+// Blupi se prÃ©pare Ã  rÃ©pÃ©ter une liste.
 static short table_goal_repeat[] =
 {
 	WM_ACTION_REPEAT,
@@ -3331,7 +3331,7 @@ static short table_goal_repeat[] =
 	0
 };
 
-// Blupi se téléporte d'un endroit à un autre.
+// Blupi se tÃ©lÃ©porte d'un endroit Ã  un autre.
 static short table_goal_teleporte00[] =
 {
 	WM_ACTION_TELEPORTE00,
@@ -3528,7 +3528,7 @@ static short* table_pGoal[] =
 	nullptr
 };
 
-// Retourne le pointeur à la table table_goal_*.
+// Retourne le pointeur Ã  la table table_goal_*.
 
 short* GetTableGoal(int action)
 {
@@ -3538,7 +3538,7 @@ short* GetTableGoal(int action)
 	{
 		if ( **ppTable == action )
 		{
-			return *ppTable+1;  // après WM_ACTION_*
+			return *ppTable+1;  // aprÃ¨s WM_ACTION_*
 		}
 
 		ppTable ++;

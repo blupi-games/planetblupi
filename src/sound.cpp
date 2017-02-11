@@ -84,7 +84,7 @@ bool CSound::Create()
 }
 
 
-// Retourne l'�tat de DirectSound.
+// Retourne l'ï¿½tat de DirectSound.
 
 bool CSound::GetEnable()
 {
@@ -92,7 +92,7 @@ bool CSound::GetEnable()
 }
 
 
-// Enclenche ou d�clenche le son.
+// Enclenche ou dï¿½clenche le son.
 
 void CSound::SetState(bool bState)
 {
@@ -163,7 +163,7 @@ bool CSound::Cache(int channel, const char *pFilename)
 	return true;
 }
 
-// D�charge un son.
+// Dï¿½charge un son.
 
 void CSound::Flush(int channel)
 {
@@ -206,7 +206,7 @@ bool CSound::Play(int channel, int volume, Uint8 panLeft, Uint8 panRight)
 
 // Fait entendre un son dans une image.
 // Si rank != -1, il indique le rang du blupi dont il faudra
-// �ventuellement stopper le dernier son en cours !
+// ï¿½ventuellement stopper le dernier son en cours !
 
 bool CSound::PlayImage(int channel, POINT pos, int rank)
 {
@@ -347,7 +347,7 @@ bool CSound::IsStoppedOnDemand ()
 	return m_bStopped;
 }
 
-// Adapte le volume de la musique en cours, si n�cessaire.
+// Adapte le volume de la musique en cours, si nï¿½cessaire.
 
 void CSound::AdaptVolumeMusic()
 {
@@ -358,7 +358,7 @@ void CSound::AdaptVolumeMusic()
 	}
 }
 
-// Indique le nombre de suspend � sauter.
+// Indique le nombre de suspend ï¿½ sauter.
 
 void CSound::SetSuspendSkip(int nb)
 {

@@ -72,7 +72,7 @@ CPixmap::~CPixmap()
 	}
 }
 
-// Cr�e l'objet DirectDraw principal.
+// Crï¿½e l'objet DirectDraw principal.
 // Retourne false en cas d'erreur.
 
 bool CPixmap::Create(POINT dim,
@@ -90,7 +90,7 @@ bool CPixmap::Create(POINT dim,
 	return true;
 }
 
-// Lib�re les bitmaps.
+// Libï¿½re les bitmaps.
 
 bool CPixmap::Flush()
 {
@@ -101,7 +101,7 @@ bool CPixmap::Flush()
 
 void CPixmap::Fill(RECT rect, COLORREF color)
 {
-	// � faire si n�cessaire ...
+	// ï¿½ faire si nï¿½cessaire ...
 }
 
 // Effectue un appel BltFast.
@@ -192,7 +192,7 @@ int CPixmap::BltFast(SDL_Texture *lpSDL, int channel, POINT dst, RECT rcRect)
 	return res;
 }
 
-// Cache une image contenant des ic�nes.
+// Cache une image contenant des icï¿½nes.
 
 bool CPixmap::Cache(int channel, const char *pFilename, POINT totalDim, POINT iconDim)
 {
@@ -284,14 +284,14 @@ bool CPixmap::Cache(int channel, SDL_Surface *surface, POINT totalDim)
 	return true;
 }
 
-// Modifie la r�gion de clipping.
+// Modifie la rï¿½gion de clipping.
 
 void CPixmap::SetClipping(RECT clip)
 {
 	m_clipRect = clip;
 }
 
-// Retourne la r�gion de clipping.
+// Retourne la rï¿½gion de clipping.
 
 RECT CPixmap::GetClipping()
 {
@@ -299,7 +299,7 @@ RECT CPixmap::GetClipping()
 }
 
 
-// Teste si un point fait partie d'une ic�ne.
+// Teste si un point fait partie d'une icï¿½ne.
 
 bool CPixmap::IsIconPixel(int channel, int rank, POINT pos)
 {
@@ -427,7 +427,7 @@ bool CPixmap::DrawIconPart(int chDst, int channel, int rank, POINT pos,
 	return !BltFast (chDst, channel, pos, rect);
 }
 
-// Dessine une partie d'image n'importe o�.
+// Dessine une partie d'image n'importe oï¿½.
 
 bool CPixmap::DrawPart(int chDst, int channel, POINT dest, RECT rect, bool bMask)
 {
@@ -464,7 +464,7 @@ bool CPixmap::DrawImage(int chDst, int channel, RECT rect)
 }
 
 
-// Construit une ic�ne en utilisant un masque.
+// Construit une icï¿½ne en utilisant un masque.
 
 bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 							int channel, int rankSrc, int rankDst)
@@ -514,7 +514,7 @@ bool CPixmap::BuildIconMask(int channelMask, int rankMask,
 }
 
 
-// Affiche le pixmap � l'�cran.
+// Affiche le pixmap ï¿½ l'ï¿½cran.
 // Retourne false en cas d'erreur.
 
 bool CPixmap::Display()

@@ -562,7 +562,7 @@ static char tableObstacleObject[] =
 	1,1,1,1,1,
 	0,1,1,1,1,
 
-	0,1,1,1,0,		// 12 (fusÈe)
+	0,1,1,1,0,		// 12 (fus√©e)
 	1,1,1,1,1,
 	1,1,1,1,1,
 	1,1,1,1,1,
@@ -574,7 +574,7 @@ static char tableObstacleObject[] =
 	0,0,0,0,0,
 	0,0,0,0,0,
 
-	0,0,0,0,0,		// 14 (mÈtal)
+	0,0,0,0,0,		// 14 (m√©tal)
 	0,0,0,0,0,
 	0,0,1,1,1,
 	0,0,1,1,1,
@@ -604,7 +604,7 @@ static char tableObstacleObject[] =
 	1,0,0,0,0,
 	1,1,1,1,1,
 
-	0,0,0,0,0,		// 19 (Èlectro piÈgÈ)
+	0,0,0,0,0,		// 19 (√©lectro pi√©g√©)
 	0,0,0,0,0,
 	0,0,1,1,1,
 	0,0,1,1,1,
@@ -1053,7 +1053,7 @@ static char tableObstacleObject[] =
 	0,0,1,1,1,
 	0,0,1,1,1,
 
-	0,0,0,0,0,		// 93 (piËge)
+	0,0,0,0,0,		// 93 (pi√®ge)
 	0,0,0,0,0,
 	0,0,0,0,0,
 	0,0,0,1,0,
@@ -1071,19 +1071,19 @@ static char tableObstacleObject[] =
 	0,0,1,1,1,
 	0,0,1,1,1,
 
-	0,0,0,0,0,		// 96 (araignÈe dans piËge)
+	0,0,0,0,0,		// 96 (araign√©e dans pi√®ge)
 	0,0,0,0,0,
 	0,0,1,1,1,
 	0,0,1,1,1,
 	0,0,1,1,1,
 
-	0,0,0,0,0,		// 97 (tracks dans piËge)
+	0,0,0,0,0,		// 97 (tracks dans pi√®ge)
 	0,0,0,0,0,
 	0,0,1,1,1,
 	0,0,1,1,1,
 	0,0,1,1,1,
 
-	0,0,0,0,0,		// 98 (robot dans piËge)
+	0,0,0,0,0,		// 98 (robot dans pi√®ge)
 	0,0,0,0,0,
 	0,0,1,1,1,
 	0,0,1,1,1,
@@ -1131,7 +1131,7 @@ static char tableObstacleObject[] =
 	1,0,0,0,0,
 	1,1,1,1,1,
 
-	1,1,1,1,1,		// 106 (barriËre)
+	1,1,1,1,1,		// 106 (barri√®re)
 	1,1,1,1,1,
 	1,1,1,1,1,
 	1,1,1,1,1,
@@ -1179,7 +1179,7 @@ static char tableObstacleObject[] =
 	1,1,1,0,0,
 	1,1,1,1,1,
 
-	0,0,0,0,0,		// 114 (bombe dans piËge)
+	0,0,0,0,0,		// 114 (bombe dans pi√®ge)
 	0,0,0,0,0,
 	0,0,1,1,1,
 	0,0,1,1,1,
@@ -1251,7 +1251,7 @@ static char tableObstacleObject[] =
 	0,0,1,1,1,
 	0,0,1,1,1,
 
-	0,0,0,0,0,		// 126 (mine de fer, Èchaffaudage)
+	0,0,0,0,0,		// 126 (mine de fer, √©chaffaudage)
 	0,0,0,0,0,
 	0,0,0,0,0,
 	0,0,0,0,0,
@@ -1404,12 +1404,12 @@ void CDecor::AjustFloor(int rank, int icon, POINT cel, int *pBits)
 	lock:
 	for ( i=0 ; i<9 ; i++ )
 	{
-		*pBits++ = 1;  // bloquÈ
+		*pBits++ = 1;  // bloqu√©
 	}
 	return;
 }
 
-// (*)	Blupi est passe muraille lorsqu'il embarque ou dÈbarque
+// (*)	Blupi est passe muraille lorsqu'il embarque ou d√©barque
 //		du bateau. Dans ce cas, tous les sols (rivages) doivent
 //		permettre de passer. En revanche, pas les obstacles !
 
@@ -1423,7 +1423,7 @@ void CDecor::AjustObject(int rank, int icon, POINT cel, int *pBits)
 
 	if ( m_blupi[rank].perso == 0 )  // blupi ?
 	{
-		if ( m_blupi[rank].vehicule != 0 &&  // pas ‡ pied ?
+		if ( m_blupi[rank].vehicule != 0 &&  // pas √† pied ?
 			 cel.x%2 == 1 && cel.y%2 == 1 &&
 			 m_decor[cel.x/2][cel.y/2].objectIcon == 117 )  // bateau ?
 		{
@@ -1455,12 +1455,12 @@ void CDecor::AjustObject(int rank, int icon, POINT cel, int *pBits)
 		return;
 	}
 
-	if ( m_blupi[rank].perso == 1 )  // araignÈe ?
+	if ( m_blupi[rank].perso == 1 )  // araign√©e ?
 	{
 //		if ( cel.x%2 != 0 && cel.y%2 != 0 &&
 		if ( IsSpiderObject(icon) )  // tomate ou poison ?
 		{
-			goto pass;  // l'araignÈe peut aller dans les tomates
+			goto pass;  // l'araign√©e peut aller dans les tomates
 		}
 		return;
 	}
@@ -1469,8 +1469,8 @@ void CDecor::AjustObject(int rank, int icon, POINT cel, int *pBits)
 	{
 		if ( icon == 81 ||
 			 icon == 83 ||
-			 icon == 94 ||  // fleurs non-coupÈes ?
-			 (icon >= 106 && icon <= 112) )  // barriËres ennemies ?
+			 icon == 94 ||  // fleurs non-coup√©es ?
+			 (icon >= 106 && icon <= 112) )  // barri√®res ennemies ?
 		{
 			goto pass;  // le virus peut aller
 		}
@@ -1495,7 +1495,7 @@ void CDecor::AjustObject(int rank, int icon, POINT cel, int *pBits)
 
 	if ( m_blupi[rank].perso == 4 )  // robot ?
 	{
-		if ( IsRobotObject(icon) )  // piËge ou dynamite ?
+		if ( IsRobotObject(icon) )  // pi√®ge ou dynamite ?
 		{
 			goto pass;  // le robot peut aller
 		}
@@ -1504,25 +1504,25 @@ void CDecor::AjustObject(int rank, int icon, POINT cel, int *pBits)
 
 	if ( m_blupi[rank].perso == 5 )  // bombe ?
 	{
-		if ( icon == 93 )	// piËge ?
+		if ( icon == 93 )	// pi√®ge ?
 		{
 			goto pass;  // la bombe peut aller
 		}
 		return;
 	}
 
-	if ( m_blupi[rank].perso == 7 )  // Èlectro ?
+	if ( m_blupi[rank].perso == 7 )  // √©lectro ?
 	{
-		if ( icon ==  93 )  // piËge ?
+		if ( icon ==  93 )  // pi√®ge ?
 		{
-			goto pass;  // l'Èlectro peut aller
+			goto pass;  // l'√©lectro peut aller
 		}
 		if ( icon == 113 ||                 // maison ?
 			 icon ==  28 || icon ==  29 ||  // laboratoire ?
 			 icon == 119 || icon == 120 ||  // usine ?
 			 icon == 121 || icon == 122 )   // mine de fer ?
 		{
-			goto lock;  // l'Èlectro ne peut pas aller dans la maison
+			goto lock;  // l'√©lectro ne peut pas aller dans la maison
 		}
 		return;
 	}
@@ -1560,7 +1560,7 @@ void CDecor::AjustObject(int rank, int icon, POINT cel, int *pBits)
 	lock:
 	for ( i=0 ; i<9 ; i++ )
 	{
-		*pBits++ = 1;  // bloquÈ
+		*pBits++ = 1;  // bloqu√©
 	}
 	return;
 }
@@ -1580,7 +1580,7 @@ void Copy33To99(int *pSrc33, int *pDst99, int dx, int dy)
 	}
 }
 
-// Indique s'il est possible d'avancer dans une direction donnÈe.
+// Indique s'il est possible d'avancer dans une direction donn√©e.
 
 bool CDecor::IsFreeDirect(POINT cel, int direct, int rank)
 {
@@ -1596,14 +1596,14 @@ bool CDecor::IsFreeDirect(POINT cel, int direct, int rank)
 	if ( m_decor[test.x/2][test.y/2].fire > 0 &&
 		 m_decor[test.x/2][test.y/2].fire < MoveMaxFire() )  return false;
 
-	// Cellule bloquÈe (un blupi travaille ici) ?
+	// Cellule bloqu√©e (un blupi travaille ici) ?
 	if ( m_blupi[rank].perso != 3 )  // pas tracks ?
 	{
 		workBlupi = m_decor[test.x/2][test.y/2].workBlupi;
 		if ( workBlupi >= 0 && workBlupi != rank )  return false;
 	}
 
-	// DÈplacement possible par-rapport au sol ?
+	// D√©placement possible par-rapport au sol ?
 //	icon = m_decor[cel.x/2][cel.y/2].floorIcon;
 //	SearchFloor(rank, icon, cel, bits);
 //	AjustFloor(rank, icon, cel, bits);
@@ -1615,7 +1615,7 @@ bool CDecor::IsFreeDirect(POINT cel, int direct, int rank)
 	if ( bits[1+1*3] == 1 )  return false;
 	if ( bits[(1-vector.x)+(1-vector.y)*3] == 1 )  return false;
 
-	// DÈplacement possible par-rapport aux obstacles ?
+	// D√©placement possible par-rapport aux obstacles ?
 	icon = m_decor[cel.x/2][cel.y/2].objectIcon;
 	SearchObject(rank, icon, cel, bits);
 	AjustObject(rank, icon, cel, bits);
@@ -1627,7 +1627,7 @@ bool CDecor::IsFreeDirect(POINT cel, int direct, int rank)
 	if ( bits[(1-vector.x)+(1-vector.y)*3] == 1 )  return false;
 	if ( bits[1+1*3] == 1 )  return false;
 
-	if ( vector.x != 0 && vector.y != 0 )  // dÈplacement diagonal ?
+	if ( vector.x != 0 && vector.y != 0 )  // d√©placement diagonal ?
 	{
 		test.x = cel.x;
 		test.y = cel.y+vector.y;
@@ -1651,7 +1651,7 @@ bool CDecor::IsFreeDirect(POINT cel, int direct, int rank)
 }
 
 // Indique si une cellule contient un objet.
-// Est utilisÈ lors du dessin (BuildPutBlupi), pour savoir
+// Est utilis√© lors du dessin (BuildPutBlupi), pour savoir
 // si blupi est devant un objet.
 
 bool CDecor::IsFreeCelObstacle(POINT cel)
@@ -1675,7 +1675,7 @@ bool CDecor::IsFreeCelObstacle(POINT cel)
 }
 
 // Indique si une cellule contient un sol.
-// Est utilisÈ pour savoir si blupi peut aller sur une cellule
+// Est utilis√© pour savoir si blupi peut aller sur une cellule
 // en tenant compte uniquement des sols.
 // Retourne true si blupi peut y aller !
 
@@ -1698,8 +1698,8 @@ bool CDecor::IsFreeCelFloor(POINT cel, int rank)
 }
 
 // Indique si une cellule est libre.
-// Est utilisÈ pour savoir si blupi peut venir ici
-// dÈbarquer en bateau ou monter dans sa jeep.
+// Est utilis√© pour savoir si blupi peut venir ici
+// d√©barquer en bateau ou monter dans sa jeep.
 
 bool CDecor::IsFreeCelGo(POINT cel, int rank)
 {
@@ -1739,7 +1739,7 @@ bool CDecor::IsFreeCelGo(POINT cel, int rank)
 	if ( bOK )  return true;
 
 	if ( !m_blupi[rank].bMalade &&
-		 m_blupi[rank].vehicule == 0 &&  // ‡ pied ?
+		 m_blupi[rank].vehicule == 0 &&  // √† pied ?
 		 m_blupi[rank].perso != 8 &&  // pas le disciple ?
 		 channel == CHOBJECT &&
 		 icon == 118 )  // jeep ?
@@ -1748,7 +1748,7 @@ bool CDecor::IsFreeCelGo(POINT cel, int rank)
 	}
 
 	if ( !m_blupi[rank].bMalade &&
-		 m_blupi[rank].vehicule == 0 &&  // ‡ pied ?
+		 m_blupi[rank].vehicule == 0 &&  // √† pied ?
 		 m_blupi[rank].perso != 8 &&  // pas le disciple ?
 		 m_blupi[rank].energy > MAXENERGY/4 &&  // fort ?
 		 m_blupi[rank].takeChannel == -1 &&  // porte rien ?
@@ -1762,8 +1762,8 @@ bool CDecor::IsFreeCelGo(POINT cel, int rank)
 }
 
 // Indique si on peut faire qq chose sur une cellule.
-// Est utilisÈ pour savoir comment est la mise en Èvidence (hili)
-// ‡ cet endroit.
+// Est utilis√© pour savoir comment est la mise en √©vidence (hili)
+// √† cet endroit.
 
 bool CDecor::IsFreeCelHili(POINT cel, int rank)
 {
@@ -1780,9 +1780,9 @@ bool CDecor::IsFreeCelHili(POINT cel, int rank)
 		icon    = m_decor[cel.x/2][cel.y/2].objectIcon;
 
 		if ( channel == CHOBJECT &&
-			 (icon == 12 ||                    // fusÈe ?
+			 (icon == 12 ||                    // fus√©e ?
 			  (icon >=  20 && icon <=  26) ||  // mur ?
-			  (icon >= 106 && icon <= 112) ||  // barriËre ?
+			  (icon >= 106 && icon <= 112) ||  // barri√®re ?
 			  (icon >=  99 && icon <= 105) ||  // batiment ennemi ?
 			  (icon >= 115 && icon <= 116) ||  // idem ?
 			  (icon >=  17 && icon <=  18)) )  // idem ?
@@ -1806,7 +1806,7 @@ bool CDecor::IsFreeCelHili(POINT cel, int rank)
 }
 
 // Indique si une cellule est libre.
-// Est utilisÈ pour savoir si blupi peut venir ici.
+// Est utilis√© pour savoir si blupi peut venir ici.
 
 bool CDecor::IsFreeCel(POINT cel, int rank)
 {
@@ -1818,7 +1818,7 @@ bool CDecor::IsFreeCel(POINT cel, int rank)
 	if ( m_decor[cel.x/2][cel.y/2].fire > 0 &&
 		 m_decor[cel.x/2][cel.y/2].fire < MoveMaxFire() )  return false;
 
-	// Cellule bloquÈe (un blupi travaille ici) ?
+	// Cellule bloqu√©e (un blupi travaille ici) ?
 	if ( rank != -1 && m_blupi[rank].perso != 3 )  // pas tracks ?
 	{
 		workBlupi = m_decor[cel.x/2][cel.y/2].workBlupi;
@@ -1838,7 +1838,7 @@ bool CDecor::IsFreeCel(POINT cel, int rank)
 	return true;  // pas d'obstacle
 }
 
-// Indique si blupi peut dÈposer un objet ici.
+// Indique si blupi peut d√©poser un objet ici.
 
 bool CDecor::IsFreeCelDepose(POINT cel, int rank)
 {
@@ -1847,14 +1847,14 @@ bool CDecor::IsFreeCelDepose(POINT cel, int rank)
 	if ( !IsFreeCel(cel, rank) )  return false;
 
 	icon = m_decor[cel.x/2][cel.y/2].objectIcon;
-	if ( icon == 10000 || icon == 10001 ||  // Èclairs entre tours ?
+	if ( icon == 10000 || icon == 10001 ||  // √©clairs entre tours ?
 		 icon == 18 )  // dalle glissante ?
 	{
 		return false;
 	}
 
 	icon = m_decor[cel.x/2][cel.y/2].floorIcon;
-	if ( icon == 80 )  // tÈlÈporteur ?
+	if ( icon == 80 )  // t√©l√©porteur ?
 	{
 		return false;
 	}
@@ -1863,7 +1863,7 @@ bool CDecor::IsFreeCelDepose(POINT cel, int rank)
 }
 
 // Indique s'il est possible d'embarquer ici.
-// Le point retournÈ dans "limit" indique jusqu'o˘ il est
+// Le point retourn√© dans "limit" indique jusqu'o√π il est
 // possible de marcher normalement (sans passe muraille).
 
 bool CDecor::IsFreeCelEmbarque(POINT cel, int rank,
@@ -1872,12 +1872,12 @@ bool CDecor::IsFreeCelEmbarque(POINT cel, int rank,
 	bool		bOK;
 	int			channel, icon;
 
-	// Impossible si blupi n'est pas ‡ pied,
+	// Impossible si blupi n'est pas √† pied,
 	// ou s'il s'agit d'un disciple.
 	if ( rank == -1 || m_blupi[rank].vehicule != 0 ||
 		 m_blupi[rank].perso == 8 )  return false;
 
-	// A-t-on cliquÈ sur un bateau ?
+	// A-t-on cliqu√© sur un bateau ?
 	if ( cel.x%2 != 1 || cel.y%2 != 1 )  return false;
 	GetObject(cel, channel, icon);
 	if ( channel != CHOBJECT || icon != 117 )  return false;
@@ -1941,8 +1941,8 @@ bool CDecor::IsFreeCelEmbarque(POINT cel, int rank,
 	return false;
 }
 
-// Indique s'il est possible de dÈbarquer ici.
-// Le point retournÈ dans "limit" indique jusqu'o˘ il est
+// Indique s'il est possible de d√©barquer ici.
+// Le point retourn√© dans "limit" indique jusqu'o√π il est
 // possible de naviguer normalement (sans passe muraille).
 
 bool CDecor::IsFreeCelDebarque(POINT cel, int rank,
@@ -1956,14 +1956,14 @@ bool CDecor::IsFreeCelDebarque(POINT cel, int rank,
 	if ( rank == -1 || m_blupi[rank].vehicule != 1 )  return false;
 
 	m_blupi[rank].vehicule = 0;
-	bOK = IsFreeCel(cel, rank);  // libre (‡ pied) ?
+	bOK = IsFreeCel(cel, rank);  // libre (√† pied) ?
 	m_blupi[rank].vehicule = 1;
 	if ( !bOK )  return false;
 
 	GetFloor(GetCel(cel,+2,0), channel1, icon1);
 	GetObject(GetCel(cel,+2,0), channel2, icon2);
 	if ( channel1 == CHFLOOR && icon1 == 2 &&  // rive ?
-		 channel2 == -1 && icon2 == -1 &&  // pas de bateau amarrÈ ?
+		 channel2 == -1 && icon2 == -1 &&  // pas de bateau amarr√© ?
 		 cel.x%2 == 1 && cel.y%2 == 1 )
 	{
 		limit = GetCel(cel,+3,0);
@@ -1974,7 +1974,7 @@ bool CDecor::IsFreeCelDebarque(POINT cel, int rank,
 	GetFloor(GetCel(cel,0,+2), channel1, icon1);
 	GetObject(GetCel(cel,0,+2), channel2, icon2);
 	if ( channel1 == CHFLOOR && icon1 == 3 &&  // rive ?
-		 channel2 == -1 && icon2 == -1 &&  // pas de bateau amarrÈ ?
+		 channel2 == -1 && icon2 == -1 &&  // pas de bateau amarr√© ?
 		 cel.x%2 == 1 && cel.y%2 == 1 )
 	{
 		limit = GetCel(cel,0,+3);
@@ -1985,7 +1985,7 @@ bool CDecor::IsFreeCelDebarque(POINT cel, int rank,
 	GetFloor(GetCel(cel,-2,0), channel1, icon1);
 	GetObject(GetCel(cel,-2,0), channel2, icon2);
 	if ( channel1 == CHFLOOR && icon1 == 4 &&  // rive ?
-		 channel2 == -1 && icon2 == -1 &&  // pas de bateau amarrÈ ?
+		 channel2 == -1 && icon2 == -1 &&  // pas de bateau amarr√© ?
 		 cel.x%2 == 0 && cel.y%2 == 1 )
 	{
 		limit = GetCel(cel,-2,0);
@@ -1996,7 +1996,7 @@ bool CDecor::IsFreeCelDebarque(POINT cel, int rank,
 	GetFloor(GetCel(cel,0,-2), channel1, icon1);
 	GetObject(GetCel(cel,0,-2), channel2, icon2);
 	if ( channel1 == CHFLOOR && icon1 == 5 &&  // rive ?
-		 channel2 == -1 && icon2 == -1 &&  // pas de bateau amarrÈ ?
+		 channel2 == -1 && icon2 == -1 &&  // pas de bateau amarr√© ?
 		 cel.x%2 == 1 && cel.y%2 == 0 )
 	{
 		limit = GetCel(cel,0,-2);
@@ -2015,13 +2015,13 @@ bool CDecor::IsFreeJump(POINT cel, int direct, int rank, int &action)
 	int			i, icon;
 	int			bits[3*3];
 
-	// Refuse de sauter si blupi n'est pas ‡ pied !
+	// Refuse de sauter si blupi n'est pas √† pied !
 	if ( m_blupi[rank].vehicule != 0 )  return false;
 
 	// Refuse de sauter dans les directions se, so, no, ne.
 	if ( (direct/16)%2 != 0 )  return false;
 
-	// Refuse de sauter si peu d'Ènergie ou si porte qq chose.
+	// Refuse de sauter si peu d'√©nergie ou si porte qq chose.
 	if ( m_blupi[rank].perso != 0 ||
 		 m_blupi[rank].energy <= MAXENERGY/4 ||
 		 m_blupi[rank].takeChannel != -1 )  return false;
@@ -2041,13 +2041,13 @@ bool CDecor::IsFreeJump(POINT cel, int direct, int rank, int &action)
 	}
 	if ( i == 0 )  return false;
 
-	// DÈpart possible par-rapport aux obstacles ?
+	// D√©part possible par-rapport aux obstacles ?
 	icon = m_decor[depart.x/2][depart.y/2].objectIcon;
 	SearchObject(rank, icon, depart, bits);
 	AjustObject(rank, icon, depart, bits);
 	if ( bits[(1+vector.x)+(1+vector.y)*3] == 1 )  return false;
 
-	// ArrivÈe possible par-rapport aux obstacles ?
+	// Arriv√©e possible par-rapport aux obstacles ?
 	icon = m_decor[cel.x/2][cel.y/2].objectIcon;
 	SearchObject(rank, icon, cel, bits);
 	AjustObject(rank, icon, cel, bits);
@@ -2083,7 +2083,7 @@ bool CDecor::IsFreeGlisse(POINT cel, int direct, int rank, int &action)
 
 
 // Cherche la meilleure direction pour atteindre un but.
-// Retourne -1 si on est dÈj‡ sur le but.
+// Retourne -1 si on est d√©j√† sur le but.
 
 int CDecor::DirectSearch(POINT cel, POINT goal)
 {
@@ -2120,7 +2120,7 @@ int CDecor::DirectSearch(POINT cel, POINT goal)
 	}
 #endif
 
-	// Cherche le huitiËme de cadrant correspondant ‡
+	// Cherche le huiti√®me de cadrant correspondant √†
 	// la direction.
 	//  41 = 100*tan(22.5)
 	// 241 = 100*tan(67.5)
@@ -2169,7 +2169,7 @@ int CDecor::DirectSearch(POINT cel, POINT goal)
 }
 
 
-// Vide les positions dÈj‡ essayÈes.
+// Vide les positions d√©j√† essay√©es.
 
 void CDecor::FlushUsed(int rank)
 {
@@ -2177,16 +2177,16 @@ void CDecor::FlushUsed(int rank)
 	m_blupi[rank].nextRankUsed = 0;
 }
 
-// Ajoute une position dÈj‡ ÈtÈ essayÈe.
+// Ajoute une position d√©j√† √©t√© essay√©e.
 
 void CDecor::AddUsedPos(int rank, POINT pos)
 {
 	int		i, j, old;
 
-	// Un virus est bÍte.
+	// Un virus est b√™te.
 	if ( m_blupi[rank].perso == 2 )  return;
 
-	// DÈj‡ dans la liste ?
+	// D√©j√† dans la liste ?
 	for ( i=0 ; i<m_blupi[rank].nbUsed ; i++ )
 	{
 		if ( pos.x == m_blupi[rank].posUsed[i].x &&
@@ -2217,7 +2217,7 @@ void CDecor::AddUsedPos(int rank, POINT pos)
 		return;
 	}
 
-	// Ajoute ‡ la suite de la liste.
+	// Ajoute √† la suite de la liste.
 	i = m_blupi[rank].nbUsed;
 
 	m_blupi[rank].posUsed[i] = pos;
@@ -2227,7 +2227,7 @@ void CDecor::AddUsedPos(int rank, POINT pos)
 	return;
 }
 
-// Cherche si une position a dÈj‡ ÈtÈ essayÈe.
+// Cherche si une position a d√©j√† √©t√© essay√©e.
 
 bool CDecor::IsUsedPos(int rank, POINT pos)
 {
@@ -2302,7 +2302,7 @@ bool CDecor::SearchBestBase(int rank, int &action, POINT &newCel, int &direct)
 				if ( m_blupi[rank].perso == 3 )   // tracks ?
 				{
 					// Le tracks peut aller sur les blupi
-					// pour les Ècraser !
+					// pour les √©craser !
 					if ( IsTracksHere(newCel, false) )
 					{
 						continue;
@@ -2348,10 +2348,10 @@ bool CDecor::SearchBestPass(int rank, int &action)
 	POINT		iCel, lCel, cel;
 
 	if ( m_blupi[rank].perso == 0 ||   // blupi ?
-		 m_blupi[rank].perso == 7 ||   // Èlectro ?
+		 m_blupi[rank].perso == 7 ||   // √©lectro ?
 		 m_blupi[rank].perso == 8 ||   // disciple ?
 		 (m_blupi[rank].perso == 4 &&  // robot ?
-		  m_term.bHachRobot ) )        // robot sur dalles hachurÈes ?
+		  m_term.bHachRobot ) )        // robot sur dalles hachur√©es ?
 	{
 		if ( m_blupi[rank].busyDelay > 0 )
 		{
@@ -2363,20 +2363,20 @@ bool CDecor::SearchBestPass(int rank, int &action)
 			}
 			return false;
 		}
-		if ( CheminCherche(rank, action) )  // recherche futÈe selon DD ...
+		if ( CheminCherche(rank, action) )  // recherche fut√©e selon DD ...
 		{
 			return true;
 		}
 		else
 		{
-			// Si la destination est occupÈe pendant une rÈpÈtition,
-			// il faut attendre ‡ l'infini !
+			// Si la destination est occup√©e pendant une r√©p√©tition,
+			// il faut attendre √† l'infini !
 			if ( m_blupi[rank].repeatLevel != -1 &&
 				 IsBlupiHereEx(m_blupi[rank].goalCel, rank, false) )
 			{
 				m_blupi[rank].busyCount ++;
 			}
-			m_blupi[rank].busyDelay = Random(8,12);  // dÈlai avant rÈessai
+			m_blupi[rank].busyDelay = Random(8,12);  // d√©lai avant r√©essai
 			return false;
 		}
 	}
@@ -2404,8 +2404,8 @@ bool CDecor::SearchBestPass(int rank, int &action)
 			m_blupi[rank].cel = cel;
 			lCel = cel;
 
-			// Est-on revenu juste ‡ cÙtÈ de la position
-			// de dÈpart ? Si oui, simplifie le mouvement.
+			// Est-on revenu juste √† c√¥t√© de la position
+			// de d√©part ? Si oui, simplifie le mouvement.
 			if ( i > 1 &&
 				 abs(m_blupi[rank].cel.x-iCel.x) <= 1 &&
 				 abs(m_blupi[rank].cel.y-iCel.y) <= 1 )
@@ -2450,9 +2450,9 @@ bool CDecor::SearchBestPass(int rank, int &action)
 }
 
 
-// VÈrifie si un objet est utilisable pour travailler dessus.
+// V√©rifie si un objet est utilisable pour travailler dessus.
 // Le sol doit permettre d'aller aux 4 coins, et il ne doit
-// pas y avoir un autre blupi que soi-mÍme.
+// pas y avoir un autre blupi que soi-m√™me.
 
 bool CDecor::IsWorkableObject(POINT cel, int rank)
 {
@@ -2621,7 +2621,7 @@ bool CDecor::SearchOtherDrapeau(int rank, POINT initCel, int distMax,
 			if ( m_decor[x/2][y/2].objectIcon == -1 &&
 				 ((icon >= 33 && icon <= 48) ||  // terre ?
 				  icon == 71 ) &&
-				  !TestDrapeau(GetCel(x,y)) )  // pas encore sondÈ ?
+				  !TestDrapeau(GetCel(x,y)) )  // pas encore sond√© ?
 			{
 				cel.x = x;
 				cel.y = y;
@@ -2644,7 +2644,7 @@ bool CDecor::SearchOtherDrapeau(int rank, POINT initCel, int distMax,
 	return true;
 }
 
-// Cherche un autre sol permettant de dÈposer du bois
+// Cherche un autre sol permettant de d√©poser du bois
 // pour construire un bateau.
 
 bool CDecor::SearchOtherBateau(int rank, POINT initCel, int distMax,
@@ -2686,16 +2686,16 @@ bool CDecor::SearchOtherBateau(int rank, POINT initCel, int distMax,
 }
 
 
-// VÈrifie si l'objet peut Ítre dÈtruit par l'araignÈe.
+// V√©rifie si l'objet peut √™tre d√©truit par l'araign√©e.
 
 bool CDecor::IsSpiderObject(int icon)
 {
 	return ( icon == 60 ||   // tomates ?
 			 icon == 92 ||   // poison ?
-			 icon == 93 );   // piËge ?
+			 icon == 93 );   // pi√®ge ?
 }
 
-// Cherche un autre objet pour l'araignÈe.
+// Cherche un autre objet pour l'araign√©e.
 
 bool CDecor::SearchSpiderObject(int rank, POINT initCel, int distMax,
 								POINT &foundCel, int &foundIcon)
@@ -2727,8 +2727,8 @@ bool CDecor::SearchSpiderObject(int rank, POINT initCel, int distMax,
 
 				dist = abs(initCel.x-x) + abs(initCel.y-y);
 
-				if ( m_decor[x/2][y/2].objectIcon == 93 &&  //piËge ?
-					 dist > 4 )  continue;  // si piËge loin -> ignore
+				if ( m_decor[x/2][y/2].objectIcon == 93 &&  //pi√®ge ?
+					 dist > 4 )  continue;  // si pi√®ge loin -> ignore
 
 				if ( dist <= min )
 				{
@@ -2747,7 +2747,7 @@ bool CDecor::SearchSpiderObject(int rank, POINT initCel, int distMax,
 }
 
 
-// VÈrifie si l'objet peut Ítre dÈtruit par le tracks.
+// V√©rifie si l'objet peut √™tre d√©truit par le tracks.
 
 bool CDecor::IsTracksObject(int icon)
 {
@@ -2758,8 +2758,8 @@ bool CDecor::IsTracksObject(int icon)
 			 icon ==  80 ||		// bouteille ?
 			 icon ==  85 ||		// dynamite ?
 			 icon ==  92 ||		// poison ?
-			 icon ==  93 ||		// piËge ?
-			 icon == 123 ||		// piËge ?
+			 icon ==  93 ||		// pi√®ge ?
+			 icon == 123 ||		// pi√®ge ?
 			 icon == 125 ||		// mine ?
 			 icon == 127 ||		// mine ?
 			 (icon >= 81 && icon <= 84) ||   // fleurs ?
@@ -2809,12 +2809,12 @@ bool CDecor::SearchTracksObject(int rank, POINT initCel, int distMax,
 		}
 	}
 
-	// Le tracks peut Ècraser blupi.
+	// Le tracks peut √©craser blupi.
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{
 		if ( m_blupi[rank].bExist &&
 			 m_blupi[rank].perso == 0 &&  // blupi ?
-			 m_blupi[rank].vehicule == 0 )  // ‡ pied ?
+			 m_blupi[rank].vehicule == 0 )  // √† pied ?
 		{
 //?			if ( BlupiIsGoalUsed(m_blupi[rank].cel) )  continue;
 
@@ -2847,12 +2847,12 @@ bool CDecor::SearchTracksObject(int rank, POINT initCel, int distMax,
 }
 
 
-// VÈrifie si l'objet peut Ítre dÈtruit par le robot.
+// V√©rifie si l'objet peut √™tre d√©truit par le robot.
 
 bool CDecor::IsRobotObject(int icon)
 {
 	return ( icon ==  85 ||  // dynamite ?
-			 icon ==  93 ||  // piËge ?
+			 icon ==  93 ||  // pi√®ge ?
 			 icon == 125 ||  // mine ?
 			 icon == 127 );  // mine ?
 }
@@ -2871,7 +2871,7 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 	int		nbPerso[10];
 	int		i, r, d, dd, icon, index, nb;
 
-	if ( m_term.bHachRobot )  // robot sur dalles hachurÈes ?
+	if ( m_term.bHachRobot )  // robot sur dalles hachur√©es ?
 	{
 		foundAction = WM_ACTION_GO;
 		return SearchOtherObject(rank, initCel, WM_ACTION_GO,
@@ -2880,7 +2880,7 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 	}
 
 	initCel.x = (initCel.x/2)*2;
-	initCel.y = (initCel.y/2)*2;  // b‚timents trËs espacÈs !
+	initCel.y = (initCel.y/2)*2;  // b√¢timents tr√®s espac√©s !
 
 	startx = ((initCel.x-distMax/2)/2)*2;
 	endx   = ((initCel.x+distMax/2)/2)*2;
@@ -2905,15 +2905,15 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 
 			if ( icon ==  99 )  nbUsine[0] ++;  // recharge ?
 			if ( icon == 104 )  nbUsine[1] ++;  // usine tracks ?
-			if ( icon == 100 )  nbUsine[2] ++;  // usine araignÈe ?
+			if ( icon == 100 )  nbUsine[2] ++;  // usine araign√©e ?
 			if ( icon == 102 )  nbUsine[3] ++;  // usine virus ?
 			if ( icon == 115 )  nbUsine[4] ++;  // usine bombe ?
-			if ( icon ==  17 )  nbUsine[5] ++;  // usine Èlectro ?
+			if ( icon ==  17 )  nbUsine[5] ++;  // usine √©lectro ?
 
 			dist = abs(initCel.x-x) + abs(initCel.y-y);
 
-			if ( IsRobotObject(icon) &&  // piËge/dynamite ?
-				 dist <= 4 )             // trËs proche ?
+			if ( IsRobotObject(icon) &&  // pi√®ge/dynamite ?
+				 dist <= 4 )             // tr√®s proche ?
 			{
 				if ( dist <= min )
 				{
@@ -2928,7 +2928,7 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 
 	if ( min < distMax )
 	{
-		foundAction = -1;  // robot passe tout prËt d'un piËge/dynamite
+		foundAction = -1;  // robot passe tout pr√®t d'un pi√®ge/dynamite
 		return true;
 	}
 
@@ -2956,7 +2956,7 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 //?		goto search;
 //?	}
 
-	if ( min == 0 )  // encore une usine ‡ construire ?
+	if ( min == 0 )  // encore une usine √† construire ?
 	{
 		// Libre juste ici ?
 		if ( IsUsineBuild(rank, initCel) )
@@ -2965,10 +2965,10 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 			build:
 			if ( index == 0 )  foundAction = WM_ACTION_R_BUILD1;  // recharge
 			if ( index == 1 )  foundAction = WM_ACTION_R_BUILD4;  // tracks
-			if ( index == 2 )  foundAction = WM_ACTION_R_BUILD2;  // araignÈe
+			if ( index == 2 )  foundAction = WM_ACTION_R_BUILD2;  // araign√©e
 			if ( index == 3 )  foundAction = WM_ACTION_R_BUILD3;  // virus
 			if ( index == 4 )  foundAction = WM_ACTION_R_BUILD5;  // bombe
-			if ( index == 5 )  foundAction = WM_ACTION_R_BUILD6;  // Èlectro
+			if ( index == 5 )  foundAction = WM_ACTION_R_BUILD6;  // √©lectro
 			return true;
 		}
 		// Cherche un emplacement libre.
@@ -2980,9 +2980,9 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 			{
 				for ( dd=0 ; dd<=d ; dd++ )
 				{
-					if ( i == 0 )  x -= 6;  // ‡ gauche
+					if ( i == 0 )  x -= 6;  // √† gauche
 					if ( i == 1 )  y += 6;  // descend
-					if ( i == 2 )  x += 6;  // ‡ droite
+					if ( i == 2 )  x += 6;  // √† droite
 					if ( i == 3 )  y -= 6;  // monte
 
 					if ( IsUsineBuild(rank, GetCel(x,y)) )
@@ -2996,7 +2996,7 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 		}
 	}
 
-	// Cherche l'ennemi le moins rÈpandu.
+	// Cherche l'ennemi le moins r√©pandu.
 	for ( i=0 ; i<10 ; i++ )
 	{
 		nbPerso[i] = 0;
@@ -3011,7 +3011,7 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 			{
 				nbPerso[0] += 1;
 			}
-			if ( m_blupi[r].perso == 1 )  // araignÈe ?
+			if ( m_blupi[r].perso == 1 )  // araign√©e ?
 			{
 				nbPerso[1] += 1;
 			}
@@ -3023,14 +3023,14 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 			{
 				nbPerso[3] += 2;
 			}
-			if ( m_blupi[r].perso == 7 )  // Èlectro ?
+			if ( m_blupi[r].perso == 7 )  // √©lectro ?
 			{
 				nbPerso[4] += 2;
 			}
 		}
 	}
-	if ( nb > MAXBLUPI-10 )  return false;  // rien si trop peuplÈ !
-	// Cherche l'ennemi le moins rÈpandu.
+	if ( nb > MAXBLUPI-10 )  return false;  // rien si trop peupl√© !
+	// Cherche l'ennemi le moins r√©pandu.
 	min = 999;
 	index = 0;
 	for ( i=0 ; i<5 ; i++ )
@@ -3047,12 +3047,12 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 		index = 0;  // station de recharge
 	}
 	if ( m_skill >= 1 )  maxUsine *= 2;  // 2 ennemis par batiment
-	if ( min >= maxUsine )  // assez peuplÈ ?
+	if ( min >= maxUsine )  // assez peupl√© ?
 	{
 		index = 0;  // station de recharge
 	}
 
-	// Cherche l'usine pour fabriquer l'ennemi le moins rÈdandu.
+	// Cherche l'usine pour fabriquer l'ennemi le moins r√©dandu.
 //?	search:
 	min = distMax;
 	for ( y=starty ; y<endy ; y+=2 )
@@ -3063,10 +3063,10 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 
 			if ( (index == 0 && icon ==  99) ||  // recharge ?
 				 (index == 1 && icon == 104) ||  // tracks ?
-				 (index == 2 && icon == 100) ||  // araignÈe ?
+				 (index == 2 && icon == 100) ||  // araign√©e ?
 				 (index == 3 && icon == 102) ||  // virus ?
 				 (index == 4 && icon == 115) ||  // bombe ?
-				 (index == 5 && icon ==  17) )   // Èlectro ?
+				 (index == 5 && icon ==  17) )   // √©lectro ?
 			{
 				if ( IsUsineFree(rank, GetCel(x,y)) )
 				{
@@ -3086,10 +3086,10 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 	{
 		if ( index == 0 )  foundAction = WM_ACTION_R_MAKE1;  // recharge
 		if ( index == 1 )  foundAction = WM_ACTION_R_MAKE4;  // tracks
-		if ( index == 2 )  foundAction = WM_ACTION_R_MAKE2;  // araignÈe
+		if ( index == 2 )  foundAction = WM_ACTION_R_MAKE2;  // araign√©e
 		if ( index == 3 )  foundAction = WM_ACTION_R_MAKE3;  // virus
 		if ( index == 4 )  foundAction = WM_ACTION_R_MAKE5;  // bombe
-		if ( index == 5 )  foundAction = WM_ACTION_R_MAKE6;  // Èlectro
+		if ( index == 5 )  foundAction = WM_ACTION_R_MAKE6;  // √©lectro
 		return true;
 	}
 
@@ -3101,11 +3101,11 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 		{
 			icon = m_decor[x/2][y/2].objectIcon;
 
-			if ( (icon == 100 && nbPerso[1] <= maxUsine) ||  // araignÈe ?
+			if ( (icon == 100 && nbPerso[1] <= maxUsine) ||  // araign√©e ?
 				 (icon == 102 && nbPerso[2] <= maxUsine) ||  // virus ?
 				 (icon == 104 && nbPerso[0] <= maxUsine) ||  // tracks ?
 				 (icon == 115 && nbPerso[3] <= maxUsine) ||  // bombe ?
-				 (icon ==  17 && nbPerso[4] <= maxUsine) )   // Èlectro ?
+				 (icon ==  17 && nbPerso[4] <= maxUsine) )   // √©lectro ?
 			{
 				if ( IsUsineFree(rank, GetCel(x,y)) )
 				{
@@ -3123,25 +3123,25 @@ bool CDecor::SearchRobotObject(int rank, POINT initCel, int distMax,
 	}
 	if ( min < distMax )
 	{
-		if ( foundIcon == 100 )  foundAction = WM_ACTION_R_MAKE2;  // araignÈe
+		if ( foundIcon == 100 )  foundAction = WM_ACTION_R_MAKE2;  // araign√©e
 		if ( foundIcon == 102 )  foundAction = WM_ACTION_R_MAKE3;  // virus
 		if ( foundIcon == 104 )  foundAction = WM_ACTION_R_MAKE4;  // tracks
 		if ( foundIcon == 115 )  foundAction = WM_ACTION_R_MAKE5;  // bombe
-		if ( foundIcon ==  17 )  foundAction = WM_ACTION_R_MAKE6;  // Èlectro
+		if ( foundIcon ==  17 )  foundAction = WM_ACTION_R_MAKE6;  // √©lectro
 		return true;
 	}
 
 	return false;
 }
 
-// Teste si un emplacement est ok pour b‚tir une usine.
+// Teste si un emplacement est ok pour b√¢tir une usine.
 
 bool CDecor::IsUsineBuild(int rank, POINT cel)
 {
 	int		icon, channel;
 	int		x, y;
 
-	// Pas sur les dalles hachurÈes !
+	// Pas sur les dalles hachur√©es !
 	GetFloor(cel, channel, icon);
 	if ( channel == CHFLOOR &&
 		 (icon < 65 || icon > 67) )  return false;
@@ -3162,7 +3162,7 @@ bool CDecor::IsUsineBuild(int rank, POINT cel)
 }
 
 // Teste s'il est possible d'entrer dans une usine.
-// L'usine doit Ítre libre devant (lieu de stationnement
+// L'usine doit √™tre libre devant (lieu de stationnement
 // pour l'ennemi qui sera construit).
 
 bool CDecor::IsUsineFree(int rank, POINT cel)
@@ -3171,7 +3171,7 @@ bool CDecor::IsUsineFree(int rank, POINT cel)
 
 	GetObject(cel, channel, icon);
 
-	if ( channel == CHOBJECT && icon == 115 )  // usine ‡ bombes ?
+	if ( channel == CHOBJECT && icon == 115 )  // usine √† bombes ?
 	{
 		return ( !IsBlupiHereEx(GetCel(cel,0,1), rank, false) &&
 				 !IsBlupiHereEx(GetCel(cel,1,1), rank, false) &&
@@ -3188,7 +3188,7 @@ bool CDecor::IsUsineFree(int rank, POINT cel)
 }
 
 
-// VÈrifie si l'objet peut Ítre dÈtruit par une bombe.
+// V√©rifie si l'objet peut √™tre d√©truit par une bombe.
 
 bool CDecor::IsBombeObject(int icon)
 {
@@ -3196,7 +3196,7 @@ bool CDecor::IsBombeObject(int icon)
 			 icon == 61 ||		// cabane ?
 			 icon == 121 || icon == 122 ||	// mine de fer ?
 			 (icon >= 65 && icon <= 71) ||  // palissade ?
-			 icon == 93 ||		// piËge ?
+			 icon == 93 ||		// pi√®ge ?
 			 icon == 117 );		// bateau ?
 }
 
@@ -3232,8 +3232,8 @@ bool CDecor::SearchBombeObject(int rank, POINT initCel, int distMax,
 
 				dist = abs(initCel.x-x) + abs(initCel.y-y);
 
-				if ( m_decor[x/2][y/2].objectIcon == 93 &&  //piËge ?
-					 dist > 8 )  continue;  // si piËge loin -> ignore
+				if ( m_decor[x/2][y/2].objectIcon == 93 &&  //pi√®ge ?
+					 dist > 8 )  continue;  // si pi√®ge loin -> ignore
 
 				if ( dist <= min )
 				{
@@ -3251,7 +3251,7 @@ bool CDecor::SearchBombeObject(int rank, POINT initCel, int distMax,
 	return true;
 }
 
-// Cherche un autre objet pour un Èlectro.
+// Cherche un autre objet pour un √©lectro.
 
 bool CDecor::SearchElectroObject(int rank, POINT initCel, int distMax,
 								 POINT &foundCel, int &foundIcon)
@@ -3275,7 +3275,7 @@ bool CDecor::SearchElectroObject(int rank, POINT initCel, int distMax,
 	{
 		for ( x=startx ; x<endx ; x+=2 )
 		{
-			if ( m_decor[x/2][y/2].objectIcon == 93 )  // piËge ?
+			if ( m_decor[x/2][y/2].objectIcon == 93 )  // pi√®ge ?
 			{
 				cel.x = x;
 				cel.y = y;
@@ -3327,9 +3327,9 @@ bool CDecor::SearchElectroObject(int rank, POINT initCel, int distMax,
 		{
 			for ( dd=0 ; dd<=d ; dd++ )
 			{
-				if ( i == 0 )  x -= 1;  // ‡ gauche
+				if ( i == 0 )  x -= 1;  // √† gauche
 				if ( i == 1 )  y += 1;  // descend
-				if ( i == 2 )  x += 1;  // ‡ droite
+				if ( i == 2 )  x += 1;  // √† droite
 				if ( i == 3 )  y -= 1;  // monte
 
 				if ( IsFreeCel(GetCel(x,y), rank) &&
@@ -3347,7 +3347,7 @@ bool CDecor::SearchElectroObject(int rank, POINT initCel, int distMax,
 }
 
 
-// Teste si une position est trËs proche du feu.
+// Teste si une position est tr√®s proche du feu.
 // Si oui, retourne true.
 
 bool CDecor::IsFireCel(POINT cel)
@@ -3375,7 +3375,7 @@ bool CDecor::IsFireCel(POINT cel)
 	return false;
 }
 
-// Teste si une position est trËs proche d'un virus.
+// Teste si une position est tr√®s proche d'un virus.
 // Si oui, retourne true.
 
 bool CDecor::IsVirusCel(POINT cel)
@@ -3398,8 +3398,8 @@ bool CDecor::IsVirusCel(POINT cel)
 }
 
 
-// Regarde s'il est possible de construire un pont ‡ partir
-// d'une cellule donnÈe (cel).
+// Regarde s'il est possible de construire un pont √† partir
+// d'une cellule donn√©e (cel).
 // Retourne 0 si c'est possible, ou une erreur autrement !
 
 int CDecor::IsBuildPont(POINT &cel, int &iconBuild)
@@ -3497,7 +3497,7 @@ int CDecor::IsBuildPont(POINT &cel, int &iconBuild)
 		if ( nb == 1 )  iconBuild = p1;
 		else            iconBuild = p2;
 
-		// Avance jusqu'‡ la rive opposÈe.
+		// Avance jusqu'√† la rive oppos√©e.
 		rest = 0;
 		do
 		{
@@ -3528,8 +3528,8 @@ int CDecor::IsBuildPont(POINT &cel, int &iconBuild)
 	return error;
 }
 
-// Regarde s'il est possible de construire un bateau ‡ partir
-// d'une cellule donnÈe (cel).
+// Regarde s'il est possible de construire un bateau √† partir
+// d'une cellule donn√©e (cel).
 
 bool CDecor::IsBuildBateau(POINT cel, int &direct)
 {
@@ -3577,7 +3577,7 @@ bool CDecor::IsBuildBateau(POINT cel, int &direct)
 }
 
 
-// Vide toutes les positions visitÈes.
+// Vide toutes les positions visit√©es.
 
 void CDecor::InitDrapeau()
 {
@@ -3590,13 +3590,13 @@ void CDecor::InitDrapeau()
 	}
 }
 
-// MÈmorise une cellule visitÈe (ne contenant pas de fer).
+// M√©morise une cellule visit√©e (ne contenant pas de fer).
 
 void CDecor::AddDrapeau(POINT cel)
 {
 	int		i;
 
-	if ( TestDrapeau(cel) )  return;  // dÈj‡ dans la liste
+	if ( TestDrapeau(cel) )  return;  // d√©j√† dans la liste
 
 	for ( i=MAXLASTDRAPEAU-1 ; i>0 ; i-- )
 	{
@@ -3606,7 +3606,7 @@ void CDecor::AddDrapeau(POINT cel)
 	m_lastDrapeau[0] = cel;
 }
 
-// Supprime une cellule visitÈe (ne contenant pas de fer).
+// Supprime une cellule visit√©e (ne contenant pas de fer).
 
 void CDecor::SubDrapeau(POINT cel)
 {
@@ -3623,7 +3623,7 @@ void CDecor::SubDrapeau(POINT cel)
 	}
 }
 
-// Teste si une cellule a dÈj‡ ÈtÈ visitÈe.
+// Teste si une cellule a d√©j√† √©t√© visit√©e.
 
 bool CDecor::TestDrapeau(POINT cel)
 {

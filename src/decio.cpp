@@ -32,26 +32,26 @@ DescFile;
 
 typedef struct
 {
-	int		bExist;			// true -> utilisÈ
-	int		bHili;			// true -> sÈlectionnÈ
+	int		bExist;			// true -> utilis√©
+	int		bHili;			// true -> s√©lectionn√©
 
 	short	perso;			// personnage, voir (*)
 
 	short	goalAction;		// action (long terme)
 	short	goalPhase;		// phase (long terme)
-	POINT	goalCel;		// cellule visÈe (long terme)
+	POINT	goalCel;		// cellule vis√©e (long terme)
 	POINT	passCel;		// cellule tranversante
 
-	short	energy;			// Ènergie restante
+	short	energy;			// √©nergie restante
 
 	POINT	cel;			// cellule actuelle
 	POINT	destCel;		// cellule destination
 	short	action;			// action en cours
 	short	aDirect;		// direction actuelle
-	short	sDirect;		// direction souhaitÈe
+	short	sDirect;		// direction souhait√©e
 
-	POINT	pos;			// position relative ‡ partir de la cellule
-	short	posZ;			// dÈplacement z
+	POINT	pos;			// position relative √† partir de la cellule
+	short	posZ;			// d√©placement z
 	short	channel;
 	short	lastIcon;
 	short	icon;
@@ -60,12 +60,12 @@ typedef struct
 	short	interrupt;		// 0=prioritaire, 1=normal, 2=misc
 	short	clipLeft;
 
-	int		nbUsed;			// nb de points dÈj‡ visitÈs
+	int		nbUsed;			// nb de points d√©j√† visit√©s
 	char	nextRankUsed;
 	POINT	posUsed[MAXUSED];
 	char	rankUsed[MAXUSED];
 
-	short	takeChannel;	// objet transportÈ
+	short	takeChannel;	// objet transport√©
 	short	takeIcon;
 
 	POINT	fix;			// point fixe (cultive, pont)
@@ -73,15 +73,15 @@ typedef struct
 	short	jaugePhase;
 	short	jaugeMax;
 	short	stop;			// 1 -> devra stopper
-	short	bArrow;			// true -> flËche en dessus de blupi
-	short	bRepeat;		// true -> rÈpËte l'action
+	short	bArrow;			// true -> fl√®che en dessus de blupi
+	short	bRepeat;		// true -> r√©p√®te l'action
 	short	nLoop;			// nb de boucles pour GOAL_OTHERLOOP
 	short	cLoop;			// boucle en cours
-	short	vIcon;			// icÙne variable
-	POINT	goalHili;		// but visÈ
+	short	vIcon;			// ic√¥ne variable
+	POINT	goalHili;		// but vis√©
 	short	bMalade;		// true -> blupi malade
-	short	bCache;			// true -> cachÈ (pas dessinÈ)
-	short	vehicule;		// vÈhicule utilisÈ par blupi, voir (**)
+	short	bCache;			// true -> cach√© (pas dessin√©)
+	short	vehicule;		// v√©hicule utilis√© par blupi, voir (**)
 	char	busyCount;
 	char	busyDelay;
 	char	clicCount;
@@ -91,7 +91,7 @@ typedef struct
 OldBlupi;
 
 
-// Sauve le dÈcor sur disque.
+// Sauve le d√©cor sur disque.
 
 bool CDecor::Write(int rank, bool bUser, int world, int time, int total)
 {
@@ -170,7 +170,7 @@ bool CDecor::Write(int rank, bool bUser, int world, int time, int total)
 	return false;
 }
 
-// Lit le dÈcor sur disque.
+// Lit le d√©cor sur disque.
 
 bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
 {
@@ -297,7 +297,7 @@ bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
 		InitDrapeau();
 	}
 
-	BlupiDeselect();  // dÈsÈlectionne tous les blupi
+	BlupiDeselect();  // d√©s√©lectionne tous les blupi
 
 	free(pBuffer);
 	fclose(file);
@@ -307,7 +307,7 @@ bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
 	if ( pBuffer != nullptr )  free(pBuffer);
 	if ( file    != nullptr )  fclose(file);
 
-	Flush();  // initialise un dÈcor neutre
+	Flush();  // initialise un d√©cor neutre
 	return false;
 }
 
@@ -381,7 +381,7 @@ bool CDecor::FileExist(int rank, bool bUser, int &world, int &time, int &total)
 
 #define MARG	18
 
-// Initialise un dÈcor neutre.
+// Initialise un d√©cor neutre.
 
 void CDecor::Flush()
 {

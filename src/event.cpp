@@ -41,7 +41,7 @@ typedef struct
 	short			mission;		// mission en cours (0..n)
 	short			speed;
 	short			bMovie;
-	short			maxMission;		// derniËre mission effectuÈe (0..n)
+	short			maxMission;		// derni√®re mission effectu√©e (0..n)
 	short			scrollSpeed;
 	short			audioVolume;
 	short			midiVolume;
@@ -54,8 +54,8 @@ DescInfo;
 
 
 
-// Toutes les premiËres lettres doivent
-// Ítre diffÈrentes !
+// Toutes les premi√®res lettres doivent
+// √™tre diff√©rentes !
 
 static char cheat_code[9][20] =
 {
@@ -960,7 +960,7 @@ static Phase table[] =
 				{ translate ("Drop") },
 			},
 			{
-				WM_BUTTON32,	// rÈpËte
+				WM_BUTTON32,	// r√©p√®te
 				0, {1,100},
 				170+42*6, 30+52*0,
 				{ translate ("Repeat") },
@@ -1028,7 +1028,7 @@ static Phase table[] =
 				{ translate ("Boat") },
 			},
 			{
-				WM_BUTTON13,	// build6 (tÈlÈporteur)
+				WM_BUTTON13,	// build6 (t√©l√©porteur)
 				0, {1,101},
 				170+42*4, 30+52*2,
 				{ translate ("Teleporter") },
@@ -1192,7 +1192,7 @@ static Phase table[] =
 				{ translate ("Tomatoes on striped paving stones") },
 			},
 			{
-				WM_BUTTON11,	// hach mÈtal
+				WM_BUTTON11,	// hach m√©tal
 				0, {1,84},
 				170+42*3, 30+42*2,
 				{ translate ("Platinium on striped paving stones") },
@@ -1548,7 +1548,7 @@ void CEvent::SetMouseType(int mouseType)
 	m_mouseType = mouseType;
 }
 
-// CrÈe le gestionnaire d'ÈvÈnements.
+// Cr√©e le gestionnaire d'√©v√©nements.
 
 void CEvent::Create(CPixmap *pPixmap, CDecor *pDecor,
 					CSound *pSound, CMovie *pMovie)
@@ -1671,7 +1671,7 @@ void CEvent::SetMenu(int button, int menu)
 
 
 
-// Restitue le jeu aprËs une activation en mode fullScreen.
+// Restitue le jeu apr√®s une activation en mode fullScreen.
 
 void CEvent::RestoreGame()
 {
@@ -1698,7 +1698,7 @@ void CEvent::RestoreGame()
 }
 
 
-// CrÈe tous les boutons nÈcessaires ‡ la phase en cours.
+// Cr√©e tous les boutons n√©cessaires √† la phase en cours.
 
 bool CEvent::CreateButtons()
 {
@@ -1764,7 +1764,7 @@ void AddCheatCode(char *pDst, char *pSrc)
 	pDst[j] = 0;
 }
 
-// Dessine un texte multi-lignes centrÈ.
+// Dessine un texte multi-lignes centr√©.
 
 void CEvent::DrawTextCenter(const char *text, int x, int y, int font)
 {
@@ -1948,11 +1948,11 @@ bool CEvent::DrawButtons()
 		}
 		else
 		{
-			if ( m_bDemoRec )  // dÈmo en enregistrement ?
+			if ( m_bDemoRec )  // d√©mo en enregistrement ?
 			{
 				DrawTextCenter(gettext ("REC"), (10+134)/2, 20, FONTRED);
 			}
-			if ( m_bDemoPlay )  // dÈmo en restitution ?
+			if ( m_bDemoPlay )  // d√©mo en restitution ?
 			{
 				DrawTextCenter(gettext ("Demo"), (10+134)/2, 20, FONTRED);
 			}
@@ -2026,7 +2026,7 @@ bool CEvent::DrawButtons()
 				m_pPixmap->DrawIcon(-1, CHBUTTON, icon, m_posHelpButton);
 			}
 		}
-		else		// infos cachÈes ?
+		else		// infos cach√©es ?
 		{
 			pos.x = POSDRAWX+DIMDRAWX/2-DIMBUTTONX/2;
 			pos.y = -12;
@@ -2078,7 +2078,7 @@ bool CEvent::DrawButtons()
 		}
 	}
 
-	// Dessine les rÈglages pour la fin de la partie.
+	// Dessine les r√©glages pour la fin de la partie.
 	if ( m_phase == WM_PHASE_TERM )
 	{
 		Term*	pTerm = m_pDecor->GetTerminated();
@@ -2108,13 +2108,13 @@ bool CEvent::DrawButtons()
 		DrawTextCenter(gettext ("Music choice"), (10+134)/2, 20);
 	}
 
-	// Dessine les textes pour le choix de la rÈgion.
+	// Dessine les textes pour le choix de la r√©gion.
 	if ( m_phase == WM_PHASE_REGION )
 	{
 		DrawTextCenter(gettext ("Scenery choice"), (10+134)/2, 20);
 	}
 
-	// Ajoute "Mission numÈro".
+	// Ajoute "Mission num√©ro".
 	if ( m_phase == WM_PHASE_INFO )
 	{
 		if (m_bSchool)
@@ -2147,7 +2147,7 @@ bool CEvent::DrawButtons()
 		DrawText(m_pPixmap, pos, text, FONTRED);
 	}
 
-	// Ajoute le texte "Informations complÈmentaires".
+	// Ajoute le texte "Informations compl√©mentaires".
 	if ( m_phase == WM_PHASE_HELP )
 	{
 		char *text = gettext ("Help number");
@@ -2160,7 +2160,7 @@ bool CEvent::DrawButtons()
 		DrawText(m_pPixmap, pos, text, FONTRED);
 	}
 
-	// Ajoute le numÈro du monde.
+	// Ajoute le num√©ro du monde.
 	if ( m_phase == WM_PHASE_INFO ||
 		 m_phase == WM_PHASE_STOP ||
 		 m_phase == WM_PHASE_HELP )
@@ -2215,7 +2215,7 @@ bool CEvent::DrawButtons()
 		}
 	}
 
-	// Affiche le libellÈ de l'Ènigme.
+	// Affiche le libell√© de l'√©nigme.
 	if ( m_phase == WM_PHASE_INFO     ||
 		 m_phase == WM_PHASE_STOP     ||
 		 m_phase == WM_PHASE_HELP     ||
@@ -2235,7 +2235,7 @@ bool CEvent::DrawButtons()
 		DrawTextRect(m_pPixmap, pos, m_libelle, pente, FONTSLIM);
 	}
 
-	// Affiche le texte lorsque c'est ratÈ.
+	// Affiche le texte lorsque c'est rat√©.
 	if ( m_phase == WM_PHASE_LOST )
 	{
 		static char *list[] = {
@@ -2251,7 +2251,7 @@ bool CEvent::DrawButtons()
 		DrawText(m_pPixmap, pos, list[GetWorld () % 5]);
 	}
 
-	// Affiche le texte lorsque c'est rÈussi.
+	// Affiche le texte lorsque c'est r√©ussi.
 	if ( m_phase == WM_PHASE_WIN )
 	{
 		static char *list[] = {
@@ -2284,7 +2284,7 @@ bool CEvent::DrawButtons()
 		DrawText(m_pPixmap, pos, text);
 	}
 
-	// Dessine les rÈglages.
+	// Dessine les r√©glages.
 	if ( m_phase == WM_PHASE_SETUP  ||
 		 m_phase == WM_PHASE_SETUPp )
 	{
@@ -2364,7 +2364,7 @@ bool CEvent::DrawButtons()
 		DrawText(m_pPixmap, pos, text);
 	}
 
-	// Affiche le texte lorsqu'il faut insÈrer le CD-Rom.
+	// Affiche le texte lorsqu'il faut ins√©rer le CD-Rom.
 	if ( m_phase == WM_PHASE_INSERT )
 	{
 		DrawTextCenter(gettext ("Insert CD-Rom Planet Blupi and wait a few seconds..."), LXIMAGE/2, 20);
@@ -2384,7 +2384,7 @@ bool CEvent::DrawButtons()
 	return true;
 }
 
-// Retourne le lutin ‡ utiliser ‡ une position donnÈe.
+// Retourne le lutin √† utiliser √† une position donn√©e.
 
 MouseSprites CEvent::MousePosToSprite(POINT pos)
 {
@@ -2454,17 +2454,17 @@ MouseSprites CEvent::MousePosToSprite(POINT pos)
 		}
 	}
 
-	if ( m_bFillMouse &&  // bidon prÈsent ?
+	if ( m_bFillMouse &&  // bidon pr√©sent ?
 		 pos.x >= POSDRAWX && pos.x <= POSDRAWX+DIMDRAWX &&
 		 pos.y >= POSDRAWY && pos.y <= POSDRAWY+DIMDRAWY )
 	{
 		sprite = SPRITE_FILL;
 	}
-	if ( m_bWaitMouse )  // sablier prÈsent ?
+	if ( m_bWaitMouse )  // sablier pr√©sent ?
 	{
 		sprite = SPRITE_WAIT;
 	}
-	if ( m_bHideMouse )  // souris cachÈe ?
+	if ( m_bHideMouse )  // souris cach√©e ?
 	{
 		sprite = SPRITE_EMPTY;
 	}
@@ -2472,7 +2472,7 @@ MouseSprites CEvent::MousePosToSprite(POINT pos)
 	return sprite;
 }
 
-// GËre le lutin de la souris.
+// G√®re le lutin de la souris.
 
 void CEvent::MouseSprite(POINT pos)
 {
@@ -2480,7 +2480,7 @@ void CEvent::MouseSprite(POINT pos)
 	m_pPixmap->ChangeSprite(m_mouseSprite);
 }
 
-// Met ou enlËve le sablier de la souris.
+// Met ou enl√®ve le sablier de la souris.
 
 void CEvent::WaitMouse(bool bWait)
 {
@@ -2516,14 +2516,14 @@ void CEvent::HideMouse(bool bHide)
 	m_pPixmap->ChangeSprite(m_mouseSprite);
 }
 
-// Traite les ÈvÈnements pour tous les boutons.
+// Traite les √©v√©nements pour tous les boutons.
 
 bool CEvent::EventButtons(const SDL_Event &event, POINT pos)
 {
 	POINT		test;
 	int			lg, oldx, sound;
 
-	// Cherche le tool tips ‡ utiliser pour la souris.
+	// Cherche le tool tips √† utiliser pour la souris.
 	m_textToolTips[0] = 0;
 	oldx = m_posToolTips.x;
 	m_posToolTips.x = -1;
@@ -2649,7 +2649,7 @@ bool CEvent::EventButtons(const SDL_Event &event, POINT pos)
 			&& (   event.button.button == SDL_BUTTON_LEFT
 				|| event.button.button == SDL_BUTTON_RIGHT))
 		{
-			m_pDecor->HideTooltips(true);  // plus de tooltips pour dÈcor
+			m_pDecor->HideTooltips(true);  // plus de tooltips pour d√©cor
 		}
 		if (event.type == SDL_MOUSEBUTTONUP
 			&& (   event.button.button == SDL_BUTTON_LEFT
@@ -2693,7 +2693,7 @@ bool CEvent::MouseOnButton(POINT pos)
 }
 
 
-// Retourne l'index dans table pour une phase donnÈe.
+// Retourne l'index dans table pour une phase donn√©e.
 
 int CEvent::SearchPhase(unsigned int phase)
 {
@@ -2708,7 +2708,7 @@ int CEvent::SearchPhase(unsigned int phase)
 	return -1;
 }
 
-// Donne le numÈro du monde.
+// Donne le num√©ro du monde.
 
 int CEvent::GetWorld()
 {
@@ -2717,7 +2717,7 @@ int CEvent::GetWorld()
 	else               return m_mission;
 }
 
-// Donne le numÈro physique du monde.
+// Donne le num√©ro physique du monde.
 
 int CEvent::GetPhysicalWorld()
 {
@@ -2798,17 +2798,17 @@ bool CEvent::ChangePhase(unsigned int phase)
 	}
 	if ( phase == WM_PHASE_PLAY &&
 		 !m_bDemoPlay &&
-		 GetPhysicalWorld() >= 150 &&  // mission spÈciale dÈmo ?
+		 GetPhysicalWorld() >= 150 &&  // mission sp√©ciale d√©mo ?
 		 GetPhysicalWorld() <  200 )
 	{
-		DemoRecStart();  // dÈbut enregistrement
+		DemoRecStart();  // d√©but enregistrement
 	}
 	if ( phase != WM_PHASE_PLAY )
 	{
-		DemoRecStop();  // stoppe l'enregistrement d'une dÈmo
+		DemoRecStop();  // stoppe l'enregistrement d'une d√©mo
 	}
 
-	m_pDecor->UndoClose();  // libËre le buffer undo
+	m_pDecor->UndoClose();  // lib√®re le buffer undo
 
 	index = SearchPhase(phase);
 	if ( index < 0 )  return false;
@@ -2826,7 +2826,7 @@ bool CEvent::ChangePhase(unsigned int phase)
 		   phase == WM_PHASE_INFO  )  // quitte construction ?
 	{
 		m_pDecor->Write(GetPhysicalWorld(), false,
-						GetPhysicalWorld(), 0, 0);  // Ècrit le monde
+						GetPhysicalWorld(), 0, 0);  // √©crit le monde
 	}
 
 	// FIXME: pause is better if the game is not stop but just interrupted
@@ -2847,10 +2847,10 @@ bool CEvent::ChangePhase(unsigned int phase)
 	iconDim.y  = 0;
 	if ( !m_pPixmap->Cache(CHBACK, filename, totalDim, iconDim) )
 	{
-		WaitMouse(false);  // enlËve le sablier
+		WaitMouse(false);  // enl√®ve le sablier
 		m_tryInsertCount = 40;
 		m_tryPhase = m_phase;
-		return ChangePhase(WM_PHASE_INSERT);  // insÈrez le CD-Rom ...
+		return ChangePhase(WM_PHASE_INSERT);  // ins√©rez le CD-Rom ...
 	}
 
 	if ( m_phase == WM_PHASE_READ   ||
@@ -2882,7 +2882,7 @@ bool CEvent::ChangePhase(unsigned int phase)
 		{
 			m_tryInsertCount = 40;
 			m_tryPhase = m_phase;
-			return ChangePhase(WM_PHASE_INSERT);  // insÈrez le CD-Rom ...
+			return ChangePhase(WM_PHASE_INSERT);  // ins√©rez le CD-Rom ...
 		}
 		m_pDecor->SetTime(0);
 		m_pDecor->SetTotalTime(0);
@@ -2934,18 +2934,18 @@ bool CEvent::ChangePhase(unsigned int phase)
 		{
 			m_tryInsertCount = 40;
 			m_tryPhase = m_phase;
-			return ChangePhase(WM_PHASE_INSERT);  // insÈrez le CD-Rom ...
+			return ChangePhase(WM_PHASE_INSERT);  // ins√©rez le CD-Rom ...
 		}
 	}
 
 	m_jauges[0].SetHide(true);  // cache les jauges
 	m_jauges[1].SetHide(true);
-	CreateButtons();  // crÈe les boutons selon la phase
+	CreateButtons();  // cr√©e les boutons selon la phase
 	m_bMenu = false;
 	m_pDecor->HideTooltips(false);
 	m_menu.Delete();
-	m_pDecor->BlupiSetArrow(0, false);  // enlËve toutes les flËches
-	m_pDecor->ResetHili();  // enlËve les mises en Èvidence
+	m_pDecor->BlupiSetArrow(0, false);  // enl√®ve toutes les fl√®ches
+	m_pDecor->ResetHili();  // enl√®ve les mises en √©vidence
 
 	if ( m_phase == WM_PHASE_PLAY )
 	{
@@ -3151,7 +3151,7 @@ bool CEvent::ChangePhase(unsigned int phase)
 		}
 	}
 
-	WaitMouse(false);  // enlËve le sablier
+	WaitMouse(false);  // enl√®ve le sablier
 	return true;
 }
 
@@ -3176,11 +3176,11 @@ void CEvent::TryInsert()
 	}
 }
 
-// Fait dÈmarrer un film si nÈcessaire.
+// Fait d√©marrer un film si n√©cessaire.
 
 void CEvent::MovieToStart()
 {
-	if ( m_movieToStart[0] != 0 )  // y a-t-il un film ‡ dÈmarrer ?
+	if ( m_movieToStart[0] != 0 )  // y a-t-il un film √† d√©marrer ?
 	{
 		HideMouse(true);  // cache la souris
 
@@ -3198,7 +3198,7 @@ void CEvent::MovieToStart()
 }
 
 
-// DÈcale le dÈcor.
+// D√©cale le d√©cor.
 
 void CEvent::DecorShift(int dx, int dy)
 {
@@ -3216,7 +3216,7 @@ void CEvent::DecorShift(int dx, int dy)
 //?	m_pDecor->NextPhase(0);  // faudra refaire la carte tout de suite
 }
 
-// DÈcale le dÈcor lorsque la souris touche un bord.
+// D√©cale le d√©cor lorsque la souris touche un bord.
 
 void CEvent::DecorAutoShift(POINT pos)
 {
@@ -3235,7 +3235,7 @@ void CEvent::DecorAutoShift(POINT pos)
 	if ( m_phase == WM_PHASE_PLAY  ||
 		 m_phase == WM_PHASE_BUILD )
 	{
-		if ( m_shiftPhase == 0 )  // dÈbut du shift ?
+		if ( m_shiftPhase == 0 )  // d√©but du shift ?
 		{
 			m_shiftOffset.x = 0;
 			m_shiftOffset.y = 0;
@@ -3322,7 +3322,7 @@ void CEvent::DecorAutoShift(POINT pos)
 			offset.y = m_shiftOffset.y*(max-m_shiftPhase)*(DIMCELY/2/max);
 			m_pDecor->SetShiftOffset(offset);
 
-			if ( m_shiftPhase == 0 )  // derniËre phase ?
+			if ( m_shiftPhase == 0 )  // derni√®re phase ?
 			{
 				offset.x = 0;
 				offset.y = 0;
@@ -3341,7 +3341,7 @@ bool CEvent::IsShift()
 }
 
 
-// Modifie le dÈcor lorsque le bouton de la souris est pressÈ.
+// Modifie le d√©cor lorsque le bouton de la souris est press√©.
 
 bool CEvent::PlayDown(POINT pos, const SDL_Event &event)
 {
@@ -3350,7 +3350,7 @@ bool CEvent::PlayDown(POINT pos, const SDL_Event &event)
 	int		rank, button, h;
 	POINT	cel;
 
-	m_pDecor->BlupiSetArrow(0, false);  // enlËve toutes les flËches
+	m_pDecor->BlupiSetArrow(0, false);  // enl√®ve toutes les fl√®ches
 
 	m_bMouseDown = false;
 
@@ -3418,7 +3418,7 @@ bool CEvent::PlayDown(POINT pos, const SDL_Event &event)
 	return true;
 }
 
-// Modifie le dÈcor lorsque la souris est dÈplacÈe.
+// Modifie le d√©cor lorsque la souris est d√©plac√©e.
 
 bool CEvent::PlayMove(POINT pos, Uint16 mod)
 {
@@ -3435,7 +3435,7 @@ bool CEvent::PlayMove(POINT pos, Uint16 mod)
 
 	m_pDecor->StatisticMove(pos);
 
-	if ( m_bMouseDown )  // bouton souris pressÈ ?
+	if ( m_bMouseDown )  // bouton souris press√© ?
 	{
 		if ( m_bHili )
 		{
@@ -3454,7 +3454,7 @@ bool CEvent::PlayMove(POINT pos, Uint16 mod)
 	return true;
 }
 
-// Modifie le dÈcor lorsque le bouton de la souris est rel‚chÈ.
+// Modifie le d√©cor lorsque le bouton de la souris est rel√¢ch√©.
 
 bool CEvent::PlayUp(POINT pos, Uint16 mod)
 {
@@ -3467,7 +3467,7 @@ bool CEvent::PlayUp(POINT pos, Uint16 mod)
 
 	m_pDecor->StatisticUp(pos);
 
-	if ( m_bMouseDown )  // bouton souris pressÈ ?
+	if ( m_bMouseDown )  // bouton souris press√© ?
 	{
 		if ( m_bHili )
 		{
@@ -3489,7 +3489,7 @@ bool CEvent::PlayUp(POINT pos, Uint16 mod)
 							  pos, m_menuNb, m_menuButtons, m_menuErrors,
 							  m_menuTexts, m_menuPerso);
 				m_bMenu = true;
-				m_pDecor->HideTooltips(true);  // plus de tooltips pour dÈcor
+				m_pDecor->HideTooltips(true);  // plus de tooltips pour d√©cor
 			}
 		}
 	}
@@ -3522,7 +3522,7 @@ void CEvent::ChangeButtons(int message)
 		state = GetState(message);
 		if ( state == 0 )  state = 1;
 		else               state = 0;
-		SetState(message, state);  // pressÈ <-> rel‚chÈ
+		SetState(message, state);  // press√© <-> rel√¢ch√©
 
 		pButtonExist[message-WM_BUTTON0] = state;
 		pButtonExist[BUTTON_DJEEP]   = true;
@@ -3545,7 +3545,7 @@ void CEvent::ChangeButtons(int message)
 			state = GetState(message);
 			if ( state == 0 )  state = 1;
 			else               state = 0;
-			SetState(message, state);  // pressÈ <-> rel‚chÈ
+			SetState(message, state);  // press√© <-> rel√¢ch√©
 
 			if ( message == WM_BUTTON1  )  pTerm->bHachBlupi   = state;
 			if ( message == WM_BUTTON2  )  pTerm->bHachPlanche = state;
@@ -3672,7 +3672,7 @@ void CEvent::ChangeButtons(int message)
 
 
 
-// Met un sol si nÈcessaire sous un objet.
+// Met un sol si n√©cessaire sous un objet.
 
 void CEvent::BuildFloor(POINT cel, int insIcon)
 {
@@ -3693,7 +3693,7 @@ void CEvent::BuildFloor(POINT cel, int insIcon)
 		 insIcon == 113 ||  // maison ?
 		 insIcon == 120 )   // usine ?
 	{
-		iFloor = 16;  // sol brun foncÈ
+		iFloor = 16;  // sol brun fonc√©
 	}
 
 	if ( insIcon == 122 )  // mine de fer ?
@@ -3705,10 +3705,10 @@ void CEvent::BuildFloor(POINT cel, int insIcon)
 		 insIcon == 100 ||  // usine ennemie ?
 		 insIcon == 102 ||  // usine ennemie ?
 		 insIcon == 104 ||  // usine ennemie ?
-		 (insIcon >= 106 && insIcon <= 112) ||  // barriËre ?
+		 (insIcon >= 106 && insIcon <= 112) ||  // barri√®re ?
 		 insIcon == 115 ||  // usine ennemie ?
 		 insIcon ==  17 ||  // usine ennemie ?
-		 insIcon ==  12 )   // fusÈe ?
+		 insIcon ==  12 )   // fus√©e ?
 	{
 		iFloor = 67;  // sol bleu ennemi
 	}
@@ -3723,31 +3723,31 @@ void CEvent::BuildFloor(POINT cel, int insIcon)
 	}
 }
 
-// EnlËve si nÈcessaire un objet sur l'eau.
+// Enl√®ve si n√©cessaire un objet sur l'eau.
 
 void CEvent::BuildWater(POINT cel, int insIcon)
 {
 	int		channel, icon;
 
-	if ( insIcon != 14 )  return;  // rien ‡ faire si pas eau
+	if ( insIcon != 14 )  return;  // rien √† faire si pas eau
 
 	m_pDecor->GetObject(cel, channel, icon);
 	if ( channel == CHOBJECT &&
 		 icon >=   6 &&  // objet (pas petite plante) ?
 		 icon != 117 )   // pas bateau ?
 	{
-		m_pDecor->PutObject(cel, -1, -1);  // enlËve l'objet
+		m_pDecor->PutObject(cel, -1, -1);  // enl√®ve l'objet
 		m_pDecor->ArrangeObject(cel);
 	}
 }
 
-// Cette table donne les objets ‡ construire en fonction
+// Cette table donne les objets √† construire en fonction
 // du choix dans le menu.
 
 static int tableFloor[] =
 {
 	1,49,50,51,0,0,0,0,0,0,				// 0 herbe
-	20,66,79,0,0,0,0,0,0,0,				// 1 foncÈ
+	20,66,79,0,0,0,0,0,0,0,				// 1 fonc√©
 	33,46,47,48,71,0,0,0,0,0,			// 2 terre
 	14,0,0,0,0,0,0,0,0,0,				// 3 mer
 	15,16,17,18,19,65,67,0,0,0,			// 4 dalles
@@ -3756,7 +3756,7 @@ static int tableFloor[] =
 
 static int tableObject[] =
 {
-	-1,0,0,0,0,0,0,0,0,0,				// 0 dÈtruit
+	-1,0,0,0,0,0,0,0,0,0,				// 0 d√©truit
 	0,4,1,2,3,5,0,0,0,0,				// 1 plantes
 	6,7,8,9,10,11,0,0,0,0,				// 2 arbres
 	81,83,94,0,0,0,0,0,0,0,				// 5 fleurs
@@ -3764,20 +3764,20 @@ static int tableObject[] =
 
 static int tableHome[] =
 {
-	-1,0,0,0,0,0,0,0,0,0,				//  0 dÈtruit
+	-1,0,0,0,0,0,0,0,0,0,				//  0 d√©truit
 	113,61,28,120,0,0,0,0,0,0,			//  1 maison
 	27,0,0,0,0,0,0,0,0,0,				//  2 tour de protection
 	122,0,0,0,0,0,0,0,0,0,				//  3 mine de fer
 	99,100,102,104,115,17,12,0,0,0,		//  4 ennemi
-	112,0,0,0,0,0,0,0,0,0,				//  5 barriËre
+	112,0,0,0,0,0,0,0,0,0,				//  5 barri√®re
 	26,71,0,0,0,0,0,0,0,0,				//  6 palissade
 	37,38,39,40,41,42,43,0,0,0,			//  7 rochers
-	36,44,60,63,80,123,14,0,0,0,		//  8 matiËres
-	85,125,93,92,0,0,0,0,0,0,			//  9 piËges
-	117,118,16,0,0,0,0,0,0,0,			// 10 vÈhicules
+	36,44,60,63,80,123,14,0,0,0,		//  8 mati√®res
+	85,125,93,92,0,0,0,0,0,0,			//  9 pi√®ges
+	117,118,16,0,0,0,0,0,0,0,			// 10 v√©hicules
 };
 
-// Modifie le dÈcor lorsque le bouton de la souris est pressÈ.
+// Modifie le d√©cor lorsque le bouton de la souris est press√©.
 
 bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 {
@@ -3791,7 +3791,7 @@ bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 
 	if ( bMix )
 	{
-		m_pDecor->UndoCopy();  // copie le dÈcor pour undo Èv.
+		m_pDecor->UndoCopy();  // copie le d√©cor pour undo √©v.
 	}
 
 	if ( GetState(WM_DECOR1) == 1 )  // pose d'un sol
@@ -3810,7 +3810,7 @@ bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 			}
 		}
 
-		if (mod & KMOD_CTRL)  // touche Ctrl enfoncÈe ?
+		if (mod & KMOD_CTRL)  // touche Ctrl enfonc√©e ?
 		{
 			WaitMouse(true);
 			m_pDecor->ArrangeFill(cel, CHFLOOR, tableFloor[menu*10+m_lastFloor[menu]], true);
@@ -3821,7 +3821,7 @@ bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 			icon = tableFloor[menu*10+m_lastFloor[menu]];
 			if ( menu >= 1 )  // met un sol ?
 			{
-				BuildWater(cel, icon);  // enlËve les objets
+				BuildWater(cel, icon);  // enl√®ve les objets
 			}
 			m_pDecor->PutFloor(cel, CHFLOOR, icon);
 			m_pDecor->ArrangeFloor(cel);
@@ -3844,7 +3844,7 @@ bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 			}
 		}
 
-		if (mod & KMOD_CTRL)  // touche Ctrl enfoncÈe ?
+		if (mod & KMOD_CTRL)  // touche Ctrl enfonc√©e ?
 		{
 			WaitMouse(true);
 			m_pDecor->ArrangeFill(cel, CHOBJECT, tableObject[menu*10+m_lastObject[menu]], false);
@@ -3853,7 +3853,7 @@ bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 		else
 		{
 			icon = tableObject[menu*10+m_lastObject[menu]];
-			BuildFloor(cel, icon);  // met un sol si nÈcessaire
+			BuildFloor(cel, icon);  // met un sol si n√©cessaire
 			m_pDecor->PutObject(cel, CHOBJECT, icon);
 			m_pDecor->ArrangeObject(cel);
 		}
@@ -3875,7 +3875,7 @@ bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 			}
 		}
 
-		if (mod & KMOD_CTRL)  // touche Ctrl enfoncÈe ?
+		if (mod & KMOD_CTRL)  // touche Ctrl enfonc√©e ?
 		{
 			WaitMouse(true);
 			m_pDecor->ArrangeFill(cel, CHOBJECT, tableHome[menu*10+m_lastHome[menu]], false);
@@ -3884,7 +3884,7 @@ bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 		else
 		{
 			icon = tableHome[menu*10+m_lastHome[menu]];
-			BuildFloor(cel, icon);  // met un sol si nÈcessaire
+			BuildFloor(cel, icon);  // met un sol si n√©cessaire
 			m_pDecor->PutObject(cel, CHOBJECT, icon);
 			m_pDecor->ArrangeObject(cel);
 		}
@@ -3899,11 +3899,11 @@ bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 		{
 			m_pDecor->BlupiDelete(cel);
 		}
-		if ( menu == 1 )  // ajoute blupi-fatiguÈ ?
+		if ( menu == 1 )  // ajoute blupi-fatigu√© ?
 		{
 			m_pDecor->BlupiCreate(cel, ACTION_STOP, DIRECT_S, 0, MAXENERGY/4);
 		}
-		if ( menu == 2 )  // ajoute blupi-Ènergique ?
+		if ( menu == 2 )  // ajoute blupi-√©nergique ?
 		{
 			m_pDecor->BlupiCreate(cel, ACTION_STOP, DIRECT_S, 0, MAXENERGY);
 		}
@@ -3911,7 +3911,7 @@ bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 		{
 			m_pDecor->BlupiCreate(cel, ACTION_STOP, DIRECT_S, 8, MAXENERGY);
 		}
-		if ( menu == 4 )  // ajoute araignÈe ?
+		if ( menu == 4 )  // ajoute araign√©e ?
 		{
 			m_pDecor->BlupiCreate(cel, ACTION_STOP, DIRECT_S, 1, MAXENERGY);
 		}
@@ -3927,7 +3927,7 @@ bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 		{
 			m_pDecor->BlupiCreate(cel, ACTION_STOP, DIRECT_S, 5, MAXENERGY);
 		}
-		if ( menu == 8 )  // ajoute Èlectro ?
+		if ( menu == 8 )  // ajoute √©lectro ?
 		{
 			m_pDecor->BlupiCreate(cel, ACTION_STOP, DIRECT_S, 7, MAXENERGY);
 		}
@@ -3952,16 +3952,16 @@ bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 		}
 	}
 
-	m_pDecor->ArrangeBlupi();  // supprime les blupi bloquÈs
+	m_pDecor->ArrangeBlupi();  // supprime les blupi bloqu√©s
 
 	return true;
 }
 
-// Modifie le dÈcor lorsque la souris est dÈplacÈe.
+// Modifie le d√©cor lorsque la souris est d√©plac√©e.
 
 bool CEvent::BuildMove(POINT pos, Uint16 mod, const SDL_Event &event)
 {
-	if (event.motion.state & SDL_BUTTON (SDL_BUTTON_LEFT)) // bouton souris pressÈ ?
+	if (event.motion.state & SDL_BUTTON (SDL_BUTTON_LEFT)) // bouton souris press√© ?
 	{
 		BuildDown(pos, mod, false);
 	}
@@ -3978,7 +3978,7 @@ bool CEvent::BuildMove(POINT pos, Uint16 mod, const SDL_Event &event)
 	return true;
 }
 
-// Modifie le dÈcor lorsque le bouton de la souris est rel‚chÈ.
+// Modifie le d√©cor lorsque le bouton de la souris est rel√¢ch√©.
 
 bool CEvent::BuildUp(POINT pos)
 {
@@ -3986,7 +3986,7 @@ bool CEvent::BuildUp(POINT pos)
 }
 
 
-// DÈmarre un film non interractif.
+// D√©marre un film non interractif.
 
 bool CEvent::StartMovie(const char *pFilename)
 {
@@ -3997,7 +3997,7 @@ bool CEvent::StartMovie(const char *pFilename)
 
 	if ( !m_pMovie->IsExist(pFilename) )  return false;
 
-	rect.left   = 1;  // mystËre: plante avec 0,0,LXIMAGE,LYIMAGE !!!
+	rect.left   = 1;  // myst√®re: plante avec 0,0,LXIMAGE,LYIMAGE !!!
 	rect.top    = 1;
 	rect.right  = LXIMAGE-2;
 	rect.bottom = LYIMAGE-2;
@@ -4070,7 +4070,7 @@ void CEvent::Write(int message)
 }
 
 
-// Initialise le libellÈ d'une mission privÈe.
+// Initialise le libell√© d'une mission priv√©e.
 
 void CEvent::PrivateLibelle()
 {
@@ -4152,7 +4152,7 @@ void CEvent::PrivateLibelle()
 	m_pDecor->SetInfoHeight(POSDRAWY+h1+10);
 }
 
-// Lit le libellÈ d'un monde.
+// Lit le libell√© d'un monde.
 
 bool CEvent::ReadLibelle(int world, bool bSchool, bool bHelp)
 {
@@ -4325,7 +4325,7 @@ bool CEvent::GetPause()
 }
 
 
-// DÈbut de l'enregistrement d'une dÈmo.
+// D√©but de l'enregistrement d'une d√©mo.
 
 void CEvent::DemoRecStart()
 {
@@ -4343,7 +4343,7 @@ void CEvent::DemoRecStart()
 	m_speed = 1;
 }
 
-// Fin de l'enregistrement d'une dÈmo.
+// Fin de l'enregistrement d'une d√©mo.
 // Sauve le fichier sur disque.
 
 void CEvent::DemoRecStop()
@@ -4378,7 +4378,7 @@ void CEvent::DemoRecStop()
 	m_demoTime = 0;
 }
 
-// DÈbut de la reproduction d'une dÈmo.
+// D√©but de la reproduction d'une d√©mo.
 // Lit le fichier sur disque.
 
 bool CEvent::DemoPlayStart()
@@ -4432,7 +4432,7 @@ bool CEvent::DemoPlayStart()
 	return true;
 }
 
-// Fin de la reproduction d'une dÈmo.
+// Fin de la reproduction d'une d√©mo.
 
 void CEvent::DemoPlayStop()
 {
@@ -4551,14 +4551,14 @@ void CEvent::DemoStep()
 
 	if ( m_phase == WM_PHASE_INIT )
 	{
-		if ( m_demoTime > DEF_TIME_DEMO )  // ~30 secondes ÈcoulÈes ?
+		if ( m_demoTime > DEF_TIME_DEMO )  // ~30 secondes √©coul√©es ?
 		{
 			m_demoNumber = 0;
-			DemoPlayStart();  // dÈmarre une dÈmo automatique
+			DemoPlayStart();  // d√©marre une d√©mo automatique
 		}
 	}
 
-	if ( m_bDemoPlay &&  // dÈmo en lecture ?
+	if ( m_bDemoPlay &&  // d√©mo en lecture ?
 		 m_pDemoBuffer != nullptr )
 	{
 		while ( true )
@@ -4583,11 +4583,11 @@ void CEvent::DemoStep()
 
 			if ( m_demoIndex >= m_demoEnd )
 			{
-				m_demoNumber ++;  // dÈmo suivante
-				if ( !DemoPlayStart() )  // dÈmarre la dÈmo suivante
+				m_demoNumber ++;  // d√©mo suivante
+				if ( !DemoPlayStart() )  // d√©marre la d√©mo suivante
 				{
-					m_demoNumber = 0;  // premiËre dÈmo
-					DemoPlayStart();   // dÈmarre la dÈmo
+					m_demoNumber = 0;  // premi√®re d√©mo
+					DemoPlayStart();   // d√©marre la d√©mo
 				}
 				return;
 			}
@@ -4597,7 +4597,7 @@ void CEvent::DemoStep()
 	m_demoTime ++;
 }
 
-// MÈmorise un ÈvÈnement.
+// M√©morise un √©v√©nement.
 
 void CEvent::DemoRecEvent(unsigned int message, WPARAM wParam, LPARAM lParam)
 {
@@ -4635,14 +4635,14 @@ void CEvent::DemoRecEvent(unsigned int message, WPARAM wParam, LPARAM lParam)
 }
 
 
-// Retourne la derniËre position de la souris.
+// Retourne la derni√®re position de la souris.
 
 POINT CEvent::GetLastMousePos()
 {
 	return m_oldMousePos;
 }
 
-// Traitement d'un ÈvÈnement.
+// Traitement d'un √©v√©nement.
 
 bool CEvent::TreatEvent(const SDL_Event &event)
 {
@@ -4663,7 +4663,7 @@ bool CEvent::TreatEvent(const SDL_Event &event)
 	return TreatEventBase(event);
 }
 
-// Traitement d'un ÈvÈnement.
+// Traitement d'un √©v√©nement.
 
 bool CEvent::TreatEventBase(const SDL_Event &event)
 {
@@ -4679,7 +4679,7 @@ bool CEvent::TreatEventBase(const SDL_Event &event)
 	case SDL_KEYDOWN:
 		if ( event.key.keysym.sym >= SDLK_a && event.key.keysym.sym <= SDLK_z )
 		{
-			if ( m_posCheat == 0 )  // premiËre lettre ?
+			if ( m_posCheat == 0 )  // premi√®re lettre ?
 			{
 				m_rankCheat = -1;
 				for ( i=0 ; i<9 ; i++ )
@@ -5085,7 +5085,7 @@ bool CEvent::TreatEventBase(const SDL_Event &event)
 		case WM_PHASE_MISSION:
 			m_bSchool  = false;
 			m_bPrivate = false;
-			if ( m_mission == 0 )  // premiËre mission ?
+			if ( m_mission == 0 )  // premi√®re mission ?
 			{
 				if ( ChangePhase(WM_PHASE_H0MOVIE) )  return true;
 			}
@@ -5130,7 +5130,7 @@ bool CEvent::TreatEventBase(const SDL_Event &event)
 			break;
 
 		case WM_PHASE_UNDO:
-			m_pDecor->UndoBack();  // revient en arriËre
+			m_pDecor->UndoBack();  // revient en arri√®re
 			break;
 
 		case WM_PREV:

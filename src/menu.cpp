@@ -37,7 +37,7 @@ static const short table_button_icon[] =
 	35,		// build3 (laboratoire)
 	61,		// build4 (mine)
 	59,		// build5 (usine)
-	101,	// build6 (tÈlÈporteur)
+	101,	// build6 (t√©l√©porteur)
 	20,		// mur
 	26,		// palis
 	42,		// abat n
@@ -138,7 +138,7 @@ CMenu::~CMenu()
 }
 
 
-// CrÈe un nouveau bouton.
+// Cr√©e un nouveau bouton.
 
 bool CMenu::Create(CPixmap *pPixmap, CSound *pSound,
 				   POINT pos, int nb, int *pButtons, int *pErrors,
@@ -175,7 +175,7 @@ bool CMenu::Create(CPixmap *pPixmap, CSound *pSound,
 	return true;
 }
 
-// Met ‡ jour le menu.
+// Met √† jour le menu.
 
 void CMenu::Update(int nb, int *pButtons, int *pErrors,
 				   std::unordered_map<int, const char *> &texts)
@@ -200,7 +200,7 @@ void CMenu::Update(int nb, int *pButtons, int *pErrors,
 	m_texts = texts;
 }
 
-// DÈtruit le menu.
+// D√©truit le menu.
 
 void CMenu::Delete()
 {
@@ -208,7 +208,7 @@ void CMenu::Delete()
 	m_selRank = -1;
 }
 
-// Dessine un bouton dans son Ètat.
+// Dessine un bouton dans son √©tat.
 
 void CMenu::Draw()
 {
@@ -246,7 +246,7 @@ void CMenu::Draw()
 		if ( m_perso == 8 )  // disciple ?
 		{
 			if ( icon ==  30 )  icon = 88;  // prend
-			if ( icon ==  31 )  icon = 89;  // dÈpose
+			if ( icon ==  31 )  icon = 89;  // d√©pose
 		}
 		m_pPixmap->DrawIcon(-1, CHBUTTON, icon+6, pos);
 	}
@@ -282,7 +282,7 @@ void CMenu::Draw()
 		{
 //			if ( bLeft )
 //			{
-				pos.x = m_pos.x-4-GetTextWidth(text);  // texte ‡ gauche
+				pos.x = m_pos.x-4-GetTextWidth(text);  // texte √† gauche
 //			}
 //			else
 //			{
@@ -293,7 +293,7 @@ void CMenu::Draw()
 		{
 //			if ( bRight )
 //			{
-				pos.x = m_pos.x+m_dim.x+4;  // texte ‡ droite
+				pos.x = m_pos.x+m_dim.x+4;  // texte √† droite
 //			}
 //			else
 //			{
@@ -321,7 +321,7 @@ void CMenu::Draw()
 			{
 //				if ( bLeft )
 //				{
-					pos.x = m_pos.x-4-GetTextWidth(text);  // texte ‡ gauche
+					pos.x = m_pos.x-4-GetTextWidth(text);  // texte √† gauche
 //				}
 //				else
 //				{
@@ -332,7 +332,7 @@ void CMenu::Draw()
 			{
 //				if ( bRight )
 //				{
-					pos.x = m_pos.x+m_dim.x+4;  // texte ‡ droite
+					pos.x = m_pos.x+m_dim.x+4;  // texte √† droite
 //				}
 //				else
 //				{
@@ -355,7 +355,7 @@ void CMenu::Draw()
 	m_pPixmap->SetClipping(oldClip);
 }
 
-// Retourne le bouton sÈlectionnÈ.
+// Retourne le bouton s√©lectionn√©.
 
 int CMenu::GetSel()
 {
@@ -364,14 +364,14 @@ int CMenu::GetSel()
 	return m_buttons[m_selRank];
 }
 
-// Retourne le rang sÈlectionnÈ.
+// Retourne le rang s√©lectionn√©.
 
 int CMenu::GetRank()
 {
 	return m_selRank;
 }
 
-// Retourne true si le bouton sÈlectionnÈ a une erreur.
+// Retourne true si le bouton s√©lectionn√© a une erreur.
 
 bool CMenu::IsError()
 {
@@ -392,7 +392,7 @@ bool CMenu::IsExist()
 }
 
 
-// Traitement d'un ÈvÈnement.
+// Traitement d'un √©v√©nement.
 
 bool CMenu::TreatEvent(const SDL_Event &event)
 {
@@ -434,7 +434,7 @@ bool CMenu::TreatEvent(const SDL_Event &event)
 	return false;
 }
 
-// DÈtecte dans quel bouton est la souris.
+// D√©tecte dans quel bouton est la souris.
 
 int CMenu::Detect(POINT pos)
 {
@@ -450,14 +450,14 @@ int CMenu::Detect(POINT pos)
 	return rank;
 }
 
-// Bouton de la souris pressÈ.
+// Bouton de la souris press√©.
 
 bool CMenu::MouseDown(POINT pos)
 {
 	return false;
 }
 
-// Souris dÈplacÈs.
+// Souris d√©plac√©s.
 
 bool CMenu::MouseMove(POINT pos)
 {
@@ -468,13 +468,13 @@ bool CMenu::MouseMove(POINT pos)
 		 pos.y < m_pos.y-(DIMBUTTONY+MARGMENU) ||
 		 pos.y > m_pos.y+m_dim.y+(DIMBUTTONY+MARGMENU) )
 	{
-		Delete();  // enlËve le menu si souris trop loin !
+		Delete();  // enl√®ve le menu si souris trop loin !
 	}
 
 	return false;
 }
 
-// Bouton de la souris rel‚chÈ.
+// Bouton de la souris rel√¢ch√©.
 
 bool CMenu::MouseUp(POINT pos)
 {

@@ -5,7 +5,7 @@
 #include "misc.h"
 
 // Cette table indique les quarts de cases contenant de
-// l'eau lorsque la valeur est à un.
+// l'eau lorsque la valeur est Ã  un.
 //		0  1
 //		2  3
 static char tableSee[14*4] =
@@ -27,7 +27,7 @@ static char tableSee[14*4] =
 };
 
 // Cette table indique les quarts de cases contenant de
-// la mousse ou de la terre lorsque la valeur est à un.
+// la mousse ou de la terre lorsque la valeur est Ã  un.
 //		0  1
 //		2  3
 static char tableDark[13*4] =
@@ -76,7 +76,7 @@ bool CDecor::GetSeeBits(POINT cel, char *pBits, int index)
 	if ( index == 1 )  // mousse ?
 	{
 		if ( icon >= 2 && icon <= 14 )  return false;  // eau ?
-		if ( icon == 66 || icon == 79 )  // mousse spéciale ?
+		if ( icon == 66 || icon == 79 )  // mousse spÃ©ciale ?
 		{
 			pBits[0] = 1;
 			pBits[1] = 1;
@@ -95,8 +95,8 @@ bool CDecor::GetSeeBits(POINT cel, char *pBits, int index)
 	if ( index == 2 )  // terre ?
 	{
 		if ( icon >= 2 && icon <= 14 )  return false;  // eau ?
-		if ( (icon >= 46 && icon <= 48) ||  // terre spéciale ?
-			 icon == 71 )  // terre à fer ?
+		if ( (icon >= 46 && icon <= 48) ||  // terre spÃ©ciale ?
+			 icon == 71 )  // terre Ã  fer ?
 		{
 			pBits[0] = 1;
 			pBits[1] = 1;
@@ -132,7 +132,7 @@ bool ChangeBits(char *pDst, char *pSrc)
 	return false;
 }
 
-// Retourne l'icône correspondant aux bits d'eaux.
+// Retourne l'icÃ´ne correspondant aux bits d'eaux.
 
 int CDecor::GetSeeIcon(char *pBits, int index)
 {
@@ -179,7 +179,7 @@ int CDecor::GetSeeIcon(char *pBits, int index)
 	return -1;
 }
 
-// Arrange le sol après une modification.
+// Arrange le sol aprÃ¨s une modification.
 
 void CDecor::ArrangeFloor(POINT cel)
 {
@@ -193,7 +193,7 @@ void CDecor::ArrangeFloor(POINT cel)
 	if ( icon >= 59 && icon <= 64 )  return;  // pont ?
 
 	max = 3;
-	if ( icon >= 15 && icon <= 18 )  // dalle spéciale ?
+	if ( icon >= 15 && icon <= 18 )  // dalle spÃ©ciale ?
 	{
 		max = 1;  // s'occupe que de l'eau !
 	}
@@ -202,7 +202,7 @@ void CDecor::ArrangeFloor(POINT cel)
 	{
 		if ( !GetSeeBits(cel, here, index) )  continue;
 
-		test.x = cel.x -2;		// en bas à gauche
+		test.x = cel.x -2;		// en bas Ã  gauche
 		test.y = cel.y +2;
 		if ( GetSeeBits(test, bits, index) )
 		{
@@ -216,7 +216,7 @@ void CDecor::ArrangeFloor(POINT cel)
 			}
 		}
 
-		test.x = cel.x -2;		// en haut à gauche
+		test.x = cel.x -2;		// en haut Ã  gauche
 		test.y = cel.y -2;
 		if ( GetSeeBits(test, bits, index) )
 		{
@@ -230,7 +230,7 @@ void CDecor::ArrangeFloor(POINT cel)
 			}
 		}
 
-		test.x = cel.x +2;		// en haut à droite
+		test.x = cel.x +2;		// en haut Ã  droite
 		test.y = cel.y -2;
 		if ( GetSeeBits(test, bits, index) )
 		{
@@ -244,7 +244,7 @@ void CDecor::ArrangeFloor(POINT cel)
 			}
 		}
 
-		test.x = cel.x +2;		// en bas à droite
+		test.x = cel.x +2;		// en bas Ã  droite
 		test.y = cel.y +2;
 		if ( GetSeeBits(test, bits, index) )
 		{
@@ -265,7 +265,7 @@ void CDecor::ArrangeFloor(POINT cel)
 		}
 
 
-		test.x = cel.x -2;		// à gauche
+		test.x = cel.x -2;		// Ã  gauche
 		test.y = cel.y;
 		if ( GetSeeBits(test, bits, index) )
 		{
@@ -279,7 +279,7 @@ void CDecor::ArrangeFloor(POINT cel)
 			}
 		}
 
-		test.x = cel.x -2;		// en haut à gauche
+		test.x = cel.x -2;		// en haut Ã  gauche
 		test.y = cel.y -2;
 		if ( GetSeeBits(test, bits, index) )
 		{
@@ -306,7 +306,7 @@ void CDecor::ArrangeFloor(POINT cel)
 			}
 		}
 
-		test.x = cel.x +2;		// en haut à droite
+		test.x = cel.x +2;		// en haut Ã  droite
 		test.y = cel.y -2;
 		if ( GetSeeBits(test, bits, index) )
 		{
@@ -319,7 +319,7 @@ void CDecor::ArrangeFloor(POINT cel)
 			}
 		}
 
-		test.x = cel.x +2;		// à droite
+		test.x = cel.x +2;		// Ã  droite
 		test.y = cel.y;
 		if ( GetSeeBits(test, bits, index) )
 		{
@@ -333,7 +333,7 @@ void CDecor::ArrangeFloor(POINT cel)
 			}
 		}
 
-		test.x = cel.x +2;		// en bas à droite
+		test.x = cel.x +2;		// en bas Ã  droite
 		test.y = cel.y +2;
 		if ( GetSeeBits(test, bits, index) )
 		{
@@ -360,7 +360,7 @@ void CDecor::ArrangeFloor(POINT cel)
 			}
 		}
 
-		test.x = cel.x -2;		// en bas à gauche
+		test.x = cel.x -2;		// en bas Ã  gauche
 		test.y = cel.y +2;
 		if ( GetSeeBits(test, bits, index) )
 		{
@@ -412,7 +412,7 @@ static short tableMurDir[4*2] =
 // les directions.
 // index=0 si mur       (20..26)
 // index=1 si palissade (65..71)
-// index=2 si barrière  (106..112)
+// index=2 si barriÃ¨re  (106..112)
 
 void CDecor::ArrangeMur(POINT cel, int &icon, int index)
 {
@@ -521,7 +521,7 @@ void CDecor::ArrangeBuild(POINT cel, int &channel, int &icon)
 			matiere = 36;  // planches
 		}
 
-		// Rien à faire si pas mur.
+		// Rien Ã  faire si pas mur.
 		if ( channel != CHOBJECT || icon != last )  continue;
 
 		oldChannel = m_decor[cel.x/2][cel.y/2].objectChannel;
@@ -567,7 +567,7 @@ void CDecor::ArrangeBuild(POINT cel, int &channel, int &icon)
 	}
 }
 
-// Arrange les objets après une modification.
+// Arrange les objets aprÃ¨s une modification.
 
 void CDecor::ArrangeObject(POINT cel)
 {
@@ -591,7 +591,7 @@ void CDecor::ArrangeObject(POINT cel)
 		}
 		if ( index == 2 )
 		{
-			first   = 106;  // barrière
+			first   = 106;  // barriÃ¨re
 			last    = 112;
 		}
 
@@ -687,7 +687,7 @@ void CDecor::ArrangeObject(POINT cel)
 					if ( MoveCreate(test, -1, false, CHOBJECT,-1,
 									-1,-1, 9999,1,0, true) )
 					{
-						MoveAddIcons(test, 5-i%2, true);  // éclairs
+						MoveAddIcons(test, 5-i%2, true);  // Ã©clairs
 					}
 
 					pos = ConvCelToPos(test);
@@ -803,7 +803,7 @@ bool CDecor::ArrangeFillTest(POINT pos)
 	return false;
 }
 
-// Modifie le décor lors d'un remplissage.
+// Modifie le dÃ©cor lors d'un remplissage.
 
 void CDecor::ArrangeFillPut(POINT pos, int channel, int icon)
 {
@@ -831,7 +831,7 @@ void CDecor::ArrangeFillPut(POINT pos, int channel, int icon)
 	}
 }
 
-// Rempli un sol à partir d'une position donnée.
+// Rempli un sol Ã  partir d'une position donnÃ©e.
 
 void CDecor::ArrangeFillSearch(POINT pos)
 {
@@ -854,7 +854,7 @@ void CDecor::ArrangeFillSearch(POINT pos)
 	}
 	endX = pos.x-2;
 
-	// Rempli toute la ligne trouvée.
+	// Rempli toute la ligne trouvÃ©e.
 	pos.x = startX;
 	while ( pos.x <= endX )
 	{
@@ -877,7 +877,7 @@ void CDecor::ArrangeFillSearch(POINT pos)
 
 			if ( ArrangeFillTest(pos) )
 			{
-				ArrangeFillSearch(pos);  // appel récursif
+				ArrangeFillSearch(pos);  // appel rÃ©cursif
 			}
 
 			while ( pos.x <= endX && ArrangeFillTest(pos) )
@@ -903,7 +903,7 @@ void CDecor::ArrangeFillSearch(POINT pos)
 
 			if ( ArrangeFillTest(pos) )
 			{
-				ArrangeFillSearch(pos);  // appel récursif
+				ArrangeFillSearch(pos);  // appel rÃ©cursif
 			}
 
 			while ( pos.x <= endX && ArrangeFillTest(pos) )
@@ -914,7 +914,7 @@ void CDecor::ArrangeFillSearch(POINT pos)
 	}
 }
 
-// Rempli un sol à partir d'une position donnée.
+// Rempli un sol Ã  partir d'une position donnÃ©e.
 
 void CDecor::ArrangeFill(POINT pos, int channel, int icon, bool bFloor)
 {
@@ -956,7 +956,7 @@ void CDecor::ArrangeFill(POINT pos, int channel, int icon, bool bFloor)
 }
 
 
-// Supprime tous les personnages bloqués dans des murs
+// Supprime tous les personnages bloquÃ©s dans des murs
 // ou debout sur l'eau.
 
 void CDecor::ArrangeBlupi()

@@ -5,7 +5,7 @@
 
 
 // stucture pour enpiler des positions
-// en fonction de leur distance à la cible
+// en fonction de leur distance Ã  la cible
 typedef struct
 {
 	long		pos;
@@ -14,7 +14,7 @@ typedef struct
 Element;
 
 
-// traitement d'une pile triée
+// traitement d'une pile triÃ©e
 
 class CPileTriee
 {
@@ -22,7 +22,7 @@ private:
 	long		m_taille;		// nombre de polongs max
 	long		m_max;			// position limite
 	long		m_out;			// position pour reprendre
-	Element*	m_data;			// données
+	Element*	m_data;			// donnÃ©es
 			
 public:
 	CPileTriee(long taille);

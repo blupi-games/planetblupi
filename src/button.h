@@ -49,20 +49,20 @@ protected:
 	CSound*		m_pSound;
 	int			m_type;			// type de bouton
 	bool		m_bEnable;		// true si bouton actif
-	bool		m_bHide;		// true si bouton caché
-	unsigned int		m_message;		// message envoyé si bouton actionné
+	bool		m_bHide;		// true si bouton cachÃ©
+	unsigned int		m_message;		// message envoyÃ© si bouton actionnÃ©
 	POINT		m_pos;			// coin sup/gauche
 	POINT		m_dim;			// dimensions
-	int			m_state;		// 0=relâché, 1=pressé, +2=survollé
-	int			m_mouseState;	// 0=relâché, 1=pressé, +2=survollé
-	int			m_iconMenu[20];	// icônes du sous-menu
+	int			m_state;		// 0=relÃ¢chÃ©, 1=pressÃ©, +2=survollÃ©
+	int			m_mouseState;	// 0=relÃ¢chÃ©, 1=pressÃ©, +2=survollÃ©
+	int			m_iconMenu[20];	// icÃ´nes du sous-menu
 	const char **m_toolTips;	// info-bulles
 	int			m_nbMenu;		// nb de case du sous-menu
 	int			m_nbToolTips;	// nb d'info-bulles
-	int			m_selMenu;		// sous-menu sélectionné
-	bool		m_bMouseDown;	// true -> bouton souris pressé
+	int			m_selMenu;		// sous-menu sÃ©lectionnÃ©
+	bool		m_bMouseDown;	// true -> bouton souris pressÃ©
 	bool		m_bMinimizeRedraw;
-	bool		m_bRedraw;		// true -> doit être redessiné
+	bool		m_bRedraw;		// true -> doit Ãªtre redessinÃ©
 };
 
 /////////////////////////////////////////////////////////////////////////////

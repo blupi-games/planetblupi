@@ -183,7 +183,7 @@ bool CMovie::Create()
 	}
 }
 
-// Retourne l'état de DirectMovie.
+// Retourne l'Ã©tat de DirectMovie.
 
 bool CMovie::GetEnable()
 {

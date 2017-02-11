@@ -17,7 +17,7 @@
 #include "misc.h"
 
 
-// D�finitions globales
+// Dï¿½finitions globales
 
 #define NAME			"Blupi"
 #define TITLE			"Blupi"
@@ -44,7 +44,7 @@ unsigned int		g_lastPhase = 999;
 
 
 
-// Lit un num�ro d�cimal.
+// Lit un numï¿½ro dï¿½cimal.
 
 int GetNum(char *p)
 {
@@ -111,7 +111,7 @@ bool ReadConfig(int argc, char *argv[])
 }
 
 
-// Mise � jour principale.
+// Mise ï¿½ jour principale.
 
 void UpdateFrame(void)
 {
@@ -149,7 +149,7 @@ void UpdateFrame(void)
 		if ( g_pEvent->IsShift() )  // shift en cours ?
 		{
 			g_pEvent->DecorAutoShift(posMouse);
-			g_pDecor->Build(clip, posMouse);  // construit juste le d�cor
+			g_pDecor->Build(clip, posMouse);  // construit juste le dï¿½cor
 		}
 		else
 		{
@@ -159,13 +159,13 @@ void UpdateFrame(void)
 				for ( i=0 ; i<speed ; i++ )
 				{
 					g_pDecor->BlupiStep(i==0);  // avance tous les blupi
-					g_pDecor->MoveStep(i==0);   // avance tous les d�cors
+					g_pDecor->MoveStep(i==0);   // avance tous les dï¿½cors
 					g_pEvent->DemoStep();       // avance enregistrement/reproduction
 				}
 			}
 
 			g_pEvent->DecorAutoShift(posMouse);
-			g_pDecor->Build(clip, posMouse);  // construit le d�cor
+			g_pDecor->Build(clip, posMouse);  // construit le dï¿½cor
 			g_pDecor->NextPhase(1);  // refait la carte de temps en temps
 		}
 	}
@@ -177,13 +177,13 @@ void UpdateFrame(void)
 		clip.right  = POSDRAWX+DIMDRAWX;
 		clip.bottom = POSDRAWY+DIMDRAWY;
 		g_pEvent->DecorAutoShift(posMouse);
-		g_pDecor->Build(clip, posMouse);  // construit le d�cor
+		g_pDecor->Build(clip, posMouse);  // construit le dï¿½cor
 		g_pDecor->NextPhase(-1);  // refait la carte chaque fois
 	}
 
 	if ( phase == WM_PHASE_INIT )
 	{
-		g_pEvent->DemoStep();  // d�marre �v. d�mo automatique
+		g_pEvent->DemoStep();  // dï¿½marre ï¿½v. dï¿½mo automatique
 	}
 
 	g_pEvent->DrawButtons();
@@ -196,7 +196,7 @@ void UpdateFrame(void)
 		 phase == WM_PHASE_PLAYMOVIE ||
 		 phase == WM_PHASE_WINMOVIE  )
 	{
-		g_pEvent->MovieToStart();  // fait d�marrer un film si n�cessaire
+		g_pEvent->MovieToStart();  // fait dï¿½marrer un film si nï¿½cessaire
 	}
 
 	if ( phase == WM_PHASE_INSERT )
@@ -208,7 +208,7 @@ void UpdateFrame(void)
 	{
 		term = g_pDecor->IsTerminated();
 		if ( term == 1 )  g_pEvent->ChangePhase(WM_PHASE_LOST);  // perdu
-		if ( term == 2 )  g_pEvent->ChangePhase(WM_PHASE_WINMOVIE);   // gagn�
+		if ( term == 2 )  g_pEvent->ChangePhase(WM_PHASE_WINMOVIE);   // gagnï¿½
 	}
 }
 
@@ -232,7 +232,7 @@ void Benchmark()
 }
 
 
-// Restitue le jeu apr�s une activation en mode fullScreen.
+// Restitue le jeu aprï¿½s une activation en mode fullScreen.
 
 bool RestoreGame()
 {
@@ -242,7 +242,7 @@ bool RestoreGame()
 	return true;
 }
 
-// Lib�re le jeu avant une d�sactivation en mode fullScreen.
+// Libï¿½re le jeu avant une dï¿½sactivation en mode fullScreen.
 
 bool FlushGame()
 {
@@ -449,7 +449,7 @@ static bool DoInit(int argc, char *argv[])
 		return InitFail("Game not correctly installed", false);
 	}
 
-	// Cr�e le pixmap principal.
+	// Crï¿½e le pixmap principal.
 	g_pPixmap = new CPixmap;
 	if ( g_pPixmap == nullptr )  return InitFail("New pixmap", true);
 
@@ -569,7 +569,7 @@ static bool DoInit(int argc, char *argv[])
 	g_pPixmap->LoadCursors ();
 	g_pPixmap->ChangeSprite (SPRITE_WAIT); // met le sablier maison
 
-	// Cr�e le gestionnaire de son.
+	// Crï¿½e le gestionnaire de son.
 	g_pSound = new CSound;
 	if ( g_pSound == nullptr )  return InitFail("New sound", true);
 
@@ -577,20 +577,20 @@ static bool DoInit(int argc, char *argv[])
 	g_pSound->CacheAll();
 	g_pSound->SetState(true);
 
-	// Cr�e le gestionnaire de films.
+	// Crï¿½e le gestionnaire de films.
 	g_pMovie = new CMovie;
 	if ( g_pMovie == nullptr )  return InitFail("New movie", false);
 
 	g_pMovie->Create();
 
-	// Cr�e le gestionnaire de d�cors.
+	// Crï¿½e le gestionnaire de dï¿½cors.
 	g_pDecor = new CDecor;
 	if ( g_pDecor == nullptr )  return InitFail("New decor", false);
 
 	g_pDecor->Create(g_pSound, g_pPixmap);
 	g_pDecor->MapInitColors();
 
-	// Cr�e le gestionnaire d'�v�nements.
+	// Crï¿½e le gestionnaire d'ï¿½vï¿½nements.
 	g_pEvent = new CEvent;
 	if ( g_pEvent == nullptr )  return InitFail("New event", false);
 
@@ -603,7 +603,7 @@ static bool DoInit(int argc, char *argv[])
 	g_pEvent->ChangePhase(WM_PHASE_TESTCD);
 #endif
 
-	g_bTermInit = true;  // initialisation termin�e
+	g_bTermInit = true;  // initialisation terminï¿½e
 	return true;
 }
 
