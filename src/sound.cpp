@@ -43,6 +43,8 @@ CSound::CSound()
 	{
 		m_channelBlupi[i] = -1;
 	}
+
+	memset (m_lpSDL, 0, sizeof (m_lpSDL));
 }
 
 // Destructeur.
