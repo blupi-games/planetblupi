@@ -4172,7 +4172,7 @@ bool CEvent::ReadLibelle(int world, bool bSchool, bool bHelp)
 	if ( pBuffer == nullptr )  goto error;
 	memset(pBuffer, 0, sizeof(char)*50000);
 
-	file = fopen("data/enigmes.blp", "rb");
+	file = fopen((GetBaseDir () + "data/enigmes.blp").c_str (), "rb");
 	if ( file == nullptr )  goto error;
 
 	nb = fread(pBuffer, sizeof(char), 50000-1, file);
