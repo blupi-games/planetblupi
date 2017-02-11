@@ -38,55 +38,54 @@ static Uint32 g_map32_bits[DIMMAPY][DIMMAPX];
 
 void CDecor::MapInitColors()
 {
-	SDL_PixelFormat *fmt;
+        // FIXME: add big-endian support
+        const auto MapRGB = [] (Uint8 r, Uint8 g, Uint8 b) {
+                return r << 16 | g << 8 | b << 0;
+        };
 
-	fmt = SDL_GetWindowSurface (g_window)->format;
+	m_colors[MAP_CADRE] = MapRGB (255, 0, 0);      // rouge
+	m_colors[MAP_FOG]   = MapRGB (0, 0, 0);        // noir
+	m_colors[MAP_BLUPI] = MapRGB (255, 255, 0);    // jaune
+	m_colors[MAP_SEE]   = MapRGB (102, 102, 204);  // bleu
+	m_colors[MAP_DALLE] = MapRGB (192, 192, 192);  // gris
+	m_colors[MAP_PERSO] = MapRGB (255, 0, 0);      // rouge
+	m_colors[MAP_NURSE] = MapRGB (255, 0, 0);      // rouge
+	m_colors[MAP_ROC]   = MapRGB (214, 214, 214);  // gris clair
+	m_colors[MAP_MUR]   = MapRGB (100, 100, 100);  // gris moyen
+	m_colors[MAP_EGG]   = MapRGB (255, 255, 255);  // blanc
+	m_colors[MAP_FIRE]  = MapRGB (255, 0, 0);      // rouge
+	m_colors[MAP_TOMAT] = MapRGB (255, 0, 0);      // rouge
+	m_colors[MAP_BUILD] = MapRGB (0, 0, 0);        // noir
+	m_colors[MAP_ENNEMI]= MapRGB (0, 192, 255);    // bleu métal
+	m_colors[MAP_FLEUR] = MapRGB (255, 206, 0);    // jaune
 
-	//g_bPalette = m_pPixmap->IsPalette();
-
-	m_colors[MAP_CADRE] = SDL_MapRGB (fmt, 255, 0, 0);      // rouge
-	m_colors[MAP_FOG]   = SDL_MapRGB (fmt, 0, 0, 0);        // noir
-	m_colors[MAP_BLUPI] = SDL_MapRGB (fmt, 255, 255, 0);    // jaune
-	m_colors[MAP_SEE]   = SDL_MapRGB (fmt, 102, 102, 204);  // bleu
-	m_colors[MAP_DALLE] = SDL_MapRGB (fmt, 192, 192, 192);  // gris
-	m_colors[MAP_PERSO] = SDL_MapRGB (fmt, 255, 0, 0);      // rouge
-	m_colors[MAP_NURSE] = SDL_MapRGB (fmt, 255, 0, 0);      // rouge
-	m_colors[MAP_ROC]   = SDL_MapRGB (fmt, 214, 214, 214);  // gris clair
-	m_colors[MAP_MUR]   = SDL_MapRGB (fmt, 100, 100, 100);  // gris moyen
-	m_colors[MAP_EGG]   = SDL_MapRGB (fmt, 255, 255, 255);  // blanc
-	m_colors[MAP_FIRE]  = SDL_MapRGB (fmt, 255, 0, 0);      // rouge
-	m_colors[MAP_TOMAT] = SDL_MapRGB (fmt, 255, 0, 0);      // rouge
-	m_colors[MAP_BUILD] = SDL_MapRGB (fmt, 0, 0, 0);        // noir
-	m_colors[MAP_ENNEMI]= SDL_MapRGB (fmt, 0, 192, 255);    // bleu métal
-	m_colors[MAP_FLEUR] = SDL_MapRGB (fmt, 255, 206, 0);    // jaune
-
-	m_colors[MAP_TREE]  = SDL_MapRGB (fmt, 0 ,102, 0);      // vert foncé
-	m_colors[MAP_HERB1] = SDL_MapRGB (fmt, 0 ,204, 51);     // vert clair
-	m_colors[MAP_HERB2] = SDL_MapRGB (fmt, 0 ,156, 8);      // vert moyen
-	m_colors[MAP_TERRE] = SDL_MapRGB (fmt, 94, 78, 12);     // brun
+	m_colors[MAP_TREE]  = MapRGB (0 ,102, 0);      // vert foncé
+	m_colors[MAP_HERB1] = MapRGB (0 ,204, 51);     // vert clair
+	m_colors[MAP_HERB2] = MapRGB (0 ,156, 8);      // vert moyen
+	m_colors[MAP_TERRE] = MapRGB (94, 78, 12);     // brun
 
 	if ( m_region == 1 )  // palmiers
 	{
-		m_colors[MAP_TREE]  = SDL_MapRGB (fmt, 38, 197, 42);
-		m_colors[MAP_HERB1] = SDL_MapRGB (fmt, 184, 140, 1);
-		m_colors[MAP_HERB2] = SDL_MapRGB (fmt, 145, 110, 5);
-		m_colors[MAP_TERRE] = SDL_MapRGB (fmt, 192, 192, 192);
+		m_colors[MAP_TREE]  = MapRGB (38, 197, 42);
+		m_colors[MAP_HERB1] = MapRGB (184, 140, 1);
+		m_colors[MAP_HERB2] = MapRGB (145, 110, 5);
+		m_colors[MAP_TERRE] = MapRGB (192, 192, 192);
 	}
 
 	if ( m_region == 2 )  // hiver
 	{
-		m_colors[MAP_TREE]  = SDL_MapRGB (fmt, 152, 205, 222);
-		m_colors[MAP_HERB1] = SDL_MapRGB (fmt, 219, 234, 239);
-		m_colors[MAP_HERB2] = SDL_MapRGB (fmt, 223, 173, 90);
-		m_colors[MAP_TERRE] = SDL_MapRGB (fmt, 152, 205, 222);
+		m_colors[MAP_TREE]  = MapRGB (152, 205, 222);
+		m_colors[MAP_HERB1] = MapRGB (219, 234, 239);
+		m_colors[MAP_HERB2] = MapRGB (223, 173, 90);
+		m_colors[MAP_TERRE] = MapRGB (152, 205, 222);
 	}
 
 	if ( m_region == 3 )  // sapins
 	{
-		m_colors[MAP_TREE]  = SDL_MapRGB (fmt, 0, 102, 0);
-		m_colors[MAP_HERB1] = SDL_MapRGB (fmt, 38, 197, 42);
-		m_colors[MAP_HERB2] = SDL_MapRGB (fmt, 140, 140, 0);
-		m_colors[MAP_TERRE] = SDL_MapRGB (fmt, 172, 178, 173);
+		m_colors[MAP_TREE]  = MapRGB (0, 102, 0);
+		m_colors[MAP_HERB1] = MapRGB (38, 197, 42);
+		m_colors[MAP_HERB2] = MapRGB (140, 140, 0);
+		m_colors[MAP_TERRE] = MapRGB (172, 178, 173);
 	}
 }
 
