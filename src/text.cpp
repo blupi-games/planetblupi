@@ -12,9 +12,9 @@
 
 // Retourne l'offset pour un caractère donné.
 
-int GetOffset(char c)
+Sint32 GetOffset(char c)
 {
-	int		i;
+	Sint32		i;
 
 	static unsigned char table_accents[15] =
 	{
@@ -36,7 +36,7 @@ int GetOffset(char c)
 
 // Retourne la longueur d'un caractère.
 
-int GetCharWidth(char c, int font)
+Sint32 GetCharWidth(char c, Sint32 font)
 {
 	static unsigned char table_width[128] =
 	{
@@ -74,9 +74,9 @@ int GetCharWidth(char c, int font)
 
 // Affiche un texte.
 
-void DrawText(CPixmap *pPixmap, POINT pos, const char *pText, int font)
+void DrawText(CPixmap *pPixmap, POINT pos, const char *pText, Sint32 font)
 {
-	int		rank;
+	Sint32		rank;
 
 	if ( font == FONTLITTLE )
 	{
@@ -104,9 +104,9 @@ void DrawText(CPixmap *pPixmap, POINT pos, const char *pText, int font)
 // Affiche un texte penché.
 
 void DrawTextPente(CPixmap *pPixmap, POINT pos, char *pText,
-				   int pente, int font)
+				   Sint32 pente, Sint32 font)
 {
-	int		rank, lg, rel, start;
+	Sint32		rank, lg, rel, start;
 
 	start = pos.y;
 	rel = 0;
@@ -129,11 +129,11 @@ void DrawTextPente(CPixmap *pPixmap, POINT pos, char *pText,
 // par "n|", avec n=part.
 
 void DrawTextRect(CPixmap *pPixmap, POINT pos, char *pText,
-				  int pente, int font, int part)
+				  Sint32 pente, Sint32 font, Sint32 part)
 {
 	char		text[100];
 	char*		pDest;
-	int			itl;
+	Sint32			itl;
 
 	if ( font == FONTLITTLE )  itl = DIMLITTLEY;
 	else                       itl = DIMTEXTY;
@@ -183,11 +183,11 @@ void DrawTextRect(CPixmap *pPixmap, POINT pos, char *pText,
 // Affiche un texte centré pouvant éventuellement
 // contenir plusieurs lignes séparées par des '\n'.
 
-void DrawTextCenter(CPixmap *pPixmap, POINT pos, const char *pText, int font)
+void DrawTextCenter(CPixmap *pPixmap, POINT pos, const char *pText, Sint32 font)
 {
 	char		text[100];
 	char*		pDest;
-	int			itl;
+	Sint32			itl;
 	POINT		start;
 
 	if ( font == FONTLITTLE )  itl = DIMLITTLEY;
@@ -222,12 +222,12 @@ void DrawTextCenter(CPixmap *pPixmap, POINT pos, const char *pText, int font)
 
 // Retourne la hauteur d'un texte.
 
-int GetTextHeight(char *pText, int font, int part)
+Sint32 GetTextHeight(char *pText, Sint32 font, Sint32 part)
 {
 	char		text[100];
 	char*		pDest;
-	int			itl;
-	int			h=0;
+	Sint32			itl;
+	Sint32			h=0;
 
 	if ( font == FONTLITTLE )  itl = DIMLITTLEY;
 	else                       itl = DIMTEXTY;
@@ -269,9 +269,9 @@ int GetTextHeight(char *pText, int font, int part)
 
 // Retourne la longueur d'un texte.
 
-int GetTextWidth(const char *pText, int font)
+Sint32 GetTextWidth(const char *pText, Sint32 font)
 {
-	int		width = 0;
+	Sint32		width = 0;
 
 	while ( *pText != 0 )
 	{
@@ -284,9 +284,9 @@ int GetTextWidth(const char *pText, int font)
 
 // Retourne la longueur d'un grand chiffre.
 
-void GetBignumInfo(int num, int &start, int &lg)
+void GetBignumInfo(Sint32 num, Sint32 &start, Sint32 &lg)
 {
-	static int table[11] =
+	static Sint32 table[11] =
 	{
 		0,53,87,133,164,217,253,297,340,382,426
 	};
@@ -297,11 +297,11 @@ void GetBignumInfo(int num, int &start, int &lg)
 
 // Affiche un grand nombre.
 
-void DrawBignum(CPixmap *pPixmap, POINT pos, int num)
+void DrawBignum(CPixmap *pPixmap, POINT pos, Sint32 num)
 {
 	char	string[10];
-	int		i = 0;
-	int		start, lg;
+	Sint32		i = 0;
+	Sint32		start, lg;
 	RECT	rect;
 
 	sprintf(string, "%d", num);
@@ -323,12 +323,12 @@ void DrawBignum(CPixmap *pPixmap, POINT pos, int num)
 
 // Retourne la longueur d'un grand nombre.
 
-int GetBignumWidth(int num)
+Sint32 GetBignumWidth(Sint32 num)
 {
 	char	string[10];
-	int		i = 0;
-	int		start, lg;
-	int		width = -4;
+	Sint32		i = 0;
+	Sint32		start, lg;
+	Sint32		width = -4;
 
 	sprintf(string, "%d", num);
 

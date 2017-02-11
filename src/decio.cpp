@@ -7,81 +7,81 @@
 
 typedef struct
 {
-	short			majRev;
-	short			minRev;
-	long			nbDecor;
-	long			lgDecor;
-	long			nbBlupi;
-	long			lgBlupi;
-	long			nbMove;
-	long			lgMove;
-	short			reserve1[100];
+	Sint16			majRev;
+	Sint16			minRev;
+	Sint32			nbDecor;
+	Sint32			lgDecor;
+	Sint32			nbBlupi;
+	Sint32			lgBlupi;
+	Sint32			nbMove;
+	Sint32			lgMove;
+	Sint16			reserve1[100];
 	POINT			celCoin;
-	short			world;
-	long			time;
+	Sint16			world;
+	Sint32			time;
 	char			buttonExist[MAXBUTTON];
 	Term			term;
-	short			music;
-	short			region;
-	long			totalTime;
-	short			skill;
+	Sint16			music;
+	Sint16			region;
+	Sint32			totalTime;
+	Sint16			skill;
 	POINT			memoPos[4];
-	short			reserve2[29];
+	Sint16			reserve2[29];
 }
 DescFile;
 
 typedef struct
 {
-	int		bExist;			// true -> utilisé
-	int		bHili;			// true -> sélectionné
+	Sint32		bExist;			// true -> utilisé
+	Sint32		bHili;			// true -> sélectionné
 
-	short	perso;			// personnage, voir (*)
+	Sint16	perso;			// personnage, voir (*)
 
-	short	goalAction;		// action (long terme)
-	short	goalPhase;		// phase (long terme)
-	POINT	goalCel;		// cellule visée (long terme)
+	Sint16	goalAction;		// action (Sint32 terme)
+	Sint16	goalPhase;		// phase (Sint32 terme)
+	POINT	goalCel;		// cellule visée (Sint32 terme)
 	POINT	passCel;		// cellule tranversante
 
-	short	energy;			// énergie restante
+	Sint16	energy;			// énergie restante
 
 	POINT	cel;			// cellule actuelle
 	POINT	destCel;		// cellule destination
-	short	action;			// action en cours
-	short	aDirect;		// direction actuelle
-	short	sDirect;		// direction souhaitée
+	Sint16	action;			// action en cours
+	Sint16	aDirect;		// direction actuelle
+	Sint16	sDirect;		// direction souhaitée
 
 	POINT	pos;			// position relative à partir de la cellule
-	short	posZ;			// déplacement z
-	short	channel;
-	short	lastIcon;
-	short	icon;
-	short	phase;			// phase dans l'action
-	short	step;			// pas global
-	short	interrupt;		// 0=prioritaire, 1=normal, 2=misc
-	short	clipLeft;
+	Sint16	posZ;			// déplacement z
+	Sint16	channel;
+	Sint16	lastIcon;
+	Sint16	icon;
+	Sint16	phase;			// phase dans l'action
+	Sint16	step;			// pas global
+	Sint16	interrupt;		// 0=prioritaire, 1=normal, 2=misc
+	Sint16	clipLeft;
 
-	int		nbUsed;			// nb de points déjà visités
+	Sint32		nbUsed;			// nb de points déjà visités
 	char	nextRankUsed;
 	POINT	posUsed[MAXUSED];
 	char	rankUsed[MAXUSED];
 
-	short	takeChannel;	// objet transporté
-	short	takeIcon;
+	Sint16	takeChannel;	// objet transporté
+	Sint16	takeIcon;
 
 	POINT	fix;			// point fixe (cultive, pont)
 
-	short	jaugePhase;
-	short	jaugeMax;
-	short	stop;			// 1 -> devra stopper
-	short	bArrow;			// true -> flèche en dessus de blupi
-	short	bRepeat;		// true -> répète l'action
-	short	nLoop;			// nb de boucles pour GOAL_OTHERLOOP
-	short	cLoop;			// boucle en cours
-	short	vIcon;			// icône variable
+	Sint16	jaugePhase;
+	Sint16	jaugeMax;
+	Sint16	stop;			// 1 -> devra stopper
+	Sint16	bArrow;			// true -> flèche en dessus de blupi
+	Sint16	bRepeat;		// true -> répète l'action
+	Sint16	nLoop;			// nb de boucles pour GOAL_OTHERLOOP
+	Sint16	cLoop;			// boucle en cours
+	Sint16	vIcon;			// icône variable
 	POINT	goalHili;		// but visé
-	short	bMalade;		// true -> blupi malade
-	short	bCache;			// true -> caché (pas dessiné)
-	short	vehicule;		// véhicule utilisé par blupi, voir (**)
+	Sint16	bMalade;		// true -> blupi malade
+	Sint16	bCache;			// true -> caché (pas dessiné)
+	Sint16	vehicule;		// véhicule utilisé par blupi, voir (**)
 	char	busyCount;
 	char	busyDelay;
 	char	clicCount;
@@ -93,12 +93,12 @@ OldBlupi;
 
 // Sauve le décor sur disque.
 
-bool CDecor::Write(int rank, bool bUser, int world, int time, int total)
+bool CDecor::Write(Sint32 rank, bool bUser, Sint32 world, Sint32 time, Sint32 total)
 {
 	char		filename[MAX_PATH];
 	FILE*		file    = nullptr;
 	DescFile*	pBuffer = nullptr;
-	int			i;
+	Sint32			i;
 	size_t		nb;
 
 	if ( bUser )
@@ -172,13 +172,13 @@ bool CDecor::Write(int rank, bool bUser, int world, int time, int total)
 
 // Lit le décor sur disque.
 
-bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
+bool CDecor::Read(Sint32 rank, bool bUser, Sint32 &world, Sint32 &time, Sint32 &total)
 {
 	char		filename[MAX_PATH];
 	FILE*		file    = nullptr;
 	DescFile*	pBuffer = nullptr;
-	int			majRev, minRev;
-	int			i, x, y;
+	Sint32			majRev, minRev;
+	Sint32			i, x, y;
 	size_t		nb;
 	OldBlupi	oldBlupi;
 
@@ -313,12 +313,12 @@ bool CDecor::Read(int rank, bool bUser, int &world, int &time, int &total)
 
 // Indique si un fichier existe sur disque.
 
-bool CDecor::FileExist(int rank, bool bUser, int &world, int &time, int &total)
+bool CDecor::FileExist(Sint32 rank, bool bUser, Sint32 &world, Sint32 &time, Sint32 &total)
 {
 	char		filename[MAX_PATH];
 	FILE*		file    = nullptr;
 	DescFile*	pBuffer = nullptr;
-	int			majRev, minRev;
+	Sint32			majRev, minRev;
 	size_t		nb;
 
 	if ( bUser )
@@ -385,7 +385,7 @@ bool CDecor::FileExist(int rank, bool bUser, int &world, int &time, int &total)
 
 void CDecor::Flush()
 {
-	int			x, y, i, icon;
+	Sint32			x, y, i, icon;
 
 	Init(-1, -1);
 

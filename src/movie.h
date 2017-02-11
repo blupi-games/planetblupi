@@ -37,7 +37,7 @@ protected:
 	Kit_Source	*m_movie;
 	Kit_Player	*m_player;
 	SDL_Texture *m_videoTex;
-	int m_ret;
+	Sint32 m_ret;
 	SDL_AudioDeviceID m_audioDev;
 
 	char		m_audiobuf[AUDIOBUFFER_SIZE];

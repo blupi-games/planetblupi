@@ -8,9 +8,9 @@
 
 // Mémorise toutes les positions des blupi.
 
-void CDecor::CheminMemPos(int exRank)
+void CDecor::CheminMemPos(Sint32 exRank)
 {
-	int		rank, index;
+	Sint32		rank, index;
 
 	m_cheminNbPos = 0;
 	index = 0;
@@ -39,9 +39,9 @@ void CDecor::CheminMemPos(int exRank)
 
 // Teste si une positiion est occupée par un blupi.
 
-bool CDecor::CheminTestPos(POINT pos, int &rank)
+bool CDecor::CheminTestPos(POINT pos, Sint32 &rank)
 {
-	int		i;
+	Sint32		i;
 
 	for ( i=0 ; i<m_cheminNbPos ; i++ )
 	{
@@ -61,9 +61,9 @@ bool CDecor::CheminTestPos(POINT pos, int &rank)
 // à la recherche du chemin le plus court
 
 // retourne la direction à prendre
-int CDecor::CheminARebours(int rank)
+Sint32 CDecor::CheminARebours(Sint32 rank)
 {
-	int		pos, rebours, last, dir, set;
+	Sint32		pos, rebours, last, dir, set;
 	POINT	v;
 	
 	pos = m_blupi[rank].goalCel.y*MAXCELX + m_blupi[rank].goalCel.x;
@@ -103,12 +103,12 @@ int CDecor::CheminARebours(int rank)
 // semblable à la précédente,
 // mais les points à explorer sont classés selon leur distance à la cible
 
-void CDecor::CheminFillTerrain(int rank)
+void CDecor::CheminFillTerrain(Sint32 rank)
 {
-	long	pos, last, dest, dist;
-	int		step, dir, cout, action, max, next, ampli;
-	int		dx, dy;
-	int		but = 1000;
+	Sint32	pos, last, dest, dist;
+	Sint32		step, dir, cout, action, max, next, ampli;
+	Sint32		dx, dy;
+	Sint32		but = 1000;
 	
 	if ( m_blupi[rank].cel.x == m_blupi[rank].goalCel.x &&
 		 m_blupi[rank].cel.y == m_blupi[rank].goalCel.y )  return;
@@ -154,7 +154,7 @@ void CDecor::CheminFillTerrain(int rank)
 					 m_cheminWork[last] > step+cout )
 				{
 					// marque les cases sautées
-					for (int i=1; i<ampli;i++)
+					for (Sint32 i=1; i<ampli;i++)
 					{
 						m_cheminWork[pos+i*next] = step+cout-ampli+i;
 					}
@@ -166,7 +166,7 @@ void CDecor::CheminFillTerrain(int rank)
 					dx = m_blupi[rank].goalCel.x - last%MAXCELX;
 					dy = m_blupi[rank].goalCel.y - last/MAXCELX;
 //?					dist = dy*dy + dx*dx;
-					dist = (long)(dy*dy) + (long)(dx*dx);
+					dist = (Sint32)(dy*dy) + (Sint32)(dx*dx);
 					fifo.put(last, dist);
 				}
 			}
@@ -180,13 +180,13 @@ void CDecor::CheminFillTerrain(int rank)
 // et le "prix à payer" pour aller dans cette direction
 // coût doit être déterminé en sortie
 
-bool CDecor::CheminTestDirection(int rank, int pos, int dir,
-								 int &next, int &ampli,
-								 int &cout, int &action)
+bool CDecor::CheminTestDirection(Sint32 rank, Sint32 pos, Sint32 dir,
+								 Sint32 &next, Sint32 &ampli,
+								 Sint32 &cout, Sint32 &action)
 {
 	POINT		cel, vector, newCel;
 	bool		bFree;
-	int			tryDirect, workBlupi, rankHere;
+	Sint32			tryDirect, workBlupi, rankHere;
 
 	cel.x = pos%MAXCELX;
 	cel.y = pos/MAXCELX;
@@ -268,10 +268,10 @@ bool CDecor::CheminTestDirection(int rank, int pos, int dir,
 
 
 // Retourne true si on a assigné une nouvelle direction à blupi.
-bool CDecor::CheminCherche(int rank, int &action)
+bool CDecor::CheminCherche(Sint32 rank, Sint32 &action)
 {
-	int 	cout;		// prix pour aller dans une direction
-	int		pos, dir, next, ampli;
+	Sint32 	cout;		// prix pour aller dans une direction
+	Sint32		pos, dir, next, ampli;
 
 	// Déjà à destination ?
 	if ( m_blupi[rank].cel.x == m_blupi[rank].goalCel.x &&
@@ -312,9 +312,9 @@ bool CDecor::CheminCherche(int rank, int &action)
 
 // Teste s'il est possible de se rendre à un endroit donné.
 
-bool CDecor::IsCheminFree(int rank, POINT dest, int button)
+bool CDecor::IsCheminFree(Sint32 rank, POINT dest, Sint32 button)
 {
-	int		action, sDirect;
+	Sint32		action, sDirect;
 	POINT	goalCel, passCel, limit;
 	bool	bOK;
 

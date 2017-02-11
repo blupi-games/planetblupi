@@ -410,7 +410,7 @@ static char color_fire[4] =
 void CDecor::MapPutCel(POINT pos)
 {
 	POINT		cel, fogCel;
-	int			icon, i;
+	Sint32			icon, i;
 	char*		pColors;
 
 	cel = ConvMapToCel(pos);
@@ -479,7 +479,7 @@ void CDecor::MapPutCel(POINT pos)
 bool CDecor::GenerateMap()
 {
 	POINT		dim, pos, cel;
-	int			dx, rank, i;
+	Sint32			dx, rank, i;
 
 	if ( m_phase != -1 && m_phase%20 != 0 )  return true;
 

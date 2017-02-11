@@ -1,14 +1,15 @@
 // Class CFifo, gestion d'une liste en fifo
 
 #include <stdlib.h>
+#include <SDL2/SDL_stdinc.h>
 #include "fifo.h"
 
 
-// gestion d'une pile class√©e en valeur croissantes
-// typiquement reprend les coordonn√©es les plus proches
+// gestion d'une pile classÈe en valeur croissantes
+// typiquement reprend les coordonnÈes les plus proches
 // du but en premier lieu
 
-CPileTriee::CPileTriee(long taille)
+CPileTriee::CPileTriee(Sint32 taille)
 {
 	m_taille = taille;
 	m_max = m_out = 0;
@@ -20,26 +21,26 @@ CPileTriee::~CPileTriee()
 	free( m_data );
 }
 
-long CPileTriee::get()
+Sint32 CPileTriee::get()
 {
 	if (m_out == m_max) return -1;
-	long val = m_data [m_out].pos;
+	Sint32 val = m_data [m_out].pos;
 	m_out++;
 	if (m_out>=m_taille) m_out = 0;
 	return val;
 }                             
 
-void CPileTriee::put(long pos, long dist)
+void CPileTriee::put(Sint32 pos, Sint32 dist)
 {
-	long	i=m_out;
-	long	p,d,m;
+	Sint32	i=m_out;
+	Sint32	p,d,m;
 	
 	while (i!=m_max)
 	{
-		// le point est-il plus proche que celui-l√† ?
+		// le point est-il plus proche que celui-l‡ ?
 		if (dist<m_data[i].dist)
 		{
-			// oui, insert et d√©cale le suivant
+			// oui, insert et dÈcale le suivant
 			p = m_data[i].pos;
 			d = m_data[i].dist;
 			m_data[i].pos = pos;
@@ -51,7 +52,7 @@ void CPileTriee::put(long pos, long dist)
 		if (i>=m_taille) i=0;
 	}
 	
-	// ajoute le point √©loign√© √† la suite
+	// ajoute le point ÈloignÈ ‡ la suite
 	m = m_max+1;
 	if (m>=m_taille) m=0;
 	if (m!=m_out)

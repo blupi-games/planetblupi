@@ -23,17 +23,17 @@ public:
 	void	SetState(bool bState);
 	bool	GetEnable();
 
-	void	SetAudioVolume(int volume);
-	int		GetAudioVolume();
-	void	SetMidiVolume(int volume);
-	int		GetMidiVolume();
+	void	SetAudioVolume(Sint32 volume);
+	Sint32		GetAudioVolume();
+	void	SetMidiVolume(Sint32 volume);
+	Sint32		GetMidiVolume();
 
 	void	CacheAll();
-	bool	Cache(int channel, const char *pFilename);
-	void	Flush(int channel);
+	bool	Cache(Sint32 channel, const char *pFilename);
+	void	Flush(Sint32 channel);
 
-	bool	Play(int channel, int volume=0, Uint8 panLeft = 255, Uint8 panRight = 255);
-	bool	PlayImage(int channel, POINT pos, int rank=-1);
+	bool	Play(Sint32 channel, Sint32 volume=0, Uint8 panLeft = 255, Uint8 panRight = 255);
+	bool	PlayImage(Sint32 channel, POINT pos, Sint32 rank=-1);
 	bool	PlayMusic(const char *lpszMIDIFilename);
 	bool	RestartMusic();
 	void	SuspendMusic();
@@ -41,7 +41,7 @@ public:
 	bool	IsPlayingMusic();
 	bool	IsStoppedOnDemand ();
 	void	AdaptVolumeMusic();
-	void	SetSuspendSkip(int nb);
+	void	SetSuspendSkip(Sint32 nb);
 	bool	StopAllSounds();
 
 protected:
@@ -50,12 +50,12 @@ protected:
 	bool				m_bStopped;
 	Mix_Music			*m_pMusic;
 	Mix_Chunk			*m_lpSDL[MAXSOUND];
-	short				m_channelBlupi[MAXBLUPI];
+	Sint16				m_channelBlupi[MAXBLUPI];
 	char				m_MIDIFilename[50];
-	int					m_audioVolume;
-	int					m_midiVolume;
-	int					m_lastMidiVolume;
-	int					m_nbSuspendSkip;
+	Sint32					m_audioVolume;
+	Sint32					m_midiVolume;
+	Sint32					m_lastMidiVolume;
+	Sint32					m_nbSuspendSkip;
 };
 
 /////////////////////////////////////////////////////////////////////////////

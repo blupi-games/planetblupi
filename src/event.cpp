@@ -34,21 +34,21 @@
 
 typedef struct
 {
-	short			majRev;
-	short			minRev;
-	short			reserve1[9];
-	short			exercice;		// exercice en cours (0..n)
-	short			mission;		// mission en cours (0..n)
-	short			speed;
-	short			bMovie;
-	short			maxMission;		// dernière mission effectuée (0..n)
-	short			scrollSpeed;
-	short			audioVolume;
-	short			midiVolume;
-	short			bAccessBuild;
-	short			prive;
-	short			skill;
-	short			reserve2[93];
+	Sint16			majRev;
+	Sint16			minRev;
+	Sint16			reserve1[9];
+	Sint16			exercice;		// exercice en cours (0..n)
+	Sint16			mission;		// mission en cours (0..n)
+	Sint16			speed;
+	Sint16			bMovie;
+	Sint16			maxMission;		// dernière mission effectuée (0..n)
+	Sint16			scrollSpeed;
+	Sint16			audioVolume;
+	Sint16			midiVolume;
+	Sint16			bAccessBuild;
+	Sint16			prive;
+	Sint16			skill;
+	Sint16			reserve2[93];
 }
 DescInfo;
 
@@ -1453,7 +1453,7 @@ static Phase table[] =
 
 CEvent::CEvent()
 {
-	int		i;
+	Sint32		i;
 
 	m_bFullScreen   = true;
 	m_mouseType     = MOUSETYPEGRA;
@@ -1524,7 +1524,7 @@ CEvent::~CEvent()
 POINT CEvent::GetMousePos()
 {
 	POINT		pos;
-	int x, y;
+	Sint32 x, y;
 
 	SDL_GetMouseState (&x, &y);
 	pos.x = x;
@@ -1543,7 +1543,7 @@ void CEvent::SetFullScreen(bool bFullScreen)
 
 // Initialise le type de souris.
 
-void CEvent::SetMouseType(int mouseType)
+void CEvent::SetMouseType(Sint32 mouseType)
 {
 	m_mouseType = mouseType;
 }
@@ -1573,13 +1573,13 @@ void CEvent::Create(CPixmap *pPixmap, CDecor *pDecor,
 
 // Retourne l'index d'un bouton.
 
-int CEvent::GetButtonIndex(int button)
+Sint32 CEvent::GetButtonIndex(Sint32 button)
 {
-	int			i=0;
+	Sint32			i=0;
 
 	while ( table[m_index].buttons[i].message != 0 )
 	{
-		if ( (unsigned int) button == table[m_index].buttons[i].message )
+		if ( (Uint32) button == table[m_index].buttons[i].message )
 		{
 			return i;
 		}
@@ -1589,9 +1589,9 @@ int CEvent::GetButtonIndex(int button)
 	return -1;
 }
 
-int CEvent::GetState(int button)
+Sint32 CEvent::GetState(Sint32 button)
 {
-	int		index;
+	Sint32		index;
 
 	index = GetButtonIndex(button);
 	if ( index < 0 )  return 0;
@@ -1599,9 +1599,9 @@ int CEvent::GetState(int button)
 	return m_buttons[index].GetState();
 }
 
-void CEvent::SetState(int button, int state)
+void CEvent::SetState(Sint32 button, Sint32 state)
 {
-	int		index;
+	Sint32		index;
 
 	index = GetButtonIndex(button);
 	if ( index < 0 )  return;
@@ -1609,9 +1609,9 @@ void CEvent::SetState(int button, int state)
 	m_buttons[index].SetState(state);
 }
 
-bool CEvent::GetEnable(int button)
+bool CEvent::GetEnable(Sint32 button)
 {
-	int		index;
+	Sint32		index;
 
 	index = GetButtonIndex(button);
 	if ( index < 0 )  return 0;
@@ -1619,9 +1619,9 @@ bool CEvent::GetEnable(int button)
 	return m_buttons[index].GetEnable();
 }
 
-void CEvent::SetEnable(int button, bool bEnable)
+void CEvent::SetEnable(Sint32 button, bool bEnable)
 {
-	int		index;
+	Sint32		index;
 
 	index = GetButtonIndex(button);
 	if ( index < 0 )  return;
@@ -1629,9 +1629,9 @@ void CEvent::SetEnable(int button, bool bEnable)
 	m_buttons[index].SetEnable(bEnable);
 }
 
-bool CEvent::GetHide(int button)
+bool CEvent::GetHide(Sint32 button)
 {
-	int		index;
+	Sint32		index;
 
 	index = GetButtonIndex(button);
 	if ( index < 0 )  return 0;
@@ -1639,9 +1639,9 @@ bool CEvent::GetHide(int button)
 	return m_buttons[index].GetHide();
 }
 
-void CEvent::SetHide(int button, bool bHide)
+void CEvent::SetHide(Sint32 button, bool bHide)
 {
-	int		index;
+	Sint32		index;
 
 	index = GetButtonIndex(button);
 	if ( index < 0 )  return;
@@ -1649,9 +1649,9 @@ void CEvent::SetHide(int button, bool bHide)
 	m_buttons[index].SetHide(bHide);
 }
 
-int CEvent::GetMenu(int button)
+Sint32 CEvent::GetMenu(Sint32 button)
 {
-	int		index;
+	Sint32		index;
 
 	index = GetButtonIndex(button);
 	if ( index < 0 )  return 0;
@@ -1659,9 +1659,9 @@ int CEvent::GetMenu(int button)
 	return m_buttons[index].GetMenu();
 }
 
-void CEvent::SetMenu(int button, int menu)
+void CEvent::SetMenu(Sint32 button, Sint32 menu)
 {
-	int		index;
+	Sint32		index;
 
 	index = GetButtonIndex(button);
 	if ( index < 0 )  return;
@@ -1675,7 +1675,7 @@ void CEvent::SetMenu(int button, int menu)
 
 void CEvent::RestoreGame()
 {
-	int		i;
+	Sint32		i;
 
 	if ( m_phase == WM_PHASE_PLAY )
 	{
@@ -1702,7 +1702,7 @@ void CEvent::RestoreGame()
 
 bool CEvent::CreateButtons()
 {
-	int			i=0, message;
+	Sint32			i=0, message;
 	POINT		pos;
 	bool		bMinimizeRedraw = false;
 
@@ -1750,7 +1750,7 @@ bool CEvent::CreateButtons()
 
 void AddCheatCode(char *pDst, char *pSrc)
 {
-	int		i;
+	Sint32		i;
 	size_t	j;
 
 	if ( pDst[0] != 0 )  strcat(pDst, " / ");
@@ -1766,7 +1766,7 @@ void AddCheatCode(char *pDst, char *pSrc)
 
 // Dessine un texte multi-lignes centré.
 
-void CEvent::DrawTextCenter(const char *text, int x, int y, int font)
+void CEvent::DrawTextCenter(const char *text, Sint32 x, Sint32 y, Sint32 font)
 {
 	POINT	pos;
 	pos.x = x;
@@ -1778,10 +1778,10 @@ void CEvent::DrawTextCenter(const char *text, int x, int y, int font)
 
 bool CEvent::DrawButtons()
 {
-	int			i;
-	int			levels[2];
-	int			types[2];
-	int			world, time, lg, button, volume, pente, icon;
+	Sint32			i;
+	Sint32			levels[2];
+	Sint32			types[2];
+	Sint32			world, time, lg, button, volume, pente, icon;
 	char		res[100];
 	char		text[100];
 	POINT		pos;
@@ -2521,7 +2521,7 @@ void CEvent::HideMouse(bool bHide)
 bool CEvent::EventButtons(const SDL_Event &event, POINT pos)
 {
 	POINT		test;
-	int			lg, oldx, sound;
+	Sint32			lg, oldx, sound;
 
 	// Cherche le tool tips à utiliser pour la souris.
 	m_textToolTips[0] = 0;
@@ -2557,13 +2557,13 @@ bool CEvent::EventButtons(const SDL_Event &event, POINT pos)
 
 		if ( oldx != m_posToolTips.x )
 		{
-			for (int i = 0; i < 2; i++)
+			for (Sint32 i = 0; i < 2; i++)
 				m_jauges[i].SetRedraw();
 		}
 	}
 	else
 	{
-		int i = 0;
+		Sint32 i = 0;
 		while ( table[m_index].buttons[i].message != 0 )
 		{
 			const auto text = m_buttons[i].GetToolTips(pos);
@@ -2660,7 +2660,7 @@ bool CEvent::EventButtons(const SDL_Event &event, POINT pos)
 	}
 
 
-	int i = 0;
+	Sint32 i = 0;
 	while ( table[m_index].buttons[i].message != 0 )
 	{
 		if ( m_buttons[i].TreatEvent(event) )  return true;
@@ -2680,7 +2680,7 @@ bool CEvent::EventButtons(const SDL_Event &event, POINT pos)
 
 bool CEvent::MouseOnButton(POINT pos)
 {
-	int		i;
+	Sint32		i;
 
 	i = 0;
 	while ( table[m_index].buttons[i].message != 0 )
@@ -2695,9 +2695,9 @@ bool CEvent::MouseOnButton(POINT pos)
 
 // Retourne l'index dans table pour une phase donnée.
 
-int CEvent::SearchPhase(unsigned int phase)
+Sint32 CEvent::SearchPhase(Uint32 phase)
 {
-	int		i=0;
+	Sint32		i=0;
 
 	while ( table[i].phase != 0 )
 	{
@@ -2710,7 +2710,7 @@ int CEvent::SearchPhase(unsigned int phase)
 
 // Donne le numéro du monde.
 
-int CEvent::GetWorld()
+Sint32 CEvent::GetWorld()
 {
 	if ( m_bPrivate )  return m_private;
 	if ( m_bSchool  )  return m_exercice;
@@ -2719,14 +2719,14 @@ int CEvent::GetWorld()
 
 // Donne le numéro physique du monde.
 
-int CEvent::GetPhysicalWorld()
+Sint32 CEvent::GetPhysicalWorld()
 {
 	if ( m_bPrivate )  return m_private+200;
 	if ( m_bSchool  )  return m_exercice;
 	else               return m_mission+100;
 }
 
-int CEvent::GetImageWorld()
+Sint32 CEvent::GetImageWorld()
 {
 	if ( m_bPrivate )  return 2;
 	if ( m_bSchool  )  return 0;
@@ -2753,9 +2753,9 @@ bool CEvent::IsHelpHide()
 
 // Change de phase.
 
-bool CEvent::ChangePhase(unsigned int phase)
+bool CEvent::ChangePhase(Uint32 phase)
 {
-	int		index, world, time, total, music, i, max;
+	Sint32		index, world, time, total, music, i, max;
 	POINT	totalDim, iconDim;
 	char	filename[MAX_PATH];
 	char*	pButtonExist;
@@ -3157,7 +3157,7 @@ bool CEvent::ChangePhase(unsigned int phase)
 
 // Retourne la phase en cours.
 
-unsigned int CEvent::GetPhase()
+Uint32 CEvent::GetPhase()
 {
 	return m_phase;
 }
@@ -3200,7 +3200,7 @@ void CEvent::MovieToStart()
 
 // Décale le décor.
 
-void CEvent::DecorShift(int dx, int dy)
+void CEvent::DecorShift(Sint32 dx, Sint32 dy)
 {
 	POINT		coin;
 
@@ -3220,7 +3220,7 @@ void CEvent::DecorShift(int dx, int dy)
 
 void CEvent::DecorAutoShift(POINT pos)
 {
-	int			max;
+	Sint32			max;
 	POINT		offset;
 
 	m_bShift = false;
@@ -3347,7 +3347,7 @@ bool CEvent::PlayDown(POINT pos, const SDL_Event &event)
 {
 	bool	bDecor = false;
 	bool	bMap   = false;
-	int		rank, button, h;
+	Sint32		rank, button, h;
 	POINT	cel;
 
 	m_pDecor->BlupiSetArrow(0, false);  // enlève toutes les flèches
@@ -3458,7 +3458,7 @@ bool CEvent::PlayMove(POINT pos, Uint16 mod)
 
 bool CEvent::PlayUp(POINT pos, Uint16 mod)
 {
-	static int table_sound_boing[3] =
+	static Sint32 table_sound_boing[3] =
 	{
 		SOUND_BOING1,
 		SOUND_BOING2,
@@ -3503,9 +3503,9 @@ bool CEvent::PlayUp(POINT pos, Uint16 mod)
 // Clic dans un bouton.
 // Message = WM_BUTTON0..WM_BUTTON39
 
-void CEvent::ChangeButtons(int message)
+void CEvent::ChangeButtons(Sint32 message)
 {
-	int		button, state, volume, max;
+	Sint32		button, state, volume, max;
 	char*	pButtonExist;
 	Term*	pTerm;
 
@@ -3674,9 +3674,9 @@ void CEvent::ChangeButtons(int message)
 
 // Met un sol si nécessaire sous un objet.
 
-void CEvent::BuildFloor(POINT cel, int insIcon)
+void CEvent::BuildFloor(POINT cel, Sint32 insIcon)
 {
-	int		iFloor, channel, icon;
+	Sint32		iFloor, channel, icon;
 
 	if ( insIcon == -1 )  return;  // supprime ?
 
@@ -3725,9 +3725,9 @@ void CEvent::BuildFloor(POINT cel, int insIcon)
 
 // Enlève si nécessaire un objet sur l'eau.
 
-void CEvent::BuildWater(POINT cel, int insIcon)
+void CEvent::BuildWater(POINT cel, Sint32 insIcon)
 {
-	int		channel, icon;
+	Sint32		channel, icon;
 
 	if ( insIcon != 14 )  return;  // rien à faire si pas eau
 
@@ -3744,7 +3744,7 @@ void CEvent::BuildWater(POINT cel, int insIcon)
 // Cette table donne les objets à construire en fonction
 // du choix dans le menu.
 
-static int tableFloor[] =
+static Sint32 tableFloor[] =
 {
 	1,49,50,51,0,0,0,0,0,0,				// 0 herbe
 	20,66,79,0,0,0,0,0,0,0,				// 1 foncé
@@ -3754,7 +3754,7 @@ static int tableFloor[] =
 	52,80,0,0,0,0,0,0,0,0,				// 5 couveuse
 };
 
-static int tableObject[] =
+static Sint32 tableObject[] =
 {
 	-1,0,0,0,0,0,0,0,0,0,				// 0 détruit
 	0,4,1,2,3,5,0,0,0,0,				// 1 plantes
@@ -3762,7 +3762,7 @@ static int tableObject[] =
 	81,83,94,0,0,0,0,0,0,0,				// 5 fleurs
 };
 
-static int tableHome[] =
+static Sint32 tableHome[] =
 {
 	-1,0,0,0,0,0,0,0,0,0,				//  0 détruit
 	113,61,28,120,0,0,0,0,0,0,			//  1 maison
@@ -3782,7 +3782,7 @@ static int tableHome[] =
 bool CEvent::BuildDown(POINT pos, Uint16 mod, bool bMix)
 {
 	POINT		cel;
-	int			menu, channel, icon;
+	Sint32			menu, channel, icon;
 
 	if ( bMix && m_pDecor->MapMove(pos) )  return true;
 
@@ -4028,9 +4028,9 @@ bool CEvent::IsMovie()
 
 // Lit une partie (user000.blp).
 
-void CEvent::Read(int message)
+void CEvent::Read(Sint32 message)
 {
-	int		world, time, total;
+	Sint32		world, time, total;
 
 	m_pDecor->Read(message-WM_READ0, true, world, time, total);
 	m_pDecor->SetTime(time);
@@ -4058,9 +4058,9 @@ void CEvent::Read(int message)
 
 // Ecrit une partie (user000.blp).
 
-void CEvent::Write(int message)
+void CEvent::Write(Sint32 message)
 {
-	int		time, total;
+	Sint32		time, total;
 
 	time  = m_pDecor->GetTime();
 	total = m_pDecor->GetTotalTime();
@@ -4074,7 +4074,7 @@ void CEvent::Write(int message)
 
 void CEvent::PrivateLibelle()
 {
-	int			i, nb, h1, h2;
+	Sint32			i, nb, h1, h2;
 	Term		term;
 	char		string[100];
 	char		buffer[100];
@@ -4154,14 +4154,14 @@ void CEvent::PrivateLibelle()
 
 // Lit le libellé d'un monde.
 
-bool CEvent::ReadLibelle(int world, bool bSchool, bool bHelp)
+bool CEvent::ReadLibelle(Sint32 world, bool bSchool, bool bHelp)
 {
 	FILE*		file    = nullptr;
 	char*		pBuffer = nullptr;
 	char*		pText;
 	char*		pDest;
 	char		indic;
-	int			h1, h2;
+	Sint32			h1, h2;
 	size_t		nb;
 
 	if ( bSchool )  indic = '$';
@@ -4302,9 +4302,9 @@ bool CEvent::ReadInfo()
 
 // Modifie la vitesse du jeu.
 
-void CEvent::SetSpeed(int speed)
+void CEvent::SetSpeed(Sint32 speed)
 {
-	int		max;
+	Sint32		max;
 
 	if ( m_bSpeed )  max = 8;
 	else             max = 2;
@@ -4314,7 +4314,7 @@ void CEvent::SetSpeed(int speed)
 	m_speed = speed;
 }
 
-int CEvent::GetSpeed()
+Sint32 CEvent::GetSpeed()
 {
 	return m_speed;
 }
@@ -4386,7 +4386,7 @@ bool CEvent::DemoPlayStart()
 	char		filename[MAX_PATH];
 	FILE*		file = nullptr;
 	DemoHeader	header;
-	int			world, time, total;
+	Sint32			world, time, total;
 	size_t		nb;
 
 	m_pDemoBuffer = (DemoEvent*)malloc(MAXDEMO*sizeof(DemoEvent));
@@ -4448,12 +4448,12 @@ void CEvent::DemoPlayStop()
 	ChangePhase(WM_PHASE_INIT);
 }
 
-void CEvent::WinToSDLEvent (unsigned int msg, WPARAM wParam, LPARAM lParam, SDL_Event &event)
+void CEvent::WinToSDLEvent (Uint32 msg, WPARAM wParam, LPARAM lParam, SDL_Event &event)
 {
-#define GET_X_LPARAM(lp) ((int) (short) LOWORD (lp))
-#define GET_Y_LPARAM(lp) ((int) (short) HIWORD (lp))
+#define GET_X_LPARAM(lp) ((Sint32) (Sint16) LOWORD (lp))
+#define GET_Y_LPARAM(lp) ((Sint32) (Sint16) HIWORD (lp))
 
-	static const std::unordered_map<unsigned int, SDL_Keysym> keycodes = {
+	static const std::unordered_map<Uint32, SDL_Keysym> keycodes = {
 		{ '0',      { SDL_SCANCODE_0,     SDLK_0,     0, 0 } },
 		{ '1',      { SDL_SCANCODE_1,     SDLK_1,     0, 0 } },
 		{ '2',      { SDL_SCANCODE_2,     SDLK_2,     0, 0 } },
@@ -4544,8 +4544,8 @@ void CEvent::WinToSDLEvent (unsigned int msg, WPARAM wParam, LPARAM lParam, SDL_
 
 void CEvent::DemoStep()
 {
-	int			time;
-	unsigned int		message;
+	Sint32			time;
+	Uint32		message;
 	WPARAM		wParam;
 	LPARAM		lParam;
 
@@ -4599,7 +4599,7 @@ void CEvent::DemoStep()
 
 // Mémorise un événement.
 
-void CEvent::DemoRecEvent(unsigned int message, WPARAM wParam, LPARAM lParam)
+void CEvent::DemoRecEvent(Uint32 message, WPARAM wParam, LPARAM lParam)
 {
 	if ( m_bDemoRec && m_pDemoBuffer != nullptr &&
 		 (message == WM_KEYDOWN     ||
@@ -4615,15 +4615,15 @@ void CEvent::DemoRecEvent(unsigned int message, WPARAM wParam, LPARAM lParam)
 			 m_pDemoBuffer[m_demoIndex-1].time    == m_demoTime &&
 			 m_pDemoBuffer[m_demoIndex-1].message == message )
 		{
-			m_pDemoBuffer[m_demoIndex-1].wParam  = static_cast<unsigned int> (wParam);
-			m_pDemoBuffer[m_demoIndex-1].lParam  = static_cast<unsigned int> (lParam);
+			m_pDemoBuffer[m_demoIndex-1].wParam  = static_cast<Uint32> (wParam);
+			m_pDemoBuffer[m_demoIndex-1].lParam  = static_cast<Uint32> (lParam);
 		}
 		else
 		{
 			m_pDemoBuffer[m_demoIndex].time    = m_demoTime;
 			m_pDemoBuffer[m_demoIndex].message = message;
-			m_pDemoBuffer[m_demoIndex].wParam  = static_cast<unsigned int> (wParam);
-			m_pDemoBuffer[m_demoIndex].lParam  = static_cast<unsigned int> (lParam);
+			m_pDemoBuffer[m_demoIndex].wParam  = static_cast<Uint32> (wParam);
+			m_pDemoBuffer[m_demoIndex].lParam  = static_cast<Uint32> (lParam);
 
 			m_demoIndex ++;
 			if ( m_demoIndex >= MAXDEMO )
@@ -4668,7 +4668,7 @@ bool CEvent::TreatEvent(const SDL_Event &event)
 bool CEvent::TreatEventBase(const SDL_Event &event)
 {
 	POINT		pos;
-	int			i, sound;
+	Sint32			i, sound;
 	char		c;
 	bool		bEnable;
 
@@ -5356,7 +5356,7 @@ void CEvent::IntroStep()
 	}
 }
 
-void CEvent::PushUserEvent (int code)
+void CEvent::PushUserEvent (Sint32 code)
 {
 	SDL_Event event;
 

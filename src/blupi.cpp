@@ -33,22 +33,22 @@ CSound*		g_pSound  = nullptr;		// sound principal
 CMovie*		g_pMovie  = nullptr;		// movie principal
 CDecor*		g_pDecor  = nullptr;
 bool		g_bFullScreen = false;	// false si mode de test
-int			g_speedRate = 1;
-int			g_timerInterval = 50;	// inverval = 50ms
-int			g_mouseType = MOUSETYPEGRA;
+Sint32			g_speedRate = 1;
+Sint32			g_timerInterval = 50;	// inverval = 50ms
+Sint32			g_mouseType = MOUSETYPEGRA;
 bool		g_bActive = true;		// is application active ?
 bool		g_bTermInit = false;	// initialisation en cours
 
-unsigned int		g_lastPhase = 999;
+Uint32		g_lastPhase = 999;
 
 
 
 
 // Lit un numï¿½ro dï¿½cimal.
 
-int GetNum(char *p)
+Sint32 GetNum(char *p)
 {
-	int		n = 0;
+	Sint32		n = 0;
 
 	while ( *p >= '0' && *p <= '9' )
 	{
@@ -61,7 +61,7 @@ int GetNum(char *p)
 
 // Lit le fichier de configuration.
 
-bool ReadConfig(int argc, char *argv[])
+bool ReadConfig(Sint32 argc, char *argv[])
 {
 	FILE*		file    = nullptr;
 	char		buffer[200];
@@ -116,9 +116,9 @@ bool ReadConfig(int argc, char *argv[])
 void UpdateFrame(void)
 {
     RECT            clip, rcRect;
-	unsigned int			phase;
+	Uint32			phase;
 	POINT			posMouse;
-	int				i, term, speed;
+	Sint32				i, term, speed;
 
 	posMouse = g_pEvent->GetLastMousePos();
 
@@ -215,7 +215,7 @@ void UpdateFrame(void)
 
 void Benchmark()
 {
-	int		i;
+	Sint32		i;
 	POINT	pos = { 0, 0 };
 
 	g_pPixmap->DrawIcon(-1, 2, 10, pos, 0);
@@ -406,7 +406,7 @@ static bool InitFail(const char *msg, bool bDirectX)
 
 // Initialisation de l'application.
 
-static bool DoInit(int argc, char *argv[])
+static bool DoInit(Sint32 argc, char *argv[])
 {
 	POINT			totalDim, iconDim;
 	RECT			rcRect;
@@ -610,7 +610,7 @@ static bool DoInit(int argc, char *argv[])
 
 // Programme principal.
 
-int main (int argc, char *argv[])
+Sint32 main (Sint32 argc, char *argv[])
 {
 	if (!DoInit(argc, argv))
 		return -1;

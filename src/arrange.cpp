@@ -49,9 +49,9 @@ static char tableDark[13*4] =
 
 // Retourne les bits contenant de l'eau.
 
-bool CDecor::GetSeeBits(POINT cel, char *pBits, int index)
+bool CDecor::GetSeeBits(POINT cel, char *pBits, Sint32 index)
 {
-	int		icon;
+	Sint32		icon;
 
 	pBits[0] = 0;
 	pBits[1] = 0;
@@ -117,7 +117,7 @@ bool CDecor::GetSeeBits(POINT cel, char *pBits, int index)
 
 void CopyBits(char *pDst, char *pSrc)
 {
-	for ( int i=0 ; i<4 ; i++ )
+	for ( Sint32 i=0 ; i<4 ; i++ )
 	{
 		*pDst++ = *pSrc++;
 	}
@@ -125,7 +125,7 @@ void CopyBits(char *pDst, char *pSrc)
 
 bool ChangeBits(char *pDst, char *pSrc)
 {
-	for ( int i=0 ; i<4 ; i++ )
+	for ( Sint32 i=0 ; i<4 ; i++ )
 	{
 		if ( *pDst++ != *pSrc++ )  return true;
 	}
@@ -134,9 +134,9 @@ bool ChangeBits(char *pDst, char *pSrc)
 
 // Retourne l'icône correspondant aux bits d'eaux.
 
-int CDecor::GetSeeIcon(char *pBits, int index)
+Sint32 CDecor::GetSeeIcon(char *pBits, Sint32 index)
 {
-	int		i;
+	Sint32		i;
 
 	if ( index == 0 )  // eau ?
 	{
@@ -184,7 +184,7 @@ int CDecor::GetSeeIcon(char *pBits, int index)
 void CDecor::ArrangeFloor(POINT cel)
 {
 	POINT	test;
-	int		max, index, icon;
+	Sint32		max, index, icon;
 	char	here[4], bits[4], init[4];
 	bool	bModif = false;
 
@@ -400,7 +400,7 @@ static char tableMur[5*15] =
 	21,	0,0,0,1,
 };
 
-static short tableMurDir[4*2] =
+static Sint16 tableMurDir[4*2] =
 {
 	+2, 0,		// est
 	 0,+2,		// sur
@@ -414,11 +414,11 @@ static short tableMurDir[4*2] =
 // index=1 si palissade (65..71)
 // index=2 si barrière  (106..112)
 
-void CDecor::ArrangeMur(POINT cel, int &icon, int index)
+void CDecor::ArrangeMur(POINT cel, Sint32 &icon, Sint32 index)
 {
-	int		i, x, y, channel;
-	int		first, last, matiere;
-	int		icons[4];
+	Sint32		i, x, y, channel;
+	Sint32		first, last, matiere;
+	Sint32		icons[4];
 	char	murs[4];
 
 	if ( index == 0 )
@@ -494,11 +494,11 @@ void CDecor::ArrangeMur(POINT cel, int &icon, int index)
 
 // Arrange les objets avant une construction.
 
-void CDecor::ArrangeBuild(POINT cel, int &channel, int &icon)
+void CDecor::ArrangeBuild(POINT cel, Sint32 &channel, Sint32 &icon)
 {
-	int		index, i, x, y;
-	int		first, last, matiere;
-	int		oldChannel, oldIcon;
+	Sint32		index, i, x, y;
+	Sint32		first, last, matiere;
+	Sint32		oldChannel, oldIcon;
 
 	for ( index=0 ; index<3 ; index++ )
 	{
@@ -571,9 +571,9 @@ void CDecor::ArrangeBuild(POINT cel, int &channel, int &icon)
 
 void CDecor::ArrangeObject(POINT cel)
 {
-	int		channel, icon;
-	int		first, last;
-	int		index, i, j, k, x, y;
+	Sint32		channel, icon;
+	Sint32		first, last;
+	Sint32		index, i, j, k, x, y;
 	POINT	vector, test, pos;
 	bool	bTour;
 
@@ -710,7 +710,7 @@ void CDecor::ArrangeObject(POINT cel)
 bool CDecor::ArrangeFillTestFloor(POINT cel1, POINT cel2)
 {
 	POINT		cel;
-	int			icon1, icon2;
+	Sint32			icon1, icon2;
 
 	icon1 = m_fillSearchIcon;
 	icon2 = m_fillSearchIcon;
@@ -805,7 +805,7 @@ bool CDecor::ArrangeFillTest(POINT pos)
 
 // Modifie le décor lors d'un remplissage.
 
-void CDecor::ArrangeFillPut(POINT pos, int channel, int icon)
+void CDecor::ArrangeFillPut(POINT pos, Sint32 channel, Sint32 icon)
 {
 	if ( m_bFillFloor )
 	{
@@ -835,7 +835,7 @@ void CDecor::ArrangeFillPut(POINT pos, int channel, int icon)
 
 void CDecor::ArrangeFillSearch(POINT pos)
 {
-	int		startX, endX;
+	Sint32		startX, endX;
 
 	// Cherche la borne gauche.
 	startX = pos.x;
@@ -916,7 +916,7 @@ void CDecor::ArrangeFillSearch(POINT pos)
 
 // Rempli un sol à partir d'une position donnée.
 
-void CDecor::ArrangeFill(POINT pos, int channel, int icon, bool bFloor)
+void CDecor::ArrangeFill(POINT pos, Sint32 channel, Sint32 icon, bool bFloor)
 {
 	m_bFillFloor = bFloor;
 
@@ -961,7 +961,7 @@ void CDecor::ArrangeFill(POINT pos, int channel, int icon, bool bFloor)
 
 void CDecor::ArrangeBlupi()
 {
-	int		rank;
+	Sint32		rank;
 
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{

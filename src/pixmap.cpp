@@ -26,7 +26,7 @@
 
 CPixmap::CPixmap()
 {
-	int		i;
+	Sint32		i;
 
 	m_bFullScreen  = false;
 	m_mouseType    = MOUSETYPEGRA;
@@ -51,7 +51,7 @@ CPixmap::CPixmap()
 
 CPixmap::~CPixmap()
 {
-	int		i;
+	Sint32		i;
 
 	for (i = 0; i < MAXIMAGE; i++)
 	{
@@ -76,7 +76,7 @@ CPixmap::~CPixmap()
 // Retourne false en cas d'erreur.
 
 bool CPixmap::Create(POINT dim,
-					 bool bFullScreen, int mouseType)
+					 bool bFullScreen, Sint32 mouseType)
 {
 	m_bFullScreen = bFullScreen;
 	m_mouseType   = mouseType;
@@ -107,9 +107,9 @@ void CPixmap::Fill(RECT rect, COLORREF color)
 // Effectue un appel BltFast.
 // Les modes sont 0=transparent, 1=opaque.
 
-int CPixmap::BltFast(int chDst, int channel, POINT dst, RECT rcRect)
+Sint32 CPixmap::BltFast(Sint32 chDst, Sint32 channel, POINT dst, RECT rcRect)
 {
-	int			res, limit;
+	Sint32			res, limit;
 
 	// Effectue un peu de clipping.
 	if ( dst.x < m_clipRect.left )
@@ -172,9 +172,9 @@ int CPixmap::BltFast(int chDst, int channel, POINT dst, RECT rcRect)
 // Effectue un appel BltFast.
 // Les modes sont 0=transparent, 1=opaque.
 
-int CPixmap::BltFast(SDL_Texture *lpSDL, int channel, POINT dst, RECT rcRect)
+Sint32 CPixmap::BltFast(SDL_Texture *lpSDL, Sint32 channel, POINT dst, RECT rcRect)
 {
-	int			res;
+	Sint32			res;
 
 	SDL_Rect srcRect, dstRect;
 	srcRect.x = rcRect.left;
@@ -194,7 +194,7 @@ int CPixmap::BltFast(SDL_Texture *lpSDL, int channel, POINT dst, RECT rcRect)
 
 // Cache une image contenant des icï¿½nes.
 
-bool CPixmap::Cache(int channel, const char *pFilename, POINT totalDim, POINT iconDim)
+bool CPixmap::Cache(Sint32 channel, const char *pFilename, POINT totalDim, POINT iconDim)
 {
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 
@@ -208,8 +208,8 @@ bool CPixmap::Cache(int channel, const char *pFilename, POINT totalDim, POINT ic
 		m_lpSDLBlupi = surface;
 
 	SDL_Texture *texture = SDL_CreateTextureFromSurface (g_renderer, surface);
-	unsigned int format;
-	int access, w, h;
+	Uint32 format;
+	Sint32 access, w, h;
 	SDL_QueryTexture (texture, &format, &access, &w, &h);
 
 	if (!m_lpSDLTexture[channel])
@@ -251,7 +251,7 @@ bool CPixmap::Cache(int channel, const char *pFilename, POINT totalDim, POINT ic
 
 // Cache une image globale.
 
-bool CPixmap::Cache(int channel, const char *pFilename, POINT totalDim)
+bool CPixmap::Cache(Sint32 channel, const char *pFilename, POINT totalDim)
 {
 	POINT		iconDim;
 
@@ -265,7 +265,7 @@ bool CPixmap::Cache(int channel, const char *pFilename, POINT totalDim)
 
 // Cache une image provenant d'un bitmap.
 
-bool CPixmap::Cache(int channel, SDL_Surface *surface, POINT totalDim)
+bool CPixmap::Cache(Sint32 channel, SDL_Surface *surface, POINT totalDim)
 {
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 
@@ -301,9 +301,9 @@ RECT CPixmap::GetClipping()
 
 // Teste si un point fait partie d'une icï¿½ne.
 
-bool CPixmap::IsIconPixel(int channel, int rank, POINT pos)
+bool CPixmap::IsIconPixel(Sint32 channel, Sint32 rank, POINT pos)
 {
-	int			nbx, nby;
+	Sint32			nbx, nby;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 	if (m_lpSDLTexture[channel] == nullptr )     return false;
@@ -337,9 +337,9 @@ bool CPixmap::IsIconPixel(int channel, int rank, POINT pos)
 // Dessine une partie d'image rectangulaire.
 // Les modes sont 0=transparent, 1=opaque.
 
-bool CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos, bool bMask)
+bool CPixmap::DrawIcon(Sint32 chDst, Sint32 channel, Sint32 rank, POINT pos, bool bMask)
 {
-	int			nbx, nby;
+	Sint32			nbx, nby;
 	RECT		rect;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
@@ -371,9 +371,9 @@ bool CPixmap::DrawIcon(int chDst, int channel, int rank, POINT pos, bool bMask)
 //	32,32	34,33
 //	33,48	35,49
 
-bool CPixmap::DrawIconDemi(int chDst, int channel, int rank, POINT pos, bool bMask)
+bool CPixmap::DrawIconDemi(Sint32 chDst, Sint32 channel, Sint32 rank, POINT pos, bool bMask)
 {
-	int			nbx, nby;
+	Sint32			nbx, nby;
 	RECT		rect;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
@@ -399,10 +399,10 @@ bool CPixmap::DrawIconDemi(int chDst, int channel, int rank, POINT pos, bool bMa
 
 // Dessine une partie d'image rectangulaire.
 
-bool CPixmap::DrawIconPart(int chDst, int channel, int rank, POINT pos,
-						   int startY, int endY, bool bMask)
+bool CPixmap::DrawIconPart(Sint32 chDst, Sint32 channel, Sint32 rank, POINT pos,
+						   Sint32 startY, Sint32 endY, bool bMask)
 {
-	int			nbx, nby;
+	Sint32			nbx, nby;
 	RECT		rect;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
@@ -429,7 +429,7 @@ bool CPixmap::DrawIconPart(int chDst, int channel, int rank, POINT pos,
 
 // Dessine une partie d'image n'importe oï¿½.
 
-bool CPixmap::DrawPart(int chDst, int channel, POINT dest, RECT rect, bool bMask)
+bool CPixmap::DrawPart(Sint32 chDst, Sint32 channel, POINT dest, RECT rect, bool bMask)
 {
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 	if (m_lpSDLTexture[channel] == nullptr )     return false;
@@ -439,10 +439,10 @@ bool CPixmap::DrawPart(int chDst, int channel, POINT dest, RECT rect, bool bMask
 
 // Dessine une partie d'image rectangulaire.
 
-bool CPixmap::DrawImage(int chDst, int channel, RECT rect)
+bool CPixmap::DrawImage(Sint32 chDst, Sint32 channel, RECT rect)
 {
 	POINT		dst;
-	int			res;
+	Sint32			res;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 	if (m_lpSDLTexture[channel] == nullptr )     return false;
@@ -466,13 +466,13 @@ bool CPixmap::DrawImage(int chDst, int channel, RECT rect)
 
 // Construit une icï¿½ne en utilisant un masque.
 
-bool CPixmap::BuildIconMask(int channelMask, int rankMask,
-							int channel, int rankSrc, int rankDst)
+bool CPixmap::BuildIconMask(Sint32 channelMask, Sint32 rankMask,
+							Sint32 channel, Sint32 rankSrc, Sint32 rankDst)
 {
-	int			nbx, nby;
+	Sint32			nbx, nby;
 	POINT		posDst;
 	RECT		rect;
-	int			res;
+	Sint32			res;
 
 	if ( channel < 0 || channel >= MAXIMAGE )  return false;
 	if (m_lpSDLTexture[channel] == nullptr )     return false;
@@ -526,7 +526,7 @@ bool CPixmap::Display()
 
 // Change le lutin de la souris.
 
-void CPixmap::SetMouseSprite(int sprite, bool bDemoPlay)
+void CPixmap::SetMouseSprite(Sint32 sprite, bool bDemoPlay)
 {
 	if ( m_mouseSprite == sprite )  return;
 
@@ -547,7 +547,7 @@ void CPixmap::MouseShow(bool bShow)
 
 RECT CPixmap::MouseRectSprite()
 {
-	int		rank, nbx;
+	Sint32		rank, nbx;
 	RECT	rcRect;
 
 	rank = 348;
@@ -575,9 +575,9 @@ RECT CPixmap::MouseRectSprite()
 	return rcRect;
 }
 
-SDL_Point CPixmap::GetCursorHotSpot (int sprite)
+SDL_Point CPixmap::GetCursorHotSpot (Sint32 sprite)
 {
-	static const int hotspots[MAXCURSORS * 2] =
+	static const Sint32 hotspots[MAXCURSORS * 2] =
 	{
 		30, 30, // SPRITE_ARROW
 		20, 15, // SPRITE_POINTER
@@ -599,7 +599,7 @@ SDL_Point CPixmap::GetCursorHotSpot (int sprite)
 
 	if (sprite >= SPRITE_BEGIN && sprite <= SPRITE_END)
 	{
-		const int rank = sprite - SPRITE_BEGIN;  // rank <- 0..n
+		const Sint32 rank = sprite - SPRITE_BEGIN;  // rank <- 0..n
 
 		hotspot.x = hotspots[rank * 2 + 0];
 		hotspot.y = hotspots[rank * 2 + 1];
@@ -608,9 +608,9 @@ SDL_Point CPixmap::GetCursorHotSpot (int sprite)
 	return hotspot;
 }
 
-SDL_Rect CPixmap::GetCursorRect (int sprite)
+SDL_Rect CPixmap::GetCursorRect (Sint32 sprite)
 {
-	int rank;
+	Sint32 rank;
 	SDL_Rect rcRect;
 
 	switch (sprite)
@@ -657,7 +657,7 @@ SDL_Rect CPixmap::GetCursorRect (int sprite)
 		break;
 	}
 
-	int nbx = m_totalDim[CHBLUPI].x / m_iconDim[CHBLUPI].x;
+	Sint32 nbx = m_totalDim[CHBLUPI].x / m_iconDim[CHBLUPI].x;
 
 	rcRect.x = (rank % nbx) * m_iconDim[CHBLUPI].x;
 	rcRect.y = (rank / nbx) * m_iconDim[CHBLUPI].y;
@@ -685,7 +685,7 @@ void CPixmap::LoadCursors ()
 	amask = 0xff000000;
 #endif
 
-	for (int sprite = SPRITE_BEGIN; sprite <= SPRITE_END; ++sprite)
+	for (Sint32 sprite = SPRITE_BEGIN; sprite <= SPRITE_END; ++sprite)
 	{
 		SDL_Point hotspot = this->GetCursorHotSpot (sprite);
 		SDL_Rect rect = this->GetCursorRect (sprite);

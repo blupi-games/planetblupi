@@ -25,7 +25,7 @@
 bool CMovie::initAVI()
 {
 	// Initialize Kitchensink with network support and all formats.
-	int err = Kit_Init (KIT_INIT_FORMATS);
+	Sint32 err = Kit_Init (KIT_INIT_FORMATS);
 	if (err != 0)
 	{
 		fprintf (stderr, "Unable to initialize Kitchensink: %s", Kit_GetError ());
@@ -258,7 +258,7 @@ bool CMovie::Render ()
 	// Refresh audio
 	if (SDL_GetQueuedAudioSize (m_audioDev) < AUDIOBUFFER_SIZE)
 	{
-		int need = AUDIOBUFFER_SIZE - m_ret;
+		Sint32 need = AUDIOBUFFER_SIZE - m_ret;
 
 		SDL_LockAudio ();
 		while (need > 0)

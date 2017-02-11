@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <SDL2/SDL_stdinc.h>
+
 #define _INTRO			false	// true si images d'introduction
 
 
@@ -603,17 +605,17 @@ enum MouseSprites
 
 typedef struct
 {
-	short	bHachBlupi;		// blupi sur dalle hachurée
-	short	bHachPlanche;	// planches sur dalle hachurée
-	short	bStopFire;		// feu éteint
-	short	nbMinBlupi;		// nb de blupi nécessaires
-	short	nbMaxBlupi;		// nb de blupi nécessaires
-	short	bHomeBlupi;		// blupi à la maison
-	short	bKillRobots;	// plus d'ennemis
-	short	bHachTomate;	// tomates sur dalle hachurée
-	short	bHachMetal;		// métal sur dalle hachurée
-	short	bHachRobot;		// robot sur dalle hachurée
-	short	reserve[14];
+	Sint16	bHachBlupi;		// blupi sur dalle hachurée
+	Sint16	bHachPlanche;	// planches sur dalle hachurée
+	Sint16	bStopFire;		// feu éteint
+	Sint16	nbMinBlupi;		// nb de blupi nécessaires
+	Sint16	nbMaxBlupi;		// nb de blupi nécessaires
+	Sint16	bHomeBlupi;		// blupi à la maison
+	Sint16	bKillRobots;	// plus d'ennemis
+	Sint16	bHachTomate;	// tomates sur dalle hachurée
+	Sint16	bHachMetal;		// métal sur dalle hachurée
+	Sint16	bHachRobot;		// robot sur dalle hachurée
+	Sint16	reserve[14];
 }
 Term;
 

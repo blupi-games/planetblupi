@@ -15,51 +15,51 @@ public:
 	CPixmap();
 	~CPixmap();
 
-	bool	Create(POINT dim, bool bFullScreen, int mouseType);
+	bool	Create(POINT dim, bool bFullScreen, Sint32 mouseType);
 	bool	Flush();
 	void	Fill(RECT rect, COLORREF color);
 
-	bool	Cache(int channel, const char *pFilename, POINT totalDim, POINT iconDim);
-	bool	Cache(int channel, const char *pFilename, POINT totalDim);
-	bool	Cache(int channel, SDL_Surface *surface, POINT totalDim);
+	bool	Cache(Sint32 channel, const char *pFilename, POINT totalDim, POINT iconDim);
+	bool	Cache(Sint32 channel, const char *pFilename, POINT totalDim);
+	bool	Cache(Sint32 channel, SDL_Surface *surface, POINT totalDim);
 	void	SetClipping(RECT clip);
 	RECT	GetClipping();
 
-	bool	IsIconPixel(int channel, int rank, POINT pos);
+	bool	IsIconPixel(Sint32 channel, Sint32 rank, POINT pos);
 
-	bool	DrawIcon(int chDst, int channel, int rank, POINT pos, bool bMask=false);
-	bool	DrawIconDemi(int chDst, int channel, int rank, POINT pos, bool bMask=false);
-	bool	DrawIconPart(int chDst, int channel, int rank, POINT pos, int startY, int endY, bool bMask=false);
-	bool	DrawPart(int chDst, int channel, POINT dest, RECT rect, bool bMask=false);
-	bool	DrawImage(int chDst, int channel, RECT rect);
+	bool	DrawIcon(Sint32 chDst, Sint32 channel, Sint32 rank, POINT pos, bool bMask=false);
+	bool	DrawIconDemi(Sint32 chDst, Sint32 channel, Sint32 rank, POINT pos, bool bMask=false);
+	bool	DrawIconPart(Sint32 chDst, Sint32 channel, Sint32 rank, POINT pos, Sint32 startY, Sint32 endY, bool bMask=false);
+	bool	DrawPart(Sint32 chDst, Sint32 channel, POINT dest, RECT rect, bool bMask=false);
+	bool	DrawImage(Sint32 chDst, Sint32 channel, RECT rect);
 
-	bool	BuildIconMask(int channelMask, int rankMask,
-						  int channel, int rankSrc, int rankDst);
+	bool	BuildIconMask(Sint32 channelMask, Sint32 rankMask,
+						  Sint32 channel, Sint32 rankSrc, Sint32 rankDst);
 
 	bool	Display();
 
-	void	SetMouseSprite(int sprite, bool bDemoPlay);
+	void	SetMouseSprite(Sint32 sprite, bool bDemoPlay);
 	void	MouseShow(bool bShow);
 	void	LoadCursors ();
 	void	ChangeSprite (MouseSprites sprite);
 
 protected:
-	int	BltFast(int chDst, int channel, POINT dst, RECT rcRect);
-	int	BltFast(SDL_Texture *lpSDL, int channel, POINT dst, RECT rcRect);
+	Sint32	BltFast(Sint32 chDst, Sint32 channel, POINT dst, RECT rcRect);
+	Sint32	BltFast(SDL_Texture *lpSDL, Sint32 channel, POINT dst, RECT rcRect);
 
 	RECT	MouseRectSprite();
-	SDL_Point GetCursorHotSpot (int sprite);
-	SDL_Rect GetCursorRect (int sprite);
+	SDL_Point GetCursorHotSpot (Sint32 sprite);
+	SDL_Rect GetCursorRect (Sint32 sprite);
 
 protected:
 	bool					m_bFullScreen;
-	int						m_mouseType;
+	Sint32						m_mouseType;
 	bool					m_bDebug;
 	bool					m_bPalette;
 	POINT					m_dim;					// dimensions totales
 	RECT					m_clipRect;				// rectangle de clipping
 
-	int						m_mouseSprite;
+	Sint32						m_mouseSprite;
 	bool					m_bBackDisplayed;
 
 	SDL_Cursor *			m_lpCurrentCursor;

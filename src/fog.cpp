@@ -27,7 +27,7 @@ static char tableFog[15*4] =
 
 // Retourne les bits contenant du brouillard.
 
-bool GetFogBits(int icon, char *pBits)
+bool GetFogBits(Sint32 icon, char *pBits)
 {
 	pBits[0] = 0;
 	pBits[1] = 0;
@@ -46,9 +46,9 @@ bool GetFogBits(int icon, char *pBits)
 
 // Retourne l'icône correspondant aux bits de brouillard.
 
-int GetFogIcon(char *pBits)
+Sint32 GetFogIcon(char *pBits)
 {
-	int		i;
+	Sint32		i;
 
 	for ( i=0 ; i<15 ; i++ )
 	{
@@ -108,9 +108,9 @@ static char table_fog[17*17] =
 
 // Ecarte le brouillard autour d'un blupi.
 
-void CDecor::BlupiPushFog(int rank)
+void CDecor::BlupiPushFog(Sint32 rank)
 {
-	int			x, y, i;
+	Sint32			x, y, i;
 	POINT		cel;
 	char		cBits[4];
 	char		nBits[4];

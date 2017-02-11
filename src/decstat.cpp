@@ -24,15 +24,15 @@
 
 typedef struct
 {
-	short		bExist;
-	short		perso;		// -1=objet, -2=feu, -3=flèche
-	short		firstIcon;	// négatif si sol
-	short		lastIcon;	// négatif si sol
-	short		drawIcon;
-	short		bBigIcon;
+	Sint16		bExist;
+	Sint16		perso;		// -1=objet, -2=feu, -3=flèche
+	Sint16		firstIcon;	// négatif si sol
+	Sint16		lastIcon;	// négatif si sol
+	Sint16		drawIcon;
+	Sint16		bBigIcon;
 	const char *text;
-	short		nb;
-	short		lastShow;
+	Sint16		nb;
+	Sint16		lastShow;
 }
 Statistic;
 
@@ -360,7 +360,7 @@ static Statistic table_statistic[] =
 
 // Retourne la statistique correspondant à un rang donné.
 
-Statistic* StatisticGet(int rank)
+Statistic* StatisticGet(Sint32 rank)
 {
 	Statistic*	pStatistic;
 
@@ -412,7 +412,7 @@ void CDecor::StatisticInit()
 
 void CDecor::StatisticUpdate()
 {
-	int			rank, x, y, icon, nb;
+	Sint32			rank, x, y, icon, nb;
 	bool		bHach;
 	Statistic*	pStatistic;
 
@@ -643,7 +643,7 @@ void CDecor::StatisticUpdate()
 
 // Retourne le nombre de blupi.
 
-int CDecor::StatisticGetBlupi()
+Sint32 CDecor::StatisticGetBlupi()
 {
 	return table_statistic[STATBLUPIf].nb +
 		   table_statistic[STATBLUPIm].nb +
@@ -652,7 +652,7 @@ int CDecor::StatisticGetBlupi()
 
 // Retourne le nombre de cellules en feu.
 
-int CDecor::StatisticGetFire()
+Sint32 CDecor::StatisticGetFire()
 {
 	return table_statistic[STATFEU].nb;
 }
@@ -663,7 +663,7 @@ void CDecor::StatisticDraw()
 {
 	POINT		pos;
 	RECT		rect;
-	int			rank, icon, nb;
+	Sint32			rank, icon, nb;
 	Statistic*	pStatistic;
 	char		text[50];
 	const char *textRes;
@@ -805,7 +805,7 @@ void CDecor::GenerateStatictic()
 
 bool CDecor::StatisticDown(POINT pos)
 {
-	int			hili, rank, x, y, show, icon;
+	Sint32			hili, rank, x, y, show, icon;
 	POINT		cel;
 	Statistic*	pStatistic;
 
@@ -994,7 +994,7 @@ bool CDecor::StatisticDown(POINT pos)
 
 bool CDecor::StatisticMove(POINT pos)
 {
-	int		rank;
+	Sint32		rank;
 
 	rank = StatisticDetect(pos);
 
@@ -1016,9 +1016,9 @@ bool CDecor::StatisticUp(POINT pos)
 
 // Détecte dans quelle statistique est la souris.
 
-int CDecor::StatisticDetect(POINT pos)
+Sint32 CDecor::StatisticDetect(POINT pos)
 {
-	int		rank;
+	Sint32		rank;
 
 	// Dans un bouton stop/setup/write ?
 	if ( pos.x >= 10 && pos.x <= 10+42*3 &&

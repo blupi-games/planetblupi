@@ -22,7 +22,7 @@
 // Variables globales
 
 extern bool		g_bFullScreen;	// false si mode de test
-extern int		g_mouseType;
+extern Sint32		g_mouseType;
 
 
 // Affiche un message de debug.
@@ -60,14 +60,14 @@ void InitRandom()
 // Retourne un nombre alï¿½atoire compris entre
 // deux bornes (inclues).
 
-int Random(int min, int max)
+Sint32 Random(Sint32 min, Sint32 max)
 {
-	long	n;
+	Sint32	n;
 
 	n = rand();
 	n = min+(n%(max-min+1));
 
-	return (int)n;
+	return (Sint32)n;
 }
 
 

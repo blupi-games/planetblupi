@@ -34,7 +34,7 @@ CJauge::~CJauge()
 // Crée un nouveau bouton.
 
 bool CJauge::Create(CPixmap *pPixmap, CSound *pSound,
-					POINT pos, int type, bool bMinimizeRedraw)
+					POINT pos, Sint32 type, bool bMinimizeRedraw)
 {
 	m_pPixmap         = pPixmap;
 	m_pSound          = pSound;
@@ -54,7 +54,7 @@ bool CJauge::Create(CPixmap *pPixmap, CSound *pSound,
 
 void CJauge::Draw()
 {
-	int			part;
+	Sint32			part;
 	RECT		rect;
 
 	if ( m_bMinimizeRedraw && !m_bRedraw )  return;
@@ -97,7 +97,7 @@ void CJauge::Redraw()
 
 // Modifie le niveau.
 
-void CJauge::SetLevel(int level)
+void CJauge::SetLevel(Sint32 level)
 {
 	if ( level <   0 )  level =   0;
 	if ( level > 100 )  level = 100;
@@ -112,7 +112,7 @@ void CJauge::SetLevel(int level)
 
 // Modifie le type.
 
-void CJauge::SetType(int type)
+void CJauge::SetType(Sint32 type)
 {
 	if ( m_type != type )
 	{

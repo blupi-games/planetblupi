@@ -22,7 +22,7 @@
 #define MARGMENU	0
 
 
-static const short table_button_icon[] =
+static const Sint16 table_button_icon[] =
 {
 	24,		// go
 	40,		// stop
@@ -61,7 +61,7 @@ static const short table_button_icon[] =
 	106,	// fabarmure
 };
 
-static const char *GetText(int rank)
+static const char *GetText(Sint32 rank)
 {
 	static const char *list[] = {
 		"Go",
@@ -104,7 +104,7 @@ static const char *GetText(int rank)
 	return gettext (list[rank]);
 }
 
-static const char *GetErr(int rank)
+static const char *GetErr(Sint32 rank)
 {
 	static const char *list[] = {
 		"Impossible",
@@ -141,9 +141,9 @@ CMenu::~CMenu()
 // Crée un nouveau bouton.
 
 bool CMenu::Create(CPixmap *pPixmap, CSound *pSound,
-				   POINT pos, int nb, int *pButtons, int *pErrors,
-				   std::unordered_map<int, const char *> &texts,
-				   int perso)
+				   POINT pos, Sint32 nb, Sint32 *pButtons, Sint32 *pErrors,
+				   std::unordered_map<Sint32, const char *> &texts,
+				   Sint32 perso)
 {
 	pos.x -= DIMBUTTONX/2;
 	pos.y -= DIMBUTTONY/2;
@@ -177,10 +177,10 @@ bool CMenu::Create(CPixmap *pPixmap, CSound *pSound,
 
 // Met à jour le menu.
 
-void CMenu::Update(int nb, int *pButtons, int *pErrors,
-				   std::unordered_map<int, const char *> &texts)
+void CMenu::Update(Sint32 nb, Sint32 *pButtons, Sint32 *pErrors,
+				   std::unordered_map<Sint32, const char *> &texts)
 {
-	int			i;
+	Sint32			i;
 
 	m_nbButtons = nb;
 
@@ -212,7 +212,7 @@ void CMenu::Delete()
 
 void CMenu::Draw()
 {
-	int			i, state, icon;
+	Sint32			i, state, icon;
 	POINT		pos;
 	RECT		oldClip, clipRect;
 	char		text[50];
@@ -357,7 +357,7 @@ void CMenu::Draw()
 
 // Retourne le bouton sélectionné.
 
-int CMenu::GetSel()
+Sint32 CMenu::GetSel()
 {
 	if ( m_selRank == -1 )  return -1;
 
@@ -366,7 +366,7 @@ int CMenu::GetSel()
 
 // Retourne le rang sélectionné.
 
-int CMenu::GetRank()
+Sint32 CMenu::GetRank()
 {
 	return m_selRank;
 }
@@ -436,9 +436,9 @@ bool CMenu::TreatEvent(const SDL_Event &event)
 
 // Détecte dans quel bouton est la souris.
 
-int CMenu::Detect(POINT pos)
+Sint32 CMenu::Detect(POINT pos)
 {
-	int		rank;
+	Sint32		rank;
 
 	if ( pos.x < m_pos.x || pos.x > m_pos.x+m_dim.x ||
 		 pos.y < m_pos.y || pos.y > m_pos.y+m_dim.y )  return -1;

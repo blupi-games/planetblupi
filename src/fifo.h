@@ -8,8 +8,8 @@
 // en fonction de leur distance à la cible
 typedef struct
 {
-	long		pos;
-	long		dist;
+	Sint32		pos;
+	Sint32		dist;
 } 
 Element;
 
@@ -19,15 +19,15 @@ Element;
 class CPileTriee
 {
 private:
-	long		m_taille;		// nombre de polongs max
-	long		m_max;			// position limite
-	long		m_out;			// position pour reprendre
+	Sint32		m_taille;		// nombre de polongs max
+	Sint32		m_max;			// position limite
+	Sint32		m_out;			// position pour reprendre
 	Element*	m_data;			// données
 			
 public:
-	CPileTriee(long taille);
+	CPileTriee(Sint32 taille);
 	~CPileTriee();
 	
-	void		put(long pos, long dist);
-	long		get();
+	void		put(Sint32 pos, Sint32 dist);
+	Sint32		get();
 };

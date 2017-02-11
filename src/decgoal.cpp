@@ -4,7 +4,7 @@
 #include "def.h"
 #include "decor.h"
 
-short table_goal_nbop[] =
+Sint16 table_goal_nbop[] =
 {
 	0,		// term
 	3,		// gohili
@@ -59,7 +59,7 @@ short table_goal_nbop[] =
 };
 
 // Va, mon petit.
-static short table_goal_go[] =
+static Sint16 table_goal_go[] =
 {
 	WM_ACTION_GO,
 		GOAL_GOHILI,		0,0, false,
@@ -68,7 +68,7 @@ static short table_goal_go[] =
 };
 
 // Blupi va dans sa maison.
-static short table_goal_maison[] =
+static Sint16 table_goal_maison[] =
 {
 	WM_ACTION_MAISON,
 		GOAL_GOHILI2,		+1,+1, false,
@@ -79,7 +79,7 @@ static short table_goal_maison[] =
 };
 
 // Blupi bucheron.
-static short table_goal_abat1[] =
+static Sint16 table_goal_abat1[] =
 {
 	WM_ACTION_ABAT1,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -115,7 +115,7 @@ static short table_goal_abat1[] =
 	0
 };
 
-static short table_goal_abat2[] =
+static Sint16 table_goal_abat2[] =
 {
 	WM_ACTION_ABAT2,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -151,7 +151,7 @@ static short table_goal_abat2[] =
 	0
 };
 
-static short table_goal_abat3[] =
+static Sint16 table_goal_abat3[] =
 {
 	WM_ACTION_ABAT3,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -187,7 +187,7 @@ static short table_goal_abat3[] =
 	0
 };
 
-static short table_goal_abat4[] =
+static Sint16 table_goal_abat4[] =
 {
 	WM_ACTION_ABAT4,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -222,7 +222,7 @@ static short table_goal_abat4[] =
 	0
 };
 
-static short table_goal_abat5[] =
+static Sint16 table_goal_abat5[] =
 {
 	WM_ACTION_ABAT5,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -257,7 +257,7 @@ static short table_goal_abat5[] =
 	0
 };
 
-static short table_goal_abat6[] =
+static Sint16 table_goal_abat6[] =
 {
 	WM_ACTION_ABAT6,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -293,7 +293,7 @@ static short table_goal_abat6[] =
 };
 
 // Blupi tailleur de pierre.
-static short table_goal_roc1[] =
+static Sint16 table_goal_roc1[] =
 {
 	WM_ACTION_ROC1,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -357,7 +357,7 @@ static short table_goal_roc1[] =
 	0
 };
 
-static short table_goal_roc2[] =
+static Sint16 table_goal_roc2[] =
 {
 	WM_ACTION_ROC2,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -414,7 +414,7 @@ static short table_goal_roc2[] =
 	0
 };
 
-static short table_goal_roc3[] =
+static Sint16 table_goal_roc3[] =
 {
 	WM_ACTION_ROC3,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -464,7 +464,7 @@ static short table_goal_roc3[] =
 	0
 };
 
-static short table_goal_roc4[] =
+static Sint16 table_goal_roc4[] =
 {
 	WM_ACTION_ROC4,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -507,7 +507,7 @@ static short table_goal_roc4[] =
 	0
 };
 
-static short table_goal_roc5[] =
+static Sint16 table_goal_roc5[] =
 {
 	WM_ACTION_ROC5,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -543,7 +543,7 @@ static short table_goal_roc5[] =
 	0
 };
 
-static short table_goal_roc6[] =
+static Sint16 table_goal_roc6[] =
 {
 	WM_ACTION_ROC6,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -572,7 +572,7 @@ static short table_goal_roc6[] =
 	0
 };
 
-static short table_goal_roc7[] =
+static Sint16 table_goal_roc7[] =
 {
 	WM_ACTION_ROC7,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -595,7 +595,7 @@ static short table_goal_roc7[] =
 };
 
 // Construction d'une cabane.
-static short table_goal_build1[] =
+static Sint16 table_goal_build1[] =
 {
 	WM_ACTION_BUILD1,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -645,7 +645,7 @@ static short table_goal_build1[] =
 };
 
 // Construction d'une nurserie.
-static short table_goal_build2[] =
+static Sint16 table_goal_build2[] =
 {
 	WM_ACTION_BUILD2,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -679,7 +679,7 @@ static short table_goal_build2[] =
 };
 
 // Construction d'un laboratoire.
-static short table_goal_build3[] =
+static Sint16 table_goal_build3[] =
 {
 	WM_ACTION_BUILD3,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -717,7 +717,7 @@ static short table_goal_build3[] =
 };
 
 // Construction d'une mine.
-static short table_goal_build4[] =
+static Sint16 table_goal_build4[] =
 {
 	WM_ACTION_BUILD4,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -757,7 +757,7 @@ static short table_goal_build4[] =
 };
 
 // Construction d'une usine.
-static short table_goal_build5[] =
+static Sint16 table_goal_build5[] =
 {
 	WM_ACTION_BUILD5,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -795,7 +795,7 @@ static short table_goal_build5[] =
 };
 
 // Construction d'un téléporteur.
-static short table_goal_build6[] =
+static Sint16 table_goal_build6[] =
 {
 	WM_ACTION_BUILD6,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -831,7 +831,7 @@ static short table_goal_build6[] =
 };
 
 // Construction d'un mur.
-static short table_goal_mur[] =
+static Sint16 table_goal_mur[] =
 {
 	WM_ACTION_MUR,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -875,7 +875,7 @@ static short table_goal_mur[] =
 };
 
 // Construction d'une tour.
-static short table_goal_tour[] =
+static Sint16 table_goal_tour[] =
 {
 	WM_ACTION_TOUR,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -911,7 +911,7 @@ static short table_goal_tour[] =
 };
 
 // Construction d'une palissade.
-static short table_goal_palis[] =
+static Sint16 table_goal_palis[] =
 {
 	WM_ACTION_PALIS,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -936,7 +936,7 @@ static short table_goal_palis[] =
 };
 
 // Transporte (est).
-static short table_goal_carry[] =
+static Sint16 table_goal_carry[] =
 {
 	WM_ACTION_CARRY,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -955,7 +955,7 @@ static short table_goal_carry[] =
 };
 
 // Transporte (sud).
-static short table_goal_carry2[] =
+static Sint16 table_goal_carry2[] =
 {
 	WM_ACTION_CARRY2,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -974,7 +974,7 @@ static short table_goal_carry2[] =
 };
 
 // Repose (est).
-static short table_goal_depose[] =
+static Sint16 table_goal_depose[] =
 {
 	WM_ACTION_DEPOSE,
 		GOAL_GOHILI2,		0,+1, false,
@@ -994,7 +994,7 @@ static short table_goal_depose[] =
 };
 
 // Repose (sud).
-static short table_goal_depose2[] =
+static Sint16 table_goal_depose2[] =
 {
 	WM_ACTION_DEPOSE2,
 		GOAL_GOHILI2,		+1,0, false,
@@ -1014,7 +1014,7 @@ static short table_goal_depose2[] =
 };
 
 // Repose des oeufs sur la nurserie.
-static short table_goal_newblupi[] =
+static Sint16 table_goal_newblupi[] =
 {
 	WM_ACTION_NEWBLUPI,
 		GOAL_GOHILI2,		0,+1, false,
@@ -1051,7 +1051,7 @@ static short table_goal_newblupi[] =
 };
 
 // Cultive des tomates.
-static short table_goal_cultive[] =
+static Sint16 table_goal_cultive[] =
 {
 	WM_ACTION_CULTIVE,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1065,7 +1065,7 @@ static short table_goal_cultive[] =
 	0
 };
 
-static short table_goal_cultive2[] =
+static Sint16 table_goal_cultive2[] =
 {
 	WM_ACTION_CULTIVE2,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1114,7 +1114,7 @@ static short table_goal_cultive2[] =
 };
 
 // Bouffe des tomates (est).
-static short table_goal_mange[] =
+static Sint16 table_goal_mange[] =
 {
 	WM_ACTION_MANGE,
 		GOAL_GOHILI2,		0,+1, false,
@@ -1137,7 +1137,7 @@ static short table_goal_mange[] =
 };
 
 // Bouffe des tomates (sud).
-static short table_goal_mange2[] =
+static Sint16 table_goal_mange2[] =
 {
 	WM_ACTION_MANGE2,
 		GOAL_GOHILI2,		+1,0, false,
@@ -1160,7 +1160,7 @@ static short table_goal_mange2[] =
 };
 
 // Boit à la bouteille (est).
-static short table_goal_boit[] =
+static Sint16 table_goal_boit[] =
 {
 	WM_ACTION_BOIT,
 		GOAL_GOHILI2,		0,+1, false,
@@ -1179,7 +1179,7 @@ static short table_goal_boit[] =
 };
 
 // Boit à la bouteille (sud).
-static short table_goal_boit2[] =
+static Sint16 table_goal_boit2[] =
 {
 	WM_ACTION_BOIT2,
 		GOAL_GOHILI2,		+1,0, false,
@@ -1198,7 +1198,7 @@ static short table_goal_boit2[] =
 };
 
 // Cueille des fleurs.
-static short table_goal_fleur1[] =
+static Sint16 table_goal_fleur1[] =
 {
 	WM_ACTION_FLEUR1,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1226,7 +1226,7 @@ static short table_goal_fleur1[] =
 };
 
 // Cueille des fleurs.
-static short table_goal_fleur2[] =
+static Sint16 table_goal_fleur2[] =
 {
 	WM_ACTION_FLEUR2,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1254,7 +1254,7 @@ static short table_goal_fleur2[] =
 };
 
 // Cueille des fleurs.
-static short table_goal_fleur3[] =
+static Sint16 table_goal_fleur3[] =
 {
 	WM_ACTION_FLEUR3,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1282,7 +1282,7 @@ static short table_goal_fleur3[] =
 };
 
 // Transforme des fleurs.
-static short table_goal_labo[] =
+static Sint16 table_goal_labo[] =
 {
 	WM_ACTION_LABO,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1324,7 +1324,7 @@ static short table_goal_labo[] =
 };
 
 // Blupi fait péter la dynamite.
-static short table_goal_dynamite[] =
+static Sint16 table_goal_dynamite[] =
 {
 	WM_ACTION_DYNAMITE,
 //?		GOAL_ENERGY,		MAXENERGY/4,
@@ -1374,7 +1374,7 @@ static short table_goal_dynamite[] =
 };
 
 // Blupi fait péter la dynamite très fort.
-static short table_goal_dynamite2[] =
+static Sint16 table_goal_dynamite2[] =
 {
 	WM_ACTION_DYNAMITE2,
 //?		GOAL_ENERGY,		MAXENERGY/4,
@@ -1487,7 +1487,7 @@ static short table_goal_dynamite2[] =
 };
 
 // Tracks fait péter la dynamite.
-static short table_goal_t_dynamite[] =
+static Sint16 table_goal_t_dynamite[] =
 {
 	WM_ACTION_T_DYNAMITE,
 		GOAL_GOHILI2,		+1,+1, false,
@@ -1530,7 +1530,7 @@ static short table_goal_t_dynamite[] =
 };
 
 // Blupi amorce une mine.
-static short table_goal_mine[] =
+static Sint16 table_goal_mine[] =
 {
 	WM_ACTION_MINE,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1549,7 +1549,7 @@ static short table_goal_mine[] =
 };
 
 // Détonnateur de mine créé par GOAL_AMORCE (blupi invisible).
-static short table_goal_mine2[] =
+static Sint16 table_goal_mine2[] =
 {
 	WM_ACTION_MINE2,
 		GOAL_PUTOBJECT,		-1,-1, CHOBJECT,127,
@@ -1692,7 +1692,7 @@ static short table_goal_mine2[] =
 };
 
 // Construit un pont en direction de l'est.
-static short table_goal_ponte[] =
+static Sint16 table_goal_ponte[] =
 {
 	WM_ACTION_PONTE,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1713,7 +1713,7 @@ static short table_goal_ponte[] =
 	0
 };
 
-static short table_goal_pontel[] =
+static Sint16 table_goal_pontel[] =
 {
 	WM_ACTION_PONTEL,
 		GOAL_GROUP,			3,
@@ -1739,7 +1739,7 @@ static short table_goal_pontel[] =
 };
 
 // Construit un pont en direction de l'ouest.
-static short table_goal_ponto[] =
+static Sint16 table_goal_ponto[] =
 {
 	WM_ACTION_PONTO,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1759,7 +1759,7 @@ static short table_goal_ponto[] =
 	0
 };
 
-static short table_goal_pontol[] =
+static Sint16 table_goal_pontol[] =
 {
 	WM_ACTION_PONTOL,
 		GOAL_GROUP,			3,
@@ -1785,7 +1785,7 @@ static short table_goal_pontol[] =
 };
 
 // Construit un pont en direction du sud.
-static short table_goal_ponts[] =
+static Sint16 table_goal_ponts[] =
 {
 	WM_ACTION_PONTS,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1805,7 +1805,7 @@ static short table_goal_ponts[] =
 	0
 };
 
-static short table_goal_pontsl[] =
+static Sint16 table_goal_pontsl[] =
 {
 	WM_ACTION_PONTSL,
 		GOAL_GROUP,			3,
@@ -1831,7 +1831,7 @@ static short table_goal_pontsl[] =
 };
 
 // Construit un pont en direction du nord.
-static short table_goal_pontn[] =
+static Sint16 table_goal_pontn[] =
 {
 	WM_ACTION_PONTN,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1850,7 +1850,7 @@ static short table_goal_pontn[] =
 	0
 };
 
-static short table_goal_pontnl[] =
+static Sint16 table_goal_pontnl[] =
 {
 	WM_ACTION_PONTNL,
 		GOAL_GROUP,			3,
@@ -1876,7 +1876,7 @@ static short table_goal_pontnl[] =
 };
 
 // Construit un bateau.
-static short table_goal_bateaue[] =
+static Sint16 table_goal_bateaue[] =
 {
 	WM_ACTION_BATEAUE,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1909,7 +1909,7 @@ static short table_goal_bateaue[] =
 	0
 };
 
-static short table_goal_bateaus[] =
+static Sint16 table_goal_bateaus[] =
 {
 	WM_ACTION_BATEAUS,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1941,7 +1941,7 @@ static short table_goal_bateaus[] =
 	0
 };
 
-static short table_goal_bateauo[] =
+static Sint16 table_goal_bateauo[] =
 {
 	WM_ACTION_BATEAUO,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -1974,7 +1974,7 @@ static short table_goal_bateauo[] =
 	0
 };
 
-static short table_goal_bateaun[] =
+static Sint16 table_goal_bateaun[] =
 {
 	WM_ACTION_BATEAUN,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -2007,7 +2007,7 @@ static short table_goal_bateaun[] =
 };
 
 // Départ en bateau.
-static short table_goal_bateaude[] =
+static Sint16 table_goal_bateaude[] =
 {
 	WM_ACTION_BATEAUDE,
 		GOAL_ISNOMALADE,
@@ -2031,7 +2031,7 @@ static short table_goal_bateaude[] =
 	0
 };
 
-static short table_goal_bateauds[] =
+static Sint16 table_goal_bateauds[] =
 {
 	WM_ACTION_BATEAUDS,
 		GOAL_ISNOMALADE,
@@ -2054,7 +2054,7 @@ static short table_goal_bateauds[] =
 	0
 };
 
-static short table_goal_bateaudo[] =
+static Sint16 table_goal_bateaudo[] =
 {
 	WM_ACTION_BATEAUDO,
 		GOAL_ISNOMALADE,
@@ -2077,7 +2077,7 @@ static short table_goal_bateaudo[] =
 	0
 };
 
-static short table_goal_bateaudn[] =
+static Sint16 table_goal_bateaudn[] =
 {
 	WM_ACTION_BATEAUDN,
 		GOAL_ISNOMALADE,
@@ -2101,7 +2101,7 @@ static short table_goal_bateaudn[] =
 };
 
 // Arrivée en bateau.
-static short table_goal_bateauae[] =
+static Sint16 table_goal_bateauae[] =
 {
 	WM_ACTION_BATEAUAE,
 		GOAL_GOHILI2,		0,+1, false,
@@ -2128,7 +2128,7 @@ static short table_goal_bateauae[] =
 	0
 };
 
-static short table_goal_bateauas[] =
+static Sint16 table_goal_bateauas[] =
 {
 	WM_ACTION_BATEAUAS,
 		GOAL_GOHILI2,		+1,0, false,
@@ -2147,7 +2147,7 @@ static short table_goal_bateauas[] =
 	0
 };
 
-static short table_goal_bateauao[] =
+static Sint16 table_goal_bateauao[] =
 {
 	WM_ACTION_BATEAUAO,
 		GOAL_GOHILI2,		0,+1, false,
@@ -2166,7 +2166,7 @@ static short table_goal_bateauao[] =
 	0
 };
 
-static short table_goal_bateauan[] =
+static Sint16 table_goal_bateauan[] =
 {
 	WM_ACTION_BATEAUAN,
 		GOAL_GOHILI2,		+1,0, false,
@@ -2186,7 +2186,7 @@ static short table_goal_bateauan[] =
 };
 
 // Le robot construit une station de recharge.
-static short table_goal_r_build1[] =
+static Sint16 table_goal_r_build1[] =
 {
 	WM_ACTION_R_BUILD1,
 		GOAL_GOHILI2,		+1,+1, false,
@@ -2224,7 +2224,7 @@ static short table_goal_r_build1[] =
 };
 
 // Le robot construit une usine à araignées.
-static short table_goal_r_build2[] =
+static Sint16 table_goal_r_build2[] =
 {
 	WM_ACTION_R_BUILD2,
 		GOAL_GOHILI2,		+1,+1, false,
@@ -2262,7 +2262,7 @@ static short table_goal_r_build2[] =
 };
 
 // Le robot construit une usine à virus.
-static short table_goal_r_build3[] =
+static Sint16 table_goal_r_build3[] =
 {
 	WM_ACTION_R_BUILD3,
 		GOAL_GOHILI2,		+1,+1, false,
@@ -2300,7 +2300,7 @@ static short table_goal_r_build3[] =
 };
 
 // Le robot construit une usine à tracks.
-static short table_goal_r_build4[] =
+static Sint16 table_goal_r_build4[] =
 {
 	WM_ACTION_R_BUILD4,
 		GOAL_GOHILI2,		+1,+1, false,
@@ -2338,7 +2338,7 @@ static short table_goal_r_build4[] =
 };
 
 // Le robot construit une usine à bombe.
-static short table_goal_r_build5[] =
+static Sint16 table_goal_r_build5[] =
 {
 	WM_ACTION_R_BUILD5,
 		GOAL_GOHILI2,		+1,+1, false,
@@ -2376,7 +2376,7 @@ static short table_goal_r_build5[] =
 };
 
 // Le robot construit une usine à électro.
-static short table_goal_r_build6[] =
+static Sint16 table_goal_r_build6[] =
 {
 	WM_ACTION_R_BUILD6,
 		GOAL_GOHILI2,		+1,+1, false,
@@ -2414,7 +2414,7 @@ static short table_goal_r_build6[] =
 };
 
 // Le robot se recharge.
-static short table_goal_r_make1[] =
+static Sint16 table_goal_r_make1[] =
 {
 	WM_ACTION_R_MAKE1,
 		GOAL_GOHILI2,		+1,+1, false,
@@ -2437,7 +2437,7 @@ static short table_goal_r_make1[] =
 };
 
 // Le robot construit une araignée.
-static short table_goal_r_make2[] =
+static Sint16 table_goal_r_make2[] =
 {
 	WM_ACTION_R_MAKE2,
 		GOAL_GOHILI2,		+2,+1, false,
@@ -2502,7 +2502,7 @@ static short table_goal_r_make2[] =
 };
 
 // Le robot construit un virus.
-static short table_goal_r_make3[] =
+static Sint16 table_goal_r_make3[] =
 {
 	WM_ACTION_R_MAKE3,
 		GOAL_GOHILI2,		+2,+1, false,
@@ -2566,7 +2566,7 @@ static short table_goal_r_make3[] =
 };
 
 // Le robot construit un tracks.
-static short table_goal_r_make4[] =
+static Sint16 table_goal_r_make4[] =
 {
 	WM_ACTION_R_MAKE4,
 		GOAL_GOHILI2,		+2,+1, false,
@@ -2630,7 +2630,7 @@ static short table_goal_r_make4[] =
 };
 
 // Le robot construit une bombe.
-static short table_goal_r_make5[] =
+static Sint16 table_goal_r_make5[] =
 {
 	WM_ACTION_R_MAKE5,
 		GOAL_GOHILI2,		+2,+1, false,
@@ -2694,7 +2694,7 @@ static short table_goal_r_make5[] =
 };
 
 // Le robot construit un électro.
-static short table_goal_r_make6[] =
+static Sint16 table_goal_r_make6[] =
 {
 	WM_ACTION_R_MAKE6,
 		GOAL_GOHILI2,		+2,+1, false,
@@ -2758,7 +2758,7 @@ static short table_goal_r_make6[] =
 };
 
 // Blupi monte dans une jeep.
-static short table_goal_mjeep[] =
+static Sint16 table_goal_mjeep[] =
 {
 	WM_ACTION_MJEEP,
 		GOAL_ISNOMALADE,
@@ -2782,7 +2782,7 @@ static short table_goal_mjeep[] =
 };
 
 // Blupi descend de la jeep.
-static short table_goal_djeep[] =
+static Sint16 table_goal_djeep[] =
 {
 	WM_ACTION_DJEEP,
 		GOAL_GOHILI2,		+1,+1, false,
@@ -2809,7 +2809,7 @@ static short table_goal_djeep[] =
 };
 
 // Blupi monte dans une armure.
-static short table_goal_marmure[] =
+static Sint16 table_goal_marmure[] =
 {
 	WM_ACTION_MARMURE,
 		GOAL_ISNOMALADE,
@@ -2852,7 +2852,7 @@ static short table_goal_marmure[] =
 };
 
 // Blupi descend de l'armure.
-static short table_goal_darmure[] =
+static Sint16 table_goal_darmure[] =
 {
 	WM_ACTION_DARMURE,
 		GOAL_GOHILI2,		+1,+1, false,
@@ -2874,7 +2874,7 @@ static short table_goal_darmure[] =
 };
 
 // Blupi cherche où planter des drapeaux.
-static short table_goal_drapeau[] =
+static Sint16 table_goal_drapeau[] =
 {
 	WM_ACTION_DRAPEAU,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -2888,7 +2888,7 @@ static short table_goal_drapeau[] =
 	0
 };
 
-static short table_goal_drapeau2[] =
+static Sint16 table_goal_drapeau2[] =
 {
 	WM_ACTION_DRAPEAU2,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -2910,7 +2910,7 @@ static short table_goal_drapeau2[] =
 };
 
 // Plante un drapeau.
-static short table_goal_drapeau3[] =
+static Sint16 table_goal_drapeau3[] =
 {
 	WM_ACTION_DRAPEAU3,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -2933,7 +2933,7 @@ static short table_goal_drapeau3[] =
 };
 
 // Blupi extrait du fer.
-static short table_goal_extrait[] =
+static Sint16 table_goal_extrait[] =
 {
 	WM_ACTION_EXTRAIT,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -2980,7 +2980,7 @@ static short table_goal_extrait[] =
 };
 
 // Blupi fabrique une jeep.
-static short table_goal_fabjeep[] =
+static Sint16 table_goal_fabjeep[] =
 {
 	WM_ACTION_FABJEEP,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -3023,7 +3023,7 @@ static short table_goal_fabjeep[] =
 };
 
 // Blupi fabrique une armure.
-static short table_goal_fabarmure[] =
+static Sint16 table_goal_fabarmure[] =
 {
 	WM_ACTION_FABARMURE,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -3066,7 +3066,7 @@ static short table_goal_fabarmure[] =
 };
 
 // Blupi fabrique une mine.
-static short table_goal_fabmine[] =
+static Sint16 table_goal_fabmine[] =
 {
 	WM_ACTION_FABMINE,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -3113,7 +3113,7 @@ static short table_goal_fabmine[] =
 };
 
 // Blupi fabrique un disciple.
-static short table_goal_fabdisc[] =
+static Sint16 table_goal_fabdisc[] =
 {
 	WM_ACTION_FABDISC,
 		GOAL_ENERGY,		MAXENERGY/4,
@@ -3165,7 +3165,7 @@ static short table_goal_fabdisc[] =
 };
 
 // L'électro va sur un blupi puis lance ses rayons.
-static short table_goal_e_rayon[] =
+static Sint16 table_goal_e_rayon[] =
 {
 	WM_ACTION_E_RAYON,
 		GOAL_GOHILI2,		0,0, false,
@@ -3255,7 +3255,7 @@ static short table_goal_e_rayon[] =
 };
 
 // Blupi s'électrocute.
-static short table_goal_electro[] =
+static Sint16 table_goal_electro[] =
 {
 	WM_ACTION_ELECTRO,
 		GOAL_INTERRUPT,	0,  // prioritaire
@@ -3272,7 +3272,7 @@ static short table_goal_electro[] =
 	0
 };
 
-static short table_goal_electrom[] =
+static Sint16 table_goal_electrom[] =
 {
 	WM_ACTION_ELECTROm,
 		GOAL_INTERRUPT,	0,  // prioritaire
@@ -3290,7 +3290,7 @@ static short table_goal_electrom[] =
 };
 
 // Blupi grille.
-static short table_goal_grille[] =
+static Sint16 table_goal_grille[] =
 {
 	WM_ACTION_GRILLE,
 		GOAL_INTERRUPT,	0,  // prioritaire
@@ -3308,7 +3308,7 @@ static short table_goal_grille[] =
 };
 
 // L'araignée meurt.
-static short table_goal_a_mort[] =
+static Sint16 table_goal_a_mort[] =
 {
 	WM_ACTION_A_MORT,
 		GOAL_INTERRUPT,	0,  // prioritaire
@@ -3324,7 +3324,7 @@ static short table_goal_a_mort[] =
 };
 
 // Blupi se prépare à répéter une liste.
-static short table_goal_repeat[] =
+static Sint16 table_goal_repeat[] =
 {
 	WM_ACTION_REPEAT,
 		GOAL_TERM,
@@ -3332,7 +3332,7 @@ static short table_goal_repeat[] =
 };
 
 // Blupi se téléporte d'un endroit à un autre.
-static short table_goal_teleporte00[] =
+static Sint16 table_goal_teleporte00[] =
 {
 	WM_ACTION_TELEPORTE00,
 		GOAL_GOHILI2,		0,0, false,
@@ -3355,7 +3355,7 @@ static short table_goal_teleporte00[] =
 	0
 };
 
-static short table_goal_teleporte10[] =
+static Sint16 table_goal_teleporte10[] =
 {
 	WM_ACTION_TELEPORTE10,
 		GOAL_GOHILI2,		+1,0, false,
@@ -3378,7 +3378,7 @@ static short table_goal_teleporte10[] =
 	0
 };
 
-static short table_goal_teleporte01[] =
+static Sint16 table_goal_teleporte01[] =
 {
 	WM_ACTION_TELEPORTE01,
 		GOAL_GOHILI2,		0,+1, false,
@@ -3401,7 +3401,7 @@ static short table_goal_teleporte01[] =
 	0
 };
 
-static short table_goal_teleporte11[] =
+static Sint16 table_goal_teleporte11[] =
 {
 	WM_ACTION_TELEPORTE11,
 		GOAL_GOHILI2,		+1,+1, false,
@@ -3425,7 +3425,7 @@ static short table_goal_teleporte11[] =
 };
 
 
-static short* table_pGoal[] =
+static Sint16* table_pGoal[] =
 {
 	table_goal_go,
 	table_goal_maison,
@@ -3530,9 +3530,9 @@ static short* table_pGoal[] =
 
 // Retourne le pointeur à la table table_goal_*.
 
-short* GetTableGoal(int action)
+Sint16* GetTableGoal(Sint32 action)
 {
-	short**	ppTable = table_pGoal;
+	Sint16**	ppTable = table_pGoal;
 
 	while ( *ppTable != nullptr )
 	{

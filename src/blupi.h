@@ -8,30 +8,30 @@ extern SDL_Renderer *g_renderer;
 
 struct POINT
 {
-	long x;
-	long y;
+	Sint32 x;
+	Sint32 y;
 };
 
 struct RECT
 {
-	long left;
-	long top;
-	long right;
-	long bottom;
+	Sint32 left;
+	Sint32 top;
+	Sint32 right;
+	Sint32 bottom;
 };
 
-typedef unsigned long COLORREF;
+typedef Uint32 COLORREF;
 
 #if defined(_WIN64)
 typedef unsigned __int64 WPARAM;
 typedef __int64 LPARAM;
 #else
-typedef unsigned int WPARAM;
-typedef long LPARAM;
+typedef Uint32 WPARAM;
+typedef Sint32 LPARAM;
 #endif
 
-#define LOWORD(l)           ((unsigned short)(((unsigned long)(l)) & 0xffff))
-#define HIWORD(l)           ((unsigned short)((((unsigned long)(l)) >> 16) & 0xffff))
+#define LOWORD(l)           ((Uint16)(((Uint32)(l)) & 0xffff))
+#define HIWORD(l)           ((Uint16)((((Uint32)(l)) >> 16) & 0xffff))
 
 #define MAX_PATH 260
 

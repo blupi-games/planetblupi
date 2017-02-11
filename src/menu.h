@@ -14,15 +14,15 @@ public:
 	~CMenu();
 
 	bool	Create(CPixmap *pPixmap, CSound *pSound,
-				   POINT pos, int nb, int *pButtons, int *pErrors,
-				   std::unordered_map<int, const char *> &texts,
-				   int perso);
-	void	Update(int nb, int *pButtons, int *pErrors,
-				   std::unordered_map<int, const char *> &texts);
+				   POINT pos, Sint32 nb, Sint32 *pButtons, Sint32 *pErrors,
+				   std::unordered_map<Sint32, const char *> &texts,
+				   Sint32 perso);
+	void	Update(Sint32 nb, Sint32 *pButtons, Sint32 *pErrors,
+				   std::unordered_map<Sint32, const char *> &texts);
 	void	Delete();
 	void	Draw();
-	int		GetSel();
-	int		GetRank();
+	Sint32		GetSel();
+	Sint32		GetRank();
 	bool	IsError();
 	bool	IsExist();
 	void	Message();
@@ -30,7 +30,7 @@ public:
 	bool	TreatEvent(const SDL_Event &event);
 
 protected:
-	int		Detect(POINT pos);
+	Sint32		Detect(POINT pos);
 	bool	MouseDown(POINT pos);
 	bool	MouseMove(POINT pos);
 	bool	MouseUp(POINT pos);
@@ -41,14 +41,14 @@ protected:
 	CSound*		m_pSound;
 	POINT		m_pos;			// coin sup/gauche
 	POINT		m_dim;			// dimensions
-	int			m_nbButtons;
+	Sint32			m_nbButtons;
 	POINT		m_nbCel;
-	int			m_perso;
-	int			m_buttons[MAXBUTTON];
-	int			m_errors[MAXBUTTON];
-	std::unordered_map<int, const char *> m_texts;
-	unsigned int		m_messages[MAXBUTTON];
-	int			m_selRank;
+	Sint32			m_perso;
+	Sint32			m_buttons[MAXBUTTON];
+	Sint32			m_errors[MAXBUTTON];
+	std::unordered_map<Sint32, const char *> m_texts;
+	Uint32		m_messages[MAXBUTTON];
+	Sint32			m_selRank;
 };
 
 /////////////////////////////////////////////////////////////////////////////

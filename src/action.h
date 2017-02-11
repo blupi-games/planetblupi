@@ -6,17 +6,17 @@
 #include "blupi.h"
 
 extern
-bool Action(short action, short direct,
-			short &phase, short &step,
-			short &channel, short &icon, POINT &pos, short &posZ,
-			short &sound);
+bool Action(Sint16 action, Sint16 direct,
+			Sint16 &phase, Sint16 &step,
+			Sint16 &channel, Sint16 &icon, POINT &pos, Sint16 &posZ,
+			Sint16 &sound);
 
 extern
-bool Rotate(short &icon, short direct);
+bool Rotate(Sint16 &icon, Sint16 direct);
 
 extern
-int GetIconDirect(short icon);
+Sint32 GetIconDirect(Sint16 icon);
 
 extern
-int GetAmplitude(short action);
+Sint32 GetAmplitude(Sint16 action);
 

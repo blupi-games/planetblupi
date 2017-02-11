@@ -15,11 +15,11 @@
 
 typedef struct
 {
-	short	action;
-	short	channel;
-	short	icons[8][MAXICON];	// nb, icones,
-	short	moves[8][MAXMOVE];	// nb, nb, x,y,
-	short	sounds[MAXSOUND];	// nb, sons,
+	Sint16	action;
+	Sint16	channel;
+	Sint16	icons[8][MAXICON];	// nb, icones,
+	Sint16	moves[8][MAXMOVE];	// nb, nb, x,y,
+	Sint16	sounds[MAXSOUND];	// nb, sons,
 }
 DescAction;
 
@@ -2570,13 +2570,13 @@ static DescAction action_table[] =
 // Calcule l'action suivante.
 // Retourne false lorsque l'action est terminée.
 
-bool Action(short action, short direct,
-			short &phase, short &step,
-			short &channel, short &icon, POINT &pos, short &posZ,
-			short &sound)
+bool Action(Sint16 action, Sint16 direct,
+			Sint16 &phase, Sint16 &step,
+			Sint16 &channel, Sint16 &icon, POINT &pos, Sint16 &posZ,
+			Sint16 &sound)
 {
 	DescAction*		pTable = action_table;
-	short			nbIcon, nbPhase, nbMove, nbSound, i;
+	Sint16			nbIcon, nbPhase, nbMove, nbSound, i;
 
 	pos.x = 0;
 	pos.y = 0;
@@ -2631,7 +2631,7 @@ bool Action(short action, short direct,
 
 
 
-static short rotate_table[] =
+static Sint16 rotate_table[] =
 {
 	 0, 6,12,18,24,30,36,42,
 	 1, 7,13,19,25,31,37,43,
@@ -2658,11 +2658,11 @@ static short rotate_table[] =
 
 // Tourne une icône dans une direction donnée.
 
-bool Rotate(short &icon, short direct)
+bool Rotate(Sint16 &icon, Sint16 direct)
 {
-	short*		pTable = rotate_table;
-	short		i;
-	short		offset = 0;
+	Sint16*		pTable = rotate_table;
+	Sint16		i;
+	Sint16		offset = 0;
 
 	if ( icon >= 200 && icon <= 215 )  // tracks ?
 	{
@@ -2719,10 +2719,10 @@ bool Rotate(short &icon, short direct)
 
 // Retourne la direction d'une icône.
 
-int GetIconDirect(short icon)
+Sint32 GetIconDirect(Sint16 icon)
 {
-	short*		pTable = rotate_table;
-	short		i;
+	Sint16*		pTable = rotate_table;
+	Sint16		i;
 
 	if ( icon >= 169 && icon <= 192 )  // blupi malade ?
 	{
@@ -2764,7 +2764,7 @@ int GetIconDirect(short icon)
 // Retourne l'amplitude d'une action, en nombre
 // de cellules.
 
-int GetAmplitude(short action)
+Sint32 GetAmplitude(Sint16 action)
 {
 	if ( action == ACTION_SAUTE2 )  return 2;
 	if ( action == ACTION_SAUTE3 )  return 3;

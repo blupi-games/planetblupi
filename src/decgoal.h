@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <SDL2/SDL_stdinc.h>
+
 // Méta opérations (goal).
 
 #define GOAL_TERM			0	//
@@ -54,5 +56,5 @@
 #define GOAL_ACTUALISE		48	//
 #define GOAL_WAITFREE		49	// dx,dy
 
-short* GetTableGoal (int action);
-extern short table_goal_nbop[];
+Sint16* GetTableGoal (Sint32 action);
+extern Sint16 table_goal_nbop[];

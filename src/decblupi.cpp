@@ -12,7 +12,7 @@
 
 // Cette table donne l'action à effectuer pour un bouton
 // enfoncé.
-short table_actions[] =
+Sint16 table_actions[] =
 {
 	WM_ACTION_GO,
 	WM_ACTION_STOP,
@@ -59,7 +59,7 @@ short table_actions[] =
 
 void CDecor::BlupiFlush()
 {
-	int		i;
+	Sint32		i;
 
 	memset(m_blupi, 0, sizeof(Blupi)*MAXBLUPI);
 
@@ -71,10 +71,10 @@ void CDecor::BlupiFlush()
 
 // Crée un nouveau blupi, et retourne son rang.
 
-int CDecor::BlupiCreate(POINT cel, int action, int direct,
-						int perso, int energy)
+Sint32 CDecor::BlupiCreate(POINT cel, Sint32 action, Sint32 direct,
+						Sint32 perso, Sint32 energy)
 {
-	int		rank;
+	Sint32		rank;
 
 	if ( perso == 0 && action == ACTION_STOP &&  // blupi ?
 		 energy <= MAXENERGY/4 )
@@ -189,9 +189,9 @@ int CDecor::BlupiCreate(POINT cel, int action, int direct,
 // Si perso == -1, supprime n'importe quel personnage ici.
 // Si perso >= 0, supprime seulement ce personnage.
 
-bool CDecor::BlupiDelete(POINT cel, int perso)
+bool CDecor::BlupiDelete(POINT cel, Sint32 perso)
 {
-	int		rank;
+	Sint32		rank;
 
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{
@@ -224,7 +224,7 @@ bool CDecor::BlupiDelete(POINT cel, int perso)
 
 // Supprime un blupi existant.
 
-void CDecor::BlupiDelete(int rank)
+void CDecor::BlupiDelete(Sint32 rank)
 {
 	m_blupi[rank].bExist = false;
 
@@ -241,9 +241,9 @@ void CDecor::BlupiDelete(int rank)
 //	type=0	->	explosion
 //	type=1	->	électro
 
-void CDecor::BlupiKill(int exRank, POINT cel, int type)
+void CDecor::BlupiKill(Sint32 exRank, POINT cel, Sint32 type)
 {
-	int		rank, action, x, y, icon;
+	Sint32		rank, action, x, y, icon;
 
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{
@@ -316,7 +316,7 @@ void CDecor::BlupiKill(int exRank, POINT cel, int type)
 
 // Test si un blupi existe.
 
-bool CDecor::BlupiIfExist(int rank)
+bool CDecor::BlupiIfExist(Sint32 rank)
 {
 	return !!m_blupi[rank].bExist;
 }
@@ -326,9 +326,9 @@ bool CDecor::BlupiIfExist(int rank)
 //	#1	->	(POWER)    redonne l'énergie maximale
 //	#2	->	(LONESOME) tue toutes les araignées/virus/etc.
 
-void CDecor::BlupiCheat(int cheat)
+void CDecor::BlupiCheat(Sint32 cheat)
 {
-	int		rank;
+	Sint32		rank;
 
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{
@@ -357,9 +357,9 @@ void CDecor::BlupiCheat(int cheat)
 
 // Actualise un blupi pour pouvoir le dessiner dans son état.
 
-void CDecor::BlupiActualise(int rank)
+void CDecor::BlupiActualise(Sint32 rank)
 {
-	short	sound;
+	Sint16	sound;
 
 	Action(m_blupi[rank].action,
 		   m_blupi[rank].aDirect,
@@ -381,9 +381,9 @@ void CDecor::BlupiActualise(int rank)
 
 // Adapte une icône.
 
-void CDecor::BlupiAdaptIcon(int rank)
+void CDecor::BlupiAdaptIcon(Sint32 rank)
 {
-	int		direct;
+	Sint32		direct;
 
 	if ( m_blupi[rank].icon == -1 )  return;
 
@@ -486,9 +486,9 @@ void CDecor::BlupiAdaptIcon(int rank)
 // Si bStop=true, on stoppe le son précédent associé
 // à ce blupi (rank), si nécessaire.
 
-void CDecor::BlupiSound(int rank, int sound, POINT pos, bool bStop)
+void CDecor::BlupiSound(Sint32 rank, Sint32 sound, POINT pos, bool bStop)
 {
-	int		newSound;
+	Sint32		newSound;
 
 	if ( rank == -1 )
 	{
@@ -567,7 +567,7 @@ void CDecor::BlupiSound(int rank, int sound, POINT pos, bool bStop)
 
 // Sons associés à des actions.
 
-static short tableSound[] =
+static Sint16 tableSound[] =
 {
 	ACTION_BRULE,		SOUND_BRULE,
 	ACTION_TCHAO,		SOUND_TCHAO,
@@ -580,11 +580,11 @@ static short tableSound[] =
 
 // Effectue quelques initialisations pour une nouvelle action.
 
-void CDecor::BlupiInitAction(int rank, int action, int direct)
+void CDecor::BlupiInitAction(Sint32 rank, Sint32 action, Sint32 direct)
 {
-	short*		pTable = tableSound;
+	Sint16*		pTable = tableSound;
 	POINT		pos;
-	int			rand;
+	Sint32			rand;
 
 	while ( *pTable != -1 )
 	{
@@ -921,7 +921,7 @@ void CDecor::BlupiInitAction(int rank, int action, int direct)
 
 // Change l'action de blupi.
 
-void CDecor::BlupiChangeAction(int rank, int action, int direct)
+void CDecor::BlupiChangeAction(Sint32 rank, Sint32 action, Sint32 direct)
 {
 	if ( rank < 0 )  return;
 	BlupiInitAction(rank, action, direct);
@@ -936,9 +936,9 @@ void CDecor::BlupiChangeAction(int rank, int action, int direct)
 
 // Vide la liste des actions.
 
-void CDecor::ListFlush(int rank)
+void CDecor::ListFlush(Sint32 rank)
 {
-	int		i;
+	Sint32		i;
 
 	for ( i=0 ; i<MAXLIST ; i++ )
 	{
@@ -950,9 +950,9 @@ void CDecor::ListFlush(int rank)
 
 // Retourne le paramètre associé à une action.
 
-int CDecor::ListGetParam(int rank, int button, POINT cel)
+Sint32 CDecor::ListGetParam(Sint32 rank, Sint32 button, POINT cel)
 {
-	int		icon;
+	Sint32		icon;
 
 	if ( button == BUTTON_CARRY ||
 		 button == BUTTON_FLEUR )
@@ -981,9 +981,9 @@ int CDecor::ListGetParam(int rank, int button, POINT cel)
 
 // Ajoute une action dans la liste.
 
-bool CDecor::ListPut(int rank, int button, POINT cel, POINT cMem)
+bool CDecor::ListPut(Sint32 rank, Sint32 button, POINT cel, POINT cMem)
 {
-	int		i, last;
+	Sint32		i, last;
 
 	if ( button == BUTTON_REPEAT ||
 		 button == BUTTON_GO     )  return true;
@@ -1022,9 +1022,9 @@ bool CDecor::ListPut(int rank, int button, POINT cel, POINT cMem)
 
 // Enlève la dernière action ajoutée dans la liste.
 
-void CDecor::ListRemove(int rank)
+void CDecor::ListRemove(Sint32 rank)
 {
-	int		i;
+	Sint32		i;
 
 	if ( m_blupi[rank].listButton[0] == BUTTON_CULTIVE )  return;
 
@@ -1042,10 +1042,10 @@ void CDecor::ListRemove(int rank)
 // Retourne la profondeur de la répétition.
 // Retourne -1 si aucune répétiton n'est possible.
 
-int CDecor::ListSearch(int rank, int button, POINT cel,
+Sint32 CDecor::ListSearch(Sint32 rank, Sint32 button, POINT cel,
 					   const char *&textForButton)
 {
-	int		i, j, param, nb;
+	Sint32		i, j, param, nb;
 
 	static const char *errors[] = {
 		/*  0 */ translate ("1: Grow tomatoes\n2: Eat"),
@@ -1062,7 +1062,7 @@ int CDecor::ListSearch(int rank, int button, POINT cel,
 		/* 11 */ translate ("1: Take\n2: Make a boat"),
 	};
 
-	static int table_series[] =
+	static Sint32 table_series[] =
 	{
 		0, // errors
 		2, BUTTON_CULTIVE, BUTTON_MANGE,
@@ -1152,13 +1152,13 @@ int CDecor::ListSearch(int rank, int button, POINT cel,
 
 // Ajuste une action à répéter.
 
-bool CDecor::RepeatAdjust(int rank, int button,
-						  POINT &cel, POINT &cMem, int param, int list)
+bool CDecor::RepeatAdjust(Sint32 rank, Sint32 button,
+						  POINT &cel, POINT &cMem, Sint32 param, Sint32 list)
 {
-	int		i, channel, icon, icon1, icon2, flags;
+	Sint32		i, channel, icon, icon1, icon2, flags;
 	POINT	test;
 
-	static int	table_object[] =
+	static Sint32	table_object[] =
 	{
 		BUTTON_ABAT,	CHOBJECT,   6,  11,
 		BUTTON_ROC,		CHOBJECT,  37,  43,
@@ -1171,7 +1171,7 @@ bool CDecor::RepeatAdjust(int rank, int button,
 		0,
 	};
 
-	static int table_mur[] =
+	static Sint32 table_mur[] =
 	{
 		+2, 0,		// 1<<0
 		 0,+2,		// 1<<1
@@ -1312,7 +1312,7 @@ bool CDecor::RepeatAdjust(int rank, int button,
 
 // Démarre une action.
 
-void CDecor::GoalStart(int rank, int action, POINT cel)
+void CDecor::GoalStart(Sint32 rank, Sint32 action, POINT cel)
 {
 	m_blupi[rank].goalHili   = cel;
 	m_blupi[rank].goalAction = action;
@@ -1327,10 +1327,10 @@ void CDecor::GoalStart(int rank, int action, POINT cel)
 // Effectue la méta opération suivante.
 // Retourne false lorsque c'est fini !
 
-bool CDecor::GoalNextPhase(int rank)
+bool CDecor::GoalNextPhase(Sint32 rank)
 {
-	short*	pTable;
-	int		i, nb;
+	Sint16*	pTable;
+	Sint32		i, nb;
 
 	if ( m_blupi[rank].goalAction == 0 )  return false;
 
@@ -1367,10 +1367,10 @@ bool CDecor::GoalNextPhase(int rank)
 
 // Initialise la jauge pour une méta opération.
 
-void CDecor::GoalInitJauge(int rank)
+void CDecor::GoalInitJauge(Sint32 rank)
 {
-	short*	pTable;
-	int		max=0, op;
+	Sint16*	pTable;
+	Sint32		max=0, op;
 
 	m_blupi[rank].jaugePhase = -1;
 	m_blupi[rank].jaugeMax   = -1;
@@ -1407,10 +1407,10 @@ void CDecor::GoalInitJauge(int rank)
 
 // Permet de passer à travers certains arbres.
 
-void CDecor::GoalInitPassCel(int rank)
+void CDecor::GoalInitPassCel(Sint32 rank)
 {
 	POINT		cel;
-	int			channel, icon;
+	Sint32			channel, icon;
 
 	cel.x = (m_blupi[rank].goalCel.x/2)*2;
 	cel.y = (m_blupi[rank].goalCel.y/2)*2;
@@ -1439,7 +1439,7 @@ void CDecor::GoalInitPassCel(int rank)
 
 // Ajuste une coordonnée de cellule.
 
-void CDecor::GoalAdjustCel(int rank, int &x, int &y)
+void CDecor::GoalAdjustCel(Sint32 rank, Sint32 &x, Sint32 &y)
 {
 	if ( x == -10 && y == -10 )
 	{
@@ -1475,7 +1475,7 @@ void CDecor::GoalAdjustCel(int rank, int &x, int &y)
 
 // Liste des buts multiples.
 
-int table_multi_goal[16*2] =
+Sint32 table_multi_goal[16*2] =
 {
 	 0, 0,
 	+1, 0,
@@ -1497,12 +1497,12 @@ int table_multi_goal[16*2] =
 
 // Effectue une méta opération.
 
-bool CDecor::GoalNextOp(int rank, short *pTable)
+bool CDecor::GoalNextOp(Sint32 rank, Sint16 *pTable)
 {
-	int			op, x, y;
-	int			action, direct, channel, icon, mchannel, micon;
-	int			total, step, delai, first, last, first2, last2, flag, i;
-	int			button, param;
+	Sint32			op, x, y;
+	Sint32			action, direct, channel, icon, mchannel, micon;
+	Sint32			total, step, delai, first, last, first2, last2, flag, i;
+	Sint32			button, param;
 	POINT		pos, cel, cMem, destCel;
 	bool		bOK, bError=true;
 
@@ -2304,9 +2304,9 @@ bool CDecor::GoalNextOp(int rank, short *pTable)
 // Supprime le blocage de la cellule dans laquelle
 // blupi travaille.
 
-void CDecor::GoalUnwork(int rank)
+void CDecor::GoalUnwork(Sint32 rank)
 {
-	int			x, y;
+	Sint32			x, y;
 
 	for ( x=0 ; x<MAXCELX/2 ; x++ )
 	{
@@ -2322,11 +2322,11 @@ void CDecor::GoalUnwork(int rank)
 
 // Stoppe complètement une action.
 
-void CDecor::GoalStop(int rank, bool bError, bool bSound)
+void CDecor::GoalStop(Sint32 rank, bool bError, bool bSound)
 {
 	POINT		pos;
 
-	static int table_sound_term[6] =
+	static Sint32 table_sound_term[6] =
 	{
 		SOUND_TERM1,
 		SOUND_TERM2,
@@ -2336,7 +2336,7 @@ void CDecor::GoalStop(int rank, bool bError, bool bSound)
 		SOUND_TERM6,
 	};
 
-	static int table_sound_boing[3] =
+	static Sint32 table_sound_boing[3] =
 	{
 		SOUND_BOING1,
 		SOUND_BOING2,
@@ -2396,7 +2396,7 @@ void CDecor::GoalStop(int rank, bool bError, bool bSound)
 
 bool CDecor::BlupiIsGoalUsed(POINT cel)
 {
-	int		rank;
+	Sint32		rank;
 
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{
@@ -2411,9 +2411,9 @@ bool CDecor::BlupiIsGoalUsed(POINT cel)
 
 // Démarre ou stoppe un rayon entre deux tours.
 
-void CDecor::BlupiStartStopRayon(int rank, POINT startCel, POINT endCel)
+void CDecor::BlupiStartStopRayon(Sint32 rank, POINT startCel, POINT endCel)
 {
-	int		i, icon, icon2;
+	Sint32		i, icon, icon2;
 	POINT	cel, cel2, vector, pos;
 
 	if ( m_blupi[rank].perso == 1 ||  // araignée ?
@@ -2491,9 +2491,9 @@ void CDecor::BlupiStartStopRayon(int rank, POINT startCel, POINT endCel)
 // Tourne un blupi, si nécessaire.
 // Retourne false si ce n'est pas nécessaire.
 
-bool CDecor::BlupiRotate(int rank)
+bool CDecor::BlupiRotate(Sint32 rank)
 {
-	int		aDirect, sDirect, ip, in, sens;
+	Sint32		aDirect, sDirect, ip, in, sens;
 	bool	bOK;
 	POINT	pos;
 
@@ -2586,12 +2586,12 @@ bool CDecor::BlupiRotate(int rank)
 
 // Avance un blupi existant.
 
-bool CDecor::BlupiNextAction(int rank)
+bool CDecor::BlupiNextAction(Sint32 rank)
 {
 	bool		bOK;
 	POINT		pos, iCel;
-	int			a, min;
-	short		sound;
+	Sint32			a, min;
+	Sint16		sound;
 
 	if ( !m_blupi[rank].bExist )  return false;
 
@@ -2796,9 +2796,9 @@ bool CDecor::BlupiNextAction(int rank)
 
 // Action suivante pour un blupi existant.
 
-void CDecor::BlupiNextGoal(int rank)
+void CDecor::BlupiNextGoal(Sint32 rank)
 {
-	int			direct, action, channel, icon, min, lg, fRank, i;
+	Sint32			direct, action, channel, icon, min, lg, fRank, i;
 	POINT		pos, cel, vector;
 
 	if ( !m_blupi[rank].bExist )  return;
@@ -3297,9 +3297,9 @@ void CDecor::BlupiNextGoal(int rank)
 
 // Calcule la cellule de destination.
 
-void CDecor::BlupiDestCel(int rank)
+void CDecor::BlupiDestCel(Sint32 rank)
 {
-	int			a;
+	Sint32			a;
 	POINT		vector;
 
 	m_blupi[rank].destCel = m_blupi[rank].cel;
@@ -3337,7 +3337,7 @@ void CDecor::BlupiDestCel(int rank)
 
 void CDecor::BlupiStep(bool bFirst)
 {
-	int		rank;
+	Sint32		rank;
 
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{
@@ -3366,7 +3366,7 @@ void CDecor::BlupiStep(bool bFirst)
 // Retourne le rectangle occupé par un blupi,
 // pour les sélections (pas exact).
 
-void CDecor::BlupiGetRect(int rank, RECT &rect)
+void CDecor::BlupiGetRect(Sint32 rank, RECT &rect)
 {
 	POINT		pos;
 
@@ -3382,10 +3382,10 @@ void CDecor::BlupiGetRect(int rank, RECT &rect)
 
 // Retourne le blupi visé par la souris.
 
-int CDecor::GetTargetBlupi(POINT pos)
+Sint32 CDecor::GetTargetBlupi(POINT pos)
 {
 #if 1
-	int			rank, found, prof;
+	Sint32			rank, found, prof;
 	POINT		test, rel, cel;
 
 	cel = ConvPosToCel(pos);
@@ -3429,7 +3429,7 @@ int CDecor::GetTargetBlupi(POINT pos)
 
 	return found;
 #else
-	int			rank, found, prof;
+	Sint32			rank, found, prof;
 	RECT		rect;
 	POINT		cel;
 
@@ -3484,7 +3484,7 @@ int CDecor::GetTargetBlupi(POINT pos)
 
 void CDecor::BlupiDeselect()
 {
-	int		rank;
+	Sint32		rank;
 
 	for ( rank=0 ; rank<MAXBLUPI ; rank++ )
 	{
@@ -3498,7 +3498,7 @@ void CDecor::BlupiDeselect()
 
 // Déslectionne un blupi.
 
-void CDecor::BlupiDeselect(int rank)
+void CDecor::BlupiDeselect(Sint32 rank)
 {
 	m_blupi[rank].bHili  = false;
 	m_blupi[rank].bArrow = false;
@@ -3513,7 +3513,7 @@ void CDecor::BlupiDeselect(int rank)
 
 // Met ou enlève une flèche au blupi sélectionné blupi.
 
-void CDecor::BlupiSetArrow(int rank, bool bArrow)
+void CDecor::BlupiSetArrow(Sint32 rank, bool bArrow)
 {
 	m_celArrow.x = -1;
 
@@ -3584,11 +3584,11 @@ void CDecor::BlupiHiliMove(POINT pos, bool bAdd)
 
 void CDecor::BlupiHiliUp(POINT pos, bool bAdd)
 {
-	int			rank, r, nb, sound;
+	Sint32			rank, r, nb, sound;
 	bool		bEnerve = false;
 	POINT		c1, c2;
 
-	static int table_sound_ok[6] =
+	static Sint32 table_sound_ok[6] =
 	{
 		SOUND_OK1,
 		SOUND_OK2,
@@ -3598,14 +3598,14 @@ void CDecor::BlupiHiliUp(POINT pos, bool bAdd)
 		SOUND_OK6,
 	};
 
-	static int table_sound_okf[3] =  // si fatigué
+	static Sint32 table_sound_okf[3] =  // si fatigué
 	{
 		SOUND_OK1f,
 		SOUND_OK2f,
 		SOUND_OK3f,
 	};
 
-	static int table_sound_oke[3] =  // si énervé
+	static Sint32 table_sound_oke[3] =  // si énervé
 	{
 		SOUND_OK1e,
 		SOUND_OK2e,
@@ -3736,7 +3736,7 @@ void CDecor::BlupiDrawHili()
 	POINT		p1, p2, p3, p4;
 	POINT		start, pos;
 	RECT		rect;
-	int			shift;
+	Sint32			shift;
 
 	if ( !m_bHiliRect )  return;
 
@@ -3890,9 +3890,9 @@ void CDecor::BlupiDrawHili()
 // Est utilisé pour trouver que faire lors d'un clic
 // avec le bouton de droite.
 
-int CDecor::GetDefButton(POINT cel)
+Sint32 CDecor::GetDefButton(POINT cel)
 {
-	int		button, rank, channel, icon;
+	Sint32		button, rank, channel, icon;
 	POINT	iCel;
 
 	iCel = cel;
@@ -3976,12 +3976,12 @@ int CDecor::GetDefButton(POINT cel)
 	return button;
 }
 
-// Indique un but visé à long terme, pour un blupi donné.
+// Indique un but visé à Sint32 terme, pour un blupi donné.
 
-bool CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
+bool CDecor::BlupiGoal(Sint32 rank, Sint32 button, POINT cel, POINT cMem)
 {
 	POINT		goalHili, goalHili2, goal, test;
-	int			i, action, channel, icon, error, direct, step;
+	Sint32			i, action, channel, icon, error, direct, step;
 	bool		bRepeat = false;
 
 	// Si plusieurs blupi sont sélectionnés, ils ne vont pas
@@ -4168,7 +4168,7 @@ bool CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 		test = goalHili2;
 		if ( IsBuildPont(test, icon) != 0 )  return false;
 
-		m_blupi[rank].nLoop = static_cast<short> (abs((test.x-cel.x)+(test.y-cel.y))/2);
+		m_blupi[rank].nLoop = static_cast<Sint16> (abs((test.x-cel.x)+(test.y-cel.y))/2);
 		m_blupi[rank].cLoop = 0;
 		m_blupi[rank].vIcon = icon;
 		m_blupi[rank].fix   = cel;
@@ -4263,15 +4263,15 @@ bool CDecor::BlupiGoal(int rank, int button, POINT cel, POINT cMem)
 	return true;
 }
 
-// Indique un but visé à long terme, pour tous les blupi
+// Indique un but visé à Sint32 terme, pour tous les blupi
 // sélectionnés.
 
-void CDecor::BlupiGoal(POINT cel, int button)
+void CDecor::BlupiGoal(POINT cel, Sint32 button)
 {
 	POINT		bPos, avg;
-	int			rank, nb, nbHili;
+	Sint32			rank, nb, nbHili;
 
-	static int table_sound_go[6] =
+	static Sint32 table_sound_go[6] =
 	{
 		SOUND_GO1,
 		SOUND_GO2,
@@ -4281,14 +4281,14 @@ void CDecor::BlupiGoal(POINT cel, int button)
 		SOUND_GO6,
 	};
 
-	static int table_sound_gom[3] =
+	static Sint32 table_sound_gom[3] =
 	{
 		SOUND_GO4,
 		SOUND_GO5,
 		SOUND_GO6,
 	};
 
-	static int table_sound_boing[3] =
+	static Sint32 table_sound_boing[3] =
 	{
 		SOUND_BOING1,
 		SOUND_BOING2,
@@ -4367,7 +4367,7 @@ void CDecor::BlupiGoal(POINT cel, int button)
 
 bool CDecor::IsTracksHere(POINT cel, bool bSkipInMove)
 {
-	int			rank;
+	Sint32			rank;
 
 	if ( !IsValid(cel) )  return false;
 
@@ -4403,9 +4403,9 @@ bool CDecor::IsTracksHere(POINT cel, bool bSkipInMove)
 // Indique si une cellule est occupée par un blupi.
 // Le blupi donné dans exRank est ignoré !
 
-bool CDecor::IsBlupiHereEx(POINT cel1, POINT cel2, int exRank, bool bSkipInMove)
+bool CDecor::IsBlupiHereEx(POINT cel1, POINT cel2, Sint32 exRank, bool bSkipInMove)
 {
-	int			rank;
+	Sint32			rank;
 
 	if ( !IsValid(cel1) )  return false;
 	if ( !IsValid(cel2) )  return false;
@@ -4444,9 +4444,9 @@ bool CDecor::IsBlupiHereEx(POINT cel1, POINT cel2, int exRank, bool bSkipInMove)
 // Indique si une cellule est occupée par un blupi.
 // Le blupi donné dans exRank est ignoré !
 
-bool CDecor::IsBlupiHereEx(POINT cel, int exRank, bool bSkipInMove)
+bool CDecor::IsBlupiHereEx(POINT cel, Sint32 exRank, bool bSkipInMove)
 {
-	int			rank;
+	Sint32			rank;
 
 	if ( !IsValid(cel) )  return false;
 
@@ -4487,7 +4487,7 @@ bool CDecor::IsBlupiHere(POINT cel, bool bSkipInMove)
 // Indique si une cellule future (dans une direction donnée)
 // est déjà occupée par un blupi.
 
-bool CDecor::IsBlupiHere(POINT cel, int direct, bool bSkipInMove)
+bool CDecor::IsBlupiHere(POINT cel, Sint32 direct, bool bSkipInMove)
 {
 	POINT	vector;
 
@@ -4502,9 +4502,9 @@ bool CDecor::IsBlupiHere(POINT cel, int direct, bool bSkipInMove)
 
 // Retourne les niveaux des jauges.
 
-void CDecor::GetLevelJauge(int *pLevels, int *pTypes)
+void CDecor::GetLevelJauge(Sint32 *pLevels, Sint32 *pTypes)
 {
-	int			rank;
+	Sint32			rank;
 
 	pLevels[0] = -1;
 	pLevels[1] = -1;
@@ -4536,7 +4536,7 @@ void CDecor::GetLevelJauge(int *pLevels, int *pTypes)
 // effectue une action prioritaire. Dans ce cas, il faut tout
 // de suite mettre le menu "stoppe" s'il est cliqué.
 
-bool CDecor::IsWorkBlupi(int rank)
+bool CDecor::IsWorkBlupi(Sint32 rank)
 {
 	if ( m_blupi[rank].bHili &&
 		 m_blupi[m_rankBlupiHili].goalAction != 0 &&
@@ -4549,19 +4549,19 @@ bool CDecor::IsWorkBlupi(int rank)
 // Retourne les boutons possibles à un endroit donné,
 // pour le blupi sélectionné.
 
-void CDecor::BlupiGetButtons(POINT pos, int &nb,
-							 int *pButtons, int *pErrors,
-							 std::unordered_map<int, const char *> &texts, int &perso)
+void CDecor::BlupiGetButtons(POINT pos, Sint32 &nb,
+							 Sint32 *pButtons, Sint32 *pErrors,
+							 std::unordered_map<Sint32, const char *> &texts, Sint32 &perso)
 {
-	int*		pB = pButtons;
-	int*		pE = pErrors;
+	Sint32*		pB = pButtons;
+	Sint32*		pE = pErrors;
 	POINT		cel, cel2;
-	int			i, rank, button, error, channel, icon;
+	Sint32			i, rank, button, error, channel, icon;
 	bool		bBuild = false;
 	bool		bPut;
 	const char *textForButton;
 
-	static int table_buttons[] =
+	static Sint32 table_buttons[] =
 	{
 		BUTTON_GO,			0,
 		BUTTON_DJEEP,		0,
@@ -4762,9 +4762,9 @@ void CDecor::TerminatedInit()
 // Retourne 1 si la partie est perdue.
 // Retourne 2 si la partie est gagnée.
 
-int CDecor::IsTerminated()
+Sint32 CDecor::IsTerminated()
 {
-	int		nb, count, out;
+	Sint32		nb, count, out;
 	POINT	pos;
 
 	pos.x = LXIMAGE/2;

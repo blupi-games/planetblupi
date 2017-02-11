@@ -30,7 +30,7 @@ CButton::CButton()
 	m_bMouseDown      = false;
 	m_bMinimizeRedraw = false;
 	m_bRedraw         = false;
-	m_message         = static_cast<unsigned int> (-1);
+	m_message         = static_cast<Uint32> (-1);
 }
 
 // Destructeur.
@@ -43,15 +43,15 @@ CButton::~CButton()
 // Crée un nouveau bouton.
 
 bool CButton::Create(CPixmap *pPixmap, CSound *pSound,
-					 POINT pos, int type, bool bMinimizeRedraw,
-					 int *pMenu, int nbMenu,
+					 POINT pos, Sint32 type, bool bMinimizeRedraw,
+					 Sint32 *pMenu, Sint32 nbMenu,
 					 const char **pToolTips,
-					 int region, unsigned int message)
+					 Sint32 region, Uint32 message)
 {
 	POINT		iconDim;
-	int			i, icon;
+	Sint32			i, icon;
 
-	static int ttypes[] =
+	static Sint32 ttypes[] =
 	{
 		DIMBUTTONX,DIMBUTTONY,		// button00.bmp
 	};
@@ -122,7 +122,7 @@ bool CButton::Create(CPixmap *pPixmap, CSound *pSound,
 
 void CButton::Draw()
 {
-	int			i;
+	Sint32			i;
 	POINT		pos;
 	RECT		rect;
 
@@ -174,12 +174,12 @@ void CButton::Redraw()
 	m_bRedraw = true;
 }
 
-int CButton::GetState()
+Sint32 CButton::GetState()
 {
 	return m_state;
 }
 
-void CButton::SetState(int state)
+void CButton::SetState(Sint32 state)
 {
 	if ( m_state      != state ||
 		 m_mouseState != state )
@@ -191,12 +191,12 @@ void CButton::SetState(int state)
 	m_mouseState = state;
 }
 
-int CButton::GetMenu()
+Sint32 CButton::GetMenu()
 {
 	return m_selMenu;
 }
 
-void CButton::SetMenu(int menu)
+void CButton::SetMenu(Sint32 menu)
 {
 	if ( m_selMenu != menu )
 	{
@@ -297,8 +297,8 @@ bool CButton::MouseOnButton(POINT pos)
 
 const char *CButton::GetToolTips(POINT pos)
 {
-	int		width = m_dim.x;
-	int		rank;
+	Sint32		width = m_dim.x;
+	Sint32		rank;
 
 	if (m_bHide || !m_bEnable)
 		return nullptr;
@@ -339,7 +339,7 @@ const char *CButton::GetToolTips(POINT pos)
 
 bool CButton::Detect(POINT pos)
 {
-	int		width = m_dim.x;
+	Sint32		width = m_dim.x;
 
 	if ( m_bHide || !m_bEnable )  return false;
 
@@ -376,7 +376,7 @@ bool CButton::MouseDown(POINT pos)
 bool CButton::MouseMove(POINT pos)
 {
 	bool	bDetect;
-	int		iState, iMenu;
+	Sint32		iState, iMenu;
 
 	iState = m_mouseState;
 	iMenu  = m_selMenu;
@@ -429,7 +429,7 @@ bool CButton::MouseUp(POINT pos)
 
 	if ( !bDetect )  return false;
 
-	if ( m_message != static_cast<unsigned int> (-1) )
+	if ( m_message != static_cast<Uint32> (-1) )
 	{
 		CEvent::PushUserEvent (m_message);
 	}

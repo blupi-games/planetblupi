@@ -13,7 +13,7 @@
 
 bool CSound::StopAllSounds()
 {
-	for (int i = 0; i < MAXSOUND; i ++)
+	for (Sint32 i = 0; i < MAXSOUND; i ++)
 	{
 		if (!m_lpSDL[i])
 			continue;
@@ -27,7 +27,7 @@ bool CSound::StopAllSounds()
 
 CSound::CSound()
 {
-	int		i;
+	Sint32		i;
 
 	m_bEnable         = false;
 	m_bState          = false;
@@ -51,7 +51,7 @@ CSound::CSound()
 
 CSound::~CSound()
 {
-	int		i;
+	Sint32		i;
 
 	for ( i=0 ; i<MAXSOUND ; i++ )
 	{
@@ -102,23 +102,23 @@ void CSound::SetState(bool bState)
 
 // Gestion des volumes audio (.wav) et midi (.mid).
 
-void CSound::SetAudioVolume(int volume)
+void CSound::SetAudioVolume(Sint32 volume)
 {
 	m_audioVolume = volume;
 }
 
-int CSound::GetAudioVolume()
+Sint32 CSound::GetAudioVolume()
 {
 	if ( !m_bEnable )  return 0;
 	return m_audioVolume;
 }
 
-void CSound::SetMidiVolume(int volume)
+void CSound::SetMidiVolume(Sint32 volume)
 {
 	m_midiVolume = volume;
 }
 
-int CSound::GetMidiVolume()
+Sint32 CSound::GetMidiVolume()
 {
 	if ( !m_bEnable )  return 0;
 	return m_midiVolume;
@@ -129,7 +129,7 @@ int CSound::GetMidiVolume()
 
 void CSound::CacheAll()
 {
-	int			i;
+	Sint32			i;
 	char		name[50];
 
 	if ( !m_bEnable )  return;
@@ -143,7 +143,7 @@ void CSound::CacheAll()
 
 // Charge un fichier son (.wav).
 
-bool CSound::Cache(int channel, const char *pFilename)
+bool CSound::Cache(Sint32 channel, const char *pFilename)
 {
 	if ( !m_bEnable )  return false;
 	if ( channel < 0 || channel >= MAXSOUND )  return false;
@@ -165,7 +165,7 @@ bool CSound::Cache(int channel, const char *pFilename)
 
 // Dï¿½charge un son.
 
-void CSound::Flush(int channel)
+void CSound::Flush(Sint32 channel)
 {
 	if ( !m_bEnable )  return;
 	if ( channel < 0 || channel >= MAXSOUND )  return;
@@ -182,7 +182,7 @@ void CSound::Flush(int channel)
 // Le panoramique est compris entre 255,0 (gauche), 127,128 (centre)
 // et 0,255 (droite).
 
-bool CSound::Play(int channel, int volume, Uint8 panLeft, Uint8 panRight)
+bool CSound::Play(Sint32 channel, Sint32 volume, Uint8 panLeft, Uint8 panRight)
 {
 	if (!m_bEnable)
 		return true;
@@ -208,9 +208,9 @@ bool CSound::Play(int channel, int volume, Uint8 panLeft, Uint8 panRight)
 // Si rank != -1, il indique le rang du blupi dont il faudra
 // ï¿½ventuellement stopper le dernier son en cours !
 
-bool CSound::PlayImage(int channel, POINT pos, int rank)
+bool CSound::PlayImage(Sint32 channel, POINT pos, Sint32 rank)
 {
-	int stopCh, volumex, volumey, volume;
+	Sint32 stopCh, volumex, volumey, volume;
 
 	if ( rank >= 0 && rank < MAXBLUPI )
 	{
@@ -360,7 +360,7 @@ void CSound::AdaptVolumeMusic()
 
 // Indique le nombre de suspend ï¿½ sauter.
 
-void CSound::SetSuspendSkip(int nb)
+void CSound::SetSuspendSkip(Sint32 nb)
 {
 	m_nbSuspendSkip = nb;
 }

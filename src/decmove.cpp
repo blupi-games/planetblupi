@@ -7,7 +7,7 @@
 
 // Mouvement pour secouer un arbre
 // (synchrone avec ACTION_PIOCHE).
-static short table_move1[] =
+static Sint16 table_move1[] =
 {
 	9*4,	// nb
 	0,0, 0,0, 0,0, 0,0,
@@ -23,7 +23,7 @@ static short table_move1[] =
 
 // Mouvement pour faire sauter un objet (est) sur blupi
 // (synchrone avec ACTION_TAKE).
-static short table_move2[] =
+static Sint16 table_move2[] =
 {
 	9+19,		// nb
 	  0,0, 0,0,
@@ -51,7 +51,7 @@ static short table_move2[] =
 
 // Mouvement pour faire sauter un objet (sud) sur blupi
 // (synchrone avec ACTION_TAKE2).
-static short table_move3[] =
+static Sint16 table_move3[] =
 {
 	9+19,		// nb
 	  0,0, 0,0,
@@ -79,7 +79,7 @@ static short table_move3[] =
 
 // Mouvement pour déposer un objet (est) sur blupi
 // (synchrone avec ACTION_DEPOSE).
-static short table_move4[] =
+static Sint16 table_move4[] =
 {
 	10,		// nb
 	-30,-60,
@@ -96,7 +96,7 @@ static short table_move4[] =
 
 // Mouvement pour déposer un objet (sud) sur blupi
 // (synchrone avec ACTION_DEPOSE2).
-static short table_move5[] =
+static Sint16 table_move5[] =
 {
 	10,		// nb
 	 30,-60,
@@ -112,7 +112,7 @@ static short table_move5[] =
 };
 
 // Mouvement pour pousser un pont vers l'est.
-static short table_move6[] =
+static Sint16 table_move6[] =
 {
 	40,		// nb
 	+2,+1,
@@ -158,7 +158,7 @@ static short table_move6[] =
 };
 
 // Mouvement pour pousser un pont vers l'ouest.
-static short table_move7[] =
+static Sint16 table_move7[] =
 {
 	40,		// nb
 	-2,-1,
@@ -204,7 +204,7 @@ static short table_move7[] =
 };
 
 // Mouvement pour pousser un pont vers le sud.
-static short table_move8[] =
+static Sint16 table_move8[] =
 {
 	40,		// nb
 	-2,+1,
@@ -250,7 +250,7 @@ static short table_move8[] =
 };
 
 // Mouvement pour pousser un pont vers le nord.
-static short table_move9[] =
+static Sint16 table_move9[] =
 {
 	40,		// nb
 	+2,-1,
@@ -296,7 +296,7 @@ static short table_move9[] =
 };
 
 // Mouvement pour secouer le laboratoire.
-static short table_move10[] =
+static Sint16 table_move10[] =
 {
 	16*4,	// nb
 	-2,0, +2,0, -2,0, +2,0,
@@ -318,7 +318,7 @@ static short table_move10[] =
 };
 
 // Mouvement pour secouer la mine.
-static short table_move11[] =
+static Sint16 table_move11[] =
 {
 	20*4,	// nb
 	0,-1, 0,+1, 0,-1, 0,+1, 
@@ -344,7 +344,7 @@ static short table_move11[] =
 };
 
 // Mouvement pour secouer l'usine.
-static short table_move12[] =
+static Sint16 table_move12[] =
 {
 	20*4,	// nb
 	-1,0, +1,0, -1,0, +1,0,
@@ -369,7 +369,7 @@ static short table_move12[] =
 	-2,0, +2,0, 0,+1, 0,+1,
 };
 
-short* GetListMoves(int rank)
+Sint16* GetListMoves(Sint32 rank)
 {
 	if ( rank ==  1 )  return table_move1;
 	if ( rank ==  2 )  return table_move2;
@@ -389,7 +389,7 @@ short* GetListMoves(int rank)
 
 
 // Petites flammes.
-static short table_icon1[] =
+static Sint16 table_icon1[] =
 {
 	8*3,
 	49,50,51,52,50,49,51,52,
@@ -398,7 +398,7 @@ static short table_icon1[] =
 };
 
 // Grandes flammes.
-static short table_icon2[] =
+static Sint16 table_icon2[] =
 {
 	8*3,
 	45,46,47,48,46,45,48,47,
@@ -407,14 +407,14 @@ static short table_icon2[] =
 };
 
 // Eclairs de la dalle nurserie.
-static short table_icon3[] =
+static Sint16 table_icon3[] =
 {
 	4,		// nb
 	53,54,55,56,
 };
 
 // Eclairs n-s entre les tours.
-static short table_icon4[] =
+static Sint16 table_icon4[] =
 {
 	8*4,		// nb
 	74,76,78,76,74,78,74,76,
@@ -424,7 +424,7 @@ static short table_icon4[] =
 };
 
 // Eclairs e-o entre les tours.
-static short table_icon5[] =
+static Sint16 table_icon5[] =
 {
 	8*4,		// nb
 	75,77,75,79,75,77,79,75,
@@ -434,7 +434,7 @@ static short table_icon5[] =
 };
 
 // Explosion de la dynamite.
-static short table_icon6[] =
+static Sint16 table_icon6[] =
 {
 	7+30,	// nb
 	91,90,89,88,89,90,91,
@@ -444,7 +444,7 @@ static short table_icon6[] =
 };
 
 // Mèche de la dynamite.
-static short table_icon7[] =
+static Sint16 table_icon7[] =
 {
 	12*4,	// nb
 	86,87,86,87,86,87,86,87,86,87,86,87,
@@ -454,7 +454,7 @@ static short table_icon7[] =
 };
 
 // Rayons de  l'électrocuteur.
-static short table_icon8[] =
+static Sint16 table_icon8[] =
 {
 	10*10,		// nb
 	75,-1,-1,74,-1,75,-1,74,75,-1,
@@ -470,7 +470,7 @@ static short table_icon8[] =
 };
 
 // Blupi écrasé.
-static short table_icon9[] =
+static Sint16 table_icon9[] =
 {
 	10*10,		// nb
 	76,76,76,76,76,76,76,76,76,76,
@@ -486,7 +486,7 @@ static short table_icon9[] =
 };
 
 // Blupi malade écrasé.
-static short table_icon10[] =
+static Sint16 table_icon10[] =
 {
 	10*10,		// nb
 	77,77,77,77,77,77,77,77,77,77,
@@ -502,13 +502,13 @@ static short table_icon10[] =
 };
 
 // Eclairs de la dalle téléporteur.
-static short table_icon11[] =
+static Sint16 table_icon11[] =
 {
 	4,		// nb
 	81,82,83,84,
 };
 
-short* GetListIcons(int rank)
+Sint16* GetListIcons(Sint32 rank)
 {
 	if ( rank ==  1 )  return table_icon1;
 	if ( rank ==  2 )  return table_icon2;
@@ -532,7 +532,7 @@ short* GetListIcons(int rank)
 
 void CDecor::MoveFlush()
 {
-	int		i, x, y;
+	Sint32		i, x, y;
 
 	for ( i=0 ; i<MAXMOVE ; i++ )
 	{
@@ -550,7 +550,7 @@ void CDecor::MoveFlush()
 
 // Retourne la durée du feu.
 
-int CDecor::MoveMaxFire()
+Sint32 CDecor::MoveMaxFire()
 {
 	if ( m_skill >= 1 )  return (MAXFIRE/4)*3;
 	return MAXFIRE;
@@ -560,7 +560,7 @@ int CDecor::MoveMaxFire()
 
 void CDecor::MoveFixInit()
 {
-	int		x, y;
+	Sint32		x, y;
 
 	MoveFlush();
 
@@ -601,13 +601,13 @@ void CDecor::MoveFixInit()
 // Si bMisc=true, on garde 10 mouvements en réserve pour
 // des actions importantes (bMisc=false).
 
-bool CDecor::MoveCreate(POINT cel, int rankBlupi, bool bFloor,
-						int channel, int icon,
-						int maskChannel, int maskIcon,
-						int total, int delai, int stepY,
+bool CDecor::MoveCreate(POINT cel, Sint32 rankBlupi, bool bFloor,
+						Sint32 channel, Sint32 icon,
+						Sint32 maskChannel, Sint32 maskIcon,
+						Sint32 total, Sint32 delai, Sint32 stepY,
 						bool bMisc, bool bNotIfExist)
 {
-	int		rank, max;
+	Sint32		rank, max;
 
 	for ( rank=0 ; rank<MAXMOVE ; rank++ )
 	{
@@ -656,9 +656,9 @@ bool CDecor::MoveCreate(POINT cel, int rankBlupi, bool bFloor,
 
 // Ajoute un mouvement.
 
-bool CDecor::MoveAddMoves(POINT cel, int rankMoves)
+bool CDecor::MoveAddMoves(POINT cel, Sint32 rankMoves)
 {
-	int		rank;
+	Sint32		rank;
 
 	for ( rank=0 ; rank<MAXMOVE ; rank++ )
 	{
@@ -678,9 +678,9 @@ bool CDecor::MoveAddMoves(POINT cel, int rankMoves)
 
 // Ajoute un mouvement.
 
-bool CDecor::MoveAddIcons(POINT cel, int rankIcons, bool bContinue)
+bool CDecor::MoveAddIcons(POINT cel, Sint32 rankIcons, bool bContinue)
 {
-	int		rank;
+	Sint32		rank;
 
 	for ( rank=0 ; rank<MAXMOVE ; rank++ )
 	{
@@ -708,7 +708,7 @@ bool CDecor::MoveAddIcons(POINT cel, int rankIcons, bool bContinue)
 
 bool CDecor::MoveStartFire(POINT cel)
 {
-	int		channel, icon;
+	Sint32		channel, icon;
 
 	cel.x = (cel.x/2)*2;
 	cel.y = (cel.y/2)*2;
@@ -760,10 +760,10 @@ bool CDecor::MoveStartFire(POINT cel)
 
 void CDecor::MoveProxiFire(POINT cel)
 {
-	int		cx, cy, xx, yy, x, y, channel, icon;
+	Sint32		cx, cy, xx, yy, x, y, channel, icon;
 
-	static short tableInd[5] = {2,1,3,0,4};
-	static short tablePos[5*5*2] =
+	static Sint16 tableInd[5] = {2,1,3,0,4};
+	static Sint16 tablePos[5*5*2] =
 	{
 		 0, 0, -1,-2,  0,-2, +1,-2,  0, 0,
 		-2,-1, -1,-1,  0,-1, +1,-1, +2,-1,
@@ -817,9 +817,9 @@ void CDecor::MoveProxiFire(POINT cel)
 
 // Fait évoluer le feu.
 
-void CDecor::MoveFire(int rank)
+void CDecor::MoveFire(Sint32 rank)
 {
-	int		x, y, icon, newIcon;
+	Sint32		x, y, icon, newIcon;
 	POINT	pos;
 
 	x = (m_move[rank].cel.x/2)*2;
@@ -956,7 +956,7 @@ void CDecor::MoveFire(int rank)
 
 void CDecor::MoveStep(bool bFirst)
 {
-	int		rank, rankBlupi;
+	Sint32		rank, rankBlupi;
 
 	for ( rank=0 ; rank<MAXMOVE ; rank++ )
 	{
@@ -1011,7 +1011,7 @@ void CDecor::MoveStep(bool bFirst)
 
 void CDecor::MoveFinish(POINT cel)
 {
-	int		rank;
+	Sint32		rank;
 
 	for ( rank=0 ; rank<MAXMOVE ; rank++ )
 	{
@@ -1040,9 +1040,9 @@ void CDecor::MoveFinish(POINT cel)
 
 // Termine un mouvement, d'après le rang du blupi.
 
-void CDecor::MoveFinish(int rankBlupi)
+void CDecor::MoveFinish(Sint32 rankBlupi)
 {
-	int		rank;
+	Sint32		rank;
 
 	for ( rank=0 ; rank<MAXMOVE ; rank++ )
 	{
@@ -1058,7 +1058,7 @@ void CDecor::MoveFinish(int rankBlupi)
 
 bool CDecor::MoveIsUsed(POINT cel)
 {
-	int		rank;
+	Sint32		rank;
 
 	for ( rank=0 ; rank<MAXMOVE ; rank++ )
 	{
@@ -1075,9 +1075,9 @@ bool CDecor::MoveIsUsed(POINT cel)
 
 // Retourne l'objet en construction à un endroit donné.
 
-bool CDecor::MoveGetObject(POINT cel, int &channel, int &icon)
+bool CDecor::MoveGetObject(POINT cel, Sint32 &channel, Sint32 &icon)
 {
-	int		rank;
+	Sint32		rank;
 
 	for ( rank=0 ; rank<MAXMOVE ; rank++ )
 	{
@@ -1097,9 +1097,9 @@ bool CDecor::MoveGetObject(POINT cel, int &channel, int &icon)
 
 // Modifie un objet en construction à un endroit donné.
 
-bool CDecor::MovePutObject(POINT cel, int channel, int icon)
+bool CDecor::MovePutObject(POINT cel, Sint32 channel, Sint32 icon)
 {
-	int		rank;
+	Sint32		rank;
 
 	for ( rank=0 ; rank<MAXMOVE ; rank++ )
 	{

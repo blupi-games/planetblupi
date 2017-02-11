@@ -1,4 +1,4 @@
 #pragma once
 
-short * GetListMoves (int rank);
-short * GetListIcons (int rank);
+Sint16 * GetListMoves (Sint32 rank);
+Sint16 * GetListIcons (Sint32 rank);
