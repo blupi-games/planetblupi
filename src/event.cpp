@@ -2496,9 +2496,16 @@ void CEvent::HideMouse (bool bHide)
     m_bHideMouse = bHide;
 
     if (bHide)
+    {
         m_mouseSprite = SPRITE_EMPTY;
+        SDL_ShowCursor (SDL_FALSE);
+    }
     else
+    {
         m_mouseSprite = MousePosToSprite (GetMousePos ());
+        SDL_ShowCursor (SDL_TRUE);
+    }
+
     m_pPixmap->SetMouseSprite (m_mouseSprite, m_bDemoPlay);
     m_pPixmap->ChangeSprite (m_mouseSprite);
 }
