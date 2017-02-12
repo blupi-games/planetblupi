@@ -422,8 +422,15 @@ static bool DoInit (Sint32 argc, char *argv[])
     if (!g_renderer)
     {
         printf ("%s", SDL_GetError ());
-        SDL_DestroyWindow (g_window);
-        return false;
+
+        g_renderer = SDL_CreateRenderer (g_window, -1,
+                                         SDL_RENDERER_SOFTWARE | SDL_RENDERER_TARGETTEXTURE);
+        if (!g_renderer)
+        {
+            printf ("%s", SDL_GetError ());
+            SDL_DestroyWindow (g_window);
+            return false;
+        }
     }
 
     SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
