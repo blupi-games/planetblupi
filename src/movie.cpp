@@ -216,6 +216,7 @@ bool CMovie::Play (RECT rect, const char *pFilename)
         return false;
     if (!fileOpenMovie (rect, pFilename))
         return false;
+
     playMovie();
     CEvent::PushUserEvent (WM_MOVIE_PLAY);
 
