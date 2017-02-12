@@ -1703,7 +1703,7 @@ void CEvent::RestoreGame()
 
 // Crée tous les boutons nécessaires à la phase en cours.
 
-bool CEvent::CreateButtons()
+bool CEvent::CreateButtons ()
 {
     Sint32          i = 0, message;
     POINT       pos;
@@ -1906,8 +1906,8 @@ bool CEvent::DrawButtons()
     i = 0;
     while (table[m_index].buttons[i].message != 0)
     {
-        m_buttons[i].Draw();
-        i ++;
+        m_buttons[i].Draw ();
+        ++i;
     }
 
     if (m_phase == WM_PHASE_PLAY)
@@ -2483,7 +2483,7 @@ void CEvent::WaitMouse (bool bWait)
     if (bWait)
         m_mouseSprite = SPRITE_WAIT;
     else
-        m_mouseSprite = MousePosToSprite (GetMousePos());
+        m_mouseSprite = MousePosToSprite (GetMousePos ());
     m_pPixmap->SetMouseSprite (m_mouseSprite, m_bDemoPlay);
     m_pPixmap->ChangeSprite (m_mouseSprite);
 }
@@ -2497,7 +2497,7 @@ void CEvent::HideMouse (bool bHide)
     if (bHide)
         m_mouseSprite = SPRITE_EMPTY;
     else
-        m_mouseSprite = MousePosToSprite (GetMousePos());
+        m_mouseSprite = MousePosToSprite (GetMousePos ());
     m_pPixmap->SetMouseSprite (m_mouseSprite, m_bDemoPlay);
     m_pPixmap->ChangeSprite (m_mouseSprite);
 }
