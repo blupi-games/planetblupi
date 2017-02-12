@@ -229,7 +229,7 @@ void CMovie::Stop()
     if (!m_bEnable)
         return;
     fileCloseMovie();
-    SDL_RenderSetLogicalSize (g_renderer, 0, 0);
+    SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
 }
 
 void CMovie::Pause()
