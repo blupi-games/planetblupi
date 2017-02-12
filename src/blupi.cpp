@@ -346,7 +346,9 @@ static void WindowProc2 (const SDL_Event &event)
             {
                 if (g_bActive)
                     UpdateFrame();
-                g_pPixmap->Display();
+
+                if (!g_pEvent->IsMovie ())
+                    g_pPixmap->Display ();
             }
             break;
 
