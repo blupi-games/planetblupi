@@ -4167,12 +4167,12 @@ bool CEvent::WriteInfo()
     info.scrollSpeed  = m_scrollSpeed;
     info.bAccessBuild = m_bAccessBuild;
 
-    info.skill        = m_pDecor->GetSkill();
+    info.skill        = m_pDecor->GetSkill ();
 
-    info.audioVolume = m_pSound->GetAudioVolume();
-    info.midiVolume  = m_pSound->GetMidiVolume();
+    info.audioVolume = m_pSound->GetAudioVolume ();
+    info.midiVolume  = m_pSound->GetMidiVolume ();
 
-    nb = fwrite (&info, sizeof (DescInfo), 1, file);
+    nb = fwrite (&info, sizeof (info), 1, file);
     if (nb < 1)
         goto error;
 
