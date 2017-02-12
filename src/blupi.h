@@ -8,16 +8,16 @@ extern SDL_Renderer *g_renderer;
 
 struct POINT
 {
-	Sint32 x;
-	Sint32 y;
+    Sint32 x;
+    Sint32 y;
 };
 
 struct RECT
 {
-	Sint32 left;
-	Sint32 top;
-	Sint32 right;
-	Sint32 bottom;
+    Sint32 left;
+    Sint32 top;
+    Sint32 right;
+    Sint32 bottom;
 };
 
 typedef Uint32 COLORREF;
