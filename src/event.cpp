@@ -1,9 +1,8 @@
-// Event.cpp
-//
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <unordered_map>
+#include <assert.h>
 #include "gettext.h"
 #include "blupi.h"
 #include "def.h"
@@ -1569,7 +1568,10 @@ void CEvent::Create (CPixmap *pPixmap, CDecor *pDecor,
 
 Sint32 CEvent::GetButtonIndex (Sint32 button)
 {
-    Sint32          i = 0;
+    int i = 0;
+
+    if (m_index < 0)
+        return -1;
 
     while (table[m_index].buttons[i].message != 0)
     {
@@ -1679,6 +1681,9 @@ void CEvent::RestoreGame()
 
     if (m_phase == WM_PHASE_PLAY)
     {
+        if (m_index < 0)
+            return;
+
         i = 0;
         while (table[m_index].buttons[i].message != 0)
         {
@@ -1706,6 +1711,9 @@ bool CEvent::CreateButtons()
 
     if (m_phase == WM_PHASE_PLAY)
         bMinimizeRedraw = true;
+
+    if (m_index < 0)
+        return false;
 
     while (table[m_index].buttons[i].message != 0)
     {
@@ -1891,6 +1899,8 @@ bool CEvent::DrawButtons()
             bEnable = false;
         SetEnable (WM_BUTTON10, bEnable);
     }
+
+    assert (m_index >= 0);
 
     // Dessine les boutons.
     i = 0;
@@ -2539,7 +2549,10 @@ bool CEvent::EventButtons (const SDL_Event &event, POINT pos)
     }
     else
     {
-        Sint32 i = 0;
+        int i = 0;
+
+        assert (m_index >= 0);
+
         while (table[m_index].buttons[i].message != 0)
         {
             const auto text = m_buttons[i].GetToolTips (pos);
@@ -2632,7 +2645,10 @@ bool CEvent::EventButtons (const SDL_Event &event, POINT pos)
     }
 
 
-    Sint32 i = 0;
+    int i = 0;
+
+    assert (m_index >= 0);
+
     while (table[m_index].buttons[i].message != 0)
     {
         if (m_buttons[i].TreatEvent (event))
@@ -2655,6 +2671,9 @@ bool CEvent::EventButtons (const SDL_Event &event, POINT pos)
 bool CEvent::MouseOnButton (POINT pos)
 {
     Sint32      i;
+
+    if (m_index < 0)
+        return false;
 
     i = 0;
     while (table[m_index].buttons[i].message != 0)
