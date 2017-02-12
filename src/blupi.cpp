@@ -407,7 +407,7 @@ static bool DoInit (Sint32 argc, char *argv[])
                                      SDL_WINDOW_FULLSCREEN_DESKTOP | SDL_WINDOW_INPUT_GRABBED);
     else
         g_window = SDL_CreateWindow (NAME, SDL_WINDOWPOS_CENTERED,
-                                     SDL_WINDOWPOS_CENTERED, LXIMAGE, LYIMAGE, 0);
+                                     SDL_WINDOWPOS_CENTERED, LXIMAGE, LYIMAGE, SDL_WINDOW_RESIZABLE);
 
     if (!g_window)
     {
