@@ -1,8 +1,7 @@
-// Button.cpp
-//
 
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "gettext.h"
 #include "def.h"
 #include "pixmap.h"
@@ -12,10 +11,6 @@
 #include "misc.h"
 #include "event.h"
 
-
-/////////////////////////////////////////////////////////////////////////////
-
-// Constructeur.
 
 CButton::CButton()
 {
@@ -33,12 +28,7 @@ CButton::CButton()
     m_message         = static_cast<Uint32> (-1);
 }
 
-// Destructeur.
-
-CButton::~CButton()
-{
-}
-
+CButton::~CButton () {}
 
 // Crée un nouveau bouton.
 
@@ -134,7 +124,7 @@ bool CButton::Create (CPixmap *pPixmap, CSound *pSound,
 
 // Dessine un bouton dans son état.
 
-void CButton::Draw()
+void CButton::Draw ()
 {
     Sint32          i;
     POINT       pos;
@@ -182,12 +172,12 @@ void CButton::Draw()
     }
 }
 
-void CButton::Redraw()
+void CButton::Redraw ()
 {
     m_bRedraw = true;
 }
 
-Sint32 CButton::GetState()
+Sint32 CButton::GetState ()
 {
     return m_state;
 }
@@ -202,7 +192,7 @@ void CButton::SetState (Sint32 state)
     m_mouseState = state;
 }
 
-Sint32 CButton::GetMenu()
+Sint32 CButton::GetMenu ()
 {
     return m_selMenu;
 }
@@ -216,7 +206,7 @@ void CButton::SetMenu (Sint32 menu)
 }
 
 
-bool CButton::GetEnable()
+bool CButton::GetEnable ()
 {
     return m_bEnable;
 }
@@ -229,8 +219,7 @@ void CButton::SetEnable (bool bEnable)
     m_bEnable = bEnable;
 }
 
-
-bool CButton::GetHide()
+bool CButton::GetHide ()
 {
     return m_bHide;
 }
@@ -242,7 +231,6 @@ void CButton::SetHide (bool bHide)
 
     m_bHide = bHide;
 }
-
 
 // Traitement d'un événement.
 
@@ -292,14 +280,12 @@ bool CButton::TreatEvent (const SDL_Event &event)
 
 // (*) Tous les boutons doivent recevoir l'événement BUTTONUP !
 
-
 // Indique si la souris est sur ce bouton.
 
 bool CButton::MouseOnButton (POINT pos)
 {
     return Detect (pos);
 }
-
 
 // Retourne le tooltips pour un bouton, en fonction
 // de la position de la souris.
@@ -337,7 +323,6 @@ const char *CButton::GetToolTips (POINT pos)
 
     return gettext (m_toolTips[rank]);
 }
-
 
 // Détecte si la souris est dans le bouton.
 
@@ -442,5 +427,3 @@ bool CButton::MouseUp (POINT pos)
 
     return true;
 }
-
-

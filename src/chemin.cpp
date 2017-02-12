@@ -1,4 +1,3 @@
-// chemin.cpp
 
 // (c) 1997, Denis Dumoulin
 
@@ -56,7 +55,6 @@ bool CDecor::CheminTestPos (POINT pos, Sint32 &rank)
     return false;
 }
 
-
 // une fois le but trouvé, reprend en arrière
 // à la recherche du chemin le plus court
 
@@ -100,17 +98,16 @@ bis:
     }
 }
 
-
 // troisième méthode de recherche
 // semblable à la précédente,
 // mais les points à explorer sont classés selon leur distance à la cible
 
 void CDecor::CheminFillTerrain (Sint32 rank)
 {
-    Sint32  pos, last, dest, dist;
-    Sint32      step, dir, cout, action, max, next, ampli;
-    Sint32      dx, dy;
-    Sint32      but = 1000;
+    Sint32 pos, last, dest, dist;
+    Sint32 step, dir, cout, action, max, next, ampli;
+    Sint32 dx, dy;
+    Sint32 but = 1000;
 
     if (m_blupi[rank].cel.x == m_blupi[rank].goalCel.x &&
         m_blupi[rank].cel.y == m_blupi[rank].goalCel.y)
@@ -179,7 +176,6 @@ void CDecor::CheminFillTerrain (Sint32 rank)
     }
 }
 
-
 // routine déterninant si une direction est possible
 // retourne l'incrément pour passer à la nouvelle case
 // et le "prix à payer" pour aller dans cette direction
@@ -189,9 +185,9 @@ bool CDecor::CheminTestDirection (Sint32 rank, Sint32 pos, Sint32 dir,
                                   Sint32 &next, Sint32 &ampli,
                                   Sint32 &cout, Sint32 &action)
 {
-    POINT       cel, vector, newCel;
-    bool        bFree;
-    Sint32          tryDirect, workBlupi, rankHere;
+    POINT  cel, vector, newCel;
+    bool   bFree;
+    Sint32 tryDirect, workBlupi, rankHere;
 
     cel.x = pos % MAXCELX;
     cel.y = pos / MAXCELX;
@@ -269,9 +265,8 @@ bool CDecor::CheminTestDirection (Sint32 rank, Sint32 pos, Sint32 dir,
     return false;
 }
 
-
-
 // Retourne true si on a assigné une nouvelle direction à blupi.
+
 bool CDecor::CheminCherche (Sint32 rank, Sint32 &action)
 {
     Sint32  cout;       // prix pour aller dans une direction
@@ -310,14 +305,13 @@ bool CDecor::CheminCherche (Sint32 rank, Sint32 &action)
     return false;
 }
 
-
 // Teste s'il est possible de se rendre à un endroit donné.
 
 bool CDecor::IsCheminFree (Sint32 rank, POINT dest, Sint32 button)
 {
-    Sint32      action, sDirect;
-    POINT   goalCel, passCel, limit;
-    bool    bOK;
+    Sint32 action, sDirect;
+    POINT  goalCel, passCel, limit;
+    bool   bOK;
 
     if (button == BUTTON_STOP)
         return true;
@@ -365,4 +359,3 @@ bool CDecor::IsCheminFree (Sint32 rank, POINT dest, Sint32 button)
 
     return bOK;
 }
-

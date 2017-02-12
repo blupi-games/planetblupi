@@ -1,30 +1,25 @@
-// Action.cpp
-//
 
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "def.h"
 #include "action.h"
 #include "misc.h"
 
+#define MAXICON  (1 + 50)
+#define MAXMOVE  (2 + 30 * 3)
+#define MAXSOUND (1 + 50)
 
-
-#define MAXICON     (1+50)
-#define MAXMOVE     (2+30*3)
-#define MAXSOUND    (1+50)
-
-typedef struct
+struct DescAction
 {
     Sint16  action;
     Sint16  channel;
     Sint16  icons[8][MAXICON];  // nb, icones,
     Sint16  moves[8][MAXMOVE];  // nb, nb, x,y,
     Sint16  sounds[MAXSOUND];   // nb, sons,
-}
-DescAction;
+};
 
-
-static DescAction action_table[] =
+static const DescAction action_table[] =
 {
     {
         ACTION_STOP,
@@ -2712,7 +2707,6 @@ static DescAction action_table[] =
     }
 };
 
-
 // Calcule l'action suivante.
 // Retourne false lorsque l'action est terminée.
 
@@ -2721,8 +2715,8 @@ bool Action (Sint16 action, Sint16 direct,
              Sint16 &channel, Sint16 &icon, POINT &pos, Sint16 &posZ,
              Sint16 &sound)
 {
-    DescAction     *pTable = action_table;
-    Sint16          nbIcon, nbPhase, nbMove, nbSound, i;
+    const auto *pTable = action_table;
+    Sint16 nbIcon, nbPhase, nbMove, nbSound, i;
 
     pos.x = 0;
     pos.y = 0;
@@ -2773,9 +2767,7 @@ bool Action (Sint16 action, Sint16 direct,
     return false;
 }
 
-
-
-static Sint16 rotate_table[] =
+static const Sint16 rotate_table[] =
 {
     0, 6, 12, 18, 24, 30, 36, 42,
     1, 7, 13, 19, 25, 31, 37, 43,
@@ -2804,9 +2796,9 @@ static Sint16 rotate_table[] =
 
 bool Rotate (Sint16 &icon, Sint16 direct)
 {
-    Sint16     *pTable = rotate_table;
-    Sint16      i;
-    Sint16      offset = 0;
+    const auto *pTable = rotate_table;
+    Sint16 i;
+    Sint16 offset = 0;
 
     if (icon >= 200 && icon <= 215)    // tracks ?
     {
@@ -2865,8 +2857,8 @@ bool Rotate (Sint16 &icon, Sint16 direct)
 
 Sint32 GetIconDirect (Sint16 icon)
 {
-    Sint16     *pTable = rotate_table;
-    Sint16      i;
+    const auto *pTable = rotate_table;
+    Sint16 i;
 
     if (icon >= 169 && icon <= 192)    // blupi malade ?
         icon -= 100;
@@ -2883,10 +2875,8 @@ Sint32 GetIconDirect (Sint16 icon)
     while (pTable[0] != -1)
     {
         for (i = 0 ; i < 8 ; i++)
-        {
             if (icon == pTable[i])
                 return i * 16;
-        }
 
         pTable += 8;
     }
@@ -2894,20 +2884,22 @@ Sint32 GetIconDirect (Sint16 icon)
     return -1;
 }
 
-
 // Retourne l'amplitude d'une action, en nombre
 // de cellules.
 
 Sint32 GetAmplitude (Sint16 action)
 {
-    if (action == ACTION_SAUTE2)
+    switch (action)
+    {
+    case ACTION_SAUTE2:
         return 2;
-    if (action == ACTION_SAUTE3)
+    case ACTION_SAUTE3:
         return 3;
-    if (action == ACTION_SAUTE4)
+    case ACTION_SAUTE4:
         return 4;
-    if (action == ACTION_SAUTE5)
+    case ACTION_SAUTE5:
         return 5;
+    }
 
     return 1;
 }

@@ -285,8 +285,8 @@ public:
     void    BlupiSetArrow (Sint32 rank, bool bArrow);
     void    InitOutlineRect();
     void    BlupiHiliDown (POINT pos, bool bAdd = false);
-    void    BlupiHiliMove (POINT pos, bool bAdd = false);
-    void    BlupiHiliUp (POINT pos, bool bAdd = false);
+    void    BlupiHiliMove (POINT pos);
+    void    BlupiHiliUp (POINT pos);
     void    BlupiDrawHili();
     Sint32      GetDefButton (POINT cel);
     bool    BlupiGoal (Sint32 rank, Sint32 button, POINT cel, POINT cMem);
@@ -550,4 +550,4 @@ POINT GetCel (POINT cel, Sint32 x, Sint32 y);
 bool IsValid (POINT cel);
 POINT GetVector (Sint32 direct);
 extern Sint32 table_multi_goal[];
-extern Sint16 table_actions[];
+extern const Sint16 table_actions[];

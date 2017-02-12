@@ -1,8 +1,7 @@
-// blupi.cpp
-//
 
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "blupi.h"
 #include "def.h"
 #include "resource.h"
@@ -17,36 +16,33 @@
 #include "misc.h"
 
 
-// Dï¿½finitions globales
+// Global definitions
 
 #define NAME            "Blupi"
 #define TITLE           "Blupi"
 
+// Global variables
 
-// Variables globales
-
-SDL_Window *g_window;
+SDL_Window   *g_window;
 SDL_Renderer *g_renderer;
-CEvent     *g_pEvent  = nullptr;
-CPixmap    *g_pPixmap = nullptr;        // pixmap principal
-CSound     *g_pSound  = nullptr;        // sound principal
-CMovie     *g_pMovie  = nullptr;        // movie principal
-CDecor     *g_pDecor  = nullptr;
-bool        g_bFullScreen = false;  // false si mode de test
-Sint32          g_speedRate = 1;
-Sint32          g_timerInterval = 50;   // inverval = 50ms
-Sint32          g_mouseType = MOUSETYPEGRA;
-bool        g_bActive = true;       // is application active ?
-bool        g_bTermInit = false;    // initialisation en cours
 
-Uint32      g_lastPhase = 999;
+CEvent  *g_pEvent  = nullptr;
+CPixmap *g_pPixmap = nullptr;        // pixmap principal
+CSound  *g_pSound  = nullptr;        // sound principal
+CMovie  *g_pMovie  = nullptr;        // movie principal
+CDecor  *g_pDecor  = nullptr;
 
-
-
+bool   g_bFullScreen = false;  // false si mode de test
+Sint32 g_speedRate = 1;
+Sint32 g_timerInterval = 50;   // inverval = 50ms
+Sint32 g_mouseType = MOUSETYPEGRA;
+bool   g_bActive = true;       // is application active ?
+bool   g_bTermInit = false;    // initialisation en cours
+Uint32 g_lastPhase = 999;
 
 // Lit un numï¿½ro dï¿½cimal.
 
-Sint32 GetNum (char *p)
+static Sint32 GetNum (char *p)
 {
     Sint32      n = 0;
 
@@ -61,7 +57,7 @@ Sint32 GetNum (char *p)
 
 // Lit le fichier de configuration.
 
-bool ReadConfig (Sint32 argc, char *argv[])
+static bool ReadConfig ()
 {
     FILE       *file    = nullptr;
     char        buffer[200];
@@ -118,10 +114,9 @@ bool ReadConfig (Sint32 argc, char *argv[])
     return true;
 }
 
+// Main frame update
 
-// Mise ï¿½ jour principale.
-
-void UpdateFrame (void)
+static void UpdateFrame (void)
 {
     RECT            clip, rcRect;
     Uint32          phase;
@@ -218,45 +213,26 @@ void UpdateFrame (void)
     }
 }
 
+// Restore the game after a fullscreen enabling
 
-void Benchmark()
-{
-    Sint32      i;
-    POINT   pos = { 0, 0 };
-
-    g_pPixmap->DrawIcon (-1, 2, 10, pos, 0);
-
-    pos.x = 300;
-    pos.y = 350;
-    for (i = 0 ; i < 10000 ; i++)
-        g_pPixmap->DrawIcon (-1, 2, i % 4, pos, 0);
-
-    g_pPixmap->DrawIcon (-1, 2, 10, pos, 0);
-    g_pSound->Play (0);
-}
-
-
-// Restitue le jeu aprï¿½s une activation en mode fullScreen.
-
-bool RestoreGame()
+static bool RestoreGame ()
 {
     if (g_pPixmap == nullptr)
         return false;
 
-    g_pEvent->RestoreGame();
+    g_pEvent->RestoreGame ();
     return true;
 }
 
-// Libï¿½re le jeu avant une dï¿½sactivation en mode fullScreen.
+// Flush the game before a fullscreen disabling
 
-bool FlushGame()
+static bool FlushGame ()
 {
     if (g_pPixmap == nullptr)
         return false;
 
-    return g_pPixmap->Flush();
+    return g_pPixmap->Flush ();
 }
-
 
 // Finished with all objects we use; release them.
 
@@ -295,9 +271,9 @@ static void FinishObjects (void)
     }
 }
 
-void WindowProc2 (const SDL_Event &event)
+static void WindowProc2 (const SDL_Event &event)
 {
-    POINT               totalDim, iconDim;
+    POINT totalDim, iconDim;
 
     if (g_pEvent != nullptr &&
         g_pEvent->TreatEvent (event))
@@ -419,7 +395,7 @@ static bool DoInit (Sint32 argc, char *argv[])
     RECT            rcRect;
     bool            bOK;
 
-    bOK = ReadConfig (argc, argv); // lit le fichier config.ini
+    bOK = ReadConfig (); // lit le fichier config.ini
 
     auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
     if (res < 0)
@@ -435,7 +411,7 @@ static bool DoInit (Sint32 argc, char *argv[])
 
     if (!g_window)
     {
-        printf (SDL_GetError());
+        printf ("%s", SDL_GetError ());
         return false;
     }
 
@@ -444,7 +420,7 @@ static bool DoInit (Sint32 argc, char *argv[])
                                      SDL_RENDERER_PRESENTVSYNC);
     if (!g_renderer)
     {
-        printf (SDL_GetError());
+        printf ("%s", SDL_GetError ());
         SDL_DestroyWindow (g_window);
         return false;
     }
@@ -617,10 +593,9 @@ static bool DoInit (Sint32 argc, char *argv[])
     return true;
 }
 
-
 // Programme principal.
 
-Sint32 main (Sint32 argc, char *argv[])
+int main (int argc, char *argv[])
 {
     if (!DoInit (argc, argv))
         return -1;

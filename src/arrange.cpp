@@ -1,5 +1,3 @@
-// Arrange.cpp
-//
 
 #include "decor.h"
 #include "misc.h"
@@ -8,7 +6,7 @@
 // l'eau lorsque la valeur est à un.
 //      0  1
 //      2  3
-static char tableSee[14 * 4] =
+static const char tableSee[14 * 4] =
 {
     0, 0, 0, 0, // 1
     0, 1, 0, 1, // 2
@@ -30,7 +28,7 @@ static char tableSee[14 * 4] =
 // la mousse ou de la terre lorsque la valeur est à un.
 //      0  1
 //      2  3
-static char tableDark[13 * 4] =
+static const char tableDark[13 * 4] =
 {
     1, 1, 1, 1, // 20
     0, 1, 0, 1, // 21
@@ -121,13 +119,13 @@ bool CDecor::GetSeeBits (POINT cel, char *pBits, Sint32 index)
     return true;
 }
 
-void CopyBits (char *pDst, char *pSrc)
+static void CopyBits (char *pDst, char *pSrc)
 {
     for (Sint32 i = 0 ; i < 4 ; i++)
         *pDst++ = *pSrc++;
 }
 
-bool ChangeBits (char *pDst, char *pSrc)
+static bool ChangeBits (char *pDst, char *pSrc)
 {
     for (Sint32 i = 0 ; i < 4 ; i++)
     {
@@ -371,11 +369,9 @@ void CDecor::ArrangeFloor (POINT cel)
     }
 }
 
-
-
 // Cette table donne les directions dans l'ordre
 // est-sud-ouest-nord pour les murs.
-static char tableMur[5 * 15] =
+static const char tableMur[5 * 15] =
 {
     20, 1, 0, 1, 0,
     21, 0, 1, 0, 1,
@@ -396,7 +392,7 @@ static char tableMur[5 * 15] =
     21, 0, 0, 0, 1,
 };
 
-static Sint16 tableMurDir[4 * 2] =
+static const Sint16 tableMurDir[4 * 2] =
 {
     +2, 0,      // est
     0, +2,     // sur
@@ -685,8 +681,6 @@ void CDecor::ArrangeObject (POINT cel)
     }
 }
 
-
-
 // Test s'il faut remplir le sol ici.
 
 bool CDecor::ArrangeFillTestFloor (POINT cel1, POINT cel2)
@@ -907,7 +901,6 @@ void CDecor::ArrangeFill (POINT pos, Sint32 channel, Sint32 icon, bool bFloor)
     free (m_pFillMap);
 }
 
-
 // Supprime tous les personnages bloqués dans des murs
 // ou debout sur l'eau.
 
@@ -924,4 +917,3 @@ void CDecor::ArrangeBlupi()
         }
     }
 }
-

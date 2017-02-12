@@ -3367,7 +3367,7 @@ bool CEvent::PlayMove (POINT pos, Uint16 mod)
     if (m_bMouseDown)    // bouton souris pressé ?
     {
         if (m_bHili)
-            m_pDecor->BlupiHiliMove (pos, !! (mod & KMOD_SHIFT));
+            m_pDecor->BlupiHiliMove (pos);
         else
             m_pDecor->CelHili (pos, 0);
     }
@@ -3393,7 +3393,7 @@ bool CEvent::PlayUp (POINT pos, Uint16 mod)
     if (m_bMouseDown)    // bouton souris pressé ?
     {
         if (m_bHili)
-            m_pDecor->BlupiHiliUp (pos, !! (mod & KMOD_SHIFT));
+            m_pDecor->BlupiHiliUp (pos);
         else
         {
             m_pDecor->BlupiGetButtons (pos, m_menuNb, m_menuButtons,
