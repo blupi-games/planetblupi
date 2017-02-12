@@ -78,7 +78,7 @@ static Phase table[] =
 {
     {
         WM_PHASE_TESTCD,
-        "image/init.blp",
+        "image/init.png",
         false,
         {
             {
@@ -89,7 +89,7 @@ static Phase table[] =
 
     {
         WM_PHASE_INTRO1,
-        "image/intro1.blp",
+        "image/intro1.png",
         false,
         {
             {
@@ -100,7 +100,7 @@ static Phase table[] =
 
     {
         WM_PHASE_INTRO2,
-        "image/intro2.blp",
+        "image/intro2.png",
         false,
         {
             {
@@ -111,7 +111,7 @@ static Phase table[] =
 
     {
         WM_PHASE_INIT,
-        "image/init.blp",
+        "image/init.png",
         false,
         {
             {
@@ -152,7 +152,7 @@ static Phase table[] =
 
     {
         WM_PHASE_HISTORY0,
-        "image/history0.blp",
+        "image/history0.png",
         true,
         {
             {
@@ -175,7 +175,7 @@ static Phase table[] =
 
     {
         WM_PHASE_HISTORY1,
-        "image/history1.blp",
+        "image/history1.png",
         true,
         {
             {
@@ -198,7 +198,7 @@ static Phase table[] =
 
     {
         WM_PHASE_INFO,
-        "image/info%.3d.blp",
+        "image/info%.3d.png",
         false,
         {
             {
@@ -263,7 +263,7 @@ static Phase table[] =
 
     {
         WM_PHASE_PLAY,
-        "image/play.blp",
+        "image/play.png",
         false,
         {
             {
@@ -292,7 +292,7 @@ static Phase table[] =
 
     {
         WM_PHASE_STOP,
-        "image/stop%.3d.blp",
+        "image/stop%.3d.png",
         false,
         {
             {
@@ -339,7 +339,7 @@ static Phase table[] =
 
     {
         WM_PHASE_HELP,
-        "image/help.blp",
+        "image/help.png",
         true,
         {
             {
@@ -380,7 +380,7 @@ static Phase table[] =
 
     {
         WM_PHASE_SETUP,
-        "image/setup.blp",
+        "image/setup.png",
         false,
         {
             {
@@ -457,7 +457,7 @@ static Phase table[] =
 
     {
         WM_PHASE_SETUPp,
-        "image/setup.blp",
+        "image/setup.png",
         false,
         {
             {
@@ -534,7 +534,7 @@ static Phase table[] =
 
     {
         WM_PHASE_READ,
-        "image/read.blp",
+        "image/read.png",
         false,
         {
             {
@@ -611,7 +611,7 @@ static Phase table[] =
 
     {
         WM_PHASE_WRITE,
-        "image/write.blp",
+        "image/write.png",
         false,
         {
             {
@@ -688,7 +688,7 @@ static Phase table[] =
 
     {
         WM_PHASE_WRITEp,
-        "image/write.blp",
+        "image/write.png",
         false,
         {
             {
@@ -765,7 +765,7 @@ static Phase table[] =
 
     {
         WM_PHASE_LOST,
-        "image/lost.blp",
+        "image/lost.png",
         true,
         {
             {
@@ -782,7 +782,7 @@ static Phase table[] =
 
     {
         WM_PHASE_WIN,
-        "image/win.blp",
+        "image/win.png",
         true,
         {
             {
@@ -799,7 +799,7 @@ static Phase table[] =
 
     {
         WM_PHASE_LASTWIN,
-        "image/last%.3d.blp",
+        "image/last%.3d.png",
         true,
         {
             {
@@ -816,7 +816,7 @@ static Phase table[] =
 
     {
         WM_PHASE_BUILD,
-        "image/build.blp",
+        "image/build.png",
         true,
         {
             {
@@ -931,7 +931,7 @@ static Phase table[] =
 
     {
         WM_PHASE_BUTTON,
-        "image/button.blp",
+        "image/button.png",
         true,
         {
             {
@@ -1151,7 +1151,7 @@ static Phase table[] =
 
     {
         WM_PHASE_TERM,
-        "image/term.blp",
+        "image/term.png",
         true,
         {
             {
@@ -1240,7 +1240,7 @@ static Phase table[] =
 
     {
         WM_PHASE_MUSIC,
-        "image/music.blp",
+        "image/music.png",
         true,
         {
             {
@@ -1317,7 +1317,7 @@ static Phase table[] =
 
     {
         WM_PHASE_REGION,
-        "image/region.blp",
+        "image/region.png",
         true,
         {
             {
@@ -1358,7 +1358,7 @@ static Phase table[] =
 
     {
         WM_PHASE_PLAYMOVIE,
-        "image/movie.blp",
+        "image/movie.png",
         false,
         {
             {
@@ -1369,7 +1369,7 @@ static Phase table[] =
 
     {
         WM_PHASE_WINMOVIE,
-        "image/movie.blp",
+        "image/movie.png",
         false,
         {
             {
@@ -1380,7 +1380,7 @@ static Phase table[] =
 
     {
         WM_PHASE_H0MOVIE,
-        "image/movie.blp",
+        "image/movie.png",
         false,
         {
             {
@@ -1391,7 +1391,7 @@ static Phase table[] =
 
     {
         WM_PHASE_H1MOVIE,
-        "image/movie.blp",
+        "image/movie.png",
         false,
         {
             {
@@ -1402,7 +1402,7 @@ static Phase table[] =
 
     {
         WM_PHASE_H2MOVIE,
-        "image/movie.blp",
+        "image/movie.png",
         false,
         {
             {
@@ -1413,7 +1413,7 @@ static Phase table[] =
 
     {
         WM_PHASE_BYE,
-        "image/bye.blp",
+        "image/bye.png",
         false,
         {
             {
@@ -1424,7 +1424,7 @@ static Phase table[] =
 
     {
         WM_PHASE_INSERT,
-        "image/insert.blp",
+        "image/insert.png",
         false,
         {
             {
