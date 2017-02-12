@@ -12,6 +12,8 @@
 #include <unistd.h>
 #endif /* !_WIN32 */
 
+#include <SDL2/SDL_image.h>
+
 #include "def.h"
 #include "pixmap.h"
 #include "misc.h"
@@ -196,10 +198,7 @@ bool CPixmap::Cache (Sint32 channel, const char *pFilename, POINT totalDim,
         return false;
 
     std::string file = GetBaseDir() + pFilename;
-    if (access ((file + ".bmp").c_str(), 0 /* F_OK */) != -1)
-        file += ".bmp";
-
-    SDL_Surface *surface = SDL_LoadBMP (file.c_str());
+    SDL_Surface *surface = IMG_Load (file.c_str());
 
     if (channel == CHBLUPI)
         m_lpSDLBlupi = surface;

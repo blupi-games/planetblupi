@@ -39,6 +39,7 @@ find_package (SDL2 REQUIRED)
 
 find_package (PkgConfig REQUIRED)
 pkg_search_module (SDL2_MIXER REQUIRED SDL2_mixer)
+pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
 
 ##################
 ## SDL_kitchensink
@@ -60,5 +61,6 @@ target_link_libraries (planetblupi PUBLIC
   ${Intl_LIBRARIES}
   ${SDL2_LIBRARIES}
   ${SDL2_MIXER_LIBRARIES}
+  ${SDL2_IMAGE_LIBRARIES}
   ${install_dir}/lib/libSDL_kitchensink.dll.a
 )
