@@ -1493,6 +1493,7 @@ CEvent::CEvent()
     m_pDemoBuffer   = nullptr;
     m_demoTime      = 0;
     m_keymod        = 0;
+    m_posHelpButton = {-1, -1};
 
     for (i = 0 ; i < MAXBUTTON ; i++)
         m_lastFloor[i] = 0;
