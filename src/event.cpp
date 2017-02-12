@@ -2558,7 +2558,7 @@ bool CEvent::EventButtons (const SDL_Event &event, POINT pos)
             const auto text = m_buttons[i].GetToolTips (pos);
             if (text)
             {
-                snprintf (m_textToolTips, sizeof (m_textToolTips), text);
+                snprintf (m_textToolTips, sizeof (m_textToolTips), "%s", text);
                 lg = GetTextWidth (m_textToolTips);
                 pos.x += 10;
                 pos.y += 20;
