@@ -39,6 +39,7 @@ Sint32 g_mouseType = MOUSETYPEGRA;
 bool   g_bActive = true;       // is application active ?
 bool   g_bTermInit = false;    // initialisation en cours
 Uint32 g_lastPhase = 999;
+int    g_rendererType = 0;
 
 // Lit un numï¿½ro dï¿½cimal.
 
@@ -109,6 +110,15 @@ static bool ReadConfig ()
             g_mouseType = 1;
         if (g_mouseType > 9)
             g_mouseType = 9;
+    }
+
+    pText = strstr (buffer, "Renderer=");
+    if (pText)
+    {
+        if (!strncmp (pText + 9, "software", 8))
+            g_rendererType = SDL_RENDERER_SOFTWARE;
+        else if (!strncmp (pText + 9, "accelerated", 11))
+            g_rendererType = SDL_RENDERER_ACCELERATED;
     }
 
     return true;
@@ -417,20 +427,12 @@ static bool DoInit (Sint32 argc, char *argv[])
         return false;
     }
 
-    g_renderer = SDL_CreateRenderer (g_window, -1,
-                                     SDL_RENDERER_ACCELERATED | SDL_RENDERER_TARGETTEXTURE);
+    g_renderer = SDL_CreateRenderer (g_window, -1, g_rendererType | SDL_RENDERER_TARGETTEXTURE);
     if (!g_renderer)
     {
         printf ("%s", SDL_GetError ());
-
-        g_renderer = SDL_CreateRenderer (g_window, -1,
-                                         SDL_RENDERER_SOFTWARE | SDL_RENDERER_TARGETTEXTURE);
-        if (!g_renderer)
-        {
-            printf ("%s", SDL_GetError ());
-            SDL_DestroyWindow (g_window);
-            return false;
-        }
+        SDL_DestroyWindow (g_window);
+        return false;
     }
 
     SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
