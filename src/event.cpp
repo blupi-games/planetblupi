@@ -4146,7 +4146,7 @@ bool CEvent::WriteInfo()
 {
     char        filename[MAX_PATH];
     FILE       *file = nullptr;
-    DescInfo    info;
+    DescInfo    info = { 0 };
     size_t      nb;
 
     strcpy (filename, "data/info.blp");

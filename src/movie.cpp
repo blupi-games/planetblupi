@@ -159,6 +159,8 @@ CMovie::CMovie()
     m_player   = nullptr;
     m_videoTex = nullptr;
     pinfo      = nullptr;
+
+    m_ret = 0;
 }
 
 // Destructeur.
