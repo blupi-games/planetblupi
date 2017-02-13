@@ -137,6 +137,8 @@ static void UpdateFrame (void)
 
     phase = g_pEvent->GetPhase();
 
+    SDL_RenderClear (g_renderer);
+
     rcRect.left   = 0;
     rcRect.top    = 0;
     rcRect.right  = LXIMAGE;
