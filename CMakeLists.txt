@@ -64,3 +64,22 @@ target_link_libraries (planetblupi PUBLIC
   ${SDL2_IMAGE_LIBRARIES}
   ${install_dir}/lib/libSDL_kitchensink.dll.a
 )
+
+## GetText
+
+find_package (Gettext)
+
+set (_potFile ${PROJECT_NAME}.pot)
+
+add_custom_command (OUTPUT ${_potFile}
+    COMMAND xgettext --keyword=translate --keyword=ptranslate:1c,2 -o ${_potFile} ${sources}
+    DEPENDS ${_src_list}
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    COMMENT "Extract translatable messages to ${_potFile}"
+)
+
+add_custom_target (pot_file ALL ${_all}
+    DEPENDS ${_potFile}
+)
+
+# GETTEXT_CREATE_TRANSLATIONS (${PROJECT_NAME}.pot ALL en.po)
