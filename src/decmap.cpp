@@ -480,11 +480,25 @@ color:
 
 bool CDecor::GenerateMap()
 {
-    POINT       dim, pos, cel;
-    Sint32          dx, rank, i;
+    POINT  pos, cel;
+    Sint32 dx, rank, i;
 
-    if (m_phase != -1 && m_phase % 20 != 0)
+    auto DrawMap = [&] () -> bool
+    {
+        if (!m_SurfaceMap)
+            return true;
+
+        POINT dim = { DIMMAPX, DIMMAPY };
+        m_pPixmap->Cache (CHMAP, m_SurfaceMap, dim);
+
+        POINT pos = { POSMAPX, POSMAPY };
+        m_pPixmap->DrawIcon (-1, CHMAP, 0, pos);
+
         return true;
+    };
+
+    if (m_phase != -1 && m_phase % 2 != 0)
+        return DrawMap ();
 
     // Dessine le décor (sol, objets et brouillard).
     for (pos.y = 0 ; pos.y < DIMMAPY ; pos.y++)
@@ -532,18 +546,11 @@ bool CDecor::GenerateMap()
         g_map32_bits[i][pos.x + MAPCADREX] = m_colors[MAP_CADRE];
     }
 
-    SDL_Surface *surface = SDL_CreateRGBSurfaceFrom (g_map32_bits, DIMMAPX, DIMMAPY,
+    if (m_SurfaceMap)
+        SDL_FreeSurface (m_SurfaceMap);
+
+    m_SurfaceMap = SDL_CreateRGBSurfaceFrom (g_map32_bits, DIMMAPX, DIMMAPY,
                            32, 4 * DIMMAPX, 0, 0, 0, 0);
-
-    dim.x = DIMMAPX;
-    dim.y = DIMMAPY;
-    m_pPixmap->Cache (CHMAP, surface, dim);
-
-    pos.x = POSMAPX;
-    pos.y = POSMAPY;
-    m_pPixmap->DrawIcon (-1, CHMAP, 0, pos);
-
-    SDL_FreeSurface (surface);
-    return true;
+    return DrawMap ();
 }
 

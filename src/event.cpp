@@ -1558,10 +1558,10 @@ void CEvent::Create (CPixmap *pPixmap, CDecor *pDecor,
 
     pos.x = 10;
     pos.y = 158;
-    m_jauges[0].Create (m_pPixmap, m_pSound, pos, 1, true);
+    m_jauges[0].Create (m_pPixmap, m_pSound, pos, 1);
 
     pos.y += DIMJAUGEY + 2;
-    m_jauges[1].Create (m_pPixmap, m_pSound, pos, 3, true);
+    m_jauges[1].Create (m_pPixmap, m_pSound, pos, 3);
 }
 
 
@@ -1678,23 +1678,8 @@ void CEvent::SetMenu (Sint32 button, Sint32 menu)
 
 void CEvent::RestoreGame()
 {
-    Sint32      i;
-
-    if (m_phase == WM_PHASE_PLAY)
-    {
-        if (m_index < 0)
-            return;
-
-        i = 0;
-        while (table[m_index].buttons[i].message != 0)
-        {
-            m_buttons[i].Redraw();  // faudra redessiner
-            i ++;
-        }
-
-        for (i = 0 ; i < 2 ; i++)
-            m_jauges[i].Redraw();
-    }
+    if (m_phase == WM_PHASE_PLAY && m_index < 0)
+        return;
 
     HideMouse (false);
     WaitMouse (true);
@@ -1708,10 +1693,6 @@ bool CEvent::CreateButtons ()
 {
     Sint32          i = 0, message;
     POINT       pos;
-    bool        bMinimizeRedraw = false;
-
-    if (m_phase == WM_PHASE_PLAY)
-        bMinimizeRedraw = true;
 
     if (m_index < 0)
         return false;
@@ -1738,7 +1719,6 @@ bool CEvent::CreateButtons ()
 
         m_buttons[i].Create (m_pPixmap, m_pSound, pos,
                              table[m_index].buttons[i].type,
-                             bMinimizeRedraw,
                              table[m_index].buttons[i].iconMenu + 1,
                              table[m_index].buttons[i].iconMenu[0],
                              table[m_index].buttons[i].toolTips,
@@ -2514,12 +2494,11 @@ void CEvent::HideMouse (bool bHide)
 
 bool CEvent::EventButtons (const SDL_Event &event, POINT pos)
 {
-    POINT       test;
-    Sint32          lg, oldx, sound;
+    POINT  test;
+    Sint32 lg, sound;
 
     // Cherche le tool tips à utiliser pour la souris.
     m_textToolTips[0] = 0;
-    oldx = m_posToolTips.x;
     m_posToolTips.x = -1;
 
     const auto progress = [&] (CJauge & progress, const char *text) -> bool
@@ -2548,12 +2527,6 @@ bool CEvent::EventButtons (const SDL_Event &event, POINT pos)
         const auto spotted = progress (m_jauges[0], gettext ("Blupi's energy"));
         if (!spotted)
             progress (m_jauges[1], gettext ("Work done"));
-
-        if (oldx != m_posToolTips.x)
-        {
-            for (Sint32 i = 0; i < 2; i++)
-                m_jauges[i].SetRedraw();
-        }
     }
     else
     {

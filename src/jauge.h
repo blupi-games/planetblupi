@@ -15,9 +15,8 @@ public:
     ~CJauge();
 
     bool    Create (CPixmap *pPixmap, CSound *pSound,
-                    POINT pos, Sint32 type, bool bMinimizeRedraw);
+                    POINT pos, Sint32 type);
     void    Draw();
-    void    Redraw();
 
     void    SetLevel (Sint32 level);
     void    SetType (Sint32 type);
@@ -26,7 +25,6 @@ public:
     void    SetHide (bool bHide);
 
     POINT   GetPos();
-    void    SetRedraw();
 
 protected:
     CPixmap    *m_pPixmap;
@@ -37,8 +35,6 @@ protected:
     POINT       m_dim;          // dimensions
     Sint32          m_type;
     Sint32          m_level;
-    bool        m_bMinimizeRedraw;
-    bool        m_bRedraw;      // true -> doit être redessiné
 };
 
 /////////////////////////////////////////////////////////////////////////////

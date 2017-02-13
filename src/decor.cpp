@@ -133,6 +133,7 @@ CDecor::CDecor()
     m_region        = 0;
     m_lastRegion    = 999;
     m_skill         = 0;
+    m_SurfaceMap    = nullptr;
 
     Init (CHFLOOR, 0);
     BlupiFlush();
@@ -144,6 +145,9 @@ CDecor::CDecor()
 
 CDecor::~CDecor()
 {
+    if (m_SurfaceMap)
+        SDL_FreeSurface (m_SurfaceMap);
+
     UndoClose();  // libère le buffer du undo
 }
 

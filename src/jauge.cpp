@@ -20,8 +20,6 @@ CJauge::CJauge()
 {
     m_type            = 0;
     m_bHide           = true;
-    m_bMinimizeRedraw = false;
-    m_bRedraw         = false;
 }
 
 // Destructeur.
@@ -34,18 +32,16 @@ CJauge::~CJauge()
 // Crée un nouveau bouton.
 
 bool CJauge::Create (CPixmap *pPixmap, CSound *pSound,
-                     POINT pos, Sint32 type, bool bMinimizeRedraw)
+                     POINT pos, Sint32 type)
 {
     m_pPixmap         = pPixmap;
     m_pSound          = pSound;
     m_type            = type;
-    m_bMinimizeRedraw = bMinimizeRedraw;
     m_bHide           = true;
     m_pos             = pos;
     m_dim.x           = DIMJAUGEX;
     m_dim.y           = DIMJAUGEY;
     m_level           = 0;
-    m_bRedraw         = true;
 
     return true;
 }
@@ -56,10 +52,6 @@ void CJauge::Draw()
 {
     Sint32          part;
     RECT        rect;
-
-    if (m_bMinimizeRedraw && !m_bRedraw)
-        return;
-    m_bRedraw = false;
 
     if (m_bHide)    // bouton caché ?
     {
@@ -89,13 +81,6 @@ void CJauge::Draw()
     }
 }
 
-// Redessine une jauge.
-
-void CJauge::Redraw()
-{
-    m_bRedraw = true;
-}
-
 // Modifie le niveau.
 
 void CJauge::SetLevel (Sint32 level)
@@ -105,9 +90,6 @@ void CJauge::SetLevel (Sint32 level)
     if (level > 100)
         level = 100;
 
-    if (m_level != level)
-        m_bRedraw = true;
-
     m_level = level;
 }
 
@@ -115,9 +97,6 @@ void CJauge::SetLevel (Sint32 level)
 
 void CJauge::SetType (Sint32 type)
 {
-    if (m_type != type)
-        m_bRedraw = true;
-
     m_type = type;
 }
 
@@ -129,19 +108,11 @@ bool CJauge::GetHide()
 
 void CJauge::SetHide (bool bHide)
 {
-    if (m_bHide != bHide)
-        m_bRedraw = true;
-
     m_bHide = bHide;
 }
 
 POINT CJauge::GetPos()
 {
     return m_pos;
-}
-
-void CJauge::SetRedraw()
-{
-    m_bRedraw = true;
 }
 

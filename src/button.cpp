@@ -23,8 +23,6 @@ CButton::CButton()
     m_nbToolTips      = 0;
     m_selMenu         = 0;
     m_bMouseDown      = false;
-    m_bMinimizeRedraw = false;
-    m_bRedraw         = false;
     m_message         = static_cast<Uint32> (-1);
 }
 
@@ -33,7 +31,7 @@ CButton::~CButton () {}
 // Crée un nouveau bouton.
 
 bool CButton::Create (CPixmap *pPixmap, CSound *pSound,
-                      POINT pos, Sint32 type, bool bMinimizeRedraw,
+                      POINT pos, Sint32 type,
                       Sint32 *pMenu, Sint32 nbMenu,
                       const char **pToolTips,
                       Sint32 region, Uint32 message)
@@ -55,7 +53,6 @@ bool CButton::Create (CPixmap *pPixmap, CSound *pSound,
     m_pPixmap         = pPixmap;
     m_pSound          = pSound;
     m_type            = type;
-    m_bMinimizeRedraw = bMinimizeRedraw;
     m_bEnable         = true;
     m_bHide           = false;
     m_message         = message;
@@ -66,7 +63,6 @@ bool CButton::Create (CPixmap *pPixmap, CSound *pSound,
     m_state           = 0;
     m_mouseState      = 0;
     m_bMouseDown      = false;
-    m_bRedraw         = true;
 
     m_nbToolTips = 0;
     while (pToolTips[m_nbToolTips])
@@ -130,10 +126,6 @@ void CButton::Draw ()
     POINT       pos;
     RECT        rect;
 
-    if (m_bMinimizeRedraw && !m_bRedraw)
-        return;
-    m_bRedraw = false;
-
     if (m_bHide)    // bouton caché ?
     {
         rect.left   = m_pos.x;
@@ -172,11 +164,6 @@ void CButton::Draw ()
     }
 }
 
-void CButton::Redraw ()
-{
-    m_bRedraw = true;
-}
-
 Sint32 CButton::GetState ()
 {
     return m_state;
@@ -184,10 +171,6 @@ Sint32 CButton::GetState ()
 
 void CButton::SetState (Sint32 state)
 {
-    if (m_state      != state ||
-        m_mouseState != state)
-        m_bRedraw = true;
-
     m_state      = state;
     m_mouseState = state;
 }
@@ -199,9 +182,6 @@ Sint32 CButton::GetMenu ()
 
 void CButton::SetMenu (Sint32 menu)
 {
-    if (m_selMenu != menu)
-        m_bRedraw = true;
-
     m_selMenu = menu;
 }
 
@@ -213,9 +193,6 @@ bool CButton::GetEnable ()
 
 void CButton::SetEnable (bool bEnable)
 {
-    if (m_bEnable != bEnable)
-        m_bRedraw = true;
-
     m_bEnable = bEnable;
 }
 
@@ -226,9 +203,6 @@ bool CButton::GetHide ()
 
 void CButton::SetHide (bool bHide)
 {
-    if (m_bHide != bHide)
-        m_bRedraw = true;
-
     m_bHide = bHide;
 }
 
@@ -354,7 +328,7 @@ bool CButton::MouseDown (POINT pos)
 
     m_mouseState = 1;
     m_bMouseDown = true;
-    m_bRedraw    = true;
+
     CEvent::PushUserEvent (WM_UPDATE);
 
     m_pSound->PlayImage (SOUND_CLICK, pos);
@@ -399,10 +373,7 @@ bool CButton::MouseMove (POINT pos)
 
     if (iState != m_mouseState ||
         iMenu  != m_selMenu)
-    {
-        m_bRedraw = true;
         CEvent::PushUserEvent (WM_UPDATE);
-    }
 
     return m_bMouseDown;
 }
@@ -417,7 +388,6 @@ bool CButton::MouseUp (POINT pos)
 
     m_mouseState = m_state;
     m_bMouseDown = false;
-    m_bRedraw    = true;
 
     if (!bDetect)
         return false;

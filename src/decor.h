@@ -490,7 +490,6 @@ protected:
     Sint32          m_bStatDown;        // flèche down statistique
     Sint32          m_statHili;         // statistique survolée
     bool        m_bStatRecalc;      // true -> recalcule les statistiques
-    bool        m_bStatRedraw;      // true -> redessine les statistiques
     Sint32          m_nbStatHach;       // nb de hachures
     Sint32          m_nbStatHachBlupi;  // hachures occupées par blupi
     Sint32          m_nbStatHachPlanche;// hachures occupées par planches
@@ -535,6 +534,8 @@ protected:
     Sint32          m_fillPutChannel;
     Sint32          m_fillPutIcon;
     char       *m_pFillMap;
+
+    SDL_Surface *m_SurfaceMap;
 };
 
 // (*)  Régions :

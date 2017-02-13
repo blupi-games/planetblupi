@@ -401,7 +401,6 @@ void CDecor::StatisticInit()
     m_bStatDown = false;
     m_statHili  = -1;
     m_bStatRecalc = true;  // faudra tout recalculer
-    m_bStatRedraw = true;  // faudra tout redessiner
 }
 
 
@@ -599,7 +598,6 @@ void CDecor::StatisticUpdate()
     }
 
     m_bStatRecalc = false;  // c'est calculé
-    m_bStatRedraw = true;   // faudra tout redessiner
 }
 
 // Retourne le nombre de blupi.
@@ -737,8 +735,6 @@ next:
         pos.x += (POSDRAWX - nb) / 2;
         DrawText (m_pPixmap, pos, textRes);
     }
-
-    m_bStatRedraw = false;  // dessin plus nécessaire
 }
 
 // Génère les statistiques.
@@ -753,10 +749,7 @@ void CDecor::GenerateStatictic()
         StatisticUpdate();  // met à jour les compteurs
     }
 
-    if (m_bStatRedraw)
-    {
-        StatisticDraw();  // redessine tout
-    }
+    StatisticDraw();  // redessine tout
 }
 
 
@@ -952,10 +945,7 @@ bool CDecor::StatisticMove (POINT pos)
     rank = StatisticDetect (pos);
 
     if (rank != m_statHili)    // autre mise en évidence ?
-    {
         m_statHili = rank;
-        m_bStatRedraw = true;  // faudra tout redessiner
-    }
 
     return false;
 }

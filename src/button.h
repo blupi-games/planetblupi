@@ -10,12 +10,11 @@ public:
     ~CButton();
 
     bool Create (CPixmap *pPixmap, CSound *pSound,
-                 POINT pos, Sint32 type, bool bMinimizeRedraw,
+                 POINT pos, Sint32 type,
                  Sint32 *pMenu, Sint32 nbMenu,
                  const char **pToolTips,
                  Sint32 region, Uint32 message);
     void Draw();
-    void Redraw();
 
     Sint32 GetState();
     void   SetState (Sint32 state);
@@ -63,6 +62,4 @@ protected:
     Sint32 m_selMenu;    // sous-menu sélectionné
 
     bool m_bMouseDown;   // true -> bouton souris pressé
-    bool m_bRedraw;      // true -> doit être redessiné
-    bool m_bMinimizeRedraw;
 };
