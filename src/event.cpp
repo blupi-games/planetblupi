@@ -1928,9 +1928,9 @@ bool CEvent::DrawButtons()
             DrawTextCenter (gettext ("Game paused"), (10 + 134) / 2, 20);
         else
         {
-            if (m_bDemoRec)    // démo en enregistrement ?
+            if (m_bDemoRec)    // recording demo ?
                 DrawTextCenter (gettext ("REC"), (10 + 134) / 2, 20, FONTRED);
-            if (m_bDemoPlay)    // démo en restitution ?
+            if (m_bDemoPlay)    // playing demo ?
                 DrawTextCenter (gettext ("Demo"), (10 + 134) / 2, 20, FONTRED);
         }
 

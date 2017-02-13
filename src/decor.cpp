@@ -3191,7 +3191,7 @@ const char *CDecor::GetResHili (POINT posMouse)
                 if (m_blupi[m_rankHili].bMalade)
                     return gettext ("Sick Blupi");
                 return gettext ("Blupi");
-            case 1:  // araignée ?
+            case 1:  // spider ?
                 return gettext ("Spider");
             case 2:  // virus ?
                 return gettext ("Virus");
