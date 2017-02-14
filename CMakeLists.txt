@@ -44,6 +44,7 @@ pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
 
 ##################
 ## SDL_kitchensink
+##################
 
 ExternalProject_Add (SDL_kitchensink_Project
   GIT_REPOSITORY https://github.com/katajakasa/SDL_kitchensink.git
@@ -65,8 +66,9 @@ endif ()
 
 add_dependencies (planetblupi SDL_kitchensink_Project)
 
-## SDL_kitchensink
-## ##################
+###########################
+## Main binary dependencies
+###########################
 
 target_link_libraries (planetblupi PUBLIC
   ${Intl_LIBRARIES}
@@ -76,7 +78,9 @@ target_link_libraries (planetblupi PUBLIC
   SDL_kitchensink
 )
 
+##########
 ## GetText
+##########
 
 find_package (Gettext)
 
