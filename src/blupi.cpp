@@ -600,10 +600,19 @@ static bool DoInit (Sint32 argc, char *argv[])
     return true;
 }
 
-// Programme principal.
-
-int main (int argc, char *argv[])
+static void initGettext ()
 {
+    setlocale (LC_ALL, "");
+    textdomain ("planetblupi");
+    bindtextdomain ("planetblupi", (GetBaseDir () + "share/locale").c_str ());
+}
+
+ // Programme principal.
+
+ int main (int argc, char *argv[])
+ {
+    initGettext ();
+
     if (!DoInit (argc, argv))
         return -1;
 
