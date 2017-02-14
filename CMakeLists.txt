@@ -21,6 +21,7 @@ file (GLOB_RECURSE data    resources/data/*)
 file (GLOB_RECURSE image   resources/image/*)
 file (GLOB_RECURSE movie   resources/movie/*)
 file (GLOB_RECURSE sound   resources/sound/*)
+file (GLOB_RECURSE po      resources/translations/*.po)
 
 include_directories (${CMAKE_CURRENT_SOURCE_DIR})
 
@@ -79,7 +80,7 @@ target_link_libraries (planetblupi PUBLIC
 
 find_package (Gettext)
 
-set (_potFile ${PROJECT_NAME}.pot)
+set (_potFile ${CMAKE_CURRENT_SOURCE_DIR}/resources/translations/${PROJECT_NAME}.pot)
 
 add_custom_command (OUTPUT ${_potFile}
     COMMAND xgettext --keyword=translate --keyword=ptranslate:1c,2 -o ${_potFile} ${sources}
@@ -92,4 +93,4 @@ add_custom_target (pot_file ALL ${_all}
     DEPENDS ${_potFile}
 )
 
-# GETTEXT_CREATE_TRANSLATIONS (${PROJECT_NAME}.pot ALL en.po)
+GETTEXT_CREATE_TRANSLATIONS (${_potFile} ALL ${po})
