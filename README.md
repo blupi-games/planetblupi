@@ -27,7 +27,7 @@ pacman -S --noconfirm --needed mingw-w64-x86_64-toolchain make mingw-w64-x86_64-
 
 **Install SDL2 development packages**
 ```
-pacman -S --noconfirm --needed mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_mixer
+pacman -S --noconfirm --needed mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_mixer mingw-w64-x86_64-SDL2_image
 ```
 
 **Install SDL_kitchensink dependencies**

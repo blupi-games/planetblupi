@@ -43,17 +43,27 @@ pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
 
 ##################
 ## SDL_kitchensink
-ExternalProject_Add (SDL_kitchensink
+
+ExternalProject_Add (SDL_kitchensink_Project
   GIT_REPOSITORY https://github.com/katajakasa/SDL_kitchensink.git
   PREFIX ${CMAKE_CURRENT_BINARY_DIR}
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
   INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-ExternalProject_Get_Property (SDL_kitchensink install_dir)
+ExternalProject_Get_Property (SDL_kitchensink_Project install_dir)
 include_directories (${install_dir}/include)
 
+if (WIN32)
+add_library (SDL_kitchensink STATIC IMPORTED)
+set_property (TARGET SDL_kitchensink PROPERTY IMPORTED_LOCATION ${install_dir}/lib/libSDL_kitchensink.dll.a)
+else ()
+add_library (SDL_kitchensink SHARED IMPORTED)
+set_property (TARGET SDL_kitchensink PROPERTY IMPORTED_LOCATION ${install_dir}/lib/libSDL_kitchensink.so)
+endif ()
+
 add_dependencies (planetblupi SDL_kitchensink)
+
 ## SDL_kitchensink
 ## ##################
 
@@ -62,7 +72,7 @@ target_link_libraries (planetblupi PUBLIC
   ${SDL2_LIBRARIES}
   ${SDL2_MIXER_LIBRARIES}
   ${SDL2_IMAGE_LIBRARIES}
-  ${install_dir}/lib/libSDL_kitchensink.dll.a
+  SDL_kitchensink
 )
 
 ## GetText
