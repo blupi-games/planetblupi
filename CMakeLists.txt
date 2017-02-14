@@ -83,14 +83,14 @@ find_package (Gettext)
 set (_potFile ${CMAKE_CURRENT_SOURCE_DIR}/resources/translations/${PROJECT_NAME}.pot)
 
 add_custom_command (OUTPUT ${_potFile}
-    COMMAND xgettext --keyword=translate --keyword=ptranslate:1c,2 -o ${_potFile} ${sources}
-    DEPENDS ${_src_list}
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    COMMENT "Extract translatable messages to ${_potFile}"
+  COMMAND xgettext --keyword=translate --keyword=ptranslate:1c,2 -o ${_potFile} ${sources}
+  DEPENDS ${_src_list}
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+  COMMENT "Extract translatable messages to ${_potFile}"
 )
 
 add_custom_target (pot_file ALL ${_all}
-    DEPENDS ${_potFile}
+  DEPENDS ${_potFile}
 )
 
-GETTEXT_CREATE_TRANSLATIONS (${_potFile} ALL ${po})
+gettext_create_translations (${_potFile} ALL ${po})
