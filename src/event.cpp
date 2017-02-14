@@ -3994,7 +3994,7 @@ void CEvent::PrivateLibelle()
         else if (term.bHachBlupi)
         {
             term.bHachBlupi = false;
-            text = gettext ("1|Go on striped\n1| paving stones.");
+            text = gettext ("1|Go on striped\n1|paving stones.");
         }
         else if (term.bHachPlanche)
         {
