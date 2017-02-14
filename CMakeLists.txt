@@ -63,7 +63,7 @@ add_library (SDL_kitchensink SHARED IMPORTED)
 set_property (TARGET SDL_kitchensink PROPERTY IMPORTED_LOCATION ${install_dir}/lib/libSDL_kitchensink.so)
 endif ()
 
-add_dependencies (planetblupi SDL_kitchensink)
+add_dependencies (planetblupi SDL_kitchensink_Project)
 
 ## SDL_kitchensink
 ## ##################
