@@ -94,3 +94,17 @@ add_custom_target (pot_file ALL ${_all}
 )
 
 gettext_create_translations (${_potFile} ALL ${po})
+
+## Put mo files to appropriate directory
+
+get_filename_component (_langs ${_gmoFile} NAME_WE)
+set (_out "${CMAKE_CURRENT_BINARY_DIR}/share/locale/${_langs}/LC_MESSAGES")
+
+add_custom_command (OUTPUT ${_out}/planetblupi.mo
+  COMMAND ${CMAKE_COMMAND} -E copy ${_gmoFile} ${_out}/planetblupi.mo
+  DEPENDS ${_gmoFile}
+)
+
+add_custom_target (gmo_files ALL ${_all}
+  DEPENDS ${_out}/planetblupi.mo
+)
