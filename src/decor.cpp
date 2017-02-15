@@ -3217,7 +3217,7 @@ const char *CDecor::GetResHili (POINT posMouse)
             if (obj != tableObject.end())
             {
                 if (!obj->second.corner)
-                    return obj->second.text;
+                    return gettext (obj->second.text);
 
                 if (m_celHili.x % 2
                     && m_celHili.y % 2)
