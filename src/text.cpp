@@ -1,13 +1,10 @@
-// Text.cpp
 
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "def.h"
 #include "pixmap.h"
 #include "text.h"
-
-
-/////////////////////////////////////////////////////////////////////////////
 
 
 // Retourne l'offset pour un caractère donné.
