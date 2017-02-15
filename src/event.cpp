@@ -4319,6 +4319,7 @@ bool CEvent::DemoPlayStart()
     nb = fread (&header, sizeof (DemoHeader), 1, file);
     if (nb < 1)
     {
+        fclose (file);
         DemoPlayStop();
         return false;
     }
