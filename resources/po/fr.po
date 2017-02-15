@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 21:23+0100\n"
-"PO-Revision-Date: 2017-02-15 21:31+0100\n"
+"POT-Creation-Date: 2017-02-15 22:11+0100\n"
+"PO-Revision-Date: 2017-02-15 22:14+0100\n"
 "Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -286,17 +286,8 @@ msgid "Bulldozer"
 msgstr "Bulldozer"
 
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3045
-msgctxt "Flower|1|"
-msgid "Bunch of flowers"
-msgstr "Bouquet de fleurs"
-
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3047
-msgctxt "Flower|2|"
-msgid "Bunch of flowers"
-msgstr "Bouquet de fleurs"
-
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3054
-msgctxt "Flower|3|"
 msgid "Bunch of flowers"
 msgstr "Bouquet de fleurs"
 
@@ -511,21 +502,12 @@ msgid "Flag"
 msgstr "Drapeau"
 
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3044
-#: /home/schroeterm/devel/planetblupi/src/decstat.cpp:201
-#: /home/schroeterm/devel/planetblupi/src/event.cpp:843
-msgctxt "Flower|1|"
-msgid "Flowers"
-msgstr "Fleurs"
-
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3046
-#: /home/schroeterm/devel/planetblupi/src/decstat.cpp:210
-msgctxt "Flower|2|"
-msgid "Flowers"
-msgstr "Fleurs"
-
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3053
+#: /home/schroeterm/devel/planetblupi/src/decstat.cpp:201
+#: /home/schroeterm/devel/planetblupi/src/decstat.cpp:210
 #: /home/schroeterm/devel/planetblupi/src/decstat.cpp:219
-msgctxt "Flower|3|"
+#: /home/schroeterm/devel/planetblupi/src/event.cpp:843
 msgid "Flowers"
 msgstr "Fleurs"
 
@@ -1323,3 +1305,19 @@ msgstr "mission %d, temps %d"
 #, c-format
 msgid "training %d, time %d"
 msgstr "entraînement %d, temps %d"
+
+#~ msgctxt "Flower|2|"
+#~ msgid "Bunch of flowers"
+#~ msgstr "Bouquet de fleurs"
+
+#~ msgctxt "Flower|3|"
+#~ msgid "Bunch of flowers"
+#~ msgstr "Bouquet de fleurs"
+
+#~ msgctxt "Flower|2|"
+#~ msgid "Flowers"
+#~ msgstr "Fleurs"
+
+#~ msgctxt "Flower|3|"
+#~ msgid "Flowers"
+#~ msgstr "Fleurs"
