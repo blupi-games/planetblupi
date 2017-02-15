@@ -2501,12 +2501,12 @@ bool CEvent::EventButtons (const SDL_Event &event, POINT pos)
     m_textToolTips[0] = 0;
     m_posToolTips.x = -1;
 
-    const auto progress = [&] (CJauge & progress, const char *text) -> bool
+    const auto progress = [&] (CJauge &prog, const char *text) -> bool
     {
-        if (progress.GetHide())
+        if (prog.GetHide())
             return false;
 
-        test = progress.GetPos();
+        test = prog.GetPos();
         if (pos.x >= test.x
         && pos.x <= test.x + DIMJAUGEX
         && pos.y >= test.y
