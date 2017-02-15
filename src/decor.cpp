@@ -3219,8 +3219,7 @@ const char *CDecor::GetResHili (POINT posMouse)
                 if (!obj->second.corner)
                     return gettext (obj->second.text);
 
-                if (m_celHili.x % 2
-                    && m_celHili.y % 2)
+                if (m_celHili.x % 2 && m_celHili.y % 2)
                     return gettext (obj->second.text);
             }
         }

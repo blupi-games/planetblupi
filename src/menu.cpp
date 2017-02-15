@@ -1,8 +1,7 @@
-// Menu.cpp
-//
 
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "blupi.h"
 #include "def.h"
 #include "resource.h"
