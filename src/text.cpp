@@ -9,30 +9,35 @@
 
 // Retourne l'offset pour un caractère donné.
 
-Sint32 GetOffset (char c)
+static Sint32 GetOffset (const char *&c)
 {
-    Sint32      i;
-
-    static unsigned char table_accents[15] =
+    static const unsigned char table_accents[15] =
     {
-        0xFC, 0xE0, 0xE2, 0xE9, 0xE8, 0xEB, 0xEA, 0xEF,
-        0xEE, 0xF4, 0xF9, 0xFB, 0xE4, 0xF6, 0xE7
+    /*    ü     à     â     é     è     ë     ê     ï             */
+    /*  0xFC, 0xE0, 0xE2, 0xE9, 0xE8, 0xEB, 0xEA, 0xEF, // CP1252 */
+        0xBC, 0xA0, 0xA2, 0xA9, 0xA8, 0xAB, 0xAA, 0xAF, // UTF-8
+    /*    î     ô     ù     û     ä     ö     ç                   */
+    /*  0xEE, 0xF4, 0xF9, 0xFB, 0xE4, 0xF6, 0xE7,       // CP1252 */
+        0xAE, 0xB4, 0xB9, 0xBB, 0xA4, 0xB6, 0xA7,       // UTF-8
     };
 
-    for (i = 0 ; i < 15 ; i++)
+    if (static_cast<unsigned char> (*c) == 0xC3)
+        c++;
+
+    for (unsigned int i = 0; i < countof (table_accents); ++i)
     {
-        if ((unsigned char)c == table_accents[i])
+        if ((unsigned char) *c == table_accents[i])
             return 15 + i;
     }
-    if (c < 0 || c > 128)
+    if (*c < 0 || *c > 128)
         return 1;  // carré
 
-    return c;
+    return *c;
 }
 
 // Retourne la longueur d'un caractère.
 
-Sint32 GetCharWidth (char c, Sint32 font)
+Sint32 GetCharWidth (const char *&c, Sint32 font)
 {
     static unsigned char table_width[128] =
     {
@@ -74,28 +79,30 @@ void DrawText (CPixmap *pPixmap, POINT pos, const char *pText, Sint32 font)
     {
         while (*pText != 0)
         {
-            rank = GetOffset (*pText);
+            rank = GetOffset (pText);
             pPixmap->DrawIcon (-1, CHLITTLE, rank, pos);
 
-            pos.x += GetCharWidth (*pText++, font);
+            pos.x += GetCharWidth (pText, font);
+            pText++;
         }
     }
     else
     {
         while (*pText != 0)
         {
-            rank = GetOffset (*pText);
+            rank = GetOffset (pText);
             rank += 128 * font;
             pPixmap->DrawIcon (-1, CHTEXT, rank, pos);
 
-            pos.x += GetCharWidth (*pText++, font);
+            pos.x += GetCharWidth (pText, font);
+            pText++;
         }
     }
 }
 
 // Affiche un texte penché.
 
-void DrawTextPente (CPixmap *pPixmap, POINT pos, char *pText,
+void DrawTextPente (CPixmap *pPixmap, POINT pos, const char *pText,
                     Sint32 pente, Sint32 font)
 {
     Sint32      rank, lg, rel, start;
@@ -104,11 +111,12 @@ void DrawTextPente (CPixmap *pPixmap, POINT pos, char *pText,
     rel = 0;
     while (*pText != 0)
     {
-        rank = GetOffset (*pText);
+        rank = GetOffset (pText);
         rank += 128 * font;
         pPixmap->DrawIcon (-1, CHTEXT, rank, pos);
 
-        lg = GetCharWidth (*pText++, font);
+        lg = GetCharWidth (pText, font);
+        pText++;
         rel += lg;
         pos.x += lg;
         pos.y = start + rel / pente;
@@ -273,7 +281,10 @@ Sint32 GetTextWidth (const char *pText, Sint32 font)
     Sint32      width = 0;
 
     while (*pText != 0)
-        width += GetCharWidth (*pText++, font);
+    {
+        width += GetCharWidth (pText, font);
+        pText++;
+    }
 
     return width;
 }

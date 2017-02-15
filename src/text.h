@@ -7,7 +7,7 @@
 #define FONTLITTLE 10
 
 void DrawText (CPixmap *pPixmap, POINT pos, const char *pText, Sint32 font = 0);
-void DrawTextPente (CPixmap *pPixmap, POINT pos, char *pText,
+void DrawTextPente (CPixmap *pPixmap, POINT pos, const char *pText,
                     Sint32 pente, Sint32 font = 0);
 void DrawTextRect (CPixmap *pPixmap, POINT pos, char *pText,
                    Sint32 pente, Sint32 font = 0, Sint32 part = -1);
