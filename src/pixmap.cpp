@@ -62,7 +62,7 @@ CPixmap::~CPixmap()
         }
     }
 
-    for (i = 0 ; i < MAXIMAGE ; i++)
+    for (i = 0 ; i < countof (m_lpSDLTexture) ; i++)
     {
         if (m_lpSDLTexture[i] != nullptr)
         {
