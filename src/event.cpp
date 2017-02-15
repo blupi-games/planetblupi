@@ -840,7 +840,7 @@ static Phase table[] =
                     translate ("Delete item"),
                     translate ("Decorative plants"),
                     translate ("Tree"),
-                    ptranslate ("Flower|1|", "Flowers")
+                    translate ("Flowers")
                 },
             },
             {

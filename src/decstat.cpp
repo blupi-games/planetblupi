@@ -198,7 +198,7 @@ static Statistic table_statistic[] =
         82, 82,     // fleurs1
         72,
         false,
-        ptranslate ("Flower|1|", "Flowers"),
+        translate ("Flowers"),
         0, 0,
     },
     {   // 18
@@ -207,7 +207,7 @@ static Statistic table_statistic[] =
         84, 84,     // fleurs2
         73,
         false,
-        ptranslate ("Flower|2|", "Flowers"),
+        translate ("Flowers"),
         0, 0,
     },
     {   // 19
@@ -216,7 +216,7 @@ static Statistic table_statistic[] =
         95, 95,     // fleurs3
         74,
         false,
-        ptranslate ("Flower|3|", "Flowers"),
+        translate ("Flowers"),
         0, 0,
     },
     {   // 20
