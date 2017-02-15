@@ -14,6 +14,7 @@
 #include "text.h"
 #include "misc.h"
 #include "event.h"
+#include "gettext.h"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -64,41 +65,41 @@ static const Sint16 table_button_icon[] =
 static const char *GetText (Sint32 rank)
 {
     static const char *list[] = {
-        "Go",
-        "Stop",
-        "Eat",
-        "Take",
-        "Drop",
-        "Cut down a tree",
-        "Carve a rock",
-        "Grow tomatoes",
-        "Garden shed",
-        "Incubator",
-        "Laboratory",
-        "Mine",
-        "Workshop",
-        "Teleporter",
-        "Wall",
-        "Palisade",
-        "Cut down trees",
-        "Carve rocks",
-        "Bridge",
-        "Protection tower",
-        "Drink",
-        "Transform",
-        "Make bunch of flowers",
-        "Make bunches of flowers",
-        "Blow up",
-        "Boat",
-        "Leave Jeep",
-        "Prospect for iron",
-        "Extract iron",
-        "Make a Jeep",
-        "Make a time bomb",
-        "Make a helper robot",
-        "Repeat",
-        "Quit",
-        "Make armour",
+        translate ("Go"),
+        translate ("Stop"),
+        translate ("Eat"),
+        translate ("Take"),
+        translate ("Drop"),
+        translate ("Cut down a tree"),
+        translate ("Carve a rock"),
+        translate ("Grow tomatoes"),
+        translate ("Garden shed"),
+        translate ("Incubator"),
+        translate ("Laboratory"),
+        translate ("Mine"),
+        translate ("Workshop"),
+        translate ("Teleporter"),
+        translate ("Wall"),
+        translate ("Palisade"),
+        translate ("Cut down trees"),
+        translate ("Carve rocks"),
+        translate ("Bridge"),
+        translate ("Protection tower"),
+        translate ("Drink"),
+        translate ("Transform"),
+        translate ("Make bunch of flowers"),
+        translate ("Make bunches of flowers"),
+        translate ("Blow up"),
+        translate ("Boat"),
+        translate ("Leave Jeep"),
+        translate ("Prospect for iron"),
+        translate ("Extract iron"),
+        translate ("Make a Jeep"),
+        translate ("Make a time bomb"),
+        translate ("Make a helper robot"),
+        translate ("Repeat"),
+        translate ("Quit"),
+        translate ("Make armour"),
     };
 
     return gettext (list[rank]);
@@ -107,14 +108,14 @@ static const char *GetText (Sint32 rank)
 static const char *GetErr (Sint32 rank)
 {
     static const char *list[] = {
-        "Impossible",
-        "Inadequate ground",
-        "Occupied ground",
-        "Opposite bank no good",
-        "Bridge finished",
-        "(isolated tower)",
-        "Too close to water",
-        "Already two teleporters",
+        translate ("Impossible"),
+        translate ("Inadequate ground"),
+        translate ("Occupied ground"),
+        translate ("Opposite bank no good"),
+        translate ("Bridge finished"),
+        translate ("(isolated tower)"),
+        translate ("Too close to water"),
+        translate ("Already two teleporters"),
     };
 
     return gettext (list[rank]);
