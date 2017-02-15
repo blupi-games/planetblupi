@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-14 18:23+0100\n"
+"POT-Creation-Date: 2017-02-15 21:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,6 +120,7 @@ msgstr ""
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:2998
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:2999
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1039
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:81
 msgid "Wall"
 msgstr ""
 
@@ -127,6 +128,7 @@ msgstr ""
 #: /home/schroeterm/devel/planetblupi/src/decstat.cpp:282
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:853
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1045
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:86
 msgid "Protection tower"
 msgstr ""
 
@@ -134,6 +136,7 @@ msgstr ""
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3002
 #: /home/schroeterm/devel/planetblupi/src/decstat.cpp:255
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1071
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:77
 msgid "Laboratory"
 msgstr ""
 
@@ -191,6 +194,7 @@ msgstr ""
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3031
 #: /home/schroeterm/devel/planetblupi/src/decstat.cpp:228
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1052
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:75
 msgid "Garden shed"
 msgstr ""
 
@@ -207,6 +211,7 @@ msgstr ""
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3039
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3040
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1015
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:82
 msgid "Palisade"
 msgstr ""
 
@@ -219,6 +224,7 @@ msgstr ""
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3155
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3156
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1021
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:85
 msgid "Bridge"
 msgstr ""
 
@@ -314,6 +320,7 @@ msgstr ""
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3076
 #: /home/schroeterm/devel/planetblupi/src/decstat.cpp:84
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1027
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:92
 msgid "Boat"
 msgstr ""
 
@@ -326,6 +333,7 @@ msgstr ""
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3079
 #: /home/schroeterm/devel/planetblupi/src/decstat.cpp:273
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1114
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:79
 msgid "Workshop"
 msgstr ""
 
@@ -335,6 +343,7 @@ msgstr ""
 #: /home/schroeterm/devel/planetblupi/src/decstat.cpp:264
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:854
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1102
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:78
 msgid "Mine"
 msgstr ""
 
@@ -455,6 +464,7 @@ msgstr ""
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3148
 #: /home/schroeterm/devel/planetblupi/src/decstat.cpp:237
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1009
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:76
 msgid "Incubator"
 msgstr ""
 
@@ -470,6 +480,7 @@ msgstr ""
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3170
 #: /home/schroeterm/devel/planetblupi/src/decstat.cpp:246
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1033
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:80
 msgid "Teleporter"
 msgstr ""
 
@@ -770,90 +781,112 @@ msgid "Cancel last operation"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:941
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:68
 msgid "Stop"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:947
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:67
 msgid "Go"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:953
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:70
 msgid "Take"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:959
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:71
 msgid "Drop"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:965
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:99
 msgid "Repeat"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:972
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:72
 msgid "Cut down a tree"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:978
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:83
 msgid "Cut down trees"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:984
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:73
 msgid "Carve a rock"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:990
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:84
 msgid "Carve rocks"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:996
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:89
 msgid "Make bunch of flowers"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1002
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:90
 msgid "Make bunches of flowers"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1058
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:74
 msgid "Grow tomatoes"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1064
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:69
 msgid "Eat"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1077
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:88
 msgid "Transform"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1083
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:87
 msgid "Drink"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1089
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:91
 msgid "Blow up"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1096
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:94
 msgid "Prospect for iron"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1108
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:95
 msgid "Extract iron"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1120
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:96
 msgid "Make a Jeep"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1126
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:97
 msgid "Make a time bomb"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1132
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:101
 msgid "Make armour"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1138
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:98
 msgid "Make a helper robot"
 msgstr ""
 
@@ -1158,7 +1191,7 @@ msgstr ""
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:3997
 msgid ""
 "1|Go on striped\n"
-"1| paving stones."
+"1|paving stones."
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:4002
@@ -1195,4 +1228,44 @@ msgstr ""
 msgid ""
 "1|Resist until\n"
 "1|fire extinction ..."
+msgstr ""
+
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:93
+msgid "Leave Jeep"
+msgstr ""
+
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:100
+msgid "Quit"
+msgstr ""
+
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:110
+msgid "Impossible"
+msgstr ""
+
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:111
+msgid "Inadequate ground"
+msgstr ""
+
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:112
+msgid "Occupied ground"
+msgstr ""
+
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:113
+msgid "Opposite bank no good"
+msgstr ""
+
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:114
+msgid "Bridge finished"
+msgstr ""
+
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:115
+msgid "(isolated tower)"
+msgstr ""
+
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:116
+msgid "Too close to water"
+msgstr ""
+
+#: /home/schroeterm/devel/planetblupi/src/menu.cpp:117
+msgid "Already two teleporters"
 msgstr ""
