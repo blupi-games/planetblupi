@@ -4038,7 +4038,7 @@ void CEvent::PrivateLibelle()
     if (nb == 0 || term.nbMaxBlupi > 1)
     {
         snprintf (buffer, sizeof (buffer),
-                  "%s", "1|The Blupi population must \n1|be of at least %d Blupis.");
+                  "%s", gettext ("1|The Blupi population must \n1|be of at least %d Blupis."));
         sprintf (string, buffer, term.nbMaxBlupi);
         strcat (m_libelle, "\n1|\n");
         strcat (m_libelle, string);

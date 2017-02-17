@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 22:47+0100\n"
-"PO-Revision-Date: 2017-02-17 18:07+0100\n"
+"POT-Creation-Date: 2017-02-17 18:18+0100\n"
+"PO-Revision-Date: 2017-02-17 18:30+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -27,72 +27,96 @@ msgid ""
 "1: Cut down a tree \n"
 "2: Build a bridge"
 msgstr ""
+"1: Baum fällen\n"
+"2: Brücke bauen"
 
 #: /home/schroeterm/devel/planetblupi/src/decblupi.cpp:930
 msgid ""
 "1: Cut down a tree \n"
 "2: Make a boat"
 msgstr ""
+"1: Baum fällen\n"
+"2: Boot bauen"
 
 #: /home/schroeterm/devel/planetblupi/src/decblupi.cpp:926
 msgid ""
 "1: Cut down a tree \n"
 "2: Make a palisade"
 msgstr ""
+"1: Baum fällen\n"
+"2: Palissade bauen"
 
 #: /home/schroeterm/devel/planetblupi/src/decblupi.cpp:924
 msgid ""
 "1: Extract iron\n"
 "2: Make a Jeep"
 msgstr ""
+"1: Eisen abbauen\n"
+"2: Jeep bauen"
 
 #: /home/schroeterm/devel/planetblupi/src/decblupi.cpp:923
 msgid ""
 "1: Extract iron\n"
 "2: Make a bomb"
 msgstr ""
+"1: Eisen abbauen\n"
+"2: Zeitbombe bauen"
 
 #: /home/schroeterm/devel/planetblupi/src/decblupi.cpp:925
 msgid ""
 "1: Extract iron\n"
 "2: Make an armour"
 msgstr ""
+"1: Eisen abbauen\n"
+"2: Rüstung bauen"
 
 #: /home/schroeterm/devel/planetblupi/src/decblupi.cpp:920
 msgid ""
 "1: Grow tomatoes\n"
 "2: Eat"
 msgstr ""
+"1: Tomaten anbauen...\n"
+"2: Essen"
 
 #: /home/schroeterm/devel/planetblupi/src/decblupi.cpp:921
 msgid ""
 "1: Make a bunch\n"
 "2: Transform"
 msgstr ""
+"1: Blumenstrauss binden\n"
+"2: Verarbeiten"
 
 #: /home/schroeterm/devel/planetblupi/src/decblupi.cpp:929
 msgid ""
 "1: Take\n"
 "2: Build a bridge"
 msgstr ""
+"1: Nehmen\n"
+"2: Brücke bauen"
 
 #: /home/schroeterm/devel/planetblupi/src/decblupi.cpp:927
 msgid ""
 "1: Take\n"
 "2: Build palisade"
 msgstr ""
+"1: Nehmen\n"
+"2: Palissade bauen"
 
 #: /home/schroeterm/devel/planetblupi/src/decblupi.cpp:931
 msgid ""
 "1: Take\n"
 "2: Make a boat"
 msgstr ""
+"1: Bretter nehmen\n"
+"2: Boot bauen"
 
 #: /home/schroeterm/devel/planetblupi/src/decblupi.cpp:922
 msgid ""
 "1: Take\n"
 "2: Transform"
 msgstr ""
+"1: Nehmen\n"
+"2: Verarbeiten"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:4002
 msgid ""
@@ -132,6 +156,10 @@ msgid ""
 "1|paving stones."
 msgstr "1|Auf die gestreiften Quadrate gehen."
 
+#: /home/schroeterm/devel/planetblupi/src/event.cpp:3981
+msgid "1|Goal :"
+msgstr "1|Ziel :"
+
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:3992
 msgid ""
 "1|Kill all\n"
@@ -148,11 +176,21 @@ msgstr ""
 "1|Solange überleben bis\n"
 "1|das Feuer ausgegangen ist."
 
+# Plural
+#: /home/schroeterm/devel/planetblupi/src/event.cpp:4041
+#, c-format
+msgid ""
+"1|The Blupi population must \n"
+"1|be of at least %d Blupis."
+msgstr "1|Die Blupibevölkerung muss mindestens %d Blupi(s) betragen."
+
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:4017
 msgid ""
 "1|The robot must reach\n"
 "1|the striped paving stones."
 msgstr ""
+"1|Der Roboter muss die\n"
+"1|gestreiften Quadrate erreichen."
 
 #: /home/schroeterm/devel/planetblupi/src/menu.cpp:117
 msgid "Already two teleporters"
@@ -314,25 +352,25 @@ msgstr "Bäume fällen"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:841
 msgid "Decorative plants"
-msgstr ""
+msgstr "Pflanzen"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:869
 msgid "Delete figure"
-msgstr ""
+msgstr "Figur löschen"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:886
 msgid "Delete fire"
-msgstr ""
+msgstr "Feuer löschen"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:840
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:851
 msgid "Delete item"
-msgstr ""
+msgstr "Gegenstand löschen"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:121
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1934
 msgid "Demo"
-msgstr ""
+msgstr "Demo"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1339
 msgid "Desert"
@@ -340,7 +378,7 @@ msgstr "Wüste"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:2203
 msgid "Difficult"
-msgstr ""
+msgstr "Schwer"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1083
 #: /home/schroeterm/devel/planetblupi/src/menu.cpp:87
@@ -361,11 +399,11 @@ msgstr "Dynamitstangen"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1943
 msgid "E"
-msgstr ""
+msgstr "O"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:2188
 msgid "Easy"
-msgstr ""
+msgstr "Leicht"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1064
 #: /home/schroeterm/devel/planetblupi/src/menu.cpp:69
@@ -390,7 +428,7 @@ msgstr "Bedingungen für Ende der Mission"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:856
 msgid "Enemy barrier"
-msgstr ""
+msgstr "Feindlicher Zaun"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:855
 msgid "Enemy buildings"
@@ -585,7 +623,9 @@ msgstr "Brennbarer Untergrund"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:2363
 msgid "Insert CD-Rom Planet Blupi and wait a few seconds..."
-msgstr "Füge die Planet Blupi CD-Rom in das Laufwerk ein und warte einige Sekunden ..."
+msgstr ""
+"Füge die Planet Blupi CD-Rom in das Laufwerk ein und warte einige "
+"Sekunden ..."
 
 #: /home/schroeterm/devel/planetblupi/src/decstat.cpp:716
 msgid "Interrupt"
@@ -598,7 +638,7 @@ msgstr "Eisenerz"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:859
 msgid "Items"
-msgstr ""
+msgstr "Gegenstände"
 
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3077
 #: /home/schroeterm/devel/planetblupi/src/decstat.cpp:93
@@ -771,7 +811,7 @@ msgstr "Musik Nummer 9"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1940
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:220
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:792
@@ -931,7 +971,7 @@ msgstr "Mission aufgeben"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1932
 msgid "REC"
-msgstr ""
+msgstr "REC"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:402
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:414
@@ -951,7 +991,7 @@ msgstr "Neu Anfangen"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1203
 msgid "Robot on striped paving stones"
-msgstr ""
+msgstr "Roboter auf gestreiften Quadraten"
 
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3010
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3011
@@ -966,7 +1006,7 @@ msgstr "Felsen"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1941
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #: /home/schroeterm/devel/planetblupi/src/decstat.cpp:720
 msgid "Save"
@@ -1013,7 +1053,7 @@ msgstr "Kranker Blupi"
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:244
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:250
 msgid "Skill level"
-msgstr ""
+msgstr "Schwierigkeitsgrad"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:390
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:438
@@ -1042,7 +1082,7 @@ msgstr "Spinne"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:887
 msgid "Starting fire"
-msgstr ""
+msgstr "Feuer"
 
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3125
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3138
@@ -1138,7 +1178,7 @@ msgstr "Verarbeiten"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:861
 msgid "Transport"
-msgstr ""
+msgstr "Transportmittel"
 
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3055
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3056
@@ -1189,7 +1229,7 @@ msgstr "Virus"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:1942
 msgid "W"
-msgstr ""
+msgstr "W"
 
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:2993
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:2994
@@ -1205,7 +1245,7 @@ msgstr "Mauer"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:857
 msgid "Wall or palisade"
-msgstr ""
+msgstr "Mauer oder Palissade"
 
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3106
 #: /home/schroeterm/devel/planetblupi/src/decor.cpp:3160
@@ -1217,11 +1257,13 @@ msgstr "Wasser"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:2338
 msgid "We hope you have had as much fun playing the game as we had making it !"
-msgstr "Hoffentlich hatten Sie genau soviel Spass beim Spielen wie wir beim herstellen des Spiels !"
+msgstr ""
+"Hoffentlich hatten Sie genau soviel Spass beim Spielen wie wir beim "
+"herstellen des Spiels !"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:860
 msgid "Weapons"
-msgstr ""
+msgstr "Waffen"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:2251
 msgid "Well done !"

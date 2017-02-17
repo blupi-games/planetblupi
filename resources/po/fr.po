@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-15 22:11+0100\n"
-"PO-Revision-Date: 2017-02-15 22:14+0100\n"
+"POT-Creation-Date: 2017-02-17 18:18+0100\n"
+"PO-Revision-Date: 2017-02-17 18:32+0100\n"
 "Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -157,6 +157,10 @@ msgstr ""
 "1|Aller sur les dalles\n"
 "1|hachurées."
 
+#: /home/schroeterm/devel/planetblupi/src/event.cpp:3981
+msgid "1|Goal :"
+msgstr "1|Objectif :"
+
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:3992
 msgid ""
 "1|Kill all\n"
@@ -172,6 +176,15 @@ msgid ""
 msgstr ""
 "1|Résister jusqu'à\n"
 "1|l'extinction du feu ..."
+
+#: /home/schroeterm/devel/planetblupi/src/event.cpp:4041
+#, c-format
+msgid ""
+"1|The Blupi population must \n"
+"1|be of at least %d Blupis."
+msgstr ""
+"1|La population doit être\n"
+"1|d'au moins %d Blupi."
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:4017
 msgid ""
