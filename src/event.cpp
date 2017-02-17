@@ -3978,7 +3978,7 @@ void CEvent::PrivateLibelle()
     char        buffer[100];
     const char *text = nullptr;
 
-    snprintf (m_libelle, sizeof (m_libelle), "%s", "1|Goal :");
+    snprintf (m_libelle, sizeof (m_libelle), "%s", gettext ("1|Goal :"));
 
     memcpy (&term, m_pDecor->GetTerminated(), sizeof (Term));
     nb = 0;
