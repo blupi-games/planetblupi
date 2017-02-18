@@ -21,6 +21,10 @@ file (GLOB_RECURSE po      resources/po/*.po)
 
 include_directories (${CMAKE_CURRENT_SOURCE_DIR})
 
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  set (CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
+endif ()
+
 add_executable (planetblupi ${sources})
 
 file (COPY resources/data  DESTINATION share/planetblupi)
