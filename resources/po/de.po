@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-18 12:16+0100\n"
-"PO-Revision-Date: 2017-02-18 12:16+0100\n"
+"PO-Revision-Date: 2017-02-18 12:27+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -166,9 +166,7 @@ msgstr "1|Ziel :"
 msgid ""
 "1|Kill all\n"
 "1|enemies !"
-msgstr ""
-"1|Alle Feinde\n"
-"1|zerstören !"
+msgstr "1|Alle Feinde zerstören !"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:4027
 msgid ""
@@ -185,8 +183,9 @@ msgid ""
 "1|The Blupi population must\n"
 "1|be of at least %d Blupi."
 msgstr ""
-"1|Die Blupibevölkerung muss\n"
-"1|mindestens %d Blupi betragen."
+"1|Die Blupibevölkerung\n"
+"1|muss mindestens %d Blupi\n"
+"1|betragen."
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:4017
 msgid ""
@@ -212,7 +211,9 @@ msgstr "Rüstung"
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:906
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:2082
 msgid "Available buttons"
-msgstr "Zur Verfügung stehende Knöpfe"
+msgstr ""
+"Zur Verfügung\n"
+"stehende Knöpfe"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:2237
 msgid "Bang, failed again !"
@@ -428,7 +429,9 @@ msgstr "Elektrisiermaschine"
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:912
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:2065
 msgid "Ending conditions"
-msgstr "Bedingungen für Ende der Mission"
+msgstr ""
+"Bedingungen für\n"
+"Ende der Mission"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:856
 msgid "Enemy barrier"
@@ -1025,7 +1028,9 @@ msgstr "Mission speichern"
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:894
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:2090
 msgid "Scenery choice"
-msgstr "Auswahl der Umgebung"
+msgstr ""
+"Auswahl der\n"
+"Umgebung"
 
 #: /home/schroeterm/devel/planetblupi/src/event.cpp:2285
 msgid ""
