@@ -1,13 +1,11 @@
-// sound.h
-//
 
 #pragma once
 
+#include <string>
 #include <stdio.h>
 #include <SDL2/SDL_mixer.h>
 #include "blupi.h"
 
-/////////////////////////////////////////////////////////////////////////////
 
 #define MAXSOUND    100
 #define MAXVOLUME   20
@@ -29,7 +27,7 @@ public:
     Sint32      GetMidiVolume();
 
     void    CacheAll();
-    bool    Cache (Sint32 channel, const char *pFilename);
+    bool    Cache (Sint32 channel, const std::string &pFilename);
     void    Flush (Sint32 channel);
 
     bool    Play (Sint32 channel, Sint32 volume = 0, Uint8 panLeft = 255,

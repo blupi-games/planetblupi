@@ -604,7 +604,7 @@ static void initGettext ()
 {
     setlocale (LC_ALL, "");
     textdomain ("planetblupi");
-    bindtextdomain ("planetblupi", (GetBaseDir () + "share/locale").c_str ());
+    bindtextdomain ("planetblupi", (GetBaseDir () + "locale").c_str ());
 }
 
  // Programme principal.

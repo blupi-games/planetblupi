@@ -70,6 +70,10 @@ Sint32 Random (Sint32 min, Sint32 max)
     return (Sint32)n;
 }
 
+std::string GetLocale ()
+{
+    return gettext ("en");
+}
 
 // Retourne le nom de dossier en cours.
 
@@ -87,7 +91,7 @@ std::string GetBaseDir()
         SDL_free (sdlBasePath);
     }
 
-    return basePath;
+    return basePath + "share/planetblupi/";
 }
 
 // Ajoute le chemin permettant de lire un fichier

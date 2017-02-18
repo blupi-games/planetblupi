@@ -137,7 +137,7 @@ void CSound::CacheAll()
 
     for (i = 0 ; i < MAXSOUND ; i++)
     {
-        sprintf (name, "sound/sound%.3d.blp", i);
+        sprintf (name, "sound%.3d.blp", i);
         if (!Cache (i, name))
             break;
     }
@@ -145,7 +145,7 @@ void CSound::CacheAll()
 
 // Charge un fichier son (.wav).
 
-bool CSound::Cache (Sint32 channel, const char *pFilename)
+bool CSound::Cache (Sint32 channel, const std::string &pFilename)
 {
     if (!m_bEnable)
         return false;
@@ -155,15 +155,27 @@ bool CSound::Cache (Sint32 channel, const char *pFilename)
     if (m_lpSDL[channel])
         Flush (channel);
 
-    const auto file = GetBaseDir() + pFilename;
-
+    auto sound = "sound/" + GetLocale () + "/" + pFilename;
+    auto file = GetBaseDir() + sound;
     m_lpSDL[channel] = Mix_LoadWAV (file.c_str());
     if (!m_lpSDL[channel])
     {
+        if (GetLocale () != "en")
+        {
+            /* Try with the fallback locale */
+            sound = "sound/en/" + pFilename;
+            file = GetBaseDir() + sound;
+            m_lpSDL[channel] = Mix_LoadWAV (file.c_str());
+            if (m_lpSDL[channel])
+                goto out;
+        }
+
         SDL_Log ("Mix_LoadWAV: %s\n", Mix_GetError());
         return false;
     }
 
+out:
+    SDL_Log ("Load sound: %s\n", sound.c_str ());
     return true;
 }
 

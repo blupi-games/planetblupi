@@ -3049,7 +3049,7 @@ bool CEvent::ChangePhase (Uint32 phase)
             music = m_pDecor->GetMusic();
             if (music > 0)
             {
-                sprintf (filename, "sound/music%.3d.blp", music - 1);
+                sprintf (filename, "music/music%.3d.blp", music - 1);
                 m_pSound->StopMusic();
                 m_pSound->PlayMusic (filename);
             }
@@ -4070,14 +4070,23 @@ bool CEvent::ReadLibelle (Sint32 world, bool bSchool, bool bHelp)
     if (bHelp)
         indic = '@';
 
+    auto stories = GetBaseDir() + "data/" + GetLocale () + "/stories.blp";
+
     pBuffer = (char *)malloc (sizeof (char) * 50000);
     if (pBuffer == nullptr)
         goto error;
+
     memset (pBuffer, 0, sizeof (char) * 50000);
 
-    file = fopen ((GetBaseDir() + "data/enigmes.blp").c_str(), "rb");
+    file = fopen (stories.c_str (), "rb");
     if (file == nullptr)
-        goto error;
+    {
+        /* Try with the fallback locale */
+        stories = GetBaseDir() + "data/en/stories.blp";
+        file = fopen (stories.c_str (), "rb");
+        if (!file)
+            goto error;
+    }
 
     nb = fread (pBuffer, sizeof (char), 50000 - 1, file);
     pBuffer[nb] = 0;

@@ -17,20 +17,17 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" ST
 endif ()
 
 file (GLOB_RECURSE sources src/*.cpp src/*.h)
-file (GLOB_RECURSE data    resources/data/*)
-file (GLOB_RECURSE image   resources/image/*)
-file (GLOB_RECURSE movie   resources/movie/*)
-file (GLOB_RECURSE sound   resources/sound/*)
 file (GLOB_RECURSE po      resources/po/*.po)
 
 include_directories (${CMAKE_CURRENT_SOURCE_DIR})
 
-add_executable (planetblupi ${sources} ${data} ${image} ${movie} ${sound})
+add_executable (planetblupi ${sources})
 
-file (COPY ${data}  DESTINATION data)
-file (COPY ${image} DESTINATION image)
-file (COPY ${movie} DESTINATION movie)
-file (COPY ${sound} DESTINATION sound)
+file (COPY resources/data  DESTINATION share/planetblupi)
+file (COPY resources/image DESTINATION share/planetblupi)
+file (COPY resources/movie DESTINATION share/planetblupi)
+file (COPY resources/sound DESTINATION share/planetblupi)
+file (COPY resources/music DESTINATION share/planetblupi)
 
 # Dependencies
 
@@ -102,7 +99,7 @@ gettext_create_translations (${_potFile} ALL ${po})
 ## Put mo files to appropriate directory
 foreach (file ${_gmoFiles})
   get_filename_component (_lang ${file} NAME_WE)
-  set (_out "${CMAKE_CURRENT_BINARY_DIR}/share/locale/${_lang}/LC_MESSAGES")
+  set (_out "${CMAKE_CURRENT_BINARY_DIR}/share/planetblupi/locale/${_lang}/LC_MESSAGES")
 
   add_custom_command (OUTPUT ${_out}/planetblupi.mo
     COMMAND ${CMAKE_COMMAND} -E copy ${file} ${_out}/planetblupi.mo
