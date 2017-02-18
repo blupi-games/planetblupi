@@ -275,7 +275,7 @@ void CMenu::Draw()
 
         if (m_errors[i] >= 100)    // no ressource au lieu erreur ?
         {
-            snprintf (text, sizeof (text), m_texts[i]);
+            snprintf (text, sizeof (text), "%s", m_texts[i]);
             pText = strchr (text, '\n');
             if (pText != nullptr)
                 *pText = 0;
@@ -283,7 +283,7 @@ void CMenu::Draw()
         else
         {
             const auto tr = GetText (m_buttons[i]);
-            snprintf (text, sizeof (text), tr);
+            snprintf (text, sizeof (text), "%s", tr);
         }
 
         if (m_nbCel.x > 1 && i < m_nbCel.y)
@@ -315,7 +315,7 @@ void CMenu::Draw()
         {
             if (m_errors[i] >= 100)    // no ressource au lieu erreur ?
             {
-                snprintf (text, sizeof (text), m_texts[i]);
+                snprintf (text, sizeof (text), "%s", m_texts[i]);
                 pText = strchr (text, '\n');
                 if (pText != nullptr)
                     strcpy (text, pText + 1);
@@ -323,7 +323,7 @@ void CMenu::Draw()
             else
             {
                 const auto tr = GetErr (m_errors[i] - 1); // impossible ici
-                snprintf (text, sizeof (text), tr);
+                snprintf (text, sizeof (text), "%s", tr);
             }
 
             if (m_nbCel.x > 1 && i < m_nbCel.y)
