@@ -605,6 +605,7 @@ static void initGettext ()
     setlocale (LC_ALL, "");
     textdomain ("planetblupi");
     bindtextdomain ("planetblupi", (GetBaseDir () + "locale").c_str ());
+    bind_textdomain_codeset ("planetblupi", "UTF-8");
 }
 
  // Programme principal.
