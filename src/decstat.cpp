@@ -710,7 +710,7 @@ next:
     }
 
     // Dans un bouton stop/setup/write ?
-    if (textRes == 0 && m_statHili >= 100)
+    if (!strlen (textRes) && m_statHili >= 100)
     {
         if (m_statHili == 100)
             textRes = gettext ("Interrupt");
