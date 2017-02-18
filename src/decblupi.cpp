@@ -2352,7 +2352,7 @@ void CDecor::BlupiStartStopRayon (Sint32 rank, POINT startCel, POINT endCel)
 
 bool CDecor::BlupiRotate (Sint32 rank)
 {
-    Sint32  aDirect, sDirect, ip, in, sens;
+    Sint32  aDirect, sDirect, ip, in, sens = 0;
     bool    bOK;
     POINT   pos;
 

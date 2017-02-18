@@ -2812,22 +2812,22 @@ void CDecor::CelHili (POINT pos, Sint32 action)
 
                 m_celOutline1.x = (m_celHili.x / 2) * 2;
                 m_celOutline1.y = (m_celHili.y / 2) * 2;
-                GetObject (m_celOutline1, channel, icon);
-                if (channel == CHOBJECT &&
-                    (icon ==  14 ||    // métal ?
-                     icon ==  36 ||    // planches ?
-                     icon ==  44 ||    // pierres ?
-                     icon ==  60 ||    // tomates ?
-                     icon ==  64 ||    // oeufs ?
-                     icon ==  80 ||    // bouteille ?
-                     icon ==  82 ||    // fleurs ?
-                     icon ==  84 ||    // fleurs ?
-                     icon ==  95 ||    // fleurs ?
-                     icon ==  85 ||    // dynamite ?
-                     icon ==  92 ||    // poison ?
-                     icon ==  93 ||    // piège ?
-                     icon == 123 ||    // fer ?
-                     icon == 125))     // mine ?
+                if (GetObject (m_celOutline1, channel, icon)
+                    && channel == CHOBJECT
+                    && (   icon ==  14   // métal ?
+                        || icon ==  36   // planches ?
+                        || icon ==  44   // pierres ?
+                        || icon ==  60   // tomates ?
+                        || icon ==  64   // oeufs ?
+                        || icon ==  80   // bouteille ?
+                        || icon ==  82   // fleurs ?
+                        || icon ==  84   // fleurs ?
+                        || icon ==  95   // fleurs ?
+                        || icon ==  85   // dynamite ?
+                        || icon ==  92   // poison ?
+                        || icon ==  93   // piège ?
+                        || icon == 123   // fer ?
+                        || icon == 125)) // mine ?
                 {
                     if (m_celHili.x % 2 == 0 ||
                         m_celHili.y % 2 == 0)

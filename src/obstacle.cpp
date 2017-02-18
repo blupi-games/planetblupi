@@ -2388,7 +2388,7 @@ bool CDecor::SearchBestPass (Sint32 rank, Sint32 &action)
 {
     Blupi       iBlupi;
     Sint32          i, j, direct;
-    POINT       iCel, lCel, cel;
+    POINT       iCel, lCel = { 0 }, cel;
 
     if (m_blupi[rank].perso == 0 ||    // blupi ?
         m_blupi[rank].perso == 7 ||   // électro ?
@@ -2526,7 +2526,7 @@ bool CDecor::SearchOtherObject (Sint32 rank, POINT initCel, Sint32 action,
                                 POINT &foundCel, Sint32 &foundIcon)
 {
     Sint32      startx, starty, endx, endy;
-    Sint32      x, y, xx, yy;
+    Sint32      x, y, xx = 0, yy = 0;
     Sint32      dist, min = distMax;
     POINT   cel;
     bool    bOK;
