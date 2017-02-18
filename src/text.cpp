@@ -29,7 +29,7 @@ static Sint32 GetOffset (const char *&c)
         if ((unsigned char) *c == table_accents[i])
             return 15 + i;
     }
-    if (*c < 0 || *c > 128)
+    if (*c < 0)
         return 1;  // carré
 
     return *c;
