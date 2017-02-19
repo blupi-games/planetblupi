@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-18 17:51+0100\n"
+"POT-Creation-Date: 2017-02-19 11:12+0100\n"
 "PO-Revision-Date: 2017-02-18 17:53+0100\n"
 "Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -1301,7 +1301,7 @@ msgstr "Vous avez joué à Planète Blupi."
 msgid "construction %d, time %d"
 msgstr "construction %d, temps %d"
 
-#: /home/schroeterm/devel/planetblupi/src/misc.cpp:75
+#: /home/schroeterm/devel/planetblupi/src/misc.cpp:85
 msgid "en"
 msgstr "fr"
 
