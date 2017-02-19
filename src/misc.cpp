@@ -49,25 +49,35 @@ POINT ConvLongToPos (LPARAM lParam)
     return pos;
 }
 
+static int g_seed;
 
-// Rï¿½initialise le gï¿½nï¿½rateur alï¿½atoire.
-
+/* Initialize the Microsoft pseudo-random generator */
 void InitRandom()
 {
-    srand (1);
+    g_seed = 1;
+    // srand (1);
 }
 
-// Retourne un nombre alï¿½atoire compris entre
-// deux bornes (inclues).
+/* We are not using rand from stdlib because on Linux the pseudo-generator
+ * is using an other algorithm. Then the behaviour is not the same on all
+ * platforms.
+ * See http://stackoverflow.com/a/1280765/842097
+ */
+int ms_rand ()
+{
+  g_seed = g_seed * 0x343fd + 0x269EC3;
+  return (g_seed >> 0x10) & 0x7FFF;
+}
 
+/* Returns a random number between two values (included). */
 Sint32 Random (Sint32 min, Sint32 max)
 {
     Sint32  n;
 
-    n = rand();
+    n = ms_rand (); // replace rand ();
     n = min + (n % (max - min + 1));
 
-    return (Sint32)n;
+    return (Sint32) n;
 }
 
 std::string GetLocale ()
