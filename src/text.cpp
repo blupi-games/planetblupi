@@ -7,8 +7,12 @@
 #include "text.h"
 
 
-// Retourne l'offset pour un caractère donné.
-
+/**
+ * \brief Return the character offset for the sprite.
+ *
+ * \param[in] c - The character (incremented if 0xC3 UTF-8).
+ * \returns the offset.
+ */
 static Sint32 GetOffset (const char *&c)
 {
     static const unsigned char table_accents[15] =
@@ -35,8 +39,13 @@ static Sint32 GetOffset (const char *&c)
     return *c;
 }
 
-// Retourne la longueur d'un caractère.
-
+/**
+ * \brief Return the character length.
+ *
+ * \param[in] c - The character (can be incremented).
+ * \param[in] font - The font used (little or normal).
+ * \returns the length.
+ */
 Sint32 GetCharWidth (const char *&c, Sint32 font)
 {
     static const unsigned char table_width[] =
@@ -69,8 +78,14 @@ Sint32 GetCharWidth (const char *&c, Sint32 font)
         return table_width[GetOffset (c)] - 1;
 }
 
-// Affiche un texte.
-
+/**
+ * \brief Draw a text in a pixmap to a specific position.
+ *
+ * \param[in] pPixmap - The pixmap where it must be drawn.
+ * \param[in] pos - The coordinates for the text.
+ * \param[in] pText - The text.
+ * \param[in] font - The font style (little or normal).
+ */
 void DrawText (CPixmap *pPixmap, POINT pos, const char *pText, Sint32 font)
 {
     Sint32      rank;
