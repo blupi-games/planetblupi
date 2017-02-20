@@ -88,30 +88,22 @@ Sint32 GetCharWidth (const char *&c, Sint32 font)
  */
 void DrawText (CPixmap *pPixmap, POINT pos, const char *pText, Sint32 font)
 {
-    Sint32      rank;
+    Sint32 rank;
 
-    if (font == FONTLITTLE)
+    while (*pText != '\0')
     {
-        while (*pText != 0)
-        {
-            rank = GetOffset (pText);
-            pPixmap->DrawIcon (-1, CHLITTLE, rank, pos);
+        rank = GetOffset (pText);
 
-            pos.x += GetCharWidth (pText, font);
-            pText++;
-        }
-    }
-    else
-    {
-        while (*pText != 0)
+        if (font != FONTLITTLE)
         {
-            rank = GetOffset (pText);
             rank += 128 * font;
             pPixmap->DrawIcon (-1, CHTEXT, rank, pos);
-
-            pos.x += GetCharWidth (pText, font);
-            pText++;
         }
+        else
+            pPixmap->DrawIcon (-1, CHLITTLE, rank, pos);
+
+        pos.x += GetCharWidth (pText, font);
+        pText++;
     }
 }
 
