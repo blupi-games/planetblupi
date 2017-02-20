@@ -11,14 +11,6 @@
 #include "kitchensink/kitchensink.h"
 
 
-//----------------------------------------------------------------------------
-
-#define AVI_VIDEO "avivideo"
-
-#define IDM_PLAY   10
-
-//----------------------------------------------------------------------------
-
 // Initialize avi libraries.
 
 bool CMovie::initAVI()
@@ -142,12 +134,6 @@ void CMovie::playMovie()
         Kit_PlayerPause (m_player);
 }
 
-
-//----------------------------------------------------------------------------
-
-
-// Constructeur.
-
 CMovie::CMovie()
 {
     m_bEnable      = false;
@@ -161,8 +147,6 @@ CMovie::CMovie()
 
     m_ret = 0;
 }
-
-// Destructeur.
 
 CMovie::~CMovie()
 {
