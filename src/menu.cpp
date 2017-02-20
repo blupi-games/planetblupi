@@ -4,7 +4,6 @@
 
 #include "blupi.h"
 #include "def.h"
-#include "resource.h"
 #include "pixmap.h"
 #include "sound.h"
 #include "decor.h"

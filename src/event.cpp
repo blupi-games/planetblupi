@@ -3,10 +3,10 @@
 #include <stdio.h>
 #include <unordered_map>
 #include <assert.h>
+
 #include "gettext.h"
 #include "blupi.h"
 #include "def.h"
-#include "resource.h"
 #include "pixmap.h"
 #include "sound.h"
 #include "decor.h"

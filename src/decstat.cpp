@@ -1,6 +1,5 @@
 
 #include "gettext.h"
-#include "resource.h"
 #include "decor.h"
 #include "text.h"
 #include "misc.h"

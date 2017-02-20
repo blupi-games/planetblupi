@@ -6,7 +6,6 @@
 #include "decor.h"
 #include "action.h"
 #include "misc.h"
-#include "resource.h"
 #include "decgoal.h"
 
 // Cette table donne l'action à effectuer pour un bouton

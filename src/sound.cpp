@@ -5,7 +5,6 @@
 #include "event.h"
 #include "misc.h"
 #include "def.h"
-#include "resource.h"
 
 
 // Stops all sounds.
