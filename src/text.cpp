@@ -34,7 +34,7 @@ static Sint32 GetOffset (const char *&c)
             return 15 + i;
     }
     if (*c < 0)
-        return 1;  // carré
+        return 1; // square
 
     return *c;
 }
