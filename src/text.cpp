@@ -39,7 +39,7 @@ static Sint32 GetOffset (const char *&c)
 
 Sint32 GetCharWidth (const char *&c, Sint32 font)
 {
-    static unsigned char table_width[128] =
+    static const unsigned char table_width[] =
     {
         9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 8,
         9, 9, 8, 8, 8, 8, 5, 5, 8, 8, 8, 9, 8, 8, 10, 10,
@@ -51,7 +51,7 @@ Sint32 GetCharWidth (const char *&c, Sint32 font)
         8, 8, 7, 6, 7, 8, 8, 10, 8, 8, 7, 6, 6, 6, 10, 0,
     };
 
-    static unsigned char table_width_little[128] =
+    static const unsigned char table_width_little[] =
     {
         6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 6, 6, 7,
         6, 6, 6, 6, 6, 6, 3, 3, 6, 6, 6, 6, 6, 6, 5, 5,
