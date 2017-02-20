@@ -41,8 +41,12 @@ bool   g_bTermInit = false;    // initialisation en cours
 Uint32 g_lastPhase = 999;
 int    g_rendererType = 0;
 
-// Lit un numï¿½ro dï¿½cimal.
-
+/**
+ * \brief Read an integer from a string.
+ *
+ * \param[in] p - Input string.
+ * \returns the integer.
+ */
 static Sint32 GetNum (char *p)
 {
     Sint32      n = 0;
@@ -56,8 +60,11 @@ static Sint32 GetNum (char *p)
     return n;
 }
 
-// Lit le fichier de configuration.
-
+/**
+ * \brief Read the config file.
+ *
+ * \returns true on success.
+ */
 static bool ReadConfig ()
 {
     FILE       *file    = nullptr;
@@ -124,8 +131,9 @@ static bool ReadConfig ()
     return true;
 }
 
-// Main frame update
-
+/**
+ * \biref Main frame update.
+ */
 static void UpdateFrame (void)
 {
     RECT            clip, rcRect;
@@ -143,7 +151,7 @@ static void UpdateFrame (void)
     rcRect.top    = 0;
     rcRect.right  = LXIMAGE;
     rcRect.bottom = LYIMAGE;
-    g_pPixmap->DrawImage (-1, CHBACK, rcRect); // dessine le fond
+    g_pPixmap->DrawImage (-1, CHBACK, rcRect); // draw the background
 
     if (phase == WM_PHASE_INTRO1 ||
         phase == WM_PHASE_INTRO2)
@@ -156,10 +164,10 @@ static void UpdateFrame (void)
         clip.right  = POSDRAWX + DIMDRAWX;
         clip.bottom = POSDRAWY + DIMDRAWY;
 
-        if (g_pEvent->IsShift())    // shift en cours ?
+        if (g_pEvent->IsShift()) // screen shifting
         {
             g_pEvent->DecorAutoShift (posMouse);
-            g_pDecor->Build (clip, posMouse); // construit juste le dï¿½cor
+            g_pDecor->Build (clip, posMouse); // build the environment
         }
         else
         {
@@ -168,15 +176,15 @@ static void UpdateFrame (void)
                 speed = g_pEvent->GetSpeed() * g_speedRate;
                 for (i = 0 ; i < speed ; i++)
                 {
-                    g_pDecor->BlupiStep (i == 0); // avance tous les blupi
-                    g_pDecor->MoveStep (i == 0); // avance tous les dï¿½cors
-                    g_pEvent->DemoStep();       // avance enregistrement/reproduction
+                    g_pDecor->BlupiStep (i == 0); // move all blupi
+                    g_pDecor->MoveStep (i == 0);  // move the environment
+                    g_pEvent->DemoStep();         // forward the recording or demo playing
                 }
             }
 
             g_pEvent->DecorAutoShift (posMouse);
-            g_pDecor->Build (clip, posMouse); // construit le dï¿½cor
-            g_pDecor->NextPhase (1); // refait la carte de temps en temps
+            g_pDecor->Build (clip, posMouse); // build the environment
+            g_pDecor->NextPhase (1);          // rebuild the map sometimes
         }
     }
 
@@ -187,13 +195,13 @@ static void UpdateFrame (void)
         clip.right  = POSDRAWX + DIMDRAWX;
         clip.bottom = POSDRAWY + DIMDRAWY;
         g_pEvent->DecorAutoShift (posMouse);
-        g_pDecor->Build (clip, posMouse); // construit le dï¿½cor
-        g_pDecor->NextPhase (-1); // refait la carte chaque fois
+        g_pDecor->Build (clip, posMouse); // build the environment
+        g_pDecor->NextPhase (-1);         // rebuild the map sometimes
     }
 
     if (phase == WM_PHASE_INIT)
     {
-        g_pEvent->DemoStep();  // dï¿½marre ï¿½v. dï¿½mo automatique
+        g_pEvent->DemoStep();  // start automatically (eventually) the demo
     }
 
     g_pEvent->DrawButtons();
@@ -206,7 +214,7 @@ static void UpdateFrame (void)
         phase == WM_PHASE_PLAYMOVIE ||
         phase == WM_PHASE_WINMOVIE)
     {
-        g_pEvent->MovieToStart();  // fait dï¿½marrer un film si nï¿½cessaire
+        g_pEvent->MovieToStart(); // start a movie if necessary
     }
 
     if (phase == WM_PHASE_INSERT)
@@ -216,14 +224,19 @@ static void UpdateFrame (void)
     {
         term = g_pDecor->IsTerminated();
         if (term == 1)
-            g_pEvent->ChangePhase (WM_PHASE_LOST); // perdu
+            g_pEvent->ChangePhase (WM_PHASE_LOST); // lost
         if (term == 2)
-            g_pEvent->ChangePhase (WM_PHASE_WINMOVIE);  // gagnï¿½
+            g_pEvent->ChangePhase (WM_PHASE_WINMOVIE);  // win
     }
 }
 
-// Restore the game after a fullscreen enabling
-
+/**
+ * \brief Restore the game after a fullscreen enabling.
+ *
+ * XXX: This method seems useless with SDL2.
+ *
+ * \returns true on success.
+ */
 static bool RestoreGame ()
 {
     if (g_pPixmap == nullptr)
@@ -233,8 +246,13 @@ static bool RestoreGame ()
     return true;
 }
 
-// Flush the game before a fullscreen disabling
-
+/**
+ * \brief Flush the game before a fullscreen disabling.
+ *
+ * XXX: This method seems useless with SDL2.
+ *
+ * \returns true on success.
+ */
 static bool FlushGame ()
 {
     if (g_pPixmap == nullptr)
@@ -243,8 +261,9 @@ static bool FlushGame ()
     return g_pPixmap->Flush ();
 }
 
-// Finished with all objects we use; release them.
-
+/**
+ * \brief Finished with all objects we use; release them.
+ */
 static void FinishObjects (void)
 {
     if (g_pMovie != nullptr)
@@ -267,7 +286,7 @@ static void FinishObjects (void)
 
     if (g_pSound != nullptr)
     {
-        g_pSound->StopMusic();  // stoppe la musique Midi
+        g_pSound->StopMusic();
 
         delete g_pSound;
         g_pSound = nullptr;
