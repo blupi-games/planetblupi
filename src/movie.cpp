@@ -99,12 +99,12 @@ bool CMovie::fileOpenMovie (RECT rect, const char *pFilename)
         SDL_PauseAudioDevice (m_audioDev, 0);
 
         m_videoTex = SDL_CreateTexture (
-                         g_renderer,
-                         pinfo->video.format,
-                         SDL_TEXTUREACCESS_STATIC,
-                         pinfo->video.width,
-                         pinfo->video.height
-                     );
+            g_renderer,
+            pinfo->video.format,
+            SDL_TEXTUREACCESS_STATIC,
+            pinfo->video.width,
+            pinfo->video.height
+        );
         if (m_videoTex == nullptr)
             return false;
 
@@ -136,9 +136,9 @@ void CMovie::playMovie()
 
 CMovie::CMovie()
 {
-    m_bEnable      = false;
-    m_fPlaying     = false;
-    m_fMovieOpen   = false;
+    m_bEnable    = false;
+    m_fPlaying   = false;
+    m_fMovieOpen = false;
 
     m_movie    = nullptr;
     m_player   = nullptr;
@@ -212,6 +212,7 @@ void CMovie::Stop()
 {
     if (!m_bEnable)
         return;
+
     fileCloseMovie();
     SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
 }
