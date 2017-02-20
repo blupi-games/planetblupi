@@ -1,5 +1,3 @@
-// misc.cpp
-//
 
 #include <SDL2/SDL_log.h>
 #include <SDL2/SDL_mouse.h>

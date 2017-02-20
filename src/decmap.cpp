@@ -1,5 +1,3 @@
-// DecMap.cpp
-//
 
 #include "blupi.h"
 #include "def.h"

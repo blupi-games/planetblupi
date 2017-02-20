@@ -1,9 +1,8 @@
-// CDecor.cpp
-//
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <unordered_map>
+
 #include "gettext.h"
 #include "def.h"
 #include "resource.h"
@@ -15,10 +14,6 @@
 #include "misc.h"
 #include "fifo.h"
 #include "decmove.h"
-
-
-/////////////////////////////////////////////////////////////////////////////
-
 
 
 #define TEXTDELAY       10      // délai avant apparition tooltips

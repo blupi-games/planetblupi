@@ -1,5 +1,3 @@
-// movie.h
-//
 
 #pragma once
 

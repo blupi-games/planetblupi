@@ -1,3 +1,4 @@
+
 #pragma once
 
 Sint16 *GetListMoves (Sint32 rank);

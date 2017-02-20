@@ -1,7 +1,6 @@
-// sound.cpp
-//
 
 #include <stdio.h>
+
 #include "sound.h"
 #include "event.h"
 #include "misc.h"

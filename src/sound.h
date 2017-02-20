@@ -4,6 +4,7 @@
 #include <string>
 #include <stdio.h>
 #include <SDL2/SDL_mixer.h>
+
 #include "blupi.h"
 
 

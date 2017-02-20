@@ -1,4 +1,3 @@
-// Fog.cpp
 
 #include "decor.h"
 

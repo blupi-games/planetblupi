@@ -1,9 +1,8 @@
-// movie.cpp
-//
 
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "def.h"
 #include "blupi.h"
 #include "movie.h"

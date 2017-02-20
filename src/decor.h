@@ -1,4 +1,3 @@
-// Decor.h
 
 #pragma once
 
@@ -6,9 +5,6 @@
 #include "def.h"
 #include "sound.h"
 #include "pixmap.h"
-
-/////////////////////////////////////////////////////////////////////////////
-
 
 #define MAXENERGY       4000
 #define MAXFIRE         400

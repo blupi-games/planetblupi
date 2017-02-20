@@ -1,5 +1,3 @@
-// DecIO.cpp
-//
 
 #include "def.h"
 #include "decor.h"

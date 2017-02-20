@@ -1,5 +1,3 @@
-// Obstacle.cpp
-//
 
 #include "decor.h"
 #include "misc.h"

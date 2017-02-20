@@ -1,5 +1,3 @@
-// misc.h
-//
 
 #pragma once
 

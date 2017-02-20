@@ -1,4 +1,3 @@
-// DecGoal.cpp
 
 #include "decgoal.h"
 #include "def.h"

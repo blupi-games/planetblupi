@@ -1,5 +1,3 @@
-// Jauge.cpp
-//
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -11,23 +9,15 @@
 #include "misc.h"
 
 
-
-/////////////////////////////////////////////////////////////////////////////
-
-// Constructeur.
-
 CJauge::CJauge()
 {
     m_type            = 0;
     m_bHide           = true;
 }
 
-// Destructeur.
-
 CJauge::~CJauge()
 {
 }
-
 
 // Crée un nouveau bouton.
 

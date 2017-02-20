@@ -1,5 +1,3 @@
-// DecMove.cpp
-//
 
 #include "decor.h"
 #include "misc.h"

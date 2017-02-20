@@ -1,4 +1,3 @@
-// CPixmap.h
 
 #pragma once
 

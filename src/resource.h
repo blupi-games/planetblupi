@@ -1,7 +1,4 @@
-//{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
-// Used by blupi-e.rc
-//
+
 #define TX_ACTION_GO                    1
 #define TX_ACTION_STOP                  2
 #define TX_ACTION_MANGE                 3
@@ -265,14 +262,3 @@
 #define TX_LASTWIN2                     3201
 #define TX_LASTWIN3                     3202
 #define IDM_EXIT                        40001
-
-// Next default values for new objects
-//
-#ifdef APSTUDIO_INVOKED
-#ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        109
-#define _APS_NEXT_COMMAND_VALUE         40001
-#define _APS_NEXT_CONTROL_VALUE         1000
-#define _APS_NEXT_SYMED_VALUE           101
-#endif
-#endif

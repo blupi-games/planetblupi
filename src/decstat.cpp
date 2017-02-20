@@ -1,5 +1,3 @@
-// DecStat.cpp
-//
 
 #include "gettext.h"
 #include "resource.h"
