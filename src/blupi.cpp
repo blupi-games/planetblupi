@@ -299,7 +299,7 @@ static void FinishObjects (void)
     }
 }
 
-static void WindowProc2 (const SDL_Event &event)
+static void HandleEvent (const SDL_Event &event)
 {
     POINT totalDim, iconDim;
 
@@ -646,8 +646,7 @@ static void initGettext ()
     SDL_Event event;
     while (SDL_WaitEvent (&event))
     {
-        WindowProc2 (event);
-
+        HandleEvent (event);
         if (event.type == SDL_QUIT)
             break;
     }
