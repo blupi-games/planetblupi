@@ -157,16 +157,8 @@ CMovie::~CMovie()
 
 bool CMovie::Create()
 {
-    if (initAVI())
-    {
-        m_bEnable = true;
-        return true;
-    }
-    else
-    {
-        m_bEnable = false;
-        return false;
-    }
+    m_bEnable = initAVI ();
+    return m_bEnable;
 }
 
 // Retourne l'état de DirectMovie.
