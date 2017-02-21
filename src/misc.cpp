@@ -87,6 +87,11 @@ std::string GetLocale ()
 
 std::string GetBaseDir()
 {
+    return GetShareDir () + "planetblupi/";
+}
+
+std::string GetShareDir ()
+{
     static std::string basePath;
 
     if (!basePath.size())
@@ -99,7 +104,7 @@ std::string GetBaseDir()
         SDL_free (sdlBasePath);
     }
 
-    return basePath + "share/planetblupi/";
+    return basePath + "share/";
 }
 
 // Ajoute le chemin permettant de lire un fichier
