@@ -90,7 +90,6 @@ set (_potFile ${CMAKE_CURRENT_SOURCE_DIR}/resources/po/${PROJECT_NAME}.pot)
 add_custom_command (OUTPUT ${_potFile}
   COMMAND xgettext --keyword=translate -o ${_potFile} ${sources}
   DEPENDS ${sources}
-  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
   COMMENT "Extract translatable messages to ${_potFile}"
 )
 
@@ -103,7 +102,7 @@ gettext_create_translations (${_potFile} ALL ${po})
 ## Put mo files to appropriate directory
 foreach (file ${_gmoFiles})
   get_filename_component (_lang ${file} NAME_WE)
-  set (_out "${CMAKE_CURRENT_BINARY_DIR}/share/planetblupi/locale/${_lang}/LC_MESSAGES")
+  set (_out "share/locale/${_lang}/LC_MESSAGES")
 
   add_custom_command (OUTPUT ${_out}/planetblupi.mo
     COMMAND ${CMAKE_COMMAND} -E copy ${file} ${_out}/planetblupi.mo
