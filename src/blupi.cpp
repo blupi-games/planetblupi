@@ -626,10 +626,10 @@ static void initGettext ()
     bind_textdomain_codeset ("planetblupi", "UTF-8");
 }
 
- // Programme principal.
+// Programme principal.
 
- int main (int argc, char *argv[])
- {
+int main (int argc, char *argv[])
+{
     initGettext ();
 
     if (!DoInit (argc, argv))
