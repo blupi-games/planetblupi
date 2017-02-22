@@ -455,6 +455,23 @@ static bool DoInit (Sint32 argc, char *argv[])
     if (!bOK)    // config.ini pas correct ?
         return InitFail ("Game not correctly installed", false);
 
+    const auto renders = SDL_GetNumRenderDrivers ();
+    for (int i = 0; i < renders; ++i)
+    {
+        SDL_RendererInfo info = { 0 };
+        if (SDL_GetRenderDriverInfo (i, &info))
+        {
+            SDL_LogError (SDL_LOG_CATEGORY_APPLICATION, "renderer[%d]: failed\n", i);
+            continue;
+        }
+
+        SDL_LogInfo (SDL_LOG_CATEGORY_APPLICATION, "renderer[%d]: name=%s", i, info.name);
+        SDL_LogInfo (SDL_LOG_CATEGORY_APPLICATION, "renderer[%d]: flags=%u", i, info.flags);
+        SDL_LogInfo (SDL_LOG_CATEGORY_APPLICATION, "renderer[%d]: num_texture_formats=%u", i, info.num_texture_formats);
+        SDL_LogInfo (SDL_LOG_CATEGORY_APPLICATION, "renderer[%d]: max_texture_width=%u", i, info.max_texture_width);
+        SDL_LogInfo (SDL_LOG_CATEGORY_APPLICATION, "renderer[%d]: max_texture_height=%u", i, info.max_texture_height);
+    }
+
     // Crï¿½e le pixmap principal.
     g_pPixmap = new CPixmap;
     if (g_pPixmap == nullptr)
