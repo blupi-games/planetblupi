@@ -111,3 +111,15 @@ foreach (file ${_gmoFiles})
     DEPENDS ${_out}/planetblupi.mo
   )
 endforeach (file)
+
+# Installation
+
+install (TARGETS planetblupi
+  RUNTIME DESTINATION bin
+)
+
+install (DIRECTORY resources/data DESTINATION share/planetblupi)
+install (DIRECTORY resources/image DESTINATION share/planetblupi)
+install (DIRECTORY resources/movie DESTINATION share/planetblupi)
+install (DIRECTORY resources/sound DESTINATION share/planetblupi)
+install (DIRECTORY resources/music DESTINATION share/planetblupi)
