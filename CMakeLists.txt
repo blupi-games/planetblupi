@@ -3,14 +3,17 @@ cmake_minimum_required (VERSION 3.2)
 
 include (${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
+include_directories (${CMAKE_INSTALL_PREFIX}/include)
+link_directories (${CMAKE_INSTALL_PREFIX}/lib)
+
 project (planetblupi)
 set (PB_VERSION_MAJOR 2)
 set (PB_VERSION_MINOR 0)
 set (PB_VERSION_PATCH 0)
 
-set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+# set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+# set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+# set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")
@@ -18,8 +21,6 @@ endif ()
 
 file (GLOB_RECURSE sources src/*.cpp src/*.h)
 file (GLOB_RECURSE po      resources/po/*.po)
-
-include_directories (${CMAKE_CURRENT_SOURCE_DIR})
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   set (CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
@@ -35,37 +36,27 @@ file (COPY resources/music DESTINATION share/planetblupi)
 
 # Dependencies
 
-find_package (PkgConfig)
 find_package (Intl REQUIRED)
-find_package (SDL2 REQUIRED)
 
 find_package (PkgConfig REQUIRED)
+pkg_search_module (SDL2 REQUIRED sdl2)
 pkg_search_module (SDL2_MIXER REQUIRED SDL2_mixer)
 pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
+# Static dependencies for SDL_kitchensink
+# pkg_search_module (ASS REQUIRED libass)
+pkg_search_module (PNG REQUIRED libpng)
+pkg_search_module (AVCODEC REQUIRED libavcodec)
+pkg_search_module (AVFORMAT REQUIRED libavformat)
+pkg_search_module (AVUTIL REQUIRED libavutil)
+pkg_search_module (SWSCALE REQUIRED libswscale)
+pkg_search_module (SWRESAMPLE REQUIRED libswresample)
 
 ##################
 ## SDL_kitchensink
 ##################
 
-ExternalProject_Add (SDL_kitchensink_Project
-  GIT_REPOSITORY https://github.com/katajakasa/SDL_kitchensink.git
-  PREFIX ${CMAKE_CURRENT_BINARY_DIR}
-  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
-  INSTALL_DIR ${CMAKE_CURRENT_BINARY_DIR}
-)
-
-ExternalProject_Get_Property (SDL_kitchensink_Project install_dir)
-include_directories (${install_dir}/include)
-
-if (WIN32)
-  add_library (SDL_kitchensink STATIC IMPORTED)
-  set_property (TARGET SDL_kitchensink PROPERTY IMPORTED_LOCATION ${install_dir}/lib/libSDL_kitchensink.dll.a)
-else ()
-  add_library (SDL_kitchensink SHARED IMPORTED)
-  set_property (TARGET SDL_kitchensink PROPERTY IMPORTED_LOCATION ${install_dir}/lib/libSDL_kitchensink.so)
-endif ()
-
-add_dependencies (planetblupi SDL_kitchensink_Project)
+add_library (SDL_kitchensink STATIC IMPORTED)
+set_property (TARGET SDL_kitchensink PROPERTY IMPORTED_LOCATION ${CMAKE_INSTALL_PREFIX}/lib/libSDL_kitchensink_static.a)
 
 ###########################
 ## Main binary dependencies
@@ -73,10 +64,17 @@ add_dependencies (planetblupi SDL_kitchensink_Project)
 
 target_link_libraries (planetblupi PUBLIC
   ${Intl_LIBRARIES}
-  ${SDL2_LIBRARIES}
-  ${SDL2_MIXER_LIBRARIES}
-  ${SDL2_IMAGE_LIBRARIES}
+  ${SDL2_STATIC_LIBRARIES}
+  ${SDL2_MIXER_STATIC_LIBRARIES}
+  ${SDL2_IMAGE_STATIC_LIBRARIES}
   SDL_kitchensink
+#   ${ASS_STATIC_LIBRARIES}
+  ${PNG_STATIC_LIBRARIES}
+  ${AVCODEC_STATIC_LIBRARIES}
+  ${AVFORMAT_STATIC_LIBRARIES}
+  ${AVUTIL_STATIC_LIBRARIES}
+  ${SWSCALE_STATIC_LIBRARIES}
+  ${SWRESAMPLE_STATIC_LIBRARIES}
 )
 
 ##########
