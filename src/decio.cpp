@@ -331,7 +331,8 @@ bool CDecor::FileExist (Sint32 rank, bool bUser, Sint32 &world, Sint32 &time,
         AddUserPath (filename);
     }
     else
-        sprintf (filename, "data/world%.3d.blp", rank);
+        snprintf (filename, sizeof (filename),
+                  (GetBaseDir () + "data/world%.3d.blp").c_str (), rank);
 
     file = fopen (filename, "rb");
     if (file == nullptr)

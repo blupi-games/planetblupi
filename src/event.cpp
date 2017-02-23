@@ -4291,8 +4291,9 @@ void CEvent::DemoRecStop()
 
     if (m_pDemoBuffer != nullptr)
     {
-        unlink ("data/demo.blp");
-        file = fopen ("data/demo.blp", "wb");
+        const auto demo = GetBaseDir () + "data/demo.blp";
+        unlink (demo.c_str ());
+        file = fopen (demo.c_str (), "wb");
         if (file != nullptr)
         {
             memset (&header, 0, sizeof (DemoHeader));
