@@ -11,8 +11,11 @@
 
 CJauge::CJauge()
 {
-    m_type            = 0;
-    m_bHide           = true;
+    m_type    = 0;
+    m_bHide   = true;
+    m_pPixmap = nullptr;
+    m_pDecor  = nullptr;
+    m_pSound  = nullptr;
 }
 
 CJauge::~CJauge()
@@ -105,4 +108,3 @@ POINT CJauge::GetPos()
 {
     return m_pos;
 }
-

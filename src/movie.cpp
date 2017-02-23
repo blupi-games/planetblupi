@@ -145,6 +145,8 @@ CMovie::CMovie()
     m_videoTex = nullptr;
     pinfo      = nullptr;
 
+    memset (m_audiobuf, 0, sizeof (m_audiobuf));
+
     m_ret = 0;
 }
 

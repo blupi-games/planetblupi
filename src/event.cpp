@@ -1494,6 +1494,19 @@ CEvent::CEvent()
     m_demoTime      = 0;
     m_keymod        = 0;
     m_posHelpButton = {-1, -1};
+    m_pPixmap       = nullptr;
+    m_pDecor        = nullptr;
+    m_pSound        = nullptr;
+    m_pMovie        = nullptr;
+    m_bMenu         = false;
+    m_bHili         = false;
+    m_demoIndex     = 0;
+    m_demoEnd       = 0;
+    m_bHiliInfoButton = false;
+    m_bHiliHelpButton = false;
+
+    memset (m_textToolTips, 0, sizeof (m_textToolTips));
+    memset (m_libelle, 0, sizeof (m_libelle));
 
     for (i = 0 ; i < MAXBUTTON ; i++)
         m_lastFloor[i] = 0;
@@ -5290,4 +5303,3 @@ void CEvent::PushUserEvent (Sint32 code)
     SDL_PushEvent (&event);
 
 }
-

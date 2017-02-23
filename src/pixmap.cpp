@@ -36,6 +36,10 @@ CPixmap::CPixmap()
     m_mouseSprite  = SPRITE_WAIT;
     m_bBackDisplayed = false;
 
+    m_lpSDLBlupi = nullptr;
+
+    memset (m_filename, 0, sizeof (m_filename));
+
     for (i = 0; i < MAXCURSORS; i++)
         m_lpSDLCursors[i] = nullptr;
 

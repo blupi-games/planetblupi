@@ -24,6 +24,10 @@ CButton::CButton()
     m_selMenu         = 0;
     m_bMouseDown      = false;
     m_message         = static_cast<Uint32> (-1);
+    m_pPixmap         = nullptr;
+    m_pDecor          = nullptr;
+    m_pSound          = nullptr;
+    m_toolTips        = nullptr;
 }
 
 CButton::~CButton () {}

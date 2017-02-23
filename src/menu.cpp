@@ -127,7 +127,10 @@ static const char *GetErr (Sint32 rank)
 CMenu::CMenu()
 {
     m_nbButtons = 0;
-    m_selRank = -1;
+    m_selRank   = -1;
+    m_pPixmap   = nullptr;
+    m_pDecor    = nullptr;
+    m_pSound    = nullptr;
 }
 
 // Destructeur.
@@ -503,5 +506,3 @@ void CMenu::Message()
     if (m_selRank != -1)
         CEvent::PushUserEvent (WM_BUTTON0 + m_selRank);
 }
-
-
