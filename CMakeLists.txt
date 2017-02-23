@@ -19,8 +19,12 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" ST
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 -L${CMAKE_INSTALL_PREFIX}/lib")
 endif ()
 
-file (GLOB_RECURSE sources src/*.cpp src/*.h)
+file (GLOB_RECURSE sources src/*.cpp src/*.h src/win32/*.rc)
 file (GLOB_RECURSE po      resources/po/*.po)
+if (MINGW)
+  file (GLOB_RECURSE rc src/win32/*.rc)
+  list (APPEND sources ${rc})
+endif (MINGW)
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   set (CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
@@ -33,6 +37,14 @@ file (COPY resources/image DESTINATION share/planetblupi)
 file (COPY resources/movie DESTINATION share/planetblupi)
 file (COPY resources/sound DESTINATION share/planetblupi)
 file (COPY resources/music DESTINATION share/planetblupi)
+
+# Windows stuff
+
+if (MINGW)
+  set (CMAKE_RC_COMPILER_INIT windres)
+  enable_language (RC)
+  set (CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
+endif (MINGW)
 
 # Dependencies
 
