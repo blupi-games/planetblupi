@@ -70,7 +70,6 @@ protected:
     SDL_Cursor             *m_lpSDLCursors[MAXCURSORS];
     SDL_Surface            *m_lpSDLBlupi;
     SDL_Texture            *m_lpSDLTexture[MAXIMAGE];
-    COLORREF                m_colorSurface[2 * MAXIMAGE];
 
     char                    m_filename[MAXIMAGE][20];
     POINT                   m_totalDim[MAXIMAGE];   // dimensions totale image
