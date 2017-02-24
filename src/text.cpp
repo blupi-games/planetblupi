@@ -15,7 +15,7 @@
  */
 static Sint32 GetOffset (const char *&c)
 {
-    static const unsigned char table_accents[15] =
+    static const unsigned char table_accents[] =
     {
     /*    ü     à     â     é     è     ë     ê     ï             */
     /*  0xFC, 0xE0, 0xE2, 0xE9, 0xE8, 0xEB, 0xEA, 0xEF, // CP1252 */
