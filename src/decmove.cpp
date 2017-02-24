@@ -981,9 +981,12 @@ bool CDecor::MoveAddIcons (POINT cel, Sint32 rankIcons, bool bContinue)
     return false;
 }
 
-// Démarre le feu sur une cellule.
-// Retourne true si c'est possible.
-
+/**
+ * \brief Start the fire on a cell.
+ *
+ * \param[in] cel - Position.
+ * \returns true if possible.
+ */
 bool CDecor::MoveStartFire (POINT cel)
 {
     Sint32      channel, icon;
@@ -994,27 +997,29 @@ bool CDecor::MoveStartFire (POINT cel)
     channel = m_decor[cel.x / 2][cel.y / 2].objectChannel;
     icon    = m_decor[cel.x / 2][cel.y / 2].objectIcon;
 
-    if (channel == CHOBJECT &&
-        ((icon >=   6 && icon <= 11) ||  // arbres ?
-         (icon >=  65 && icon <= 71) ||  // palissade ?
-         icon ==  61 ||                 // cabane ?
-         icon ==  36 ||                 // planches ?
-         icon ==  60 ||                 // tomates ?
-         icon ==  63 ||                 // oeufs ?
-         icon == 113 ||                 // maison ?
-         icon == 121 ||                 // mine de fer ?
-         icon == 122))                  // mine de fer ?
+    if (channel == CHOBJECT
+        && (   (icon >=   6 && icon <= 11) // trees ?
+            || (icon >=  65 && icon <= 71) // palissade ?
+            ||  icon ==  61                // cabane ?
+            ||  icon ==  36                // planches ?
+            ||  icon ==  60                // tomatoes ?
+            ||  icon ==  63                // eggs ?
+            ||  icon == 113                // house ?
+            ||  icon == 121                // mine de fer ?
+            ||  icon == 122                // mine de fer ?
+           )
+       )
     {
         if (!MoveCreate (cel, -1, false, CHOBJECT, -1,
                          -1, -1, 9999, 1, 0, true))
             return false;
-        MoveAddIcons (cel, 1, true); // petites flammes
 
+        MoveAddIcons (cel, 1, true); // small fire
         m_decor[cel.x / 2][cel.y / 2].fire = 2;
         return true;
     }
 
-    // S'il y a un autre objet -> pas de feu !
+    // If there is an other object, then no fire.
     if (channel >= 0)
         return false;
 
@@ -1023,13 +1028,13 @@ bool CDecor::MoveStartFire (POINT cel)
 
     if (channel == CHFLOOR &&
         (icon == 20 ||    // herbe foncée ?
-         (icon >= 59 && icon <= 64)))   // pont ?
+         (icon >= 59 && icon <= 64)))   // bridge ?
     {
         if (!MoveCreate (cel, -1, false, CHOBJECT, -1,
                          -1, -1, 9999, 1, 0, true))
             return false;
-        MoveAddIcons (cel, 1, true); // petites flammes
 
+        MoveAddIcons (cel, 1, true); // small fire
         m_decor[cel.x / 2][cel.y / 2].fire = 2;
         return true;
     }
