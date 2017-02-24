@@ -1158,29 +1158,27 @@ void CDecor::MoveFire (Sint32 rank)
         if (m_decor[x / 2][y / 2].fire == DIMOBJY)
         {
             icon = m_decor[x / 2][y / 2].floorIcon;
-            if (icon == 20)    // herbe foncée ?
+            switch (icon)
             {
+            case 20:    // herbe foncée ?
                 PutFloor (GetCel (x, y), CHFLOOR, 19); // herbe brulée
-            }
-            if (icon == 59)    // pont ?
-            {
+                break;
+            case 59:    // pont ?
                 PutFloor (GetCel (x, y), CHFLOOR, 2); // rivage
-            }
-            if (icon == 61)    // pont ?
-            {
+                break;
+            case 61:    // pont ?
                 PutFloor (GetCel (x, y), CHFLOOR, 4); // rivage
-            }
-            if (icon == 62)    // pont ?
-            {
+                break;
+            case 62:    // pont ?
                 PutFloor (GetCel (x, y), CHFLOOR, 3); // rivage
-            }
-            if (icon == 64)    // pont ?
-            {
+                break;
+            case 64:    // pont ?
                 PutFloor (GetCel (x, y), CHFLOOR, 5); // rivage
-            }
-            if (icon == 60 || icon == 63)    // pont ?
-            {
+                break;
+            case 60:
+            case 63:    // pont ?
                 PutFloor (GetCel (x, y), CHFLOOR, 14); // eau
+                break;
             }
         }
 
