@@ -19,7 +19,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" ST
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 -L${CMAKE_INSTALL_PREFIX}/lib")
 endif ()
 
-file (GLOB_RECURSE sources src/*.cpp src/*.h src/win32/*.rc)
+file (GLOB_RECURSE sources src/*.cxx src/*.h src/win32/*.rc)
 file (GLOB_RECURSE po      resources/po/*.po)
 if (MINGW)
   file (GLOB_RECURSE rc src/win32/*.rc)
