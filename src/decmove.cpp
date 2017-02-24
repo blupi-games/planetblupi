@@ -3,8 +3,11 @@
 #include "misc.h"
 #include "decmove.h"
 
-// Mouvement pour secouer un arbre
-// (synchrone avec ACTION_PIOCHE).
+
+/**
+ * Movements to shake a tree
+ * (synchronized with ACTION_PIOCHE).
+ */
 static Sint16 table_move1[] =
 {
     9 * 4,  // nb
@@ -46,8 +49,10 @@ static Sint16 table_move1[] =
     +1,  0,
 };
 
-// Mouvement pour faire sauter un objet (est) sur blupi
-// (synchrone avec ACTION_TAKE).
+/**
+ * Movements to jump an object (east) on Blupi
+ * (synchronized with ACTION_TAKE).
+ */
 static Sint16 table_move2[] =
 {
     9 + 19,     // nb
@@ -81,8 +86,10 @@ static Sint16 table_move2[] =
     -30, -56,
 };
 
-// Mouvement pour faire sauter un objet (sud) sur blupi
-// (synchrone avec ACTION_TAKE2).
+/**
+ * Movements to jump an object (south) on Blupi
+ * (synchronized with ACTION_TAKE2).
+ */
 static Sint16 table_move3[] =
 {
     9 + 19,     // nb
@@ -116,8 +123,10 @@ static Sint16 table_move3[] =
     30, -56,
 };
 
-// Mouvement pour déposer un objet (est) sur blupi
-// (synchrone avec ACTION_DEPOSE).
+/**
+ * Movements to drop and object (east) on Blupi
+ * (synchronized with ACTION_DEPOSE).
+ */
 static Sint16 table_move4[] =
 {
     10,     // nb
@@ -133,8 +142,10 @@ static Sint16 table_move4[] =
       0, -10,
 };
 
-// Mouvement pour déposer un objet (sud) sur blupi
-// (synchrone avec ACTION_DEPOSE2).
+/**
+ * Movements to drop an object (south) on Blupi
+ * (synchronized with ACTION_DEPOSE2).
+ */
 static Sint16 table_move5[] =
 {
     10,     // nb
@@ -150,7 +161,9 @@ static Sint16 table_move5[] =
      0, -10,
 };
 
-// Mouvement pour pousser un pont vers l'est.
+/**
+ * Movements to push a bridge to the east.
+ */
 static Sint16 table_move6[] =
 {
     40,     // nb
@@ -196,7 +209,9 @@ static Sint16 table_move6[] =
     +60, +30,
 };
 
-// Mouvement pour pousser un pont vers l'ouest.
+/**
+ * Movements to push a bridge to the west.
+ */
 static Sint16 table_move7[] =
 {
     40,     // nb
@@ -242,7 +257,9 @@ static Sint16 table_move7[] =
     -60, -30,
 };
 
-// Mouvement pour pousser un pont vers le sud.
+/**
+ * Movements to push a bridge to the south.
+ */
 static Sint16 table_move8[] =
 {
     40,     // nb
@@ -288,7 +305,9 @@ static Sint16 table_move8[] =
     -60, +30,
 };
 
-// Mouvement pour pousser un pont vers le nord.
+/**
+ * Movements to push a bridge to the north.
+ */
 static Sint16 table_move9[] =
 {
     40,     // nb
@@ -334,7 +353,9 @@ static Sint16 table_move9[] =
     +60, -30,
 };
 
-// Mouvement pour secouer le laboratoire.
+/**
+ * Movements to shake a laboratory.
+ */
 static Sint16 table_move10[] =
 {
     16 * 4, // nb
@@ -404,7 +425,9 @@ static Sint16 table_move10[] =
     +1, 0,
 };
 
-// Mouvement pour secouer la mine.
+/**
+ * Movements to shake a mine.
+ */
 static Sint16 table_move11[] =
 {
     20 * 4, // nb
@@ -490,7 +513,9 @@ static Sint16 table_move11[] =
     0, +1,
 };
 
-// Mouvement pour secouer l'usine.
+/**
+ * Movements to shake a factory.
+ */
 static Sint16 table_move12[] =
 {
     20 * 4, // nb
@@ -609,8 +634,9 @@ Sint16 *GetListMoves (Sint32 rank)
     return nullptr;
 }
 
-
-// Petites flammes.
+/**
+ * Small fire.
+ */
 static Sint16 table_icon1[] =
 {
     8 * 3,
@@ -619,7 +645,9 @@ static Sint16 table_icon1[] =
     52, 51, 50, 49, 51, 52, 49, 51,
 };
 
-// Grandes flammes.
+/**
+ * Large fire.
+ */
 static Sint16 table_icon2[] =
 {
     8 * 3,
@@ -761,11 +789,9 @@ Sint16 *GetListIcons (Sint32 rank)
     return nullptr;
 }
 
-
-
-
-// Supprime tous les décors animés.
-
+/**
+ * \brief Remove all animated environments.
+ */
 void CDecor::MoveFlush()
 {
     Sint32      i, x, y;
@@ -780,8 +806,11 @@ void CDecor::MoveFlush()
     }
 }
 
-// Retourne la durée du feu.
-
+/**
+ * \brief Get the fire duration.
+ *
+ * \returns the duration.
+ */
 Sint32 CDecor::MoveMaxFire()
 {
     if (m_skill >= 1)
@@ -789,8 +818,9 @@ Sint32 CDecor::MoveMaxFire()
     return MAXFIRE;
 }
 
-// Initialise tous les mouvements perpétuels du décor.
-
+/**
+ * \brief Initialize all environment perpetual movements.
+ */
 void CDecor::MoveFixInit()
 {
     Sint32      x, y;
@@ -828,10 +858,26 @@ void CDecor::MoveFixInit()
     }
 }
 
-// Crée un nouveau décor animé.
-// Si bMisc=true, on garde 10 mouvements en réserve pour
-// des actions importantes (bMisc=false).
-
+/**
+ * \brief Create a new animated environment.
+ *
+ * If \p bMisc is true, we keep 10 movements back for important
+ * actions (\p bMisc == false).
+ *
+ * \param[in] cel - ?
+ * \param[in] rankBlupi - ?
+ * \param[in] bFloor - ?
+ * \param[in] channel - ?
+ * \param[in] icon - ?
+ * \param[in] maskChannel - ?
+ * \param[in] maskIcon - ?
+ * \param[in] total - ?
+ * \param[in] delai - ?
+ * \param[in] stepY - ?
+ * \param[in] bMisc - ?
+ * \param[in] bNotIfExist - ?
+ * \returns true on success.
+ */
 bool CDecor::MoveCreate (POINT cel, Sint32 rankBlupi, bool bFloor,
                          Sint32 channel, Sint32 icon,
                          Sint32 maskChannel, Sint32 maskIcon,
