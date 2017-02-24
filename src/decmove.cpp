@@ -369,30 +369,33 @@ static Sint16 table_move12[] =
 
 Sint16 *GetListMoves (Sint32 rank)
 {
-    if (rank ==  1)
+    switch (rank)
+    {
+    case 1:
         return table_move1;
-    if (rank ==  2)
+    case 2:
         return table_move2;
-    if (rank ==  3)
+    case 3:
         return table_move3;
-    if (rank ==  4)
+    case 4:
         return table_move4;
-    if (rank ==  5)
+    case 5:
         return table_move5;
-    if (rank ==  6)
+    case 6:
         return table_move6;
-    if (rank ==  7)
+    case 7:
         return table_move7;
-    if (rank ==  8)
+    case 8:
         return table_move8;
-    if (rank ==  9)
+    case 9:
         return table_move9;
-    if (rank == 10)
+    case 10:
         return table_move10;
-    if (rank == 11)
+    case 11:
         return table_move11;
-    if (rank == 12)
+    case 12:
         return table_move12;
+    }
 
     return nullptr;
 }
@@ -520,28 +523,31 @@ static Sint16 table_icon11[] =
 
 Sint16 *GetListIcons (Sint32 rank)
 {
-    if (rank ==  1)
+    switch (rank)
+    {
+    case 1:
         return table_icon1;
-    if (rank ==  2)
+    case 2:
         return table_icon2;
-    if (rank ==  3)
+    case 3:
         return table_icon3;
-    if (rank ==  4)
+    case 4:
         return table_icon4;
-    if (rank ==  5)
+    case 5:
         return table_icon5;
-    if (rank ==  6)
+    case 6:
         return table_icon6;
-    if (rank ==  7)
+    case 7:
         return table_icon7;
-    if (rank ==  8)
+    case 8:
         return table_icon8;
-    if (rank ==  9)
+    case 9:
         return table_icon9;
-    if (rank == 10)
+    case 10:
         return table_icon10;
-    if (rank == 11)
+    case 11:
         return table_icon11;
+    }
 
     return nullptr;
 }
