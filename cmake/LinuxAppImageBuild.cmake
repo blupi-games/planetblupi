@@ -1,4 +1,3 @@
-set ( APPIMAGE_CONFIG_DIR "${CMAKE_SOURCE_DIR}" ) # Specifies where to find template files, in this case this same directory
 
 set ( APPIMAGE_ASSISTANT_PROGRAM CACHE FILEPATH "AppImageAssistant executable" )
 set ( APPIMAGE_APPRUN_PROGRAM CACHE FILEPATH "AppImage AppRun executable" )
@@ -17,7 +16,7 @@ macro( APPIMAGE_PACKAGE TARGET APPIMAGE_TITLE CONFIGDIR DATA LIBRARIES LIBRARY_F
     set ( APPIMAGE_INTERNALNAME "${APPIMAGE_INTERNALNAME}" )
     set ( APPIMAGE_LIBRARIES )
     set ( APPIMAGE_DATA )
-    set ( APPIMAGE_CONFIG_DIR "${APPIMAGE_CONFIG_DIR}/${CONFIGDIR}" )
+    set ( APPIMAGE_CONFIG_DIR "${CONFIGDIR}" )
     set ( APPIMAGE_DEFAULT_ICON_FILE "${APPIMAGE_CONFIG_DIR}/icon.svg" )
 
     # Icon file to be used for the AppImage, only one in this case, preferrably SVG
