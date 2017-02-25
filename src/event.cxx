@@ -99,17 +99,6 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_INTRO2,
-        "image/intro2.png",
-        false,
-        {
-            {
-                0
-            },
-        },
-    },
-
-    {
         WM_PHASE_INIT,
         "image/init.png",
         false,
@@ -1804,7 +1793,6 @@ bool CEvent::DrawButtons()
         (m_phase != WM_PHASE_PLAY   &&
          m_phase != WM_PHASE_INSERT &&
          m_phase != WM_PHASE_INTRO1 &&
-         m_phase != WM_PHASE_INTRO2 &&
          m_phase != WM_PHASE_BYE))
     {
         m_bChangeCheat = false;
@@ -2437,8 +2425,7 @@ MouseSprites CEvent::MousePosToSprite (POINT pos)
                 sprite = SPRITE_ARROWDR;
         }
     }
-    else if (m_phase == WM_PHASE_INTRO1 ||
-             m_phase == WM_PHASE_INTRO2)
+    else if (m_phase == WM_PHASE_INTRO1 )
         sprite = SPRITE_POINTER;
     else if (m_phase == WM_PHASE_BYE)
         sprite = SPRITE_POINTER;
@@ -2778,8 +2765,7 @@ bool CEvent::ChangePhase (Uint32 phase)
     m_bHiliInfoButton = false;
     m_bHiliHelpButton = false;
 
-    if (phase == WM_PHASE_INTRO1 ||
-        phase == WM_PHASE_INTRO2)
+    if (phase == WM_PHASE_INTRO1 )
         m_introTime = 0;
 
     if (phase == WM_PHASE_INIT)
@@ -4711,13 +4697,7 @@ bool CEvent::TreatEventBase (const SDL_Event &event)
         m_rankCheat = -1;
         m_posCheat = 0;
 
-        if (m_phase == WM_PHASE_INTRO1)
-        {
-            ChangePhase (WM_PHASE_INTRO2);
-            return true;
-        }
-
-        if (m_phase == WM_PHASE_INTRO2)
+        if (m_phase == WM_PHASE_INTRO1 )
         {
             ChangePhase (WM_PHASE_INIT);
             return true;
@@ -5033,7 +5013,6 @@ bool CEvent::TreatEventBase (const SDL_Event &event)
             break;
 
         case WM_PHASE_INTRO1:
-        case WM_PHASE_INTRO2:
         case WM_PHASE_INIT:
         case WM_PHASE_HISTORY0:
         case WM_PHASE_HISTORY1:
@@ -5278,13 +5257,7 @@ void CEvent::IntroStep()
 
     if (m_introTime > 20 * 3)
     {
-        if (m_phase == WM_PHASE_INTRO1)
-        {
-            ChangePhase (WM_PHASE_INTRO2);
-            return;
-        }
-
-        if (m_phase == WM_PHASE_INTRO2)
+        if (m_phase == WM_PHASE_INTRO1 )
         {
             ChangePhase (WM_PHASE_INIT);
             return;

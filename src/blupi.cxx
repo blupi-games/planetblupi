@@ -152,8 +152,7 @@ static void UpdateFrame (void)
     rcRect.bottom = LYIMAGE;
     g_pPixmap->DrawImage (-1, CHBACK, rcRect); // draw the background
 
-    if (phase == WM_PHASE_INTRO1 ||
-        phase == WM_PHASE_INTRO2)
+    if (phase == WM_PHASE_INTRO1 )
         g_pEvent->IntroStep();
 
     if (phase == WM_PHASE_PLAY)
@@ -625,11 +624,7 @@ static bool DoInit (Sint32 argc, char *argv[])
     g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
     g_pEvent->SetFullScreen (g_bFullScreen);
     g_pEvent->SetMouseType (g_mouseType);
-#if _INTRO
-    g_pEvent->ChangePhase (WM_PHASE_INTRO1);
-#else
-    g_pEvent->ChangePhase (WM_PHASE_TESTCD);
-#endif
+    g_pEvent->ChangePhase ( WM_PHASE_INTRO1 );
 
     g_bTermInit = true;  // initialisation terminï¿½e
     return true;
