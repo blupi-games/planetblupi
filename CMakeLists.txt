@@ -33,6 +33,11 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   set (CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 endif ()
 
+if (USE_APPIMAGE AND ${CMAKE_BUILD_TYPE} STREQUAL "Release")
+  set (CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -s")
+  set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s")
+endif ()
+
 add_executable (planetblupi ${sources})
 
 file (COPY resources/data  DESTINATION share/planetblupi)
