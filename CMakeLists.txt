@@ -13,10 +13,6 @@ set (PB_VERSION_MAJOR 2)
 set (PB_VERSION_MINOR 0)
 set (PB_VERSION_PATCH 0)
 
-# set (CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-# set (CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-# set (CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 -L${CMAKE_INSTALL_PREFIX}/lib")
 endif ()
@@ -57,7 +53,6 @@ pkg_search_module (SDL2 REQUIRED sdl2)
 pkg_search_module (SDL2_MIXER REQUIRED SDL2_mixer)
 pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
 # Static dependencies for SDL_kitchensink
-# pkg_search_module (ASS REQUIRED libass)
 pkg_search_module (PNG REQUIRED libpng)
 pkg_search_module (AVCODEC REQUIRED libavcodec)
 pkg_search_module (AVFORMAT REQUIRED libavformat)
@@ -82,7 +77,6 @@ target_link_libraries (planetblupi PUBLIC
   ${SDL2_MIXER_STATIC_LIBRARIES}
   ${SDL2_IMAGE_STATIC_LIBRARIES}
   SDL_kitchensink
-#   ${ASS_STATIC_LIBRARIES}
   ${PNG_STATIC_LIBRARIES}
   ${AVCODEC_STATIC_LIBRARIES}
   ${AVFORMAT_STATIC_LIBRARIES}
