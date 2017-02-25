@@ -5,7 +5,7 @@
 
 #include <SDL2/SDL_stdinc.h>
 
-#define _INTRO          false   // true si images d'introduction
+#define _INTRO          true    // true si images d'introduction
 
 
 #define LXIMAGE         640     // dimensions de la fenêtre de jeu
