@@ -13,16 +13,21 @@ set (PB_VERSION_MAJOR 2)
 set (PB_VERSION_MINOR 0)
 set (PB_VERSION_PATCH 0)
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 -L${CMAKE_INSTALL_PREFIX}/lib")
-endif ()
-
 file (GLOB_RECURSE sources src/*.cxx src/*.h src/win32/*.rc)
 file (GLOB_RECURSE po      resources/po/*.po)
+
 if (MINGW)
   file (GLOB_RECURSE rc src/win32/*.rc)
   list (APPEND sources ${rc})
 endif (MINGW)
+
+if (APPIMAGE_APPRUN_PROGRAM AND APPIMAGE_ASSISTANT_PROGRAM)
+  set (USE_APPIMAGE ON)
+endif ()
+
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 -L${CMAKE_INSTALL_PREFIX}/lib")
+endif ()
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   set (CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
@@ -136,7 +141,7 @@ install (DIRECTORY resources/music DESTINATION share/planetblupi)
 ## Deploy
 #########
 
-if (APPIMAGE_APPRUN_PROGRAM AND APPIMAGE_ASSISTANT_PROGRAM)
+if (USE_APPIMAGE)
   include (LinuxAppImageBuild)
   set (CMAKE_PACKAGED_OUTPUT_PREFIX ${CMAKE_INSTALL_PREFIX})
   APPIMAGE_PACKAGE (planetblupi "planetblupi" "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "share" "" "")
