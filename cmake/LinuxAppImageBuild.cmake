@@ -76,7 +76,7 @@ macro( APPIMAGE_PACKAGE TARGET APPIMAGE_TITLE CONFIGDIR DATA LIBRARIES LIBRARY_F
     # Copy and configure some data for the AppDir
     configure_file (
         "${APPIMAGE_ICON}"
-        "${APPIMAGE_ICON_TARGET}"
+        "${APPIMAGE_ICON_TARGET}.svg"
         COPYONLY
         )
     configure_file (
