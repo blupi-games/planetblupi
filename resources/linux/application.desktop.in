@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=@APPIMAGE_TITLE@
+Exec=@APPIMAGE_EXEC@
+StartupWMClass=@APPIMAGE_EXEC_WM@
+Icon=@APPIMAGE_ICON_REF@

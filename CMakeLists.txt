@@ -1,6 +1,8 @@
 
 cmake_minimum_required (VERSION 3.2)
 
+set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
+
 include (${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 include_directories (${CMAKE_INSTALL_PREFIX}/include)
@@ -135,3 +137,13 @@ install (DIRECTORY resources/image DESTINATION share/planetblupi)
 install (DIRECTORY resources/movie DESTINATION share/planetblupi)
 install (DIRECTORY resources/sound DESTINATION share/planetblupi)
 install (DIRECTORY resources/music DESTINATION share/planetblupi)
+
+#########
+## Deploy
+#########
+
+if (APPIMAGE_APPRUN_PROGRAM AND APPIMAGE_ASSISTANT_PROGRAM)
+  include (LinuxAppImageBuild)
+  set (CMAKE_PACKAGED_OUTPUT_PREFIX ${CMAKE_INSTALL_PREFIX})
+  APPIMAGE_PACKAGE (planetblupi "planetblupi" "resources/linux" "share" "" "")
+endif ()
