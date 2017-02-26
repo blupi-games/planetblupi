@@ -3033,7 +3033,7 @@ bool CEvent::ChangePhase (Uint32 phase)
             music = m_pDecor->GetMusic();
             if (music > 0)
             {
-                sprintf (filename, "music/music%.3d.blp", music - 1);
+                sprintf (filename, "music/music%.3d.mid", music - 1);
                 m_pSound->StopMusic();
                 m_pSound->PlayMusic (filename);
             }
