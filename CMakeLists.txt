@@ -45,6 +45,7 @@ file (COPY resources/image DESTINATION share/planetblupi)
 file (COPY resources/movie DESTINATION share/planetblupi)
 file (COPY resources/sound DESTINATION share/planetblupi)
 file (COPY resources/music DESTINATION share/planetblupi)
+file (COPY resources/icon/planetblupi.png DESTINATION share/planetblupi)
 
 # Windows stuff
 
