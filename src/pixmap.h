@@ -15,7 +15,6 @@ public:
     ~CPixmap();
 
     bool    Create (POINT dim, bool bFullScreen, Sint32 mouseType);
-    bool    Flush();
     void    Fill (RECT rect, COLORREF color);
 
     bool    Cache (Sint32 channel, const char *pFilename, POINT totalDim,

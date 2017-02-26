@@ -230,37 +230,6 @@ static void UpdateFrame (void)
 }
 
 /**
- * \brief Restore the game after a fullscreen enabling.
- *
- * XXX: This method seems useless with SDL2.
- *
- * \returns true on success.
- */
-static bool RestoreGame ()
-{
-    if (g_pPixmap == nullptr)
-        return false;
-
-    g_pEvent->RestoreGame ();
-    return true;
-}
-
-/**
- * \brief Flush the game before a fullscreen disabling.
- *
- * XXX: This method seems useless with SDL2.
- *
- * \returns true on success.
- */
-static bool FlushGame ()
-{
-    if (g_pPixmap == nullptr)
-        return false;
-
-    return g_pPixmap->Flush ();
-}
-
-/**
  * \brief Finished with all objects we use; release them.
  */
 static void FinishObjects (void)
@@ -314,10 +283,8 @@ static void HandleEvent (const SDL_Event &event)
         {
         case SDL_WINDOWEVENT_FOCUS_GAINED:
             if (g_bFullScreen)
-            {
-                RestoreGame();
                 g_lastPhase = 999;
-            }
+
             if (!g_bFullScreen && g_bTermInit)
             {
                 totalDim.x = 64;
@@ -334,8 +301,6 @@ static void HandleEvent (const SDL_Event &event)
             return;
 
         case SDL_WINDOWEVENT_FOCUS_LOST:
-            if (g_bFullScreen)
-                FlushGame();
             SDL_SetWindowTitle (g_window, "Blupi -- stop");
             if (g_pSound != nullptr)
                 g_pSound->SuspendMusic();

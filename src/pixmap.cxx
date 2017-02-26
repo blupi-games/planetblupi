@@ -92,13 +92,6 @@ bool CPixmap::Create (POINT dim,
     return true;
 }
 
-// Libï¿½re les bitmaps.
-
-bool CPixmap::Flush()
-{
-    return true;
-}
-
 // Rempli une zone rectangulaire avec une couleur uniforme.
 
 void CPixmap::Fill (RECT rect, COLORREF color)

@@ -1674,21 +1674,6 @@ void CEvent::SetMenu (Sint32 button, Sint32 menu)
     m_buttons[index].SetMenu (menu);
 }
 
-
-
-// Restitue le jeu après une activation en mode fullScreen.
-
-void CEvent::RestoreGame()
-{
-    if (m_phase == WM_PHASE_PLAY && m_index < 0)
-        return;
-
-    HideMouse (false);
-    WaitMouse (true);
-    WaitMouse (false); // force le changement de sprite !
-}
-
-
 // Crée tous les boutons nécessaires à la phase en cours.
 
 bool CEvent::CreateButtons ()

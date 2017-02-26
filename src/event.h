@@ -74,7 +74,6 @@ public:
     void    MovieToStart();
     Uint32 GetPhase();
     void    TryInsert();
-    void    RestoreGame();
 
     Sint32      GetButtonIndex (Sint32 button);
     Sint32      GetState (Sint32 button);
