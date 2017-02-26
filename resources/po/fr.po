@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-26 17:45+0100\n"
-"PO-Revision-Date: 2017-02-26 17:48+0100\n"
+"POT-Creation-Date: 2017-02-26 21:59+0100\n"
+"PO-Revision-Date: 2017-02-26 21:59+0100\n"
 "Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -899,11 +899,13 @@ msgstr "Palissade"
 msgid "Paving stones"
 msgstr "Dalles"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:296
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:293
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:399
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:402
 msgid "Planet Blupi"
 msgstr "Planète Blupi"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:304
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:303
 msgid "Planet Blupi -- stop"
 msgstr "Planète Blupi -- arrêt"
 
@@ -966,8 +968,8 @@ msgstr "Quitte"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:134
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1423
-msgid "Quit BLUPI"
-msgstr "Quitter BLUPI"
+msgid "Quit Planet Blupi"
+msgstr "Quitter Planète Blupi"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:907
 msgid "Quit construction"
@@ -1346,3 +1348,6 @@ msgstr "entraînement %d, temps %d"
 #~ msgctxt "Flower|3|"
 #~ msgid "Flowers"
 #~ msgstr "Fleurs"
+
+#~ msgid "Quit BLUPI"
+#~ msgstr "Quitter BLUPI"

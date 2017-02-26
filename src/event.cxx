@@ -131,7 +131,7 @@ static Phase table[] =
                 WM_PHASE_BYE,
                 0, {1, 36},
                 16, 424,
-                { translate ("Quit BLUPI") },
+                { translate ("Quit Planet Blupi") },
             },
             {
                 0
@@ -1420,7 +1420,7 @@ static Phase table[] =
                 WM_PHASE_INIT,
                 0, {1, 40},
                 16, 424,
-                { translate ("Quit BLUPI") },
+                { translate ("Quit Planet Blupi") },
             },
             {
                 0
