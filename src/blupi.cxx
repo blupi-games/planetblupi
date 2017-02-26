@@ -293,7 +293,7 @@ static void HandleEvent (const SDL_Event &event)
                 iconDim.y = 66 / 2;
                 g_pPixmap->Cache (CHHILI, "image/hili.png", totalDim, iconDim);
             }
-            SDL_SetWindowTitle (g_window, "Blupi");
+            SDL_SetWindowTitle (g_window, gettext ("Planet Blupi"));
             if (g_pSound != nullptr)
                 g_pSound->RestartMusic();
             if (g_pMovie)
@@ -301,7 +301,7 @@ static void HandleEvent (const SDL_Event &event)
             return;
 
         case SDL_WINDOWEVENT_FOCUS_LOST:
-            SDL_SetWindowTitle (g_window, "Blupi -- stop");
+            SDL_SetWindowTitle (g_window, gettext ("Planet Blupi -- stop"));
             if (g_pSound != nullptr)
                 g_pSound->SuspendMusic();
             if (g_pMovie)
