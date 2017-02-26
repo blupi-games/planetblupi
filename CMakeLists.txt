@@ -13,11 +13,11 @@ set (PB_VERSION_MAJOR 2)
 set (PB_VERSION_MINOR 0)
 set (PB_VERSION_PATCH 0)
 
-file (GLOB_RECURSE sources src/*.cxx src/*.h src/win32/*.rc)
+file (GLOB_RECURSE sources src/*.cxx src/*.h)
 file (GLOB_RECURSE po      resources/po/*.po)
 
 if (MINGW)
-  file (GLOB_RECURSE rc src/win32/*.rc)
+  file (GLOB_RECURSE rc resources/win32/*.rc)
   list (APPEND sources ${rc})
 endif (MINGW)
 
