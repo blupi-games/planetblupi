@@ -31,10 +31,10 @@ bool   g_bFullScreen = false;  // false si mode de test
 Sint32 g_speedRate = 1;
 Sint32 g_timerInterval = 50;   // inverval = 50ms
 Sint32 g_mouseType = MOUSETYPEGRA;
-bool   g_bActive = true;       // is application active ?
 bool   g_bTermInit = false;    // initialisation en cours
 Uint32 g_lastPhase = 999;
 int    g_rendererType = 0;
+static bool g_pause;
 
 /**
  * \brief Read an integer from a string.
@@ -266,7 +266,7 @@ static void HandleEvent (const SDL_Event &event)
 {
     POINT totalDim, iconDim;
 
-    if (g_pEvent != nullptr &&
+    if (!g_pause && g_pEvent != nullptr &&
         g_pEvent->TreatEvent (event))
         return;
 
@@ -277,6 +277,8 @@ static void HandleEvent (const SDL_Event &event)
         switch (event.window.event)
         {
         case SDL_WINDOWEVENT_FOCUS_GAINED:
+            g_pause = false;
+
             if (g_bFullScreen)
                 g_lastPhase = 999;
 
@@ -296,6 +298,8 @@ static void HandleEvent (const SDL_Event &event)
             return;
 
         case SDL_WINDOWEVENT_FOCUS_LOST:
+            g_pause = true;
+
             SDL_SetWindowTitle (g_window, gettext ("Planet Blupi -- stop"));
             if (g_pSound != nullptr)
                 g_pSound->SuspendMusic();
@@ -331,7 +335,7 @@ static void HandleEvent (const SDL_Event &event)
         case WM_UPDATE:
             if (!g_pEvent->IsMovie())   // pas de film en cours ?
             {
-                if (g_bActive)
+                if (!g_pause)
                     UpdateFrame();
 
                 if (!g_pEvent->IsMovie ())
