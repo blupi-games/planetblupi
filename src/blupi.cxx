@@ -1,6 +1,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <SDL2/SDL_image.h>
 
 #include "blupi.h"
 #include "def.h"
@@ -442,6 +443,10 @@ static bool DoInit (Sint32 argc, char *argv[])
         printf ("%s", SDL_GetError ());
         return false;
     }
+
+    auto icon = IMG_Load ((GetBaseDir () + "planetblupi.png").c_str ());
+    SDL_SetWindowIcon (g_window, icon);
+    SDL_FreeSurface (icon);
 
     g_renderer = SDL_CreateRenderer (g_window, -1, g_rendererType | SDL_RENDERER_TARGETTEXTURE);
     if (!g_renderer)

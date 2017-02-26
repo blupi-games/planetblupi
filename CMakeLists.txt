@@ -141,6 +141,7 @@ install (DIRECTORY resources/image DESTINATION share/planetblupi)
 install (DIRECTORY resources/movie DESTINATION share/planetblupi)
 install (DIRECTORY resources/sound DESTINATION share/planetblupi)
 install (DIRECTORY resources/music DESTINATION share/planetblupi)
+install (FILES resources/icon/planetblupi.png DESTINATION share/planetblupi)
 
 #########
 ## Deploy
