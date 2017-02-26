@@ -16,11 +16,6 @@
 #include "misc.h"
 
 
-// Global definitions
-
-#define NAME            "Blupi"
-#define TITLE           "Blupi"
-
 // Global variables
 
 SDL_Window   *g_window;
@@ -397,10 +392,10 @@ static bool DoInit (Sint32 argc, char *argv[])
 
     // Create a window.
     if (g_bFullScreen)
-        g_window = SDL_CreateWindow (NAME, 0, 0, LXIMAGE, LYIMAGE,
+        g_window = SDL_CreateWindow (gettext ("Planet Blupi"), 0, 0, LXIMAGE, LYIMAGE,
                                      SDL_WINDOW_FULLSCREEN | SDL_WINDOW_BORDERLESS | SDL_WINDOW_INPUT_GRABBED);
     else
-        g_window = SDL_CreateWindow (NAME, SDL_WINDOWPOS_CENTERED,
+        g_window = SDL_CreateWindow (gettext ("Planet Blupi"), SDL_WINDOWPOS_CENTERED,
                                      SDL_WINDOWPOS_CENTERED, LXIMAGE, LYIMAGE, 0);
 
     if (!g_window)
