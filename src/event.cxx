@@ -5240,7 +5240,7 @@ void CEvent::IntroStep()
 {
     m_introTime ++;
 
-    if (m_introTime > 20 * 3)
+    if (m_introTime > 20 * 1)
     {
         if (m_phase == WM_PHASE_INTRO1 )
         {
