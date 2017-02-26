@@ -14,7 +14,7 @@ public:
     CPixmap();
     ~CPixmap();
 
-    bool    Create (POINT dim, bool bFullScreen, Sint32 mouseType);
+    bool    Create (POINT dim, Sint32 mouseType);
     void    Fill (RECT rect, COLORREF color);
 
     bool    Cache (Sint32 channel, const char *pFilename, POINT totalDim,
@@ -55,7 +55,6 @@ protected:
     SDL_Rect GetCursorRect (Sint32 sprite);
 
 protected:
-    bool                    m_bFullScreen;
     Sint32                      m_mouseType;
     bool                    m_bDebug;
     bool                    m_bPalette;

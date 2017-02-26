@@ -28,7 +28,6 @@ CPixmap::CPixmap()
 {
     Sint32      i;
 
-    m_bFullScreen  = false;
     m_mouseType    = MOUSETYPEGRA;
     m_bDebug       = true;
     m_bPalette     = true;
@@ -77,10 +76,8 @@ CPixmap::~CPixmap()
 // Crï¿½e l'objet DirectDraw principal.
 // Retourne false en cas d'erreur.
 
-bool CPixmap::Create (POINT dim,
-                      bool bFullScreen, Sint32 mouseType)
+bool CPixmap::Create (POINT dim, Sint32 mouseType)
 {
-    m_bFullScreen = bFullScreen;
     m_mouseType   = mouseType;
     m_dim         = dim;
 

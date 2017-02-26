@@ -448,7 +448,7 @@ static bool DoInit (Sint32 argc, char *argv[])
 
     totalDim.x = LXIMAGE;
     totalDim.y = LYIMAGE;
-    if (!g_pPixmap->Create (totalDim, g_bFullScreen, g_mouseType))
+    if (!g_pPixmap->Create (totalDim, g_mouseType))
         return InitFail ("Create pixmap", true);
 
     OutputDebug ("Image: init\n");
