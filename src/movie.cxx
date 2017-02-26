@@ -126,10 +126,7 @@ void CMovie::playMovie()
 
     // play/pause the AVI movie
     if (m_fPlaying)
-    {
-        SDL_RenderSetLogicalSize (g_renderer, pinfo->video.width, pinfo->video.height);
         Kit_PlayerPlay (m_player);
-    }
     else
         Kit_PlayerPause (m_player);
 }
@@ -208,7 +205,6 @@ void CMovie::Stop()
         return;
 
     fileCloseMovie();
-    SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
 }
 
 void CMovie::Pause()
