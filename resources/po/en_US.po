@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-26 21:59+0100\n"
-"PO-Revision-Date: 2017-02-18 17:48+0100\n"
+"PO-Revision-Date: 2017-02-27 21:28+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -1258,7 +1258,7 @@ msgstr ""
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/misc.cxx:83
 msgid "en"
-msgstr ""
+msgstr "en_US"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2042
 msgid "free slot"
