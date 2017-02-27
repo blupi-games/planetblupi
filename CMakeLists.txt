@@ -148,7 +148,7 @@ install (FILES resources/icon/planetblupi.png DESTINATION share/planetblupi)
 ## Deploy
 #########
 
-if (USE_APPIMAGE)
+if (USE_APPIMAGE AND ${CMAKE_BUILD_TYPE} STREQUAL "Release")
   include (LinuxAppImageBuild)
   set (CMAKE_PACKAGED_OUTPUT_PREFIX ${CMAKE_INSTALL_PREFIX})
   APPIMAGE_PACKAGE (planetblupi "planetblupi" "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "share" "" "")
