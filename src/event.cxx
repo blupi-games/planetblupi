@@ -3592,7 +3592,8 @@ void CEvent::SetLanguage ()
         ++_nl_msg_cat_cntr;
     }
 
-    // FIXME: reload the sounds
+    m_pSound->FlushAll ();
+    m_pSound->CacheAll ();
 }
 
 // Clic dans un bouton.
