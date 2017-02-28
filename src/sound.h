@@ -46,7 +46,6 @@ public:
     bool    StopAllSounds();
 
 protected:
-    bool                m_bEnable;
     bool                m_bState;
     bool                m_bStopped;
     Mix_Music           *m_pMusic;

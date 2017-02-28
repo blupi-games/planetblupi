@@ -1936,25 +1936,21 @@ bool CEvent::DrawButtons()
 
         volume = m_pSound->GetAudioVolume();
         bEnable = true;
-        if (volume == 0 ||
-            !m_pSound->GetEnable())
+        if (volume == 0)
             bEnable = false;
         SetEnable (WM_BUTTON3, bEnable);
         bEnable = true;
-        if (volume >= MAXVOLUME ||
-            !m_pSound->GetEnable())
+        if (volume >= MAXVOLUME)
             bEnable = false;
         SetEnable (WM_BUTTON4, bEnable);
 
         volume = m_pSound->GetMidiVolume();
         bEnable = true;
-        if (volume == 0 ||
-            !m_pSound->GetEnable())
+        if (volume == 0)
             bEnable = false;
         SetEnable (WM_BUTTON5, bEnable);
         bEnable = true;
-        if (volume >= MAXVOLUME ||
-            !m_pSound->GetEnable())
+        if (volume >= MAXVOLUME)
             bEnable = false;
         SetEnable (WM_BUTTON6, bEnable);
 

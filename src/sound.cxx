@@ -27,7 +27,6 @@ CSound::CSound()
 {
     Sint32      i;
 
-    m_bEnable         = false;
     m_bState          = false;
     m_MIDIFilename[0] = 0;
     m_audioVolume     = 20;
@@ -64,8 +63,6 @@ CSound::~CSound()
 
 bool CSound::Create()
 {
-    m_bEnable = true;
-
     if (Mix_OpenAudio (44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096) == -1)
         return false;
 
@@ -78,15 +75,6 @@ bool CSound::Create()
 
     return true;
 }
-
-
-// Retourne l'ï¿½tat de DirectSound.
-
-bool CSound::GetEnable()
-{
-    return m_bEnable;
-}
-
 
 // Enclenche ou dï¿½clenche le son.
 
@@ -105,8 +93,6 @@ void CSound::SetAudioVolume (Sint32 volume)
 
 Sint32 CSound::GetAudioVolume()
 {
-    if (!m_bEnable)
-        return 0;
     return m_audioVolume;
 }
 
@@ -117,8 +103,6 @@ void CSound::SetMidiVolume (Sint32 volume)
 
 Sint32 CSound::GetMidiVolume()
 {
-    if (!m_bEnable)
-        return 0;
     return m_midiVolume;
 }
 
@@ -129,9 +113,6 @@ void CSound::CacheAll()
 {
     Sint32          i;
     char        name[50];
-
-    if (!m_bEnable)
-        return;
 
     for (i = 0 ; i < MAXSOUND ; i++)
     {
@@ -145,8 +126,6 @@ void CSound::CacheAll()
 
 bool CSound::Cache (Sint32 channel, const std::string &pFilename)
 {
-    if (!m_bEnable)
-        return false;
     if (channel < 0 || channel >= MAXSOUND)
         return false;
 
@@ -187,8 +166,6 @@ void CSound::FlushAll ()
 
 void CSound::Flush (Sint32 channel)
 {
-    if (!m_bEnable)
-        return;
     if (channel < 0 || channel >= MAXSOUND)
         return;
 
@@ -206,9 +183,6 @@ void CSound::Flush (Sint32 channel)
 
 bool CSound::Play (Sint32 channel, Sint32 volume, Uint8 panLeft, Uint8 panRight)
 {
-    if (!m_bEnable)
-        return true;
-
     if (!m_bState || !m_audioVolume)
         return true;
 
@@ -295,8 +269,6 @@ bool CSound::PlayMusic (const char *lpszMIDIFilename)
 {
     std::string path = GetBaseDir();
 
-    if (!m_bEnable)
-        return true;
     if (m_midiVolume == 0)
         return true;
 
@@ -328,8 +300,7 @@ bool CSound::PlayMusic (const char *lpszMIDIFilename)
 bool CSound::RestartMusic()
 {
     OutputDebug ("RestartMusic\n");
-    if (!m_bEnable)
-        return true;
+
     if (m_midiVolume == 0)
         return true;
     if (m_MIDIFilename[0] == 0)
@@ -342,9 +313,6 @@ bool CSound::RestartMusic()
 
 void CSound::SuspendMusic()
 {
-    if (!m_bEnable)
-        return;
-
     if (m_nbSuspendSkip != 0)
     {
         m_nbSuspendSkip --;
