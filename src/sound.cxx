@@ -158,7 +158,7 @@ out:
 
 void CSound::FlushAll ()
 {
-    for (int ch = 0; ch < sizeof (m_lpSDL); ++ch)
+    for (size_t ch = 0; ch < sizeof (m_lpSDL); ++ch)
         Flush (ch);
 }
 
