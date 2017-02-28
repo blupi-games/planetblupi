@@ -113,7 +113,7 @@ public:
     void    IntroStep();
 
 public:
-    static void PushUserEvent (Sint32 code);
+    static void PushUserEvent (Sint32 code, void *data = nullptr);
 
 protected:
     void    DrawTextCenter (const char *text, Sint32 x, Sint32 y, Sint32 font = 0);

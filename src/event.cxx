@@ -5250,13 +5250,13 @@ void CEvent::IntroStep()
     }
 }
 
-void CEvent::PushUserEvent (Sint32 code)
+void CEvent::PushUserEvent (Sint32 code, void *data)
 {
     SDL_Event event;
 
     event.type = SDL_USEREVENT;
     event.user.code = code;
-    event.user.data1 = nullptr;
+    event.user.data1 = data;
     event.user.data2 = nullptr;
 
     SDL_PushEvent (&event);
