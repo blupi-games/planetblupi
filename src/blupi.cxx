@@ -160,7 +160,7 @@ static void UpdateFrame (void)
 
         if (g_pEvent->IsShift()) // screen shifting
         {
-            g_pEvent->DecorAutoShift (posMouse);
+            g_pEvent->DecorAutoShift ();
             g_pDecor->Build (clip, posMouse); // build the environment
         }
         else
@@ -176,7 +176,7 @@ static void UpdateFrame (void)
                 }
             }
 
-            g_pEvent->DecorAutoShift (posMouse);
+            g_pEvent->DecorAutoShift ();
             g_pDecor->Build (clip, posMouse); // build the environment
             g_pDecor->NextPhase (1);          // rebuild the map sometimes
         }
@@ -188,7 +188,7 @@ static void UpdateFrame (void)
         clip.top    = POSDRAWY;
         clip.right  = POSDRAWX + DIMDRAWX;
         clip.bottom = POSDRAWY + DIMDRAWY;
-        g_pEvent->DecorAutoShift (posMouse);
+        g_pEvent->DecorAutoShift ();
         g_pDecor->Build (clip, posMouse); // build the environment
         g_pDecor->NextPhase (-1);         // rebuild the map sometimes
     }

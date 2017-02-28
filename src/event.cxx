@@ -3303,7 +3303,7 @@ void CEvent::DecorShift (Sint32 dx, Sint32 dy)
 
 // Décale le décor lorsque la souris touche un bord.
 
-void CEvent::DecorAutoShift (POINT pos)
+void CEvent::DecorAutoShift ()
 {
     Sint32          max;
     POINT       offset;
@@ -3497,7 +3497,7 @@ bool CEvent::PlayDown (POINT pos, const SDL_Event &event)
 
 // Modifie le décor lorsque la souris est déplacée.
 
-bool CEvent::PlayMove (POINT pos, Uint16 mod)
+bool CEvent::PlayMove (POINT pos)
 {
     if (m_bMenu)
     {
@@ -3527,7 +3527,7 @@ bool CEvent::PlayMove (POINT pos, Uint16 mod)
 
 // Modifie le décor lorsque le bouton de la souris est relâché.
 
-bool CEvent::PlayUp (POINT pos, Uint16 mod)
+bool CEvent::PlayUp (POINT pos)
 {
     static Sint32 table_sound_boing[3] =
     {
@@ -4086,14 +4086,6 @@ bool CEvent::BuildMove (POINT pos, Uint16 mod, const SDL_Event &event)
 
     return true;
 }
-
-// Modifie le décor lorsque le bouton de la souris est relâché.
-
-bool CEvent::BuildUp (POINT pos)
-{
-    return true;
-}
-
 
 // Démarre un film non interractif.
 
@@ -5158,7 +5150,7 @@ bool CEvent::TreatEventBase (const SDL_Event &event)
         }
         if (m_phase == WM_PHASE_PLAY)
         {
-            if (PlayMove (pos, m_keymod))
+            if (PlayMove (pos))
                 return true;
         }
         break;
@@ -5174,13 +5166,10 @@ bool CEvent::TreatEventBase (const SDL_Event &event)
         if (EventButtons (event, pos))
             return true;
         if (m_phase == WM_PHASE_BUILD)
-        {
-            if (BuildUp (pos))
-                return true;
-        }
+            return true;
         if (m_phase == WM_PHASE_PLAY)
         {
-            if (PlayUp (pos, m_keymod))
+            if (PlayUp (pos))
                 return true;
         }
         if (m_phase == WM_PHASE_BYE)

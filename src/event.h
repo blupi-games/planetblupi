@@ -101,7 +101,7 @@ public:
     bool    TreatEvent (const SDL_Event &event);
     bool    TreatEventBase (const SDL_Event &event);
 
-    void    DecorAutoShift (POINT pos);
+    void    DecorAutoShift ();
 
     bool    StartMovie (const char *pFilename);
     void    StopMovie();
@@ -131,8 +131,8 @@ protected:
     void    DecorShift (Sint32 dx, Sint32 dy);
 
     bool    PlayDown (POINT pos, const SDL_Event &event);
-    bool    PlayMove (POINT pos, Uint16 mod);
-    bool    PlayUp (POINT pos, Uint16 mod);
+    bool    PlayMove(POINT pos);
+    bool    PlayUp(POINT pos);
 
     void    SetLanguage ();
     void    SetWindowSize (Uint8 prevScale, Uint8 newScale);
@@ -143,7 +143,6 @@ protected:
     void    BuildWater (POINT cel, Sint32 insIcon);
     bool    BuildDown (POINT pos, Uint16 mod, bool bMix = true);
     bool    BuildMove (POINT pos, Uint16 mod, const SDL_Event &event);
-    bool    BuildUp (POINT pos);
 
     void    PrivateLibelle();
     bool    ReadLibelle (Sint32 world, bool bSchool, bool bHelp);
