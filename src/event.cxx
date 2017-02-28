@@ -18,6 +18,7 @@
 #include "action.h"
 #include "text.h"
 #include "misc.h"
+#include "def.h"
 
 #ifdef _WIN32
 #define unlink _unlink
@@ -106,26 +107,32 @@ static Phase table[] =
             {
                 WM_PHASE_DEMO,
                 0, {1, 108},
-                16, 424 - 60 - 42 * 3 - 18,
+                16, 424 - 60 - 42 * 4 - 18,
                 { translate ("Demo") },
             },
             {
                 WM_PHASE_SCHOOL,
                 0, {1, 79},
-                16, 424 - 60 - 42 * 2,
+                16, 424 - 60 - 42 * 3,
                 { translate ("Training") },
             },
             {
                 WM_PHASE_MISSION,
                 0, {1, 80},
-                16, 424 - 60 - 42 * 1,
+                16, 424 - 60 - 42 * 2,
                 { translate ("Missions") },
             },
             {
                 WM_PHASE_PRIVATE,
                 0, {1, 49},
-                16, 424 - 60 - 42 * 0,
+                16, 424 - 60 - 42 * 1,
                 { translate ("Construction") },
+            },
+            {
+                WM_PHASE_SETTINGS,
+                0, {1, 47},
+                16, 424 - 60 - 42 * 0,
+                { translate ("Global settings") }
             },
             {
                 WM_PHASE_BYE,
@@ -1429,6 +1436,59 @@ static Phase table[] =
     },
 
     {
+        WM_PHASE_SETTINGS,
+        "image/setup.png",
+        false,
+        {
+            {
+                WM_BUTTON1,
+                0, {1, 50},
+                54, 330,
+                { translate ("Previous language") },
+            },
+            {
+                WM_BUTTON2,
+                0, {1, 51},
+                54 + 40, 330,
+                { translate ("Next language") },
+            },
+            {
+                WM_BUTTON3,
+                0, {1, 50},
+                169, 330,
+                { translate ("Fullscreen") },
+            },
+            {
+                WM_BUTTON4,
+                0, {1, 51},
+                169 + 40, 330,
+                { translate ("Windowed") },
+            },
+            {
+                WM_BUTTON5,
+                0, {1, 50},
+                284, 330,
+                { translate ("Reduce window size") },
+            },
+            {
+                WM_BUTTON6,
+                0, {1, 51},
+                284 + 40, 330,
+                { translate ("Increase window size") },
+            },
+            {
+                WM_PHASE_INIT,
+                0, {1, 40},
+                42 + 42 * 0, 433,
+                { translate ("Finish") },
+            },
+            {
+                0
+            },
+        },
+    },
+
+    {
         0
     }
 };
@@ -1444,6 +1504,7 @@ CEvent::CEvent()
     Sint32      i;
 
     m_bFullScreen   = true;
+    m_WindowScale   = 1;
     m_mouseType     = MOUSETYPEGRA;
     m_exercice      = 0;
     m_mission       = 0;
@@ -1505,6 +1566,21 @@ CEvent::CEvent()
 
     for (i = 0 ; i < MAXBUTTON ; i++)
         m_lastHome[i] = 0;
+
+    // TODO: should be dynamic by looking in the locale directory
+    m_Languages.push_back (Language::en);
+    m_Languages.push_back (Language::en_US);
+    m_Languages.push_back (Language::fr);
+    m_Languages.push_back (Language::de);
+
+    if (GetLocale () == "en_US")
+        m_Lang = m_Languages.begin () + 1;
+    else if (GetLocale () == "fr")
+        m_Lang = m_Languages.begin () + 2;
+    else if (GetLocale () == "de")
+        m_Lang = m_Languages.begin () + 3;
+    else
+        m_Lang = m_Languages.begin ();
 }
 
 // Destructeur.
@@ -1535,6 +1611,31 @@ POINT CEvent::GetMousePos()
 void CEvent::SetFullScreen (bool bFullScreen)
 {
     m_bFullScreen = bFullScreen;
+    SDL_SetWindowFullscreen (g_window, bFullScreen ? SDL_WINDOW_FULLSCREEN : 0);
+}
+
+void CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
+{
+    int x, y;
+    SDL_GetMouseState (&x, &y);
+
+    SDL_SetWindowSize (g_window,
+                       LXIMAGE * newScale,
+                       LYIMAGE * newScale);
+    SDL_SetWindowPosition (g_window,
+                           SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+
+    if (newScale == 1)
+        SDL_RenderSetLogicalSize (g_renderer, 0, 0);
+    else
+        SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
+
+    CEvent::PushUserEvent (WM_UPDATE);
+
+    auto coord = new SDL_Point;
+    coord->x = newScale < prevScale ? x / prevScale : x * newScale;
+    coord->y = newScale < prevScale ? y / prevScale : x * newScale;
+    CEvent::PushUserEvent (WM_WARPMOUSE, coord);
 }
 
 // Initialise le type de souris.
@@ -1865,6 +1966,18 @@ bool CEvent::DrawButtons()
         if (m_scrollSpeed >= 3)
             bEnable = false;
         SetEnable (WM_BUTTON10, bEnable);
+    }
+
+    if (m_phase == WM_PHASE_SETTINGS)
+    {
+        SetEnable (WM_BUTTON1, m_Lang != m_Languages.begin ());
+        SetEnable (WM_BUTTON2, m_Lang != m_Languages.end () - 1);
+
+        SetEnable (WM_BUTTON3, !m_bFullScreen);
+        SetEnable (WM_BUTTON4, m_bFullScreen);
+
+        SetEnable (WM_BUTTON5, !m_bFullScreen && m_WindowScale > 1);
+        SetEnable (WM_BUTTON6, !m_bFullScreen && m_WindowScale < 2);
     }
 
     assert (m_index >= 0);
@@ -2307,6 +2420,46 @@ bool CEvent::DrawButtons()
         pos.x = (169 + 40) - lg / 2;
         pos.y = 330 - 20;
         DrawText (m_pPixmap, pos, res);
+    }
+
+    // Draw the settings
+    if (m_phase == WM_PHASE_SETTINGS)
+    {
+        DrawTextCenter (gettext ("Language interface\nand sounds"),  54 + 40, 80);
+        DrawTextCenter (gettext ("Select the\nwindow mode"), 169 + 40, 80);
+        DrawTextCenter (gettext ("Change the\nwindow size"), 284 + 40, 80);
+
+        const auto locale = GetLocale ();
+        std::string lang;
+        if (locale == "en")
+            lang = "English";
+        else if (locale == "en_US")
+            lang = "American english";
+        else if (locale == "fr")
+            lang = "Français";
+        else if (locale == "de")
+            lang = "Deutsch";
+
+        lg = GetTextWidth (lang.c_str ());
+        pos.x = (54 + 40) - lg / 2;
+        pos.y = 330 - 20;
+        DrawText (m_pPixmap, pos, lang.c_str ());
+
+        const char *text =
+            m_bFullScreen ? gettext ("Fullscreen") : gettext ("Windowed");
+        lg = GetTextWidth (text);
+        pos.x = (169 + 40) - lg / 2;
+        pos.y = 330 - 20;
+        DrawText (m_pPixmap, pos, text);
+
+        if (!m_bFullScreen)
+        {
+            snprintf (res, sizeof (res), "%dx", m_WindowScale);
+            lg = GetTextWidth (res);
+            pos.x = (284 + 40) - lg / 2;
+            pos.y = 330 - 20;
+            DrawText (m_pPixmap, pos, res);
+        }
     }
 
     // Affiche le texte de fin de la version demo.
@@ -3402,6 +3555,34 @@ bool CEvent::PlayUp (POINT pos, Uint16 mod)
     return true;
 }
 
+void CEvent::SetLanguage ()
+{
+    const char *lang;
+    switch (*m_Lang)
+    {
+    default:
+    case Language::en:
+        lang = "C";
+        break;
+    case Language::en_US:
+        lang = "en_US";
+        break;
+    case Language::fr:
+        lang = "fr";
+        break;
+    case Language::de:
+        lang = "de";
+        break;
+    }
+
+    {
+        setenv ("LANGUAGE", lang, 1);
+        extern int _nl_msg_cat_cntr;
+        ++_nl_msg_cat_cntr;
+    }
+
+    // FIXME: reload the sounds
+}
 
 // Clic dans un bouton.
 // Message = WM_BUTTON0..WM_BUTTON39
@@ -3571,6 +3752,45 @@ void CEvent::ChangeButtons (Sint32 message)
         {
             if (m_scrollSpeed < 3)
                 m_scrollSpeed ++;
+        }
+    }
+
+    if (m_phase == WM_PHASE_SETTINGS)
+    {
+        switch (message)
+        {
+        case WM_BUTTON1:
+            if (m_Lang != m_Languages.begin ())
+                --m_Lang;
+            SetLanguage ();
+            break;
+        case WM_BUTTON2:
+            if (m_Lang != m_Languages.end () - 1)
+                ++m_Lang;
+            SetLanguage ();
+            break;
+        case WM_BUTTON3:
+            SetFullScreen (true);
+            break;
+        case WM_BUTTON4:
+            SetFullScreen (false);
+            break;
+        case WM_BUTTON5:
+        {
+            auto scale = m_WindowScale;
+            if (m_WindowScale > 1)
+                --m_WindowScale;
+            SetWindowSize (scale, m_WindowScale);
+            break;
+        }
+        case WM_BUTTON6:
+        {
+            auto scale = m_WindowScale;
+            if (m_WindowScale < 2)
+                ++m_WindowScale;
+            SetWindowSize (scale, m_WindowScale);
+            break;
+        }
         }
     }
 }
@@ -4486,7 +4706,7 @@ void CEvent::DemoStep()
             if (message == WM_MOUSEMOVE)
             {
                 POINT pos = ConvLongToPos (lParam);
-                SDL_WarpMouseInWindow (g_window, pos.x, pos.y);
+                SDL_WarpMouseInWindow (g_window, pos.x * m_WindowScale, pos.y * m_WindowScale);
             }
 
             SDL_Event event = { 0 };
@@ -5013,6 +5233,7 @@ bool CEvent::TreatEventBase (const SDL_Event &event)
         case WM_PHASE_HELP:
         case WM_PHASE_MUSIC:
         case WM_PHASE_REGION:
+        case WM_PHASE_SETTINGS:
         case WM_PHASE_SETUP:
         case WM_PHASE_SETUPp:
         case WM_PHASE_PLAYMOVIE:

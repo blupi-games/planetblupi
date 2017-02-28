@@ -343,6 +343,14 @@ static void HandleEvent (const SDL_Event &event)
             }
             break;
 
+        case WM_WARPMOUSE:
+        {
+            const SDL_Point *coord = static_cast<SDL_Point *> (event.user.data1);
+            SDL_WarpMouseInWindow (g_window, coord->x, coord->y);
+            delete coord;
+            break;
+        }
+
         case WM_MUSIC_STOP:
             if (g_pSound->IsStoppedOnDemand())
                 break;

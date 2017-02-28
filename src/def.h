@@ -374,6 +374,7 @@ enum MouseSprites
 #define WM_USER                 0x0400
 
 #define WM_UPDATE               (WM_USER+1)
+#define WM_WARPMOUSE            (WM_USER+2)
 
 #define WM_DECOR1               (WM_USER+20)
 #define WM_DECOR2               (WM_USER+21)
@@ -583,6 +584,7 @@ enum MouseSprites
 #define WM_PHASE_SKILL2         (WM_USER+534)
 #define WM_PHASE_DEMO           (WM_USER+535)
 #define WM_PHASE_INTRO1         (WM_USER+536)
+#define WM_PHASE_SETTINGS       (WM_USER+537)
 
 #define WM_MUSIC_STOP           (WM_USER+550)
 

@@ -54,6 +54,13 @@ typedef struct
 }
 DemoEvent;
 
+enum class Language
+{
+    en     = 0,
+    en_US  = 1,
+    fr     = 2,
+    de     = 3,
+};
 
 class CEvent
 {
@@ -126,6 +133,10 @@ protected:
     bool    PlayDown (POINT pos, const SDL_Event &event);
     bool    PlayMove (POINT pos, Uint16 mod);
     bool    PlayUp (POINT pos, Uint16 mod);
+
+    void    SetLanguage ();
+    void    SetWindowSize (Uint8 prevScale, Uint8 newScale);
+
     void    ChangeButtons (Sint32 message);
 
     void    BuildFloor (POINT cel, Sint32 insIcon);
@@ -148,6 +159,8 @@ protected:
     void    DemoRecEvent (Uint32 message, WPARAM wParam, LPARAM lParam);
 
 protected:
+    std::vector<Language> m_Languages;
+    std::vector<Language>::iterator    m_Lang;
     Sint32          m_speed;
     Sint32          m_exercice;
     Sint32          m_mission;
@@ -159,6 +172,7 @@ protected:
     bool        m_bPrivate;
     bool        m_bAccessBuild;
     bool        m_bFullScreen;
+    Uint8       m_WindowScale;
     Sint32          m_mouseType;
     CPixmap    *m_pPixmap;
     CDecor     *m_pDecor;
