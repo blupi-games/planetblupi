@@ -1614,6 +1614,14 @@ void CEvent::SetFullScreen (bool bFullScreen)
     SDL_SetWindowFullscreen (g_window, bFullScreen ? SDL_WINDOW_FULLSCREEN : 0);
 }
 
+/**
+ * \brief Change the size of the window.
+ *
+ * We use an integer scale to be sure that the pixels are always well formed.
+ *
+ * \param[in] prevScale - The current scale.
+ * \param[in] newScale - The new scale.
+ */
 void CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
 {
     int x, y;
@@ -1630,9 +1638,12 @@ void CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
     else
         SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
 
+    /* Force this update before otherwise the coordinates retrieved with
+     * the Warp SDL function are corresponding to the previous size.
+     */
     CEvent::PushUserEvent (WM_UPDATE);
 
-    auto coord = new SDL_Point;
+    auto coord = new SDL_Point; // Released by the event handler.
     coord->x = newScale < prevScale ? x / prevScale : x * newScale;
     coord->y = newScale < prevScale ? y / prevScale : x * newScale;
     CEvent::PushUserEvent (WM_WARPMOUSE, coord);
