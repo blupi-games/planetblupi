@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <assert.h>
 
+#include "config.h"
 #include "gettext.h"
 #include "blupi.h"
 #include "def.h"
@@ -1917,9 +1918,11 @@ bool CEvent::DrawButtons()
 
     if (m_phase == WM_PHASE_INIT)
     {
-        pos.x = 580;
+        pos.x = 570;
         pos.y = 465;
-        DrawText (m_pPixmap, pos, "Version 1.7", FONTLITTLE);
+        snprintf (res, sizeof (res), "%s %u.%u.%u", gettext ("Version"),
+                  PB_VERSION_MAJOR, PB_VERSION_MINOR, PB_VERSION_PATCH);
+        DrawText (m_pPixmap, pos, res, FONTLITTLE);
     }
 
     if (m_phase == WM_PHASE_SETUP  ||

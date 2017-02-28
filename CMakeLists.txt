@@ -13,6 +13,13 @@ set (PB_VERSION_MAJOR 2)
 set (PB_VERSION_MINOR 0)
 set (PB_VERSION_PATCH 0)
 
+configure_file (
+  "${PROJECT_SOURCE_DIR}/src/config.h.in"
+  "${PROJECT_BINARY_DIR}/include/config.h"
+)
+
+include_directories ("${PROJECT_BINARY_DIR}/include")
+
 file (GLOB_RECURSE sources src/*.cxx src/*.h)
 file (GLOB_RECURSE po      resources/po/*.po)
 
