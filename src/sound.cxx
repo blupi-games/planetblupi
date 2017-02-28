@@ -177,6 +177,12 @@ out:
     return true;
 }
 
+void CSound::FlushAll ()
+{
+    for (int ch = 0; ch < sizeof (m_lpSDL); ++ch)
+        Flush (ch);
+}
+
 // Dï¿½charge un son.
 
 void CSound::Flush (Sint32 channel)

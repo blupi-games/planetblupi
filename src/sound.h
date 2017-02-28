@@ -29,6 +29,7 @@ public:
 
     void    CacheAll();
     bool    Cache (Sint32 channel, const std::string &pFilename);
+    void    FlushAll ();
     void    Flush (Sint32 channel);
 
     bool    Play (Sint32 channel, Sint32 volume = 0, Uint8 panLeft = 255,
