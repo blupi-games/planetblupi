@@ -620,8 +620,17 @@ void CDecor::BuildPutBlupi()
 
                     if (m_rankBlupi[x][y] != -1)    // déjà occupé ?
                     {
-                        //?                     OutputDebug(">>> Manque un blupi <<<\n");
-                        continue;  // que faire d'autre ?
+                        /* MS: It's not right but at least less Blupi are
+                         * lost (invisible). The logic is not very clear, then
+                         * consider the following code as a workaround.
+                         */
+                        if (x == m_blupi[rank].cel.x)
+                            x++;
+                        else
+                            x = m_blupi[rank].cel.x;
+
+                        if (m_rankBlupi[x][y] != -1)
+                            continue;  // que faire d'autre ?
                     }
                 }
             }
