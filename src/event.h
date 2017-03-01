@@ -119,6 +119,8 @@ public:
 
     void    IntroStep();
 
+    Uint8   GetWindowScale ();
+
 public:
     static void PushUserEvent (Sint32 code, void *data = nullptr);
 

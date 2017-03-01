@@ -1650,6 +1650,11 @@ void CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
     CEvent::PushUserEvent (WM_WARPMOUSE, coord);
 }
 
+Uint8 CEvent::GetWindowScale ()
+{
+    return m_WindowScale;
+}
+
 // Initialise le type de souris.
 
 void CEvent::SetMouseType (Sint32 mouseType)
