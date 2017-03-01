@@ -131,6 +131,7 @@ CMenu::CMenu()
     m_pPixmap   = nullptr;
     m_pDecor    = nullptr;
     m_pSound    = nullptr;
+    m_pEvent    = nullptr;
 }
 
 // Destructeur.
@@ -142,7 +143,7 @@ CMenu::~CMenu()
 
 // Crée un nouveau bouton.
 
-bool CMenu::Create (CPixmap *pPixmap, CSound *pSound,
+bool CMenu::Create (CPixmap *pPixmap, CSound *pSound, CEvent *pEvent,
                     POINT pos, Sint32 nb, Sint32 *pButtons, Sint32 *pErrors,
                     std::unordered_map<Sint32, const char *> &texts,
                     Sint32 perso)
@@ -152,6 +153,7 @@ bool CMenu::Create (CPixmap *pPixmap, CSound *pSound,
 
     m_pPixmap   = pPixmap;
     m_pSound    = pSound;
+    m_pEvent    = pEvent;
     m_nbButtons = nb;
     m_pos       = pos;
     m_perso     = perso;
@@ -173,7 +175,9 @@ bool CMenu::Create (CPixmap *pPixmap, CSound *pSound,
         pos = m_pos;
         pos.x += DIMBUTTONX / 2;
         pos.y += DIMBUTTONY / 2;
-        SDL_WarpMouseInWindow (g_window, pos.x, pos.y);
+        SDL_WarpMouseInWindow (g_window,
+                               pos.x * m_pEvent->GetWindowScale (),
+                               pos.y * m_pEvent->GetWindowScale ());
     }
 
     m_selRank = Detect (pos);

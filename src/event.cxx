@@ -3556,7 +3556,7 @@ bool CEvent::PlayUp (POINT pos)
             {
                 m_menuCel = m_pDecor->ConvPosToCel (pos);
                 m_menuPos = pos;
-                m_menu.Create (m_pPixmap, m_pSound,
+                m_menu.Create (m_pPixmap, m_pSound, this,
                                pos, m_menuNb, m_menuButtons, m_menuErrors,
                                m_menuTexts, m_menuPerso);
                 m_bMenu = true;

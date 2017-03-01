@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include "def.h"
 
-/////////////////////////////////////////////////////////////////////////////
+class CEvent;
 
 class CMenu
 {
@@ -12,7 +12,7 @@ public:
     CMenu();
     ~CMenu();
 
-    bool    Create (CPixmap *pPixmap, CSound *pSound,
+    bool    Create (CPixmap *pPixmap, CSound *pSound, CEvent *pEvent,
                     POINT pos, Sint32 nb, Sint32 *pButtons, Sint32 *pErrors,
                     std::unordered_map<Sint32, const char *> &texts,
                     Sint32 perso);
@@ -38,6 +38,7 @@ protected:
     CPixmap    *m_pPixmap;
     CDecor     *m_pDecor;
     CSound     *m_pSound;
+    CEvent     *m_pEvent;
     POINT       m_pos;          // coin sup/gauche
     POINT       m_dim;          // dimensions
     Sint32          m_nbButtons;
