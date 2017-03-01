@@ -5014,17 +5014,21 @@ bool CEvent::TreatEventBase (const SDL_Event &event)
             }
             return true;
         case SDLK_LEFT:
-            DecorShift (-2, 2);
-            return true;
         case SDLK_RIGHT:
-            DecorShift (2, -2);
-            return true;
         case SDLK_UP:
-            DecorShift (-3, -3);
-            return true;
         case SDLK_DOWN:
-            DecorShift (3, 3);
+        {
+            const Uint8 *state = SDL_GetKeyboardState (nullptr);
+            if (state[SDL_SCANCODE_LEFT])
+                DecorShift (-2, 2);
+            if (state[SDL_SCANCODE_RIGHT])
+                DecorShift (2, -2);
+            if (state[SDL_SCANCODE_UP])
+                DecorShift (-3, -3);
+            if (state[SDL_SCANCODE_DOWN])
+                DecorShift (3, 3);
             return true;
+        }
         case SDLK_HOME:
             pos = m_pDecor->GetHome();
             m_pDecor->SetCoin (pos);
