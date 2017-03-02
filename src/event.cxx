@@ -5020,13 +5020,13 @@ bool CEvent::TreatEventBase (const SDL_Event &event)
         case SDLK_DOWN:
         {
             const Uint8 *state = SDL_GetKeyboardState (nullptr);
-            if (state[SDL_SCANCODE_LEFT])
+            if (event.key.keysym.sym == SDLK_LEFT || state[SDL_SCANCODE_LEFT])
                 DecorShift (-2, 2);
-            if (state[SDL_SCANCODE_RIGHT])
+            if (event.key.keysym.sym == SDLK_RIGHT || state[SDL_SCANCODE_RIGHT])
                 DecorShift (2, -2);
-            if (state[SDL_SCANCODE_UP])
+            if (event.key.keysym.sym == SDLK_UP || state[SDL_SCANCODE_UP])
                 DecorShift (-3, -3);
-            if (state[SDL_SCANCODE_DOWN])
+            if (event.key.keysym.sym == SDLK_DOWN || state[SDL_SCANCODE_DOWN])
                 DecorShift (3, 3);
             return true;
         }
