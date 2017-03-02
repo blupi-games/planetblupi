@@ -23,6 +23,7 @@
 
 #ifdef _WIN32
 #define unlink _unlink
+#define setenv(a, b, c) _putenv((a + std::string ("=") + b).c_str ())
 #else // _WIN32
 #include <unistd.h>
 #endif // !_WINE32
