@@ -1,12 +1,24 @@
 
 #pragma once
 
+#include <unordered_map>
 #include <SDL2/SDL.h>
 
 #include "blupi.h"
 
 #define MAXIMAGE    100
 #define MAXCURSORS  14
+
+struct TextureInfo
+{
+    SDL_Texture *texture;
+    bool target; // can be used as a render target
+    std::string file;
+    POINT dimTotal;
+    POINT dimIcon;
+
+    TextureInfo () : texture (nullptr), target (false) {}
+};
 
 class CPixmap
 {
@@ -67,7 +79,7 @@ protected:
     SDL_Cursor             *m_lpCurrentCursor;
     SDL_Cursor             *m_lpSDLCursors[MAXCURSORS];
     SDL_Surface            *m_lpSDLBlupi;
-    SDL_Texture            *m_lpSDLTexture[MAXIMAGE];
+    std::unordered_map<size_t, TextureInfo> m_SDLTextureInfo;
 
     char                    m_filename[MAXIMAGE][20];
     POINT                   m_totalDim[MAXIMAGE];   // dimensions totale image

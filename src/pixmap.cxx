@@ -42,9 +42,6 @@ CPixmap::CPixmap()
     for (i = 0; i < MAXCURSORS; i++)
         m_lpSDLCursors[i] = nullptr;
 
-    for (i = 0 ; i < MAXIMAGE ; i++)
-        m_lpSDLTexture[i] = nullptr;
-
     m_lpCurrentCursor = nullptr;
 }
 
@@ -63,14 +60,9 @@ CPixmap::~CPixmap()
         }
     }
 
-    for (i = 0 ; i < countof (m_lpSDLTexture) ; i++)
-    {
-        if (m_lpSDLTexture[i] != nullptr)
-        {
-            SDL_DestroyTexture (m_lpSDLTexture[i]);
-            m_lpSDLTexture[i] = nullptr;
-        }
-    }
+    for (auto tex: m_SDLTextureInfo)
+        if (tex.second.texture)
+            SDL_DestroyTexture (tex.second.texture);
 }
 
 // Crï¿½e l'objet DirectDraw principal.
@@ -136,7 +128,7 @@ Sint32 CPixmap::BltFast (Sint32 chDst, Sint32 channel, POINT dst, RECT rcRect)
         dstRect.x = dst.x;
         dstRect.y = dst.y;
 
-        res = SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
+        res = SDL_RenderCopy (g_renderer, m_SDLTextureInfo[channel].texture, &srcRect, &dstRect);
     }
     else
     {
@@ -149,8 +141,8 @@ Sint32 CPixmap::BltFast (Sint32 chDst, Sint32 channel, POINT dst, RECT rcRect)
         dstRect.x = dst.x;
         dstRect.y = dst.y;
 
-        SDL_SetRenderTarget (g_renderer, m_lpSDLTexture[chDst]);
-        res = SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
+        SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[chDst].texture);
+        res = SDL_RenderCopy (g_renderer, m_SDLTextureInfo[channel].texture, &srcRect, &dstRect);
         SDL_SetRenderTarget (g_renderer, nullptr);
     }
 
@@ -175,7 +167,7 @@ Sint32 CPixmap::BltFast (SDL_Texture *lpSDL, Sint32 channel, POINT dst,
     dstRect.y = dst.y;
 
     SDL_SetRenderTarget (g_renderer, lpSDL);
-    res = SDL_RenderCopy (g_renderer, m_lpSDLTexture[channel], &srcRect, &dstRect);
+    res = SDL_RenderCopy (g_renderer, m_SDLTextureInfo[channel].texture, &srcRect, &dstRect);
     SDL_SetRenderTarget (g_renderer, nullptr);
 
     return res;
@@ -200,33 +192,40 @@ bool CPixmap::Cache (Sint32 channel, const char *pFilename, POINT totalDim,
     Sint32 access, w, h;
     SDL_QueryTexture (texture, &format, &access, &w, &h);
 
-    if (!m_lpSDLTexture[channel])
+    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
     {
-        m_lpSDLTexture[channel] = SDL_CreateTexture (g_renderer, SDL_PIXELFORMAT_RGBA32,
-                                  SDL_TEXTUREACCESS_TARGET, w, h);
-        SDL_SetTextureBlendMode (m_lpSDLTexture[channel], SDL_BLENDMODE_BLEND);
+        m_SDLTextureInfo[channel].texture =
+            SDL_CreateTexture (g_renderer, SDL_PIXELFORMAT_RGBA32,
+                               SDL_TEXTUREACCESS_TARGET, w, h);
+
+        if (!m_SDLTextureInfo[channel].texture)
+        {
+            SDL_LogError (SDL_LOG_CATEGORY_APPLICATION,
+                        "Couldn't create texture from surface: %s", SDL_GetError());
+            return false;
+        }
+
+        m_SDLTextureInfo[channel].target   = true;
+        m_SDLTextureInfo[channel].dimIcon  = iconDim;
+        m_SDLTextureInfo[channel].dimTotal = totalDim;
+        m_SDLTextureInfo[channel].file     = pFilename;
+
+        SDL_SetTextureBlendMode (m_SDLTextureInfo[channel].texture,
+                                 SDL_BLENDMODE_BLEND);
     }
     else
     {
-        SDL_SetRenderTarget (g_renderer, m_lpSDLTexture[channel]);
+        SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
         SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 0);
         SDL_RenderClear (g_renderer);
         SDL_SetRenderTarget (g_renderer, nullptr);
     }
 
-    SDL_SetRenderTarget (g_renderer, m_lpSDLTexture[channel]);
+    SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
     SDL_RenderCopy (g_renderer, texture, nullptr, nullptr);
     SDL_SetRenderTarget (g_renderer, nullptr);
 
     SDL_DestroyTexture (texture);
-
-    //m_lpSDLTexture[channel] = SDL_CreateTextureFromSurface (g_renderer, surface);
-    if (!m_lpSDLTexture[channel])
-    {
-        SDL_LogError (SDL_LOG_CATEGORY_APPLICATION,
-                      "Couldn't create texture from surface: %s", SDL_GetError());
-        return false;
-    }
 
     if (channel != CHBLUPI)
         SDL_FreeSurface (surface);
@@ -262,12 +261,14 @@ bool CPixmap::Cache (Sint32 channel, SDL_Surface *surface, POINT totalDim)
         return false;
 
     // Create the offscreen surface, by loading our bitmap.
-    if (m_lpSDLTexture[channel])
-        SDL_DestroyTexture (m_lpSDLTexture[channel]);
+    if (   m_SDLTextureInfo.find (channel) != m_SDLTextureInfo.end ()
+        && m_SDLTextureInfo[channel].texture)
+        SDL_DestroyTexture (m_SDLTextureInfo[channel].texture);
 
-    m_lpSDLTexture[channel] = SDL_CreateTextureFromSurface (g_renderer, surface);
+    m_SDLTextureInfo[channel].texture =
+        SDL_CreateTextureFromSurface (g_renderer, surface);
 
-    if (!m_lpSDLTexture[channel])
+    if (!m_SDLTextureInfo[channel].texture)
         return false;
 
     m_totalDim[channel] = totalDim;
@@ -299,7 +300,8 @@ bool CPixmap::IsIconPixel (Sint32 channel, Sint32 rank, POINT pos)
 
     if (channel < 0 || channel >= MAXIMAGE)
         return false;
-    if (m_lpSDLTexture[channel] == nullptr)
+
+    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
         return false;
 
     if (m_iconDim[channel].x == 0 ||
@@ -322,7 +324,7 @@ bool CPixmap::IsIconPixel (Sint32 channel, Sint32 rank, POINT pos)
     rect.h = 1;
     Uint32 pixel = 0;
 
-    SDL_SetRenderTarget (g_renderer, m_lpSDLTexture[channel]);
+    SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
     SDL_RenderReadPixels (g_renderer, &rect, 0, &pixel, 4);
     SDL_SetRenderTarget (g_renderer, nullptr);
 
@@ -341,7 +343,9 @@ bool CPixmap::DrawIcon (Sint32 chDst, Sint32 channel, Sint32 rank, POINT pos,
 
     if (channel < 0 || channel >= MAXIMAGE)
         return false;
-    if (channel != CHMAP && m_lpSDLTexture[channel] == nullptr)
+
+    if (channel != CHMAP
+        && m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
         return false;
 
     if (m_iconDim[channel].x == 0 ||
@@ -380,7 +384,8 @@ bool CPixmap::DrawIconDemi (Sint32 chDst, Sint32 channel, Sint32 rank,
 
     if (channel < 0 || channel >= MAXIMAGE)
         return false;
-    if (m_lpSDLTexture[channel] == nullptr)
+
+    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
         return false;
 
     if (m_iconDim[channel].x == 0 ||
@@ -414,7 +419,8 @@ bool CPixmap::DrawIconPart (Sint32 chDst, Sint32 channel, Sint32 rank,
 
     if (channel < 0 || channel >= MAXIMAGE)
         return false;
-    if (m_lpSDLTexture[channel] == nullptr)
+
+    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
         return false;
 
     if (m_iconDim[channel].x == 0 ||
@@ -445,7 +451,8 @@ bool CPixmap::DrawPart (Sint32 chDst, Sint32 channel, POINT dest, RECT rect,
 {
     if (channel < 0 || channel >= MAXIMAGE)
         return false;
-    if (m_lpSDLTexture[channel] == nullptr)
+
+    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
         return false;
 
     return !BltFast (chDst, channel, dest, rect);
@@ -460,7 +467,8 @@ bool CPixmap::DrawImage (Sint32 chDst, Sint32 channel, RECT rect)
 
     if (channel < 0 || channel >= MAXIMAGE)
         return false;
-    if (m_lpSDLTexture[channel] == nullptr)
+
+    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
         return false;
 
     dst.x = rect.left;
@@ -490,7 +498,8 @@ bool CPixmap::BuildIconMask (Sint32 channelMask, Sint32 rankMask,
 
     if (channel < 0 || channel >= MAXIMAGE)
         return false;
-    if (m_lpSDLTexture[channel] == nullptr)
+
+    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
         return false;
 
     if (m_iconDim[channel].x == 0 ||
@@ -511,7 +520,8 @@ bool CPixmap::BuildIconMask (Sint32 channelMask, Sint32 rankMask,
     rect.bottom = rect.top  + m_iconDim[channel].y;
     posDst.x    = (rankDst % nbx) * m_iconDim[channel].x;
     posDst.y    = (rankDst / nbx) * m_iconDim[channel].y;
-    res = BltFast (m_lpSDLTexture[channel], channel, posDst, rect);
+
+    res = BltFast (m_SDLTextureInfo[channel].texture, channel, posDst, rect);
     if (res)
         return false;
 
@@ -529,7 +539,8 @@ bool CPixmap::BuildIconMask (Sint32 channelMask, Sint32 rankMask,
     rect.top    = (rankMask / nbx) * m_iconDim[channelMask].y;
     rect.right  = rect.left + m_iconDim[channelMask].x;
     rect.bottom = rect.top  + m_iconDim[channelMask].y;
-    res = BltFast (m_lpSDLTexture[channel], channelMask, posDst, rect);
+
+    res = BltFast (m_SDLTextureInfo[channel].texture, channelMask, posDst, rect);
 
     return !res;
 }
