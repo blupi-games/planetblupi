@@ -37,8 +37,6 @@ CPixmap::CPixmap()
 
     m_lpSDLBlupi = nullptr;
 
-    memset (m_filename, 0, sizeof (m_filename));
-
     for (i = 0; i < MAXCURSORS; i++)
         m_lpSDLCursors[i] = nullptr;
 
@@ -230,11 +228,6 @@ bool CPixmap::Cache (Sint32 channel, const char *pFilename, POINT totalDim,
     if (channel != CHBLUPI)
         SDL_FreeSurface (surface);
 
-    strcpy (m_filename[channel], pFilename);
-
-    m_totalDim[channel] = totalDim;
-    m_iconDim[channel]  = iconDim;
-
     return true;
 }
 
@@ -271,9 +264,8 @@ bool CPixmap::Cache (Sint32 channel, SDL_Surface *surface, POINT totalDim)
     if (!m_SDLTextureInfo[channel].texture)
         return false;
 
-    m_totalDim[channel] = totalDim;
-    m_iconDim[channel]  = totalDim;
-
+    m_SDLTextureInfo[channel].dimTotal = totalDim;
+    m_SDLTextureInfo[channel].dimIcon  = totalDim;
     return true;
 }
 
@@ -301,21 +293,22 @@ bool CPixmap::IsIconPixel (Sint32 channel, Sint32 rank, POINT pos)
     if (channel < 0 || channel >= MAXIMAGE)
         return false;
 
-    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
+    auto texInfo = m_SDLTextureInfo.find (channel);
+    if (texInfo == m_SDLTextureInfo.end ())
         return false;
 
-    if (m_iconDim[channel].x == 0 ||
-        m_iconDim[channel].y == 0)
+    if (texInfo->second.dimIcon.x == 0 ||
+        texInfo->second.dimIcon.y == 0)
         return false;
 
-    nbx = m_totalDim[channel].x / m_iconDim[channel].x;
-    nby = m_totalDim[channel].y / m_iconDim[channel].y;
+    nbx = texInfo->second.dimTotal.x / texInfo->second.dimIcon.x;
+    nby = texInfo->second.dimTotal.y / texInfo->second.dimIcon.y;
 
     if (rank < 0 || rank >= nbx * nby)
         return false;
 
-    pos.x += (rank % nbx) * m_iconDim[channel].x;
-    pos.y += (rank / nbx) * m_iconDim[channel].y;
+    pos.x += (rank % nbx) * texInfo->second.dimIcon.x;
+    pos.y += (rank / nbx) * texInfo->second.dimIcon.y;
 
     SDL_Rect rect;
     rect.x = pos.x;
@@ -344,24 +337,24 @@ bool CPixmap::DrawIcon (Sint32 chDst, Sint32 channel, Sint32 rank, POINT pos,
     if (channel < 0 || channel >= MAXIMAGE)
         return false;
 
-    if (channel != CHMAP
-        && m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
+    auto texInfo = m_SDLTextureInfo.find (channel);
+    if (channel != CHMAP && texInfo == m_SDLTextureInfo.end ())
         return false;
 
-    if (m_iconDim[channel].x == 0 ||
-        m_iconDim[channel].y == 0)
+    if (texInfo->second.dimIcon.x == 0 ||
+        texInfo->second.dimIcon.y == 0)
         return false;
 
-    nbx = m_totalDim[channel].x / m_iconDim[channel].x;
-    nby = m_totalDim[channel].y / m_iconDim[channel].y;
+    nbx = texInfo->second.dimTotal.x / texInfo->second.dimIcon.x;
+    nby = texInfo->second.dimTotal.y / texInfo->second.dimIcon.y;
 
     if (rank < 0 || rank >= nbx * nby)
         return false;
 
-    rect.left   = (rank % nbx) * m_iconDim[channel].x;
-    rect.top    = (rank / nbx) * m_iconDim[channel].y;
-    rect.right  = rect.left + m_iconDim[channel].x;
-    rect.bottom = rect.top  + m_iconDim[channel].y;
+    rect.left   = (rank % nbx) * texInfo->second.dimIcon.x;
+    rect.top    = (rank / nbx) * texInfo->second.dimIcon.y;
+    rect.right  = rect.left + texInfo->second.dimIcon.x;
+    rect.bottom = rect.top  + texInfo->second.dimIcon.y;
 
     return !BltFast (chDst, channel, pos, rect);
 }
@@ -385,25 +378,26 @@ bool CPixmap::DrawIconDemi (Sint32 chDst, Sint32 channel, Sint32 rank,
     if (channel < 0 || channel >= MAXIMAGE)
         return false;
 
-    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
+    auto texInfo = m_SDLTextureInfo.find (channel);
+    if (texInfo == m_SDLTextureInfo.end ())
         return false;
 
-    if (m_iconDim[channel].x == 0 ||
-        m_iconDim[channel].y == 0)
+    if (texInfo->second.dimIcon.x == 0 ||
+        texInfo->second.dimIcon.y == 0)
         return false;
 
-    nbx = m_totalDim[channel].x /  m_iconDim[channel].x;
-    nby = m_totalDim[channel].y / (m_iconDim[channel].y / 2);
+    nbx = texInfo->second.dimTotal.x /  texInfo->second.dimIcon.x;
+    nby = texInfo->second.dimTotal.y / (texInfo->second.dimIcon.y / 2);
 
     rank = (rank / 32) * 32 + ((rank % 32) / 2) + ((rank % 2) * 16);
 
     if (rank < 0 || rank >= nbx * nby)
         return false;
 
-    rect.left   = (rank % nbx) * m_iconDim[channel].x;
-    rect.top    = (rank / nbx) * (m_iconDim[channel].y / 2);
-    rect.right  = rect.left + m_iconDim[channel].x;
-    rect.bottom = rect.top  + (m_iconDim[channel].y / 2);
+    rect.left   = (rank % nbx) * texInfo->second.dimIcon.x;
+    rect.top    = (rank / nbx) * (texInfo->second.dimIcon.y / 2);
+    rect.right  = rect.left + texInfo->second.dimIcon.x;
+    rect.bottom = rect.top  + (texInfo->second.dimIcon.y / 2);
 
     return !BltFast (chDst, channel, pos, rect);
 }
@@ -420,22 +414,23 @@ bool CPixmap::DrawIconPart (Sint32 chDst, Sint32 channel, Sint32 rank,
     if (channel < 0 || channel >= MAXIMAGE)
         return false;
 
-    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
+    auto texInfo = m_SDLTextureInfo.find (channel);
+    if (texInfo == m_SDLTextureInfo.end ())
         return false;
 
-    if (m_iconDim[channel].x == 0 ||
-        m_iconDim[channel].y == 0)
+    if (texInfo->second.dimIcon.x == 0 ||
+        texInfo->second.dimIcon.y == 0)
         return false;
 
-    nbx = m_totalDim[channel].x / m_iconDim[channel].x;
-    nby = m_totalDim[channel].y / m_iconDim[channel].y;
+    nbx = texInfo->second.dimTotal.x / texInfo->second.dimIcon.x;
+    nby = texInfo->second.dimTotal.y / texInfo->second.dimIcon.y;
 
     if (rank < 0 || rank >= nbx * nby)
         return false;
 
-    rect.left   = (rank % nbx) * m_iconDim[channel].x;
-    rect.top    = (rank / nbx) * m_iconDim[channel].y;
-    rect.right  = rect.left + m_iconDim[channel].x;
+    rect.left   = (rank % nbx) * texInfo->second.dimIcon.x;
+    rect.top    = (rank / nbx) * texInfo->second.dimIcon.y;
+    rect.right  = rect.left + texInfo->second.dimIcon.x;
     rect.bottom = rect.top  + endY;
 
     pos.y    += startY;
@@ -499,46 +494,49 @@ bool CPixmap::BuildIconMask (Sint32 channelMask, Sint32 rankMask,
     if (channel < 0 || channel >= MAXIMAGE)
         return false;
 
-    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
+    auto texInfo = m_SDLTextureInfo.find (channel);
+    if (texInfo == m_SDLTextureInfo.end ())
         return false;
 
-    if (m_iconDim[channel].x == 0 ||
-        m_iconDim[channel].y == 0)
+    if (texInfo->second.dimIcon.x == 0 ||
+        texInfo->second.dimIcon.y == 0)
         return false;
 
-    nbx = m_totalDim[channel].x / m_iconDim[channel].x;
-    nby = m_totalDim[channel].y / m_iconDim[channel].y;
+    nbx = texInfo->second.dimTotal.x / texInfo->second.dimIcon.x;
+    nby = texInfo->second.dimTotal.y / texInfo->second.dimIcon.y;
 
     if (rankSrc < 0 || rankSrc >= nbx * nby)
         return false;
     if (rankDst < 0 || rankDst >= nbx * nby)
         return false;
 
-    rect.left   = (rankSrc % nbx) * m_iconDim[channel].x;
-    rect.top    = (rankSrc / nbx) * m_iconDim[channel].y;
-    rect.right  = rect.left + m_iconDim[channel].x;
-    rect.bottom = rect.top  + m_iconDim[channel].y;
-    posDst.x    = (rankDst % nbx) * m_iconDim[channel].x;
-    posDst.y    = (rankDst / nbx) * m_iconDim[channel].y;
+    rect.left   = (rankSrc % nbx) * texInfo->second.dimIcon.x;
+    rect.top    = (rankSrc / nbx) * texInfo->second.dimIcon.y;
+    rect.right  = rect.left + texInfo->second.dimIcon.x;
+    rect.bottom = rect.top  + texInfo->second.dimIcon.y;
+    posDst.x    = (rankDst % nbx) * texInfo->second.dimIcon.x;
+    posDst.y    = (rankDst / nbx) * texInfo->second.dimIcon.y;
 
     res = BltFast (m_SDLTextureInfo[channel].texture, channel, posDst, rect);
     if (res)
         return false;
 
-    if (m_iconDim[channelMask].x == 0 ||
-        m_iconDim[channelMask].y == 0)
+    auto texMaskInfo = m_SDLTextureInfo.find (channelMask);
+
+    if (texMaskInfo->second.dimIcon.x == 0 ||
+        texMaskInfo->second.dimIcon.y == 0)
         return false;
 
-    nbx = m_totalDim[channelMask].x / m_iconDim[channelMask].x;
-    nby = m_totalDim[channelMask].y / m_iconDim[channelMask].y;
+    nbx = texMaskInfo->second.dimTotal.x / texMaskInfo->second.dimIcon.x;
+    nby = texMaskInfo->second.dimTotal.y / texMaskInfo->second.dimIcon.y;
 
     if (rankMask < 0 || rankMask >= nbx * nby)
         return false;
 
-    rect.left   = (rankMask % nbx) * m_iconDim[channelMask].x;
-    rect.top    = (rankMask / nbx) * m_iconDim[channelMask].y;
-    rect.right  = rect.left + m_iconDim[channelMask].x;
-    rect.bottom = rect.top  + m_iconDim[channelMask].y;
+    rect.left   = (rankMask % nbx) * texMaskInfo->second.dimIcon.x;
+    rect.top    = (rankMask / nbx) * texMaskInfo->second.dimIcon.y;
+    rect.right  = rect.left + texMaskInfo->second.dimIcon.x;
+    rect.bottom = rect.top  + texMaskInfo->second.dimIcon.y;
 
     res = BltFast (m_SDLTextureInfo[channel].texture, channelMask, posDst, rect);
 
@@ -611,12 +609,14 @@ RECT CPixmap::MouseRectSprite()
     if (m_mouseSprite == SPRITE_ARROWUR)
         rank = 360;
 
-    nbx = m_totalDim[CHBLUPI].x / m_iconDim[CHBLUPI].x;
+    auto texMaskInfo = m_SDLTextureInfo.find (CHBLUPI);
 
-    rcRect.left   = (rank % nbx) * m_iconDim[CHBLUPI].x;
-    rcRect.top    = (rank / nbx) * m_iconDim[CHBLUPI].y;
-    rcRect.right  = rcRect.left + m_iconDim[CHBLUPI].x;
-    rcRect.bottom = rcRect.top + m_iconDim[CHBLUPI].y;
+    nbx = texMaskInfo->second.dimTotal.x / texMaskInfo->second.dimIcon.x;
+
+    rcRect.left   = (rank % nbx) * texMaskInfo->second.dimIcon.x;
+    rcRect.top    = (rank / nbx) * texMaskInfo->second.dimIcon.y;
+    rcRect.right  = rcRect.left + texMaskInfo->second.dimIcon.x;
+    rcRect.bottom = rcRect.top + texMaskInfo->second.dimIcon.y;
 
     return rcRect;
 }
@@ -703,12 +703,14 @@ SDL_Rect CPixmap::GetCursorRect (Sint32 sprite)
         break;
     }
 
-    Sint32 nbx = m_totalDim[CHBLUPI].x / m_iconDim[CHBLUPI].x;
+    auto texMaskInfo = m_SDLTextureInfo.find (CHBLUPI);
 
-    rcRect.x = (rank % nbx) * m_iconDim[CHBLUPI].x;
-    rcRect.y = (rank / nbx) * m_iconDim[CHBLUPI].y;
-    rcRect.w = m_iconDim[CHBLUPI].x;
-    rcRect.h = m_iconDim[CHBLUPI].y;
+    Sint32 nbx = texMaskInfo->second.dimTotal.x / texMaskInfo->second.dimIcon.x;
+
+    rcRect.x = (rank % nbx) * texMaskInfo->second.dimIcon.x;
+    rcRect.y = (rank / nbx) * texMaskInfo->second.dimIcon.y;
+    rcRect.w = texMaskInfo->second.dimIcon.x;
+    rcRect.h = texMaskInfo->second.dimIcon.y;
 
     return rcRect;
 }

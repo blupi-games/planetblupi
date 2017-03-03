@@ -17,7 +17,11 @@ struct TextureInfo
     POINT dimTotal;
     POINT dimIcon;
 
-    TextureInfo () : texture (nullptr), target (false) {}
+    TextureInfo ()
+        : texture (nullptr),
+          target (false),
+          dimTotal { 0 },
+          dimIcon { 0 } {}
 };
 
 class CPixmap
@@ -80,10 +84,4 @@ protected:
     SDL_Cursor             *m_lpSDLCursors[MAXCURSORS];
     SDL_Surface            *m_lpSDLBlupi;
     std::unordered_map<size_t, TextureInfo> m_SDLTextureInfo;
-
-    char                    m_filename[MAXIMAGE][20];
-    POINT                   m_totalDim[MAXIMAGE];   // dimensions totale image
-    POINT                   m_iconDim[MAXIMAGE];    // dimensions d'une icï¿½ne
 };
-
-/////////////////////////////////////////////////////////////////////////////
