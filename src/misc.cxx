@@ -17,11 +17,6 @@
 #include "blupi.h"
 #include "def.h"
 
-// Variables globales
-
-extern bool     g_bFullScreen;  // false si mode de test
-
-
 // Affiche un message de debug.
 
 void OutputDebug (const char *pMessage)

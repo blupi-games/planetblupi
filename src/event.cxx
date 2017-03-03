@@ -1505,7 +1505,7 @@ CEvent::CEvent()
 {
     Sint32      i;
 
-    m_bFullScreen   = true;
+    m_bFullScreen   = g_bFullScreen;
     m_WindowScale   = 1;
     m_exercice      = 0;
     m_mission       = 0;
@@ -1611,6 +1611,9 @@ POINT CEvent::GetMousePos()
 
 void CEvent::SetFullScreen (bool bFullScreen)
 {
+    if (bFullScreen == m_bFullScreen)
+        return;
+
     int x, y;
     SDL_GetMouseState (&x, &y);
     x /= m_WindowScale;
