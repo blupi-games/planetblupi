@@ -4954,7 +4954,8 @@ bool CEvent::TreatEventBase (const SDL_Event &event)
                 ChangePhase (WM_PHASE_INFO);
                 return true;
             }
-            if (m_phase == WM_PHASE_INFO)
+            if (   m_phase == WM_PHASE_INFO
+                || m_phase == WM_PHASE_SETTINGS)
             {
                 ChangePhase (WM_PHASE_INIT);
                 return true;
@@ -4981,6 +4982,11 @@ bool CEvent::TreatEventBase (const SDL_Event &event)
             }
             return true;
         case SDLK_RETURN:
+            if (m_phase == WM_PHASE_SETTINGS)
+            {
+                ChangePhase (WM_PHASE_INIT);
+                return true;
+            }
             if (m_phase == WM_PHASE_PLAY  ||
                 m_phase == WM_PHASE_READ  ||
                 m_phase == WM_PHASE_WRITE ||
