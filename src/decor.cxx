@@ -620,7 +620,7 @@ void CDecor::BuildPutBlupi()
 
                     if (m_rankBlupi[x][y] != -1)    // déjà occupé ?
                     {
-                        /* MS: It's not right but at least less Blupi are
+                        /* HACK: It's not right but at least less Blupi are
                          * lost (invisible). The logic is not very clear, then
                          * consider the following code as a workaround.
                          */
