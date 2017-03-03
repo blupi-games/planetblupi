@@ -1635,11 +1635,6 @@ void CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
     SDL_SetWindowPosition (g_window,
                            SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
-    if (newScale == 1)
-        SDL_RenderSetLogicalSize (g_renderer, 0, 0);
-    else
-        SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
-
     m_pPixmap->ReloadTargetTextures ();
 
     /* Force this update before otherwise the coordinates retrieved with

@@ -431,6 +431,8 @@ static bool DoInit (Sint32 argc, char *argv[])
     if (!bOK)    // config.ini pas correct ?
         return InitFail ("Game not correctly installed", false);
 
+    SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
+
     const auto renders = SDL_GetNumRenderDrivers ();
     for (int i = 0; i < renders; ++i)
     {
