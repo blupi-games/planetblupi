@@ -89,7 +89,7 @@ void CPixmap::Fill (RECT rect, COLORREF color)
 // Effectue un appel BltFast.
 // Les modes sont 0=transparent, 1=opaque.
 
-Sint32 CPixmap::BltFast (Sint32 chDst, Sint32 channel, POINT dst, RECT rcRect)
+Sint32 CPixmap::BltFast (Sint32 chDst, size_t channel, POINT dst, RECT rcRect)
 {
     Sint32          res, limit;
 
@@ -150,7 +150,7 @@ Sint32 CPixmap::BltFast (Sint32 chDst, Sint32 channel, POINT dst, RECT rcRect)
 // Effectue un appel BltFast.
 // Les modes sont 0=transparent, 1=opaque.
 
-Sint32 CPixmap::BltFast (SDL_Texture *lpSDL, Sint32 channel, POINT dst,
+Sint32 CPixmap::BltFast (SDL_Texture *lpSDL, size_t channel, POINT dst,
                          RECT rcRect)
 {
     Sint32          res;
@@ -173,12 +173,9 @@ Sint32 CPixmap::BltFast (SDL_Texture *lpSDL, Sint32 channel, POINT dst,
 
 // Cache une image contenant des icï¿½nes.
 
-bool CPixmap::Cache (Sint32 channel, const char *pFilename, POINT totalDim,
+bool CPixmap::Cache (size_t channel, const char *pFilename, POINT totalDim,
                      POINT iconDim)
 {
-    if (channel < 0 || channel >= MAXIMAGE)
-        return false;
-
     std::string file = GetBaseDir() + pFilename;
     SDL_Surface *surface = IMG_Load (file.c_str());
 
@@ -233,12 +230,9 @@ bool CPixmap::Cache (Sint32 channel, const char *pFilename, POINT totalDim,
 
 // Cache une image globale.
 
-bool CPixmap::Cache (Sint32 channel, const char *pFilename, POINT totalDim)
+bool CPixmap::Cache (size_t channel, const char *pFilename, POINT totalDim)
 {
-    POINT       iconDim;
-
-    if (channel < 0 || channel >= MAXIMAGE)
-        return false;
+    POINT iconDim;
 
     iconDim.x = 0;
     iconDim.y = 0;
@@ -248,11 +242,8 @@ bool CPixmap::Cache (Sint32 channel, const char *pFilename, POINT totalDim)
 
 // Cache une image provenant d'un bitmap.
 
-bool CPixmap::Cache (Sint32 channel, SDL_Surface *surface, POINT totalDim)
+bool CPixmap::Cache (size_t channel, SDL_Surface *surface, POINT totalDim)
 {
-    if (channel < 0 || channel >= MAXIMAGE)
-        return false;
-
     // Create the offscreen surface, by loading our bitmap.
     if (   m_SDLTextureInfo.find (channel) != m_SDLTextureInfo.end ()
         && m_SDLTextureInfo[channel].texture)
@@ -286,12 +277,9 @@ RECT CPixmap::GetClipping()
 
 // Teste si un point fait partie d'une icï¿½ne.
 
-bool CPixmap::IsIconPixel (Sint32 channel, Sint32 rank, POINT pos)
+bool CPixmap::IsIconPixel (size_t channel, Sint32 rank, POINT pos)
 {
-    Sint32          nbx, nby;
-
-    if (channel < 0 || channel >= MAXIMAGE)
-        return false;
+    Sint32 nbx, nby;
 
     auto texInfo = m_SDLTextureInfo.find (channel);
     if (texInfo == m_SDLTextureInfo.end ())
@@ -328,14 +316,11 @@ bool CPixmap::IsIconPixel (Sint32 channel, Sint32 rank, POINT pos)
 // Dessine une partie d'image rectangulaire.
 // Les modes sont 0=transparent, 1=opaque.
 
-bool CPixmap::DrawIcon (Sint32 chDst, Sint32 channel, Sint32 rank, POINT pos,
+bool CPixmap::DrawIcon (Sint32 chDst, size_t channel, Sint32 rank, POINT pos,
                         bool bMask)
 {
-    Sint32          nbx, nby;
-    RECT        rect;
-
-    if (channel < 0 || channel >= MAXIMAGE)
-        return false;
+    Sint32 nbx, nby;
+    RECT   rect;
 
     auto texInfo = m_SDLTextureInfo.find (channel);
     if (channel != CHMAP && texInfo == m_SDLTextureInfo.end ())
@@ -369,14 +354,11 @@ bool CPixmap::DrawIcon (Sint32 chDst, Sint32 channel, Sint32 rank, POINT pos,
 //  32,32   34,33
 //  33,48   35,49
 
-bool CPixmap::DrawIconDemi (Sint32 chDst, Sint32 channel, Sint32 rank,
+bool CPixmap::DrawIconDemi (Sint32 chDst, size_t channel, Sint32 rank,
                             POINT pos, bool bMask)
 {
-    Sint32          nbx, nby;
-    RECT        rect;
-
-    if (channel < 0 || channel >= MAXIMAGE)
-        return false;
+    Sint32 nbx, nby;
+    RECT   rect;
 
     auto texInfo = m_SDLTextureInfo.find (channel);
     if (texInfo == m_SDLTextureInfo.end ())
@@ -404,15 +386,12 @@ bool CPixmap::DrawIconDemi (Sint32 chDst, Sint32 channel, Sint32 rank,
 
 // Dessine une partie d'image rectangulaire.
 
-bool CPixmap::DrawIconPart (Sint32 chDst, Sint32 channel, Sint32 rank,
+bool CPixmap::DrawIconPart (Sint32 chDst, size_t channel, Sint32 rank,
                             POINT pos,
                             Sint32 startY, Sint32 endY, bool bMask)
 {
-    Sint32          nbx, nby;
-    RECT        rect;
-
-    if (channel < 0 || channel >= MAXIMAGE)
-        return false;
+    Sint32 nbx, nby;
+    RECT   rect;
 
     auto texInfo = m_SDLTextureInfo.find (channel);
     if (texInfo == m_SDLTextureInfo.end ())
@@ -441,12 +420,9 @@ bool CPixmap::DrawIconPart (Sint32 chDst, Sint32 channel, Sint32 rank,
 
 // Dessine une partie d'image n'importe oï¿½.
 
-bool CPixmap::DrawPart (Sint32 chDst, Sint32 channel, POINT dest, RECT rect,
+bool CPixmap::DrawPart (Sint32 chDst, size_t channel, POINT dest, RECT rect,
                         bool bMask)
 {
-    if (channel < 0 || channel >= MAXIMAGE)
-        return false;
-
     if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
         return false;
 
@@ -455,13 +431,10 @@ bool CPixmap::DrawPart (Sint32 chDst, Sint32 channel, POINT dest, RECT rect,
 
 // Dessine une partie d'image rectangulaire.
 
-bool CPixmap::DrawImage (Sint32 chDst, Sint32 channel, RECT rect)
+bool CPixmap::DrawImage (Sint32 chDst, size_t channel, RECT rect)
 {
-    POINT       dst;
-    Sint32          res;
-
-    if (channel < 0 || channel >= MAXIMAGE)
-        return false;
+    POINT  dst;
+    Sint32 res;
 
     if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
         return false;
@@ -483,16 +456,13 @@ bool CPixmap::DrawImage (Sint32 chDst, Sint32 channel, RECT rect)
 
 // Construit une icï¿½ne en utilisant un masque.
 
-bool CPixmap::BuildIconMask (Sint32 channelMask, Sint32 rankMask,
-                             Sint32 channel, Sint32 rankSrc, Sint32 rankDst)
+bool CPixmap::BuildIconMask (size_t channelMask, Sint32 rankMask,
+                             size_t channel, Sint32 rankSrc, Sint32 rankDst)
 {
-    Sint32          nbx, nby;
-    POINT       posDst;
-    RECT        rect;
-    Sint32          res;
-
-    if (channel < 0 || channel >= MAXIMAGE)
-        return false;
+    Sint32 nbx, nby;
+    POINT  posDst;
+    RECT   rect;
+    Sint32 res;
 
     auto texInfo = m_SDLTextureInfo.find (channel);
     if (texInfo == m_SDLTextureInfo.end ())

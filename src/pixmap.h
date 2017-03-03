@@ -6,7 +6,6 @@
 
 #include "blupi.h"
 
-#define MAXIMAGE    100
 #define MAXCURSORS  14
 
 struct TextureInfo
@@ -33,27 +32,27 @@ public:
     bool    Create (POINT dim, Sint32 mouseType);
     void    Fill (RECT rect, COLORREF color);
 
-    bool    Cache (Sint32 channel, const char *pFilename, POINT totalDim,
+    bool    Cache (size_t channel, const char *pFilename, POINT totalDim,
                    POINT iconDim);
-    bool    Cache (Sint32 channel, const char *pFilename, POINT totalDim);
-    bool    Cache (Sint32 channel, SDL_Surface *surface, POINT totalDim);
+    bool    Cache (size_t channel, const char *pFilename, POINT totalDim);
+    bool    Cache (size_t channel, SDL_Surface *surface, POINT totalDim);
     void    SetClipping (RECT clip);
     RECT    GetClipping();
 
-    bool    IsIconPixel (Sint32 channel, Sint32 rank, POINT pos);
+    bool    IsIconPixel (size_t channel, Sint32 rank, POINT pos);
 
-    bool    DrawIcon (Sint32 chDst, Sint32 channel, Sint32 rank, POINT pos,
+    bool    DrawIcon (Sint32 chDst, size_t channel, Sint32 rank, POINT pos,
                       bool bMask = false);
-    bool    DrawIconDemi (Sint32 chDst, Sint32 channel, Sint32 rank, POINT pos,
+    bool    DrawIconDemi (Sint32 chDst, size_t channel, Sint32 rank, POINT pos,
                           bool bMask = false);
-    bool    DrawIconPart (Sint32 chDst, Sint32 channel, Sint32 rank, POINT pos,
+    bool    DrawIconPart (Sint32 chDst, size_t channel, Sint32 rank, POINT pos,
                           Sint32 startY, Sint32 endY, bool bMask = false);
-    bool    DrawPart (Sint32 chDst, Sint32 channel, POINT dest, RECT rect,
+    bool    DrawPart (Sint32 chDst, size_t channel, POINT dest, RECT rect,
                       bool bMask = false);
-    bool    DrawImage (Sint32 chDst, Sint32 channel, RECT rect);
+    bool    DrawImage (Sint32 chDst, size_t channel, RECT rect);
 
-    bool    BuildIconMask (Sint32 channelMask, Sint32 rankMask,
-                           Sint32 channel, Sint32 rankSrc, Sint32 rankDst);
+    bool    BuildIconMask (size_t channelMask, Sint32 rankMask,
+                           size_t channel, Sint32 rankSrc, Sint32 rankDst);
 
     bool    Display();
 
@@ -63,8 +62,8 @@ public:
     void    ChangeSprite (MouseSprites sprite);
 
 protected:
-    Sint32  BltFast (Sint32 chDst, Sint32 channel, POINT dst, RECT rcRect);
-    Sint32  BltFast (SDL_Texture *lpSDL, Sint32 channel, POINT dst, RECT rcRect);
+    Sint32  BltFast (Sint32 chDst, size_t channel, POINT dst, RECT rcRect);
+    Sint32  BltFast (SDL_Texture *lpSDL, size_t channel, POINT dst, RECT rcRect);
 
     RECT    MouseRectSprite();
     SDL_Point GetCursorHotSpot (Sint32 sprite);
