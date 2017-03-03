@@ -1612,8 +1612,30 @@ POINT CEvent::GetMousePos()
 
 void CEvent::SetFullScreen (bool bFullScreen)
 {
+    int x, y;
+    SDL_GetMouseState (&x, &y);
+    x /= m_WindowScale;
+    y /= m_WindowScale;
+
+    m_WindowScale = 1;
+    SDL_SetWindowSize (g_window, LXIMAGE, LYIMAGE);
+
     m_bFullScreen = bFullScreen;
     SDL_SetWindowFullscreen (g_window, bFullScreen ? SDL_WINDOW_FULLSCREEN : 0);
+    SDL_SetWindowPosition (g_window,
+                           SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+
+    m_pPixmap->ReloadTargetTextures ();
+
+    /* Force this update before otherwise the coordinates retrieved with
+     * the Warp SDL function are corresponding to the previous size.
+     */
+    CEvent::PushUserEvent (WM_UPDATE);
+
+    auto coord = new SDL_Point; // Released by the event handler.
+    coord->x = x;
+    coord->y = y;
+    CEvent::PushUserEvent (WM_WARPMOUSE, coord);
 }
 
 /**
