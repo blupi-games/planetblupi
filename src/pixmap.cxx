@@ -251,6 +251,7 @@ bool CPixmap::Cache (size_t channel, SDL_Surface *surface, POINT totalDim)
 
     m_SDLTextureInfo[channel].texture =
         SDL_CreateTextureFromSurface (g_renderer, surface);
+    m_SDLTextureInfo[channel].target = false;
 
     if (!m_SDLTextureInfo[channel].texture)
         return false;
