@@ -23,7 +23,7 @@
 
 #ifdef _WIN32
 #define unlink _unlink
-#define setenv(a, b, c) _putenv((a + std::string ("=") + b).c_str ())
+#define putenv _putenv
 #else // _WIN32
 #include <unistd.h>
 #endif // !_WINE32
@@ -3584,7 +3584,9 @@ bool CEvent::PlayUp (POINT pos)
 
 void CEvent::SetLanguage ()
 {
+    static char env[64];
     const char *lang;
+
     switch (*m_Lang)
     {
     default:
@@ -3602,8 +3604,10 @@ void CEvent::SetLanguage ()
         break;
     }
 
+    snprintf (env, sizeof (env), "LANGUAGE=%s", lang);
+
     {
-        setenv ("LANGUAGE", lang, 1);
+        putenv (env);
         extern int _nl_msg_cat_cntr;
         ++_nl_msg_cat_cntr;
     }
