@@ -20,7 +20,6 @@
 // Variables globales
 
 extern bool     g_bFullScreen;  // false si mode de test
-extern Sint32       g_mouseType;
 
 
 // Affiche un message de debug.

@@ -594,14 +594,6 @@ enum MouseSprites
 #define WM_MOVIE_PLAY           (WM_USER+603)
 
 
-// Types de gestion de la souris.
-
-#define MOUSETYPEGRA            1
-#define MOUSETYPEWIN            2
-#define MOUSETYPEWINPOS         3
-
-
-
 // Conditions pour gagner.
 
 typedef struct
