@@ -625,7 +625,7 @@ void CDecor::BuildPutBlupi()
                          * consider the following code as a workaround.
                          */
                         if (x == m_blupi[rank].cel.x)
-                            x++;
+                            x -= 2;
                         else
                             x = m_blupi[rank].cel.x;
 
