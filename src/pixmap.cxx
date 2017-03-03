@@ -200,11 +200,6 @@ bool CPixmap::Cache (size_t channel, const char *pFilename, POINT totalDim,
             return false;
         }
 
-        m_SDLTextureInfo[channel].target   = true;
-        m_SDLTextureInfo[channel].dimIcon  = iconDim;
-        m_SDLTextureInfo[channel].dimTotal = totalDim;
-        m_SDLTextureInfo[channel].file     = pFilename;
-
         SDL_SetTextureBlendMode (m_SDLTextureInfo[channel].texture,
                                  SDL_BLENDMODE_BLEND);
     }
@@ -215,6 +210,11 @@ bool CPixmap::Cache (size_t channel, const char *pFilename, POINT totalDim,
         SDL_RenderClear (g_renderer);
         SDL_SetRenderTarget (g_renderer, nullptr);
     }
+
+    m_SDLTextureInfo[channel].target   = true;
+    m_SDLTextureInfo[channel].dimIcon  = iconDim;
+    m_SDLTextureInfo[channel].dimTotal = totalDim;
+    m_SDLTextureInfo[channel].file     = pFilename;
 
     SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
     SDL_RenderCopy (g_renderer, texture, nullptr, nullptr);
