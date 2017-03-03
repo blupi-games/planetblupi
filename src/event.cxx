@@ -4938,89 +4938,86 @@ bool CEvent::TreatEventBase (const SDL_Event &event)
                 m_pSound->SetSuspendSkip (1);
                 return true;
             }
-            if (m_phase == WM_PHASE_PLAY   ||
-                m_phase == WM_PHASE_SETUP  ||
-                m_phase == WM_PHASE_SETUPp ||
-                m_phase == WM_PHASE_READ   ||
-                m_phase == WM_PHASE_WRITE  ||
-                m_phase == WM_PHASE_WRITEp ||
-                m_phase == WM_PHASE_HELP)
+
+            switch (m_phase)
             {
+            case WM_PHASE_PLAY:
+            case WM_PHASE_SETUP:
+            case WM_PHASE_SETUPp:
+            case WM_PHASE_READ:
+            case WM_PHASE_WRITE:
+            case WM_PHASE_WRITEp:
+            case WM_PHASE_HELP:
                 ChangePhase (WM_PHASE_STOP);
                 return true;
-            }
-            if (m_phase == WM_PHASE_STOP  ||
-                m_phase == WM_PHASE_LOST  ||
-                m_phase == WM_PHASE_BUILD)
-            {
+
+            case WM_PHASE_STOP:
+            case WM_PHASE_LOST:
+            case WM_PHASE_BUILD:
                 ChangePhase (WM_PHASE_INFO);
                 return true;
-            }
-            if (   m_phase == WM_PHASE_INFO
-                || m_phase == WM_PHASE_SETTINGS)
-            {
+
+            case WM_PHASE_INFO:
+            case WM_PHASE_SETTINGS:
                 ChangePhase (WM_PHASE_INIT);
                 return true;
-            }
-            if (m_phase == WM_PHASE_BUTTON ||
-                m_phase == WM_PHASE_TERM   ||
-                m_phase == WM_PHASE_MUSIC  ||
-                m_phase == WM_PHASE_REGION)
-            {
+
+            case WM_PHASE_BUTTON:
+            case WM_PHASE_TERM:
+            case WM_PHASE_MUSIC:
+            case WM_PHASE_REGION:
                 ChangePhase (WM_PHASE_BUILD);
                 return true;
-            }
-            if (m_phase == WM_PHASE_INIT)
-            {
+
+            case WM_PHASE_INIT:
                 ChangePhase (WM_PHASE_BYE);
                 return true;
-            }
-            if (m_phase == WM_PHASE_BYE)
+
+            case WM_PHASE_BYE:
             {
                 SDL_Event ev;
                 ev.type = SDL_QUIT;
                 SDL_PushEvent (&ev);
                 break;
             }
+            }
             return true;
         case SDLK_RETURN:
-            if (m_phase == WM_PHASE_SETTINGS)
+            switch (m_phase)
             {
+            case WM_PHASE_SETTINGS:
                 ChangePhase (WM_PHASE_INIT);
                 return true;
-            }
-            if (m_phase == WM_PHASE_PLAY  ||
-                m_phase == WM_PHASE_READ  ||
-                m_phase == WM_PHASE_WRITE ||
-                m_phase == WM_PHASE_SETUP)
-            {
+
+            case WM_PHASE_PLAY:
+            case WM_PHASE_READ:
+            case WM_PHASE_WRITE:
+            case WM_PHASE_SETUP:
                 ChangePhase (WM_PHASE_STOP);
                 return true;
-            }
-            if (m_phase == WM_PHASE_INIT  ||
-                m_phase == WM_PHASE_LOST  ||
-                m_phase == WM_PHASE_BUILD)
-            {
+
+            case WM_PHASE_INIT:
+            case WM_PHASE_LOST:
+            case WM_PHASE_BUILD:
                 ChangePhase (WM_PHASE_INFO);
                 return true;
-            }
-            if (m_phase == WM_PHASE_INFO   ||
-                m_phase == WM_PHASE_STOP   ||
-                m_phase == WM_PHASE_HELP   ||
-                m_phase == WM_PHASE_SETUPp ||
-                m_phase == WM_PHASE_WRITEp)
-            {
+
+            case WM_PHASE_INFO:
+            case WM_PHASE_STOP:
+            case WM_PHASE_HELP:
+            case WM_PHASE_SETUPp:
+            case WM_PHASE_WRITEp:
                 ChangePhase (WM_PHASE_PLAY);
                 return true;
-            }
-            if (m_phase == WM_PHASE_BUTTON ||
-                m_phase == WM_PHASE_TERM   ||
-                m_phase == WM_PHASE_MUSIC  ||
-                m_phase == WM_PHASE_REGION)
-            {
+
+            case WM_PHASE_BUTTON:
+            case WM_PHASE_TERM:
+            case WM_PHASE_MUSIC:
+            case WM_PHASE_REGION:
                 ChangePhase (WM_PHASE_BUILD);
                 return true;
             }
+
             return true;
         case SDLK_LEFT:
         case SDLK_RIGHT:
