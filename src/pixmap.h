@@ -29,7 +29,7 @@ public:
     CPixmap();
     ~CPixmap();
 
-    bool    Create (POINT dim, Sint32 mouseType);
+    bool    Create (POINT dim);
     void    Fill (RECT rect, COLORREF color);
 
     bool    ReloadTargetTextures ();
@@ -71,7 +71,6 @@ protected:
     SDL_Rect GetCursorRect (Sint32 sprite);
 
 protected:
-    Sint32                      m_mouseType;
     bool                    m_bDebug;
     bool                    m_bPalette;
     POINT                   m_dim;                  // dimensions totales

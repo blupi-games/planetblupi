@@ -1507,7 +1507,6 @@ CEvent::CEvent()
 
     m_bFullScreen   = true;
     m_WindowScale   = 1;
-    m_mouseType     = MOUSETYPEGRA;
     m_exercice      = 0;
     m_mission       = 0;
     m_private       = 0;
@@ -1673,13 +1672,6 @@ void CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
 Uint8 CEvent::GetWindowScale ()
 {
     return m_WindowScale;
-}
-
-// Initialise le type de souris.
-
-void CEvent::SetMouseType (Sint32 mouseType)
-{
-    m_mouseType = mouseType;
 }
 
 // Crée le gestionnaire d'événements.

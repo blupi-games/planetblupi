@@ -30,7 +30,6 @@ CDecor  *g_pDecor  = nullptr;
 bool   g_bFullScreen = false;  // false si mode de test
 Sint32 g_speedRate = 1;
 Sint32 g_timerInterval = 50;   // inverval = 50ms
-Sint32 g_mouseType = MOUSETYPEGRA;
 bool   g_bTermInit = false;    // initialisation en cours
 Uint32 g_lastPhase = 999;
 int    g_rendererType = 0;
@@ -102,16 +101,6 @@ static bool ReadConfig ()
         g_bFullScreen = !!GetNum (pText + 11);
         if (g_bFullScreen != 0)
             g_bFullScreen = 1;
-    }
-
-    pText = strstr (buffer, "MouseType=");
-    if (pText != nullptr)
-    {
-        g_mouseType = GetNum (pText + 10);
-        if (g_mouseType < 1)
-            g_mouseType = 1;
-        if (g_mouseType > 9)
-            g_mouseType = 9;
     }
 
     pText = strstr (buffer, "Renderer=");
@@ -457,7 +446,7 @@ static bool DoInit (Sint32 argc, char *argv[])
 
     totalDim.x = LXIMAGE;
     totalDim.y = LYIMAGE;
-    if (!g_pPixmap->Create (totalDim, g_mouseType))
+    if (!g_pPixmap->Create (totalDim))
         return InitFail ("Create pixmap", true);
 
     OutputDebug ("Image: init\n");
@@ -602,7 +591,6 @@ static bool DoInit (Sint32 argc, char *argv[])
 
     g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
     g_pEvent->SetFullScreen (g_bFullScreen);
-    g_pEvent->SetMouseType (g_mouseType);
     g_pEvent->ChangePhase ( WM_PHASE_INTRO1 );
 
     g_bTermInit = true;  // initialisation terminï¿½e

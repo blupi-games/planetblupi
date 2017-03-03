@@ -72,7 +72,6 @@ public:
     void    Create (CPixmap *pPixmap, CDecor *pDecor, CSound *pSound,
                     CMovie *pMovie);
     void    SetFullScreen (bool bFullScreen);
-    void    SetMouseType (Sint32 mouseType);
     Sint32      GetWorld();
     Sint32      GetPhysicalWorld();
     Sint32      GetImageWorld();
@@ -174,7 +173,6 @@ protected:
     bool        m_bAccessBuild;
     bool        m_bFullScreen;
     Uint8       m_WindowScale;
-    Sint32          m_mouseType;
     CPixmap    *m_pPixmap;
     CDecor     *m_pDecor;
     CSound     *m_pSound;
