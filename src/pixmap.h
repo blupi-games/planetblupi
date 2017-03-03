@@ -32,9 +32,10 @@ public:
     bool    Create (POINT dim, Sint32 mouseType);
     void    Fill (RECT rect, COLORREF color);
 
-    bool    Cache (size_t channel, const char *pFilename, POINT totalDim,
+    bool    ReloadTargetTextures ();
+    bool    Cache (size_t channel, const std::string &pFilename, POINT totalDim,
                    POINT iconDim);
-    bool    Cache (size_t channel, const char *pFilename, POINT totalDim);
+    bool    Cache (size_t channel, const std::string &pFilename, POINT totalDim);
     bool    Cache (size_t channel, SDL_Surface *surface, POINT totalDim);
     void    SetClipping (RECT clip);
     RECT    GetClipping();

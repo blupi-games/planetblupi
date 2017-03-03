@@ -1640,6 +1640,8 @@ void CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
     else
         SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
 
+    m_pPixmap->ReloadTargetTextures ();
+
     /* Force this update before otherwise the coordinates retrieved with
      * the Warp SDL function are corresponding to the previous size.
      */

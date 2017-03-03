@@ -171,9 +171,31 @@ Sint32 CPixmap::BltFast (SDL_Texture *lpSDL, size_t channel, POINT dst,
     return res;
 }
 
+/**
+ * \brief Reload textures created with access target flag.
+ *
+ * \returns true on success.
+ */
+bool CPixmap::ReloadTargetTextures ()
+{
+    for (auto &tex: m_SDLTextureInfo)
+    {
+        if (!tex.second.target)
+            continue;
+
+        if (!Cache (tex.first,
+                    tex.second.file,
+                    tex.second.dimTotal,
+                    tex.second.dimIcon))
+            return false;
+    }
+
+    return true;
+}
+
 // Cache une image contenant des icï¿½nes.
 
-bool CPixmap::Cache (size_t channel, const char *pFilename, POINT totalDim,
+bool CPixmap::Cache (size_t channel, const std::string &pFilename, POINT totalDim,
                      POINT iconDim)
 {
     std::string file = GetBaseDir() + pFilename;
@@ -230,7 +252,7 @@ bool CPixmap::Cache (size_t channel, const char *pFilename, POINT totalDim,
 
 // Cache une image globale.
 
-bool CPixmap::Cache (size_t channel, const char *pFilename, POINT totalDim)
+bool CPixmap::Cache (size_t channel, const std::string &pFilename, POINT totalDim)
 {
     POINT iconDim;
 
