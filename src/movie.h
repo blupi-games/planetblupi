@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <string>
+
 struct Kit_Source;
 struct Kit_Player;
 struct Kit_PlayerInfo;
@@ -16,8 +18,8 @@ public:
 
     bool    Create();
     bool    GetEnable();
-    bool    IsExist (const char *pFilename);
-    bool    Play (RECT rect, const char *pFilename);
+    bool    IsExist (const std::string &pFilename);
+    bool    Play (RECT rect, const std::string &pFilename);
     void    Stop();
     void    Pause();
     void    Resume();
@@ -25,7 +27,7 @@ public:
 
 protected:
     void    playMovie();
-    bool    fileOpenMovie (RECT rect, const char *pFilename);
+    bool    fileOpenMovie (RECT rect, const std::string &pFilename);
     void    fileCloseMovie();
     void    termAVI();
     bool    initAVI();

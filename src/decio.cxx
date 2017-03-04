@@ -94,7 +94,7 @@ OldBlupi;
 bool CDecor::Write (Sint32 rank, bool bUser, Sint32 world, Sint32 time,
                     Sint32 total)
 {
-    char        filename[MAX_PATH];
+    std::string filename;
     FILE       *file    = nullptr;
     DescFile   *pBuffer = nullptr;
     Sint32          i;
@@ -102,13 +102,13 @@ bool CDecor::Write (Sint32 rank, bool bUser, Sint32 world, Sint32 time,
 
     if (bUser)
     {
-        sprintf (filename, "data/user%.3d.blp", rank);
+        filename = string_format ("data/user%.3d.blp", rank);
         AddUserPath (filename);
     }
     else
-        sprintf (filename, (GetBaseDir () + "data/world%.3d.blp").c_str (), rank);
+        filename = string_format (GetBaseDir () + "data/world%.3d.blp", rank);
 
-    file = fopen (filename, "wb");
+    file = fopen (filename.c_str (), "wb");
     if (file == nullptr)
         goto error;
 
@@ -177,7 +177,7 @@ error:
 bool CDecor::Read (Sint32 rank, bool bUser, Sint32 &world, Sint32 &time,
                    Sint32 &total)
 {
-    char        filename[MAX_PATH];
+    std::string filename;
     FILE       *file    = nullptr;
     DescFile   *pBuffer = nullptr;
     Sint32          majRev, minRev;
@@ -189,13 +189,13 @@ bool CDecor::Read (Sint32 rank, bool bUser, Sint32 &world, Sint32 &time,
 
     if (bUser)
     {
-        sprintf (filename, "data/user%.3d.blp", rank);
+        filename = string_format ("data/user%.3d.blp", rank);
         AddUserPath (filename);
     }
     else
-        sprintf (filename, (GetBaseDir() + "data/world%.3d.blp").c_str(), rank);
+        filename = string_format (GetBaseDir() + "data/world%.3d.blp", rank);
 
-    file = fopen (filename, "rb");
+    file = fopen (filename.c_str (), "rb");
     if (file == nullptr)
         goto error;
 
@@ -319,7 +319,7 @@ error:
 bool CDecor::FileExist (Sint32 rank, bool bUser, Sint32 &world, Sint32 &time,
                         Sint32 &total)
 {
-    char        filename[MAX_PATH];
+    std::string filename;
     FILE       *file    = nullptr;
     DescFile   *pBuffer = nullptr;
     Sint32          majRev, minRev;
@@ -327,14 +327,13 @@ bool CDecor::FileExist (Sint32 rank, bool bUser, Sint32 &world, Sint32 &time,
 
     if (bUser)
     {
-        sprintf (filename, "data/user%.3d.blp", rank);
+        filename = string_format ("data/user%.3d.blp", rank);
         AddUserPath (filename);
     }
     else
-        snprintf (filename, sizeof (filename),
-                  (GetBaseDir () + "data/world%.3d.blp").c_str (), rank);
+        filename = string_format (GetBaseDir () + "data/world%.3d.blp", rank);
 
-    file = fopen (filename, "rb");
+    file = fopen (filename.c_str (), "rb");
     if (file == nullptr)
         goto error;
 

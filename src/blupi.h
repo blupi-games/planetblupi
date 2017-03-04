@@ -41,8 +41,6 @@ typedef Sint32 LPARAM;
 #define countof(a) (sizeof (a) / sizeof (*a))
 #endif /* !_WIN32 */
 
-#define MAX_PATH 260
-
 #define VK_END   0x23
 #define VK_LEFT  0x25
 #define VK_UP    0x26

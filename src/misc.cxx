@@ -104,20 +104,19 @@ std::string GetShareDir ()
 // Ajoute le chemin permettant de lire un fichier
 // utilisateur.
 
-void AddUserPath (char *pFilename)
+void AddUserPath (std::string &pFilename)
 {
-    char                    *temp;
-    char                   *pText;
+    const char             *pText;
     size_t                  pos;
     char                    last;
 
-    temp = SDL_GetPrefPath ("Epsitec SA", "Planet Blupi");
+    char *temp = SDL_GetPrefPath ("Epsitec SA", "Planet Blupi");
     std::string path = temp;
 
-    pText = strstr (pFilename, "/");
+    pText = strstr (pFilename.c_str (), "/");
     if (pText != nullptr)
     {
-        pos = path.size() + (pText - pFilename) + 1;
+        pos = path.size() + (pText - pFilename.c_str ()) + 1;
         path += pFilename;
         last = path[pos];
         path[pos] = 0;
@@ -127,6 +126,6 @@ void AddUserPath (char *pFilename)
     else
         path += pFilename;
 
-    strcpy (pFilename, path.c_str());
+    pFilename = path;
     SDL_free (temp);
 }

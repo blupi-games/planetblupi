@@ -35,7 +35,7 @@ public:
     bool    Play (Sint32 channel, Sint32 volume = 0, Uint8 panLeft = 255,
                   Uint8 panRight = 255);
     bool    PlayImage (Sint32 channel, POINT pos, Sint32 rank = -1);
-    bool    PlayMusic (const char *lpszMIDIFilename);
+    bool    PlayMusic (const std::string &lpszMIDIFilename);
     bool    RestartMusic();
     void    SuspendMusic();
     void    StopMusic();
@@ -51,7 +51,7 @@ protected:
     Mix_Music           *m_pMusic;
     Mix_Chunk           *m_lpSDL[MAXSOUND];
     Sint16              m_channelBlupi[MAXBLUPI];
-    char                m_MIDIFilename[50];
+    std::string         m_MIDIFilename;
     Sint32                  m_audioVolume;
     Sint32                  m_midiVolume;
     Sint32                  m_lastMidiVolume;

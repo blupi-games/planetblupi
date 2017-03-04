@@ -102,7 +102,7 @@ public:
 
     void    DecorAutoShift ();
 
-    bool    StartMovie (const char *pFilename);
+    bool    StartMovie (const std::string &pFilename);
     void    StopMovie();
     bool    IsMovie();
 
@@ -177,7 +177,7 @@ protected:
     CDecor     *m_pDecor;
     CSound     *m_pSound;
     CMovie     *m_pMovie;
-    char        m_movieToStart[MAX_PATH];
+    std::string m_movieToStart;
     Sint32          m_phaseAfterMovie;
     CButton     m_buttons[MAXBUTTON];
     Sint32          m_lastFloor[MAXBUTTON];

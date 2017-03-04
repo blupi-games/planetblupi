@@ -265,7 +265,7 @@ bool CSound::PlayImage (Sint32 channel, POINT pos, Sint32 rank)
 // Uses MCI to play a MIDI file. The window procedure
 // is notified when playback is complete.
 
-bool CSound::PlayMusic (const char *lpszMIDIFilename)
+bool CSound::PlayMusic (const std::string &lpszMIDIFilename)
 {
     std::string path = GetBaseDir();
 
@@ -291,7 +291,7 @@ bool CSound::PlayMusic (const char *lpszMIDIFilename)
     }
 
     m_bStopped = false;
-    strcpy (m_MIDIFilename, lpszMIDIFilename);
+    m_MIDIFilename = lpszMIDIFilename;
     return true;
 }
 

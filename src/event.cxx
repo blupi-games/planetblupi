@@ -2908,7 +2908,7 @@ bool CEvent::ChangePhase (Uint32 phase)
 {
     Sint32      index, world, time, total, music, i, max;
     POINT   totalDim, iconDim;
-    char    filename[MAX_PATH];
+    std::string filename;
     char   *pButtonExist;
     bool    bEnable, bHide;
     Term   *pTerm;
@@ -2979,9 +2979,9 @@ bool CEvent::ChangePhase (Uint32 phase)
     m_phase = phase;  // change de phase
     m_index = index;
 
-    strcpy (filename, table[m_index].backName);
-    if (strstr (filename, "%.3d") != nullptr)   // "%.3d" dans le nom ?
-        sprintf (filename, table[m_index].backName, GetImageWorld());
+    filename = table[m_index].backName;
+    if (filename.find ("%.3d") != std::string::npos)   // "%.3d" dans le nom ?
+        filename = string_format (table[m_index].backName, GetImageWorld());
     totalDim.x = LXIMAGE;
     totalDim.y = LYIMAGE;
     iconDim.x  = 0;
@@ -3216,7 +3216,7 @@ bool CEvent::ChangePhase (Uint32 phase)
             music = m_pDecor->GetMusic();
             if (music > 0)
             {
-                sprintf (filename, "music/music%.3d.mid", music - 1);
+                filename = string_format ("music/music%.3d.mid", music - 1);
                 m_pSound->StopMusic();
                 m_pSound->PlayMusic (filename);
             }
@@ -3225,31 +3225,31 @@ bool CEvent::ChangePhase (Uint32 phase)
 
     if (phase == WM_PHASE_H0MOVIE)
     {
-        strcpy (m_movieToStart, "movie/history0.mkv");
+        m_movieToStart = "movie/history0.mkv";
         m_phaseAfterMovie = WM_PHASE_HISTORY0;
     }
 
     if (phase == WM_PHASE_H1MOVIE)
     {
-        strcpy (m_movieToStart, "movie/history1.mkv");
+        m_movieToStart = "movie/history1.mkv";
         m_phaseAfterMovie = WM_PHASE_HISTORY1;
     }
 
     if (phase == WM_PHASE_H2MOVIE)
     {
-        strcpy (m_movieToStart, "movie/history2.mkv");
+        m_movieToStart = "movie/history2.mkv";
         m_phaseAfterMovie = WM_PHASE_INFO;
     }
 
     if (phase == WM_PHASE_PLAYMOVIE)
     {
-        sprintf (m_movieToStart, "movie/play%.3d.mkv", GetPhysicalWorld());
+        m_movieToStart = string_format ("movie/play%.3d.mkv", GetPhysicalWorld ());
         m_phaseAfterMovie = WM_PHASE_PLAY;
     }
 
     if (phase == WM_PHASE_WINMOVIE)
     {
-        sprintf (m_movieToStart, "movie/win%.3d.mkv", GetPhysicalWorld());
+        m_movieToStart = string_format ("movie/win%.3d.mkv", GetPhysicalWorld ());
         m_phaseAfterMovie = WM_PHASE_WIN;
 
         if (!m_bPrivate &&
@@ -4113,7 +4113,7 @@ bool CEvent::BuildMove (POINT pos, Uint16 mod, const SDL_Event &event)
 
 // Démarre un film non interractif.
 
-bool CEvent::StartMovie (const char *pFilename)
+bool CEvent::StartMovie (const std::string &pFilename)
 {
     RECT        rect;
 
@@ -4364,15 +4364,15 @@ error:
 
 bool CEvent::WriteInfo()
 {
-    char        filename[MAX_PATH];
+    std::string filename;
     FILE       *file = nullptr;
     DescInfo    info = { 0 };
     size_t      nb;
 
-    strcpy (filename, "data/info.blp");
+    filename = "data/info.blp";
     AddUserPath (filename);
 
-    file = fopen (filename, "wb");
+    file = fopen (filename.c_str (), "wb");
     if (file == nullptr)
         goto error;
 
@@ -4409,15 +4409,15 @@ error:
 
 bool CEvent::ReadInfo()
 {
-    char        filename[MAX_PATH];
+    std::string filename;
     FILE       *file = nullptr;
     DescInfo    info;
     size_t      nb;
 
-    strcpy (filename, "data/info.blp");
+    filename = "data/info.blp";
     AddUserPath (filename);
 
-    file = fopen (filename, "rb");
+    file = fopen (filename.c_str (), "rb");
     if (file == nullptr)
         goto error;
 
@@ -4538,7 +4538,7 @@ void CEvent::DemoRecStop()
 
 bool CEvent::DemoPlayStart()
 {
-    char        filename[MAX_PATH];
+    std::string filename;
     FILE       *file = nullptr;
     DemoHeader  header;
     Sint32          world, time, total;
@@ -4549,8 +4549,8 @@ bool CEvent::DemoPlayStart()
         return false;
     memset (m_pDemoBuffer, 0, MAXDEMO * sizeof (DemoEvent));
 
-    sprintf (filename, (GetBaseDir() + "data/demo%.3d.blp").c_str(), m_demoNumber);
-    file = fopen (filename, "rb");
+    filename = string_format (GetBaseDir() + "data/demo%.3d.blp", m_demoNumber);
+    file = fopen (filename.c_str (), "rb");
     if (file == nullptr)
     {
         DemoPlayStop();
