@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-28 22:34+0100\n"
+"POT-Creation-Date: 2017-03-13 19:20+0100\n"
 "PO-Revision-Date: 2017-02-28 22:41+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -118,7 +118,7 @@ msgstr ""
 "1: Nehmen\n"
 "2: Verarbeiten"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4209
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4233
 msgid ""
 "1|Drop planks on striped \n"
 "1|paving stones."
@@ -126,7 +126,7 @@ msgstr ""
 "1|Bretter auf die\n"
 "1|gestreiften Quadrate legen."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4219
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4243
 msgid ""
 "1|Drop platinium on striped \n"
 "1|paving stones."
@@ -134,7 +134,7 @@ msgstr ""
 "1|Platinium auf die\n"
 "1|gestreiften Quadrate legen."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4214
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4238
 msgid ""
 "1|Drop tomatoes on striped \n"
 "1|paving stones."
@@ -142,7 +142,7 @@ msgstr ""
 "1|Tomaten auf die\n"
 "1|gestreiften Quadrate legen."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4229
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4253
 msgid ""
 "1|Each Blupi in\n"
 "1|his house."
@@ -150,7 +150,7 @@ msgstr ""
 "1|Jeder Blupi\n"
 "1|in seinem Haus."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4204
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4228
 msgid ""
 "1|Go on striped\n"
 "1|paving stones."
@@ -158,17 +158,17 @@ msgstr ""
 "1|Auf die gestreiften\n"
 "1|Quadrate gehen."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4188
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4212
 msgid "1|Goal :"
 msgstr "1|Ziel :"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4199
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4223
 msgid ""
 "1|Kill all\n"
 "1|enemies !"
 msgstr "1|Alle Feinde zerstören !"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4234
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4258
 msgid ""
 "1|Resist until\n"
 "1|fire extinction ..."
@@ -177,7 +177,7 @@ msgstr ""
 "1|das Feuer ausgegangen ist."
 
 # Plural
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4248
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4272
 #, c-format
 msgid ""
 "1|The Blupi population must\n"
@@ -187,7 +187,7 @@ msgstr ""
 "1|muss mindestens %d Blupi\n"
 "1|betragen."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4224
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4248
 msgid ""
 "1|The robot must reach\n"
 "1|the striped paving stones."
@@ -199,90 +199,90 @@ msgstr ""
 msgid "Already two teleporters"
 msgstr "Es gibt schon 2 Beammaschinen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2347
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2367
 msgid "Another mistake..."
 msgstr "Das war leider nicht die richtige Lösung !"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2986
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2995
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:99
 msgid "Armour"
 msgstr "Rüstung"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:903
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2191
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:904
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2211
 msgid "Available buttons"
 msgstr ""
 "Zur Verfügung\n"
 "stehende Knöpfe"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2346
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2366
 msgid "Bang, failed again !"
 msgstr "Das war mal wieder nichts !"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3088
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3089
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3090
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3091
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3092
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3093
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3094
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3095
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3096
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3097
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3098
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3099
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3100
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3101
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3102
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3103
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3104
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3105
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3106
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3107
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3108
 msgid "Bank"
 msgstr "Ufer"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1086
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1087
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:90
 msgid "Blow up"
 msgstr "Zünden"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3187
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3196
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:63
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:868
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:869
 msgid "Blupi"
 msgstr "Blupi"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1158
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1159
 msgid "Blupi in house"
 msgstr "Blupi im Haus"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1176
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1177
 msgid "Blupi on striped paving stones"
 msgstr "Blupi auf gestreiften Quadraten"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2675
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2695
 msgid "Blupi's energy"
 msgstr "Blupis Energie"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3066
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3075
 msgid "Blupi's house"
 msgstr "Blupis Haus"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3070
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3079
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:81
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1024
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1025
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:91
 msgid "Boat"
 msgstr "Boot"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3197
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3206
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:315
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:873
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:874
 msgid "Bouncing bomb"
 msgstr "Springende Bombe"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3035
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3036
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3145
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3146
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3147
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3148
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3149
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3150
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1018
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3044
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3045
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3154
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3155
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3156
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3157
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3158
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3159
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1019
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:84
 msgid "Bridge"
 msgstr "Brücke"
@@ -291,278 +291,278 @@ msgstr "Brücke"
 msgid "Bridge finished"
 msgstr "Brücke schon fertig"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:849
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:850
 msgid "Buildings"
 msgstr "Gebäude"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3193
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3202
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:306
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:872
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:873
 msgid "Bulldozer"
 msgstr "Planierraupe"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3039
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3041
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3048
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3050
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3057
 msgid "Bunch of flowers"
 msgstr "Blumenstrauss"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3105
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3114
 msgid "Burnt ground"
 msgstr "Verbrannter Untergrund"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:921
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:922
 msgid "Cancel last operation"
 msgstr "Letzten Befehl rückgängig machen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:981
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:982
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:72
 msgid "Carve a rock"
 msgstr "Stein bearbeiten"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:987
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:988
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:83
 msgid "Carve rocks"
 msgstr "Steine bearbeiten"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2440
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2460
 msgid ""
 "Change the\n"
 "window size"
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:235
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:236
 msgid "Construct this game"
 msgstr "Diese Mission konstruieren"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:130
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:131
 msgid "Construction"
 msgstr "Konstruktion"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2210
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2230
 #, c-format
 msgid "Construction number"
 msgstr "Konstruktion Nummer"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:299
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:346
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:524
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:755
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:300
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:347
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:525
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:756
 msgid "Continue this game"
 msgstr "Mission weiterspielen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:969
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:970
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:71
 msgid "Cut down a tree"
 msgstr "Baum fällen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:975
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:976
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:82
 msgid "Cut down trees"
 msgstr "Bäume fällen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:838
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:839
 msgid "Decorative plants"
 msgstr "Pflanzen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:866
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:867
 msgid "Delete figure"
 msgstr "Figur löschen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:883
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:884
 msgid "Delete fire"
 msgstr "Feuer löschen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:837
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:848
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:838
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:849
 msgid "Delete item"
 msgstr "Gegenstand löschen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:112
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2043
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:113
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2063
 msgid "Demo"
 msgstr "Demo"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1336
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1337
 msgid "Desert"
 msgstr "Wüste"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2312
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2332
 msgid "Difficult"
 msgstr "Schwer"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1080
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1081
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:86
 msgid "Drink"
 msgstr "Trinken"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:956
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:957
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:70
 msgid "Drop"
 msgstr "Hinlegen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3042
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3043
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3044
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3051
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3052
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3053
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:126
 msgid "Dynamite"
 msgstr "Dynamitstangen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2052
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2072
 msgid "E"
 msgstr "O"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2297
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2317
 msgid "Easy"
 msgstr "Leicht"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1061
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1062
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:68
 msgid "Eat"
 msgstr "Essen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3026
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3027
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3035
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3036
 msgid "Eggs"
 msgstr "Eier"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3199
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3208
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:342
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:874
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:875
 msgid "Electrocutor"
 msgstr "Elektrisiermaschine"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:909
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2174
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:910
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2194
 msgid "Ending conditions"
 msgstr ""
 "Bedingungen für\n"
 "Ende der Mission"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:853
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:854
 msgid "Enemy barrier"
 msgstr "Feindlicher Zaun"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:852
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:853
 msgid "Enemy buildings"
 msgstr "Feindliches Gebäude"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3052
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3053
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3054
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3055
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3056
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3057
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3058
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3059
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3060
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3061
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3062
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3063
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3064
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3065
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3066
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3067
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3068
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3069
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3081
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3082
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3070
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3071
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3072
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3073
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3074
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3077
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3078
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3090
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3091
 msgid "Enemy construction"
 msgstr "Feindliche Einrichtung"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3151
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3153
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3160
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3162
 msgid "Enemy ground"
 msgstr "Feindesgrund"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2984
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2993
 msgid "Enemy rocket"
 msgstr "Feindliche Rakete"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2363
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2383
 msgid "Excellent..."
 msgstr "Ausgezeichnet"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1105
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1106
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:94
 msgid "Extract iron"
 msgstr "Eisen abbauen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:393
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:441
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:470
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:518
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:394
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:442
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:471
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:519
 msgid "Faster"
 msgstr "Schneller"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:253
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:447
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:601
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:678
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1141
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1230
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1307
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1348
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1484
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:254
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:448
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:602
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:679
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1142
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1231
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1308
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1349
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1485
 msgid "Finish"
 msgstr "Beenden"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3012
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3013
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3014
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3015
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3016
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3017
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3018
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3019
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3021
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3022
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3023
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3024
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3025
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3026
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3027
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3028
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:288
 msgid "Fire"
 msgstr "Feuer"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1170
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1171
 msgid "Fire out"
 msgstr "Feuer ausgegangen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3077
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3086
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:180
 msgid "Flag"
 msgstr "Wimpel"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3038
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3040
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3047
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3049
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3056
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:198
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:207
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:216
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:840
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:841
 msgid "Flowers"
 msgstr "Blumen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1330
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1331
 msgid "Forest"
 msgstr "Wald"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1342
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1343
 msgid "Forest under snow"
 msgstr "Verschneiter Wald"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1460
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2459
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1461
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2479
 msgid "Fullscreen"
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2037
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2227
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2057
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2247
 msgid "Game paused"
 msgstr "Pause"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3024
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3025
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3033
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3034
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:225
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1049
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1050
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:74
 msgid "Garden shed"
 msgstr "Gartenhäuschen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2393
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2413
 msgid ""
 "Global game\n"
 "speed"
@@ -571,36 +571,36 @@ msgstr ""
 "Geschwindigkeit\n"
 "des Spiels"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:136
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:137
 #, fuzzy
 msgid "Global settings"
 msgstr "Einstellungen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:944
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:945
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:66
 msgid "Go"
 msgstr "Gehen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1055
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1056
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:73
 msgid "Grow tomatoes"
 msgstr "Garten anlegen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:329
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:330
 msgid "Help"
 msgstr "Hilfe"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2243
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2263
 msgid "Help number"
 msgstr "Hilfe Nummer"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3201
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3210
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:72
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:869
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:870
 msgid "Helper robot"
 msgstr "Hilfsroboter"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3104
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3113
 msgid "Ice"
 msgstr "Eis"
 
@@ -608,7 +608,7 @@ msgstr "Eis"
 msgid "Impossible"
 msgstr "Hier nicht möglich"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2185
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2205
 #, c-format
 msgid "Impossible to win if less than %d Blupi"
 msgstr "Gewinnen unmöglich wenn weniger als %d Blupi"
@@ -617,40 +617,40 @@ msgstr "Gewinnen unmöglich wenn weniger als %d Blupi"
 msgid "Inadequate ground"
 msgstr "Untergrund nicht geeignet"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:405
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:417
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:482
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:494
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:406
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:418
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:483
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:495
 msgid "Increase volume"
 msgstr "Lauter"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1478
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1479
 #, fuzzy
 msgid "Increase window size"
 msgstr "Lauter"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3138
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3139
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3140
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3141
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3142
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3147
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3148
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3149
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3150
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3151
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:234
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1006
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1007
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:75
 msgid "Incubator"
 msgstr "Brutplatz"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:829
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:830
 msgid "Incubator or teleporter"
 msgstr "Brutplatz oder Beammaschine"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3106
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3144
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:825
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3115
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3153
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:826
 msgid "Inflammable ground"
 msgstr "Brennbarer Untergrund"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2512
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2532
 msgid "Insert CD-Rom Planet Blupi and wait a few seconds..."
 msgstr ""
 "Füge die Planet Blupi CD-Rom in das Laufwerk ein und warte einige "
@@ -660,35 +660,35 @@ msgstr ""
 msgid "Interrupt"
 msgstr "Halt"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3076
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3085
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:189
 msgid "Iron"
 msgstr "Eisenerz"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:856
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:857
 msgid "Items"
 msgstr "Gegenstände"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3071
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3080
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:90
 msgid "Jeep"
 msgstr "Jeep"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2995
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2996
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3004
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3005
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:252
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1068
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1069
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:76
 msgid "Laboratory"
 msgstr "Labor"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2438
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2458
 msgid ""
 "Language interface\n"
 "and sounds"
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2382
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2402
 msgid "Last construction resolved !"
 msgstr "Letzte konstruierte Mission beendet."
 
@@ -696,74 +696,66 @@ msgstr "Letzte konstruierte Mission beendet."
 msgid "Leave Jeep"
 msgstr "Aussteigen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2178
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2198
 #, c-format
 msgid "Lost if less than %d Blupi"
 msgstr "Verloren sobald weniger als %d Blupi"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1117
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1118
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:95
 msgid "Make a Jeep"
 msgstr "Jeep bauen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1135
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1136
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:97
 msgid "Make a helper robot"
 msgstr "Roboter bauen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1123
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1124
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:96
 msgid "Make a time bomb"
 msgstr "Zeitbombe bauen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1129
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1130
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:100
 msgid "Make armour"
 msgstr "Rüstung bauen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:993
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:994
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:88
 msgid "Make bunch of flowers"
 msgstr "Blumenstrauss machen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:999
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1000
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:89
 msgid "Make bunches of flowers"
 msgstr "Blumensträusse machen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3195
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3204
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:297
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:875
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:876
 msgid "Master robot"
 msgstr "Roboterchef"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3037
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3046
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:153
 msgid "Medical potion"
 msgstr "Medikament"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3074
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3075
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3079
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3083
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3084
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3088
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:261
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:851
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1099
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:852
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1100
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:77
 msgid "Mine"
 msgstr "Bergwerk"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3107
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3108
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3109
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3110
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3111
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3112
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3113
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3114
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3115
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3116
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3117
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3118
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3119
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3120
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3121
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3122
@@ -772,30 +764,38 @@ msgstr "Bergwerk"
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3125
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3126
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3127
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3128
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3129
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3130
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3131
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3152
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3158
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3159
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3132
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3133
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3134
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3135
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3136
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3137
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3138
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3139
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3140
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3161
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3167
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3168
 msgid "Miscellaneous ground"
 msgstr "Gemischter Untergrund"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2207
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2227
 #, c-format
 msgid "Mission number"
 msgstr "Mission Nummer"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2364
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2384
 msgid "Mission over..."
 msgstr "Auftrag erfüllt"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:124
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:125
 msgid "Missions"
 msgstr "Missionen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2396
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2416
 msgid ""
 "Music\n"
 "volume"
@@ -803,107 +803,107 @@ msgstr ""
 "Lautstärke\n"
 "der Musik"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:897
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2195
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:898
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2215
 msgid "Music choice"
 msgstr "Auswahl der Musik"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1253
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1254
 msgid "Music number 1"
 msgstr "Musik Nummer 1"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1259
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1260
 msgid "Music number 2"
 msgstr "Musik Nummer 2"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1265
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1266
 msgid "Music number 3"
 msgstr "Musik Nummer 3"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1271
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1272
 msgid "Music number 4"
 msgstr "Musik Nummer 4"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1277
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1278
 msgid "Music number 5"
 msgstr "Musik Nummer 5"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1283
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1284
 msgid "Music number 6"
 msgstr "Musik Nummer 6"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1289
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1290
 msgid "Music number 7"
 msgstr "Musik Nummer 7"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1295
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1296
 msgid "Music number 8"
 msgstr "Musik Nummer 9"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1301
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1302
 msgid "Music number 9"
 msgstr "Musik Nummer 9"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2049
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2069
 msgid "N"
 msgstr "N"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:217
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:789
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:806
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:218
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:790
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:807
 msgid "Next game"
 msgstr "Nächste Mission"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1454
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1455
 #, fuzzy
 msgid "Next language"
 msgstr "Nächste Mission"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:165
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:188
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:166
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:189
 msgid "Next page"
 msgstr "Nächste Seite"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2417
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2437
 msgid "No"
 msgstr "Nein"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1164
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1165
 msgid "No more enemies"
 msgstr "Keine Feinde mehr"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1247
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1248
 msgid "No music"
 msgstr "Keine Musik"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:423
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:500
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:424
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:501
 msgid "No video"
 msgstr "Keine Videosequenzen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2348
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2368
 msgid "No, not that way !"
 msgstr "Aber nein, doch nicht so..."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2345
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2365
 msgid "No, wrong way ..."
 msgstr "Nein, so geht das leider nicht !"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2426
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2446
 #, c-format
 msgid "None"
 msgstr "Keine"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3087
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3135
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3136
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3137
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3143
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:824
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3096
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3144
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3145
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3146
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3152
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:825
 msgid "Normal ground"
 msgstr "Normaler Untergrund"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2377
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2397
 msgid "Now go on mission."
 msgstr "Du kannst jetzt mit den Missionen beginnen."
 
@@ -911,10 +911,10 @@ msgstr "Du kannst jetzt mit den Missionen beginnen."
 msgid "Occupied ground"
 msgstr "Untergrund schon besetzt"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:223
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:305
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:352
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2129
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:224
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:306
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:353
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2149
 msgid "Open another game"
 msgstr "Gespeicherte Mission öffnen"
 
@@ -922,87 +922,87 @@ msgstr "Gespeicherte Mission öffnen"
 msgid "Opposite bank no good"
 msgstr "Anderes Ufer nicht OK"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3028
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3029
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3030
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3031
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3032
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3033
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3034
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1012
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3037
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3038
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3039
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3040
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3041
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3042
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3043
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1013
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:81
 msgid "Palisade"
 msgstr "Palisade"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3101
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3102
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3110
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3111
 msgid "Paving stones"
 msgstr "Platten"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:293
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:407
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:410
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:282
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:396
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:399
 msgid "Planet Blupi"
 msgstr "Planet Blupi"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:303
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:292
 msgid "Planet Blupi -- stop"
 msgstr "Planet Blupi -- Halt"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3003
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3012
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:162
 msgid "Planks"
 msgstr "Bretter"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1182
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1183
 msgid "Planks on striped paving stones"
 msgstr "Bretter auf gestreiften Quadraten"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2985
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2994
 msgid "Platinium"
 msgstr "Platinium"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1194
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1195
 msgid "Platinium on striped paving stones"
 msgstr "Platinium auf gestreiften Quadraten"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:211
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:212
 msgid "Play this game"
 msgstr "Diese Mission spielen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3045
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3054
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:117
 msgid "Poison"
 msgstr "Gift"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1324
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1325
 msgid "Prairie"
 msgstr "Wiese"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:205
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:206
 msgid "Previous game"
 msgstr "Vorhergehende Mission"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1448
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1449
 #, fuzzy
 msgid "Previous language"
 msgstr "Vorhergehende Mission"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:159
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:182
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:370
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:160
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:183
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:371
 msgid "Previous page"
 msgstr "Vorhergehende Seite"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1093
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1094
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:93
 msgid "Prospect for iron"
 msgstr "Eisen suchen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2994
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3003
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:279
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:850
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1042
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:851
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1043
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:85
 msgid "Protection tower"
 msgstr "Wachturm"
@@ -1011,59 +1011,59 @@ msgstr "Wachturm"
 msgid "Quit"
 msgstr "Aussteigen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:142
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1431
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:143
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1432
 msgid "Quit Planet Blupi"
 msgstr "Planet Blupi beenden"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:915
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:916
 msgid "Quit construction"
 msgstr "Konstruktion beenden"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:323
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:324
 msgid "Quit this game"
 msgstr "Mission aufgeben"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2041
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2061
 msgid "REC"
 msgstr "REC"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:399
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:411
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:476
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:488
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:400
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:412
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:477
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:489
 msgid "Reduce volume"
 msgstr "Leiser"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1472
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1473
 msgid "Reduce window size"
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:962
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:963
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:98
 msgid "Repeat"
 msgstr "Wiederholen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:772
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:773
 msgid "Restart this game"
 msgstr "Neu Anfangen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1200
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1201
 msgid "Robot on striped paving stones"
 msgstr "Roboter auf gestreiften Quadraten"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3004
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3005
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3006
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3007
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3008
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3009
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3010
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:855
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3013
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3014
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3015
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3016
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3017
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3018
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3019
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:856
 msgid "Rocks"
 msgstr "Felsen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2050
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2070
 msgid "S"
 msgstr "S"
 
@@ -1071,20 +1071,20 @@ msgstr "S"
 msgid "Save"
 msgstr "Speichern"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:311
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:358
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2131
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:312
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:359
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2151
 msgid "Save this game"
 msgstr "Mission speichern"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:891
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2199
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:892
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2219
 msgid "Scenery choice"
 msgstr ""
 "Auswahl der\n"
 "Umgebung"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2394
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2414
 msgid ""
 "Scroll speed\n"
 "with mouse"
@@ -1094,42 +1094,42 @@ msgstr ""
 "verschiebungen\n"
 "mit der Maus"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2439
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2459
 msgid ""
 "Select the\n"
 "window mode"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:715
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:229
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:317
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:364
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:230
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:318
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:365
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:429
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:506
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:430
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:507
 msgid "Show videos"
 msgstr "Zeigt die Videosequenzen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3186
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3195
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:45
 msgid "Sick Blupi"
 msgstr "Kranker Blupi"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:241
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:247
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:242
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:248
 msgid "Skill level"
 msgstr "Schwierigkeitsgrad"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:387
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:435
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:464
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:512
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:388
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:436
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:465
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:513
 msgid "Slower"
 msgstr "Langsamer"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2395
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2415
 msgid ""
 "Sound effect\n"
 "volume"
@@ -1137,91 +1137,91 @@ msgstr ""
 "Lautstärke der\n"
 "Geräuscheffekte"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:828
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:829
 msgid "Special pavings"
 msgstr "Spezialplatten"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3189
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3198
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:324
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:870
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:871
 msgid "Spider"
 msgstr "Spinne"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:884
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:885
 msgid "Starting fire"
 msgstr "Feuer"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3119
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3132
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3133
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3134
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3157
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:826
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3128
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3141
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3142
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3143
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3166
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:827
 msgid "Sterile ground"
 msgstr "Karger Untergrund"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3046
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3055
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:108
 msgid "Sticky trap"
 msgstr "Klebefalle"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3011
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3020
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:171
 msgid "Stones"
 msgstr "Steine"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:938
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:939
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:67
 msgid "Stop"
 msgstr "Halt"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3103
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3112
 msgid "Striped paving stones"
 msgstr "Gestreifte Quadrate"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:950
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:951
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:69
 msgid "Take"
 msgstr "Nehmen"
 
 # Beamgerät
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3160
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3161
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3162
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3163
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3164
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3169
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3170
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3171
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3172
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3173
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:243
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1030
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1031
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:79
 msgid "Teleporter"
 msgstr "Beammaschine"
 
 # Looks wrong, should be Epsitec SA too
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2494
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2514
 msgid "This game is an original creation of EPSITEC SA, CH-1092 Belmont"
 msgstr "Herausgegeben von WG Verlag & Lizenzen AG"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3078
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3080
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3087
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3089
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:135
 msgid "Time bomb"
 msgstr "Zeitbombe"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3184
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3193
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:54
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:867
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:868
 msgid "Tired Blupi"
 msgstr "Erschöpfter Blupi"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3020
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3021
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3022
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3023
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3029
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3030
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3031
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3032
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:144
 msgid "Tomatoes"
 msgstr "Tomaten"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1188
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1189
 msgid "Tomatoes on striped paving stones"
 msgstr "Tomaten auf gestreiften Quadraten"
 
@@ -1229,78 +1229,31 @@ msgstr "Tomaten auf gestreiften Quadraten"
 msgid "Too close to water"
 msgstr "Zu nahe am Wasser"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:118
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:119
 msgid "Training"
 msgstr "Training"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2205
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2225
 #, c-format
 msgid "Training number"
 msgstr "Training Nummer"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1074
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1075
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:87
 msgid "Transform"
 msgstr "Verarbeiten"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:858
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:859
 msgid "Transport"
 msgstr "Transportmittel"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3049
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3050
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3051
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3067
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3083
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3058
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3059
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3060
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3076
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3092
 msgid "Trapped enemy"
 msgstr "Verklebter Feind"
-
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2978
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2979
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2980
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2981
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2982
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2983
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:839
-msgid "Tree"
-msgstr "Bäume"
-
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2997
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2998
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2999
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3000
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3001
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3002
-msgid "Tree trunks"
-msgstr "Baumstämme"
-
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1923
-msgid "Version"
-msgstr "Version"
-
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2379
-msgid "Very good, success on all missions !"
-msgstr "Bravo, das Spiel ist beendet !"
-
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2362
-msgid "Very good."
-msgstr "Sehr gut"
-
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2397
-msgid ""
-"Video\n"
-"sequences"
-msgstr "Videosequenzen"
-
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3191
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:333
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:871
-msgid "Virus"
-msgstr "Virus"
-
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2051
-msgid "W"
-msgstr "W"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2987
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2988
@@ -1308,94 +1261,141 @@ msgstr "W"
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2990
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2991
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2992
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2993
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1036
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:840
+msgid "Tree"
+msgstr "Bäume"
+
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3006
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3007
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3008
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3009
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3010
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3011
+msgid "Tree trunks"
+msgstr "Baumstämme"
+
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1943
+msgid "Version"
+msgstr "Version"
+
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2399
+msgid "Very good, success on all missions !"
+msgstr "Bravo, das Spiel ist beendet !"
+
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2382
+msgid "Very good."
+msgstr "Sehr gut"
+
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2417
+msgid ""
+"Video\n"
+"sequences"
+msgstr "Videosequenzen"
+
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3200
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:333
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:872
+msgid "Virus"
+msgstr "Virus"
+
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2071
+msgid "W"
+msgstr "W"
+
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2996
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2997
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2998
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:2999
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3000
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3001
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3002
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1037
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:80
 msgid "Wall"
 msgstr "Mauer"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:854
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:855
 msgid "Wall or palisade"
 msgstr "Mauer oder Palissade"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3100
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3154
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3155
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3156
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:827
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3109
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3163
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3164
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3165
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:828
 msgid "Water"
 msgstr "Wasser"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2487
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2507
 msgid "We hope you have had as much fun playing the game as we had making it !"
 msgstr ""
 "Hoffentlich hatten Sie genau soviel Spass beim Spielen wie wir beim "
 "herstellen des Spiels !"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:857
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:858
 msgid "Weapons"
 msgstr "Waffen"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2360
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2380
 msgid "Well done !"
 msgstr "Toll, Du hast es geschafft"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1466
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2459
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1467
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2479
 msgid "Windowed"
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2677
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2697
 msgid "Work done"
 msgstr "Arbeitsfortschritt"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3072
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3073
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3081
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3082
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:270
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1111
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1112
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:78
 msgid "Workshop"
 msgstr "Werkstatt"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2419
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2439
 msgid "Yes"
 msgstr "Ja"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2361
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2381
 msgid "Yes, great ..."
 msgstr "Ja, super"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2344
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2364
 msgid "You have failed, try again..."
 msgstr "Das war nichts, probier es noch einmal !"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2480
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2500
 msgid "You have played Planet Blupi."
 msgstr "Sie haben soeben mit Planet Blupi gespielt."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2153
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2173
 #, c-format
 msgid "construction %d, time %d"
 msgstr "Konstruktion %d, Zeit %d"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/misc.cxx:83
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/misc.cxx:77
 msgid "en"
 msgstr "de"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2165
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2185
 msgid "free slot"
 msgstr "frei"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2501
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2521
 msgid "http://www.blupi.com            blupi@epsitec.ch"
 msgstr "Entwickelt von EPSITEC SA"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2156
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2176
 #, c-format
 msgid "mission %d, time %d"
 msgstr "Mission %d, Zeit %d"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2159
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2179
 #, c-format
 msgid "training %d, time %d"
 msgstr "Training %d, Zeit %d"
