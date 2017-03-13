@@ -3874,7 +3874,7 @@ bool CDecor::BlupiGoal (Sint32 rank, Sint32 button, POINT cel, POINT cMem)
         return false;
 
     error = CelOkForAction (goalHili, action, rank);
-    if (error != 0 && error != ERROR_TOURISOL)
+    if (error != 0 && error != Errors::TOURISOL)
         return false;
 
     if (action == WM_ACTION_GO &&
@@ -4350,13 +4350,14 @@ bool CDecor::IsWorkBlupi (Sint32 rank)
 // pour le blupi sélectionné.
 
 void CDecor::BlupiGetButtons (POINT pos, Sint32 &nb,
-                              Sint32 *pButtons, Sint32 *pErrors,
+                              Sint32 *pButtons, Errors *pErrors,
                               std::unordered_map<Sint32, const char *> &texts, Sint32 &perso)
 {
     Sint32     *pB = pButtons;
-    Sint32     *pE = pErrors;
+    Errors     *pE = pErrors;
     POINT       cel, cel2;
-    Sint32          i, rank, button, error, channel, icon;
+    Sint32      i, rank, button, channel, icon;
+    Errors      error;
     bool        bBuild = false;
     bool        bPut;
     const char *textForButton;
@@ -4415,7 +4416,7 @@ void CDecor::BlupiGetButtons (POINT pos, Sint32 &nb,
         if (error == 0)
         {
             *pB++ = BUTTON_GO;
-            *pE++ = 0;
+            *pE++ = Errors::NONE;
             nb ++;
         }
 
@@ -4425,7 +4426,7 @@ void CDecor::BlupiGetButtons (POINT pos, Sint32 &nb,
                 m_blupi[rank].goalAction != 0)
             {
                 *pB++ = BUTTON_STOP;
-                *pE++ = 0;
+                *pE++ = Errors::NONE;
                 nb ++;
                 break;
             }
@@ -4448,7 +4449,7 @@ void CDecor::BlupiGetButtons (POINT pos, Sint32 &nb,
             CelOkForAction (cel, table_actions[BUTTON_STOP], m_rankBlupiHili) == 0)
         {
             *pB++ = BUTTON_STOP;
-            *pE++ = 0;
+            *pE++ = Errors::NONE;
             nb ++;
         }
         return;
@@ -4515,7 +4516,7 @@ next:
         }
 
         pButtons[0] = BUTTON_GO;
-        pErrors[0]  = ERROR_MISC;
+        pErrors[0]  = Errors::MISC;
         nb ++;
     }
 
@@ -4533,7 +4534,7 @@ next:
             m_blupi[m_rankBlupiHili].repeatLevelHope = rank;
 
             pButtons[nb] = BUTTON_REPEAT;
-            pErrors[nb]  = 500;
+            pErrors[nb]  = Errors::REPEAT;
             texts[nb]    = textForButton;
             nb ++;
             return;

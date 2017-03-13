@@ -338,15 +338,19 @@
 
 // Erreurs :
 
-#define ERROR_MISC          1
-#define ERROR_GROUND        2
-#define ERROR_FREE          3
-#define ERROR_PONTOP        4
-#define ERROR_PONTTERM      5
-#define ERROR_TOURISOL      6
-#define ERROR_TOUREAU       7
-#define ERROR_TELE2         8
-
+enum Errors
+{
+    NONE     = 0,
+    MISC     = 1,
+    GROUND   = 2,
+    FREE     = 3,
+    PONTOP   = 4,
+    PONTTERM = 5,
+    TOURISOL = 6,
+    TOUREAU  = 7,
+    TELE2    = 8,
+    REPEAT   = 500,
+};
 
 // Lutins pour la souris
 

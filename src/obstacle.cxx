@@ -3508,11 +3508,11 @@ bool CDecor::IsVirusCel (POINT cel)
 // d'une cellule donnée (cel).
 // Retourne 0 si c'est possible, ou une erreur autrement !
 
-Sint32 CDecor::IsBuildPont (POINT &cel, Sint32 &iconBuild)
+Errors CDecor::IsBuildPont (POINT &cel, Sint32 &iconBuild)
 {
     POINT   vector, test;
     Sint32      i, channel, icon, p1, p2, p3, r1, r2, nb, rest;
-    Sint32      error = ERROR_MISC;
+    Errors  error = Errors::MISC;
 
     for (i = 0 ; i < 4 ; i++)
     {
@@ -3599,7 +3599,7 @@ Sint32 CDecor::IsBuildPont (POINT &cel, Sint32 &iconBuild)
 
         if (icon == p3)
         {
-            error = ERROR_PONTTERM;
+            error = Errors::PONTTERM;
             continue;
         }
 
@@ -3629,14 +3629,14 @@ Sint32 CDecor::IsBuildPont (POINT &cel, Sint32 &iconBuild)
 
         if (icon != r2 && icon != p2 && icon != p3)
         {
-            error = ERROR_PONTOP;
+            error = Errors::PONTOP;
             continue;
         }
 
         cel.x += vector.x * 2 * nb;
         cel.y += vector.y * 2 * nb;
 
-        return 0;  // ok
+        return Errors::NONE;  // ok
     }
 
     return error;

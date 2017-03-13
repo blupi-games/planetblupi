@@ -144,7 +144,7 @@ CMenu::~CMenu()
 // Crée un nouveau bouton.
 
 bool CMenu::Create (CPixmap *pPixmap, CSound *pSound, CEvent *pEvent,
-                    POINT pos, Sint32 nb, Sint32 *pButtons, Sint32 *pErrors,
+                    POINT pos, Sint32 nb, Sint32 *pButtons, Errors *pErrors,
                     std::unordered_map<Sint32, const char *> &texts,
                     Sint32 perso)
 {
@@ -187,7 +187,7 @@ bool CMenu::Create (CPixmap *pPixmap, CSound *pSound, CEvent *pEvent,
 
 // Met à jour le menu.
 
-void CMenu::Update (Sint32 nb, Sint32 *pButtons, Sint32 *pErrors,
+void CMenu::Update (Sint32 nb, Sint32 *pButtons, Errors *pErrors,
                     std::unordered_map<Sint32, const char *> &texts)
 {
     Sint32          i;
@@ -250,7 +250,7 @@ void CMenu::Draw()
         else
             state = 0;  // release
         if (m_errors[i] != 0 &&
-            m_errors[i] != ERROR_TOURISOL &&
+            m_errors[i] != Errors::TOURISOL &&
             m_errors[i] < 100)
         {
             state = 4;  // disable

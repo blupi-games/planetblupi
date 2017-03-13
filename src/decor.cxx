@@ -1583,13 +1583,13 @@ Sint32 CDecor::CountFloor (Sint32 channel, Sint32 icon)
 //           2          construction d'une cellule 2x2
 //           WM_ACTION* action
 
-Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
+Errors CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                                Sint32 icons[4][4],
                                POINT &celOutline1,
                                POINT &celOutline2)
 {
     Sint32      x, y, i, j, channel, icon, nb, start, direct;
-    Sint32      error = 0;
+    Errors  error = Errors::NONE;
     bool    bStrong    = false;
     bool    bTransport = false;
     bool    bVehicule  = false;
@@ -1659,7 +1659,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
 
     if (action == WM_ACTION_STOP)
     {
-        error = ERROR_MISC;
+        error = Errors::MISC;
         if (m_blupi[rank].stop == 0 &&
             (m_blupi[rank].goalAction == WM_ACTION_GO ||
              (m_blupi[rank].goalAction >= WM_ACTION_ABAT1 &&
@@ -1674,13 +1674,13 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
              m_blupi[rank].goalAction == WM_ACTION_FLEUR1 ||
              m_blupi[rank].goalAction == WM_ACTION_FLEUR2 ||
              m_blupi[rank].goalAction == WM_ACTION_FLEUR3))
-            error = 0;
+            error = Errors::NONE;
         if (m_blupi[rank].stop == 0 &&
             m_blupi[rank].goalAction != 0 &&
             m_blupi[rank].interrupt == 1)
-            error = 0;
+            error = Errors::NONE;
         if (m_blupi[rank].repeatLevel != -1)
-            error = 0;
+            error = Errors::NONE;
     }
 
     if (action == WM_ACTION_GO)
@@ -1690,7 +1690,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             cel.x = (cel.x / 2) * 2 + 1;
             cel.y = (cel.y / 2) * 2 + 1;
         }
-        error = ERROR_MISC;
+        error = Errors::MISC;
         if (m_nbBlupiHili > 0)
         {
             nb = m_nbBlupiHili;
@@ -1708,7 +1708,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                 {
                     //?                 icons[1+x][1+y] = ICON_HILI_GO;  // flèche
                     icons[1 + x][1 + y] = ICON_HILI_OP; // action
-                    error = 0;
+                    error = Errors::NONE;
                 }
                 else
                     icons[1 + x][1 + y] = ICON_HILI_ERR;
@@ -1739,7 +1739,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             icons[2][1] = ICON_HILI_ERR;
             icons[1][2] = ICON_HILI_ERR;
             icons[2][2] = ICON_HILI_ERR;
-            error = ERROR_MISC;
+            error = Errors::MISC;
         }
     }
 
@@ -1765,7 +1765,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             icons[2][1] = ICON_HILI_ERR;
             icons[1][2] = ICON_HILI_ERR;
             icons[2][2] = ICON_HILI_ERR;
-            error = ERROR_MISC;
+            error = Errors::MISC;
         }
     }
 
@@ -1775,7 +1775,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
         if (cel.x % 2 != 1 || cel.y % 2 != 1)
         {
             icons[1][1] = ICON_HILI_ERR;
-            error = ERROR_MISC;
+            error = Errors::MISC;
         }
         else
         {
@@ -1784,7 +1784,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
 
             if (!bStrong || bTransport || bVehicule)
             {
-                error = ERROR_MISC;  // pas assez fort
+                error = Errors::MISC;  // pas assez fort
             }
 
             if (action == WM_ACTION_BUILD1 ||   // cabane ?
@@ -1796,7 +1796,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                     (icon != 1 &&                 // herbe claire ?
                      (icon < 19 || icon > 32)))   // herbe foncée ?
                 {
-                    error = ERROR_GROUND;  // sol pas adéquat
+                    error = Errors::GROUND;  // sol pas adéquat
                 }
             }
 
@@ -1805,14 +1805,14 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                 GetFloor (cel, channel, icon);
                 if (channel != CHFLOOR || icon != 71)    // terre à fer ?
                 {
-                    error = ERROR_GROUND;  // sol pas adéquat
+                    error = Errors::GROUND;  // sol pas adéquat
                 }
             }
 
             if (action == WM_ACTION_BUILD6 &&    // téléporteur ?
                 CountFloor (CHFLOOR, 80) >= 2)  // déjà 2 ?
             {
-                error = ERROR_TELE2;  // déjà 2 téléporteurs
+                error = Errors::TELE2;  // déjà 2 téléporteurs
             }
 
             if (action == WM_ACTION_BUILD3 ||
@@ -1827,7 +1827,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             GetObject (cel, channel, icon);
             if (channel != CHOBJECT || icon != start)    // planches ?
             {
-                error = ERROR_MISC;  // pas de planches !
+                error = Errors::MISC;  // pas de planches !
             }
 
             for (x = -1 ; x < 3 ; x++)
@@ -1848,12 +1848,12 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                     if ((x < 0 || x > 1 || y < 0 || y > 1) &&
                         !IsFreeCel (GetCel (cel, x, y), rank))
                     {
-                        error = ERROR_FREE;
+                        error = Errors::FREE;
                         icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                     }
                     if (IsBlupiHereEx (GetCel (cel, x, y), rank, false))
                     {
-                        error = ERROR_FREE;
+                        error = Errors::FREE;
                         icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                     }
                 }
@@ -1866,7 +1866,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
         if (cel.x % 2 != 1 || cel.y % 2 != 1)
         {
             icons[1][1] = ICON_HILI_ERR;
-            error = ERROR_MISC;
+            error = Errors::MISC;
         }
         else
         {
@@ -1876,13 +1876,13 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             if (!bStrong || bTransport || bVehicule ||
                 m_blupi[rank].perso == 8)   // disciple ?
             {
-                error = ERROR_MISC;  // pas assez fort
+                error = Errors::MISC;  // pas assez fort
             }
 
             GetObject (cel, channel, icon);
             if (channel != CHOBJECT || icon != 44)    // pierres ?
             {
-                error = ERROR_MISC;  // pas de pierres !
+                error = Errors::MISC;  // pas de pierres !
             }
 
             for (x = 0 ; x < 2 ; x++)
@@ -1902,7 +1902,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                 {
                     if (IsBlupiHereEx (GetCel (cel, x, y), rank, false))
                     {
-                        error = ERROR_FREE;
+                        error = Errors::FREE;
                         icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                     }
                 }
@@ -1917,7 +1917,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
         if (cel.x % 2 != 1 || cel.y % 2 != 1)
         {
             icons[1][1] = ICON_HILI_ERR;
-            error = ERROR_MISC;
+            error = Errors::MISC;
         }
         else
         {
@@ -1927,7 +1927,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             if (!bStrong || bTransport || bVehicule ||
                 m_blupi[rank].perso == 8)   // disciple ?
             {
-                error = ERROR_MISC;  // pas assez fort
+                error = Errors::MISC;  // pas assez fort
             }
 
             //          GetFloor(cel, channel, icon);
@@ -1935,13 +1935,13 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             //              (icon != 1 &&                 // herbe claire ?
             //               (icon < 19 || icon > 32)) )  // herbe foncée ?
             //          {
-            //              error = ERROR_GROUND;  // sol pas adéquat
+            //              error = Errors::GROUND;  // sol pas adéquat
             //          }
 
             GetObject (cel, channel, icon);
             if (channel != CHOBJECT || icon != 44)    // pierres ?
             {
-                error = ERROR_MISC;  // pas de pierres !
+                error = Errors::MISC;  // pas de pierres !
             }
 
             for (x = 0 ; x < 2 ; x++)
@@ -1965,13 +1965,13 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                         if (channel == CHFLOOR &&
                             (icon >= 2 && icon <= 13))   // rive ?
                         {
-                            error = ERROR_TOUREAU;
+                            error = Errors::TOUREAU;
                             icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                         }
                     }
                     if (IsBlupiHereEx (GetCel (cel, x, y), rank, false))
                     {
-                        error = ERROR_FREE;
+                        error = Errors::FREE;
                         icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                     }
                 }
@@ -2000,7 +2000,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                     }
                 }
                 if (!bTour)
-                    error = ERROR_TOURISOL;
+                    error = Errors::TOURISOL;
             }
         }
     }
@@ -2010,7 +2010,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
         if (cel.x % 2 != 1 || cel.y % 2 != 1)
         {
             icons[1][1] = ICON_HILI_ERR;
-            error = ERROR_MISC;
+            error = Errors::MISC;
         }
         else
         {
@@ -2019,13 +2019,13 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
 
             if (!bStrong || bTransport || bVehicule)
             {
-                error = ERROR_MISC;  // pas assez fort
+                error = Errors::MISC;  // pas assez fort
             }
 
             GetObject (cel, channel, icon);
             if (channel != CHOBJECT || icon != 36)    // planches ?
             {
-                error = ERROR_MISC;  // pas de pierres !
+                error = Errors::MISC;  // pas de pierres !
             }
 
             for (x = 0 ; x < 2 ; x++)
@@ -2045,7 +2045,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                 {
                     if (IsBlupiHereEx (GetCel (cel, x, y), rank, false))
                     {
-                        error = ERROR_FREE;
+                        error = Errors::FREE;
                         icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                     }
                 }
@@ -2060,7 +2060,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
         if (cel.x % 2 != 1 || cel.y % 2 != 1)
         {
             icons[1][1] = ICON_HILI_ERR;
-            error = ERROR_MISC;
+            error = Errors::MISC;
         }
         else
         {
@@ -2069,13 +2069,13 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
 
             if (!bStrong || bTransport || bVehicule)
             {
-                error = ERROR_MISC;  // pas assez fort
+                error = Errors::MISC;  // pas assez fort
             }
 
             GetObject (cel, channel, icon);
             if (channel != CHOBJECT || icon != 36)    // planches ?
             {
-                error = ERROR_MISC;  // pas de pierres !
+                error = Errors::MISC;  // pas de pierres !
             }
 
             test = cel;
@@ -2099,7 +2099,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                 {
                     if (IsBlupiHereEx (GetCel (cel, x, y), rank, false))
                     {
-                        error = ERROR_FREE;
+                        error = Errors::FREE;
                         icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                     }
                 }
@@ -2112,7 +2112,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
         if (cel.x % 2 != 1 || cel.y % 2 != 1)
         {
             icons[1][1] = ICON_HILI_ERR;
-            error = ERROR_MISC;
+            error = Errors::MISC;
         }
         else
         {
@@ -2141,7 +2141,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             else
             {
                 icons[1][1] = ICON_HILI_ERR;  // croix
-                error = ERROR_MISC;
+                error = Errors::MISC;
             }
         }
     }
@@ -2150,12 +2150,12 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
     {
         if (!bTransport || bVehiculeA)
         {
-            error = ERROR_MISC;  // ne transporte rien
+            error = Errors::MISC;  // ne transporte rien
         }
 
         GetObject (GetCel ((cel.x / 2) * 2, (cel.y / 2) * 2), channel, icon);
         if (icon != -1 && icon != 124)    // pas drapeau ?
-            error = ERROR_MISC;
+            error = Errors::MISC;
 
         start = 0;
         if (error == 0)
@@ -2171,7 +2171,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                     {
                         if (!IsFreeCelDepose (GetCel (cel, x, y), rank) ||
                             IsBlupiHereEx (GetCel (cel, x, y), rank, false))
-                            error = ERROR_MISC;
+                            error = Errors::MISC;
                     }
                 }
                 start = -1;
@@ -2180,7 +2180,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             {
                 if (!IsFreeCelDepose (GetCel (cel, 1, 1), rank) ||
                     IsBlupiHereEx (GetCel (cel, 1, 1), rank, false))
-                    error = ERROR_MISC;
+                    error = Errors::MISC;
                 else
                 {
                     if (!IsFreeCelDepose (GetCel (cel, 0, 1), rank) ||
@@ -2188,7 +2188,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                     {
                         if (!IsFreeCelDepose (GetCel (cel, 1, 0), rank) ||
                             IsBlupiHereEx (GetCel (cel, 1, 0), rank, false))
-                            error = ERROR_MISC;
+                            error = Errors::MISC;
                     }
                 }
             }
@@ -2210,13 +2210,13 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
     {
         if (!bStrong || bTransport || bVehicule)
         {
-            error = ERROR_MISC;  // pas assez fort
+            error = Errors::MISC;  // pas assez fort
         }
 
         GetObject (cel, channel, icon);
         if (channel != CHOBJECT || icon != 61)    // maison ?
         {
-            error = ERROR_MISC;  // pas de maison !
+            error = Errors::MISC;  // pas de maison !
         }
 
         for (x = 0 ; x < 2 ; x++)
@@ -2236,7 +2236,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             {
                 if (IsBlupiHereEx (GetCel (cel, x, y), rank, false))
                 {
-                    error = ERROR_MISC;
+                    error = Errors::MISC;
                     icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                 }
             }
@@ -2247,7 +2247,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
     {
         if (!bStrong || !bTransport || bVehicule)
         {
-            error = ERROR_MISC;  // pas assez fort
+            error = Errors::MISC;  // pas assez fort
         }
 
         GetObject (cel, channel, icon);
@@ -2258,7 +2258,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
              m_blupi[rank].takeIcon != 95 &&  // fleurs ?
              m_blupi[rank].takeIcon != 60))   // tomates ?
         {
-            error = ERROR_MISC;  // pas de laboratoire !
+            error = Errors::MISC;  // pas de laboratoire !
         }
 
         for (x = 0 ; x < 2 ; x++)
@@ -2278,7 +2278,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             {
                 if (IsBlupiHereEx (GetCel (cel, x, y), rank, false))
                 {
-                    error = ERROR_MISC;
+                    error = Errors::MISC;
                     icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                 }
             }
@@ -2307,7 +2307,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             icons[2][1] = ICON_HILI_ERR;
             icons[1][2] = ICON_HILI_ERR;
             icons[2][2] = ICON_HILI_ERR;
-            error = ERROR_MISC;
+            error = Errors::MISC;
         }
     }
 
@@ -2316,7 +2316,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
         if (cel.x % 2 != 1 || cel.y % 2 != 1)
         {
             icons[1][1] = ICON_HILI_ERR;
-            error = ERROR_MISC;
+            error = Errors::MISC;
         }
         else
         {
@@ -2326,13 +2326,13 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             //?         if ( !bStrong || bVehicule )
             if (bVehiculeA)
             {
-                error = ERROR_MISC;  // pas assez fort
+                error = Errors::MISC;  // pas assez fort
             }
 
             GetObject (cel, channel, icon);
             if (icon != 85 && icon != 125)    // dynamite/mine ?
             {
-                error = ERROR_MISC;  // pas de dynamite !
+                error = Errors::MISC;  // pas de dynamite !
             }
 
             for (x = 0 ; x < 2 ; x++)
@@ -2353,12 +2353,12 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                     if ((x < 0 || x > 1 || y < 0 || y > 1) &&
                         !IsFreeCel (GetCel (cel, x, y), rank))
                     {
-                        error = ERROR_FREE;
+                        error = Errors::FREE;
                         icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                     }
                     if (IsBlupiHereEx (GetCel (cel, x, y), rank, false))
                     {
-                        error = ERROR_FREE;
+                        error = Errors::FREE;
                         icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                     }
                 }
@@ -2371,7 +2371,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
         if (cel.x % 2 != 1 || cel.y % 2 != 1)
         {
             icons[1][1] = ICON_HILI_ERR;
-            error = ERROR_MISC;
+            error = Errors::MISC;
         }
         else
         {
@@ -2388,7 +2388,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             else
             {
                 icons[1][1] = ICON_HILI_ERR;  // croix
-                error = ERROR_MISC;
+                error = Errors::MISC;
             }
         }
     }
@@ -2398,7 +2398,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
         if (cel.x % 2 != 1 || cel.y % 2 != 1)
         {
             icons[1][1] = ICON_HILI_ERR;
-            error = ERROR_MISC;
+            error = Errors::MISC;
         }
         else
         {
@@ -2415,7 +2415,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             else
             {
                 icons[1][1] = ICON_HILI_ERR;  // croix
-                error = ERROR_MISC;
+                error = Errors::MISC;
             }
         }
     }
@@ -2427,7 +2427,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
         if (cel.x % 2 != 1 || cel.y % 2 != 1)
         {
             icons[1][1] = ICON_HILI_ERR;
-            error = ERROR_MISC;
+            error = Errors::MISC;
         }
         else
         {
@@ -2436,19 +2436,19 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
 
             if (!bStrong || bTransport || bVehicule)
             {
-                error = ERROR_MISC;  // pas assez fort
+                error = Errors::MISC;  // pas assez fort
             }
 
             GetObject (cel, channel, icon);
             if (channel != CHOBJECT || icon != 36)    // planches ?
             {
-                error = ERROR_MISC;  // pas de pierres !
+                error = Errors::MISC;  // pas de pierres !
             }
 
             test = cel;
             if (error == 0 && !IsBuildBateau (test, direct))
             {
-                error = ERROR_MISC;  // impossible ici !
+                error = Errors::MISC;  // impossible ici !
             }
 
             for (x = 0 ; x < 2 ; x++)
@@ -2468,7 +2468,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                 {
                     if (IsBlupiHereEx (GetCel (cel, x, y), rank, false))
                     {
-                        error = ERROR_FREE;
+                        error = Errors::FREE;
                         icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                     }
                 }
@@ -2480,7 +2480,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
     {
         cel.x = (cel.x / 2) * 2;
         cel.y = (cel.y / 2) * 2;
-        error = ERROR_MISC;
+        error = Errors::MISC;
         if (m_blupi[rank].vehicule == 2 &&   // en jeep ?
             m_decor[cel.x / 2][cel.y / 2].objectIcon == -1 &&
             m_decor[cel.x / 2][cel.y / 2].floorIcon != 80) // pas téléporteur ?
@@ -2494,7 +2494,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                 icons[2][1] = ICON_HILI_OP;
                 icons[1][2] = ICON_HILI_OP;
                 icons[2][2] = ICON_HILI_OP;
-                error = 0;
+                error = Errors::NONE;
             }
         }
         else
@@ -2510,7 +2510,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
     {
         cel.x = (cel.x / 2) * 2;
         cel.y = (cel.y / 2) * 2;
-        error = ERROR_MISC;
+        error = Errors::MISC;
         if (m_blupi[rank].vehicule == 3 &&   // armure ?
             !bTransport &&
             m_decor[cel.x / 2][cel.y / 2].objectIcon == -1 &&
@@ -2525,7 +2525,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
                 icons[2][1] = ICON_HILI_OP;
                 icons[1][2] = ICON_HILI_OP;
                 icons[2][2] = ICON_HILI_OP;
-                error = 0;
+                error = Errors::NONE;
             }
         }
         else
@@ -2541,20 +2541,20 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
     {
         if (!bStrong || bTransport || bVehicule)
         {
-            error = ERROR_MISC;  // pas assez fort
+            error = Errors::MISC;  // pas assez fort
         }
 
         GetFloor (cel, channel, icon);
         if ((icon < 33 || icon > 48) &&
             icon != 71)   // pas terre ?
         {
-            error = ERROR_MISC;  // terrain pas adapté
+            error = Errors::MISC;  // terrain pas adapté
         }
 
         GetObject (cel, channel, icon);
         if (channel == CHOBJECT)    // y a-t-il un objet ?
         {
-            error = ERROR_MISC;  // terrain pas adapté
+            error = Errors::MISC;  // terrain pas adapté
         }
 
         for (x = 0 ; x < 2 ; x++)
@@ -2574,7 +2574,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             {
                 if (IsBlupiHereEx (GetCel (cel, x, y), rank, false))
                 {
-                    error = ERROR_MISC;
+                    error = Errors::MISC;
                     icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                 }
             }
@@ -2585,13 +2585,13 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
     {
         if (!bStrong || bTransport || bVehicule)
         {
-            error = ERROR_MISC;  // pas assez fort
+            error = Errors::MISC;  // pas assez fort
         }
 
         GetObject (cel, channel, icon);
         if (channel != CHOBJECT || icon != 122)    // mine de fer ?
         {
-            error = ERROR_MISC;  // pas de mine
+            error = Errors::MISC;  // pas de mine
         }
 
         for (x = 0 ; x < 2 ; x++)
@@ -2611,7 +2611,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             {
                 if (IsBlupiHereEx (GetCel (cel, x, y), rank, false))
                 {
-                    error = ERROR_MISC;
+                    error = Errors::MISC;
                     icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                 }
             }
@@ -2624,17 +2624,17 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
     {
         if (!bStrong || !bTransport || bVehicule)
         {
-            error = ERROR_MISC;  // pas assez fort
+            error = Errors::MISC;  // pas assez fort
         }
         if (action == WM_ACTION_FABJEEP &&
             m_blupi[rank].perso == 8)      // disciple ?
         {
-            error = ERROR_MISC;  // impossible
+            error = Errors::MISC;  // impossible
         }
         if (action == WM_ACTION_FABARMURE &&
             m_blupi[rank].perso == 8)      // disciple ?
         {
-            error = ERROR_MISC;  // impossible
+            error = Errors::MISC;  // impossible
         }
 
         GetObject (cel, channel, icon);
@@ -2642,7 +2642,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             m_blupi[rank].takeChannel != CHOBJECT ||
             m_blupi[rank].takeIcon != 123)   // fer ?
         {
-            error = ERROR_MISC;  // pas d'usine !
+            error = Errors::MISC;  // pas d'usine !
         }
 
         for (x = 0 ; x < 2 ; x++)
@@ -2662,7 +2662,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             {
                 if (IsBlupiHereEx (GetCel (cel, x, y), rank, false))
                 {
-                    error = ERROR_MISC;
+                    error = Errors::MISC;
                     icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                 }
             }
@@ -2673,7 +2673,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
     {
         if (!bStrong || !bTransport || bVehicule)
         {
-            error = ERROR_MISC;  // pas assez fort
+            error = Errors::MISC;  // pas assez fort
         }
 
         GetObject (cel, channel, icon);
@@ -2681,7 +2681,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             m_blupi[rank].takeChannel != CHOBJECT ||
             m_blupi[rank].takeIcon != 14)   // métal ?
         {
-            error = ERROR_MISC;  // pas d'usine !
+            error = Errors::MISC;  // pas d'usine !
         }
 
         for (x = 0 ; x < 2 ; x++)
@@ -2701,7 +2701,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
             {
                 if (IsBlupiHereEx (GetCel (cel, x, y), rank, false))
                 {
-                    error = ERROR_MISC;
+                    error = Errors::MISC;
                     icons[x + 1][y + 1] = ICON_HILI_ERR; // croix
                 }
             }
@@ -2714,7 +2714,7 @@ Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
 // Indique si une cellule est ok pour une action.
 // Le rang du blupi qui effectuera le travail est donnée dans rank.
 
-Sint32 CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank)
+Errors CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank)
 {
     Sint32      icons[4][4];
     POINT   celOutline1, celOutline2;

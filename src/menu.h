@@ -13,10 +13,10 @@ public:
     ~CMenu();
 
     bool    Create (CPixmap *pPixmap, CSound *pSound, CEvent *pEvent,
-                    POINT pos, Sint32 nb, Sint32 *pButtons, Sint32 *pErrors,
+                    POINT pos, Sint32 nb, Sint32 *pButtons, Errors *pErrors,
                     std::unordered_map<Sint32, const char *> &texts,
                     Sint32 perso);
-    void    Update (Sint32 nb, Sint32 *pButtons, Sint32 *pErrors,
+    void    Update (Sint32 nb, Sint32 *pButtons, Errors *pErrors,
                     std::unordered_map<Sint32, const char *> &texts);
     void    Delete();
     void    Draw();
@@ -45,7 +45,7 @@ protected:
     POINT       m_nbCel;
     Sint32          m_perso;
     Sint32          m_buttons[MAXBUTTON];
-    Sint32          m_errors[MAXBUTTON];
+    Errors      m_errors[MAXBUTTON];
     std::unordered_map<Sint32, const char *> m_texts;
     Uint32      m_messages[MAXBUTTON];
     Sint32          m_selRank;

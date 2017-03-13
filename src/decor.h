@@ -228,7 +228,7 @@ public:
     bool    IsUsineFree (Sint32 rank, POINT cel);
     bool    IsFireCel (POINT cel);
     bool    IsVirusCel (POINT cel);
-    Sint32      IsBuildPont (POINT &cel, Sint32 &iconBuild);
+    Errors  IsBuildPont (POINT &cel, Sint32 &iconBuild);
     bool    IsBuildBateau (POINT cel, Sint32 &direct);
     void    InitDrapeau();
     void    AddDrapeau (POINT cel);
@@ -296,7 +296,7 @@ public:
     void    GetLevelJauge (Sint32 *pLevels, Sint32 *pTypes);
     bool    IsWorkBlupi (Sint32 rank);
     void    BlupiGetButtons (POINT pos, Sint32 &nb, Sint32 *pButtons,
-                             Sint32 *pErrors,
+                             Errors *pErrors,
                              std::unordered_map<Sint32, const char *> &texts, Sint32 &perso);
     void    TerminatedInit();
     Sint32      IsTerminated();
@@ -421,11 +421,11 @@ public:
     void    NextPhase (Sint32 mode);
 
     Sint32      CountFloor (Sint32 channel, Sint32 icon);
-    Sint32      CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
-                                Sint32   icons[4][4],
-                                POINT &celOutline1,
-                                POINT &celOutline2);
-    Sint32      CelOkForAction (POINT cel, Sint32 action, Sint32 rank);
+    Errors  CelOkForAction (POINT cel, Sint32 action, Sint32 rank,
+                            Sint32   icons[4][4],
+                            POINT &celOutline1,
+                            POINT &celOutline2);
+    Errors  CelOkForAction (POINT cel, Sint32 action, Sint32 rank);
     Sint32      GetHiliRankBlupi (Sint32 nb);
     void    CelHili (POINT pos, Sint32 action);
     void    CelHiliButton (POINT cel, Sint32 button);
