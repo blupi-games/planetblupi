@@ -64,6 +64,9 @@ endif (MINGW)
 
 # Dependencies
 
+set (CMAKE_INCLUDE_PATH ${CMAKE_INSTALL_PREFIX}/include)
+set (CMAKE_LIBRARY_PATH ${CMAKE_INSTALL_PREFIX}/lib)
+find_package (Iconv REQUIRED)
 find_package (Intl REQUIRED)
 
 find_package (PkgConfig REQUIRED)
@@ -90,6 +93,7 @@ set_property (TARGET SDL_kitchensink PROPERTY IMPORTED_LOCATION ${CMAKE_INSTALL_
 ###########################
 
 target_link_libraries (planetblupi PUBLIC
+  ${Iconv_LIBRARIES}
   ${Intl_LIBRARIES}
   ${SDL2_STATIC_LIBRARIES}
   ${SDL2_MIXER_STATIC_LIBRARIES}
