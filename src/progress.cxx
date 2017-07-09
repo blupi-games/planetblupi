@@ -5,7 +5,7 @@
 #include "pixmap.h"
 #include "sound.h"
 #include "decor.h"
-#include "jauge.h"
+#include "progress.h"
 #include "misc.h"
 
 

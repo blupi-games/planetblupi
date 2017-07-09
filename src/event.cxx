@@ -14,7 +14,7 @@
 #include "movie.h"
 #include "button.h"
 #include "menu.h"
-#include "jauge.h"
+#include "progress.h"
 #include "event.h"
 #include "action.h"
 #include "text.h"

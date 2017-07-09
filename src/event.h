@@ -5,7 +5,7 @@
 #include <vector>
 #include <unordered_map>
 #include "blupi.h"
-#include "jauge.h"
+#include "progress.h"
 #include "menu.h"
 #include "button.h"
 
