@@ -521,6 +521,13 @@ static bool DoInit (Sint32 argc, char *argv[])
     if (!g_pPixmap->Cache (CHMASK1, "image/mask1.png", totalDim, iconDim))
         return InitFail ("Cache mask1.png", true);
 
+    totalDim.x = DIMCELX * 2 * 16;
+    totalDim.y = DIMCELY * 2 * 1;
+    iconDim.x = DIMCELX * 2;
+    iconDim.y = DIMCELY * 2;
+    if (!g_pPixmap->Cache (CHMASK2, "image/mask2.png", totalDim, iconDim))
+        return InitFail ("Cache mask2.png", true);
+
     totalDim.x = DIMBUTTONX * 6;
     totalDim.y = DIMBUTTONY * 21;
     iconDim.x = DIMBUTTONX;

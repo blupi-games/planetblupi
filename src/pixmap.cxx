@@ -58,8 +58,12 @@ CPixmap::~CPixmap()
     }
 
     for (auto tex: m_SDLTextureInfo)
+    {
         if (tex.second.texture)
             SDL_DestroyTexture (tex.second.texture);
+        if (tex.second.texMask)
+            SDL_DestroyTexture (tex.second.texMask);
+    }
 }
 
 // Crï¿½e l'objet DirectDraw principal.
@@ -149,7 +153,7 @@ Sint32 CPixmap::BltFast (Sint32 chDst, size_t channel, POINT dst, RECT rcRect)
 // Les modes sont 0=transparent, 1=opaque.
 
 Sint32 CPixmap::BltFast (SDL_Texture *lpSDL, size_t channel, POINT dst,
-                         RECT rcRect)
+                         RECT rcRect, SDL_BlendMode mode)
 {
     Sint32          res;
 
@@ -162,9 +166,17 @@ Sint32 CPixmap::BltFast (SDL_Texture *lpSDL, size_t channel, POINT dst,
     dstRect.x = dst.x;
     dstRect.y = dst.y;
 
+    SDL_BlendMode oMode;
+    SDL_GetTextureBlendMode (m_SDLTextureInfo[channel].texture, &oMode);
+    if (oMode != mode)
+        SDL_SetTextureBlendMode (m_SDLTextureInfo[channel].texture, mode);
+
     SDL_SetRenderTarget (g_renderer, lpSDL);
     res = SDL_RenderCopy (g_renderer, m_SDLTextureInfo[channel].texture, &srcRect, &dstRect);
     SDL_SetRenderTarget (g_renderer, nullptr);
+
+    if (oMode != mode)
+        SDL_SetTextureBlendMode(m_SDLTextureInfo[channel].texture, oMode);
 
     return res;
 }
@@ -231,6 +243,7 @@ bool CPixmap::Cache (size_t channel, const std::string &pFilename, POINT totalDi
         SDL_SetRenderTarget (g_renderer, nullptr);
     }
 
+    m_SDLTextureInfo[channel].texMask  = channel == CHMASK2 ? texture : nullptr;
     m_SDLTextureInfo[channel].target   = true;
     m_SDLTextureInfo[channel].dimIcon  = iconDim;
     m_SDLTextureInfo[channel].dimTotal = totalDim;
@@ -240,7 +253,8 @@ bool CPixmap::Cache (size_t channel, const std::string &pFilename, POINT totalDi
     SDL_RenderCopy (g_renderer, texture, nullptr, nullptr);
     SDL_SetRenderTarget (g_renderer, nullptr);
 
-    SDL_DestroyTexture (texture);
+    if (!m_SDLTextureInfo[channel].texMask)
+        SDL_DestroyTexture (texture);
 
     if (channel != CHBLUPI)
         SDL_FreeSurface (surface);
@@ -481,8 +495,8 @@ bool CPixmap::BuildIconMask (size_t channelMask, Sint32 rankMask,
                              size_t channel, Sint32 rankSrc, Sint32 rankDst)
 {
     Sint32 nbx, nby;
-    POINT  posDst;
-    RECT   rect;
+    POINT  posDst, posDstMask;
+    RECT   rect, rectMask;
     Sint32 res;
 
     auto texInfo = m_SDLTextureInfo.find (channel);
@@ -521,15 +535,30 @@ bool CPixmap::BuildIconMask (size_t channelMask, Sint32 rankMask,
     nbx = texMaskInfo->second.dimTotal.x / texMaskInfo->second.dimIcon.x;
     nby = texMaskInfo->second.dimTotal.y / texMaskInfo->second.dimIcon.y;
 
-    if (rankMask < 0 || rankMask >= nbx * nby)
+    /* Support only CHMASK1 (white) because it needs CHMASK2 (black) (hardcoded here) */
+    if (rankMask < 0 || rankMask >= nbx * nby || channelMask != CHMASK1)
         return false;
 
-    rect.left   = (rankMask % nbx) * texMaskInfo->second.dimIcon.x;
-    rect.top    = (rankMask / nbx) * texMaskInfo->second.dimIcon.y;
-    rect.right  = rect.left + texMaskInfo->second.dimIcon.x;
-    rect.bottom = rect.top  + texMaskInfo->second.dimIcon.y;
+    rectMask.left   = (rankMask % nbx) * texMaskInfo->second.dimIcon.x;
+    rectMask.top    = (rankMask / nbx) * texMaskInfo->second.dimIcon.y;
+    rectMask.right  = rectMask.left + texMaskInfo->second.dimIcon.x;
+    rectMask.bottom = rectMask.top  + texMaskInfo->second.dimIcon.y;
 
-    res = BltFast (m_SDLTextureInfo[channel].texture, channelMask, posDst, rect);
+    /* Multiply the white mask with the texture (no alpha) */
+    res = BltFast (m_SDLTextureInfo[channel].texture, channelMask, posDst, rectMask, SDL_BLENDMODE_MOD);
+
+    posDstMask.x = (rankMask % nbx) * texMaskInfo->second.dimIcon.x;
+    posDstMask.y = (rankMask / nbx) * texMaskInfo->second.dimIcon.y;
+    /* Addition the previous texture with the black mask (alpha retrieved) */
+    res = BltFast (m_SDLTextureInfo[CHMASK2].texture, channel, posDstMask, rect, SDL_BLENDMODE_ADD);
+
+    /* Blit the altered mask in the final texture */
+    res = BltFast (m_SDLTextureInfo[channel].texture, CHMASK2, posDst, rectMask, SDL_BLENDMODE_NONE);
+
+    /* Restore the black mask for the next iteration. */
+    SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[CHMASK2].texture);
+    SDL_RenderCopy (g_renderer, m_SDLTextureInfo[CHMASK2].texMask, nullptr, nullptr);
+    SDL_SetRenderTarget (g_renderer, nullptr);
 
     return !res;
 }

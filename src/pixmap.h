@@ -10,6 +10,7 @@
 
 struct TextureInfo
 {
+    SDL_Texture *texMask;
     SDL_Texture *texture;
     bool target; // can be used as a render target
     std::string file;
@@ -17,7 +18,8 @@ struct TextureInfo
     POINT dimIcon;
 
     TextureInfo ()
-        : texture (nullptr),
+        : texMask (nullptr),
+          texture (nullptr),
           target (false),
           dimTotal { 0 },
           dimIcon { 0 } {}
@@ -64,7 +66,7 @@ public:
 
 protected:
     Sint32  BltFast (Sint32 chDst, size_t channel, POINT dst, RECT rcRect);
-    Sint32  BltFast (SDL_Texture *lpSDL, size_t channel, POINT dst, RECT rcRect);
+    Sint32  BltFast (SDL_Texture *lpSDL, size_t channel, POINT dst, RECT rcRect, SDL_BlendMode = SDL_BLENDMODE_BLEND);
 
     RECT    MouseRectSprite();
     SDL_Point GetCursorHotSpot (Sint32 sprite);

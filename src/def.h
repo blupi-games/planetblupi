@@ -66,6 +66,7 @@
 #define CHJAUGE         12
 #define CHTEXT          13
 #define CHBIGNUM        14
+#define CHMASK2         15
 
 #define FOGHIDE         4
 
