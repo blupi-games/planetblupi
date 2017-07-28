@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-28 18:43+0200\n"
-"PO-Revision-Date: 2017-02-28 22:41+0100\n"
+"POT-Creation-Date: 2017-07-28 18:46+0200\n"
+"PO-Revision-Date: 2017-07-28 18:48+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -1388,8 +1388,8 @@ msgid "free slot"
 msgstr "frei"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2521
-msgid "http://www.blupi.com            blupi@epsitec.ch"
-msgstr "Entwickelt von EPSITEC SA"
+msgid "http://www.blupi.org            info@blupi.org"
+msgstr ""
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2176
 #, c-format

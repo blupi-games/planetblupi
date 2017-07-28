@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-28 18:44+0200\n"
+"POT-Creation-Date: 2017-07-28 18:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1213,7 +1213,7 @@ msgid "This game is an original creation of EPSITEC SA, CH-1092 Belmont"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2521
-msgid "http://www.blupi.com            blupi@epsitec.ch"
+msgid "http://www.blupi.org            info@blupi.org"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2532

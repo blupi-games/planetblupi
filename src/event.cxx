@@ -2518,7 +2518,7 @@ bool CEvent::DrawButtons()
         pos.y = 430;
         DrawText (m_pPixmap, pos, text);
 
-        text = gettext ("http://www.blupi.com            blupi@epsitec.ch");
+        text = gettext ("http://www.blupi.org            info@blupi.org");
 
         lg = GetTextWidth (text);
         pos.x = LXIMAGE / 2 - lg / 2;
