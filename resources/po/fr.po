@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-13 19:20+0100\n"
+"POT-Creation-Date: 2017-07-28 18:43+0200\n"
 "PO-Revision-Date: 2017-02-28 22:40+0100\n"
 "Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -117,7 +117,7 @@ msgstr ""
 "1: Prend\n"
 "2: Transforme"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4233
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4235
 msgid ""
 "1|Drop planks on striped \n"
 "1|paving stones."
@@ -125,7 +125,7 @@ msgstr ""
 "1|Déposer des planches\n"
 "1|sur les dalles hachurées."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4243
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4245
 msgid ""
 "1|Drop platinium on striped \n"
 "1|paving stones."
@@ -133,7 +133,7 @@ msgstr ""
 "1|Déposer du platinium\n"
 "1|sur les dalles hachurées."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4238
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4240
 msgid ""
 "1|Drop tomatoes on striped \n"
 "1|paving stones."
@@ -141,7 +141,7 @@ msgstr ""
 "1|Déposer des tomates\n"
 "1|sur les dalles hachurées."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4253
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4255
 msgid ""
 "1|Each Blupi in\n"
 "1|his house."
@@ -149,7 +149,7 @@ msgstr ""
 "1|Chaque Blupi dans\n"
 "1|sa maison."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4228
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4230
 msgid ""
 "1|Go on striped\n"
 "1|paving stones."
@@ -157,11 +157,11 @@ msgstr ""
 "1|Aller sur les dalles\n"
 "1|hachurées."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4212
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4214
 msgid "1|Goal :"
 msgstr "1|Objectif :"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4223
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4225
 msgid ""
 "1|Kill all\n"
 "1|enemies !"
@@ -169,7 +169,7 @@ msgstr ""
 "1|Supprimer tous les\n"
 "1|ennemis !"
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4258
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4260
 msgid ""
 "1|Resist until\n"
 "1|fire extinction ..."
@@ -177,7 +177,7 @@ msgstr ""
 "1|Résister jusqu'à\n"
 "1|l'extinction du feu ..."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4272
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4274
 #, c-format
 msgid ""
 "1|The Blupi population must\n"
@@ -186,7 +186,7 @@ msgstr ""
 "1|La population doit être\n"
 "1|d'au moins %d Blupi."
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4248
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4250
 msgid ""
 "1|The robot must reach\n"
 "1|the striped paving stones."
@@ -937,6 +937,7 @@ msgstr "Dalles"
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:282
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:396
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:399
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:3618
 msgid "Planet Blupi"
 msgstr "Planète Blupi"
 
