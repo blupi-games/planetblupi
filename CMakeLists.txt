@@ -157,6 +157,14 @@ install (DIRECTORY resources/sound DESTINATION share/planetblupi)
 install (DIRECTORY resources/music DESTINATION share/planetblupi)
 install (FILES resources/icon/planetblupi.png DESTINATION share/planetblupi)
 
+# Copy libwinpthread-1.dll which seems not be linkable statically
+if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows" AND MINGW)
+  execute_process (COMMAND cygpath.exe --windows /mingw64 OUTPUT_VARIABLE MINGW64_PATH)
+  string (REGEX REPLACE "[ \t\n\r]+$" "" MINGW64_PATH "${MINGW64_PATH}")
+  string (REGEX REPLACE "[\\]" "\\\\\\\\" MINGW64_PATH "${MINGW64_PATH}")
+  install (FILES "${MINGW64_PATH}\\\\bin\\\\libwinpthread-1.dll" DESTINATION bin)
+endif ()
+
 #########
 ## Deploy
 #########
