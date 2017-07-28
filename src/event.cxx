@@ -378,7 +378,7 @@ static Phase table[] =
 
     {
         WM_PHASE_SETUP,
-        "image/setup.png",
+        "image/setup01.png",
         false,
         {
             {
@@ -455,7 +455,7 @@ static Phase table[] =
 
     {
         WM_PHASE_SETUPp,
-        "image/setup.png",
+        "image/setup01.png",
         false,
         {
             {
@@ -1439,7 +1439,7 @@ static Phase table[] =
 
     {
         WM_PHASE_SETTINGS,
-        "image/setup.png",
+        "image/setup00.png",
         false,
         {
             {
