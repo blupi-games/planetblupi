@@ -2,6 +2,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <string>
 #include <SDL2/SDL.h>
 
 #include "blupi.h"
