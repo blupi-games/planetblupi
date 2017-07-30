@@ -2,6 +2,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <stdio.h>
 #include <SDL2/SDL_mixer.h>
 
@@ -50,6 +51,7 @@ protected:
     bool                m_bStopped;
     Mix_Music           *m_pMusic;
     Mix_Chunk           *m_lpSDL[MAXSOUND];
+    std::vector<std::string> m_sndFiles;
     Sint16              m_channelBlupi[MAXBLUPI];
     std::string         m_MIDIFilename;
     Sint32                  m_audioVolume;

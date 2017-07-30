@@ -3617,7 +3617,6 @@ void CEvent::SetLanguage ()
 
     SDL_SetWindowTitle (g_window, gettext ("Planet Blupi"));
 
-    m_pSound->FlushAll ();
     m_pSound->CacheAll ();
 }
 

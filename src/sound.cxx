@@ -28,7 +28,7 @@ bool CSound::StopAllSounds(bool immediat)
     return true;
 }
 
-CSound::CSound()
+CSound::CSound() : m_sndFiles (MAXSOUND)
 {
     Sint32      i;
 
@@ -136,31 +136,44 @@ bool CSound::Cache (Sint32 channel, const std::string &pFilename)
     if (channel < 0 || channel >= MAXSOUND)
         return false;
 
-    if (m_lpSDL[channel])
-        Flush (channel);
-
     auto sound = "sound/" + GetLocale () + "/" + pFilename;
     auto file = GetBaseDir() + sound;
-    m_lpSDL[channel] = Mix_LoadWAV (file.c_str());
-    if (!m_lpSDL[channel])
+
+    if (m_lpSDL[channel] && m_sndFiles[channel] == sound)
+        return true;
+
+    Mix_Chunk *chunk = Mix_LoadWAV (file.c_str());
+    if (!chunk)
     {
         if (GetLocale () != "en")
         {
             /* Try with the fallback locale */
             sound = "sound/en/" + pFilename;
             file = GetBaseDir() + sound;
-            m_lpSDL[channel] = Mix_LoadWAV (file.c_str());
-            if (m_lpSDL[channel])
-                goto out;
-        }
 
-        SDL_Log ("Mix_LoadWAV: %s\n", Mix_GetError());
-        return false;
+            if (m_lpSDL[channel] && m_sndFiles[channel] == sound)
+                return true;
+
+            chunk = Mix_LoadWAV (file.c_str());
+            if (!chunk)
+                goto err;
+        }
+        else
+            goto err;
     }
 
-out:
+    if (m_lpSDL[channel])
+        Flush (channel);
+
+    m_lpSDL[channel] = chunk;
+    m_sndFiles[channel] = sound;
+
     SDL_Log ("Load sound: %s\n", sound.c_str ());
     return true;
+
+err:
+    SDL_Log ("Mix_LoadWAV: %s\n", Mix_GetError());
+    return false;
 }
 
 void CSound::FlushAll ()
