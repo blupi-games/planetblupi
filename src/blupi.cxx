@@ -405,7 +405,7 @@ static bool DoInit (Sint32 argc, char *argv[])
         return false;
     }
 
-    auto icon = IMG_Load ((GetBaseDir () + "planetblupi.png").c_str ());
+    auto icon = IMG_Load ((GetBaseDir () + "blupi-256.png").c_str ());
     SDL_SetWindowIcon (g_window, icon);
     SDL_FreeSurface (icon);
 
