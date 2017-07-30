@@ -43,7 +43,7 @@ public:
     bool    IsStoppedOnDemand();
     void    AdaptVolumeMusic();
     void    SetSuspendSkip (Sint32 nb);
-    bool    StopAllSounds();
+    bool    StopAllSounds(bool immediat);
 
 protected:
     bool                m_bState;

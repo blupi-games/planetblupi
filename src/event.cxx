@@ -2974,7 +2974,7 @@ bool CEvent::ChangePhase (Uint32 phase)
 
     // FIXME: pause is better if the game is not stop but just interrupted
     if (m_phase == WM_PHASE_PLAY && m_phase != phase)
-        m_pSound->StopAllSounds();
+        m_pSound->StopAllSounds (false);
 
     m_phase = phase;  // change de phase
     m_index = index;

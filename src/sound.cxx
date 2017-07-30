@@ -9,7 +9,7 @@
 
 // Stops all sounds.
 
-bool CSound::StopAllSounds()
+bool CSound::StopAllSounds(bool immediat)
 {
     for (Sint32 i = 0; i < MAXSOUND; i ++)
     {
@@ -17,7 +17,12 @@ bool CSound::StopAllSounds()
             continue;
 
         if (Mix_Playing (i + 1) == SDL_TRUE)
-            Mix_FadeOutChannel (i + 1, 500);
+        {
+            if (immediat)
+                Mix_HaltChannel (i + 1);
+            else
+                Mix_FadeOutChannel (i + 1, 500);
+        }
     }
 
     return true;
@@ -113,6 +118,8 @@ void CSound::CacheAll()
 {
     Sint32          i;
     char        name[50];
+
+    this->StopAllSounds (true);
 
     for (i = 0 ; i < MAXSOUND ; i++)
     {
