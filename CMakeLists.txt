@@ -53,7 +53,7 @@ file (COPY resources/image DESTINATION share/planetblupi)
 file (COPY resources/movie DESTINATION share/planetblupi)
 file (COPY resources/sound DESTINATION share/planetblupi)
 file (COPY resources/music DESTINATION share/planetblupi)
-file (COPY resources/icon/planetblupi.png DESTINATION share/planetblupi)
+file (COPY resources/icon/blupi-256.png DESTINATION share/planetblupi)
 
 # Windows stuff
 
@@ -156,7 +156,7 @@ install (DIRECTORY resources/image DESTINATION share/planetblupi)
 install (DIRECTORY resources/movie DESTINATION share/planetblupi)
 install (DIRECTORY resources/sound DESTINATION share/planetblupi)
 install (DIRECTORY resources/music DESTINATION share/planetblupi)
-install (FILES resources/icon/planetblupi.png DESTINATION share/planetblupi)
+install (FILES resources/icon/blupi-256.png DESTINATION share/planetblupi)
 
 # Copy libwinpthread-1.dll which seems not be linkable statically
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows" AND MINGW)
