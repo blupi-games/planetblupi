@@ -57,7 +57,7 @@ file (COPY resources/image DESTINATION share/planetblupi)
 file (COPY resources/movie DESTINATION share/planetblupi)
 file (COPY resources/sound DESTINATION share/planetblupi)
 file (COPY resources/music DESTINATION share/planetblupi)
-file (COPY resources/icon/blupi-256.png DESTINATION share/planetblupi)
+file (COPY resources/icon/hicolor DESTINATION share/icons)
 
 # Windows stuff
 
@@ -160,7 +160,7 @@ install (DIRECTORY resources/image DESTINATION share/planetblupi)
 install (DIRECTORY resources/movie DESTINATION share/planetblupi)
 install (DIRECTORY resources/sound DESTINATION share/planetblupi)
 install (DIRECTORY resources/music DESTINATION share/planetblupi)
-install (FILES resources/icon/blupi-256.png DESTINATION share/planetblupi)
+install (DIRECTORY resources/icon/hicolor DESTINATION share/icons)
 
 # Copy libwinpthread-1.dll which seems not be linkable statically
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows" AND MINGW)
@@ -178,7 +178,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
   if (USE_APPIMAGE)
     include (LinuxAppImageBuild)
     set (CMAKE_PACKAGED_OUTPUT_PREFIX ${CMAKE_INSTALL_PREFIX})
-    APPIMAGE_PACKAGE (planetblupi "planetblupi" "Planet Blupi" "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "${CMAKE_BINARY_DIR}/share" "" "")
+    APPIMAGE_PACKAGE (planetblupi "planetblupi" "Planet Blupi" "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "${CMAKE_BINARY_DIR}/share" "" "" "blupi")
   elseif (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
     set (CPACK_GENERATOR "NSIS64;ZIP")
     set (CPACK_STRIP_FILES TRUE)

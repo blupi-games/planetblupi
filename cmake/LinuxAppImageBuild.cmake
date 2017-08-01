@@ -6,7 +6,7 @@ set ( APPIMAGE_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/deploy/linux-appimage" CAC
 set ( APPIMAGE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/package/linux-appimage" CACHE PATH "AppImage output directory" )
 set ( APPIMAGE_FOLLOW_STANDARD OFF CACHE BOOL "Whether generator should follow the spec" )
 
-macro( APPIMAGE_PACKAGE TARGET APPIMAGE_TITLE APPIMAGE_DISPLAYNAME CONFIGDIR DATA LIBRARIES LIBRARY_FILES )
+macro( APPIMAGE_PACKAGE TARGET APPIMAGE_TITLE APPIMAGE_DISPLAYNAME CONFIGDIR DATA LIBRARIES LIBRARY_FILES ICON_REF )
     string ( TOLOWER "${APPIMAGE_TITLE}" APPIMAGE_INTERNALNAME )
     string ( MAKE_C_IDENTIFIER "${APPIMAGE_INTERNALNAME}" APPIMAGE_INTERNALNAME )
 
@@ -23,7 +23,7 @@ macro( APPIMAGE_PACKAGE TARGET APPIMAGE_TITLE APPIMAGE_DISPLAYNAME CONFIGDIR DAT
     # Icon file to be used for the AppImage, only one in this case, preferrably SVG
     set ( APPIMAGE_ICON "${APPIMAGE_DEFAULT_ICON_FILE}" )
     # We define a way to reference this icon based on where it is located
-    set ( APPIMAGE_ICON_REF "${APPIMAGE_INTERNALNAME}" )
+    set ( APPIMAGE_ICON_REF "${ICON_REF}" )
 
     # This helps the window manager to recognize the program even if it has no embedded or loaded icon
     set ( APPIMAGE_EXEC_WM ${TARGET} )
