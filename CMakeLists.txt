@@ -179,7 +179,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     include (LinuxAppImageBuild)
     set (CMAKE_PACKAGED_OUTPUT_PREFIX ${CMAKE_INSTALL_PREFIX})
     APPIMAGE_PACKAGE (planetblupi "planetblupi" "Planet Blupi" "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "${CMAKE_BINARY_DIR}/share" "" "" "blupi")
-  elseif (${CMAKE_SYSTEM_NAME} STREQUAL "Windows")
+  elseif (MINGW)
     set (CPACK_GENERATOR "NSIS64;ZIP")
     set (CPACK_STRIP_FILES TRUE)
     set (CPACK_PACKAGE_NAME "planetblupi")
@@ -197,5 +197,9 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     set (CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\www.blupi.org")
     set (CPACK_NSIS_MUI_FINISHPAGE_RUN "planetblupi")
     include (CPack)
+
+    add_custom_command (TARGET planetblupi
+                        POST_BUILD
+                        COMMAND make package)
   endif ()
 endif ()
