@@ -405,9 +405,11 @@ static bool DoInit (Sint32 argc, char *argv[])
         return false;
     }
 
+#if 0
     auto icon = IMG_Load ((GetShareDir () + "icons/hicolor/256x256/apps/blupi.png").c_str ());
     SDL_SetWindowIcon (g_window, icon);
     SDL_FreeSurface (icon);
+#endif /* 0 */
 
     g_renderer = SDL_CreateRenderer (g_window, -1, g_rendererType | SDL_RENDERER_TARGETTEXTURE);
     if (!g_renderer)
