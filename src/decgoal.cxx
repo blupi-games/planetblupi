@@ -19,9 +19,10 @@
  */
 
 #include "decgoal.h"
-#include "def.h"
 #include "decor.h"
+#include "def.h"
 
+// clang-format off
 Sint16 table_goal_nbop[] =
 {
     0,      // term
@@ -3545,23 +3546,23 @@ static Sint16 *table_pGoal[] =
     table_goal_teleporte11,
     nullptr
 };
+// clang-format on
 
 // Retourne le pointeur à la table table_goal_*.
 
-Sint16 *GetTableGoal (Sint32 action)
+Sint16 * GetTableGoal (Sint32 action)
 {
-    Sint16    **ppTable = table_pGoal;
+  Sint16 ** ppTable = table_pGoal;
 
-    while (*ppTable != nullptr)
+  while (*ppTable != nullptr)
+  {
+    if (**ppTable == action)
     {
-        if (**ppTable == action)
-        {
-            return *ppTable + 1; // après WM_ACTION_*
-        }
-
-        ppTable ++;
+      return *ppTable + 1; // après WM_ACTION_*
     }
 
-    return nullptr;
-}
+    ppTable++;
+  }
 
+  return nullptr;
+}

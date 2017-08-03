@@ -18,13 +18,14 @@
  * along with this program. If not, see http://gnu.org/licenses
  */
 
-#include "gettext.h"
 #include "decor.h"
-#include "text.h"
+#include "gettext.h"
 #include "misc.h"
+#include "text.h"
 
-#define STATNB          12
+#define STATNB 12
 
+// clang-format off
 #define STATBLUPIm      0
 #define STATBLUPIf      1
 #define STATBLUPI       2
@@ -36,23 +37,21 @@
 #define STATARAIGNEE    31
 #define STATVIRUS       32
 #define STATELECTRO     33
+// clang-format on
 
+typedef struct {
+  Sint16       bExist;
+  Sint16       perso;     // -1=objet, -2=feu, -3=flèche
+  Sint16       firstIcon; // négatif si sol
+  Sint16       lastIcon;  // négatif si sol
+  Sint16       drawIcon;
+  Sint16       bBigIcon;
+  const char * text;
+  Sint16       nb;
+  Sint16       lastShow;
+} Statistic;
 
-typedef struct
-{
-    Sint16      bExist;
-    Sint16      perso;      // -1=objet, -2=feu, -3=flèche
-    Sint16      firstIcon;  // négatif si sol
-    Sint16      lastIcon;   // négatif si sol
-    Sint16      drawIcon;
-    Sint16      bBigIcon;
-    const char *text;
-    Sint16      nb;
-    Sint16      lastShow;
-}
-Statistic;
-
-
+// clang-format off
 static Statistic table_statistic[] =
 {
     {   // STATBLUPIm = 0
@@ -372,634 +371,635 @@ static Statistic table_statistic[] =
         999, 999,
     },
 };
-
+// clang-format on
 
 // Retourne la statistique correspondant à un rang donné.
 
-Statistic *StatisticGet (Sint32 rank)
+Statistic * StatisticGet (Sint32 rank)
 {
-    Statistic  *pStatistic;
+  Statistic * pStatistic;
 
-    pStatistic = table_statistic;
+  pStatistic = table_statistic;
+  while (pStatistic->nb == 0)
+    pStatistic++;
+
+  while (rank > 0)
+  {
+    if (pStatistic->bExist)
+      pStatistic++;
     while (pStatistic->nb == 0)
-        pStatistic ++;
+      pStatistic++;
+    rank--;
+  }
 
-    while (rank > 0)
-    {
-        if (pStatistic->bExist)
-            pStatistic ++;
-        while (pStatistic->nb == 0)
-            pStatistic ++;
-        rank --;
-    }
-
-    return pStatistic;
+  return pStatistic;
 }
-
-
 
 // Réinitialise les statistiques.
 
-void CDecor::StatisticInit()
+void CDecor::StatisticInit ()
 {
-    Statistic  *pStatistic;
+  Statistic * pStatistic;
 
-    pStatistic = table_statistic;
-    while (pStatistic->bExist)
-    {
-        pStatistic->lastShow = 0;
-        pStatistic ++;
-    }
+  pStatistic = table_statistic;
+  while (pStatistic->bExist)
+  {
+    pStatistic->lastShow = 0;
+    pStatistic++;
+  }
 
-    m_statNb    = 0;
-    m_statFirst = 0;
-    m_bStatUp   = false;
-    m_bStatDown = false;
-    m_statHili  = -1;
-    m_bStatRecalc = true;  // faudra tout recalculer
+  m_statNb      = 0;
+  m_statFirst   = 0;
+  m_bStatUp     = false;
+  m_bStatDown   = false;
+  m_statHili    = -1;
+  m_bStatRecalc = true; // faudra tout recalculer
 }
-
 
 // Met à jour tous les compteurs des statistiques.
 
-void CDecor::StatisticUpdate()
+void CDecor::StatisticUpdate ()
 {
-    Sint32          rank, x, y, icon, nb;
-    bool        bHach;
-    Statistic  *pStatistic;
+  Sint32      rank, x, y, icon, nb;
+  bool        bHach;
+  Statistic * pStatistic;
 
-    m_nbStatHach        = 0;
-    m_nbStatHachBlupi   = 0;
-    m_nbStatHachPlanche = 0;
-    m_nbStatHachTomate  = 0;
-    m_nbStatHachMetal   = 0;
-    m_nbStatHachRobot   = 0;
-    m_nbStatHome        = 0;
-    m_nbStatHomeBlupi   = 0;
-    m_nbStatRobots      = 0;
+  m_nbStatHach        = 0;
+  m_nbStatHachBlupi   = 0;
+  m_nbStatHachPlanche = 0;
+  m_nbStatHachTomate  = 0;
+  m_nbStatHachMetal   = 0;
+  m_nbStatHachRobot   = 0;
+  m_nbStatHome        = 0;
+  m_nbStatHomeBlupi   = 0;
+  m_nbStatRobots      = 0;
 
-    pStatistic = table_statistic;
-    while (pStatistic->bExist)
+  pStatistic = table_statistic;
+  while (pStatistic->bExist)
+  {
+    pStatistic->nb = 0;
+    pStatistic++;
+  }
+
+  for (rank = 0; rank < MAXBLUPI; rank++)
+  {
+    if (m_blupi[rank].bExist)
     {
-        pStatistic->nb = 0;
-        pStatistic ++;
-    }
-
-    for (rank = 0 ; rank < MAXBLUPI ; rank++)
-    {
-        if (m_blupi[rank].bExist)
+      if (m_blupi[rank].perso == 0) // blupi ?
+      {
+        if (m_blupi[rank].bMalade)
+          table_statistic[STATBLUPIm].nb++;
+        else
         {
-            if (m_blupi[rank].perso == 0)    // blupi ?
-            {
-                if (m_blupi[rank].bMalade)
-                    table_statistic[STATBLUPIm].nb ++;
-                else
-                {
-                    if (m_blupi[rank].energy <= MAXENERGY / 4)
-                        table_statistic[STATBLUPIf].nb ++;
-                    else
-                        table_statistic[STATBLUPI].nb ++;
-                }
-                x = (m_blupi[rank].cel.x / 2) * 2;
-                y = (m_blupi[rank].cel.y / 2) * 2;
-                if (m_decor[x / 2][y / 2].floorChannel == CHFLOOR &&
-                    m_decor[x / 2][y / 2].floorIcon    == 17) // dalle hachurée ?
-                    m_nbStatHachBlupi ++;
-                if (m_decor[x / 2][y / 2].objectChannel == CHOBJECT &&
-                    m_decor[x / 2][y / 2].objectIcon    == 113) // maison ?
-                    m_nbStatHomeBlupi ++;
-            }
-            if (m_blupi[rank].perso == 8)    // disciple ?
-                table_statistic[STATDISCIPLE].nb ++;
-            if (m_blupi[rank].perso == 4)    // robot ?
-            {
-                table_statistic[STATROBOT].nb ++;
-                m_nbStatRobots ++;
-                x = (m_blupi[rank].cel.x / 2) * 2;
-                y = (m_blupi[rank].cel.y / 2) * 2;
-                if (m_decor[x / 2][y / 2].floorChannel == CHFLOOR &&
-                    m_decor[x / 2][y / 2].floorIcon    == 17) // dalle hachurée ?
-                    m_nbStatHachRobot ++;
-            }
-            if (m_blupi[rank].perso == 3)    // tracks ?
-            {
-                table_statistic[STATTRACKS].nb ++;
-                if (!m_term.bHachRobot)    // pas robot sur hachures ?
-                    m_nbStatRobots ++;
-            }
-            if (m_blupi[rank].perso == 1)    // araignée ?
-            {
-                table_statistic[STATARAIGNEE].nb ++;
-                if (!m_term.bHachRobot)    // pas robot sur hachures ?
-                    m_nbStatRobots ++;
-            }
-            if (m_blupi[rank].perso == 2)    // virus ?
-                table_statistic[STATVIRUS].nb ++;
-            if (m_blupi[rank].perso == 5)    // bombe ?
-            {
-                table_statistic[STATBOMBE].nb ++;
-                if (!m_term.bHachRobot)    // pas robot sur hachures ?
-                    m_nbStatRobots ++;
-            }
-            if (m_blupi[rank].perso == 7)    // électro ?
-            {
-                table_statistic[STATELECTRO].nb ++;
-                if (!m_term.bHachRobot)    // pas robot sur hachures ?
-                    m_nbStatRobots ++;
-            }
+          if (m_blupi[rank].energy <= MAXENERGY / 4)
+            table_statistic[STATBLUPIf].nb++;
+          else
+            table_statistic[STATBLUPI].nb++;
         }
+        x = (m_blupi[rank].cel.x / 2) * 2;
+        y = (m_blupi[rank].cel.y / 2) * 2;
+        if (
+          m_decor[x / 2][y / 2].floorChannel == CHFLOOR &&
+          m_decor[x / 2][y / 2].floorIcon == 17) // dalle hachurée ?
+          m_nbStatHachBlupi++;
+        if (
+          m_decor[x / 2][y / 2].objectChannel == CHOBJECT &&
+          m_decor[x / 2][y / 2].objectIcon == 113) // maison ?
+          m_nbStatHomeBlupi++;
+      }
+      if (m_blupi[rank].perso == 8) // disciple ?
+        table_statistic[STATDISCIPLE].nb++;
+      if (m_blupi[rank].perso == 4) // robot ?
+      {
+        table_statistic[STATROBOT].nb++;
+        m_nbStatRobots++;
+        x = (m_blupi[rank].cel.x / 2) * 2;
+        y = (m_blupi[rank].cel.y / 2) * 2;
+        if (
+          m_decor[x / 2][y / 2].floorChannel == CHFLOOR &&
+          m_decor[x / 2][y / 2].floorIcon == 17) // dalle hachurée ?
+          m_nbStatHachRobot++;
+      }
+      if (m_blupi[rank].perso == 3) // tracks ?
+      {
+        table_statistic[STATTRACKS].nb++;
+        if (!m_term.bHachRobot) // pas robot sur hachures ?
+          m_nbStatRobots++;
+      }
+      if (m_blupi[rank].perso == 1) // araignée ?
+      {
+        table_statistic[STATARAIGNEE].nb++;
+        if (!m_term.bHachRobot) // pas robot sur hachures ?
+          m_nbStatRobots++;
+      }
+      if (m_blupi[rank].perso == 2) // virus ?
+        table_statistic[STATVIRUS].nb++;
+      if (m_blupi[rank].perso == 5) // bombe ?
+      {
+        table_statistic[STATBOMBE].nb++;
+        if (!m_term.bHachRobot) // pas robot sur hachures ?
+          m_nbStatRobots++;
+      }
+      if (m_blupi[rank].perso == 7) // électro ?
+      {
+        table_statistic[STATELECTRO].nb++;
+        if (!m_term.bHachRobot) // pas robot sur hachures ?
+          m_nbStatRobots++;
+      }
     }
+  }
 
-    for (x = 0 ; x < MAXCELX ; x += 2)
+  for (x = 0; x < MAXCELX; x += 2)
+  {
+    for (y = 0; y < MAXCELY; y += 2)
     {
-        for (y = 0 ; y < MAXCELY ; y += 2)
+      bHach = false;
+      if (
+        m_decor[x / 2][y / 2].floorChannel == CHFLOOR &&
+        m_decor[x / 2][y / 2].floorIcon == 17) // dalle hachurée ?
+      {
+        bHach = true;
+        m_nbStatHach++;
+      }
+
+      if (
+        m_decor[x / 2][y / 2].objectChannel == CHOBJECT &&
+        m_decor[x / 2][y / 2].objectIcon == 113) // maison ?
+        m_nbStatHome++;
+
+      if (m_decor[x / 2][y / 2].objectChannel == CHOBJECT)
+      {
+        icon = m_decor[x / 2][y / 2].objectIcon;
+
+        pStatistic = table_statistic;
+        while (pStatistic->bExist)
         {
-            bHach = false;
-            if (m_decor[x / 2][y / 2].floorChannel == CHFLOOR &&
-                m_decor[x / 2][y / 2].floorIcon    == 17) // dalle hachurée ?
-            {
-                bHach = true;
-                m_nbStatHach ++;
-            }
-
-            if (m_decor[x / 2][y / 2].objectChannel == CHOBJECT &&
-                m_decor[x / 2][y / 2].objectIcon    == 113) // maison ?
-                m_nbStatHome ++;
-
-            if (m_decor[x / 2][y / 2].objectChannel == CHOBJECT)
-            {
-                icon = m_decor[x / 2][y / 2].objectIcon;
-
-                pStatistic = table_statistic;
-                while (pStatistic->bExist)
-                {
-                    if (pStatistic->perso == -1 &&
-                        pStatistic->firstIcon > 0 &&
-                        icon >= pStatistic->firstIcon &&
-                        icon <= pStatistic->lastIcon)
-                    {
-                        pStatistic->nb ++;
-                        break;
-                    }
-                    pStatistic ++;
-                }
-
-                if (icon == 36 && bHach)    // planches ?
-                    m_nbStatHachPlanche ++;
-                if (icon == 60 && bHach)    // tomates ?
-                    m_nbStatHachTomate ++;
-                if (icon == 14 && bHach)    // métal ?
-                    m_nbStatHachMetal ++;
-            }
-
-            if (m_decor[x / 2][y / 2].floorChannel == CHFLOOR)
-            {
-                icon = m_decor[x / 2][y / 2].floorIcon;
-
-                if ((icon >= 52 && icon <= 56) ||   // couveuse ?
-                    (icon >= 80 && icon <= 84))    // téléporteur ?
-                {
-                    pStatistic = table_statistic;
-                    while (pStatistic->bExist)
-                    {
-                        if (pStatistic->perso == -1 &&
-                            pStatistic->firstIcon < 0 &&
-                            icon >= - (pStatistic->firstIcon) &&
-                            icon <= - (pStatistic->lastIcon))
-                        {
-                            pStatistic->nb ++;
-                            break;
-                        }
-                        pStatistic ++;
-                    }
-                }
-            }
-
-            if (m_decor[x / 2][y / 2].fire > 0 &&
-                m_decor[x / 2][y / 2].fire < MoveMaxFire())
-            {
-                table_statistic[STATFEU].nb ++;  // un feu de plus
-            }
+          if (
+            pStatistic->perso == -1 && pStatistic->firstIcon > 0 &&
+            icon >= pStatistic->firstIcon && icon <= pStatistic->lastIcon)
+          {
+            pStatistic->nb++;
+            break;
+          }
+          pStatistic++;
         }
-    }
 
-    pStatistic = table_statistic;
-    m_statNb = 0;
-    while (pStatistic->bExist)
-    {
-        if (pStatistic->nb > 0)
-            m_statNb ++;
-        pStatistic ++;
-    }
-    if (m_statNb <= STATNB)    // tout visible en une page ?
-    {
-        m_bStatUp   = false;
-        m_bStatDown = false;
-        m_statFirst = 0;
-    }
-    else
-    {
-        // nb <- nb de pages nécessaires
-        nb = (m_statNb + STATNB - 5) / (STATNB - 2);
+        if (icon == 36 && bHach) // planches ?
+          m_nbStatHachPlanche++;
+        if (icon == 60 && bHach) // tomates ?
+          m_nbStatHachTomate++;
+        if (icon == 14 && bHach) // métal ?
+          m_nbStatHachMetal++;
+      }
 
-        m_bStatUp   = true;
-        m_bStatDown = true;
-        if (m_statFirst >= 1 + (nb - 1) * (STATNB - 2))
+      if (m_decor[x / 2][y / 2].floorChannel == CHFLOOR)
+      {
+        icon = m_decor[x / 2][y / 2].floorIcon;
+
+        if (
+          (icon >= 52 && icon <= 56) || // couveuse ?
+          (icon >= 80 && icon <= 84))   // téléporteur ?
         {
-            m_statFirst = 1 + (nb - 1) * (STATNB - 2);
-            m_bStatDown = false;
+          pStatistic = table_statistic;
+          while (pStatistic->bExist)
+          {
+            if (
+              pStatistic->perso == -1 && pStatistic->firstIcon < 0 &&
+              icon >= -(pStatistic->firstIcon) &&
+              icon <= -(pStatistic->lastIcon))
+            {
+              pStatistic->nb++;
+              break;
+            }
+            pStatistic++;
+          }
         }
-        if (m_statFirst == 0)
-            m_bStatUp = false;
-    }
+      }
 
-    m_bStatRecalc = false;  // c'est calculé
+      if (
+        m_decor[x / 2][y / 2].fire > 0 &&
+        m_decor[x / 2][y / 2].fire < MoveMaxFire ())
+      {
+        table_statistic[STATFEU].nb++; // un feu de plus
+      }
+    }
+  }
+
+  pStatistic = table_statistic;
+  m_statNb   = 0;
+  while (pStatistic->bExist)
+  {
+    if (pStatistic->nb > 0)
+      m_statNb++;
+    pStatistic++;
+  }
+  if (m_statNb <= STATNB) // tout visible en une page ?
+  {
+    m_bStatUp   = false;
+    m_bStatDown = false;
+    m_statFirst = 0;
+  }
+  else
+  {
+    // nb <- nb de pages nécessaires
+    nb = (m_statNb + STATNB - 5) / (STATNB - 2);
+
+    m_bStatUp   = true;
+    m_bStatDown = true;
+    if (m_statFirst >= 1 + (nb - 1) * (STATNB - 2))
+    {
+      m_statFirst = 1 + (nb - 1) * (STATNB - 2);
+      m_bStatDown = false;
+    }
+    if (m_statFirst == 0)
+      m_bStatUp = false;
+  }
+
+  m_bStatRecalc = false; // c'est calculé
 }
 
 // Retourne le nombre de blupi.
 
-Sint32 CDecor::StatisticGetBlupi()
+Sint32 CDecor::StatisticGetBlupi ()
 {
-    return table_statistic[STATBLUPIf].nb +
-           table_statistic[STATBLUPIm].nb +
-           table_statistic[STATBLUPI].nb;
+  return table_statistic[STATBLUPIf].nb + table_statistic[STATBLUPIm].nb +
+         table_statistic[STATBLUPI].nb;
 }
 
 // Retourne le nombre de cellules en feu.
 
-Sint32 CDecor::StatisticGetFire()
+Sint32 CDecor::StatisticGetFire ()
 {
-    return table_statistic[STATFEU].nb;
+  return table_statistic[STATFEU].nb;
 }
 
 // Dessine toutes les statistiques.
 
-void CDecor::StatisticDraw()
+void CDecor::StatisticDraw ()
 {
-    POINT       pos;
-    RECT        rect;
-    Sint32          rank, icon, nb;
-    Statistic  *pStatistic;
-    char        text[50];
-    const char *textRes;
+  POINT        pos;
+  RECT         rect;
+  Sint32       rank, icon, nb;
+  Statistic *  pStatistic;
+  char         text[50];
+  const char * textRes;
 
-    pStatistic = table_statistic;
+  pStatistic = table_statistic;
 
+  while (pStatistic->nb == 0)
+    pStatistic++;
+
+  nb = m_statFirst;
+  while (nb > 0)
+  {
+    if (pStatistic->bExist)
+      pStatistic++;
     while (pStatistic->nb == 0)
-        pStatistic ++;
+      pStatistic++;
+    nb--;
+  }
 
-    nb = m_statFirst;
-    while (nb > 0)
-    {
-        if (pStatistic->bExist)
-            pStatistic ++;
-        while (pStatistic->nb == 0)
-            pStatistic ++;
-        nb --;
-    }
-
-    textRes = "";
-    for (rank = 0 ; rank < STATNB ; rank++)
-    {
-        pos.x = POSSTATX + DIMSTATX * (rank / (STATNB / 2));
-        pos.y = POSSTATY + DIMSTATY * (rank % (STATNB / 2));
-        rect.left   = pos.x;
-        rect.right  = pos.x + DIMSTATX;
-        rect.top    = pos.y;
-        rect.bottom = pos.y + DIMSTATY;
-
-        m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1); // dessine le fond
-
-        if (rank == 0 && m_bStatUp)
-        {
-            icon = 6 + 66; // flèche up
-            if (rank == m_statHili)    // statistique survolée ?
-                icon ++;
-            pos.x -= 3;
-            pos.y -= 5;
-            if (pStatistic->drawIcon == 68)
-                pos.x += 26;
-            m_pPixmap->DrawIcon (-1, CHBUTTON, icon, pos); // flèche up
-            continue;
-        }
-
-        if (rank == STATNB - 1 && m_bStatDown)
-        {
-            icon = 6 + 68; // flèche down
-            if (rank == m_statHili)    // statistique survolée ?
-                icon ++;
-            pos.x += 23;
-            pos.y -= 5;
-            m_pPixmap->DrawIcon (-1, CHBUTTON, icon, pos); // flèche down
-            continue;
-        }
-
-        if (!pStatistic->bExist)
-            goto next;
-
-        icon = 6 + pStatistic->drawIcon;
-
-        if (rank == m_statHili)    // statistique survolée ?
-        {
-            m_pPixmap->DrawIconDemi (-1, CHBLUPI, ICON_HILI_STAT, pos);
-            textRes = gettext (pStatistic->text);
-        }
-
-        if (pStatistic->nb > 0)
-        {
-            pos.x -= 3;
-            pos.y -= 5;
-            m_pPixmap->DrawIcon (-1, CHBUTTON, icon, pos);
-
-            nb = pStatistic->nb;
-            sprintf (text, "%d", nb);
-            pos.x += 3 + 34;
-            pos.y += 5 + 7;
-            DrawText (m_pPixmap, pos, text);
-        }
-
-next:
-        if (pStatistic->bExist)
-            pStatistic ++;
-        while (pStatistic->nb == 0)
-            pStatistic ++;
-    }
-
-    // Dans un bouton stop/setup/write ?
-    if (!strlen (textRes) && m_statHili >= 100)
-    {
-        if (m_statHili == 100)
-            textRes = gettext ("Interrupt");
-        if (m_statHili == 101)
-            textRes = gettext ("Settings");
-        if (m_statHili == 102)
-            textRes = gettext ("Save");
-    }
-
-    // Dessine le nom de la statistique survolée.
-    pos.x = 0;
-    pos.y = 404;
+  textRes = "";
+  for (rank = 0; rank < STATNB; rank++)
+  {
+    pos.x       = POSSTATX + DIMSTATX * (rank / (STATNB / 2));
+    pos.y       = POSSTATY + DIMSTATY * (rank % (STATNB / 2));
     rect.left   = pos.x;
-    rect.right  = pos.x + POSDRAWX;
+    rect.right  = pos.x + DIMSTATX;
     rect.top    = pos.y;
-    rect.bottom = pos.y + 16;
+    rect.bottom = pos.y + DIMSTATY;
+
     m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1); // dessine le fond
 
-    if (strlen (textRes))
+    if (rank == 0 && m_bStatUp)
     {
-        nb = GetTextWidth (textRes);
-        pos.x += (POSDRAWX - nb) / 2;
-        DrawText (m_pPixmap, pos, textRes);
+      icon = 6 + 66;          // flèche up
+      if (rank == m_statHili) // statistique survolée ?
+        icon++;
+      pos.x -= 3;
+      pos.y -= 5;
+      if (pStatistic->drawIcon == 68)
+        pos.x += 26;
+      m_pPixmap->DrawIcon (-1, CHBUTTON, icon, pos); // flèche up
+      continue;
     }
+
+    if (rank == STATNB - 1 && m_bStatDown)
+    {
+      icon = 6 + 68;          // flèche down
+      if (rank == m_statHili) // statistique survolée ?
+        icon++;
+      pos.x += 23;
+      pos.y -= 5;
+      m_pPixmap->DrawIcon (-1, CHBUTTON, icon, pos); // flèche down
+      continue;
+    }
+
+    if (!pStatistic->bExist)
+      goto next;
+
+    icon = 6 + pStatistic->drawIcon;
+
+    if (rank == m_statHili) // statistique survolée ?
+    {
+      m_pPixmap->DrawIconDemi (-1, CHBLUPI, ICON_HILI_STAT, pos);
+      textRes = gettext (pStatistic->text);
+    }
+
+    if (pStatistic->nb > 0)
+    {
+      pos.x -= 3;
+      pos.y -= 5;
+      m_pPixmap->DrawIcon (-1, CHBUTTON, icon, pos);
+
+      nb = pStatistic->nb;
+      sprintf (text, "%d", nb);
+      pos.x += 3 + 34;
+      pos.y += 5 + 7;
+      DrawText (m_pPixmap, pos, text);
+    }
+
+  next:
+    if (pStatistic->bExist)
+      pStatistic++;
+    while (pStatistic->nb == 0)
+      pStatistic++;
+  }
+
+  // Dans un bouton stop/setup/write ?
+  if (!strlen (textRes) && m_statHili >= 100)
+  {
+    if (m_statHili == 100)
+      textRes = gettext ("Interrupt");
+    if (m_statHili == 101)
+      textRes = gettext ("Settings");
+    if (m_statHili == 102)
+      textRes = gettext ("Save");
+  }
+
+  // Dessine le nom de la statistique survolée.
+  pos.x       = 0;
+  pos.y       = 404;
+  rect.left   = pos.x;
+  rect.right  = pos.x + POSDRAWX;
+  rect.top    = pos.y;
+  rect.bottom = pos.y + 16;
+  m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1); // dessine le fond
+
+  if (strlen (textRes))
+  {
+    nb = GetTextWidth (textRes);
+    pos.x += (POSDRAWX - nb) / 2;
+    DrawText (m_pPixmap, pos, textRes);
+  }
 }
 
 // Génère les statistiques.
 
-void CDecor::GenerateStatictic()
+void CDecor::GenerateStatictic ()
 {
-    if (m_bBuild)
-        return;
+  if (m_bBuild)
+    return;
 
-    if (m_bStatRecalc || m_phase % 20 == 10)
-    {
-        StatisticUpdate();  // met à jour les compteurs
-    }
+  if (m_bStatRecalc || m_phase % 20 == 10)
+  {
+    StatisticUpdate (); // met à jour les compteurs
+  }
 
-    StatisticDraw();  // redessine tout
+  StatisticDraw (); // redessine tout
 }
-
 
 // Bouton pressé dans les statistiques.
 
 bool CDecor::StatisticDown (POINT pos)
 {
-    Sint32          hili, rank, x, y, show, icon;
-    POINT       cel;
-    Statistic  *pStatistic;
+  Sint32      hili, rank, x, y, show, icon;
+  POINT       cel;
+  Statistic * pStatistic;
 
-    StatisticUpdate();
+  StatisticUpdate ();
 
-    hili = StatisticDetect (pos);
-    if (hili < 0)
-        return false;
-
-    if (m_bStatUp && hili == 0)    // flèche up ?
-    {
-        m_statFirst -= STATNB - 2;
-        if (m_statFirst < STATNB - 1)
-            m_statFirst = 0;
-        StatisticUpdate();
-        pos.x = LXIMAGE / 2;
-        pos.y = LYIMAGE / 2;
-        m_pSound->PlayImage (SOUND_OPEN, pos);
-        return true;
-    }
-
-    if (m_bStatDown && hili == STATNB - 1)  // flèche down ?
-    {
-        if (m_statFirst == 0)
-            m_statFirst = STATNB - 1;
-        else
-            m_statFirst += STATNB - 2;
-        StatisticUpdate();
-        pos.x = LXIMAGE / 2;
-        pos.y = LYIMAGE / 2;
-        m_pSound->PlayImage (SOUND_OPEN, pos);
-        return true;
-    }
-
-    rank = m_statFirst + hili;
-    if (rank > 0 && m_bStatUp)
-        rank --;
-    pStatistic = StatisticGet (rank);
-    if (!pStatistic->bExist)
-        return false;
-
-    show = pStatistic->lastShow % pStatistic->nb;
-    pStatistic->lastShow ++;
-
-    if (pStatistic->perso >= 0)    // blupi/araignée ?
-    {
-        for (rank = 0 ; rank < MAXBLUPI ; rank++)
-        {
-            if (m_blupi[rank].bExist)
-            {
-                if (m_blupi[rank].perso !=
-                    pStatistic->perso)
-                    continue;
-
-                if (m_blupi[rank].perso != 0 ||
-                    (m_blupi[rank].bMalade &&
-                     pStatistic->drawIcon == 76) ||  // malade ?
-                    (!m_blupi[rank].bMalade &&
-                     m_blupi[rank].energy <= MAXENERGY / 4 &&
-                     pStatistic->drawIcon == 13) ||  // fatigué ?
-                    (m_blupi[rank].energy > MAXENERGY / 4 &&
-                     pStatistic->drawIcon == 14))   // énergique ?
-                {
-                    if (show == 0)
-                    {
-                        if (m_blupi[rank].perso == 0 ||   // blupi ?
-                            m_blupi[rank].perso == 8)    // disciple ?
-                        {
-                            BlupiDeselect();
-                            m_blupi[rank].bHili = true;
-                            m_rankBlupiHili = rank;  // sélectionne
-                            m_nbBlupiHili = 1;
-                        }
-                        BlupiSetArrow (rank, true);
-                        cel = m_blupi[rank].cel;
-                        goto select;
-                    }
-                    show --;
-                }
-            }
-        }
-    }
-
-    if (pStatistic->perso == -1 &&   // objet ?
-        pStatistic->firstIcon > 0)
-    {
-        for (x = 0 ; x < MAXCELX ; x += 2)
-        {
-            for (y = 0 ; y < MAXCELY ; y += 2)
-            {
-                if (m_decor[x / 2][y / 2].objectChannel == CHOBJECT)
-                {
-                    icon = m_decor[x / 2][y / 2].objectIcon;
-
-                    if (icon >= pStatistic->firstIcon &&
-                        icon <= pStatistic->lastIcon)
-                    {
-                        if (show == 0)
-                        {
-                            cel = GetCel (x, y);
-                            if (pStatistic->bBigIcon)
-                            {
-                                // Flèche plus haute.
-                                m_celArrow = GetCel (cel, -2, -2);
-                            }
-                            else
-                                m_celArrow = cel;
-                            goto select;
-                        }
-                        show --;
-                    }
-                }
-            }
-        }
-    }
-
-    if (pStatistic->perso == -1 &&   // sol ?
-        pStatistic->firstIcon < 0)
-    {
-        for (x = 0 ; x < MAXCELX ; x += 2)
-        {
-            for (y = 0 ; y < MAXCELY ; y += 2)
-            {
-                if (m_decor[x / 2][y / 2].floorChannel == CHFLOOR)
-                {
-                    icon = m_decor[x / 2][y / 2].floorIcon;
-
-                    if (icon >= - (pStatistic->firstIcon) &&
-                        icon <= - (pStatistic->lastIcon))
-                    {
-                        if (show == 0)
-                        {
-                            cel = GetCel (x, y);
-                            if (pStatistic->bBigIcon)
-                            {
-                                // Flèche plus haute.
-                                m_celArrow = GetCel (cel, -2, -2);
-                            }
-                            else
-                                m_celArrow = cel;
-                            goto select;
-                        }
-                        show --;
-                    }
-                }
-            }
-        }
-    }
-
-    if (pStatistic->perso == -2)    // feu ?
-    {
-        for (x = 0 ; x < MAXCELX ; x += 2)
-        {
-            for (y = 0 ; y < MAXCELY ; y += 2)
-            {
-                if (m_decor[x / 2][y / 2].fire > 0 &&
-                    m_decor[x / 2][y / 2].fire < MoveMaxFire())
-                {
-                    if (show == 0)
-                    {
-                        cel = GetCel (x, y);
-                        m_celArrow = cel;
-                        goto select;
-                    }
-                    show --;
-                }
-            }
-        }
-    }
-
+  hili = StatisticDetect (pos);
+  if (hili < 0)
     return false;
 
-select:
-    SetCoin (cel, true);
-    NextPhase (0); // faudra refaire la carte tout de suite
+  if (m_bStatUp && hili == 0) // flèche up ?
+  {
+    m_statFirst -= STATNB - 2;
+    if (m_statFirst < STATNB - 1)
+      m_statFirst = 0;
+    StatisticUpdate ();
+    pos.x = LXIMAGE / 2;
+    pos.y = LYIMAGE / 2;
+    m_pSound->PlayImage (SOUND_OPEN, pos);
     return true;
+  }
+
+  if (m_bStatDown && hili == STATNB - 1) // flèche down ?
+  {
+    if (m_statFirst == 0)
+      m_statFirst = STATNB - 1;
+    else
+      m_statFirst += STATNB - 2;
+    StatisticUpdate ();
+    pos.x = LXIMAGE / 2;
+    pos.y = LYIMAGE / 2;
+    m_pSound->PlayImage (SOUND_OPEN, pos);
+    return true;
+  }
+
+  rank = m_statFirst + hili;
+  if (rank > 0 && m_bStatUp)
+    rank--;
+  pStatistic = StatisticGet (rank);
+  if (!pStatistic->bExist)
+    return false;
+
+  show = pStatistic->lastShow % pStatistic->nb;
+  pStatistic->lastShow++;
+
+  if (pStatistic->perso >= 0) // blupi/araignée ?
+  {
+    for (rank = 0; rank < MAXBLUPI; rank++)
+    {
+      if (m_blupi[rank].bExist)
+      {
+        if (m_blupi[rank].perso != pStatistic->perso)
+          continue;
+
+        if (
+          m_blupi[rank].perso != 0 ||
+          (m_blupi[rank].bMalade && pStatistic->drawIcon == 76) || // malade ?
+          (!m_blupi[rank].bMalade && m_blupi[rank].energy <= MAXENERGY / 4 &&
+           pStatistic->drawIcon == 13) || // fatigué ?
+          (m_blupi[rank].energy > MAXENERGY / 4 &&
+           pStatistic->drawIcon == 14)) // énergique ?
+        {
+          if (show == 0)
+          {
+            if (
+              m_blupi[rank].perso == 0 || // blupi ?
+              m_blupi[rank].perso == 8)   // disciple ?
+            {
+              BlupiDeselect ();
+              m_blupi[rank].bHili = true;
+              m_rankBlupiHili     = rank; // sélectionne
+              m_nbBlupiHili       = 1;
+            }
+            BlupiSetArrow (rank, true);
+            cel = m_blupi[rank].cel;
+            goto select;
+          }
+          show--;
+        }
+      }
+    }
+  }
+
+  if (
+    pStatistic->perso == -1 && // objet ?
+    pStatistic->firstIcon > 0)
+  {
+    for (x = 0; x < MAXCELX; x += 2)
+    {
+      for (y = 0; y < MAXCELY; y += 2)
+      {
+        if (m_decor[x / 2][y / 2].objectChannel == CHOBJECT)
+        {
+          icon = m_decor[x / 2][y / 2].objectIcon;
+
+          if (icon >= pStatistic->firstIcon && icon <= pStatistic->lastIcon)
+          {
+            if (show == 0)
+            {
+              cel = GetCel (x, y);
+              if (pStatistic->bBigIcon)
+              {
+                // Flèche plus haute.
+                m_celArrow = GetCel (cel, -2, -2);
+              }
+              else
+                m_celArrow = cel;
+              goto select;
+            }
+            show--;
+          }
+        }
+      }
+    }
+  }
+
+  if (
+    pStatistic->perso == -1 && // sol ?
+    pStatistic->firstIcon < 0)
+  {
+    for (x = 0; x < MAXCELX; x += 2)
+    {
+      for (y = 0; y < MAXCELY; y += 2)
+      {
+        if (m_decor[x / 2][y / 2].floorChannel == CHFLOOR)
+        {
+          icon = m_decor[x / 2][y / 2].floorIcon;
+
+          if (
+            icon >= -(pStatistic->firstIcon) && icon <= -(pStatistic->lastIcon))
+          {
+            if (show == 0)
+            {
+              cel = GetCel (x, y);
+              if (pStatistic->bBigIcon)
+              {
+                // Flèche plus haute.
+                m_celArrow = GetCel (cel, -2, -2);
+              }
+              else
+                m_celArrow = cel;
+              goto select;
+            }
+            show--;
+          }
+        }
+      }
+    }
+  }
+
+  if (pStatistic->perso == -2) // feu ?
+  {
+    for (x = 0; x < MAXCELX; x += 2)
+    {
+      for (y = 0; y < MAXCELY; y += 2)
+      {
+        if (
+          m_decor[x / 2][y / 2].fire > 0 &&
+          m_decor[x / 2][y / 2].fire < MoveMaxFire ())
+        {
+          if (show == 0)
+          {
+            cel        = GetCel (x, y);
+            m_celArrow = cel;
+            goto select;
+          }
+          show--;
+        }
+      }
+    }
+  }
+
+  return false;
+
+select:
+  SetCoin (cel, true);
+  NextPhase (0); // faudra refaire la carte tout de suite
+  return true;
 }
 
 // Souris déplacée dans les statistiques.
 
 bool CDecor::StatisticMove (POINT pos)
 {
-    Sint32      rank;
+  Sint32 rank;
 
-    rank = StatisticDetect (pos);
+  rank = StatisticDetect (pos);
 
-    if (rank != m_statHili)    // autre mise en évidence ?
-        m_statHili = rank;
+  if (rank != m_statHili) // autre mise en évidence ?
+    m_statHili = rank;
 
-    return false;
+  return false;
 }
 
 // Bouton relâché dans les statistiques.
 
 bool CDecor::StatisticUp (POINT pos)
 {
-    return false;
+  return false;
 }
 
 // Détecte dans quelle statistique est la souris.
 
 Sint32 CDecor::StatisticDetect (POINT pos)
 {
-    Sint32      rank;
+  Sint32 rank;
 
-    // Dans un bouton stop/setup/write ?
-    if (pos.x >= 10 && pos.x <= 10 + 42 * 3 &&
-        pos.y >= 422 && pos.y <= 422 + 40)
-    {
-        pos.x -= 10;
-        if (pos.x % 42 > 40)
-            return -1;
-        return 100 + pos.x / 42;
-    }
+  // Dans un bouton stop/setup/write ?
+  if (pos.x >= 10 && pos.x <= 10 + 42 * 3 && pos.y >= 422 && pos.y <= 422 + 40)
+  {
+    pos.x -= 10;
+    if (pos.x % 42 > 40)
+      return -1;
+    return 100 + pos.x / 42;
+  }
 
-    if (pos.x >= POSSTATX && pos.x <= POSSTATX + DIMSTATX * 2 &&
-        pos.y >= POSSTATY && pos.y <= POSSTATY + DIMSTATY * (STATNB / 2))
-    {
-        rank  = ((pos.x - POSSTATX) / DIMSTATX) * (STATNB / 2);
-        rank += ((pos.y - POSSTATY) / DIMSTATY);
-        if (rank >= STATNB)
-            return -1;
+  if (
+    pos.x >= POSSTATX && pos.x <= POSSTATX + DIMSTATX * 2 &&
+    pos.y >= POSSTATY && pos.y <= POSSTATY + DIMSTATY * (STATNB / 2))
+  {
+    rank = ((pos.x - POSSTATX) / DIMSTATX) * (STATNB / 2);
+    rank += ((pos.y - POSSTATY) / DIMSTATY);
+    if (rank >= STATNB)
+      return -1;
 
-        return rank;
-    }
+    return rank;
+  }
 
-    return -1;
+  return -1;
 }
-

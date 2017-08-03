@@ -18,26 +18,26 @@
  * along with this program. If not, see http://gnu.org/licenses
  */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-#include "def.h"
 #include "action.h"
+#include "def.h"
 #include "misc.h"
 
-#define MAXICON  (1 + 50)
-#define MAXMOVE  (2 + 30 * 3)
+#define MAXICON (1 + 50)
+#define MAXMOVE (2 + 30 * 3)
 #define MAXSOUND (1 + 50)
 
-struct DescAction
-{
-    Sint16  action;
-    Sint16  channel;
-    Sint16  icons[8][MAXICON];  // nb, icones,
-    Sint16  moves[8][MAXMOVE];  // nb, nb, x,y,
-    Sint16  sounds[MAXSOUND];   // nb, sons,
+struct DescAction {
+  Sint16 action;
+  Sint16 channel;
+  Sint16 icons[8][MAXICON]; // nb, icones,
+  Sint16 moves[8][MAXMOVE]; // nb, nb, x,y,
+  Sint16 sounds[MAXSOUND];  // nb, sons,
 };
 
+// clang-format off
 static const DescAction action_table[] =
 {
     {
@@ -2725,182 +2725,184 @@ static const DescAction action_table[] =
         -1
     }
 };
+// clang-format on
 
 // Calcule l'action suivante.
 // Retourne false lorsque l'action est terminée.
 
-bool Action (Sint16 action, Sint16 direct,
-             Sint16 &phase, Sint16 &step,
-             Sint16 &channel, Sint16 &icon, POINT &pos, Sint16 &posZ,
-             Sint16 &sound)
+bool Action (
+  Sint16 action, Sint16 direct, Sint16 & phase, Sint16 & step, Sint16 & channel,
+  Sint16 & icon, POINT & pos, Sint16 & posZ, Sint16 & sound)
 {
-    const auto *pTable = action_table;
-    Sint16 nbIcon, nbPhase, nbMove, nbSound, i;
+  const auto * pTable = action_table;
+  Sint16       nbIcon, nbPhase, nbMove, nbSound, i;
 
-    pos.x = 0;
-    pos.y = 0;
-    posZ  = 0;
+  pos.x = 0;
+  pos.y = 0;
+  posZ  = 0;
 
-    while (pTable->action != -1)
+  while (pTable->action != -1)
+  {
+    if (action == pTable->action)
     {
-        if (action == pTable->action)
-        {
-            if (pTable->icons[1][0] == 0)
-                direct = 0;
+      if (pTable->icons[1][0] == 0)
+        direct = 0;
 
-            nbIcon  = pTable->icons[direct / 16][0];
-            nbPhase = pTable->moves[direct / 16][0];
-            nbMove  = pTable->moves[direct / 16][1];
-            nbSound = pTable->sounds[0];
+      nbIcon  = pTable->icons[direct / 16][0];
+      nbPhase = pTable->moves[direct / 16][0];
+      nbMove  = pTable->moves[direct / 16][1];
+      nbSound = pTable->sounds[0];
 
-            channel = pTable->channel;
-            icon    = pTable->icons[direct / 16][1 + step % nbIcon];
+      channel = pTable->channel;
+      icon    = pTable->icons[direct / 16][1 + step % nbIcon];
 
-            if (nbSound == 0 || step >= nbSound)
-                sound = -1;
-            else
-                sound = pTable->sounds[1 + step % nbSound];
+      if (nbSound == 0 || step >= nbSound)
+        sound = -1;
+      else
+        sound = pTable->sounds[1 + step % nbSound];
 
-            for (i = 0 ; i < phase ; i++)
-            {
-                pos.x += pTable->moves[direct / 16][2 + (i % nbMove) * 3 + 0];
-                pos.y += pTable->moves[direct / 16][2 + (i % nbMove) * 3 + 1];
-                posZ  += pTable->moves[direct / 16][2 + (i % nbMove) * 3 + 2];
-            }
+      for (i = 0; i < phase; i++)
+      {
+        pos.x += pTable->moves[direct / 16][2 + (i % nbMove) * 3 + 0];
+        pos.y += pTable->moves[direct / 16][2 + (i % nbMove) * 3 + 1];
+        posZ += pTable->moves[direct / 16][2 + (i % nbMove) * 3 + 2];
+      }
 
-            pos.x /= 100;
-            pos.y /= 100;
+      pos.x /= 100;
+      pos.y /= 100;
 
-            if (phase >= nbPhase)
-                return false;
+      if (phase >= nbPhase)
+        return false;
 
-            phase ++;
-            step  ++;
+      phase++;
+      step++;
 
-            return true;
-        }
-
-        pTable ++;
+      return true;
     }
 
-    return false;
+    pTable++;
+  }
+
+  return false;
 }
 
+// clang-format off
 static const Sint16 rotate_table[] =
 {
-    0, 6, 12, 18, 24, 30, 36, 42,
-    1, 7, 13, 19, 25, 31, 37, 43,
-    2, 8, 14, 20, 26, 32, 38, 44,
-    3, 9, 15, 21, 27, 33, 39, 45,
-    4, 10, 16, 22, 28, 34, 40, 46,
-    5, 11, 17, 23, 29, 35, 41, 47,
+  0, 6, 12, 18, 24, 30, 36, 42,
+  1, 7, 13, 19, 25, 31, 37, 43,
+  2, 8, 14, 20, 26, 32, 38, 44,
+  3, 9, 15, 21, 27, 33, 39, 45,
+  4, 10, 16, 22, 28, 34, 40, 46,
+  5, 11, 17, 23, 29, 35, 41, 47,
 
-    48, 49, 50, 51, 52, 53, 54, 55,
+  48, 49, 50, 51, 52, 53, 54, 55,
 
-    69, 72, 75, 78, 81, 84, 87, 90,
-    70, 73, 76, 79, 82, 85, 88, 91,
-    71, 74, 77, 80, 83, 86, 89, 92,
+  69, 72, 75, 78, 81, 84, 87, 90,
+  70, 73, 76, 79, 82, 85, 88, 91,
+  71, 74, 77, 80, 83, 86, 89, 92,
 
-    116, 118, 120, 122, 124, 126, 128, 130,
-    117, 119, 121, 123, 125, 127, 129, 131,
+  116, 118, 120, 122, 124, 126, 128, 130,
+  117, 119, 121, 123, 125, 127, 129, 131,
 
-    322, 325, 328, 331, 334, 337, 340, 343,
-    323, 326, 329, 332, 335, 338, 341, 344,
-    324, 327, 330, 333, 336, 339, 342, 345,
+  322, 325, 328, 331, 334, 337, 340, 343,
+  323, 326, 329, 332, 335, 338, 341, 344,
+  324, 327, 330, 333, 336, 339, 342, 345,
 
-    -1
+  -1
 };
+// clang-format on
 
 // Tourne une icône dans une direction donnée.
 
-bool Rotate (Sint16 &icon, Sint16 direct)
+bool Rotate (Sint16 & icon, Sint16 direct)
 {
-    const auto *pTable = rotate_table;
-    Sint16 i;
-    Sint16 offset = 0;
+  const auto * pTable = rotate_table;
+  Sint16       i;
+  Sint16       offset = 0;
 
-    if (icon >= 200 && icon <= 215)    // tracks ?
+  if (icon >= 200 && icon <= 215) // tracks ?
+  {
+    icon = (direct / 8) + 200;
+    return true;
+  }
+
+  if (icon >= 216 && icon <= 231) // robot ?
+  {
+    icon = (direct / 8) + 216;
+    return true;
+  }
+
+  if (icon >= 290 && icon <= 305) // disciple ?
+  {
+    icon = (direct / 8) + 290;
+    return true;
+  }
+
+  if (icon >= 234 && icon <= 249) // blupi en bateau ?
+  {
+    icon = (direct / 8) + 234;
+    return true;
+  }
+
+  if (icon >= 250 && icon <= 265) // blupi en jeep ?
+  {
+    icon = (direct / 8) + 250;
+    return true;
+  }
+
+  if (icon >= 169 && icon <= 192) // blupi malade ?
+  {
+    icon -= 100;
+    offset = 100;
+  }
+
+  while (pTable[0] != -1)
+  {
+    for (i = 0; i < 8; i++)
     {
-        icon = (direct / 8) + 200;
+      if (icon == pTable[i])
+      {
+        icon = pTable[direct / 16] + offset;
         return true;
+      }
     }
 
-    if (icon >= 216 && icon <= 231)    // robot ?
-    {
-        icon = (direct / 8) + 216;
-        return true;
-    }
+    pTable += 8;
+  }
 
-    if (icon >= 290 && icon <= 305)    // disciple ?
-    {
-        icon = (direct / 8) + 290;
-        return true;
-    }
-
-    if (icon >= 234 && icon <= 249)    // blupi en bateau ?
-    {
-        icon = (direct / 8) + 234;
-        return true;
-    }
-
-    if (icon >= 250 && icon <= 265)    // blupi en jeep ?
-    {
-        icon = (direct / 8) + 250;
-        return true;
-    }
-
-    if (icon >= 169 && icon <= 192)    // blupi malade ?
-    {
-        icon -= 100;
-        offset = 100;
-    }
-
-    while (pTable[0] != -1)
-    {
-        for (i = 0 ; i < 8 ; i++)
-        {
-            if (icon == pTable[i])
-            {
-                icon = pTable[direct / 16] + offset;
-                return true;
-            }
-        }
-
-        pTable += 8;
-    }
-
-    return false;
+  return false;
 }
 
 // Retourne la direction d'une icône.
 
 Sint32 GetIconDirect (Sint16 icon)
 {
-    const auto *pTable = rotate_table;
-    Sint16 i;
+  const auto * pTable = rotate_table;
+  Sint16       i;
 
-    if (icon >= 169 && icon <= 192)    // blupi malade ?
-        icon -= 100;
+  if (icon >= 169 && icon <= 192) // blupi malade ?
+    icon -= 100;
 
-    if (icon >= 234 && icon <= 249)    // blupi en bateau ?
-        return ((icon - 234) / 2) * 16;
+  if (icon >= 234 && icon <= 249) // blupi en bateau ?
+    return ((icon - 234) / 2) * 16;
 
-    if (icon >= 250 && icon <= 265)    // blupi en jeep ?
-        return ((icon - 250) / 2) * 16;
+  if (icon >= 250 && icon <= 265) // blupi en jeep ?
+    return ((icon - 250) / 2) * 16;
 
-    if (icon >= 290 && icon <= 305)    // disciple ?
-        return ((icon - 290) / 2) * 16;
+  if (icon >= 290 && icon <= 305) // disciple ?
+    return ((icon - 290) / 2) * 16;
 
-    while (pTable[0] != -1)
-    {
-        for (i = 0 ; i < 8 ; i++)
-            if (icon == pTable[i])
-                return i * 16;
+  while (pTable[0] != -1)
+  {
+    for (i = 0; i < 8; i++)
+      if (icon == pTable[i])
+        return i * 16;
 
-        pTable += 8;
-    }
+    pTable += 8;
+  }
 
-    return -1;
+  return -1;
 }
 
 // Retourne l'amplitude d'une action, en nombre
@@ -2908,19 +2910,17 @@ Sint32 GetIconDirect (Sint16 icon)
 
 Sint32 GetAmplitude (Sint16 action)
 {
-    switch (action)
-    {
-    case ACTION_SAUTE2:
-        return 2;
-    case ACTION_SAUTE3:
-        return 3;
-    case ACTION_SAUTE4:
-        return 4;
-    case ACTION_SAUTE5:
-        return 5;
-    }
+  switch (action)
+  {
+  case ACTION_SAUTE2:
+    return 2;
+  case ACTION_SAUTE3:
+    return 3;
+  case ACTION_SAUTE4:
+    return 4;
+  case ACTION_SAUTE5:
+    return 5;
+  }
 
-    return 1;
+  return 1;
 }
-
-

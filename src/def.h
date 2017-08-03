@@ -22,6 +22,7 @@
 
 #include <SDL2/SDL_stdinc.h>
 
+// clang-format off
 #define _INTRO          true    // true si images d'introduction
 
 
@@ -352,47 +353,45 @@
 #define BUTTON_REPEAT       32
 #define BUTTON_DARMURE      33
 #define BUTTON_FABARMURE    34
-
+// clang-format on
 
 // Erreurs :
 
-enum Errors
-{
-    NONE     = 0,
-    MISC     = 1,
-    GROUND   = 2,
-    FREE     = 3,
-    PONTOP   = 4,
-    PONTTERM = 5,
-    TOURISOL = 6,
-    TOUREAU  = 7,
-    TELE2    = 8,
-    REPEAT   = 500,
+enum Errors {
+  NONE     = 0,
+  MISC     = 1,
+  GROUND   = 2,
+  FREE     = 3,
+  PONTOP   = 4,
+  PONTTERM = 5,
+  TOURISOL = 6,
+  TOUREAU  = 7,
+  TELE2    = 8,
+  REPEAT   = 500,
 };
 
 // Lutins pour la souris
 
-enum MouseSprites
-{
-    SPRITE_BEGIN    = 1,
-    SPRITE_ARROW    = 1,
-    SPRITE_POINTER  = 2,
-    SPRITE_MAP      = 3,
-    SPRITE_ARROWU   = 4,
-    SPRITE_ARROWD   = 5,
-    SPRITE_ARROWL   = 6,
-    SPRITE_ARROWR   = 7,
-    SPRITE_ARROWUL  = 8,
-    SPRITE_ARROWUR  = 9,
-    SPRITE_ARROWDL  = 10,
-    SPRITE_ARROWDR  = 11,
-    SPRITE_WAIT     = 12,
-    SPRITE_EMPTY    = 13,
-    SPRITE_FILL     = 14,
-    SPRITE_END      = 14,
+enum MouseSprites {
+  SPRITE_BEGIN   = 1,
+  SPRITE_ARROW   = 1,
+  SPRITE_POINTER = 2,
+  SPRITE_MAP     = 3,
+  SPRITE_ARROWU  = 4,
+  SPRITE_ARROWD  = 5,
+  SPRITE_ARROWL  = 6,
+  SPRITE_ARROWR  = 7,
+  SPRITE_ARROWUL = 8,
+  SPRITE_ARROWUR = 9,
+  SPRITE_ARROWDL = 10,
+  SPRITE_ARROWDR = 11,
+  SPRITE_WAIT    = 12,
+  SPRITE_EMPTY   = 13,
+  SPRITE_FILL    = 14,
+  SPRITE_END     = 14,
 };
 
-
+// clang-format off
 #define WM_USER                 0x0400
 
 #define WM_UPDATE               (WM_USER+1)
@@ -614,23 +613,20 @@ enum MouseSprites
 #define WM_NEXT                 (WM_USER+601)
 #define WM_MOVIE                (WM_USER+602)
 #define WM_MOVIE_PLAY           (WM_USER+603)
-
+// clang-format on
 
 // Conditions pour gagner.
 
-typedef struct
-{
-    Sint16  bHachBlupi;     // blupi sur dalle hachurée
-    Sint16  bHachPlanche;   // planches sur dalle hachurée
-    Sint16  bStopFire;      // feu éteint
-    Sint16  nbMinBlupi;     // nb de blupi nécessaires
-    Sint16  nbMaxBlupi;     // nb de blupi nécessaires
-    Sint16  bHomeBlupi;     // blupi à la maison
-    Sint16  bKillRobots;    // plus d'ennemis
-    Sint16  bHachTomate;    // tomates sur dalle hachurée
-    Sint16  bHachMetal;     // métal sur dalle hachurée
-    Sint16  bHachRobot;     // robot sur dalle hachurée
-    Sint16  reserve[14];
-}
-Term;
-
+typedef struct {
+  Sint16 bHachBlupi;   // blupi sur dalle hachurée
+  Sint16 bHachPlanche; // planches sur dalle hachurée
+  Sint16 bStopFire;    // feu éteint
+  Sint16 nbMinBlupi;   // nb de blupi nécessaires
+  Sint16 nbMaxBlupi;   // nb de blupi nécessaires
+  Sint16 bHomeBlupi;   // blupi à la maison
+  Sint16 bKillRobots;  // plus d'ennemis
+  Sint16 bHachTomate;  // tomates sur dalle hachurée
+  Sint16 bHachMetal;   // métal sur dalle hachurée
+  Sint16 bHachRobot;   // robot sur dalle hachurée
+  Sint16 reserve[14];
+} Term;

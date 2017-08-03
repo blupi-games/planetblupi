@@ -18,8 +18,8 @@
  * along with this program. If not, see http://gnu.org/licenses
  */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string>
 
 #ifdef _WIN32
@@ -31,58 +31,55 @@
 
 #include <SDL2/SDL_image.h>
 
-#include "def.h"
-#include "pixmap.h"
-#include "misc.h"
 #include "blupi.h"
-
-
+#include "def.h"
+#include "misc.h"
+#include "pixmap.h"
 
 /////////////////////////////////////////////////////////////////////////////
 
-
 // Constructeur.
 
-CPixmap::CPixmap()
+CPixmap::CPixmap ()
 {
-    Sint32      i;
+  Sint32 i;
 
-    m_bDebug       = true;
-    m_bPalette     = true;
+  m_bDebug   = true;
+  m_bPalette = true;
 
-    m_mouseSprite  = SPRITE_WAIT;
-    m_bBackDisplayed = false;
+  m_mouseSprite    = SPRITE_WAIT;
+  m_bBackDisplayed = false;
 
-    m_lpSDLBlupi = nullptr;
+  m_lpSDLBlupi = nullptr;
 
-    for (i = 0; i < MAXCURSORS; i++)
-        m_lpSDLCursors[i] = nullptr;
+  for (i = 0; i < MAXCURSORS; i++)
+    m_lpSDLCursors[i] = nullptr;
 
-    m_lpCurrentCursor = nullptr;
+  m_lpCurrentCursor = nullptr;
 }
 
 // Destructeur.
 
-CPixmap::~CPixmap()
+CPixmap::~CPixmap ()
 {
-    unsigned int i;
+  unsigned int i;
 
-    for (i = 0; i < countof (m_lpSDLCursors); i++)
+  for (i = 0; i < countof (m_lpSDLCursors); i++)
+  {
+    if (m_lpSDLCursors[i])
     {
-        if (m_lpSDLCursors[i])
-        {
-            SDL_FreeCursor (m_lpSDLCursors[i]);
-            m_lpSDLCursors[i] = nullptr;
-        }
+      SDL_FreeCursor (m_lpSDLCursors[i]);
+      m_lpSDLCursors[i] = nullptr;
     }
+  }
 
-    for (auto tex: m_SDLTextureInfo)
-    {
-        if (tex.second.texture)
-            SDL_DestroyTexture (tex.second.texture);
-        if (tex.second.texMask)
-            SDL_DestroyTexture (tex.second.texMask);
-    }
+  for (auto tex : m_SDLTextureInfo)
+  {
+    if (tex.second.texture)
+      SDL_DestroyTexture (tex.second.texture);
+    if (tex.second.texMask)
+      SDL_DestroyTexture (tex.second.texMask);
+  }
 }
 
 // Crï¿½e l'objet DirectDraw principal.
@@ -90,21 +87,21 @@ CPixmap::~CPixmap()
 
 bool CPixmap::Create (POINT dim)
 {
-    m_dim         = dim;
+  m_dim = dim;
 
-    m_clipRect.left   = 0;
-    m_clipRect.top    = 0;
-    m_clipRect.right  = dim.x;
-    m_clipRect.bottom = dim.y;
+  m_clipRect.left   = 0;
+  m_clipRect.top    = 0;
+  m_clipRect.right  = dim.x;
+  m_clipRect.bottom = dim.y;
 
-    return true;
+  return true;
 }
 
 // Rempli une zone rectangulaire avec une couleur uniforme.
 
 void CPixmap::Fill (RECT rect, COLORREF color)
 {
-    // ï¿½ faire si nï¿½cessaire ...
+  // ï¿½ faire si nï¿½cessaire ...
 }
 
 // Effectue un appel BltFast.
@@ -112,92 +109,95 @@ void CPixmap::Fill (RECT rect, COLORREF color)
 
 Sint32 CPixmap::BltFast (Sint32 chDst, size_t channel, POINT dst, RECT rcRect)
 {
-    Sint32          res, limit;
+  Sint32 res, limit;
 
-    // Effectue un peu de clipping.
-    if (dst.x < m_clipRect.left)
-    {
-        rcRect.left += m_clipRect.left - dst.x;
-        dst.x = m_clipRect.left;
-    }
-    limit = (m_clipRect.right - dst.x) + rcRect.left;
-    if (rcRect.right > limit)
-        rcRect.right = limit;
-    if (dst.y < m_clipRect.top)
-    {
-        rcRect.top += m_clipRect.top - dst.y;
-        dst.y = m_clipRect.top;
-    }
-    limit = (m_clipRect.bottom - dst.y) + rcRect.top;
-    if (rcRect.bottom > limit)
-        rcRect.bottom = limit;
+  // Effectue un peu de clipping.
+  if (dst.x < m_clipRect.left)
+  {
+    rcRect.left += m_clipRect.left - dst.x;
+    dst.x = m_clipRect.left;
+  }
+  limit = (m_clipRect.right - dst.x) + rcRect.left;
+  if (rcRect.right > limit)
+    rcRect.right = limit;
+  if (dst.y < m_clipRect.top)
+  {
+    rcRect.top += m_clipRect.top - dst.y;
+    dst.y = m_clipRect.top;
+  }
+  limit = (m_clipRect.bottom - dst.y) + rcRect.top;
+  if (rcRect.bottom > limit)
+    rcRect.bottom = limit;
 
-    if (rcRect.left >= rcRect.right ||
-        rcRect.top  >= rcRect.bottom)
-        return 0;
+  if (rcRect.left >= rcRect.right || rcRect.top >= rcRect.bottom)
+    return 0;
 
-    if (chDst < 0)
-    {
-        SDL_Rect srcRect, dstRect;
-        srcRect.x = rcRect.left;
-        srcRect.y = rcRect.top;
-        srcRect.w = rcRect.right - rcRect.left;
-        srcRect.h = rcRect.bottom - rcRect.top;
-        dstRect = srcRect;
-        dstRect.x = dst.x;
-        dstRect.y = dst.y;
-
-        res = SDL_RenderCopy (g_renderer, m_SDLTextureInfo[channel].texture, &srcRect, &dstRect);
-    }
-    else
-    {
-        SDL_Rect srcRect, dstRect;
-        srcRect.x = rcRect.left;
-        srcRect.y = rcRect.top;
-        srcRect.w = rcRect.right - rcRect.left;
-        srcRect.h = rcRect.bottom - rcRect.top;
-        dstRect = srcRect;
-        dstRect.x = dst.x;
-        dstRect.y = dst.y;
-
-        SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[chDst].texture);
-        res = SDL_RenderCopy (g_renderer, m_SDLTextureInfo[channel].texture, &srcRect, &dstRect);
-        SDL_SetRenderTarget (g_renderer, nullptr);
-    }
-
-    return res;
-}
-
-// Effectue un appel BltFast.
-// Les modes sont 0=transparent, 1=opaque.
-
-Sint32 CPixmap::BltFast (SDL_Texture *lpSDL, size_t channel, POINT dst,
-                         RECT rcRect, SDL_BlendMode mode)
-{
-    Sint32          res;
-
+  if (chDst < 0)
+  {
     SDL_Rect srcRect, dstRect;
     srcRect.x = rcRect.left;
     srcRect.y = rcRect.top;
     srcRect.w = rcRect.right - rcRect.left;
     srcRect.h = rcRect.bottom - rcRect.top;
-    dstRect = srcRect;
+    dstRect   = srcRect;
     dstRect.x = dst.x;
     dstRect.y = dst.y;
 
-    SDL_BlendMode oMode;
-    SDL_GetTextureBlendMode (m_SDLTextureInfo[channel].texture, &oMode);
-    if (oMode != mode)
-        SDL_SetTextureBlendMode (m_SDLTextureInfo[channel].texture, mode);
+    res = SDL_RenderCopy (
+      g_renderer, m_SDLTextureInfo[channel].texture, &srcRect, &dstRect);
+  }
+  else
+  {
+    SDL_Rect srcRect, dstRect;
+    srcRect.x = rcRect.left;
+    srcRect.y = rcRect.top;
+    srcRect.w = rcRect.right - rcRect.left;
+    srcRect.h = rcRect.bottom - rcRect.top;
+    dstRect   = srcRect;
+    dstRect.x = dst.x;
+    dstRect.y = dst.y;
 
-    SDL_SetRenderTarget (g_renderer, lpSDL);
-    res = SDL_RenderCopy (g_renderer, m_SDLTextureInfo[channel].texture, &srcRect, &dstRect);
+    SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[chDst].texture);
+    res = SDL_RenderCopy (
+      g_renderer, m_SDLTextureInfo[channel].texture, &srcRect, &dstRect);
     SDL_SetRenderTarget (g_renderer, nullptr);
+  }
 
-    if (oMode != mode)
-        SDL_SetTextureBlendMode(m_SDLTextureInfo[channel].texture, oMode);
+  return res;
+}
 
-    return res;
+// Effectue un appel BltFast.
+// Les modes sont 0=transparent, 1=opaque.
+
+Sint32 CPixmap::BltFast (
+  SDL_Texture * lpSDL, size_t channel, POINT dst, RECT rcRect,
+  SDL_BlendMode mode)
+{
+  Sint32 res;
+
+  SDL_Rect srcRect, dstRect;
+  srcRect.x = rcRect.left;
+  srcRect.y = rcRect.top;
+  srcRect.w = rcRect.right - rcRect.left;
+  srcRect.h = rcRect.bottom - rcRect.top;
+  dstRect   = srcRect;
+  dstRect.x = dst.x;
+  dstRect.y = dst.y;
+
+  SDL_BlendMode oMode;
+  SDL_GetTextureBlendMode (m_SDLTextureInfo[channel].texture, &oMode);
+  if (oMode != mode)
+    SDL_SetTextureBlendMode (m_SDLTextureInfo[channel].texture, mode);
+
+  SDL_SetRenderTarget (g_renderer, lpSDL);
+  res = SDL_RenderCopy (
+    g_renderer, m_SDLTextureInfo[channel].texture, &srcRect, &dstRect);
+  SDL_SetRenderTarget (g_renderer, nullptr);
+
+  if (oMode != mode)
+    SDL_SetTextureBlendMode (m_SDLTextureInfo[channel].texture, oMode);
+
+  return res;
 }
 
 /**
@@ -207,195 +207,191 @@ Sint32 CPixmap::BltFast (SDL_Texture *lpSDL, size_t channel, POINT dst,
  */
 bool CPixmap::ReloadTargetTextures ()
 {
-    for (auto &tex: m_SDLTextureInfo)
-    {
-        if (!tex.second.target)
-            continue;
+  for (auto & tex : m_SDLTextureInfo)
+  {
+    if (!tex.second.target)
+      continue;
 
-        if (!Cache (tex.first,
-                    tex.second.file,
-                    tex.second.dimTotal,
-                    tex.second.dimIcon))
-            return false;
-    }
+    if (!Cache (
+          tex.first, tex.second.file, tex.second.dimTotal, tex.second.dimIcon))
+      return false;
+  }
 
-    return true;
+  return true;
 }
 
 // Cache une image contenant des icï¿½nes.
 
-bool CPixmap::Cache (size_t channel, const std::string &pFilename, POINT totalDim,
-                     POINT iconDim)
+bool CPixmap::Cache (
+  size_t channel, const std::string & pFilename, POINT totalDim, POINT iconDim)
 {
-    std::string file = GetBaseDir() + pFilename;
-    SDL_Surface *surface = IMG_Load (file.c_str());
+  std::string   file    = GetBaseDir () + pFilename;
+  SDL_Surface * surface = IMG_Load (file.c_str ());
 
-    if (channel == CHBLUPI)
-        m_lpSDLBlupi = surface;
+  if (channel == CHBLUPI)
+    m_lpSDLBlupi = surface;
 
-    SDL_Texture *texture = SDL_CreateTextureFromSurface (g_renderer, surface);
-    Uint32 format;
-    Sint32 access, w, h;
-    SDL_QueryTexture (texture, &format, &access, &w, &h);
+  SDL_Texture * texture = SDL_CreateTextureFromSurface (g_renderer, surface);
+  Uint32        format;
+  Sint32        access, w, h;
+  SDL_QueryTexture (texture, &format, &access, &w, &h);
 
-    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
+  if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
+  {
+    m_SDLTextureInfo[channel].texture = SDL_CreateTexture (
+      g_renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, w, h);
+
+    if (!m_SDLTextureInfo[channel].texture)
     {
-        m_SDLTextureInfo[channel].texture =
-            SDL_CreateTexture (g_renderer, SDL_PIXELFORMAT_RGBA32,
-                               SDL_TEXTUREACCESS_TARGET, w, h);
-
-        if (!m_SDLTextureInfo[channel].texture)
-        {
-            SDL_LogError (SDL_LOG_CATEGORY_APPLICATION,
-                        "Couldn't create texture from surface: %s", SDL_GetError());
-            return false;
-        }
-
-        SDL_SetTextureBlendMode (m_SDLTextureInfo[channel].texture,
-                                 SDL_BLENDMODE_BLEND);
-    }
-    else
-    {
-        SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
-        SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 0);
-        SDL_RenderClear (g_renderer);
-        SDL_SetRenderTarget (g_renderer, nullptr);
+      SDL_LogError (
+        SDL_LOG_CATEGORY_APPLICATION,
+        "Couldn't create texture from surface: %s", SDL_GetError ());
+      return false;
     }
 
-    m_SDLTextureInfo[channel].texMask  = channel == CHMASK2 ? texture : nullptr;
-    m_SDLTextureInfo[channel].target   = true;
-    m_SDLTextureInfo[channel].dimIcon  = iconDim;
-    m_SDLTextureInfo[channel].dimTotal = totalDim;
-    m_SDLTextureInfo[channel].file     = pFilename;
-
+    SDL_SetTextureBlendMode (
+      m_SDLTextureInfo[channel].texture, SDL_BLENDMODE_BLEND);
+  }
+  else
+  {
     SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
-    SDL_RenderCopy (g_renderer, texture, nullptr, nullptr);
+    SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 0);
+    SDL_RenderClear (g_renderer);
     SDL_SetRenderTarget (g_renderer, nullptr);
+  }
 
-    if (!m_SDLTextureInfo[channel].texMask)
-        SDL_DestroyTexture (texture);
+  m_SDLTextureInfo[channel].texMask  = channel == CHMASK2 ? texture : nullptr;
+  m_SDLTextureInfo[channel].target   = true;
+  m_SDLTextureInfo[channel].dimIcon  = iconDim;
+  m_SDLTextureInfo[channel].dimTotal = totalDim;
+  m_SDLTextureInfo[channel].file     = pFilename;
 
-    if (channel != CHBLUPI)
-        SDL_FreeSurface (surface);
+  SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
+  SDL_RenderCopy (g_renderer, texture, nullptr, nullptr);
+  SDL_SetRenderTarget (g_renderer, nullptr);
 
-    return true;
+  if (!m_SDLTextureInfo[channel].texMask)
+    SDL_DestroyTexture (texture);
+
+  if (channel != CHBLUPI)
+    SDL_FreeSurface (surface);
+
+  return true;
 }
 
 // Cache une image globale.
 
-bool CPixmap::Cache (size_t channel, const std::string &pFilename, POINT totalDim)
+bool CPixmap::Cache (
+  size_t channel, const std::string & pFilename, POINT totalDim)
 {
-    POINT iconDim;
+  POINT iconDim;
 
-    iconDim.x = 0;
-    iconDim.y = 0;
+  iconDim.x = 0;
+  iconDim.y = 0;
 
-    return Cache (channel, pFilename, totalDim, iconDim);
+  return Cache (channel, pFilename, totalDim, iconDim);
 }
 
 // Cache une image provenant d'un bitmap.
 
-bool CPixmap::Cache (size_t channel, SDL_Surface *surface, POINT totalDim)
+bool CPixmap::Cache (size_t channel, SDL_Surface * surface, POINT totalDim)
 {
-    // Create the offscreen surface, by loading our bitmap.
-    if (   m_SDLTextureInfo.find (channel) != m_SDLTextureInfo.end ()
-        && m_SDLTextureInfo[channel].texture)
-        SDL_DestroyTexture (m_SDLTextureInfo[channel].texture);
+  // Create the offscreen surface, by loading our bitmap.
+  if (
+    m_SDLTextureInfo.find (channel) != m_SDLTextureInfo.end () &&
+    m_SDLTextureInfo[channel].texture)
+    SDL_DestroyTexture (m_SDLTextureInfo[channel].texture);
 
-    m_SDLTextureInfo[channel].texture =
-        SDL_CreateTextureFromSurface (g_renderer, surface);
-    m_SDLTextureInfo[channel].target = false;
+  m_SDLTextureInfo[channel].texture =
+    SDL_CreateTextureFromSurface (g_renderer, surface);
+  m_SDLTextureInfo[channel].target = false;
 
-    if (!m_SDLTextureInfo[channel].texture)
-        return false;
+  if (!m_SDLTextureInfo[channel].texture)
+    return false;
 
-    m_SDLTextureInfo[channel].dimTotal = totalDim;
-    m_SDLTextureInfo[channel].dimIcon  = totalDim;
-    return true;
+  m_SDLTextureInfo[channel].dimTotal = totalDim;
+  m_SDLTextureInfo[channel].dimIcon  = totalDim;
+  return true;
 }
 
 // Modifie la rï¿½gion de clipping.
 
 void CPixmap::SetClipping (RECT clip)
 {
-    m_clipRect = clip;
+  m_clipRect = clip;
 }
 
 // Retourne la rï¿½gion de clipping.
 
-RECT CPixmap::GetClipping()
+RECT CPixmap::GetClipping ()
 {
-    return m_clipRect;
+  return m_clipRect;
 }
-
 
 // Teste si un point fait partie d'une icï¿½ne.
 
 bool CPixmap::IsIconPixel (size_t channel, Sint32 rank, POINT pos)
 {
-    Sint32 nbx, nby;
+  Sint32 nbx, nby;
 
-    auto texInfo = m_SDLTextureInfo.find (channel);
-    if (texInfo == m_SDLTextureInfo.end ())
-        return false;
+  auto texInfo = m_SDLTextureInfo.find (channel);
+  if (texInfo == m_SDLTextureInfo.end ())
+    return false;
 
-    if (texInfo->second.dimIcon.x == 0 ||
-        texInfo->second.dimIcon.y == 0)
-        return false;
+  if (texInfo->second.dimIcon.x == 0 || texInfo->second.dimIcon.y == 0)
+    return false;
 
-    nbx = texInfo->second.dimTotal.x / texInfo->second.dimIcon.x;
-    nby = texInfo->second.dimTotal.y / texInfo->second.dimIcon.y;
+  nbx = texInfo->second.dimTotal.x / texInfo->second.dimIcon.x;
+  nby = texInfo->second.dimTotal.y / texInfo->second.dimIcon.y;
 
-    if (rank < 0 || rank >= nbx * nby)
-        return false;
+  if (rank < 0 || rank >= nbx * nby)
+    return false;
 
-    pos.x += (rank % nbx) * texInfo->second.dimIcon.x;
-    pos.y += (rank / nbx) * texInfo->second.dimIcon.y;
+  pos.x += (rank % nbx) * texInfo->second.dimIcon.x;
+  pos.y += (rank / nbx) * texInfo->second.dimIcon.y;
 
-    SDL_Rect rect;
-    rect.x = pos.x;
-    rect.y = pos.y;
-    rect.w = 1;
-    rect.h = 1;
-    Uint32 pixel = 0;
+  SDL_Rect rect;
+  rect.x       = pos.x;
+  rect.y       = pos.y;
+  rect.w       = 1;
+  rect.h       = 1;
+  Uint32 pixel = 0;
 
-    SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
-    SDL_RenderReadPixels (g_renderer, &rect, 0, &pixel, 4);
-    SDL_SetRenderTarget (g_renderer, nullptr);
+  SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
+  SDL_RenderReadPixels (g_renderer, &rect, 0, &pixel, 4);
+  SDL_SetRenderTarget (g_renderer, nullptr);
 
-    return !!pixel;
+  return !!pixel;
 }
-
 
 // Dessine une partie d'image rectangulaire.
 // Les modes sont 0=transparent, 1=opaque.
 
-bool CPixmap::DrawIcon (Sint32 chDst, size_t channel, Sint32 rank, POINT pos,
-                        bool bMask)
+bool CPixmap::DrawIcon (
+  Sint32 chDst, size_t channel, Sint32 rank, POINT pos, bool bMask)
 {
-    Sint32 nbx, nby;
-    RECT   rect;
+  Sint32 nbx, nby;
+  RECT   rect;
 
-    auto texInfo = m_SDLTextureInfo.find (channel);
-    if (channel != CHMAP && texInfo == m_SDLTextureInfo.end ())
-        return false;
+  auto texInfo = m_SDLTextureInfo.find (channel);
+  if (channel != CHMAP && texInfo == m_SDLTextureInfo.end ())
+    return false;
 
-    if (texInfo->second.dimIcon.x == 0 ||
-        texInfo->second.dimIcon.y == 0)
-        return false;
+  if (texInfo->second.dimIcon.x == 0 || texInfo->second.dimIcon.y == 0)
+    return false;
 
-    nbx = texInfo->second.dimTotal.x / texInfo->second.dimIcon.x;
-    nby = texInfo->second.dimTotal.y / texInfo->second.dimIcon.y;
+  nbx = texInfo->second.dimTotal.x / texInfo->second.dimIcon.x;
+  nby = texInfo->second.dimTotal.y / texInfo->second.dimIcon.y;
 
-    if (rank < 0 || rank >= nbx * nby)
-        return false;
+  if (rank < 0 || rank >= nbx * nby)
+    return false;
 
-    rect.left   = (rank % nbx) * texInfo->second.dimIcon.x;
-    rect.top    = (rank / nbx) * texInfo->second.dimIcon.y;
-    rect.right  = rect.left + texInfo->second.dimIcon.x;
-    rect.bottom = rect.top  + texInfo->second.dimIcon.y;
+  rect.left   = (rank % nbx) * texInfo->second.dimIcon.x;
+  rect.top    = (rank / nbx) * texInfo->second.dimIcon.y;
+  rect.right  = rect.left + texInfo->second.dimIcon.x;
+  rect.bottom = rect.top + texInfo->second.dimIcon.y;
 
-    return !BltFast (chDst, channel, pos, rect);
+  return !BltFast (chDst, channel, pos, rect);
 }
 
 // Dessine une partie d'image rectangulaire.
@@ -408,390 +404,392 @@ bool CPixmap::DrawIcon (Sint32 chDst, size_t channel, Sint32 rank, POINT pos,
 //  32,32   34,33
 //  33,48   35,49
 
-bool CPixmap::DrawIconDemi (Sint32 chDst, size_t channel, Sint32 rank,
-                            POINT pos, bool bMask)
+bool CPixmap::DrawIconDemi (
+  Sint32 chDst, size_t channel, Sint32 rank, POINT pos, bool bMask)
 {
-    Sint32 nbx, nby;
-    RECT   rect;
+  Sint32 nbx, nby;
+  RECT   rect;
 
-    auto texInfo = m_SDLTextureInfo.find (channel);
-    if (texInfo == m_SDLTextureInfo.end ())
-        return false;
+  auto texInfo = m_SDLTextureInfo.find (channel);
+  if (texInfo == m_SDLTextureInfo.end ())
+    return false;
 
-    if (texInfo->second.dimIcon.x == 0 ||
-        texInfo->second.dimIcon.y == 0)
-        return false;
+  if (texInfo->second.dimIcon.x == 0 || texInfo->second.dimIcon.y == 0)
+    return false;
 
-    nbx = texInfo->second.dimTotal.x /  texInfo->second.dimIcon.x;
-    nby = texInfo->second.dimTotal.y / (texInfo->second.dimIcon.y / 2);
+  nbx = texInfo->second.dimTotal.x / texInfo->second.dimIcon.x;
+  nby = texInfo->second.dimTotal.y / (texInfo->second.dimIcon.y / 2);
 
-    rank = (rank / 32) * 32 + ((rank % 32) / 2) + ((rank % 2) * 16);
+  rank = (rank / 32) * 32 + ((rank % 32) / 2) + ((rank % 2) * 16);
 
-    if (rank < 0 || rank >= nbx * nby)
-        return false;
+  if (rank < 0 || rank >= nbx * nby)
+    return false;
 
-    rect.left   = (rank % nbx) * texInfo->second.dimIcon.x;
-    rect.top    = (rank / nbx) * (texInfo->second.dimIcon.y / 2);
-    rect.right  = rect.left + texInfo->second.dimIcon.x;
-    rect.bottom = rect.top  + (texInfo->second.dimIcon.y / 2);
+  rect.left   = (rank % nbx) * texInfo->second.dimIcon.x;
+  rect.top    = (rank / nbx) * (texInfo->second.dimIcon.y / 2);
+  rect.right  = rect.left + texInfo->second.dimIcon.x;
+  rect.bottom = rect.top + (texInfo->second.dimIcon.y / 2);
 
-    return !BltFast (chDst, channel, pos, rect);
+  return !BltFast (chDst, channel, pos, rect);
 }
 
 // Dessine une partie d'image rectangulaire.
 
-bool CPixmap::DrawIconPart (Sint32 chDst, size_t channel, Sint32 rank,
-                            POINT pos,
-                            Sint32 startY, Sint32 endY, bool bMask)
+bool CPixmap::DrawIconPart (
+  Sint32 chDst, size_t channel, Sint32 rank, POINT pos, Sint32 startY,
+  Sint32 endY, bool bMask)
 {
-    Sint32 nbx, nby;
-    RECT   rect;
+  Sint32 nbx, nby;
+  RECT   rect;
 
-    auto texInfo = m_SDLTextureInfo.find (channel);
-    if (texInfo == m_SDLTextureInfo.end ())
-        return false;
+  auto texInfo = m_SDLTextureInfo.find (channel);
+  if (texInfo == m_SDLTextureInfo.end ())
+    return false;
 
-    if (texInfo->second.dimIcon.x == 0 ||
-        texInfo->second.dimIcon.y == 0)
-        return false;
+  if (texInfo->second.dimIcon.x == 0 || texInfo->second.dimIcon.y == 0)
+    return false;
 
-    nbx = texInfo->second.dimTotal.x / texInfo->second.dimIcon.x;
-    nby = texInfo->second.dimTotal.y / texInfo->second.dimIcon.y;
+  nbx = texInfo->second.dimTotal.x / texInfo->second.dimIcon.x;
+  nby = texInfo->second.dimTotal.y / texInfo->second.dimIcon.y;
 
-    if (rank < 0 || rank >= nbx * nby)
-        return false;
+  if (rank < 0 || rank >= nbx * nby)
+    return false;
 
-    rect.left   = (rank % nbx) * texInfo->second.dimIcon.x;
-    rect.top    = (rank / nbx) * texInfo->second.dimIcon.y;
-    rect.right  = rect.left + texInfo->second.dimIcon.x;
-    rect.bottom = rect.top  + endY;
+  rect.left   = (rank % nbx) * texInfo->second.dimIcon.x;
+  rect.top    = (rank / nbx) * texInfo->second.dimIcon.y;
+  rect.right  = rect.left + texInfo->second.dimIcon.x;
+  rect.bottom = rect.top + endY;
 
-    pos.y    += startY;
-    rect.top += startY;
+  pos.y += startY;
+  rect.top += startY;
 
-    return !BltFast (chDst, channel, pos, rect);
+  return !BltFast (chDst, channel, pos, rect);
 }
 
 // Dessine une partie d'image n'importe oï¿½.
 
-bool CPixmap::DrawPart (Sint32 chDst, size_t channel, POINT dest, RECT rect,
-                        bool bMask)
+bool CPixmap::DrawPart (
+  Sint32 chDst, size_t channel, POINT dest, RECT rect, bool bMask)
 {
-    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
-        return false;
+  if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
+    return false;
 
-    return !BltFast (chDst, channel, dest, rect);
+  return !BltFast (chDst, channel, dest, rect);
 }
 
 // Dessine une partie d'image rectangulaire.
 
 bool CPixmap::DrawImage (Sint32 chDst, size_t channel, RECT rect)
 {
-    POINT  dst;
-    Sint32 res;
+  POINT  dst;
+  Sint32 res;
 
-    if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
-        return false;
+  if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
+    return false;
 
-    dst.x = rect.left;
-    dst.y = rect.top;
+  dst.x = rect.left;
+  dst.y = rect.top;
 
-    res = BltFast (chDst, channel, dst, rect);
+  res = BltFast (chDst, channel, dst, rect);
 
-    if (res)
-        return false;
+  if (res)
+    return false;
 
-    if (channel == CHBACK)
-        m_bBackDisplayed = false;
+  if (channel == CHBACK)
+    m_bBackDisplayed = false;
 
-    return true;
+  return true;
 }
-
 
 // Construit une icï¿½ne en utilisant un masque.
 
-bool CPixmap::BuildIconMask (size_t channelMask, Sint32 rankMask,
-                             size_t channel, Sint32 rankSrc, Sint32 rankDst)
+bool CPixmap::BuildIconMask (
+  size_t channelMask, Sint32 rankMask, size_t channel, Sint32 rankSrc,
+  Sint32 rankDst)
 {
-    Sint32 nbx, nby;
-    POINT  posDst, posDstMask;
-    RECT   rect, rectMask;
-    Sint32 res;
+  Sint32 nbx, nby;
+  POINT  posDst, posDstMask;
+  RECT   rect, rectMask;
+  Sint32 res;
 
-    auto texInfo = m_SDLTextureInfo.find (channel);
-    if (texInfo == m_SDLTextureInfo.end ())
-        return false;
+  auto texInfo = m_SDLTextureInfo.find (channel);
+  if (texInfo == m_SDLTextureInfo.end ())
+    return false;
 
-    if (texInfo->second.dimIcon.x == 0 ||
-        texInfo->second.dimIcon.y == 0)
-        return false;
+  if (texInfo->second.dimIcon.x == 0 || texInfo->second.dimIcon.y == 0)
+    return false;
 
-    nbx = texInfo->second.dimTotal.x / texInfo->second.dimIcon.x;
-    nby = texInfo->second.dimTotal.y / texInfo->second.dimIcon.y;
+  nbx = texInfo->second.dimTotal.x / texInfo->second.dimIcon.x;
+  nby = texInfo->second.dimTotal.y / texInfo->second.dimIcon.y;
 
-    if (rankSrc < 0 || rankSrc >= nbx * nby)
-        return false;
-    if (rankDst < 0 || rankDst >= nbx * nby)
-        return false;
+  if (rankSrc < 0 || rankSrc >= nbx * nby)
+    return false;
+  if (rankDst < 0 || rankDst >= nbx * nby)
+    return false;
 
-    rect.left   = (rankSrc % nbx) * texInfo->second.dimIcon.x;
-    rect.top    = (rankSrc / nbx) * texInfo->second.dimIcon.y;
-    rect.right  = rect.left + texInfo->second.dimIcon.x;
-    rect.bottom = rect.top  + texInfo->second.dimIcon.y;
-    posDst.x    = (rankDst % nbx) * texInfo->second.dimIcon.x;
-    posDst.y    = (rankDst / nbx) * texInfo->second.dimIcon.y;
+  rect.left   = (rankSrc % nbx) * texInfo->second.dimIcon.x;
+  rect.top    = (rankSrc / nbx) * texInfo->second.dimIcon.y;
+  rect.right  = rect.left + texInfo->second.dimIcon.x;
+  rect.bottom = rect.top + texInfo->second.dimIcon.y;
+  posDst.x    = (rankDst % nbx) * texInfo->second.dimIcon.x;
+  posDst.y    = (rankDst / nbx) * texInfo->second.dimIcon.y;
 
-    res = BltFast (m_SDLTextureInfo[channel].texture, channel, posDst, rect);
-    if (res)
-        return false;
+  res = BltFast (m_SDLTextureInfo[channel].texture, channel, posDst, rect);
+  if (res)
+    return false;
 
-    auto texMaskInfo = m_SDLTextureInfo.find (channelMask);
+  auto texMaskInfo = m_SDLTextureInfo.find (channelMask);
 
-    if (texMaskInfo->second.dimIcon.x == 0 ||
-        texMaskInfo->second.dimIcon.y == 0)
-        return false;
+  if (texMaskInfo->second.dimIcon.x == 0 || texMaskInfo->second.dimIcon.y == 0)
+    return false;
 
-    nbx = texMaskInfo->second.dimTotal.x / texMaskInfo->second.dimIcon.x;
-    nby = texMaskInfo->second.dimTotal.y / texMaskInfo->second.dimIcon.y;
+  nbx = texMaskInfo->second.dimTotal.x / texMaskInfo->second.dimIcon.x;
+  nby = texMaskInfo->second.dimTotal.y / texMaskInfo->second.dimIcon.y;
 
-    /* Support only CHMASK1 (white) because it needs CHMASK2 (black) (hardcoded here) */
-    if (rankMask < 0 || rankMask >= nbx * nby || channelMask != CHMASK1)
-        return false;
+  /* Support only CHMASK1 (white) because it needs CHMASK2 (black) (hardcoded
+   * here) */
+  if (rankMask < 0 || rankMask >= nbx * nby || channelMask != CHMASK1)
+    return false;
 
-    rectMask.left   = (rankMask % nbx) * texMaskInfo->second.dimIcon.x;
-    rectMask.top    = (rankMask / nbx) * texMaskInfo->second.dimIcon.y;
-    rectMask.right  = rectMask.left + texMaskInfo->second.dimIcon.x;
-    rectMask.bottom = rectMask.top  + texMaskInfo->second.dimIcon.y;
+  rectMask.left   = (rankMask % nbx) * texMaskInfo->second.dimIcon.x;
+  rectMask.top    = (rankMask / nbx) * texMaskInfo->second.dimIcon.y;
+  rectMask.right  = rectMask.left + texMaskInfo->second.dimIcon.x;
+  rectMask.bottom = rectMask.top + texMaskInfo->second.dimIcon.y;
 
-    /* Multiply the white mask with the texture (no alpha) */
-    res = BltFast (m_SDLTextureInfo[channel].texture, channelMask, posDst, rectMask, SDL_BLENDMODE_MOD);
+  /* Multiply the white mask with the texture (no alpha) */
+  res = BltFast (
+    m_SDLTextureInfo[channel].texture, channelMask, posDst, rectMask,
+    SDL_BLENDMODE_MOD);
 
-    posDstMask.x = (rankMask % nbx) * texMaskInfo->second.dimIcon.x;
-    posDstMask.y = (rankMask / nbx) * texMaskInfo->second.dimIcon.y;
-    /* Addition the previous texture with the black mask (alpha retrieved) */
-    res = BltFast (m_SDLTextureInfo[CHMASK2].texture, channel, posDstMask, rect, SDL_BLENDMODE_ADD);
+  posDstMask.x = (rankMask % nbx) * texMaskInfo->second.dimIcon.x;
+  posDstMask.y = (rankMask / nbx) * texMaskInfo->second.dimIcon.y;
+  /* Addition the previous texture with the black mask (alpha retrieved) */
+  res = BltFast (
+    m_SDLTextureInfo[CHMASK2].texture, channel, posDstMask, rect,
+    SDL_BLENDMODE_ADD);
 
-    /* Blit the altered mask in the final texture */
-    res = BltFast (m_SDLTextureInfo[channel].texture, CHMASK2, posDst, rectMask, SDL_BLENDMODE_NONE);
+  /* Blit the altered mask in the final texture */
+  res = BltFast (
+    m_SDLTextureInfo[channel].texture, CHMASK2, posDst, rectMask,
+    SDL_BLENDMODE_NONE);
 
-    /* Restore the black mask for the next iteration. */
-    SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[CHMASK2].texture);
-    SDL_RenderCopy (g_renderer, m_SDLTextureInfo[CHMASK2].texMask, nullptr, nullptr);
-    SDL_SetRenderTarget (g_renderer, nullptr);
+  /* Restore the black mask for the next iteration. */
+  SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[CHMASK2].texture);
+  SDL_RenderCopy (
+    g_renderer, m_SDLTextureInfo[CHMASK2].texMask, nullptr, nullptr);
+  SDL_SetRenderTarget (g_renderer, nullptr);
 
-    return !res;
+  return !res;
 }
-
 
 // Affiche le pixmap ï¿½ l'ï¿½cran.
 // Retourne false en cas d'erreur.
 
-bool CPixmap::Display()
+bool CPixmap::Display ()
 {
-    m_bBackDisplayed = true;
-    SDL_RenderPresent (g_renderer);
-    return true;
+  m_bBackDisplayed = true;
+  SDL_RenderPresent (g_renderer);
+  return true;
 }
 
 // Change le lutin de la souris.
 
 void CPixmap::SetMouseSprite (Sint32 sprite, bool bDemoPlay)
 {
-    if (m_mouseSprite == sprite)
-        return;
+  if (m_mouseSprite == sprite)
+    return;
 
-    m_mouseSprite = sprite;
+  m_mouseSprite = sprite;
 
-    SDL_SetCursor (m_lpSDLCursors[sprite - 1]);
+  SDL_SetCursor (m_lpSDLCursors[sprite - 1]);
 }
 
 // Montre ou cache la souris.
 
 void CPixmap::MouseShow (bool bShow)
 {
-    SDL_ShowCursor (bShow);
+  SDL_ShowCursor (bShow);
 }
 
 // Retourne le rectangle correspondant au sprite
 // de la souris dans CHBLUPI.
 
-RECT CPixmap::MouseRectSprite()
+RECT CPixmap::MouseRectSprite ()
 {
-    Sint32      rank, nbx;
-    RECT    rcRect;
+  Sint32 rank, nbx;
+  RECT   rcRect;
 
+  rank = 348;
+  if (m_mouseSprite == SPRITE_ARROW)
     rank = 348;
-    if (m_mouseSprite == SPRITE_ARROW)
-        rank = 348;
-    if (m_mouseSprite == SPRITE_POINTER)
-        rank = 349;
-    if (m_mouseSprite == SPRITE_MAP)
-        rank = 350;
-    if (m_mouseSprite == SPRITE_WAIT)
-        rank = 351;
-    if (m_mouseSprite == SPRITE_FILL)
-        rank = 352;
-    if (m_mouseSprite == SPRITE_ARROWL)
-        rank = 353;
-    if (m_mouseSprite == SPRITE_ARROWR)
-        rank = 354;
-    if (m_mouseSprite == SPRITE_ARROWU)
-        rank = 355;
-    if (m_mouseSprite == SPRITE_ARROWD)
-        rank = 356;
-    if (m_mouseSprite == SPRITE_ARROWDL)
-        rank = 357;
-    if (m_mouseSprite == SPRITE_ARROWDR)
-        rank = 358;
-    if (m_mouseSprite == SPRITE_ARROWUL)
-        rank = 359;
-    if (m_mouseSprite == SPRITE_ARROWUR)
-        rank = 360;
+  if (m_mouseSprite == SPRITE_POINTER)
+    rank = 349;
+  if (m_mouseSprite == SPRITE_MAP)
+    rank = 350;
+  if (m_mouseSprite == SPRITE_WAIT)
+    rank = 351;
+  if (m_mouseSprite == SPRITE_FILL)
+    rank = 352;
+  if (m_mouseSprite == SPRITE_ARROWL)
+    rank = 353;
+  if (m_mouseSprite == SPRITE_ARROWR)
+    rank = 354;
+  if (m_mouseSprite == SPRITE_ARROWU)
+    rank = 355;
+  if (m_mouseSprite == SPRITE_ARROWD)
+    rank = 356;
+  if (m_mouseSprite == SPRITE_ARROWDL)
+    rank = 357;
+  if (m_mouseSprite == SPRITE_ARROWDR)
+    rank = 358;
+  if (m_mouseSprite == SPRITE_ARROWUL)
+    rank = 359;
+  if (m_mouseSprite == SPRITE_ARROWUR)
+    rank = 360;
 
-    auto texMaskInfo = m_SDLTextureInfo.find (CHBLUPI);
+  auto texMaskInfo = m_SDLTextureInfo.find (CHBLUPI);
 
-    nbx = texMaskInfo->second.dimTotal.x / texMaskInfo->second.dimIcon.x;
+  nbx = texMaskInfo->second.dimTotal.x / texMaskInfo->second.dimIcon.x;
 
-    rcRect.left   = (rank % nbx) * texMaskInfo->second.dimIcon.x;
-    rcRect.top    = (rank / nbx) * texMaskInfo->second.dimIcon.y;
-    rcRect.right  = rcRect.left + texMaskInfo->second.dimIcon.x;
-    rcRect.bottom = rcRect.top + texMaskInfo->second.dimIcon.y;
+  rcRect.left   = (rank % nbx) * texMaskInfo->second.dimIcon.x;
+  rcRect.top    = (rank / nbx) * texMaskInfo->second.dimIcon.y;
+  rcRect.right  = rcRect.left + texMaskInfo->second.dimIcon.x;
+  rcRect.bottom = rcRect.top + texMaskInfo->second.dimIcon.y;
 
-    return rcRect;
+  return rcRect;
 }
 
 SDL_Point CPixmap::GetCursorHotSpot (Sint32 sprite)
 {
-    static const Sint32 hotspots[MAXCURSORS * 2] =
-    {
-        30, 30, // SPRITE_ARROW
-        20, 15, // SPRITE_POINTER
-        31, 26, // SPRITE_MAP
-        25, 14, // SPRITE_ARROWU
-        24, 35, // SPRITE_ARROWD
-        15, 24, // SPRITE_ARROWL
-        35, 24, // SPRITE_ARROWR
-        18, 16, // SPRITE_ARROWUL
-        32, 18, // SPRITE_ARROWUR
-        17, 30, // SPRITE_ARROWDL
-        32, 32, // SPRITE_ARROWDR
-        30, 30, // SPRITE_WAIT
-        30, 30, // SPRITE_EMPTY
-        21, 51, // SPRITE_FILL
-    };
+  static const Sint32 hotspots[MAXCURSORS * 2] = {
+    30, 30, // SPRITE_ARROW
+    20, 15, // SPRITE_POINTER
+    31, 26, // SPRITE_MAP
+    25, 14, // SPRITE_ARROWU
+    24, 35, // SPRITE_ARROWD
+    15, 24, // SPRITE_ARROWL
+    35, 24, // SPRITE_ARROWR
+    18, 16, // SPRITE_ARROWUL
+    32, 18, // SPRITE_ARROWUR
+    17, 30, // SPRITE_ARROWDL
+    32, 32, // SPRITE_ARROWDR
+    30, 30, // SPRITE_WAIT
+    30, 30, // SPRITE_EMPTY
+    21, 51, // SPRITE_FILL
+  };
 
-    SDL_Point hotspot = { 0, 0 };
+  SDL_Point hotspot = {0, 0};
 
-    if (sprite >= SPRITE_BEGIN && sprite <= SPRITE_END)
-    {
-        const Sint32 rank = sprite - SPRITE_BEGIN;  // rank <- 0..n
+  if (sprite >= SPRITE_BEGIN && sprite <= SPRITE_END)
+  {
+    const Sint32 rank = sprite - SPRITE_BEGIN; // rank <- 0..n
 
-        hotspot.x = hotspots[rank * 2 + 0];
-        hotspot.y = hotspots[rank * 2 + 1];
-    }
+    hotspot.x = hotspots[rank * 2 + 0];
+    hotspot.y = hotspots[rank * 2 + 1];
+  }
 
-    return hotspot;
+  return hotspot;
 }
 
 SDL_Rect CPixmap::GetCursorRect (Sint32 sprite)
 {
-    Sint32 rank;
-    SDL_Rect rcRect;
+  Sint32   rank;
+  SDL_Rect rcRect;
 
-    switch (sprite)
-    {
-    default:
-    case SPRITE_ARROW:
-        rank = 348;
-        break;
-    case SPRITE_POINTER:
-        rank = 349;
-        break;
-    case SPRITE_MAP:
-        rank = 350;
-        break;
-    case SPRITE_WAIT:
-        rank = 351;
-        break;
-    case SPRITE_FILL:
-        rank = 352;
-        break;
-    case SPRITE_ARROWL:
-        rank = 353;
-        break;
-    case SPRITE_ARROWR:
-        rank = 354;
-        break;
-    case SPRITE_ARROWU:
-        rank = 355;
-        break;
-    case SPRITE_ARROWD:
-        rank = 356;
-        break;
-    case SPRITE_ARROWDL:
-        rank = 357;
-        break;
-    case SPRITE_ARROWDR:
-        rank = 358;
-        break;
-    case SPRITE_ARROWUL:
-        rank = 359;
-        break;
-    case SPRITE_ARROWUR:
-        rank = 360;
-        break;
-    }
+  switch (sprite)
+  {
+  default:
+  case SPRITE_ARROW:
+    rank = 348;
+    break;
+  case SPRITE_POINTER:
+    rank = 349;
+    break;
+  case SPRITE_MAP:
+    rank = 350;
+    break;
+  case SPRITE_WAIT:
+    rank = 351;
+    break;
+  case SPRITE_FILL:
+    rank = 352;
+    break;
+  case SPRITE_ARROWL:
+    rank = 353;
+    break;
+  case SPRITE_ARROWR:
+    rank = 354;
+    break;
+  case SPRITE_ARROWU:
+    rank = 355;
+    break;
+  case SPRITE_ARROWD:
+    rank = 356;
+    break;
+  case SPRITE_ARROWDL:
+    rank = 357;
+    break;
+  case SPRITE_ARROWDR:
+    rank = 358;
+    break;
+  case SPRITE_ARROWUL:
+    rank = 359;
+    break;
+  case SPRITE_ARROWUR:
+    rank = 360;
+    break;
+  }
 
-    auto texMaskInfo = m_SDLTextureInfo.find (CHBLUPI);
+  auto texMaskInfo = m_SDLTextureInfo.find (CHBLUPI);
 
-    Sint32 nbx = texMaskInfo->second.dimTotal.x / texMaskInfo->second.dimIcon.x;
+  Sint32 nbx = texMaskInfo->second.dimTotal.x / texMaskInfo->second.dimIcon.x;
 
-    rcRect.x = (rank % nbx) * texMaskInfo->second.dimIcon.x;
-    rcRect.y = (rank / nbx) * texMaskInfo->second.dimIcon.y;
-    rcRect.w = texMaskInfo->second.dimIcon.x;
-    rcRect.h = texMaskInfo->second.dimIcon.y;
+  rcRect.x = (rank % nbx) * texMaskInfo->second.dimIcon.x;
+  rcRect.y = (rank / nbx) * texMaskInfo->second.dimIcon.y;
+  rcRect.w = texMaskInfo->second.dimIcon.x;
+  rcRect.h = texMaskInfo->second.dimIcon.y;
 
-    return rcRect;
+  return rcRect;
 }
 
-void CPixmap::LoadCursors()
+void CPixmap::LoadCursors ()
 {
-    Uint32 rmask, gmask, bmask, amask;
+  Uint32 rmask, gmask, bmask, amask;
 
-    /* SDL interprets each pixel as a 32-bit number, so our masks must depend
-    on the endianness (byte order) of the machine */
+/* SDL interprets each pixel as a 32-bit number, so our masks must depend
+on the endianness (byte order) of the machine */
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
-    rmask = 0xff000000;
-    gmask = 0x00ff0000;
-    bmask = 0x0000ff00;
-    amask = 0x000000ff;
+  rmask = 0xff000000;
+  gmask = 0x00ff0000;
+  bmask = 0x0000ff00;
+  amask = 0x000000ff;
 #else
-    rmask = 0x000000ff;
-    gmask = 0x0000ff00;
-    bmask = 0x00ff0000;
-    amask = 0xff000000;
+  rmask = 0x000000ff;
+  gmask = 0x0000ff00;
+  bmask = 0x00ff0000;
+  amask = 0xff000000;
 #endif
 
-    for (Sint32 sprite = SPRITE_BEGIN; sprite <= SPRITE_END; ++sprite)
-    {
-        SDL_Point hotspot = this->GetCursorHotSpot (sprite);
-        SDL_Rect rect = this->GetCursorRect (sprite);
+  for (Sint32 sprite = SPRITE_BEGIN; sprite <= SPRITE_END; ++sprite)
+  {
+    SDL_Point hotspot = this->GetCursorHotSpot (sprite);
+    SDL_Rect  rect    = this->GetCursorRect (sprite);
 
-        SDL_Surface *surface = SDL_CreateRGBSurface (0, rect.w, rect.h, 32, rmask,
-                               gmask, bmask, amask);
-        SDL_BlitSurface (m_lpSDLBlupi, &rect, surface, nullptr);
+    SDL_Surface * surface =
+      SDL_CreateRGBSurface (0, rect.w, rect.h, 32, rmask, gmask, bmask, amask);
+    SDL_BlitSurface (m_lpSDLBlupi, &rect, surface, nullptr);
 
-        // FIXME: change cursor first value to 0
-        m_lpSDLCursors[sprite - 1] = SDL_CreateColorCursor (surface, hotspot.x,
-                                     hotspot.y);
-    }
+    // FIXME: change cursor first value to 0
+    m_lpSDLCursors[sprite - 1] =
+      SDL_CreateColorCursor (surface, hotspot.x, hotspot.y);
+  }
 }
 
 void CPixmap::ChangeSprite (MouseSprites sprite)
 {
-    if (m_lpCurrentCursor == m_lpSDLCursors[sprite - 1])
-        return;
+  if (m_lpCurrentCursor == m_lpSDLCursors[sprite - 1])
+    return;
 
-    SDL_SetCursor (m_lpSDLCursors[sprite - 1]);
-    m_lpCurrentCursor = m_lpSDLCursors[sprite - 1];
+  SDL_SetCursor (m_lpSDLCursors[sprite - 1]);
+  m_lpCurrentCursor = m_lpSDLCursors[sprite - 1];
 }

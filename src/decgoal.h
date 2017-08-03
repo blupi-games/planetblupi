@@ -24,6 +24,7 @@
 
 // Méta opérations (goal).
 
+// clang-format off
 #define GOAL_TERM           0   //
 #define GOAL_GOHILI         1   // dx,dy, bPass
 #define GOAL_GOHILI2        2   // dx,dy, bPass
@@ -38,9 +39,9 @@
 #define GOAL_ADDMOVES       11  // dx,dy,no
 #define GOAL_OTHER          12  // channel,first,last,fitst,last,action
 #define GOAL_FINISHMOVE     13  //
-#define GOAL_TAKE           14  // dx,dy 
+#define GOAL_TAKE           14  // dx,dy
 #define GOAL_DEPOSE         15  //
-#define GOAL_GROUP          16  // nb 
+#define GOAL_GROUP          16  // nb
 #define GOAL_WORK           17  // dx,dy
 #define GOAL_TESTOBJECT     18  // dx,dy, channel,icon
 #define GOAL_FIX            19  // dx,dy
@@ -69,11 +70,12 @@
 #define GOAL_MALADE         42  // bMalade
 #define GOAL_IFTERM         43  // dx,dy
 #define GOAL_IFDEBARQUE     44  // dx,dy
-#define GOAL_ISNOMALADE     45  // 
+#define GOAL_ISNOMALADE     45  //
 #define GOAL_SKIPSKILL      46  // skill,d
 #define GOAL_TELEPORTE      47  // dx,dy
 #define GOAL_ACTUALISE      48  //
 #define GOAL_WAITFREE       49  // dx,dy
+// clang-format on
 
-Sint16 *GetTableGoal (Sint32 action);
+Sint16 *      GetTableGoal (Sint32 action);
 extern Sint16 table_goal_nbop[];

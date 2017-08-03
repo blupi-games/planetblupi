@@ -20,5 +20,7 @@
 
 #pragma once
 
-Sint16 *GetListMoves (Sint32 rank);
-Sint16 *GetListIcons (Sint32 rank);
+#include <SDL2/SDL_stdinc.h>
+
+Sint16 * GetListMoves (Sint32 rank);
+Sint16 * GetListIcons (Sint32 rank);

@@ -27,46 +27,46 @@
 
 #ifdef _WIN32
 #include <direct.h>
-#define mkdir(a, b) _mkdir(a)
+#define mkdir(a, b) _mkdir (a)
 #else /* _WIN32 */
 #include <sys/stat.h>
 #endif /*! _WIN32 */
 
-#include "misc.h"
 #include "blupi.h"
 #include "def.h"
+#include "misc.h"
 
 // Affiche un message de debug.
 
-void OutputDebug (const char *pMessage)
+void OutputDebug (const char * pMessage)
 {
-    SDL_LogDebug (SDL_LOG_CATEGORY_APPLICATION, "%s", pMessage);
+  SDL_LogDebug (SDL_LOG_CATEGORY_APPLICATION, "%s", pMessage);
 }
 
 // Conversion de la position de la souris.
 
 POINT ConvLongToPos (LPARAM lParam)
 {
-    POINT   pos;
+  POINT pos;
 
-    pos.x = LOWORD (lParam); // horizontal position of cursor
-    pos.y = HIWORD (lParam); // vertical position of cursor
+  pos.x = LOWORD (lParam); // horizontal position of cursor
+  pos.y = HIWORD (lParam); // vertical position of cursor
 
-    //  if ( !g_bFullScreen )
-    //  {
-    //      pos.y -= GetSystemMetrics(SM_CYCAPTION);
-    //  }
+  //  if ( !g_bFullScreen )
+  //  {
+  //      pos.y -= GetSystemMetrics(SM_CYCAPTION);
+  //  }
 
-    return pos;
+  return pos;
 }
 
 static int g_seed;
 
 /* Initialize the Microsoft pseudo-random generator */
-void InitRandom()
+void InitRandom ()
 {
-    g_seed = 1;
-    // srand (1);
+  g_seed = 1;
+  // srand (1);
 }
 
 /* We are not using rand from stdlib because on Linux the pseudo-generator
@@ -83,68 +83,71 @@ int ms_rand ()
 /* Returns a random number between two values (included). */
 Sint32 Random (Sint32 min, Sint32 max)
 {
-    Sint32  n;
+  Sint32 n;
 
-    n = ms_rand (); // replace rand ();
-    n = min + (n % (max - min + 1));
+  n = ms_rand (); // replace rand ();
+  n = min + (n % (max - min + 1));
 
-    return (Sint32) n;
+  return (Sint32) n;
 }
 
 std::string GetLocale ()
 {
-    return gettext ("en");
+  return gettext ("en");
 }
 
 // Retourne le nom de dossier en cours.
 
-std::string GetBaseDir()
+std::string GetBaseDir ()
 {
-    return GetShareDir () + "planetblupi/";
+  return GetShareDir () + "planetblupi/";
 }
 
 std::string GetShareDir ()
 {
-    static std::string basePath;
+  static std::string basePath;
 
-    if (!basePath.size())
-    {
-        auto sdlBasePath = SDL_GetBasePath();
-        sdlBasePath[strlen (sdlBasePath) - 1] = '\0';
-        basePath = sdlBasePath;
-        std::replace (basePath.begin(), basePath.end(), '\\', '/');
-        basePath = basePath.substr (0, basePath.find_last_of ("//") + 1);
-        SDL_free (sdlBasePath);
-    }
+  if (!basePath.size ())
+  {
+    auto sdlBasePath = SDL_GetBasePath ();
 
-    return basePath + "share/";
+    sdlBasePath[strlen (sdlBasePath) - 1] = '\0';
+
+    basePath = sdlBasePath;
+
+    std::replace (basePath.begin (), basePath.end (), '\\', '/');
+    basePath = basePath.substr (0, basePath.find_last_of ("//") + 1);
+    SDL_free (sdlBasePath);
+  }
+
+  return basePath + "share/";
 }
 
 // Ajoute le chemin permettant de lire un fichier
 // utilisateur.
 
-void AddUserPath (std::string &pFilename)
+void AddUserPath (std::string & pFilename)
 {
-    const char             *pText;
-    size_t                  pos;
-    char                    last;
+  const char * pText;
+  size_t       pos;
+  char         last;
 
-    char *temp = SDL_GetPrefPath ("Epsitec SA", "Planet Blupi");
-    std::string path = temp;
+  char *      temp = SDL_GetPrefPath ("Epsitec SA", "Planet Blupi");
+  std::string path = temp;
 
-    pText = strstr (pFilename.c_str (), "/");
-    if (pText != nullptr)
-    {
-        pos = path.size() + (pText - pFilename.c_str ()) + 1;
-        path += pFilename;
-        last = path[pos];
-        path[pos] = 0;
-        mkdir (path.c_str(), 755);
-        path[pos] = last;
-    }
-    else
-        path += pFilename;
+  pText = strstr (pFilename.c_str (), "/");
+  if (pText != nullptr)
+  {
+    pos = path.size () + (pText - pFilename.c_str ()) + 1;
+    path += pFilename;
+    last      = path[pos];
+    path[pos] = 0;
+    mkdir (path.c_str (), 755);
+    path[pos] = last;
+  }
+  else
+    path += pFilename;
 
-    pFilename = path;
-    SDL_free (temp);
+  pFilename = path;
+  SDL_free (temp);
 }
