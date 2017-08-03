@@ -226,5 +226,8 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     )
 
     include (CPack)
+    add_custom_command (TARGET planetblupi
+                        POST_BUILD
+                        COMMAND make package)
   endif ()
 endif ()
