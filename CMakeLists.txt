@@ -160,7 +160,10 @@ install (DIRECTORY resources/image DESTINATION share/planetblupi)
 install (DIRECTORY resources/movie DESTINATION share/planetblupi)
 install (DIRECTORY resources/sound DESTINATION share/planetblupi)
 install (DIRECTORY resources/music DESTINATION share/planetblupi)
-install (DIRECTORY resources/icon/hicolor DESTINATION share/icons)
+
+if (UNIX AND NOT APPLE)
+  install (DIRECTORY resources/icon/hicolor DESTINATION share/icons)
+endif ()
 
 # Copy libwinpthread-1.dll which seems not be linkable statically
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows" AND MINGW)
@@ -175,31 +178,50 @@ endif ()
 #########
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
+  set (CPACK_STRIP_FILES TRUE)
+  set (CPACK_PACKAGE_NAME "planetblupi")
+  set (CPACK_PACKAGE_VENDOR "blupi.org")
+  set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "Planet Blupi - A delerious spell-binding game")
+  set (CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+  set (CPACK_PACKAGE_FILE_NAME "planetblupi")
+  set (CPACK_PACKAGE_VERSION_MAJOR ${PB_VERSION_MAJOR})
+  set (CPACK_PACKAGE_VERSION_MINOR ${PB_VERSION_MINOR})
+  set (CPACK_PACKAGE_VERSION_PATCH ${PB_VERSION_PATCH})
+  set (CPACK_PACKAGE_INSTALL_DIRECTORY "Planet Blupi")
+  set (CPACK_PACKAGE_EXECUTABLES "planetblupi;Planet Blupi")
+
   if (USE_APPIMAGE)
     include (LinuxAppImageBuild)
     set (CMAKE_PACKAGED_OUTPUT_PREFIX ${CMAKE_INSTALL_PREFIX})
     APPIMAGE_PACKAGE (planetblupi "planetblupi" "Planet Blupi" "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "${CMAKE_BINARY_DIR}/share" "" "" "blupi")
   elseif (MINGW)
     set (CPACK_GENERATOR "NSIS64;ZIP")
-    set (CPACK_STRIP_FILES TRUE)
-    set (CPACK_PACKAGE_NAME "planetblupi")
-    set (CPACK_PACKAGE_VENDOR "blupi.org")
-    set (CPACK_PACKAGE_DESCRIPTION_SUMMARY "Planet Blupi - A delerious spell-binding game")
-    set (CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}\\\\LICENSE")
-    set (CPACK_PACKAGE_VERSION_MAJOR ${PB_VERSION_MAJOR})
-    set (CPACK_PACKAGE_VERSION_MINOR ${PB_VERSION_MINOR})
-    set (CPACK_PACKAGE_VERSION_PATCH ${PB_VERSION_PATCH})
-    set (CPACK_PACKAGE_INSTALL_DIRECTORY "Planet Blupi")
-    set (CPACK_PACKAGE_EXECUTABLES "planetblupi;Planet Blupi")
     set (CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\resources\\\\nsis\\\\installer.bmp")
     set (CPACK_NSIS_COMPRESSOR "/SOLID lzma")
     set (CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\planetblupi.exe")
     set (CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\www.blupi.org")
     set (CPACK_NSIS_MUI_FINISHPAGE_RUN "planetblupi")
     include (CPack)
-
     add_custom_command (TARGET planetblupi
                         POST_BUILD
                         COMMAND make package)
+  elseif (APPLE)
+    set (CPACK_GENERATOR "Bundle")
+    set (CPACK_BUNDLE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/darwin/icon.icns")
+    set (CPACK_BUNDLE_NAME "Planet Blupi")
+    set (CPACK_BUNDLE_PLIST "${CMAKE_BINARY_DIR}/Info.plist")
+    set (CPACK_BUNDLE_STARTUP_COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/resources/darwin/Planet Blupi")
+
+    set (BUNDLE_VERSION "${PB_VERSION_MAJOR}.${PB_VERSION_MINOR}.${PB_VERSION_PATCH}")
+    set (BUNDLE_IDENTIFIER "org.blupi.planet")
+    set (BUNDLE_ICON_REF "Planet Blupi")
+
+    configure_file (
+      "${CMAKE_CURRENT_SOURCE_DIR}/resources/darwin/Info.plist.in"
+      "${CMAKE_BINARY_DIR}/Info.plist"
+      @ONLY
+    )
+
+    include (CPack)
   endif ()
 endif ()
