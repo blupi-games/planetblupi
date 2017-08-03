@@ -57,7 +57,10 @@ file (COPY resources/image DESTINATION share/planetblupi)
 file (COPY resources/movie DESTINATION share/planetblupi)
 file (COPY resources/sound DESTINATION share/planetblupi)
 file (COPY resources/music DESTINATION share/planetblupi)
-file (COPY resources/icon/hicolor DESTINATION share/icons)
+
+if (UNIX AND NOT APPLE)
+  file (COPY resources/icon/hicolor DESTINATION share/icons)
+endif ()
 
 # Windows stuff
 
