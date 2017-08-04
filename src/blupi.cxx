@@ -373,7 +373,7 @@ static void HandleEvent (const SDL_Event & event)
   }
 }
 
-// Erreur dans DoInit.
+// Error with DoInit function.
 
 static bool InitFail (const char * msg)
 {
@@ -390,7 +390,7 @@ static bool InitFail (const char * msg)
   return false;
 }
 
-// Initialisation de l'application.
+// Main initialization function.
 
 static bool DoInit (Sint32 argc, char * argv[])
 {
@@ -435,7 +435,7 @@ static bool DoInit (Sint32 argc, char * argv[])
     return false;
   }
 
-  if (!bOK) // config.ini pas correct ?
+  if (!bOK) // Something wrong with config.ini file?
     return InitFail ("Game not correctly installed");
 
   SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
@@ -465,7 +465,7 @@ static bool DoInit (Sint32 argc, char * argv[])
       info.max_texture_height);
   }
 
-  // Crï¿½e le pixmap principal.
+  // Create the main pixmap.
   g_pPixmap = new CPixmap;
   if (g_pPixmap == nullptr)
     return InitFail ("New pixmap");
@@ -593,7 +593,7 @@ static bool DoInit (Sint32 argc, char * argv[])
   g_pPixmap->LoadCursors ();
   g_pPixmap->ChangeSprite (SPRITE_WAIT); // met le sablier maison
 
-  // Crï¿½e le gestionnaire de son.
+  // Create the sound manager.
   g_pSound = new CSound;
   if (g_pSound == nullptr)
     return InitFail ("New sound");
@@ -602,14 +602,14 @@ static bool DoInit (Sint32 argc, char * argv[])
   g_pSound->CacheAll ();
   g_pSound->SetState (true);
 
-  // Crï¿½e le gestionnaire de films.
+  // Create the movie manager.
   g_pMovie = new CMovie;
   if (g_pMovie == nullptr)
     return InitFail ("New movie");
 
   g_pMovie->Create ();
 
-  // Crï¿½e le gestionnaire de dï¿½cors.
+  // Create the decor manager.
   g_pDecor = new CDecor;
   if (g_pDecor == nullptr)
     return InitFail ("New decor");
@@ -617,7 +617,7 @@ static bool DoInit (Sint32 argc, char * argv[])
   g_pDecor->Create (g_pSound, g_pPixmap);
   g_pDecor->MapInitColors ();
 
-  // Crï¿½e le gestionnaire d'ï¿½vï¿½nements.
+  // Create the event manager.
   g_pEvent = new CEvent;
   if (g_pEvent == nullptr)
     return InitFail ("New event");
@@ -626,7 +626,7 @@ static bool DoInit (Sint32 argc, char * argv[])
   g_pEvent->SetFullScreen (g_bFullScreen);
   g_pEvent->ChangePhase (WM_PHASE_INTRO1);
 
-  g_bTermInit = true; // initialisation terminï¿½e
+  g_bTermInit = true;
   return true;
 }
 
@@ -637,8 +637,6 @@ static void initGettext ()
   bindtextdomain ("planetblupi", (GetShareDir () + "locale").c_str ());
   bind_textdomain_codeset ("planetblupi", "UTF-8");
 }
-
-// Programme principal.
 
 int main (int argc, char * argv[])
 {
