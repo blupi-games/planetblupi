@@ -2228,12 +2228,12 @@ bool CEvent::DrawButtons ()
   if (m_phase == WM_PHASE_INFO)
   {
     if (m_bSchool)
-      snprintf (res, sizeof (res), gettext ("Training number"));
+      snprintf (res, sizeof (res), "%s", gettext ("Training number"));
     else
-      snprintf (res, sizeof (res), gettext ("Mission number"));
+      snprintf (res, sizeof (res), "%s", gettext ("Mission number"));
 
     if (m_bPrivate)
-      snprintf (res, sizeof (res), gettext ("Construction number"));
+      snprintf (res, sizeof (res), "%s", gettext ("Construction number"));
 
     lg    = GetTextWidth (res);
     pos.x = (140 + 270) / 2 - lg / 2;
@@ -2445,7 +2445,7 @@ bool CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, text);
 
     if (!m_scrollSpeed)
-      snprintf (res, sizeof (res), gettext ("None"));
+      snprintf (res, sizeof (res), "%s", gettext ("None"));
     else
       sprintf (res, "%d", m_scrollSpeed);
     lg    = GetTextWidth (res);
