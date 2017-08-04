@@ -375,14 +375,11 @@ static void HandleEvent (const SDL_Event & event)
 
 // Erreur dans DoInit.
 
-static bool InitFail (const char * msg, bool bDirectX)
+static bool InitFail (const char * msg)
 {
   char buffer[100];
 
-  if (bDirectX)
-    strcpy (buffer, "DirectX Init FAILED\n(while ");
-  else
-    strcpy (buffer, "Error (");
+  strcpy (buffer, "Error (");
   strcat (buffer, msg);
   strcat (buffer, ")");
 
@@ -439,7 +436,7 @@ static bool DoInit (Sint32 argc, char * argv[])
   }
 
   if (!bOK) // config.ini pas correct ?
-    return InitFail ("Game not correctly installed", false);
+    return InitFail ("Game not correctly installed");
 
   SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
 
@@ -471,12 +468,12 @@ static bool DoInit (Sint32 argc, char * argv[])
   // Crï¿½e le pixmap principal.
   g_pPixmap = new CPixmap;
   if (g_pPixmap == nullptr)
-    return InitFail ("New pixmap", true);
+    return InitFail ("New pixmap");
 
   totalDim.x = LXIMAGE;
   totalDim.y = LYIMAGE;
   if (!g_pPixmap->Create (totalDim))
-    return InitFail ("Create pixmap", true);
+    return InitFail ("Create pixmap");
 
   OutputDebug ("Image: init\n");
   totalDim.x = LXIMAGE;
@@ -510,87 +507,87 @@ static bool DoInit (Sint32 argc, char * argv[])
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
   if (!g_pPixmap->Cache (CHFLOOR, "image/floor000.png", totalDim, iconDim))
-    return InitFail ("Cache floor000.png", true);
+    return InitFail ("Cache floor000.png");
 
   totalDim.x = DIMOBJX * 16;
   totalDim.y = DIMOBJY * 8;
   iconDim.x  = DIMOBJX;
   iconDim.y  = DIMOBJY;
   if (!g_pPixmap->Cache (CHOBJECT, "image/obj000.png", totalDim, iconDim))
-    return InitFail ("Cache obj000.png", true);
+    return InitFail ("Cache obj000.png");
 
   if (!g_pPixmap->Cache (CHOBJECTo, "image/obj-o000.png", totalDim, iconDim))
-    return InitFail ("Cache obj-o000.png", true);
+    return InitFail ("Cache obj-o000.png");
 
   totalDim.x = DIMBLUPIX * 16;
   totalDim.y = DIMBLUPIY * 23;
   iconDim.x  = DIMBLUPIX;
   iconDim.y  = DIMBLUPIY;
   if (!g_pPixmap->Cache (CHBLUPI, "image/blupi.png", totalDim, iconDim))
-    return InitFail ("Cache blupi.png", true);
+    return InitFail ("Cache blupi.png");
 
   totalDim.x = 64;
   totalDim.y = 66;
   iconDim.x  = 64;
   iconDim.y  = 66 / 2;
   if (!g_pPixmap->Cache (CHHILI, "image/hili.png", totalDim, iconDim))
-    return InitFail ("Cache hili.png", true);
+    return InitFail ("Cache hili.png");
 
   totalDim.x = DIMCELX * 2 * 3;
   totalDim.y = DIMCELY * 2 * 5;
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
   if (!g_pPixmap->Cache (CHFOG, "image/fog.png", totalDim, iconDim))
-    return InitFail ("Cache fog.png", true);
+    return InitFail ("Cache fog.png");
 
   totalDim.x = DIMCELX * 2 * 16;
   totalDim.y = DIMCELY * 2 * 1;
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
   if (!g_pPixmap->Cache (CHMASK1, "image/mask1.png", totalDim, iconDim))
-    return InitFail ("Cache mask1.png", true);
+    return InitFail ("Cache mask1.png");
 
   totalDim.x = DIMCELX * 2 * 16;
   totalDim.y = DIMCELY * 2 * 1;
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
   if (!g_pPixmap->Cache (CHMASK2, "image/mask2.png", totalDim, iconDim))
-    return InitFail ("Cache mask2.png", true);
+    return InitFail ("Cache mask2.png");
 
   totalDim.x = DIMBUTTONX * 6;
   totalDim.y = DIMBUTTONY * 21;
   iconDim.x  = DIMBUTTONX;
   iconDim.y  = DIMBUTTONY;
   if (!g_pPixmap->Cache (CHBUTTON, "image/button00.png", totalDim, iconDim))
-    return InitFail ("Cache button00.png", true);
+    return InitFail ("Cache button00.png");
 
   totalDim.x = DIMJAUGEX * 1;
   totalDim.y = DIMJAUGEY * 4;
   iconDim.x  = DIMJAUGEX;
   iconDim.y  = DIMJAUGEY;
   if (!g_pPixmap->Cache (CHJAUGE, "image/jauge.png", totalDim, iconDim))
-    return InitFail ("Cache jauge.png", true);
+    return InitFail ("Cache jauge.png");
 
   totalDim.x = DIMTEXTX * 16;
   totalDim.y = DIMTEXTY * 8 * 3;
   iconDim.x  = DIMTEXTX;
   iconDim.y  = DIMTEXTY;
   if (!g_pPixmap->Cache (CHTEXT, "image/text.png", totalDim, iconDim))
-    return InitFail ("Cache text.png", true);
+    return InitFail ("Cache text.png");
 
   totalDim.x = DIMLITTLEX * 16;
   totalDim.y = DIMLITTLEY * 8;
   iconDim.x  = DIMLITTLEX;
   iconDim.y  = DIMLITTLEY;
   if (!g_pPixmap->Cache (CHLITTLE, "image/little.png", totalDim, iconDim))
-    return InitFail ("Cache little.png", true);
+    return InitFail ("Cache little.png");
 
   totalDim.x = 426;
   totalDim.y = 52;
   iconDim.x  = 426;
   iconDim.y  = 52;
   if (!g_pPixmap->Cache (CHBIGNUM, "image/bignum.png", totalDim, iconDim))
-    return InitFail ("Cache bignum.png", true);
+    return InitFail ("Cache bignum.png");
 
   // Load all cursors
   g_pPixmap->LoadCursors ();
@@ -599,7 +596,7 @@ static bool DoInit (Sint32 argc, char * argv[])
   // Crï¿½e le gestionnaire de son.
   g_pSound = new CSound;
   if (g_pSound == nullptr)
-    return InitFail ("New sound", true);
+    return InitFail ("New sound");
 
   g_pSound->Create ();
   g_pSound->CacheAll ();
@@ -608,14 +605,14 @@ static bool DoInit (Sint32 argc, char * argv[])
   // Crï¿½e le gestionnaire de films.
   g_pMovie = new CMovie;
   if (g_pMovie == nullptr)
-    return InitFail ("New movie", false);
+    return InitFail ("New movie");
 
   g_pMovie->Create ();
 
   // Crï¿½e le gestionnaire de dï¿½cors.
   g_pDecor = new CDecor;
   if (g_pDecor == nullptr)
-    return InitFail ("New decor", false);
+    return InitFail ("New decor");
 
   g_pDecor->Create (g_pSound, g_pPixmap);
   g_pDecor->MapInitColors ();
@@ -623,7 +620,7 @@ static bool DoInit (Sint32 argc, char * argv[])
   // Crï¿½e le gestionnaire d'ï¿½vï¿½nements.
   g_pEvent = new CEvent;
   if (g_pEvent == nullptr)
-    return InitFail ("New event", false);
+    return InitFail ("New event");
 
   g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
   g_pEvent->SetFullScreen (g_bFullScreen);
