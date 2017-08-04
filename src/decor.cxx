@@ -528,14 +528,6 @@ void CDecor::BuildPutBlupi ()
   Sint32 x, y, dx, dy, xMin, yMin, rank, clipLeft;
   POINT  pos;
 
-#if 0 // déjà fait au point (1), voir Build
-    for (x = 0 ; x < MAXCELX ; x++)
-    {
-        for (y = 0 ; y < MAXCELY ; y++)
-            m_rankBlupi[x][y] = -1;
-    }
-#endif
-
   for (rank = 0; rank < MAXBLUPI; rank++)
   {
     if (
@@ -958,11 +950,6 @@ void CDecor::BuildGround (RECT clip)
     cPos = mPos;
     for (i = 0; i < nbx; i++)
     {
-      //          if ( x >= 0 && x < MAXCELX &&
-      //               y >= 0 && y < MAXCELY &&
-      //               x%2 == 0 && y%2 == 0 &&
-      //               m_decor[x/2][y/2].floorChannel >= 0 &&
-      //               m_decor[x/2][y/2].floorIcon    >= 0 )
       if (x % 2 == 0 && y % 2 == 0)
       {
         pos.x = cPos.x - DIMCELX / 2;
@@ -1703,7 +1690,6 @@ Errors CDecor::CelOkForAction (
           IsFreeCelGo (GetCel (cel.x + x, cel.y + y), rank) &&
           !IsBlupiHere (GetCel (cel.x + x, cel.y + y), true))
         {
-          //?                 icons[1+x][1+y] = ICON_HILI_GO;  // flèche
           icons[1 + x][1 + y] = ICON_HILI_OP; // action
           error               = Errors::NONE;
         }
@@ -1928,14 +1914,6 @@ Errors CDecor::CelOkForAction (
       {
         error = Errors::MISC; // pas assez fort
       }
-
-      //          GetFloor(cel, channel, icon);
-      //          if ( channel != CHFLOOR ||
-      //              (icon != 1 &&                 // herbe claire ?
-      //               (icon < 19 || icon > 32)) )  // herbe foncée ?
-      //          {
-      //              error = Errors::GROUND;  // sol pas adéquat
-      //          }
 
       GetObject (cel, channel, icon);
       if (channel != CHOBJECT || icon != 44) // pierres ?
