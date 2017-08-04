@@ -196,7 +196,7 @@ void CDecor::Init (Sint32 channel, Sint32 icon)
 
   for (x = 0; x < MAXCELX; x++)
   {
-    for (y              = 0; y < MAXCELY; y++)
+    for (y = 0; y < MAXCELY; y++)
       m_rankBlupi[x][y] = -1;
   }
 
@@ -537,7 +537,7 @@ void CDecor::BuildPutBlupi ()
       xMin = m_blupi[rank].destCel.x;
       if (xMin > m_blupi[rank].cel.x)
         xMin = m_blupi[rank].cel.x;
-      yMin   = m_blupi[rank].destCel.y;
+      yMin = m_blupi[rank].destCel.y;
       if (yMin > m_blupi[rank].cel.y)
         yMin = m_blupi[rank].cel.y;
 
@@ -562,7 +562,7 @@ void CDecor::BuildPutBlupi ()
         pos      = ConvCelToPos (GetCel (xMin, yMin));
         clipLeft = pos.x + 34;
         if (clipLeft < POSDRAWX)
-          clipLeft             = POSDRAWX;
+          clipLeft = POSDRAWX;
         m_blupi[rank].clipLeft = clipLeft;
       }
 
@@ -1110,9 +1110,10 @@ void CDecor::Build (RECT clip, POINT posMouse)
             // Dessine l'eau en mouvement.
             pos.x = cPos.x - DIMCELX / 2;
             pos.y = cPos.y;
-            n     = table_eau[(m_timeConst / 2 + // lent !
-                           table_random_x[x % 10] + table_random_y[y % 10]) %
-                          6];
+            n     = table_eau
+              [(m_timeConst / 2 + // lent !
+                table_random_x[x % 10] + table_random_y[y % 10]) %
+               6];
             m_pPixmap->DrawIcon (CHGROUND, CHFLOOR, n, pos); // eau
             if (icon != 14)
               m_pPixmap->DrawIcon (CHGROUND, CHFLOOR, icon, pos);
@@ -1224,7 +1225,7 @@ void CDecor::Build (RECT clip, POINT posMouse)
               icon = 120;
             if (icon > 137)
               icon = 137;
-            tPos   = pos;
+            tPos = pos;
             tPos.y += DIMCELY;
             if (m_blupi[rank].vehicule == 1) // en bateau ?
               tPos.y -= 6;
@@ -1582,7 +1583,7 @@ Errors CDecor::CelOkForAction (
 
   for (x = 0; x < 4; x++)
   {
-    for (y        = 0; y < 4; y++)
+    for (y = 0; y < 4; y++)
       icons[x][y] = -1;
   }
 
@@ -2747,7 +2748,7 @@ void CDecor::CelHili (POINT pos, Sint32 action)
 
   for (x = 0; x < 4; x++)
   {
-    for (y             = 0; y < 4; y++)
+    for (y = 0; y < 4; y++)
       m_iconHili[x][y] = -1;
   }
 
@@ -2881,7 +2882,7 @@ void CDecor::CelHiliRepeat (Sint32 list)
 
   for (x = 0; x < 4; x++)
   {
-    for (y             = 0; y < 4; y++)
+    for (y = 0; y < 4; y++)
       m_iconHili[x][y] = -1;
   }
 

@@ -316,13 +316,15 @@ void CMenu::Draw ()
     {
       //          if ( bRight )
       //          {
-      pos.x = m_pos.x + m_dim.x + 4; // texte à droite
-                                     //          }
-                                     //          else
-                                     //          {
-                                     //              pos.x =
-                                     //              m_pos.x+(i/m_nbCel.y)*(DIMBUTTONX+MARGMENU)-4-GetTextWidth(text);
-                                     //          }
+      pos.x =
+        m_pos.x + m_dim.x +
+        4; // texte à droite
+           //          }
+           //          else
+           //          {
+           //              pos.x =
+           //              m_pos.x+(i/m_nbCel.y)*(DIMBUTTONX+MARGMENU)-4-GetTextWidth(text);
+           //          }
     }
 
     DrawText (m_pPixmap, pos, text, FONTWHITE);
@@ -358,13 +360,15 @@ void CMenu::Draw ()
       {
         //              if ( bRight )
         //              {
-        pos.x = m_pos.x + m_dim.x + 4; // texte à droite
-                                       //              }
-                                       //              else
-                                       //              {
-                                       //                  pos.x =
-                                       //                  m_pos.x+(i/m_nbCel.y)*(DIMBUTTONX+MARGMENU)-4-GetTextWidth(text);
-                                       //              }
+        pos.x =
+          m_pos.x + m_dim.x +
+          4; // texte à droite
+             //              }
+             //              else
+             //              {
+             //                  pos.x =
+             //                  m_pos.x+(i/m_nbCel.y)*(DIMBUTTONX+MARGMENU)-4-GetTextWidth(text);
+             //              }
       }
 
       pos.y += DIMTEXTY;

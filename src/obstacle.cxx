@@ -1598,7 +1598,7 @@ void Copy33To99 (Sint32 * pSrc33, Sint32 * pDst99, Sint32 dx, Sint32 dy)
 
   for (y = 0; y < 3; y++)
   {
-    for (x                                              = 0; x < 3; x++)
+    for (x = 0; x < 3; x++)
       pDst99[(dx + 1) * 3 + x + ((dy + 1) * 3 + y) * 9] = pSrc33[x + y * 3];
   }
 }
@@ -2990,7 +2990,7 @@ bool CDecor::SearchRobotObject (
   starty = ((initCel.y - distMax / 2) / 2) * 2;
   endy   = ((initCel.y + distMax / 2) / 2) * 2;
 
-  for (i       = 0; i < 10; i++)
+  for (i = 0; i < 10; i++)
     nbUsine[i] = 0;
 
   if (startx < 0)
@@ -3117,9 +3117,9 @@ bool CDecor::SearchRobotObject (
   }
 
   // Cherche l'ennemi le moins répandu.
-  for (i       = 0; i < 10; i++)
+  for (i = 0; i < 10; i++)
     nbPerso[i] = 0;
-  nb           = 0;
+  nb = 0;
   for (r = 0; r < MAXBLUPI; r++)
   {
     if (m_blupi[r].bExist)
@@ -3744,7 +3744,7 @@ void CDecor::AddDrapeau (POINT cel)
   if (TestDrapeau (cel))
     return; // déjà dans la liste
 
-  for (i             = MAXLASTDRAPEAU - 1; i > 0; i--)
+  for (i = MAXLASTDRAPEAU - 1; i > 0; i--)
     m_lastDrapeau[i] = m_lastDrapeau[i - 1];
 
   m_lastDrapeau[0] = cel;

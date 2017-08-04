@@ -181,7 +181,7 @@ void CDecor::CheminFillTerrain (Sint32 rank)
             m_cheminWork[last] = step + cout;
             //?         char buffer[50];
             //?         sprintf(buffer, "word = %d;%d  %d\n", last%200,
-            //last/200, step+cout); ?         OutputDebug(buffer);
+            // last/200, step+cout); ?         OutputDebug(buffer);
             dx = m_blupi[rank].goalCel.x - last % MAXCELX;
             dy = m_blupi[rank].goalCel.y - last / MAXCELX;
             //?                 dist = dy*dy + dx*dx;
@@ -269,7 +269,7 @@ bool CDecor::CheminTestDirection (
       {
         // Si blupi immobile, comme si obstacle qq.
         //?             if ( m_blupi[m_blupiHere].goalCel.x == -1 )  return
-        //false;
+        // false;
         if (m_blupi[rankHere].goalCel.x == -1)
           return false;
 
