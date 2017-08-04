@@ -134,7 +134,7 @@ static bool ReadConfig ()
 }
 
 /**
- * \biref Main frame update.
+ * \brief Main frame update.
  */
 static void UpdateFrame (void)
 {
