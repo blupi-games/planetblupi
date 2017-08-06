@@ -303,28 +303,11 @@ void CMenu::Draw ()
 
     if (m_nbCel.x > 1 && i < m_nbCel.y)
     {
-      //          if ( bLeft )
-      //          {
       pos.x = m_pos.x - 4 - GetTextWidth (text); // texte à gauche
-                                                 //          }
-                                                 //          else
-                                                 //          {
-      //              pos.x = m_pos.x+((i/m_nbCel.y)+1)+(DIMBUTTONX+MARGMENU)+4;
-      //          }
     }
     else
     {
-      //          if ( bRight )
-      //          {
-      pos.x =
-        m_pos.x + m_dim.x +
-        4; // texte à droite
-           //          }
-           //          else
-           //          {
-           //              pos.x =
-           //              m_pos.x+(i/m_nbCel.y)*(DIMBUTTONX+MARGMENU)-4-GetTextWidth(text);
-           //          }
+      pos.x = m_pos.x + m_dim.x + 4;
     }
 
     DrawText (m_pPixmap, pos, text, FONTWHITE);
@@ -346,29 +329,11 @@ void CMenu::Draw ()
 
       if (m_nbCel.x > 1 && i < m_nbCel.y)
       {
-        //              if ( bLeft )
-        //              {
-        pos.x = m_pos.x - 4 - GetTextWidth (text); // texte à gauche
-                                                   //              }
-                                                   //              else
-                                                   //              {
-                                                   //                  pos.x =
-        //                  m_pos.x+((i/m_nbCel.y)+1)+(DIMBUTTONX+MARGMENU)+4;
-        //              }
+        pos.x = m_pos.x - 4 - GetTextWidth (text);
       }
       else
       {
-        //              if ( bRight )
-        //              {
-        pos.x =
-          m_pos.x + m_dim.x +
-          4; // texte à droite
-             //              }
-             //              else
-             //              {
-             //                  pos.x =
-             //                  m_pos.x+(i/m_nbCel.y)*(DIMBUTTONX+MARGMENU)-4-GetTextWidth(text);
-             //              }
+        pos.x = m_pos.x + m_dim.x + 4;
       }
 
       pos.y += DIMTEXTY;
