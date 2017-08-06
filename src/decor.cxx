@@ -1864,6 +1864,9 @@ Errors CDecor::CelOkForAction (
         error = Errors::MISC; // pas assez fort
       }
 
+      if (m_blupi[rank].energy <= MAXENERGY / 2)
+        error = Errors::ENERGY; // not enough energy
+
       GetObject (cel, channel, icon);
       if (channel != CHOBJECT || icon != 44) // pierres ?
       {
@@ -1915,6 +1918,9 @@ Errors CDecor::CelOkForAction (
       {
         error = Errors::MISC; // pas assez fort
       }
+
+      if (m_blupi[rank].energy <= MAXENERGY / 2)
+        error = Errors::ENERGY; // not enough energy
 
       GetObject (cel, channel, icon);
       if (channel != CHOBJECT || icon != 44) // pierres ?

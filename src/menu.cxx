@@ -125,7 +125,7 @@ static const char * GetErr (Sint32 rank)
     translate ("Occupied ground"),    translate ("Opposite bank no good"),
     translate ("Bridge finished"),    translate ("(isolated tower)"),
     translate ("Too close to water"), translate ("Already two teleporters"),
-  };
+    translate ("Not enough energy")};
 
   return gettext (list[rank]);
 }

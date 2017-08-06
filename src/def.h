@@ -367,6 +367,7 @@ enum Errors {
   TOURISOL = 6,
   TOUREAU  = 7,
   TELE2    = 8,
+  ENERGY   = 9,
   REPEAT   = 500,
 };
 
