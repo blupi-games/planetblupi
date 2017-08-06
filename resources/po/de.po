@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-06 21:21+0200\n"
-"PO-Revision-Date: 2017-07-28 18:48+0200\n"
+"PO-Revision-Date: 2017-08-06 21:31+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -1201,7 +1201,7 @@ msgstr "Beammaschine"
 # Looks wrong, should be Epsitec SA too
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2518
 msgid "This game is an original creation of EPSITEC SA, CH-1092 Belmont"
-msgstr "Herausgegeben von WG Verlag & Lizenzen AG"
+msgstr ""
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3051
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3053
