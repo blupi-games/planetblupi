@@ -1592,9 +1592,9 @@ Errors CDecor::CelOkForAction (
 
   if (
     action == 2 || action == WM_ACTION_ABAT1 || action == WM_ACTION_ROC1 ||
-    action == WM_ACTION_DEPOSE || action == WM_ACTION_LABO ||
-    action == WM_ACTION_FLEUR1 || action == WM_ACTION_CULTIVE ||
-    action == WM_ACTION_DRAPEAU)
+    action == WM_ACTION_DROP || action == WM_ACTION_LABO ||
+    action == WM_ACTION_FLOWER1 || action == WM_ACTION_CULTIVE ||
+    action == WM_ACTION_FLAG)
   {
     cel.x = (cel.x / 2) * 2;
     cel.y = (cel.y / 2) * 2;
@@ -1652,12 +1652,12 @@ Errors CDecor::CelOkForAction (
         m_blupi[rank].goalAction <= WM_ACTION_ROC7) ||
        m_blupi[rank].goalAction == WM_ACTION_CULTIVE ||
        m_blupi[rank].goalAction == WM_ACTION_CULTIVE2 ||
-       m_blupi[rank].goalAction == WM_ACTION_DRAPEAU ||
-       m_blupi[rank].goalAction == WM_ACTION_DRAPEAU2 ||
-       m_blupi[rank].goalAction == WM_ACTION_DRAPEAU3 ||
-       m_blupi[rank].goalAction == WM_ACTION_FLEUR1 ||
-       m_blupi[rank].goalAction == WM_ACTION_FLEUR2 ||
-       m_blupi[rank].goalAction == WM_ACTION_FLEUR3))
+       m_blupi[rank].goalAction == WM_ACTION_FLAG ||
+       m_blupi[rank].goalAction == WM_ACTION_FLAG2 ||
+       m_blupi[rank].goalAction == WM_ACTION_FLAG3 ||
+       m_blupi[rank].goalAction == WM_ACTION_FLOWER1 ||
+       m_blupi[rank].goalAction == WM_ACTION_FLOWER2 ||
+       m_blupi[rank].goalAction == WM_ACTION_FLOWER3))
       error = Errors::NONE;
     if (
       m_blupi[rank].stop == 0 && m_blupi[rank].goalAction != 0 &&
@@ -1845,7 +1845,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_MUR)
+  if (action == WM_ACTION_WALL)
   {
     if (cel.x % 2 != 1 || cel.y % 2 != 1)
     {
@@ -1898,7 +1898,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_TOUR)
+  if (action == WM_ACTION_TOWER)
   {
     bool bTour;
 
@@ -2037,7 +2037,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_PONTE)
+  if (action == WM_ACTION_BRIDGEE)
   {
     POINT test;
 
@@ -2130,7 +2130,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_DEPOSE)
+  if (action == WM_ACTION_DROP)
   {
     if (!bTransport || bVehiculeA)
     {
@@ -2275,7 +2275,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_FLEUR1)
+  if (action == WM_ACTION_FLOWER1)
   {
     GetObject (cel, channel, icon);
     if (
@@ -2356,7 +2356,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_MANGE)
+  if (action == WM_ACTION_EAT)
   {
     if (cel.x % 2 != 1 || cel.y % 2 != 1)
     {
@@ -2383,7 +2383,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_BOIT)
+  if (action == WM_ACTION_DRINK)
   {
     if (cel.x % 2 != 1 || cel.y % 2 != 1)
     {
@@ -2410,7 +2410,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_BATEAUE)
+  if (action == WM_ACTION_BOATE)
   {
     POINT test;
 
@@ -2530,7 +2530,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_DRAPEAU)
+  if (action == WM_ACTION_FLAG)
   {
     if (!bStrong || bTransport || bVehicule)
     {

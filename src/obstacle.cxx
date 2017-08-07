@@ -1934,7 +1934,7 @@ bool CDecor::IsFreeCelEmbarque (
     if (bOK)
     {
       limit  = GetCel (cel, -2, 0);
-      action = WM_ACTION_BATEAUDE;
+      action = WM_ACTION_BOATDE;
       return true;
     }
   }
@@ -1948,7 +1948,7 @@ bool CDecor::IsFreeCelEmbarque (
     if (bOK)
     {
       limit  = GetCel (cel, 0, -2);
-      action = WM_ACTION_BATEAUDS;
+      action = WM_ACTION_BOATDS;
       return true;
     }
   }
@@ -1962,7 +1962,7 @@ bool CDecor::IsFreeCelEmbarque (
     if (bOK)
     {
       limit  = GetCel (cel, +1, 0);
-      action = WM_ACTION_BATEAUDO;
+      action = WM_ACTION_BOATDO;
       return true;
     }
   }
@@ -1976,7 +1976,7 @@ bool CDecor::IsFreeCelEmbarque (
     if (bOK)
     {
       limit  = GetCel (cel, 0, +1);
-      action = WM_ACTION_BATEAUDN;
+      action = WM_ACTION_BOATDN;
       return true;
     }
   }
@@ -2013,7 +2013,7 @@ bool CDecor::IsFreeCelDebarque (
     cel.x % 2 == 1 && cel.y % 2 == 1)
   {
     limit  = GetCel (cel, +3, 0);
-    action = WM_ACTION_BATEAUAE;
+    action = WM_ACTION_BOATAE;
     return true;
   }
 
@@ -2025,7 +2025,7 @@ bool CDecor::IsFreeCelDebarque (
     cel.x % 2 == 1 && cel.y % 2 == 1)
   {
     limit  = GetCel (cel, 0, +3);
-    action = WM_ACTION_BATEAUAS;
+    action = WM_ACTION_BOATAS;
     return true;
   }
 
@@ -2037,7 +2037,7 @@ bool CDecor::IsFreeCelDebarque (
     cel.x % 2 == 0 && cel.y % 2 == 1)
   {
     limit  = GetCel (cel, -2, 0);
-    action = WM_ACTION_BATEAUAO;
+    action = WM_ACTION_BOATAO;
     return true;
   }
 
@@ -2049,7 +2049,7 @@ bool CDecor::IsFreeCelDebarque (
     cel.x % 2 == 1 && cel.y % 2 == 0)
   {
     limit  = GetCel (cel, 0, -2);
-    action = WM_ACTION_BATEAUAN;
+    action = WM_ACTION_BOATAN;
     return true;
   }
 
@@ -2630,10 +2630,10 @@ bool CDecor::SearchOtherObject (
           action == WM_ACTION_BUILD2 || action == WM_ACTION_BUILD3 ||
           action == WM_ACTION_BUILD4 || action == WM_ACTION_BUILD5 ||
           action == WM_ACTION_BUILD6 || action == WM_ACTION_ROC1 ||
-          action == WM_ACTION_MUR || action == WM_ACTION_PONTE ||
-          action == WM_ACTION_TOUR || action == WM_ACTION_BATEAUE ||
-          action == WM_ACTION_CULTIVE2 || action == WM_ACTION_DRAPEAU2 ||
-          action == WM_ACTION_DEPOSE)
+          action == WM_ACTION_WALL || action == WM_ACTION_BRIDGEE ||
+          action == WM_ACTION_TOWER || action == WM_ACTION_BOATE ||
+          action == WM_ACTION_CULTIVE2 || action == WM_ACTION_FLAG2 ||
+          action == WM_ACTION_DROP)
         {
           if (!IsWorkableObject (cel, rank))
             continue;
