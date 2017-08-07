@@ -1934,7 +1934,7 @@ bool CDecor::IsFreeCelEmbarque (
     if (bOK)
     {
       limit  = GetCel (cel, -2, 0);
-      action = WM_ACTION_BOATDE;
+      action = EV_ACTION_BOATDE;
       return true;
     }
   }
@@ -1948,7 +1948,7 @@ bool CDecor::IsFreeCelEmbarque (
     if (bOK)
     {
       limit  = GetCel (cel, 0, -2);
-      action = WM_ACTION_BOATDS;
+      action = EV_ACTION_BOATDS;
       return true;
     }
   }
@@ -1962,7 +1962,7 @@ bool CDecor::IsFreeCelEmbarque (
     if (bOK)
     {
       limit  = GetCel (cel, +1, 0);
-      action = WM_ACTION_BOATDO;
+      action = EV_ACTION_BOATDO;
       return true;
     }
   }
@@ -1976,7 +1976,7 @@ bool CDecor::IsFreeCelEmbarque (
     if (bOK)
     {
       limit  = GetCel (cel, 0, +1);
-      action = WM_ACTION_BOATDN;
+      action = EV_ACTION_BOATDN;
       return true;
     }
   }
@@ -2013,7 +2013,7 @@ bool CDecor::IsFreeCelDebarque (
     cel.x % 2 == 1 && cel.y % 2 == 1)
   {
     limit  = GetCel (cel, +3, 0);
-    action = WM_ACTION_BOATAE;
+    action = EV_ACTION_BOATAE;
     return true;
   }
 
@@ -2025,7 +2025,7 @@ bool CDecor::IsFreeCelDebarque (
     cel.x % 2 == 1 && cel.y % 2 == 1)
   {
     limit  = GetCel (cel, 0, +3);
-    action = WM_ACTION_BOATAS;
+    action = EV_ACTION_BOATAS;
     return true;
   }
 
@@ -2037,7 +2037,7 @@ bool CDecor::IsFreeCelDebarque (
     cel.x % 2 == 0 && cel.y % 2 == 1)
   {
     limit  = GetCel (cel, -2, 0);
-    action = WM_ACTION_BOATAO;
+    action = EV_ACTION_BOATAO;
     return true;
   }
 
@@ -2049,7 +2049,7 @@ bool CDecor::IsFreeCelDebarque (
     cel.x % 2 == 1 && cel.y % 2 == 0)
   {
     limit  = GetCel (cel, 0, -2);
-    action = WM_ACTION_BOATAN;
+    action = EV_ACTION_BOATAN;
     return true;
   }
 
@@ -2626,14 +2626,14 @@ bool CDecor::SearchOtherObject (
           continue;
 
         if (
-          action == WM_ACTION_ABAT1 || action == WM_ACTION_BUILD1 ||
-          action == WM_ACTION_BUILD2 || action == WM_ACTION_BUILD3 ||
-          action == WM_ACTION_BUILD4 || action == WM_ACTION_BUILD5 ||
-          action == WM_ACTION_BUILD6 || action == WM_ACTION_ROC1 ||
-          action == WM_ACTION_WALL || action == WM_ACTION_BRIDGEE ||
-          action == WM_ACTION_TOWER || action == WM_ACTION_BOATE ||
-          action == WM_ACTION_CULTIVE2 || action == WM_ACTION_FLAG2 ||
-          action == WM_ACTION_DROP)
+          action == EV_ACTION_ABAT1 || action == EV_ACTION_BUILD1 ||
+          action == EV_ACTION_BUILD2 || action == EV_ACTION_BUILD3 ||
+          action == EV_ACTION_BUILD4 || action == EV_ACTION_BUILD5 ||
+          action == EV_ACTION_BUILD6 || action == EV_ACTION_ROC1 ||
+          action == EV_ACTION_WALL || action == EV_ACTION_BRIDGEE ||
+          action == EV_ACTION_TOWER || action == EV_ACTION_BOATE ||
+          action == EV_ACTION_CULTIVE2 || action == EV_ACTION_FLAG2 ||
+          action == EV_ACTION_DROP)
         {
           if (!IsWorkableObject (cel, rank))
             continue;
@@ -2976,9 +2976,9 @@ bool CDecor::SearchRobotObject (
 
   if (m_term.bHachRobot) // robot sur dalles hachurées ?
   {
-    foundAction = WM_ACTION_GO;
+    foundAction = EV_ACTION_GO;
     return SearchOtherObject (
-      rank, initCel, WM_ACTION_GO, 200, CHFLOOR, 17, 17, -1, -1, foundCel,
+      rank, initCel, EV_ACTION_GO, 200, CHFLOOR, 17, 17, -1, -1, foundCel,
       foundIcon);
   }
 
@@ -3074,17 +3074,17 @@ bool CDecor::SearchRobotObject (
       foundCel = initCel;
     build:
       if (index == 0)
-        foundAction = WM_ACTION_R_BUILD1; // recharge
+        foundAction = EV_ACTION_R_BUILD1; // recharge
       if (index == 1)
-        foundAction = WM_ACTION_R_BUILD4; // tracks
+        foundAction = EV_ACTION_R_BUILD4; // tracks
       if (index == 2)
-        foundAction = WM_ACTION_R_BUILD2; // araignée
+        foundAction = EV_ACTION_R_BUILD2; // araignée
       if (index == 3)
-        foundAction = WM_ACTION_R_BUILD3; // virus
+        foundAction = EV_ACTION_R_BUILD3; // virus
       if (index == 4)
-        foundAction = WM_ACTION_R_BUILD5; // bombe
+        foundAction = EV_ACTION_R_BUILD5; // bombe
       if (index == 5)
-        foundAction = WM_ACTION_R_BUILD6; // électro
+        foundAction = EV_ACTION_R_BUILD6; // électro
       return true;
     }
     // Cherche un emplacement libre.
@@ -3196,17 +3196,17 @@ bool CDecor::SearchRobotObject (
   if (min < distMax)
   {
     if (index == 0)
-      foundAction = WM_ACTION_R_MAKE1; // recharge
+      foundAction = EV_ACTION_R_MAKE1; // recharge
     if (index == 1)
-      foundAction = WM_ACTION_R_MAKE4; // tracks
+      foundAction = EV_ACTION_R_MAKE4; // tracks
     if (index == 2)
-      foundAction = WM_ACTION_R_MAKE2; // araignée
+      foundAction = EV_ACTION_R_MAKE2; // araignée
     if (index == 3)
-      foundAction = WM_ACTION_R_MAKE3; // virus
+      foundAction = EV_ACTION_R_MAKE3; // virus
     if (index == 4)
-      foundAction = WM_ACTION_R_MAKE5; // bombe
+      foundAction = EV_ACTION_R_MAKE5; // bombe
     if (index == 5)
-      foundAction = WM_ACTION_R_MAKE6; // électro
+      foundAction = EV_ACTION_R_MAKE6; // électro
     return true;
   }
 
@@ -3242,15 +3242,15 @@ bool CDecor::SearchRobotObject (
   if (min < distMax)
   {
     if (foundIcon == 100)
-      foundAction = WM_ACTION_R_MAKE2; // araignée
+      foundAction = EV_ACTION_R_MAKE2; // araignée
     if (foundIcon == 102)
-      foundAction = WM_ACTION_R_MAKE3; // virus
+      foundAction = EV_ACTION_R_MAKE3; // virus
     if (foundIcon == 104)
-      foundAction = WM_ACTION_R_MAKE4; // tracks
+      foundAction = EV_ACTION_R_MAKE4; // tracks
     if (foundIcon == 115)
-      foundAction = WM_ACTION_R_MAKE5; // bombe
+      foundAction = EV_ACTION_R_MAKE5; // bombe
     if (foundIcon == 17)
-      foundAction = WM_ACTION_R_MAKE6; // électro
+      foundAction = EV_ACTION_R_MAKE6; // électro
     return true;
   }
 
@@ -3440,7 +3440,7 @@ bool CDecor::SearchElectroObject (
   {
     if (
       m_blupi[r].bExist && m_blupi[r].perso == 0 && // blupi ?
-      m_blupi[r].goalAction != WM_ACTION_ELECTRO)
+      m_blupi[r].goalAction != EV_ACTION_ELECTRO)
     {
       //?         if ( BlupiIsGoalUsed(m_blupi[r].cel) )  continue;
 

@@ -92,7 +92,7 @@ bool CSound::Create ()
 
   Mix_AllocateChannels (MAXSOUND);
 
-  Mix_HookMusicFinished ([]() { CEvent::PushUserEvent (WM_MUSIC_STOP); });
+  Mix_HookMusicFinished ([]() { CEvent::PushUserEvent (EV_MUSIC_STOP); });
 
   return true;
 }

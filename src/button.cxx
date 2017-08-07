@@ -348,7 +348,7 @@ bool CButton::MouseDown (POINT pos)
   m_mouseState = 1;
   m_bMouseDown = true;
 
-  CEvent::PushUserEvent (WM_UPDATE);
+  CEvent::PushUserEvent (EV_UPDATE);
 
   m_pSound->PlayImage (SOUND_CLICK, pos);
   return true;
@@ -391,7 +391,7 @@ bool CButton::MouseMove (POINT pos)
   }
 
   if (iState != m_mouseState || iMenu != m_selMenu)
-    CEvent::PushUserEvent (WM_UPDATE);
+    CEvent::PushUserEvent (EV_UPDATE);
 
   return m_bMouseDown;
 }

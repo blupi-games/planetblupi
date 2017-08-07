@@ -155,10 +155,10 @@ static void UpdateFrame (void)
   rcRect.bottom = LYIMAGE;
   g_pPixmap->DrawImage (-1, CHBACK, rcRect); // draw the background
 
-  if (phase == WM_PHASE_INTRO1)
+  if (phase == EV_PHASE_INTRO1)
     g_pEvent->IntroStep ();
 
-  if (phase == WM_PHASE_PLAY)
+  if (phase == EV_PHASE_PLAY)
   {
     clip.left   = POSDRAWX;
     clip.top    = POSDRAWY + g_pDecor->GetInfoHeight ();
@@ -189,7 +189,7 @@ static void UpdateFrame (void)
     }
   }
 
-  if (phase == WM_PHASE_BUILD)
+  if (phase == EV_PHASE_BUILD)
   {
     clip.left   = POSDRAWX;
     clip.top    = POSDRAWY;
@@ -200,7 +200,7 @@ static void UpdateFrame (void)
     g_pDecor->NextPhase (-1);         // rebuild the map sometimes
   }
 
-  if (phase == WM_PHASE_INIT)
+  if (phase == EV_PHASE_INIT)
   {
     g_pEvent->DemoStep (); // start automatically (eventually) the demo
   }
@@ -210,23 +210,23 @@ static void UpdateFrame (void)
   g_lastPhase = phase;
 
   if (
-    phase == WM_PHASE_H0MOVIE || phase == WM_PHASE_H1MOVIE ||
-    phase == WM_PHASE_H2MOVIE || phase == WM_PHASE_PLAYMOVIE ||
-    phase == WM_PHASE_WINMOVIE)
+    phase == EV_PHASE_H0MOVIE || phase == EV_PHASE_H1MOVIE ||
+    phase == EV_PHASE_H2MOVIE || phase == EV_PHASE_PLAYMOVIE ||
+    phase == EV_PHASE_WINMOVIE)
   {
     g_pEvent->MovieToStart (); // start a movie if necessary
   }
 
-  if (phase == WM_PHASE_INSERT)
+  if (phase == EV_PHASE_INSERT)
     g_pEvent->TryInsert ();
 
-  if (phase == WM_PHASE_PLAY)
+  if (phase == EV_PHASE_PLAY)
   {
     term = g_pDecor->IsTerminated ();
     if (term == 1)
-      g_pEvent->ChangePhase (WM_PHASE_LOST); // lost
+      g_pEvent->ChangePhase (EV_PHASE_LOST); // lost
     if (term == 2)
-      g_pEvent->ChangePhase (WM_PHASE_WINMOVIE); // win
+      g_pEvent->ChangePhase (EV_PHASE_WINMOVIE); // win
   }
 }
 
@@ -337,7 +337,7 @@ static void HandleEvent (const SDL_Event & event)
   {
     switch (event.user.code)
     {
-    case WM_UPDATE:
+    case EV_UPDATE:
       if (!g_pEvent->IsMovie ()) // pas de film en cours ?
       {
         if (!g_pause)
@@ -348,7 +348,7 @@ static void HandleEvent (const SDL_Event & event)
       }
       break;
 
-    case WM_WARPMOUSE:
+    case EV_WARPMOUSE:
     {
       const SDL_Point * coord = static_cast<SDL_Point *> (event.user.data1);
       SDL_WarpMouseInWindow (g_window, coord->x, coord->y);
@@ -356,14 +356,14 @@ static void HandleEvent (const SDL_Event & event)
       break;
     }
 
-    case WM_MUSIC_STOP:
+    case EV_MUSIC_STOP:
       if (g_pSound->IsStoppedOnDemand ())
         break;
 
       g_pSound->RestartMusic ();
       break;
 
-    case WM_MOVIE_PLAY:
+    case EV_MOVIE_PLAY:
       if (!g_pMovie->Render ())
         g_pEvent->StopMovie ();
       break;
@@ -624,7 +624,7 @@ static bool DoInit (Sint32 argc, char * argv[])
 
   g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
   g_pEvent->SetFullScreen (g_bFullScreen);
-  g_pEvent->ChangePhase (WM_PHASE_INTRO1);
+  g_pEvent->ChangePhase (EV_PHASE_INTRO1);
 
   g_bTermInit = true;
   return true;
@@ -648,7 +648,7 @@ int main (int argc, char * argv[])
   SDL_TimerID updateTimer = SDL_AddTimer (
     g_timerInterval,
     [](Uint32 interval, void * param) -> Uint32 {
-      CEvent::PushUserEvent (WM_UPDATE);
+      CEvent::PushUserEvent (EV_UPDATE);
       return interval;
     },
     nullptr);

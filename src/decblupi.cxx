@@ -30,15 +30,15 @@
 // Cette table donne l'action à effectuer pour un bouton
 // enfoncé.
 const Sint16 table_actions[] = {
-  WM_ACTION_GO,       WM_ACTION_STOP,    WM_ACTION_EAT,       WM_ACTION_CARRY,
-  WM_ACTION_DROP,     WM_ACTION_ABAT1,   WM_ACTION_ROC1,      WM_ACTION_CULTIVE,
-  WM_ACTION_BUILD1,   WM_ACTION_BUILD2,  WM_ACTION_BUILD3,    WM_ACTION_BUILD4,
-  WM_ACTION_BUILD5,   WM_ACTION_BUILD6,  WM_ACTION_WALL,      WM_ACTION_PALIS,
-  WM_ACTION_ABAT1,    WM_ACTION_ROC1,    WM_ACTION_BRIDGEE,   WM_ACTION_TOWER,
-  WM_ACTION_DRINK,    WM_ACTION_LABO,    WM_ACTION_FLOWER1,   WM_ACTION_FLOWER1,
-  WM_ACTION_DYNAMITE, WM_ACTION_BOATE,   WM_ACTION_DJEEP,     WM_ACTION_FLAG,
-  WM_ACTION_EXTRAIT,  WM_ACTION_FABJEEP, WM_ACTION_FABMINE,   WM_ACTION_FABDISC,
-  WM_ACTION_REPEAT,   WM_ACTION_DARMURE, WM_ACTION_FABARMURE,
+  EV_ACTION_GO,       EV_ACTION_STOP,    EV_ACTION_EAT,       EV_ACTION_CARRY,
+  EV_ACTION_DROP,     EV_ACTION_ABAT1,   EV_ACTION_ROC1,      EV_ACTION_CULTIVE,
+  EV_ACTION_BUILD1,   EV_ACTION_BUILD2,  EV_ACTION_BUILD3,    EV_ACTION_BUILD4,
+  EV_ACTION_BUILD5,   EV_ACTION_BUILD6,  EV_ACTION_WALL,      EV_ACTION_PALIS,
+  EV_ACTION_ABAT1,    EV_ACTION_ROC1,    EV_ACTION_BRIDGEE,   EV_ACTION_TOWER,
+  EV_ACTION_DRINK,    EV_ACTION_LABO,    EV_ACTION_FLOWER1,   EV_ACTION_FLOWER1,
+  EV_ACTION_DYNAMITE, EV_ACTION_BOATE,   EV_ACTION_DJEEP,     EV_ACTION_FLAG,
+  EV_ACTION_EXTRAIT,  EV_ACTION_FABJEEP, EV_ACTION_FABMINE,   EV_ACTION_FABDISC,
+  EV_ACTION_REPEAT,   EV_ACTION_DARMURE, EV_ACTION_FABARMURE,
 };
 
 // Supprime tous les blupi.
@@ -246,9 +246,9 @@ void CDecor::BlupiKill (Sint32 exRank, POINT cel, Sint32 type)
           icon != 121 && icon != 122)   // mine de fer ?
         {
           if (m_blupi[rank].bMalade)
-            action = WM_ACTION_ELECTROm;
+            action = EV_ACTION_ELECTROm;
           else
-            action = WM_ACTION_ELECTRO;
+            action = EV_ACTION_ELECTRO;
           GoalStart (rank, action, m_blupi[rank].cel);
           //?                 BlupiChangeAction(rank, ACTION_ELECTRO);
         }
@@ -1052,7 +1052,7 @@ bool CDecor::RepeatAdjust (
         if (
           IsValid (test) &&
           m_decor[test.x / 2][test.y / 2].floorIcon == 15 && // dalle grise ?
-          CelOkForAction (test, WM_ACTION_DROP, rank) == 0)
+          CelOkForAction (test, EV_ACTION_DROP, rank) == 0)
         {
           cel  = test;
           cMem = test;
@@ -1064,7 +1064,7 @@ bool CDecor::RepeatAdjust (
 
     if (flags == 0)
     {
-      if (CelOkForAction (cel, WM_ACTION_DROP, rank) == 0)
+      if (CelOkForAction (cel, EV_ACTION_DROP, rank) == 0)
         goto ok;
     }
 
@@ -1074,7 +1074,7 @@ bool CDecor::RepeatAdjust (
       {
         test.x = cel.x + table_mur[i * 2 + 0];
         test.y = cel.y + table_mur[i * 2 + 1];
-        if (CelOkForAction (test, WM_ACTION_DROP, rank) == 0)
+        if (CelOkForAction (test, EV_ACTION_DROP, rank) == 0)
         {
           cel  = test;
           cMem = test;
@@ -1287,25 +1287,25 @@ void CDecor::GoalAdjustCel (Sint32 rank, Sint32 & x, Sint32 & y)
 {
   if (x == -10 && y == -10)
   {
-    if (m_blupi[rank].goalAction == WM_ACTION_BRIDGEEL)
+    if (m_blupi[rank].goalAction == EV_ACTION_BRIDGEEL)
     {
       x = m_blupi[rank].fix.x + m_blupi[rank].cLoop * 2;
       y = m_blupi[rank].fix.y;
       return;
     }
-    if (m_blupi[rank].goalAction == WM_ACTION_BRIDGEOL)
+    if (m_blupi[rank].goalAction == EV_ACTION_BRIDGEOL)
     {
       x = m_blupi[rank].fix.x - m_blupi[rank].cLoop * 2;
       y = m_blupi[rank].fix.y;
       return;
     }
-    if (m_blupi[rank].goalAction == WM_ACTION_BRIDGESL)
+    if (m_blupi[rank].goalAction == EV_ACTION_BRIDGESL)
     {
       x = m_blupi[rank].fix.x;
       y = m_blupi[rank].fix.y + m_blupi[rank].cLoop * 2;
       return;
     }
-    if (m_blupi[rank].goalAction == WM_ACTION_BRIDGENL)
+    if (m_blupi[rank].goalAction == EV_ACTION_BRIDGENL)
     {
       x = m_blupi[rank].fix.x;
       y = m_blupi[rank].fix.y - m_blupi[rank].cLoop * 2;
@@ -1515,7 +1515,7 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
         MAXENERGY); // crée un détonnateur
       if (rank >= 0)
       {
-        GoalStart (rank, WM_ACTION_T_DYNAMITE, cel);
+        GoalStart (rank, EV_ACTION_T_DYNAMITE, cel);
         m_blupi[rank].bCache = true;
       }
     }
@@ -1804,7 +1804,7 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
     if (rank >= 0)
     {
       m_blupi[rank].bCache     = true; // invisible
-      m_blupi[rank].goalAction = WM_ACTION_MINE2;
+      m_blupi[rank].goalAction = EV_ACTION_MINE2;
       m_blupi[rank].goalPhase  = 0;
       m_blupi[rank].goalCel.x  = -1;
       m_blupi[rank].interrupt  = 1;
@@ -1862,9 +1862,9 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
           rank, m_blupi[rank].cel, action, 100, channel, first, last, first2,
           last2, m_blupi[rank].goalHili, icon))
       goto term;
-    if (action == WM_ACTION_ABAT1 || action == WM_ACTION_ROC1)
+    if (action == EV_ACTION_ABAT1 || action == EV_ACTION_ROC1)
     {
-      action += icon - first; // WM_ACTION_ABAT1..6
+      action += icon - first; // EV_ACTION_ABAT1..6
     }
     m_blupi[rank].goalAction = action;
     m_blupi[rank].goalPhase  = 0;
@@ -1895,9 +1895,9 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
           rank, m_blupi[rank].fix, action, 100, channel, first, last, first2,
           last2, m_blupi[rank].goalHili, icon))
       goto term;
-    if (action == WM_ACTION_ABAT1 || action == WM_ACTION_ROC1)
+    if (action == EV_ACTION_ABAT1 || action == EV_ACTION_ROC1)
     {
-      action += icon - first; // WM_ACTION_ABAT1..6
+      action += icon - first; // EV_ACTION_ABAT1..6
     }
     m_blupi[rank].goalAction = action;
     m_blupi[rank].goalPhase  = 0;
@@ -1974,7 +1974,7 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
     GetFloor (cMem, channel, icon);
     PutFloor (cMem, -1, -1);
     bOK = SearchOtherObject (
-      rank, m_blupi[rank].cel, WM_ACTION_GO, 1000, CHFLOOR, 80, 80, -1, -1, cel,
+      rank, m_blupi[rank].cel, EV_ACTION_GO, 1000, CHFLOOR, 80, 80, -1, -1, cel,
       i);
     PutFloor (cMem, channel, icon);
     if (!bOK)
@@ -2039,15 +2039,15 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
 
       rank = m_blupiHere;
       if (
-        m_blupi[rank].goalAction != WM_ACTION_GO &&
-        m_blupi[rank].goalAction != WM_ACTION_ELECTRO &&
-        m_blupi[rank].goalAction != WM_ACTION_ELECTROm)
+        m_blupi[rank].goalAction != EV_ACTION_GO &&
+        m_blupi[rank].goalAction != EV_ACTION_ELECTRO &&
+        m_blupi[rank].goalAction != EV_ACTION_ELECTROm)
       {
         destCel.x = cel.x;
         destCel.y = cel.y - 1;
         if (!IsBlupiHereEx (destCel, rank, false))
         {
-          GoalStart (rank, WM_ACTION_GO, destCel);
+          GoalStart (rank, EV_ACTION_GO, destCel);
           return true;
         }
 
@@ -2055,7 +2055,7 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
         destCel.y = cel.y;
         if (!IsBlupiHereEx (destCel, rank, false))
         {
-          GoalStart (rank, WM_ACTION_GO, destCel);
+          GoalStart (rank, EV_ACTION_GO, destCel);
           return true;
         }
 
@@ -2063,7 +2063,7 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
         destCel.y = cel.y + 1;
         if (!IsBlupiHereEx (destCel, rank, false))
         {
-          GoalStart (rank, WM_ACTION_GO, destCel);
+          GoalStart (rank, EV_ACTION_GO, destCel);
           return true;
         }
 
@@ -2071,7 +2071,7 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
         destCel.y = cel.y - 1;
         if (!IsBlupiHereEx (destCel, rank, false))
         {
-          GoalStart (rank, WM_ACTION_GO, destCel);
+          GoalStart (rank, EV_ACTION_GO, destCel);
           return true;
         }
 
@@ -2079,16 +2079,16 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
         destCel.y = cel.y + 1;
         if (!IsBlupiHereEx (destCel, rank, false))
         {
-          GoalStart (rank, WM_ACTION_GO, destCel);
+          GoalStart (rank, EV_ACTION_GO, destCel);
           return true;
         }
 
         if (m_blupi[rank].perso == 0)
         {
           if (m_blupi[rank].bMalade)
-            action = WM_ACTION_ELECTROm;
+            action = EV_ACTION_ELECTROm;
           else
-            action = WM_ACTION_ELECTRO;
+            action = EV_ACTION_ELECTRO;
           GoalStart (rank, action, m_blupi[rank].cel);
           return true;
         }
@@ -2111,7 +2111,7 @@ error:
       if (IsBlupiHereEx (cel, rank, false)) // destination occupée ?
       {
         m_blupi[rank].repeatLevel = i;                     // on continue ...
-        GoalStart (rank, WM_ACTION_GO, m_blupi[rank].cel); // on attend ...
+        GoalStart (rank, EV_ACTION_GO, m_blupi[rank].cel); // on attend ...
         return true;
       }
       if (BlupiGoal (rank, button, cel, cMem))
@@ -2548,8 +2548,8 @@ bool CDecor::BlupiNextAction (Sint32 rank)
         a = 1;
       min = 0;
       if (
-        m_blupi[rank].goalAction == WM_ACTION_WALL ||
-        m_blupi[rank].goalAction == WM_ACTION_TOWER)
+        m_blupi[rank].goalAction == EV_ACTION_WALL ||
+        m_blupi[rank].goalAction == EV_ACTION_TOWER)
       {
         a   = 5;
         min = 1;
@@ -2640,10 +2640,10 @@ void CDecor::BlupiNextGoal (Sint32 rank)
   {
     if (
       m_blupi[rank].perso == 0 && m_blupi[rank].vehicule != 3 && // pas armure ?
-      !m_bInvincible && m_blupi[rank].goalAction != WM_ACTION_GRILLE)
+      !m_bInvincible && m_blupi[rank].goalAction != EV_ACTION_GRILLE)
     {
       BlupiDeselect (rank);
-      GoalStart (rank, WM_ACTION_GRILLE, m_blupi[rank].cel);
+      GoalStart (rank, EV_ACTION_GRILLE, m_blupi[rank].cel);
       goto goal;
       //?         BlupiInitAction(rank, ACTION_BRULE);
       //?         goto init;
@@ -2663,17 +2663,17 @@ void CDecor::BlupiNextGoal (Sint32 rank)
     m_blupi[rank].vehicule != 1 && // pas en bateau ?
     m_blupi[rank].vehicule != 3 && // pas armure ?
     !m_blupi[rank].bMalade &&      // en bonne santé ?
-    m_blupi[rank].goalAction != WM_ACTION_GRILLE &&
-    m_blupi[rank].goalAction != WM_ACTION_ELECTRO &&
-    m_blupi[rank].goalAction != WM_ACTION_ELECTROm &&
-    m_blupi[rank].goalAction != WM_ACTION_BOATDE &&
-    m_blupi[rank].goalAction != WM_ACTION_BOATDS &&
-    m_blupi[rank].goalAction != WM_ACTION_BOATDO &&
-    m_blupi[rank].goalAction != WM_ACTION_BOATDN &&
-    m_blupi[rank].goalAction != WM_ACTION_BOATAE &&
-    m_blupi[rank].goalAction != WM_ACTION_BOATAS &&
-    m_blupi[rank].goalAction != WM_ACTION_BOATAO &&
-    m_blupi[rank].goalAction != WM_ACTION_BOATAN && !m_bInvincible &&
+    m_blupi[rank].goalAction != EV_ACTION_GRILLE &&
+    m_blupi[rank].goalAction != EV_ACTION_ELECTRO &&
+    m_blupi[rank].goalAction != EV_ACTION_ELECTROm &&
+    m_blupi[rank].goalAction != EV_ACTION_BOATDE &&
+    m_blupi[rank].goalAction != EV_ACTION_BOATDS &&
+    m_blupi[rank].goalAction != EV_ACTION_BOATDO &&
+    m_blupi[rank].goalAction != EV_ACTION_BOATDN &&
+    m_blupi[rank].goalAction != EV_ACTION_BOATAE &&
+    m_blupi[rank].goalAction != EV_ACTION_BOATAS &&
+    m_blupi[rank].goalAction != EV_ACTION_BOATAO &&
+    m_blupi[rank].goalAction != EV_ACTION_BOATAN && !m_bInvincible &&
     IsVirusCel (m_blupi[rank].cel)) // blupi chope un virus ?
   {
     m_blupi[rank].bMalade = true;
@@ -2685,7 +2685,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
 
     if (m_blupi[rank].vehicule == 2) // en jeep ?
     {
-      GoalStart (rank, WM_ACTION_DJEEP, m_blupi[rank].cel);
+      GoalStart (rank, EV_ACTION_DJEEP, m_blupi[rank].cel);
       goto goal;
     }
   }
@@ -2701,7 +2701,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
   // Assigne un but s'il s'agit d'une araignée.
   if (
     m_blupi[rank].perso == 1 && // araignée ?
-    m_blupi[rank].goalAction != WM_ACTION_A_MORT)
+    m_blupi[rank].goalAction != EV_ACTION_A_MORT)
   {
     cel   = m_blupi[rank].cel;
     cel.x = (cel.x / 2) * 2;
@@ -2730,7 +2730,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
       {
         PutObject (cel, -1, -1); // plus de poison
         BlupiInitAction (rank, ACTION_STOP);
-        GoalStart (rank, WM_ACTION_A_MORT, m_blupi[rank].cel);
+        GoalStart (rank, EV_ACTION_A_MORT, m_blupi[rank].cel);
         m_blupi[rank].goalCel = m_blupi[rank].cel;
         goto goal;
         //?             BlupiSound(rank, SOUND_A_POISON, pos);
@@ -2811,7 +2811,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
   // Assigne un but s'il s'agit d'un tracks.
   if (
     m_blupi[rank].perso == 3 && // tracks ?
-    m_blupi[rank].goalAction != WM_ACTION_T_DYNAMITE)
+    m_blupi[rank].goalAction != EV_ACTION_T_DYNAMITE)
   {
     cel = m_blupi[rank].cel;
     if (cel.x % 2 != 0 && cel.y % 2 != 0)
@@ -2824,7 +2824,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
         if (icon == 85) // dynamite ?
         {
           BlupiInitAction (rank, ACTION_STOP);
-          GoalStart (rank, WM_ACTION_T_DYNAMITE, cel);
+          GoalStart (rank, EV_ACTION_T_DYNAMITE, cel);
           goto goal;
         }
         if (
@@ -2891,7 +2891,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
   // Assigne un but s'il s'agit d'un robot.
   if (
     m_blupi[rank].perso == 4 && // robot ?
-    m_blupi[rank].goalAction != WM_ACTION_T_DYNAMITE)
+    m_blupi[rank].goalAction != EV_ACTION_T_DYNAMITE)
   {
     cel = m_blupi[rank].cel;
     if (cel.x % 2 != 0 && cel.y % 2 != 0)
@@ -2904,7 +2904,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
         if (icon == 85) // dynamite ?
         {
           BlupiInitAction (rank, ACTION_STOP);
-          GoalStart (rank, WM_ACTION_T_DYNAMITE, cel);
+          GoalStart (rank, EV_ACTION_T_DYNAMITE, cel);
           goto goal;
         }
         if (
@@ -2952,7 +2952,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
   // Assigne un but s'il s'agit d'une bombe.
   if (
     m_blupi[rank].perso == 5 && // bombe ?
-    m_blupi[rank].goalAction != WM_ACTION_T_DYNAMITE)
+    m_blupi[rank].goalAction != EV_ACTION_T_DYNAMITE)
   {
     cel = m_blupi[rank].cel;
     if (cel.x % 2 != 0 && cel.y % 2 != 0)
@@ -2980,7 +2980,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
         icon != 93)             // pas piège ?
       {
         BlupiInitAction (rank, ACTION_STOP);
-        GoalStart (rank, WM_ACTION_T_DYNAMITE, m_blupi[rank].cel);
+        GoalStart (rank, EV_ACTION_T_DYNAMITE, m_blupi[rank].cel);
         goto goal;
       }
     }
@@ -3021,7 +3021,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
       if (icon == -1) // sur un blupi ?
       {
         BlupiInitAction (rank, ACTION_STOP);
-        GoalStart (rank, WM_ACTION_E_RAYON, cel);
+        GoalStart (rank, EV_ACTION_E_RAYON, cel);
         m_blupi[rank].fix = cel;
         goto goal;
       }
@@ -3778,7 +3778,7 @@ bool CDecor::BlupiGoal (Sint32 rank, Sint32 button, POINT cel, POINT cMem)
   }
   action = table_actions[button];
 
-  if (action == WM_ACTION_STOP)
+  if (action == EV_ACTION_STOP)
   {
     if (m_blupi[rank].goalAction != 0 && m_blupi[rank].interrupt <= 0)
     {
@@ -3802,11 +3802,11 @@ bool CDecor::BlupiGoal (Sint32 rank, Sint32 button, POINT cel, POINT cMem)
     return false;
 
   if (
-    action == WM_ACTION_GO && m_blupi[rank].energy <= MAXENERGY / 4 &&
+    action == EV_ACTION_GO && m_blupi[rank].energy <= MAXENERGY / 4 &&
     m_blupi[rank].takeChannel != -1)
     return false;
 
-  if (action == WM_ACTION_GO)
+  if (action == EV_ACTION_GO)
   {
     GetObject (goalHili2, channel, icon);
     if (
@@ -3821,18 +3821,18 @@ bool CDecor::BlupiGoal (Sint32 rank, Sint32 button, POINT cel, POINT cMem)
       channel == CHOBJECT && icon == 118 && // jeep ?
       goalHili.x % 2 == 1 &&                // sur la jeep ?
       goalHili.y % 2 == 1)
-      action = WM_ACTION_MJEEP;
+      action = EV_ACTION_MJEEP;
     if (
       m_blupi[rank].perso != 8 &&          // pas disciple ?
       m_blupi[rank].takeChannel == -1 &&   // ne porte rien ?
       channel == CHOBJECT && icon == 16 && // armure ?
       goalHili.x % 2 == 1 &&               // sur l'armure ?
       goalHili.y % 2 == 1)
-      action = WM_ACTION_MARMURE;
+      action = EV_ACTION_MARMURE;
     if (
       m_blupi[rank].perso != 8 &&         // pas disciple ?
       channel == CHOBJECT && icon == 113) // maison ?
-      action = WM_ACTION_HOUSE;
+      action = EV_ACTION_HOUSE;
     GetFloor (goalHili2, channel, icon);
     if (
       m_blupi[rank].perso == 0 && m_blupi[rank].vehicule == 0 && // à pied ?
@@ -3840,52 +3840,52 @@ bool CDecor::BlupiGoal (Sint32 rank, Sint32 button, POINT cel, POINT cMem)
       channel == CHFLOOR && icon == 80)  // téléporteur ?
     {
       if (cel.x % 2 == 0 && cel.y % 2 == 0)
-        action = WM_ACTION_TELEPORTE00;
+        action = EV_ACTION_TELEPORTE00;
       if (cel.x % 2 == 1 && cel.y % 2 == 0)
-        action = WM_ACTION_TELEPORTE10;
+        action = EV_ACTION_TELEPORTE10;
       if (cel.x % 2 == 0 && cel.y % 2 == 1)
-        action = WM_ACTION_TELEPORTE01;
+        action = EV_ACTION_TELEPORTE01;
       if (cel.x % 2 == 1 && cel.y % 2 == 1)
-        action = WM_ACTION_TELEPORTE11;
+        action = EV_ACTION_TELEPORTE11;
     }
     IsFreeCelEmbarque (goalHili, rank, action, goal);
     IsFreeCelDebarque (goalHili, rank, action, goal);
   }
 
-  if (action == WM_ACTION_DROP && m_blupi[rank].energy <= MAXENERGY / 4)
+  if (action == EV_ACTION_DROP && m_blupi[rank].energy <= MAXENERGY / 4)
   {
     // Energie juste pour déposer l'objet transporté.
     m_blupi[rank].energy = MAXENERGY / 4 + 20;
   }
 
-  if (action == WM_ACTION_ABAT1)
+  if (action == EV_ACTION_ABAT1)
   {
     GetObject (goalHili2, channel, icon);
     if (channel == CHOBJECT && icon >= 6 && icon <= 11) // arbre ?
     {
-      action += icon - 6; // WM_ACTION_ABAT1..6
+      action += icon - 6; // EV_ACTION_ABAT1..6
     }
   }
 
-  if (action == WM_ACTION_ROC1)
+  if (action == EV_ACTION_ROC1)
   {
     GetObject (goalHili2, channel, icon);
     if (channel == CHOBJECT && icon >= 37 && icon <= 43) // rochers ?
     {
-      action += icon - 37; // WM_ACTION_ROC1..7
+      action += icon - 37; // EV_ACTION_ROC1..7
     }
   }
 
-  if (action == WM_ACTION_FLOWER1)
+  if (action == EV_ACTION_FLOWER1)
   {
     GetObject (goalHili2, channel, icon);
     if (channel == CHOBJECT && icon == 83) // fleurs foncées ?
-      action = WM_ACTION_FLOWER2;
+      action = EV_ACTION_FLOWER2;
     if (channel == CHOBJECT && icon == 94) // fleurs vertes ?
-      action = WM_ACTION_FLOWER3;
+      action = EV_ACTION_FLOWER3;
   }
 
-  if (action == WM_ACTION_BRIDGEE)
+  if (action == EV_ACTION_BRIDGEE)
   {
     cel  = goalHili2;
     test = goalHili2;
@@ -3899,69 +3899,69 @@ bool CDecor::BlupiGoal (Sint32 rank, Sint32 button, POINT cel, POINT cMem)
     m_blupi[rank].fix   = cel;
 
     if (test.x - cel.x < 0)
-      action = WM_ACTION_BRIDGEO;
+      action = EV_ACTION_BRIDGEO;
     if (test.y - cel.y > 0)
-      action = WM_ACTION_BRIDGES;
+      action = EV_ACTION_BRIDGES;
     if (test.y - cel.y < 0)
-      action = WM_ACTION_BRIDGEN;
+      action = EV_ACTION_BRIDGEN;
   }
 
-  if (action == WM_ACTION_BOATE)
+  if (action == EV_ACTION_BOATE)
   {
     if (!IsBuildBateau (goalHili2, direct))
       return false;
 
     if (direct == DIRECT_S)
-      action = WM_ACTION_BOATS;
+      action = EV_ACTION_BOATS;
     if (direct == DIRECT_O)
-      action = WM_ACTION_BOATO;
+      action = EV_ACTION_BOATO;
     if (direct == DIRECT_N)
-      action = WM_ACTION_BOATN;
+      action = EV_ACTION_BOATN;
   }
 
-  if (action == WM_ACTION_CARRY)
+  if (action == EV_ACTION_CARRY)
   {
     if (IsBlupiHereEx (GetCel (goalHili2, 0, 1), rank, true))
-      action = WM_ACTION_CARRY2;
+      action = EV_ACTION_CARRY2;
   }
 
-  if (action == WM_ACTION_DROP)
+  if (action == EV_ACTION_DROP)
   {
     GetFloor (goalHili2, channel, icon);
     if (
       channel == CHFLOOR && icon == 52 && // nurserie ?
       m_blupi[rank].takeChannel == CHOBJECT &&
       m_blupi[rank].takeIcon == 63) // oeufs ?
-      action = WM_ACTION_NEWBLUPI;
+      action = EV_ACTION_NEWBLUPI;
     if (
       !IsFreeCelDepose (GetCel (goalHili2, 0, 1), rank) ||
       IsBlupiHereEx (GetCel (goalHili2, 0, 1), rank, true))
-      action = WM_ACTION_DROP2;
+      action = EV_ACTION_DROP2;
   }
 
-  if (action == WM_ACTION_EAT)
+  if (action == EV_ACTION_EAT)
   {
     if (IsBlupiHereEx (GetCel (goalHili2, 0, 1), rank, true))
-      action = WM_ACTION_EAT2;
+      action = EV_ACTION_EAT2;
   }
 
-  if (action == WM_ACTION_DRINK)
+  if (action == EV_ACTION_DRINK)
   {
     if (IsBlupiHereEx (GetCel (goalHili2, 0, 1), rank, true))
-      action = WM_ACTION_DRINK2;
+      action = EV_ACTION_DRINK2;
   }
 
-  if (action == WM_ACTION_DYNAMITE)
+  if (action == EV_ACTION_DYNAMITE)
   {
     GetObject (goalHili2, channel, icon);
     if (channel == CHOBJECT && icon == 125) // mine ?
-      action = WM_ACTION_MINE;
+      action = EV_ACTION_MINE;
     else
     {
       if (
         m_blupi[rank].takeChannel == CHOBJECT &&
         m_blupi[rank].takeIcon == 85) // porte dynamite ?
-        action = WM_ACTION_DYNAMITE2;
+        action = EV_ACTION_DYNAMITE2;
     }
   }
 
@@ -3970,7 +3970,7 @@ bool CDecor::BlupiGoal (Sint32 rank, Sint32 button, POINT cel, POINT cMem)
   m_blupi[rank].busyCount = 5; // 5 tentatives au maximum
   m_blupi[rank].busyDelay = 0;
 
-  if (action == WM_ACTION_REPEAT)
+  if (action == EV_ACTION_REPEAT)
   {
     m_blupi[rank].repeatLevel = m_blupi[rank].repeatLevelHope;
     m_blupi[rank].listCel[m_blupi[rank].repeatLevel] = goal;

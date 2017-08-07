@@ -89,7 +89,7 @@ static char cheat_code[9][20] = {
 static Phase table[] =
 {
     {
-        WM_PHASE_TESTCD,
+        EV_PHASE_TESTCD,
         "image/init.png",
         false,
         {
@@ -100,7 +100,7 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_INTRO1,
+        EV_PHASE_INTRO1,
         "image/intro1.png",
         false,
         {
@@ -111,42 +111,42 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_INIT,
+        EV_PHASE_INIT,
         "image/init.png",
         false,
         {
             {
-                WM_PHASE_DEMO,
+                EV_PHASE_DEMO,
                 0, {1, 108},
                 16, 424 - 60 - 42 * 4 - 18,
                 { translate ("Demo") },
             },
             {
-                WM_PHASE_SCHOOL,
+                EV_PHASE_SCHOOL,
                 0, {1, 79},
                 16, 424 - 60 - 42 * 3,
                 { translate ("Training") },
             },
             {
-                WM_PHASE_MISSION,
+                EV_PHASE_MISSION,
                 0, {1, 80},
                 16, 424 - 60 - 42 * 2,
                 { translate ("Missions") },
             },
             {
-                WM_PHASE_PRIVATE,
+                EV_PHASE_PRIVATE,
                 0, {1, 49},
                 16, 424 - 60 - 42 * 1,
                 { translate ("Construction") },
             },
             {
-                WM_PHASE_SETTINGS,
+                EV_PHASE_SETTINGS,
                 0, {1, 47},
                 16, 424 - 60 - 42 * 0,
                 { translate ("Global settings") }
             },
             {
-                WM_PHASE_BYE,
+                EV_PHASE_BYE,
                 0, {1, 36},
                 16, 424,
                 { translate ("Quit Planet Blupi") },
@@ -158,18 +158,18 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_HISTORY0,
+        EV_PHASE_HISTORY0,
         "image/history0.png",
         true,
         {
             {
-                WM_PHASE_INIT,
+                EV_PHASE_INIT,
                 0, {1, 50},
                 42 + 42 * 0, 433,
                 { translate ("Previous page") },
             },
             {
-                WM_PHASE_H1MOVIE,
+                EV_PHASE_H1MOVIE,
                 0, {1, 51},
                 558 - 42 * 0, 433,
                 { translate ("Next page") },
@@ -181,18 +181,18 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_HISTORY1,
+        EV_PHASE_HISTORY1,
         "image/history1.png",
         true,
         {
             {
-                WM_PHASE_HISTORY0,
+                EV_PHASE_HISTORY0,
                 0, {1, 50},
                 42 + 42 * 0, 433,
                 { translate ("Previous page") },
             },
             {
-                WM_PHASE_H2MOVIE,
+                EV_PHASE_H2MOVIE,
                 0, {1, 51},
                 558 - 42 * 0, 433,
                 { translate ("Next page") },
@@ -204,60 +204,60 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_INFO,
+        EV_PHASE_INFO,
         "image/info%.3d.png",
         false,
         {
             {
-                WM_PREV,
+                EV_PREV,
                 0, {1, 50},
                 558 - 42 * 2, 433,
                 { translate ("Previous game") },
             },
             {
-                WM_PHASE_PLAYMOVIE,
+                EV_PHASE_PLAYMOVIE,
                 0, {1, 48},
                 558 - 42 * 1, 433,
                 { translate ("Play this game") },
             },
             {
-                WM_NEXT,
+                EV_NEXT,
                 0, {1, 51},
                 558 - 42 * 0, 433,
                 { translate ("Next game") },
             },
             {
-                WM_PHASE_READ,
+                EV_PHASE_READ,
                 0, {1, 52},
                 42 + 42 * 4, 433,
                 { translate ("Open another game") },
             },
             {
-                WM_PHASE_SETUP,
+                EV_PHASE_SETUP,
                 0, {1, 47},
                 42 + 42 * 7, 433,
                 { translate ("Settings") },
             },
             {
-                WM_PHASE_BUILD,
+                EV_PHASE_BUILD,
                 0, {1, 49},
                 42 + 42 * 8, 433,
                 { translate ("Construct this game") },
             },
             {
-                WM_PHASE_SKILL1,
+                EV_PHASE_SKILL1,
                 0, {1, 94},
                 150, 230,
                 { translate ("Skill level") },
             },
             {
-                WM_PHASE_SKILL2,
+                EV_PHASE_SKILL2,
                 0, {1, 95},
                 150, 230 + 42,
                 { translate ("Skill level") },
             },
             {
-                WM_PHASE_INIT,
+                EV_PHASE_INIT,
                 0, {1, 40},
                 42 + 42 * 0, 433,
                 { translate ("Finish") },
@@ -269,24 +269,24 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_PLAY,
+        EV_PHASE_PLAY,
         "image/play.png",
         false,
         {
             {
-                WM_PHASE_STOP,
+                EV_PHASE_STOP,
                 0, {1, 40},
                 10 + 42 * 0, 422,
                 {},
             },
             {
-                WM_PHASE_SETUPp,
+                EV_PHASE_SETUPp,
                 0, {1, 47},
                 10 + 42 * 1, 422,
                 {},
             },
             {
-                WM_PHASE_WRITEp,
+                EV_PHASE_WRITEp,
                 0, {1, 53},
                 10 + 42 * 2, 422,
                 {},
@@ -298,42 +298,42 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_STOP,
+        EV_PHASE_STOP,
         "image/stop%.3d.png",
         false,
         {
             {
-                WM_PHASE_PLAY,
+                EV_PHASE_PLAY,
                 0, {1, 77},
                 558 - 42 * 1, 433,
                 { translate ("Continue this game") },
             },
             {
-                WM_PHASE_READ,
+                EV_PHASE_READ,
                 0, {1, 52},
                 42 + 42 * 4, 433,
                 { translate ("Open another game") },
             },
             {
-                WM_PHASE_WRITE,
+                EV_PHASE_WRITE,
                 0, {1, 53},
                 42 + 42 * 5, 433,
                 { translate ("Save this game") },
             },
             {
-                WM_PHASE_SETUP,
+                EV_PHASE_SETUP,
                 0, {1, 47},
                 42 + 42 * 7, 433,
                 { translate ("Settings") },
             },
             {
-                WM_PHASE_INFO,
+                EV_PHASE_INFO,
                 0, {1, 78},
                 42 + 42 * 0, 433,
                 { translate ("Quit this game") },
             },
             {
-                WM_PHASE_HELP,
+                EV_PHASE_HELP,
                 0, {1, 86},
                 42 + 42 * 9, 433,
                 { translate ("Help") },
@@ -345,36 +345,36 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_HELP,
+        EV_PHASE_HELP,
         "image/help.png",
         true,
         {
             {
-                WM_PHASE_PLAY,
+                EV_PHASE_PLAY,
                 0, {1, 77},
                 558 - 42 * 1, 433,
                 { translate ("Continue this game") },
             },
             {
-                WM_PHASE_READ,
+                EV_PHASE_READ,
                 0, {1, 52},
                 42 + 42 * 4, 433,
                 { translate ("Open another game") },
             },
             {
-                WM_PHASE_WRITE,
+                EV_PHASE_WRITE,
                 0, {1, 53},
                 42 + 42 * 5, 433,
                 { translate ("Save this game") },
             },
             {
-                WM_PHASE_SETUP,
+                EV_PHASE_SETUP,
                 0, {1, 47},
                 42 + 42 * 7, 433,
                 { translate ("Settings") },
             },
             {
-                WM_PHASE_STOP,
+                EV_PHASE_STOP,
                 0, {1, 50},
                 42 + 42 * 0, 433,
                 { translate ("Previous page") },
@@ -386,72 +386,72 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_SETUP,
+        EV_PHASE_SETUP,
         "image/setup01.png",
         false,
         {
             {
-                WM_BUTTON1,
+                EV_BUTTON1,
                 0, {1, 50},
                 54, 330,
                 { translate ("Slower") },
             },
             {
-                WM_BUTTON2,
+                EV_BUTTON2,
                 0, {1, 51},
                 54 + 40, 330,
                 { translate ("Faster") },
             },
             {
-                WM_BUTTON3,
+                EV_BUTTON3,
                 0, {1, 50},
                 284, 330,
                 { translate ("Reduce volume") },
             },
             {
-                WM_BUTTON4,
+                EV_BUTTON4,
                 0, {1, 51},
                 284 + 40, 330,
                 { translate ("Increase volume") },
             },
             {
-                WM_BUTTON5,
+                EV_BUTTON5,
                 0, {1, 50},
                 399, 330,
                 { translate ("Reduce volume") },
             },
             {
-                WM_BUTTON6,
+                EV_BUTTON6,
                 0, {1, 51},
                 399 + 40, 330,
                 { translate ("Increase volume") },
             },
             {
-                WM_BUTTON7,
+                EV_BUTTON7,
                 0, {1, 50},
                 514, 330,
                 { translate ("No video") },
             },
             {
-                WM_BUTTON8,
+                EV_BUTTON8,
                 0, {1, 51},
                 514 + 40, 330,
                 { translate ("Show videos") },
             },
             {
-                WM_BUTTON9,
+                EV_BUTTON9,
                 0, {1, 50},
                 169, 330,
                 { translate ("Slower") },
             },
             {
-                WM_BUTTON10,
+                EV_BUTTON10,
                 0, {1, 51},
                 169 + 40, 330,
                 { translate ("Faster") },
             },
             {
-                WM_PHASE_STOP,
+                EV_PHASE_STOP,
                 0, {1, 40},
                 11, 424,
                 { translate ("Finish") },
@@ -463,72 +463,72 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_SETUPp,
+        EV_PHASE_SETUPp,
         "image/setup01.png",
         false,
         {
             {
-                WM_BUTTON1,
+                EV_BUTTON1,
                 0, {1, 50},
                 54, 330,
                 { translate ("Slower") },
             },
             {
-                WM_BUTTON2,
+                EV_BUTTON2,
                 0, {1, 51},
                 54 + 40, 330,
                 { translate ("Faster") },
             },
             {
-                WM_BUTTON3,
+                EV_BUTTON3,
                 0, {1, 50},
                 284, 330,
                 { translate ("Reduce volume") },
             },
             {
-                WM_BUTTON4,
+                EV_BUTTON4,
                 0, {1, 51},
                 284 + 40, 330,
                 { translate ("Increase volume") },
             },
             {
-                WM_BUTTON5,
+                EV_BUTTON5,
                 0, {1, 50},
                 399, 330,
                 { translate ("Reduce volume") },
             },
             {
-                WM_BUTTON6,
+                EV_BUTTON6,
                 0, {1, 51},
                 399 + 40, 330,
                 { translate ("Increase volume") },
             },
             {
-                WM_BUTTON7,
+                EV_BUTTON7,
                 0, {1, 50},
                 514, 330,
                 { translate ("No video") },
             },
             {
-                WM_BUTTON8,
+                EV_BUTTON8,
                 0, {1, 51},
                 514 + 40, 330,
                 { translate ("Show videos") },
             },
             {
-                WM_BUTTON9,
+                EV_BUTTON9,
                 0, {1, 50},
                 169, 330,
                 { translate ("Slower") },
             },
             {
-                WM_BUTTON10,
+                EV_BUTTON10,
                 0, {1, 51},
                 169 + 40, 330,
                 { translate ("Faster") },
             },
             {
-                WM_PHASE_PLAY,
+                EV_PHASE_PLAY,
                 0, {1, 77},
                 11, 424,
                 { translate ("Continue this game") },
@@ -540,72 +540,72 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_READ,
+        EV_PHASE_READ,
         "image/read.png",
         false,
         {
             {
-                WM_READ0,
+                EV_READ0,
                 0, {0},
                 420, 30 + 42 * 0,
                 {},
             },
             {
-                WM_READ1,
+                EV_READ1,
                 0, {0},
                 420, 30 + 42 * 1,
                 {},
             },
             {
-                WM_READ2,
+                EV_READ2,
                 0, {0},
                 420, 30 + 42 * 2,
                 {},
             },
             {
-                WM_READ3,
+                EV_READ3,
                 0, {0},
                 420, 30 + 42 * 3,
                 {},
             },
             {
-                WM_READ4,
+                EV_READ4,
                 0, {0},
                 420, 30 + 42 * 4,
                 {},
             },
             {
-                WM_READ5,
+                EV_READ5,
                 0, {0},
                 420, 30 + 42 * 5,
                 {},
             },
             {
-                WM_READ6,
+                EV_READ6,
                 0, {0},
                 420, 30 + 42 * 6,
                 {},
             },
             {
-                WM_READ7,
+                EV_READ7,
                 0, {0},
                 420, 30 + 42 * 7,
                 {},
             },
             {
-                WM_READ8,
+                EV_READ8,
                 0, {0},
                 420, 30 + 42 * 8,
                 {},
             },
             {
-                WM_READ9,
+                EV_READ9,
                 0, {0},
                 420, 30 + 42 * 9,
                 {},
             },
             {
-                WM_PHASE_STOP,
+                EV_PHASE_STOP,
                 0, {1, 40},
                 16, 424,
                 { translate ("Finish") },
@@ -617,72 +617,72 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_WRITE,
+        EV_PHASE_WRITE,
         "image/write.png",
         false,
         {
             {
-                WM_WRITE0,
+                EV_WRITE0,
                 0, {0},
                 420, 30 + 42 * 0,
                 {},
             },
             {
-                WM_WRITE1,
+                EV_WRITE1,
                 0, {0},
                 420, 30 + 42 * 1,
                 {},
             },
             {
-                WM_WRITE2,
+                EV_WRITE2,
                 0, {0},
                 420, 30 + 42 * 2,
                 {},
             },
             {
-                WM_WRITE3,
+                EV_WRITE3,
                 0, {0},
                 420, 30 + 42 * 3,
                 {},
             },
             {
-                WM_WRITE4,
+                EV_WRITE4,
                 0, {0},
                 420, 30 + 42 * 4,
                 {},
             },
             {
-                WM_WRITE5,
+                EV_WRITE5,
                 0, {0},
                 420, 30 + 42 * 5,
                 {},
             },
             {
-                WM_WRITE6,
+                EV_WRITE6,
                 0, {0},
                 420, 30 + 42 * 6,
                 {},
             },
             {
-                WM_WRITE7,
+                EV_WRITE7,
                 0, {0},
                 420, 30 + 42 * 7,
                 {},
             },
             {
-                WM_WRITE8,
+                EV_WRITE8,
                 0, {0},
                 420, 30 + 42 * 8,
                 {},
             },
             {
-                WM_WRITE9,
+                EV_WRITE9,
                 0, {0},
                 420, 30 + 42 * 9,
                 {},
             },
             {
-                WM_PHASE_STOP,
+                EV_PHASE_STOP,
                 0, {1, 40},
                 16, 424,
                 { translate ("Finish") },
@@ -694,72 +694,72 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_WRITEp,
+        EV_PHASE_WRITEp,
         "image/write.png",
         false,
         {
             {
-                WM_WRITE0,
+                EV_WRITE0,
                 0, {0},
                 420, 30 + 42 * 0,
                 {},
             },
             {
-                WM_WRITE1,
+                EV_WRITE1,
                 0, {0},
                 420, 30 + 42 * 1,
                 {},
             },
             {
-                WM_WRITE2,
+                EV_WRITE2,
                 0, {0},
                 420, 30 + 42 * 2,
                 {},
             },
             {
-                WM_WRITE3,
+                EV_WRITE3,
                 0, {0},
                 420, 30 + 42 * 3,
                 {},
             },
             {
-                WM_WRITE4,
+                EV_WRITE4,
                 0, {0},
                 420, 30 + 42 * 4,
                 {},
             },
             {
-                WM_WRITE5,
+                EV_WRITE5,
                 0, {0},
                 420, 30 + 42 * 5,
                 {},
             },
             {
-                WM_WRITE6,
+                EV_WRITE6,
                 0, {0},
                 420, 30 + 42 * 6,
                 {},
             },
             {
-                WM_WRITE7,
+                EV_WRITE7,
                 0, {0},
                 420, 30 + 42 * 7,
                 {},
             },
             {
-                WM_WRITE8,
+                EV_WRITE8,
                 0, {0},
                 420, 30 + 42 * 8,
                 {},
             },
             {
-                WM_WRITE9,
+                EV_WRITE9,
                 0, {0},
                 420, 30 + 42 * 9,
                 {},
             },
             {
-                WM_PHASE_PLAY,
+                EV_PHASE_PLAY,
                 0, {1, 77},
                 16, 424,
                 { translate ("Continue this game") },
@@ -771,12 +771,12 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_LOST,
+        EV_PHASE_LOST,
         "image/lost.png",
         true,
         {
             {
-                WM_PHASE_INFO,
+                EV_PHASE_INFO,
                 0, {1, 50},
                 9, 431,
                 { translate ("Restart this game") },
@@ -788,12 +788,12 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_WIN,
+        EV_PHASE_WIN,
         "image/win.png",
         true,
         {
             {
-                WM_NEXT,
+                EV_NEXT,
                 0, {1, 51},
                 9, 431,
                 { translate ("Next game") },
@@ -805,12 +805,12 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_LASTWIN,
+        EV_PHASE_LASTWIN,
         "image/last%.3d.png",
         true,
         {
             {
-                WM_PHASE_INIT,
+                EV_PHASE_INIT,
                 0, {1, 51},
                 9, 431,
                 { translate ("Next game") },
@@ -822,12 +822,12 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_BUILD,
+        EV_PHASE_BUILD,
         "image/build.png",
         true,
         {
             {
-                WM_DECOR1,      // pose des sols
+                EV_DECOR1,      // pose des sols
                 0, {6, 0, 1, 2, 3, 4, 25},
                 11 + 42 * 2, 190 + 42 * 0,
                 {
@@ -840,7 +840,7 @@ static Phase table[] =
                 },
             },
             {
-                WM_DECOR2,      // pose des plantes
+                EV_DECOR2,      // pose des plantes
                 0, {4, 6, 7, 8, 11},
                 11 + 42 * 2, 190 + 42 * 1,
                 {
@@ -851,7 +851,7 @@ static Phase table[] =
                 },
             },
             {
-                WM_DECOR3,      // pose des batiments
+                EV_DECOR3,      // pose des batiments
                 0, {11, 18, 81, 33, 61, 82, 93, 20, 21, 22, 57, 58},
                 11 + 42 * 2, 190 + 42 * 2,
                 {
@@ -869,7 +869,7 @@ static Phase table[] =
                 },
             },
             {
-                WM_DECOR4,      // pose des blupi
+                EV_DECOR4,      // pose des blupi
                 0, {10, 12, 13, 14, 85, 15, 16, 17, 38, 75, 56},
                 11 + 42 * 2, 190 + 42 * 3,
                 {
@@ -886,7 +886,7 @@ static Phase table[] =
                 },
             },
             {
-                WM_DECOR5,      // pose les catastrophes
+                EV_DECOR5,      // pose les catastrophes
                 0, {2, 36, 37},
                 11 + 42 * 2, 190 + 42 * 4,
                 {
@@ -895,37 +895,37 @@ static Phase table[] =
                 },
             },
             {
-                WM_PHASE_REGION,
+                EV_PHASE_REGION,
                 0, {1, 5},
                 11 + 42 * 0, 190 + 42 * 1,
                 { translate ("Scenery choice") },
             },
             {
-                WM_PHASE_MUSIC,
+                EV_PHASE_MUSIC,
                 0, {1, 44},
                 11 + 42 * 0, 190 + 42 * 2,
                 { translate ("Music choice") },
             },
             {
-                WM_PHASE_BUTTON,
+                EV_PHASE_BUTTON,
                 0, {1, 46},
                 11 + 42 * 0, 190 + 42 * 3,
                 { translate ("Available buttons") },
             },
             {
-                WM_PHASE_TERM,
+                EV_PHASE_TERM,
                 0, {1, 45},
                 11 + 42 * 0, 190 + 42 * 4,
                 { translate ("Ending conditions") },
             },
             {
-                WM_PHASE_INFO,
+                EV_PHASE_INFO,
                 0, {1, 40},
                 11 + 42 * 0, 424,
                 { translate ("Quit construction") },
             },
             {
-                WM_PHASE_UNDO,
+                EV_PHASE_UNDO,
                 0, {1, 87},
                 11 + 42 * 2, 424,
                 { translate ("Cancel last operation") },
@@ -937,215 +937,215 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_BUTTON,
+        EV_PHASE_BUTTON,
         "image/button.png",
         true,
         {
             {
-                WM_BUTTON1,     // stop
+                EV_BUTTON1,     // stop
                 0, {1, 40},
                 170 + 42 * 0, 30 + 52 * 0,
                 { translate ("Stop") },
             },
             {
-                WM_BUTTON0,     // go
+                EV_BUTTON0,     // go
                 0, {1, 24},
                 170 + 42 * 1, 30 + 52 * 0,
                 { translate ("Go") },
             },
             {
-                WM_BUTTON3,     // carry
+                EV_BUTTON3,     // carry
                 0, {1, 30},
                 170 + 42 * 3, 30 + 52 * 0,
                 { translate ("Take") },
             },
             {
-                WM_BUTTON4,     // depose
+                EV_BUTTON4,     // depose
                 0, {1, 31},
                 170 + 42 * 4, 30 + 52 * 0,
                 { translate ("Drop") },
             },
             {
-                WM_BUTTON32,    // répète
+                EV_BUTTON32,    // répète
                 0, {1, 100},
                 170 + 42 * 6, 30 + 52 * 0,
                 { translate ("Repeat") },
             },
 
             {
-                WM_BUTTON5,     // abat
+                EV_BUTTON5,     // abat
                 0, {1, 22},
                 170 + 42 * 0, 30 + 52 * 1,
                 { translate ("Cut down a tree") },
             },
             {
-                WM_BUTTON16,    // abat n
+                EV_BUTTON16,    // abat n
                 0, {1, 42},
                 170 + 42 * 1, 30 + 52 * 1,
                 { translate ("Cut down trees") },
             },
             {
-                WM_BUTTON6,     // roc
+                EV_BUTTON6,     // roc
                 0, {1, 27},
                 170 + 42 * 3, 30 + 52 * 1,
                 { translate ("Carve a rock") },
             },
             {
-                WM_BUTTON17,    // roc n
+                EV_BUTTON17,    // roc n
                 0, {1, 43},
                 170 + 42 * 4, 30 + 52 * 1,
                 { translate ("Carve rocks") },
             },
             {
-                WM_BUTTON22,    // fleurs
+                EV_BUTTON22,    // fleurs
                 0, {1, 54},
                 170 + 42 * 6, 30 + 52 * 1,
                 { translate ("Make bunch of flowers") },
             },
             {
-                WM_BUTTON23,    // fleurs n
+                EV_BUTTON23,    // fleurs n
                 0, {1, 55},
                 170 + 42 * 7, 30 + 52 * 1,
                 { translate ("Make bunches of flowers") },
             },
 
             {
-                WM_BUTTON9,     // build2 (couveuse)
+                EV_BUTTON9,     // build2 (couveuse)
                 0, {1, 25},
                 170 + 42 * 0, 30 + 52 * 2,
                 { translate ("Incubator") },
             },
             {
-                WM_BUTTON15,    // palis
+                EV_BUTTON15,    // palis
                 0, {1, 26},
                 170 + 42 * 1, 30 + 52 * 2,
                 { translate ("Palisade") },
             },
             {
-                WM_BUTTON18,    // pont
+                EV_BUTTON18,    // pont
                 0, {1, 23},
                 170 + 42 * 2, 30 + 52 * 2,
                 { translate ("Bridge") },
             },
             {
-                WM_BUTTON25,    // bateau
+                EV_BUTTON25,    // bateau
                 0, {1, 58},
                 170 + 42 * 3, 30 + 52 * 2,
                 { translate ("Boat") },
             },
             {
-                WM_BUTTON13,    // build6 (téléporteur)
+                EV_BUTTON13,    // build6 (téléporteur)
                 0, {1, 101},
                 170 + 42 * 4, 30 + 52 * 2,
                 { translate ("Teleporter") },
             },
             {
-                WM_BUTTON14,    // mur
+                EV_BUTTON14,    // mur
                 0, {1, 20},
                 170 + 42 * 6, 30 + 52 * 2,
                 { translate ("Wall") },
             },
             {
-                WM_BUTTON19,    // tour
+                EV_BUTTON19,    // tour
                 0, {1, 33},
                 170 + 42 * 7, 30 + 52 * 2,
                 { translate ("Protection tower") },
             },
 
             {
-                WM_BUTTON8,     // build1 (cabane)
+                EV_BUTTON8,     // build1 (cabane)
                 0, {1, 19},
                 170 + 42 * 0, 30 + 52 * 3,
                 { translate ("Garden shed") },
             },
             {
-                WM_BUTTON7,     // cultive
+                EV_BUTTON7,     // cultive
                 0, {1, 28},
                 170 + 42 * 1, 30 + 52 * 3,
                 { translate ("Grow tomatoes") },
             },
             {
-                WM_BUTTON2,     // mange
+                EV_BUTTON2,     // mange
                 0, {1, 32},
                 170 + 42 * 2, 30 + 52 * 3,
                 { translate ("Eat") },
             },
 
             {
-                WM_BUTTON10,    // build3 (laboratoire)
+                EV_BUTTON10,    // build3 (laboratoire)
                 0, {1, 35},
                 170 + 42 * 0, 30 + 52 * 4,
                 { translate ("Laboratory") },
             },
             {
-                WM_BUTTON21,    // laboratoire
+                EV_BUTTON21,    // laboratoire
                 0, {1, 39},
                 170 + 42 * 1, 30 + 52 * 4,
                 { translate ("Transform") },
             },
             {
-                WM_BUTTON20,    // boit
+                EV_BUTTON20,    // boit
                 0, {1, 34},
                 170 + 42 * 2, 30 + 52 * 4,
                 { translate ("Drink") },
             },
             {
-                WM_BUTTON24,    // dynamite
+                EV_BUTTON24,    // dynamite
                 0, {1, 41},
                 170 + 42 * 3, 30 + 52 * 4,
                 { translate ("Blow up") },
             },
 
             {
-                WM_BUTTON27,    // drapeau
+                EV_BUTTON27,    // drapeau
                 0, {1, 64},
                 170 + 42 * 0, 30 + 52 * 5,
                 { translate ("Prospect for iron") },
             },
             {
-                WM_BUTTON11,    // build4 (mine)
+                EV_BUTTON11,    // build4 (mine)
                 0, {1, 61},
                 170 + 42 * 1, 30 + 52 * 5,
                 { translate ("Mine") },
             },
             {
-                WM_BUTTON28,    // extrait
+                EV_BUTTON28,    // extrait
                 0, {1, 62},
                 170 + 42 * 2, 30 + 52 * 5,
                 { translate ("Extract iron") },
             },
             {
-                WM_BUTTON12,    // build5 (usine)
+                EV_BUTTON12,    // build5 (usine)
                 0, {1, 59},
                 170 + 42 * 4, 30 + 52 * 5,
                 { translate ("Workshop") },
             },
             {
-                WM_BUTTON29,    // fabrique jeep
+                EV_BUTTON29,    // fabrique jeep
                 0, {1, 65},
                 170 + 42 * 5, 30 + 52 * 5,
                 { translate ("Make a Jeep") },
             },
             {
-                WM_BUTTON30,    // fabrique mine
+                EV_BUTTON30,    // fabrique mine
                 0, {1, 63},
                 170 + 42 * 6, 30 + 52 * 5,
                 { translate ("Make a time bomb") },
             },
             {
-                WM_BUTTON34,    // fabrique armure
+                EV_BUTTON34,    // fabrique armure
                 0, {1, 106},
                 170 + 42 * 7, 30 + 52 * 5,
                 { translate ("Make armour") },
             },
             {
-                WM_BUTTON31,    // fabrique disciple
+                EV_BUTTON31,    // fabrique disciple
                 0, {1, 83},
                 170 + 42 * 8, 30 + 52 * 5,
                 { translate ("Make a helper robot") },
             },
             {
-                WM_PHASE_BUILD,
+                EV_PHASE_BUILD,
                 0, {1, 50},
                 11, 424,
                 { translate ("Finish") },
@@ -1157,84 +1157,84 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_TERM,
+        EV_PHASE_TERM,
         "image/term.png",
         true,
         {
             {
-                WM_BUTTON8,     // home blupi
+                EV_BUTTON8,     // home blupi
                 0, {1, 81},
                 170 + 42 * 0, 30 + 42 * 0,
                 { translate ("Blupi in house") },
             },
             {
-                WM_BUTTON9,     // kill robots
+                EV_BUTTON9,     // kill robots
                 0, {1, 57},
                 170 + 42 * 1, 30 + 42 * 0,
                 { translate ("No more enemies") },
             },
             {
-                WM_BUTTON3,     // stop fire
+                EV_BUTTON3,     // stop fire
                 0, {1, 37},
                 170 + 42 * 2, 30 + 42 * 0,
                 { translate ("Fire out") },
             },
             {
-                WM_BUTTON1,     // hach blupi
+                EV_BUTTON1,     // hach blupi
                 0, {1, 14},
                 170 + 42 * 0, 30 + 42 * 2,
                 { translate ("Blupi on striped paving stones") },
             },
             {
-                WM_BUTTON2,     // hach planche
+                EV_BUTTON2,     // hach planche
                 0, {1, 22},
                 170 + 42 * 1, 30 + 42 * 2,
                 { translate ("Planks on striped paving stones") },
             },
             {
-                WM_BUTTON10,    // hach tomate
+                EV_BUTTON10,    // hach tomate
                 0, {1, 28},
                 170 + 42 * 2, 30 + 42 * 2,
                 { translate ("Tomatoes on striped paving stones") },
             },
             {
-                WM_BUTTON11,    // hach métal
+                EV_BUTTON11,    // hach métal
                 0, {1, 84},
                 170 + 42 * 3, 30 + 42 * 2,
                 { translate ("Platinium on striped paving stones") },
             },
             {
-                WM_BUTTON12,    // hach robot
+                EV_BUTTON12,    // hach robot
                 0, {1, 94},
                 170 + 42 * 4, 30 + 42 * 2,
                 { translate ("Robot on striped paving stones") },
             },
             {
-                WM_BUTTON4,     // - min blupi
+                EV_BUTTON4,     // - min blupi
                 0, {1, 50},
                 170 + 42 * 0, 30 + 42 * 4,
                 { "(-)" },
             },
             {
-                WM_BUTTON5,     // + min blupi
+                EV_BUTTON5,     // + min blupi
                 0, {1, 51},
                 170 + 42 * 1, 30 + 42 * 4,
                 { "(+)" },
             },
             {
-                WM_BUTTON6,     // - max blupi
+                EV_BUTTON6,     // - max blupi
                 0, {1, 50},
                 170 + 42 * 0, 30 + 42 * 5,
                 { "(-)" },
             },
             {
-                WM_BUTTON7,     // + max blupi
+                EV_BUTTON7,     // + max blupi
                 0, {1, 51},
                 170 + 42 * 1, 30 + 42 * 5,
                 { "(+)" },
             },
             {
-                WM_PHASE_BUILD,
+                EV_PHASE_BUILD,
                 0, {1, 50},
                 11, 424,
                 { translate ("Finish") },
@@ -1246,72 +1246,72 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_MUSIC,
+        EV_PHASE_MUSIC,
         "image/music.png",
         true,
         {
             {
-                WM_BUTTON1,
+                EV_BUTTON1,
                 0, {1, 40},
                 170 + 42 * 0, 30 + 42 * 0,
                 { translate ("No music") },
             },
             {
-                WM_BUTTON2,
+                EV_BUTTON2,
                 0, {1, 44},
                 170 + 42 * 0, 30 + 42 * 1,
                 { translate ("Music number 1") },
             },
             {
-                WM_BUTTON3,
+                EV_BUTTON3,
                 0, {1, 44},
                 170 + 42 * 0, 30 + 42 * 2,
                 { translate ("Music number 2") },
             },
             {
-                WM_BUTTON4,
+                EV_BUTTON4,
                 0, {1, 44},
                 170 + 42 * 0, 30 + 42 * 3,
                 { translate ("Music number 3") },
             },
             {
-                WM_BUTTON5,
+                EV_BUTTON5,
                 0, {1, 44},
                 170 + 42 * 0, 30 + 42 * 4,
                 { translate ("Music number 4") },
             },
             {
-                WM_BUTTON6,
+                EV_BUTTON6,
                 0, {1, 44},
                 170 + 42 * 0, 30 + 42 * 5,
                 { translate ("Music number 5") },
             },
             {
-                WM_BUTTON7,
+                EV_BUTTON7,
                 0, {1, 44},
                 170 + 42 * 0, 30 + 42 * 6,
                 { translate ("Music number 6") },
             },
             {
-                WM_BUTTON8,
+                EV_BUTTON8,
                 0, {1, 44},
                 170 + 42 * 0, 30 + 42 * 7,
                 { translate ("Music number 7") },
             },
             {
-                WM_BUTTON9,
+                EV_BUTTON9,
                 0, {1, 44},
                 170 + 42 * 0, 30 + 42 * 8,
                 { translate ("Music number 8") },
             },
             {
-                WM_BUTTON10,
+                EV_BUTTON10,
                 0, {1, 44},
                 170 + 42 * 0, 30 + 42 * 9,
                 { translate ("Music number 9") },
             },
             {
-                WM_PHASE_BUILD,
+                EV_PHASE_BUILD,
                 0, {1, 50},
                 11, 424,
                 { translate ("Finish") },
@@ -1323,36 +1323,36 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_REGION,
+        EV_PHASE_REGION,
         "image/region.png",
         true,
         {
             {
-                WM_BUTTON1,     // normal
+                EV_BUTTON1,     // normal
                 0, {0},
                 220, 60,
                 { translate ("Prairie") },
             },
             {
-                WM_BUTTON4,     // sapins
+                EV_BUTTON4,     // sapins
                 0, {0},
                 220, 170,
                 { translate ("Forest") },
             },
             {
-                WM_BUTTON2,     // palmiers
+                EV_BUTTON2,     // palmiers
                 0, {0},
                 220, 280,
                 { translate ("Desert") },
             },
             {
-                WM_BUTTON3,     // hivers
+                EV_BUTTON3,     // hivers
                 0, {0},
                 220, 390,
                 { translate ("Forest under snow") },
             },
             {
-                WM_PHASE_BUILD,
+                EV_PHASE_BUILD,
                 0, {1, 50},
                 11, 424,
                 { translate ("Finish") },
@@ -1364,7 +1364,7 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_PLAYMOVIE,
+        EV_PHASE_PLAYMOVIE,
         "image/movie.png",
         false,
         {
@@ -1375,7 +1375,7 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_WINMOVIE,
+        EV_PHASE_WINMOVIE,
         "image/movie.png",
         false,
         {
@@ -1386,7 +1386,7 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_H0MOVIE,
+        EV_PHASE_H0MOVIE,
         "image/movie.png",
         false,
         {
@@ -1397,7 +1397,7 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_H1MOVIE,
+        EV_PHASE_H1MOVIE,
         "image/movie.png",
         false,
         {
@@ -1408,7 +1408,7 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_H2MOVIE,
+        EV_PHASE_H2MOVIE,
         "image/movie.png",
         false,
         {
@@ -1419,7 +1419,7 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_BYE,
+        EV_PHASE_BYE,
         "image/bye.png",
         false,
         {
@@ -1430,12 +1430,12 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_INSERT,
+        EV_PHASE_INSERT,
         "image/insert.png",
         false,
         {
             {
-                WM_PHASE_INIT,
+                EV_PHASE_INIT,
                 0, {1, 40},
                 16, 424,
                 { translate ("Quit Planet Blupi") },
@@ -1447,48 +1447,48 @@ static Phase table[] =
     },
 
     {
-        WM_PHASE_SETTINGS,
+        EV_PHASE_SETTINGS,
         "image/setup00.png",
         false,
         {
             {
-                WM_BUTTON1,
+                EV_BUTTON1,
                 0, {1, 50},
                 54, 330,
                 { translate ("Previous language") },
             },
             {
-                WM_BUTTON2,
+                EV_BUTTON2,
                 0, {1, 51},
                 54 + 40, 330,
                 { translate ("Next language") },
             },
             {
-                WM_BUTTON3,
+                EV_BUTTON3,
                 0, {1, 50},
                 169, 330,
                 { translate ("Fullscreen") },
             },
             {
-                WM_BUTTON4,
+                EV_BUTTON4,
                 0, {1, 51},
                 169 + 40, 330,
                 { translate ("Windowed") },
             },
             {
-                WM_BUTTON5,
+                EV_BUTTON5,
                 0, {1, 50},
                 284, 330,
                 { translate ("Reduce window size") },
             },
             {
-                WM_BUTTON6,
+                EV_BUTTON6,
                 0, {1, 51},
                 284 + 40, 330,
                 { translate ("Increase window size") },
             },
             {
-                WM_PHASE_INIT,
+                EV_PHASE_INIT,
                 0, {1, 40},
                 42 + 42 * 0, 433,
                 { translate ("Finish") },
@@ -1640,12 +1640,12 @@ void CEvent::SetFullScreen (bool bFullScreen)
   /* Force this update before otherwise the coordinates retrieved with
    * the Warp SDL function are corresponding to the previous size.
    */
-  CEvent::PushUserEvent (WM_UPDATE);
+  CEvent::PushUserEvent (EV_UPDATE);
 
   auto coord = new SDL_Point; // Released by the event handler.
   coord->x   = x;
   coord->y   = y;
-  CEvent::PushUserEvent (WM_WARPMOUSE, coord);
+  CEvent::PushUserEvent (EV_WARPMOUSE, coord);
 }
 
 /**
@@ -1670,12 +1670,12 @@ void CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
   /* Force this update before otherwise the coordinates retrieved with
    * the Warp SDL function are corresponding to the previous size.
    */
-  CEvent::PushUserEvent (WM_UPDATE);
+  CEvent::PushUserEvent (EV_UPDATE);
 
   auto coord = new SDL_Point; // Released by the event handler.
   coord->x   = newScale < prevScale ? x / prevScale : x * newScale;
   coord->y   = newScale < prevScale ? y / prevScale : x * newScale;
-  CEvent::PushUserEvent (WM_WARPMOUSE, coord);
+  CEvent::PushUserEvent (EV_WARPMOUSE, coord);
 }
 
 Uint8 CEvent::GetWindowScale ()
@@ -1830,12 +1830,12 @@ bool CEvent::CreateButtons ()
 
     if (m_bPrivate)
     {
-      if (message == WM_PHASE_SKILL1)
+      if (message == EV_PHASE_SKILL1)
       {
         pos.x = 117;
         pos.y = 115;
       }
-      if (message == WM_PHASE_SKILL2)
+      if (message == EV_PHASE_SKILL2)
       {
         pos.x = 117;
         pos.y = 115 + 42;
@@ -1910,9 +1910,9 @@ bool CEvent::DrawButtons ()
   //?
 
   if (
-    (m_phase == WM_PHASE_PLAY && m_bChangeCheat) ||
-    (m_phase != WM_PHASE_PLAY && m_phase != WM_PHASE_INSERT &&
-     m_phase != WM_PHASE_INTRO1 && m_phase != WM_PHASE_BYE))
+    (m_phase == EV_PHASE_PLAY && m_bChangeCheat) ||
+    (m_phase != EV_PHASE_PLAY && m_phase != EV_PHASE_INSERT &&
+     m_phase != EV_PHASE_INTRO1 && m_phase != EV_PHASE_BYE))
   {
     m_bChangeCheat = false;
 
@@ -1937,7 +1937,7 @@ bool CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, text, FONTLITTLE);
   }
 
-  if (m_phase == WM_PHASE_INIT)
+  if (m_phase == EV_PHASE_INIT)
   {
     pos.x = 570;
     pos.y = 465;
@@ -1947,68 +1947,68 @@ bool CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, res, FONTLITTLE);
   }
 
-  if (m_phase == WM_PHASE_SETUP || m_phase == WM_PHASE_SETUPp)
+  if (m_phase == EV_PHASE_SETUP || m_phase == EV_PHASE_SETUPp)
   {
     bEnable = true;
     if (m_speed == 1)
       bEnable = false;
-    SetEnable (WM_BUTTON1, bEnable);
+    SetEnable (EV_BUTTON1, bEnable);
     bEnable = true;
     if (m_speed >= (m_bSpeed ? 8 : 2))
       bEnable = false;
-    SetEnable (WM_BUTTON2, bEnable);
+    SetEnable (EV_BUTTON2, bEnable);
 
     volume  = m_pSound->GetAudioVolume ();
     bEnable = true;
     if (volume == 0)
       bEnable = false;
-    SetEnable (WM_BUTTON3, bEnable);
+    SetEnable (EV_BUTTON3, bEnable);
     bEnable = true;
     if (volume >= MAXVOLUME)
       bEnable = false;
-    SetEnable (WM_BUTTON4, bEnable);
+    SetEnable (EV_BUTTON4, bEnable);
 
     volume  = m_pSound->GetMidiVolume ();
     bEnable = true;
     if (volume == 0)
       bEnable = false;
-    SetEnable (WM_BUTTON5, bEnable);
+    SetEnable (EV_BUTTON5, bEnable);
     bEnable = true;
     if (volume >= MAXVOLUME)
       bEnable = false;
-    SetEnable (WM_BUTTON6, bEnable);
+    SetEnable (EV_BUTTON6, bEnable);
 
     if (m_pMovie->GetEnable ())
     {
-      SetEnable (WM_BUTTON7, m_bMovie);
-      SetEnable (WM_BUTTON8, !m_bMovie);
+      SetEnable (EV_BUTTON7, m_bMovie);
+      SetEnable (EV_BUTTON8, !m_bMovie);
     }
     else
     {
-      SetEnable (WM_BUTTON7, false);
-      SetEnable (WM_BUTTON8, false);
+      SetEnable (EV_BUTTON7, false);
+      SetEnable (EV_BUTTON8, false);
     }
 
     bEnable = true;
     if (m_scrollSpeed == 0)
       bEnable = false;
-    SetEnable (WM_BUTTON9, bEnable);
+    SetEnable (EV_BUTTON9, bEnable);
     bEnable = true;
     if (m_scrollSpeed >= 3)
       bEnable = false;
-    SetEnable (WM_BUTTON10, bEnable);
+    SetEnable (EV_BUTTON10, bEnable);
   }
 
-  if (m_phase == WM_PHASE_SETTINGS)
+  if (m_phase == EV_PHASE_SETTINGS)
   {
-    SetEnable (WM_BUTTON1, m_Lang != m_Languages.begin ());
-    SetEnable (WM_BUTTON2, m_Lang != m_Languages.end () - 1);
+    SetEnable (EV_BUTTON1, m_Lang != m_Languages.begin ());
+    SetEnable (EV_BUTTON2, m_Lang != m_Languages.end () - 1);
 
-    SetEnable (WM_BUTTON3, !m_bFullScreen);
-    SetEnable (WM_BUTTON4, m_bFullScreen);
+    SetEnable (EV_BUTTON3, !m_bFullScreen);
+    SetEnable (EV_BUTTON4, m_bFullScreen);
 
-    SetEnable (WM_BUTTON5, !m_bFullScreen && m_WindowScale > 1);
-    SetEnable (WM_BUTTON6, !m_bFullScreen && m_WindowScale < 2);
+    SetEnable (EV_BUTTON5, !m_bFullScreen && m_WindowScale > 1);
+    SetEnable (EV_BUTTON6, !m_bFullScreen && m_WindowScale < 2);
   }
 
   assert (m_index >= 0);
@@ -2021,7 +2021,7 @@ bool CEvent::DrawButtons ()
     ++i;
   }
 
-  if (m_phase == WM_PHASE_PLAY)
+  if (m_phase == EV_PHASE_PLAY)
   {
     // Dessine les jauges.
     m_pDecor->GetLevelJauge (levels, types);
@@ -2143,10 +2143,10 @@ bool CEvent::DrawButtons ()
 
   // Dessine les noms des fichiers.
   if (
-    m_phase == WM_PHASE_READ || m_phase == WM_PHASE_WRITE ||
-    m_phase == WM_PHASE_WRITEp)
+    m_phase == EV_PHASE_READ || m_phase == EV_PHASE_WRITE ||
+    m_phase == EV_PHASE_WRITEp)
   {
-    if (m_phase == WM_PHASE_READ)
+    if (m_phase == EV_PHASE_READ)
       snprintf (res, sizeof (res), "%s", gettext ("Open another game"));
     else
       snprintf (res, sizeof (res), "%s", gettext ("Save this game"));
@@ -2191,7 +2191,7 @@ bool CEvent::DrawButtons ()
   }
 
   // Dessine les réglages pour la fin de la partie.
-  if (m_phase == WM_PHASE_TERM)
+  if (m_phase == EV_PHASE_TERM)
   {
     Term * pTerm = m_pDecor->GetTerminated ();
 
@@ -2213,19 +2213,19 @@ bool CEvent::DrawButtons ()
   }
 
   // Dessine les textes pour les choix des boutons.
-  if (m_phase == WM_PHASE_BUTTON)
+  if (m_phase == EV_PHASE_BUTTON)
     DrawTextCenter (gettext ("Available buttons"), (10 + 134) / 2, 20);
 
   // Dessine les textes pour le choix des musiques.
-  if (m_phase == WM_PHASE_MUSIC)
+  if (m_phase == EV_PHASE_MUSIC)
     DrawTextCenter (gettext ("Music choice"), (10 + 134) / 2, 20);
 
   // Dessine les textes pour le choix de la région.
-  if (m_phase == WM_PHASE_REGION)
+  if (m_phase == EV_PHASE_REGION)
     DrawTextCenter (gettext ("Scenery choice"), (10 + 134) / 2, 20);
 
   // Ajoute "Mission numéro".
-  if (m_phase == WM_PHASE_INFO)
+  if (m_phase == EV_PHASE_INFO)
   {
     if (m_bSchool)
       snprintf (res, sizeof (res), "%s", gettext ("Training number"));
@@ -2248,7 +2248,7 @@ bool CEvent::DrawButtons ()
   }
 
   // Ajoute le texte "Partie interrompue".
-  if (m_phase == WM_PHASE_STOP)
+  if (m_phase == EV_PHASE_STOP)
   {
     char * text = gettext ("Game paused");
     lg          = GetTextWidth (text);
@@ -2264,7 +2264,7 @@ bool CEvent::DrawButtons ()
   }
 
   // Ajoute le texte "Informations complémentaires".
-  if (m_phase == WM_PHASE_HELP)
+  if (m_phase == EV_PHASE_HELP)
   {
     char * text = gettext ("Help number");
     lg          = GetTextWidth (text);
@@ -2281,8 +2281,8 @@ bool CEvent::DrawButtons ()
 
   // Ajoute le numéro du monde.
   if (
-    m_phase == WM_PHASE_INFO || m_phase == WM_PHASE_STOP ||
-    m_phase == WM_PHASE_HELP)
+    m_phase == EV_PHASE_INFO || m_phase == EV_PHASE_STOP ||
+    m_phase == EV_PHASE_HELP)
   {
     if (m_bSchool)
       world = m_exercice;
@@ -2304,7 +2304,7 @@ bool CEvent::DrawButtons ()
   }
 
   // Affiche facile/difficile.
-  if (m_phase == WM_PHASE_INFO)
+  if (m_phase == EV_PHASE_INFO)
   {
     if (!m_bSchool)
     {
@@ -2342,9 +2342,9 @@ bool CEvent::DrawButtons ()
 
   // Affiche le libellé de l'énigme.
   if (
-    m_phase == WM_PHASE_INFO || m_phase == WM_PHASE_STOP ||
-    m_phase == WM_PHASE_HELP || m_phase == WM_PHASE_HISTORY0 ||
-    m_phase == WM_PHASE_HISTORY1)
+    m_phase == EV_PHASE_INFO || m_phase == EV_PHASE_STOP ||
+    m_phase == EV_PHASE_HELP || m_phase == EV_PHASE_HISTORY0 ||
+    m_phase == EV_PHASE_HISTORY1)
   {
     pos.x = 355;
     pos.y = 70;
@@ -2363,7 +2363,7 @@ bool CEvent::DrawButtons ()
   }
 
   // Affiche le texte lorsque c'est raté.
-  if (m_phase == WM_PHASE_LOST)
+  if (m_phase == EV_PHASE_LOST)
   {
     static char * list[] = {
       gettext ("You have failed, try again..."),
@@ -2379,7 +2379,7 @@ bool CEvent::DrawButtons ()
   }
 
   // Affiche le texte lorsque c'est réussi.
-  if (m_phase == WM_PHASE_WIN)
+  if (m_phase == EV_PHASE_WIN)
   {
     static char * list[] = {
       gettext ("Well done !"),     gettext ("Yes, great ..."),
@@ -2393,7 +2393,7 @@ bool CEvent::DrawButtons ()
   }
 
   // Affiche le texte lorsque c'est fini.
-  if (m_phase == WM_PHASE_LASTWIN)
+  if (m_phase == EV_PHASE_LASTWIN)
   {
     char * text;
     if (m_bSchool)
@@ -2410,7 +2410,7 @@ bool CEvent::DrawButtons ()
   }
 
   // Dessine les réglages.
-  if (m_phase == WM_PHASE_SETUP || m_phase == WM_PHASE_SETUPp)
+  if (m_phase == EV_PHASE_SETUP || m_phase == EV_PHASE_SETUPp)
   {
     DrawTextCenter (gettext ("Global game\nspeed"), 54 + 40, 80);
     DrawTextCenter (gettext ("Scroll speed\nwith mouse"), 169 + 40, 80);
@@ -2455,7 +2455,7 @@ bool CEvent::DrawButtons ()
   }
 
   // Draw the settings
-  if (m_phase == WM_PHASE_SETTINGS)
+  if (m_phase == EV_PHASE_SETTINGS)
   {
     DrawTextCenter (gettext ("Language interface\nand sounds"), 54 + 40, 80);
     DrawTextCenter (gettext ("Select the\nwindow mode"), 169 + 40, 80);
@@ -2495,7 +2495,7 @@ bool CEvent::DrawButtons ()
   }
 
   // Affiche le texte de fin de la version demo.
-  if (m_phase == WM_PHASE_BYE)
+  if (m_phase == EV_PHASE_BYE)
   {
     char * text;
 
@@ -2531,13 +2531,13 @@ bool CEvent::DrawButtons ()
   }
 
   // Affiche le texte lorsqu'il faut insérer le CD-Rom.
-  if (m_phase == WM_PHASE_INSERT)
+  if (m_phase == EV_PHASE_INSERT)
     DrawTextCenter (
       gettext ("Insert CD-Rom Planet Blupi and wait a few seconds..."),
       LXIMAGE / 2, 20);
 
-  if (m_phase == WM_PHASE_BUILD)
-    SetEnable (WM_PHASE_UNDO, m_pDecor->IsUndo ());
+  if (m_phase == EV_PHASE_BUILD)
+    SetEnable (EV_PHASE_UNDO, m_pDecor->IsUndo ());
 
   // Dessine les tool tips (info bulle).
   if (m_textToolTips[0] != 0)
@@ -2555,7 +2555,7 @@ MouseSprites CEvent::MousePosToSprite (POINT pos)
 
   sprite = SPRITE_POINTER;
 
-  if (m_phase == WM_PHASE_PLAY || m_phase == WM_PHASE_BUILD)
+  if (m_phase == EV_PHASE_PLAY || m_phase == EV_PHASE_BUILD)
   {
     if (
       pos.x >= POSMAPX && pos.x <= POSMAPX + DIMMAPX && pos.y >= POSMAPY &&
@@ -2594,9 +2594,9 @@ MouseSprites CEvent::MousePosToSprite (POINT pos)
         sprite = SPRITE_ARROWDR;
     }
   }
-  else if (m_phase == WM_PHASE_INTRO1)
+  else if (m_phase == EV_PHASE_INTRO1)
     sprite = SPRITE_POINTER;
-  else if (m_phase == WM_PHASE_BYE)
+  else if (m_phase == EV_PHASE_BYE)
     sprite = SPRITE_POINTER;
   else
   {
@@ -2690,7 +2690,7 @@ bool CEvent::EventButtons (const SDL_Event & event, POINT pos)
     return false;
   };
 
-  if (m_phase == WM_PHASE_PLAY)
+  if (m_phase == EV_PHASE_PLAY)
   {
     const auto spotted = progress (m_jauges[0], gettext ("Blupi's energy"));
     if (!spotted)
@@ -2722,7 +2722,7 @@ bool CEvent::EventButtons (const SDL_Event & event, POINT pos)
     }
   }
 
-  if (m_phase == WM_PHASE_PLAY)
+  if (m_phase == EV_PHASE_PLAY)
   {
     m_bHiliInfoButton = false;
     if (
@@ -2783,7 +2783,7 @@ bool CEvent::EventButtons (const SDL_Event & event, POINT pos)
     }
   }
 
-  if (m_phase == WM_PHASE_BUILD)
+  if (m_phase == EV_PHASE_BUILD)
   {
     if (
       event.type == SDL_MOUSEBUTTONDOWN &&
@@ -2810,7 +2810,7 @@ bool CEvent::EventButtons (const SDL_Event & event, POINT pos)
     i++;
   }
 
-  if (m_phase == WM_PHASE_PLAY)
+  if (m_phase == EV_PHASE_PLAY)
   {
     if (m_menu.TreatEvent (event))
       return true;
@@ -2917,10 +2917,10 @@ bool CEvent::ChangePhase (Uint32 phase)
   Term *      pTerm;
 
   if (
-    phase != WM_PHASE_SETUPp && phase != WM_PHASE_WRITEp &&
-    phase != WM_PHASE_PLAY)
+    phase != EV_PHASE_SETUPp && phase != EV_PHASE_WRITEp &&
+    phase != EV_PHASE_PLAY)
     m_pSound->StopMusic ();
-  if (phase == WM_PHASE_SETUPp && m_bPause)
+  if (phase == EV_PHASE_SETUPp && m_bPause)
     m_pSound->StopMusic ();
 
   m_textToolTips[0] = 0;
@@ -2936,19 +2936,19 @@ bool CEvent::ChangePhase (Uint32 phase)
   m_bHiliInfoButton = false;
   m_bHiliHelpButton = false;
 
-  if (phase == WM_PHASE_INTRO1)
+  if (phase == EV_PHASE_INTRO1)
     m_introTime = 0;
 
-  if (phase == WM_PHASE_INIT)
+  if (phase == EV_PHASE_INIT)
     m_demoTime = 0;
   if (
-    phase == WM_PHASE_PLAY && !m_bDemoPlay &&
+    phase == EV_PHASE_PLAY && !m_bDemoPlay &&
     GetPhysicalWorld () >= 150 && // mission spéciale démo ?
     GetPhysicalWorld () < 200)
   {
     DemoRecStart (); // début enregistrement
   }
-  if (phase != WM_PHASE_PLAY)
+  if (phase != EV_PHASE_PLAY)
   {
     DemoRecStop (); // stoppe l'enregistrement d'une démo
   }
@@ -2968,7 +2968,7 @@ bool CEvent::ChangePhase (Uint32 phase)
     m_bBuildModify = false;
   }
 
-  if (m_phase == WM_PHASE_BUILD && phase == WM_PHASE_INFO) // quitte
+  if (m_phase == EV_PHASE_BUILD && phase == EV_PHASE_INFO) // quitte
                                                            // construction ?
   {
     m_pDecor->Write (
@@ -2976,7 +2976,7 @@ bool CEvent::ChangePhase (Uint32 phase)
   }
 
   // FIXME: pause is better if the game is not stop but just interrupted
-  if (m_phase == WM_PHASE_PLAY && m_phase != phase)
+  if (m_phase == EV_PHASE_PLAY && m_phase != phase)
     m_pSound->StopAllSounds (false);
 
   m_phase = phase; // change de phase
@@ -2994,12 +2994,12 @@ bool CEvent::ChangePhase (Uint32 phase)
     WaitMouse (false); // enlève le sablier
     m_tryInsertCount = 40;
     m_tryPhase       = m_phase;
-    return ChangePhase (WM_PHASE_INSERT); // insérez le CD-Rom ...
+    return ChangePhase (EV_PHASE_INSERT); // insérez le CD-Rom ...
   }
 
   if (
-    m_phase == WM_PHASE_READ || m_phase == WM_PHASE_WRITE ||
-    m_phase == WM_PHASE_WRITEp)
+    m_phase == EV_PHASE_READ || m_phase == EV_PHASE_WRITE ||
+    m_phase == EV_PHASE_WRITEp)
   {
     for (i = 0; i < 10; i++)
     {
@@ -3014,8 +3014,8 @@ bool CEvent::ChangePhase (Uint32 phase)
   }
 
   if (
-    m_phase == WM_PHASE_INFO || m_phase == WM_PHASE_HISTORY0 ||
-    m_phase == WM_PHASE_HISTORY1)
+    m_phase == EV_PHASE_INFO || m_phase == EV_PHASE_HISTORY0 ||
+    m_phase == EV_PHASE_HISTORY1)
   {
     if (
       !m_pDecor->Read (
@@ -3025,7 +3025,7 @@ bool CEvent::ChangePhase (Uint32 phase)
     {
       m_tryInsertCount = 40;
       m_tryPhase       = m_phase;
-      return ChangePhase (WM_PHASE_INSERT); // insérez le CD-Rom ...
+      return ChangePhase (EV_PHASE_INSERT); // insérez le CD-Rom ...
     }
     m_pDecor->SetTime (0);
     m_pDecor->SetTotalTime (0);
@@ -3034,24 +3034,24 @@ bool CEvent::ChangePhase (Uint32 phase)
   }
 
   if (
-    m_phase == WM_PHASE_INFO || m_phase == WM_PHASE_STOP ||
-    m_phase == WM_PHASE_HELP || m_phase == WM_PHASE_HISTORY0 ||
-    m_phase == WM_PHASE_HISTORY1)
+    m_phase == EV_PHASE_INFO || m_phase == EV_PHASE_STOP ||
+    m_phase == EV_PHASE_HELP || m_phase == EV_PHASE_HISTORY0 ||
+    m_phase == EV_PHASE_HISTORY1)
   {
     if (m_bPrivate)
       PrivateLibelle ();
-    else if (m_phase == WM_PHASE_INFO || m_phase == WM_PHASE_STOP)
+    else if (m_phase == EV_PHASE_INFO || m_phase == EV_PHASE_STOP)
     {
       if (m_bSchool)
         ReadLibelle (GetWorld (), m_bSchool, false);
       else
         ReadLibelle (GetWorld () + 2, m_bSchool, false);
     }
-    else if (m_phase == WM_PHASE_HELP)
+    else if (m_phase == EV_PHASE_HELP)
       ReadLibelle (GetWorld (), false, true);
     else
     {
-      if (m_phase == WM_PHASE_HISTORY0)
+      if (m_phase == EV_PHASE_HISTORY0)
         world = 0;
       else
         world = 1;
@@ -3059,17 +3059,17 @@ bool CEvent::ChangePhase (Uint32 phase)
     }
   }
 
-  if (m_phase == WM_PHASE_TESTCD)
+  if (m_phase == EV_PHASE_TESTCD)
   {
     if (m_pDecor->Read (0, false, world, time, total)) // lit un monde
     {
-      return ChangePhase (WM_PHASE_INIT); // ok
+      return ChangePhase (EV_PHASE_INIT); // ok
     }
     else
     {
       m_tryInsertCount = 40;
       m_tryPhase       = m_phase;
-      return ChangePhase (WM_PHASE_INSERT); // insérez le CD-Rom ...
+      return ChangePhase (EV_PHASE_INSERT); // insérez le CD-Rom ...
     }
   }
 
@@ -3082,7 +3082,7 @@ bool CEvent::ChangePhase (Uint32 phase)
   m_pDecor->BlupiSetArrow (0, false); // enlève toutes les flèches
   m_pDecor->ResetHili ();             // enlève les mises en évidence
 
-  if (m_phase == WM_PHASE_PLAY)
+  if (m_phase == EV_PHASE_PLAY)
   {
     m_pDecor->LoadImages ();
     m_pDecor->SetBuild (false);
@@ -3093,15 +3093,15 @@ bool CEvent::ChangePhase (Uint32 phase)
     m_bChangeCheat = true; // affiche les cheat-codes
   }
 
-  if (m_phase == WM_PHASE_BUILD)
+  if (m_phase == EV_PHASE_BUILD)
   {
     m_bBuildModify = true;
-    SetState (WM_DECOR1, 1);
-    SetMenu (WM_DECOR1, 0); // herbe
-    SetMenu (WM_DECOR2, 2); // arbre
-    SetMenu (WM_DECOR3, 1); // maison
-    SetMenu (WM_DECOR4, 2); // blupi fort
-    SetMenu (WM_DECOR5, 1); // feu
+    SetState (EV_DECOR1, 1);
+    SetMenu (EV_DECOR1, 0); // herbe
+    SetMenu (EV_DECOR2, 2); // arbre
+    SetMenu (EV_DECOR3, 1); // maison
+    SetMenu (EV_DECOR4, 2); // blupi fort
+    SetMenu (EV_DECOR5, 1); // feu
     m_pDecor->LoadImages ();
     m_pDecor->SetBuild (true);
     m_pDecor->EnableFog (false);
@@ -3109,12 +3109,12 @@ bool CEvent::ChangePhase (Uint32 phase)
     m_pDecor->NextPhase (0); // refait la carte tout de suite
   }
 
-  if (m_phase == WM_PHASE_INFO)
+  if (m_phase == EV_PHASE_INFO)
   {
     bEnable = true;
     if (GetWorld () == 0)
       bEnable = false;
-    SetEnable (WM_PREV, bEnable);
+    SetEnable (EV_PREV, bEnable);
 
     bEnable = true;
     if (m_bAllMissions)
@@ -3135,76 +3135,76 @@ bool CEvent::ChangePhase (Uint32 phase)
 
     if (m_bPrivate)
       bEnable = GetWorld () < 20 - 1;
-    SetEnable (WM_NEXT, bEnable);
+    SetEnable (EV_NEXT, bEnable);
 
     bHide = true;
     if (m_bAccessBuild || m_bPrivate)
       bHide = false;
-    SetHide (WM_PHASE_BUILD, bHide);
+    SetHide (EV_PHASE_BUILD, bHide);
 
     if (m_bSchool)
     {
-      SetHide (WM_PHASE_SKILL1, true);
-      SetHide (WM_PHASE_SKILL2, true);
+      SetHide (EV_PHASE_SKILL1, true);
+      SetHide (EV_PHASE_SKILL2, true);
     }
     else
     {
-      SetState (WM_PHASE_SKILL1, m_pDecor->GetSkill () == 0 ? 1 : 0);
-      SetState (WM_PHASE_SKILL2, m_pDecor->GetSkill () == 1 ? 1 : 0);
+      SetState (EV_PHASE_SKILL1, m_pDecor->GetSkill () == 0 ? 1 : 0);
+      SetState (EV_PHASE_SKILL2, m_pDecor->GetSkill () == 1 ? 1 : 0);
     }
   }
 
-  if (m_phase == WM_PHASE_STOP)
-    SetHide (WM_PHASE_HELP, IsHelpHide ());
+  if (m_phase == EV_PHASE_STOP)
+    SetHide (EV_PHASE_HELP, IsHelpHide ());
 
-  if (m_phase == WM_PHASE_READ)
+  if (m_phase == EV_PHASE_READ)
   {
     for (i = 0; i < 10; i++)
     {
       if (m_fileWorld[i] == -1)
-        SetEnable (WM_READ0 + i, false);
+        SetEnable (EV_READ0 + i, false);
     }
   }
 
-  if (m_phase == WM_PHASE_BUTTON)
+  if (m_phase == EV_PHASE_BUTTON)
   {
     pButtonExist = m_pDecor->GetButtonExist ();
 
     for (i = 0; i < MAXBUTTON; i++)
-      SetState (WM_BUTTON0 + i, pButtonExist[i]);
+      SetState (EV_BUTTON0 + i, pButtonExist[i]);
   }
 
-  if (m_phase == WM_PHASE_TERM)
+  if (m_phase == EV_PHASE_TERM)
   {
     pTerm = m_pDecor->GetTerminated ();
 
-    SetState (WM_BUTTON1, pTerm->bHachBlupi ? 1 : 0);
-    SetState (WM_BUTTON2, pTerm->bHachPlanche ? 1 : 0);
-    SetState (WM_BUTTON3, pTerm->bStopFire ? 1 : 0);
-    SetState (WM_BUTTON8, pTerm->bHomeBlupi ? 1 : 0);
-    SetState (WM_BUTTON9, pTerm->bKillRobots ? 1 : 0);
-    SetState (WM_BUTTON10, pTerm->bHachTomate ? 1 : 0);
-    SetState (WM_BUTTON11, pTerm->bHachMetal ? 1 : 0);
-    SetState (WM_BUTTON12, pTerm->bHachRobot ? 1 : 0);
+    SetState (EV_BUTTON1, pTerm->bHachBlupi ? 1 : 0);
+    SetState (EV_BUTTON2, pTerm->bHachPlanche ? 1 : 0);
+    SetState (EV_BUTTON3, pTerm->bStopFire ? 1 : 0);
+    SetState (EV_BUTTON8, pTerm->bHomeBlupi ? 1 : 0);
+    SetState (EV_BUTTON9, pTerm->bKillRobots ? 1 : 0);
+    SetState (EV_BUTTON10, pTerm->bHachTomate ? 1 : 0);
+    SetState (EV_BUTTON11, pTerm->bHachMetal ? 1 : 0);
+    SetState (EV_BUTTON12, pTerm->bHachRobot ? 1 : 0);
   }
 
-  if (m_phase == WM_PHASE_MUSIC)
+  if (m_phase == EV_PHASE_MUSIC)
   {
     music = m_pDecor->GetMusic ();
 
     for (i = 0; i < 10; i++)
-      SetState (WM_BUTTON1 + i, music == i ? 1 : 0);
+      SetState (EV_BUTTON1 + i, music == i ? 1 : 0);
   }
 
-  if (m_phase == WM_PHASE_REGION)
+  if (m_phase == EV_PHASE_REGION)
   {
     music = m_pDecor->GetRegion ();
 
     for (i = 0; i < 4; i++)
-      SetState (WM_BUTTON1 + i, music == i ? 1 : 0);
+      SetState (EV_BUTTON1 + i, music == i ? 1 : 0);
   }
 
-  if (m_phase == WM_PHASE_PLAY || m_phase == WM_PHASE_MUSIC)
+  if (m_phase == EV_PHASE_PLAY || m_phase == EV_PHASE_MUSIC)
   {
     if (m_pSound->IsPlayingMusic ())
     {
@@ -3222,40 +3222,40 @@ bool CEvent::ChangePhase (Uint32 phase)
     }
   }
 
-  if (phase == WM_PHASE_H0MOVIE)
+  if (phase == EV_PHASE_H0MOVIE)
   {
     m_movieToStart    = "movie/history0.mkv";
-    m_phaseAfterMovie = WM_PHASE_HISTORY0;
+    m_phaseAfterMovie = EV_PHASE_HISTORY0;
   }
 
-  if (phase == WM_PHASE_H1MOVIE)
+  if (phase == EV_PHASE_H1MOVIE)
   {
     m_movieToStart    = "movie/history1.mkv";
-    m_phaseAfterMovie = WM_PHASE_HISTORY1;
+    m_phaseAfterMovie = EV_PHASE_HISTORY1;
   }
 
-  if (phase == WM_PHASE_H2MOVIE)
+  if (phase == EV_PHASE_H2MOVIE)
   {
     m_movieToStart    = "movie/history2.mkv";
-    m_phaseAfterMovie = WM_PHASE_INFO;
+    m_phaseAfterMovie = EV_PHASE_INFO;
   }
 
-  if (phase == WM_PHASE_PLAYMOVIE)
+  if (phase == EV_PHASE_PLAYMOVIE)
   {
     m_movieToStart = string_format ("movie/play%.3d.mkv", GetPhysicalWorld ());
-    m_phaseAfterMovie = WM_PHASE_PLAY;
+    m_phaseAfterMovie = EV_PHASE_PLAY;
   }
 
-  if (phase == WM_PHASE_WINMOVIE)
+  if (phase == EV_PHASE_WINMOVIE)
   {
     m_movieToStart = string_format ("movie/win%.3d.mkv", GetPhysicalWorld ());
-    m_phaseAfterMovie = WM_PHASE_WIN;
+    m_phaseAfterMovie = EV_PHASE_WIN;
 
     if (
       !m_bPrivate &&
       m_pDecor->FileExist (GetPhysicalWorld (), false, world, time, total) &&
       !m_pDecor->FileExist (GetPhysicalWorld () + 1, false, world, time, total))
-      m_phaseAfterMovie = WM_PHASE_LASTWIN;
+      m_phaseAfterMovie = EV_PHASE_LASTWIN;
   }
 
   WaitMouse (false); // enlève le sablier
@@ -3304,7 +3304,7 @@ void CEvent::DecorShift (Sint32 dx, Sint32 dy)
 {
   POINT coin;
 
-  if (m_phase != WM_PHASE_PLAY && m_phase != WM_PHASE_BUILD)
+  if (m_phase != EV_PHASE_PLAY && m_phase != EV_PHASE_BUILD)
     return;
 
   coin = m_pDecor->GetCoin ();
@@ -3330,7 +3330,7 @@ void CEvent::DecorAutoShift ()
 
   max = 4 - m_scrollSpeed; // max <- 3..1
 
-  if (m_phase == WM_PHASE_PLAY || m_phase == WM_PHASE_BUILD)
+  if (m_phase == EV_PHASE_PLAY || m_phase == EV_PHASE_BUILD)
   {
     if (m_shiftPhase == 0) // début du shift ?
     {
@@ -3609,7 +3609,7 @@ void CEvent::SetLanguage ()
 }
 
 // Clic dans un bouton.
-// Message = WM_BUTTON0..WM_BUTTON39
+// Message = EV_BUTTON0..EV_BUTTON39
 
 void CEvent::ChangeButtons (Sint32 message)
 {
@@ -3617,13 +3617,13 @@ void CEvent::ChangeButtons (Sint32 message)
   char * pButtonExist;
   Term * pTerm;
 
-  if (m_phase == WM_PHASE_PLAY)
+  if (m_phase == EV_PHASE_PLAY)
   {
-    button = m_menuButtons[message - WM_BUTTON0];
+    button = m_menuButtons[message - EV_BUTTON0];
     m_pDecor->BlupiGoal (m_menuCel, button);
   }
 
-  if (m_phase == WM_PHASE_BUTTON)
+  if (m_phase == EV_PHASE_BUTTON)
   {
     pButtonExist = m_pDecor->GetButtonExist ();
 
@@ -3634,20 +3634,20 @@ void CEvent::ChangeButtons (Sint32 message)
       state = 0;
     SetState (message, state); // pressé <-> relâché
 
-    pButtonExist[message - WM_BUTTON0] = state;
+    pButtonExist[message - EV_BUTTON0] = state;
     pButtonExist[BUTTON_DJEEP]         = true;
     pButtonExist[BUTTON_DARMURE]       = true;
   }
 
-  if (m_phase == WM_PHASE_TERM)
+  if (m_phase == EV_PHASE_TERM)
   {
     pTerm = m_pDecor->GetTerminated ();
 
     if (
-      message == WM_BUTTON1 || message == WM_BUTTON2 || message == WM_BUTTON3 ||
-      message == WM_BUTTON8 || message == WM_BUTTON9 ||
-      message == WM_BUTTON10 || message == WM_BUTTON11 ||
-      message == WM_BUTTON12)
+      message == EV_BUTTON1 || message == EV_BUTTON2 || message == EV_BUTTON3 ||
+      message == EV_BUTTON8 || message == EV_BUTTON9 ||
+      message == EV_BUTTON10 || message == EV_BUTTON11 ||
+      message == EV_BUTTON12)
     {
       state = GetState (message);
       if (state == 0)
@@ -3656,67 +3656,67 @@ void CEvent::ChangeButtons (Sint32 message)
         state = 0;
       SetState (message, state); // pressé <-> relâché
 
-      if (message == WM_BUTTON1)
+      if (message == EV_BUTTON1)
         pTerm->bHachBlupi = state;
-      if (message == WM_BUTTON2)
+      if (message == EV_BUTTON2)
         pTerm->bHachPlanche = state;
-      if (message == WM_BUTTON3)
+      if (message == EV_BUTTON3)
         pTerm->bStopFire = state;
-      if (message == WM_BUTTON8)
+      if (message == EV_BUTTON8)
         pTerm->bHomeBlupi = state;
-      if (message == WM_BUTTON9)
+      if (message == EV_BUTTON9)
         pTerm->bKillRobots = state;
-      if (message == WM_BUTTON10)
+      if (message == EV_BUTTON10)
         pTerm->bHachTomate = state;
-      if (message == WM_BUTTON11)
+      if (message == EV_BUTTON11)
         pTerm->bHachMetal = state;
-      if (message == WM_BUTTON12)
+      if (message == EV_BUTTON12)
         pTerm->bHachRobot = state;
     }
 
-    if (message == WM_BUTTON4)
+    if (message == EV_BUTTON4)
     {
       if (pTerm->nbMinBlupi > 1)
         pTerm->nbMinBlupi--;
     }
-    if (message == WM_BUTTON5)
+    if (message == EV_BUTTON5)
     {
       if (pTerm->nbMinBlupi < 100)
         pTerm->nbMinBlupi++;
     }
 
-    if (message == WM_BUTTON6)
+    if (message == EV_BUTTON6)
     {
       if (pTerm->nbMaxBlupi > 1)
         pTerm->nbMaxBlupi--;
     }
-    if (message == WM_BUTTON7)
+    if (message == EV_BUTTON7)
     {
       if (pTerm->nbMaxBlupi < 100)
         pTerm->nbMaxBlupi++;
     }
   }
 
-  if (m_phase == WM_PHASE_MUSIC)
+  if (m_phase == EV_PHASE_MUSIC)
   {
-    m_pDecor->SetMusic (message - WM_BUTTON1);
+    m_pDecor->SetMusic (message - EV_BUTTON1);
     ChangePhase (m_phase);
   }
 
-  if (m_phase == WM_PHASE_REGION)
+  if (m_phase == EV_PHASE_REGION)
   {
-    m_pDecor->SetRegion (message - WM_BUTTON1);
-    ChangePhase (WM_PHASE_BUILD);
+    m_pDecor->SetRegion (message - EV_BUTTON1);
+    ChangePhase (EV_PHASE_BUILD);
   }
 
-  if (m_phase == WM_PHASE_SETUP || m_phase == WM_PHASE_SETUPp)
+  if (m_phase == EV_PHASE_SETUP || m_phase == EV_PHASE_SETUPp)
   {
-    if (message == WM_BUTTON1)
+    if (message == EV_BUTTON1)
     {
       if (m_speed > 1)
         m_speed = m_speed >> 1;
     }
-    if (message == WM_BUTTON2)
+    if (message == EV_BUTTON2)
     {
       if (m_bSpeed)
         max = 8;
@@ -3726,20 +3726,20 @@ void CEvent::ChangeButtons (Sint32 message)
         m_speed = m_speed << 1;
     }
 
-    if (message == WM_BUTTON3)
+    if (message == EV_BUTTON3)
     {
       volume = m_pSound->GetAudioVolume ();
       if (volume > 0)
         m_pSound->SetAudioVolume (volume - 1);
     }
-    if (message == WM_BUTTON4)
+    if (message == EV_BUTTON4)
     {
       volume = m_pSound->GetAudioVolume ();
       if (volume < MAXVOLUME)
         m_pSound->SetAudioVolume (volume + 1);
     }
 
-    if (message == WM_BUTTON5)
+    if (message == EV_BUTTON5)
     {
       volume = m_pSound->GetMidiVolume ();
       if (volume > 0)
@@ -3748,7 +3748,7 @@ void CEvent::ChangeButtons (Sint32 message)
         m_pSound->AdaptVolumeMusic ();
       }
     }
-    if (message == WM_BUTTON6)
+    if (message == EV_BUTTON6)
     {
       volume = m_pSound->GetMidiVolume ();
       if (volume < MAXVOLUME)
@@ -3758,44 +3758,44 @@ void CEvent::ChangeButtons (Sint32 message)
       }
     }
 
-    if (message == WM_BUTTON7)
+    if (message == EV_BUTTON7)
       m_bMovie = false;
-    if (message == WM_BUTTON8)
+    if (message == EV_BUTTON8)
       m_bMovie = true;
 
-    if (message == WM_BUTTON9)
+    if (message == EV_BUTTON9)
     {
       if (m_scrollSpeed > 0)
         m_scrollSpeed--;
     }
-    if (message == WM_BUTTON10)
+    if (message == EV_BUTTON10)
     {
       if (m_scrollSpeed < 3)
         m_scrollSpeed++;
     }
   }
 
-  if (m_phase == WM_PHASE_SETTINGS)
+  if (m_phase == EV_PHASE_SETTINGS)
   {
     switch (message)
     {
-    case WM_BUTTON1:
+    case EV_BUTTON1:
       if (m_Lang != m_Languages.begin ())
         --m_Lang;
       SetLanguage ();
       break;
-    case WM_BUTTON2:
+    case EV_BUTTON2:
       if (m_Lang != m_Languages.end () - 1)
         ++m_Lang;
       SetLanguage ();
       break;
-    case WM_BUTTON3:
+    case EV_BUTTON3:
       SetFullScreen (true);
       break;
-    case WM_BUTTON4:
+    case EV_BUTTON4:
       SetFullScreen (false);
       break;
-    case WM_BUTTON5:
+    case EV_BUTTON5:
     {
       auto scale = m_WindowScale;
       if (m_WindowScale > 1)
@@ -3803,7 +3803,7 @@ void CEvent::ChangeButtons (Sint32 message)
       SetWindowSize (scale, m_WindowScale);
       break;
     }
-    case WM_BUTTON6:
+    case EV_BUTTON6:
     {
       auto scale = m_WindowScale;
       if (m_WindowScale < 2)
@@ -3940,10 +3940,10 @@ bool CEvent::BuildDown (POINT pos, Uint16 mod, bool bMix)
     m_pDecor->UndoCopy (); // copie le décor pour undo év.
   }
 
-  if (GetState (WM_DECOR1) == 1) // pose d'un sol
+  if (GetState (EV_DECOR1) == 1) // pose d'un sol
   {
     cel  = m_pDecor->ConvPosToCel2 (pos);
-    menu = GetMenu (WM_DECOR1);
+    menu = GetMenu (EV_DECOR1);
 
     if (!m_pDecor->GetFloor (cel, channel, icon))
       return false;
@@ -3974,10 +3974,10 @@ bool CEvent::BuildDown (POINT pos, Uint16 mod, bool bMix)
     }
   }
 
-  if (GetState (WM_DECOR2) == 1) // pose d'un objet
+  if (GetState (EV_DECOR2) == 1) // pose d'un objet
   {
     cel  = m_pDecor->ConvPosToCel2 (pos);
-    menu = GetMenu (WM_DECOR2);
+    menu = GetMenu (EV_DECOR2);
 
     if (!m_pDecor->GetObject (cel, channel, icon))
       return false;
@@ -4005,10 +4005,10 @@ bool CEvent::BuildDown (POINT pos, Uint16 mod, bool bMix)
     }
   }
 
-  if (GetState (WM_DECOR3) == 1) // pose d'un batiment
+  if (GetState (EV_DECOR3) == 1) // pose d'un batiment
   {
     cel  = m_pDecor->ConvPosToCel2 (pos);
-    menu = GetMenu (WM_DECOR3);
+    menu = GetMenu (EV_DECOR3);
 
     if (!m_pDecor->GetObject (cel, channel, icon))
       return false;
@@ -4036,10 +4036,10 @@ bool CEvent::BuildDown (POINT pos, Uint16 mod, bool bMix)
     }
   }
 
-  if (GetState (WM_DECOR4) == 1) // pose d'un blupi
+  if (GetState (EV_DECOR4) == 1) // pose d'un blupi
   {
     cel  = m_pDecor->ConvPosToCel (pos);
-    menu = GetMenu (WM_DECOR4);
+    menu = GetMenu (EV_DECOR4);
 
     if (menu == 0) // supprime ?
       m_pDecor->BlupiDelete (cel);
@@ -4063,10 +4063,10 @@ bool CEvent::BuildDown (POINT pos, Uint16 mod, bool bMix)
       m_pDecor->BlupiCreate (cel, ACTION_STOP, DIRECT_S, 4, MAXENERGY);
   }
 
-  if (GetState (WM_DECOR5) == 1) // pose d'une cata
+  if (GetState (EV_DECOR5) == 1) // pose d'une cata
   {
     cel  = m_pDecor->ConvPosToCel2 (pos);
-    menu = GetMenu (WM_DECOR5);
+    menu = GetMenu (EV_DECOR5);
 
     if (menu == 0) // supprime ?
       m_pDecor->SetFire (cel, false);
@@ -4087,7 +4087,7 @@ bool CEvent::BuildMove (POINT pos, Uint16 mod, const SDL_Event & event)
                                                          // ?
     BuildDown (pos, mod, false);
 
-  if (GetState (WM_DECOR4) == 1) // pose d'un blupi
+  if (GetState (EV_DECOR4) == 1) // pose d'un blupi
     m_pDecor->CelHili (pos, 1);
   else
     m_pDecor->CelHili (pos, 2);
@@ -4144,7 +4144,7 @@ void CEvent::Read (Sint32 message)
 {
   Sint32 world, time, total;
 
-  m_pDecor->Read (message - WM_READ0, true, world, time, total);
+  m_pDecor->Read (message - EV_READ0, true, world, time, total);
   m_pDecor->SetTime (time);
   m_pDecor->SetTotalTime (total);
 
@@ -4177,7 +4177,7 @@ void CEvent::Write (Sint32 message)
   time  = m_pDecor->GetTime ();
   total = m_pDecor->GetTotalTime ();
 
-  m_pDecor->Write (message - WM_WRITE0, true, GetPhysicalWorld (), time, total);
+  m_pDecor->Write (message - EV_WRITE0, true, GetPhysicalWorld (), time, total);
 }
 
 // Initialise le libellé d'une mission privée.
@@ -4560,7 +4560,7 @@ bool CEvent::DemoPlayStart ()
     DemoPlayStop ();
     return false;
   }
-  ChangePhase (WM_PHASE_PLAY);
+  ChangePhase (EV_PHASE_PLAY);
   InitRandom ();
   m_pDecor->SetTime (0);
   m_speed = 1;
@@ -4581,7 +4581,7 @@ void CEvent::DemoPlayStop ()
   m_bDemoRec  = false;
   m_demoTime  = 0;
 
-  ChangePhase (WM_PHASE_INIT);
+  ChangePhase (EV_PHASE_INIT);
 }
 
 void CEvent::WinToSDLEvent (
@@ -4640,34 +4640,34 @@ void CEvent::WinToSDLEvent (
   {
     switch (msg)
     {
-    case WM_KEYUP:
-    case WM_KEYDOWN:
-      event.type       = msg == WM_KEYDOWN ? SDL_KEYDOWN : SDL_KEYUP;
+    case EV_KEYUP:
+    case EV_KEYDOWN:
+      event.type       = msg == EV_KEYDOWN ? SDL_KEYDOWN : SDL_KEYUP;
       event.key.keysym = keycodes.at (wParam);
       // TODO: lParam
       break;
 
-    case WM_LBUTTONUP:
-    case WM_LBUTTONDOWN:
+    case EV_LBUTTONUP:
+    case EV_LBUTTONDOWN:
       event.type =
-        msg == WM_LBUTTONDOWN ? SDL_MOUSEBUTTONDOWN : SDL_MOUSEBUTTONUP;
+        msg == EV_LBUTTONDOWN ? SDL_MOUSEBUTTONDOWN : SDL_MOUSEBUTTONUP;
       event.button.button = SDL_BUTTON_LEFT;
       // TODO: wParam CTRL or SHIFT
       event.button.x = GET_X_LPARAM (lParam);
       event.button.y = GET_Y_LPARAM (lParam);
       break;
 
-    case WM_RBUTTONUP:
-    case WM_RBUTTONDOWN:
+    case EV_RBUTTONUP:
+    case EV_RBUTTONDOWN:
       event.type =
-        msg == WM_RBUTTONDOWN ? SDL_MOUSEBUTTONDOWN : SDL_MOUSEBUTTONUP;
+        msg == EV_RBUTTONDOWN ? SDL_MOUSEBUTTONDOWN : SDL_MOUSEBUTTONUP;
       event.button.button = SDL_BUTTON_RIGHT;
       // TODO: wParam CTRL or SHIFT
       event.button.x = GET_X_LPARAM (lParam);
       event.button.y = GET_Y_LPARAM (lParam);
       break;
 
-    case WM_MOUSEMOVE:
+    case EV_MOUSEMOVE:
       event.type = SDL_MOUSEMOTION;
       // TODO: wParam CTRL or SHIFT
       event.motion.x = GET_X_LPARAM (lParam);
@@ -4690,7 +4690,7 @@ void CEvent::DemoStep ()
   WPARAM wParam;
   LPARAM lParam;
 
-  if (m_phase == WM_PHASE_INIT)
+  if (m_phase == EV_PHASE_INIT)
   {
     if (m_demoTime > DEF_TIME_DEMO) // ~30 secondes écoulées ?
     {
@@ -4714,7 +4714,7 @@ void CEvent::DemoStep ()
       lParam  = m_pDemoBuffer[m_demoIndex].lParam;
       m_demoIndex++;
 
-      if (message == WM_MOUSEMOVE)
+      if (message == EV_MOUSEMOVE)
       {
         POINT pos = ConvLongToPos (lParam);
         SDL_WarpMouseInWindow (
@@ -4747,13 +4747,13 @@ void CEvent::DemoRecEvent (Uint32 message, WPARAM wParam, LPARAM lParam)
 {
   if (
     m_bDemoRec && m_pDemoBuffer != nullptr &&
-    (message == WM_KEYDOWN || message == WM_KEYUP ||
-     message == WM_LBUTTONDOWN || message == WM_RBUTTONDOWN ||
-     message == WM_MOUSEMOVE || message == WM_LBUTTONUP ||
-     message == WM_RBUTTONUP))
+    (message == EV_KEYDOWN || message == EV_KEYUP ||
+     message == EV_LBUTTONDOWN || message == EV_RBUTTONDOWN ||
+     message == EV_MOUSEMOVE || message == EV_LBUTTONUP ||
+     message == EV_RBUTTONUP))
   {
     if (
-      m_demoIndex > 0 && message == WM_MOUSEMOVE &&
+      m_demoIndex > 0 && message == EV_MOUSEMOVE &&
       m_pDemoBuffer[m_demoIndex - 1].time == m_demoTime &&
       m_pDemoBuffer[m_demoIndex - 1].message == message)
     {
@@ -4841,7 +4841,7 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
           if (cheat_code[m_rankCheat][m_posCheat] == 0)
           {
             bEnable = true;
-            if (m_phase == WM_PHASE_PLAY)
+            if (m_phase == EV_PHASE_PLAY)
             {
               if (m_rankCheat == 0) // vision ?
                 m_pDecor->EnableFog (false);
@@ -4892,7 +4892,7 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
               m_bChangeCheat = true;
             }
 
-            if (m_phase != WM_PHASE_PLAY)
+            if (m_phase != EV_PHASE_PLAY)
               ChangePhase (m_phase);
 
             pos.x = LXIMAGE / 2;
@@ -4912,13 +4912,13 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
     m_rankCheat = -1;
     m_posCheat  = 0;
 
-    if (m_phase == WM_PHASE_INTRO1)
+    if (m_phase == EV_PHASE_INTRO1)
     {
-      ChangePhase (WM_PHASE_INIT);
+      ChangePhase (EV_PHASE_INIT);
       return true;
     }
 
-    if (m_phase == WM_PHASE_BYE)
+    if (m_phase == EV_PHASE_BYE)
     {
       SDL_Event ev;
       ev.type = SDL_QUIT;
@@ -4940,39 +4940,39 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
 
       switch (m_phase)
       {
-      case WM_PHASE_PLAY:
-      case WM_PHASE_SETUP:
-      case WM_PHASE_SETUPp:
-      case WM_PHASE_READ:
-      case WM_PHASE_WRITE:
-      case WM_PHASE_WRITEp:
-      case WM_PHASE_HELP:
-        ChangePhase (WM_PHASE_STOP);
+      case EV_PHASE_PLAY:
+      case EV_PHASE_SETUP:
+      case EV_PHASE_SETUPp:
+      case EV_PHASE_READ:
+      case EV_PHASE_WRITE:
+      case EV_PHASE_WRITEp:
+      case EV_PHASE_HELP:
+        ChangePhase (EV_PHASE_STOP);
         return true;
 
-      case WM_PHASE_STOP:
-      case WM_PHASE_LOST:
-      case WM_PHASE_BUILD:
-        ChangePhase (WM_PHASE_INFO);
+      case EV_PHASE_STOP:
+      case EV_PHASE_LOST:
+      case EV_PHASE_BUILD:
+        ChangePhase (EV_PHASE_INFO);
         return true;
 
-      case WM_PHASE_INFO:
-      case WM_PHASE_SETTINGS:
-        ChangePhase (WM_PHASE_INIT);
+      case EV_PHASE_INFO:
+      case EV_PHASE_SETTINGS:
+        ChangePhase (EV_PHASE_INIT);
         return true;
 
-      case WM_PHASE_BUTTON:
-      case WM_PHASE_TERM:
-      case WM_PHASE_MUSIC:
-      case WM_PHASE_REGION:
-        ChangePhase (WM_PHASE_BUILD);
+      case EV_PHASE_BUTTON:
+      case EV_PHASE_TERM:
+      case EV_PHASE_MUSIC:
+      case EV_PHASE_REGION:
+        ChangePhase (EV_PHASE_BUILD);
         return true;
 
-      case WM_PHASE_INIT:
-        ChangePhase (WM_PHASE_BYE);
+      case EV_PHASE_INIT:
+        ChangePhase (EV_PHASE_BYE);
         return true;
 
-      case WM_PHASE_BYE:
+      case EV_PHASE_BYE:
       {
         SDL_Event ev;
         ev.type = SDL_QUIT;
@@ -4984,36 +4984,36 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
     case SDLK_RETURN:
       switch (m_phase)
       {
-      case WM_PHASE_SETTINGS:
-        ChangePhase (WM_PHASE_INIT);
+      case EV_PHASE_SETTINGS:
+        ChangePhase (EV_PHASE_INIT);
         return true;
 
-      case WM_PHASE_PLAY:
-      case WM_PHASE_READ:
-      case WM_PHASE_WRITE:
-      case WM_PHASE_SETUP:
-        ChangePhase (WM_PHASE_STOP);
+      case EV_PHASE_PLAY:
+      case EV_PHASE_READ:
+      case EV_PHASE_WRITE:
+      case EV_PHASE_SETUP:
+        ChangePhase (EV_PHASE_STOP);
         return true;
 
-      case WM_PHASE_INIT:
-      case WM_PHASE_LOST:
-      case WM_PHASE_BUILD:
-        ChangePhase (WM_PHASE_INFO);
+      case EV_PHASE_INIT:
+      case EV_PHASE_LOST:
+      case EV_PHASE_BUILD:
+        ChangePhase (EV_PHASE_INFO);
         return true;
 
-      case WM_PHASE_INFO:
-      case WM_PHASE_STOP:
-      case WM_PHASE_HELP:
-      case WM_PHASE_SETUPp:
-      case WM_PHASE_WRITEp:
-        ChangePhase (WM_PHASE_PLAY);
+      case EV_PHASE_INFO:
+      case EV_PHASE_STOP:
+      case EV_PHASE_HELP:
+      case EV_PHASE_SETUPp:
+      case EV_PHASE_WRITEp:
+        ChangePhase (EV_PHASE_PLAY);
         return true;
 
-      case WM_PHASE_BUTTON:
-      case WM_PHASE_TERM:
-      case WM_PHASE_MUSIC:
-      case WM_PHASE_REGION:
-        ChangePhase (WM_PHASE_BUILD);
+      case EV_PHASE_BUTTON:
+      case EV_PHASE_TERM:
+      case EV_PHASE_MUSIC:
+      case EV_PHASE_REGION:
+        ChangePhase (EV_PHASE_BUILD);
         return true;
       }
 
@@ -5057,7 +5057,7 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
       return true;
     case SDLK_PAUSE:
       m_bPause = !m_bPause;
-      if (m_phase == WM_PHASE_PLAY)
+      if (m_phase == EV_PHASE_PLAY)
       {
         if (m_bPause)
           m_pSound->SuspendMusic ();
@@ -5074,7 +5074,7 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
     case SDLK_LCTRL:
     case SDLK_RCTRL:
       m_keymod |= KMOD_CTRL;
-      if (m_phase == WM_PHASE_BUILD)
+      if (m_phase == EV_PHASE_BUILD)
       {
         m_bFillMouse = true;
         MouseSprite (GetMousePos ());
@@ -5083,7 +5083,7 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
         m_bFillMouse = false;
       return true;
     case SDLK_F1:
-      if (m_phase == WM_PHASE_PLAY)
+      if (m_phase == EV_PHASE_PLAY)
       {
         // Montre ou cache les infos tout en haut.
         if (m_pDecor->GetInfoMode ())
@@ -5097,19 +5097,19 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
       }
       return true;
     case SDLK_F8:
-      if (m_phase == WM_PHASE_PLAY)
+      if (m_phase == EV_PHASE_PLAY)
         m_pDecor->MemoPos (0, !!(m_keymod & KMOD_CTRL));
       return true;
     case SDLK_F10:
-      if (m_phase == WM_PHASE_PLAY)
+      if (m_phase == EV_PHASE_PLAY)
         m_pDecor->MemoPos (1, !!(m_keymod & KMOD_CTRL));
       return true;
     case SDLK_F11:
-      if (m_phase == WM_PHASE_PLAY)
+      if (m_phase == EV_PHASE_PLAY)
         m_pDecor->MemoPos (2, !!(m_keymod & KMOD_CTRL));
       return true;
     case SDLK_F12:
-      if (m_phase == WM_PHASE_PLAY)
+      if (m_phase == EV_PHASE_PLAY)
         m_pDecor->MemoPos (3, !!(m_keymod & KMOD_CTRL));
       return true;
     }
@@ -5145,12 +5145,12 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
     //?         DecorAutoShift(pos);
     if (EventButtons (event, pos))
       return true;
-    if (m_phase == WM_PHASE_BUILD)
+    if (m_phase == EV_PHASE_BUILD)
     {
       if (BuildDown (pos, m_keymod))
         return true;
     }
-    if (m_phase == WM_PHASE_PLAY)
+    if (m_phase == EV_PHASE_PLAY)
     {
       if (PlayDown (pos, event))
         return true;
@@ -5166,12 +5166,12 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
     MouseSprite (pos);
     if (EventButtons (event, pos))
       return true;
-    if (m_phase == WM_PHASE_BUILD)
+    if (m_phase == EV_PHASE_BUILD)
     {
       if (BuildMove (pos, m_keymod, event))
         return true;
     }
-    if (m_phase == WM_PHASE_PLAY)
+    if (m_phase == EV_PHASE_PLAY)
     {
       if (PlayMove (pos))
         return true;
@@ -5189,14 +5189,14 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
 
     if (EventButtons (event, pos))
       return true;
-    if (m_phase == WM_PHASE_BUILD)
+    if (m_phase == EV_PHASE_BUILD)
       return true;
-    if (m_phase == WM_PHASE_PLAY)
+    if (m_phase == EV_PHASE_PLAY)
     {
       if (PlayUp (pos))
         return true;
     }
-    if (m_phase == WM_PHASE_BYE)
+    if (m_phase == EV_PHASE_BYE)
     {
       SDL_Event ev;
       ev.type = SDL_QUIT;
@@ -5207,74 +5207,74 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
   case SDL_USEREVENT:
     switch (event.user.code)
     {
-    case WM_PHASE_DEMO:
+    case EV_PHASE_DEMO:
       m_demoNumber = 0;
       DemoPlayStart ();
       break;
 
-    case WM_PHASE_SCHOOL:
+    case EV_PHASE_SCHOOL:
       m_bSchool  = true;
       m_bPrivate = false;
-      if (ChangePhase (WM_PHASE_INFO))
+      if (ChangePhase (EV_PHASE_INFO))
         return true;
       break;
 
-    case WM_PHASE_MISSION:
+    case EV_PHASE_MISSION:
       m_bSchool  = false;
       m_bPrivate = false;
       if (m_mission == 0) // première mission ?
       {
-        if (ChangePhase (WM_PHASE_H0MOVIE))
+        if (ChangePhase (EV_PHASE_H0MOVIE))
           return true;
       }
       else
       {
-        if (ChangePhase (WM_PHASE_INFO))
+        if (ChangePhase (EV_PHASE_INFO))
           return true;
       }
       break;
 
-    case WM_PHASE_PRIVATE:
+    case EV_PHASE_PRIVATE:
       m_bSchool  = false;
       m_bPrivate = true;
-      if (ChangePhase (WM_PHASE_INFO))
+      if (ChangePhase (EV_PHASE_INFO))
         return true;
       break;
 
-    case WM_PHASE_INTRO1:
-    case WM_PHASE_INIT:
-    case WM_PHASE_HISTORY0:
-    case WM_PHASE_HISTORY1:
-    case WM_PHASE_INFO:
-    case WM_PHASE_PLAY:
-    case WM_PHASE_READ:
-    case WM_PHASE_WRITE:
-    case WM_PHASE_WRITEp:
-    case WM_PHASE_BUILD:
-    case WM_PHASE_BUTTON:
-    case WM_PHASE_TERM:
-    case WM_PHASE_STOP:
-    case WM_PHASE_HELP:
-    case WM_PHASE_MUSIC:
-    case WM_PHASE_REGION:
-    case WM_PHASE_SETTINGS:
-    case WM_PHASE_SETUP:
-    case WM_PHASE_SETUPp:
-    case WM_PHASE_PLAYMOVIE:
-    case WM_PHASE_H0MOVIE:
-    case WM_PHASE_H1MOVIE:
-    case WM_PHASE_H2MOVIE:
-    case WM_PHASE_WINMOVIE:
-    case WM_PHASE_BYE:
+    case EV_PHASE_INTRO1:
+    case EV_PHASE_INIT:
+    case EV_PHASE_HISTORY0:
+    case EV_PHASE_HISTORY1:
+    case EV_PHASE_INFO:
+    case EV_PHASE_PLAY:
+    case EV_PHASE_READ:
+    case EV_PHASE_WRITE:
+    case EV_PHASE_WRITEp:
+    case EV_PHASE_BUILD:
+    case EV_PHASE_BUTTON:
+    case EV_PHASE_TERM:
+    case EV_PHASE_STOP:
+    case EV_PHASE_HELP:
+    case EV_PHASE_MUSIC:
+    case EV_PHASE_REGION:
+    case EV_PHASE_SETTINGS:
+    case EV_PHASE_SETUP:
+    case EV_PHASE_SETUPp:
+    case EV_PHASE_PLAYMOVIE:
+    case EV_PHASE_H0MOVIE:
+    case EV_PHASE_H1MOVIE:
+    case EV_PHASE_H2MOVIE:
+    case EV_PHASE_WINMOVIE:
+    case EV_PHASE_BYE:
       if (ChangePhase (event.user.code))
         return true;
       break;
 
-    case WM_PHASE_UNDO:
+    case EV_PHASE_UNDO:
       m_pDecor->UndoBack (); // revient en arrière
       break;
 
-    case WM_PREV:
+    case EV_PREV:
       m_pDecor->SetInvincible (false);
       m_pDecor->SetSuper (false);
       if (m_bPrivate)
@@ -5282,7 +5282,7 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
         if (m_private > 0)
         {
           m_private--;
-          if (ChangePhase (WM_PHASE_INFO))
+          if (ChangePhase (EV_PHASE_INFO))
             return true;
         }
       }
@@ -5291,7 +5291,7 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
         if (m_exercice > 0)
         {
           m_exercice--;
-          if (ChangePhase (WM_PHASE_INFO))
+          if (ChangePhase (EV_PHASE_INFO))
             return true;
         }
       }
@@ -5300,13 +5300,13 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
         if (m_mission > 0)
         {
           m_mission--;
-          if (ChangePhase (WM_PHASE_INFO))
+          if (ChangePhase (EV_PHASE_INFO))
             return true;
         }
       }
       break;
 
-    case WM_NEXT:
+    case EV_NEXT:
       m_pDecor->SetInvincible (false);
       m_pDecor->SetSuper (false);
       if (m_bPrivate)
@@ -5314,7 +5314,7 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
         if (m_private < 20 - 1)
         {
           m_private++;
-          if (ChangePhase (WM_PHASE_INFO))
+          if (ChangePhase (EV_PHASE_INFO))
             return true;
         }
       }
@@ -5323,7 +5323,7 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
         if (m_exercice < 99)
         {
           m_exercice++;
-          if (ChangePhase (WM_PHASE_INFO))
+          if (ChangePhase (EV_PHASE_INFO))
             return true;
         }
       }
@@ -5334,144 +5334,144 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
           m_mission++;
           if (m_maxMission < m_mission)
             m_maxMission = m_mission;
-          if (ChangePhase (WM_PHASE_INFO))
+          if (ChangePhase (EV_PHASE_INFO))
             return true;
         }
       }
       break;
 
-    case WM_DECOR1:
-      SetState (WM_DECOR1, 1);
-      SetState (WM_DECOR2, 0);
-      SetState (WM_DECOR3, 0);
-      SetState (WM_DECOR4, 0);
-      SetState (WM_DECOR5, 0);
+    case EV_DECOR1:
+      SetState (EV_DECOR1, 1);
+      SetState (EV_DECOR2, 0);
+      SetState (EV_DECOR3, 0);
+      SetState (EV_DECOR4, 0);
+      SetState (EV_DECOR5, 0);
       break;
 
-    case WM_DECOR2:
-      SetState (WM_DECOR1, 0);
-      SetState (WM_DECOR2, 1);
-      SetState (WM_DECOR3, 0);
-      SetState (WM_DECOR4, 0);
-      SetState (WM_DECOR5, 0);
+    case EV_DECOR2:
+      SetState (EV_DECOR1, 0);
+      SetState (EV_DECOR2, 1);
+      SetState (EV_DECOR3, 0);
+      SetState (EV_DECOR4, 0);
+      SetState (EV_DECOR5, 0);
       break;
 
-    case WM_DECOR3:
-      SetState (WM_DECOR1, 0);
-      SetState (WM_DECOR2, 0);
-      SetState (WM_DECOR3, 1);
-      SetState (WM_DECOR4, 0);
-      SetState (WM_DECOR5, 0);
+    case EV_DECOR3:
+      SetState (EV_DECOR1, 0);
+      SetState (EV_DECOR2, 0);
+      SetState (EV_DECOR3, 1);
+      SetState (EV_DECOR4, 0);
+      SetState (EV_DECOR5, 0);
       break;
 
-    case WM_DECOR4:
-      SetState (WM_DECOR1, 0);
-      SetState (WM_DECOR2, 0);
-      SetState (WM_DECOR3, 0);
-      SetState (WM_DECOR4, 1);
-      SetState (WM_DECOR5, 0);
+    case EV_DECOR4:
+      SetState (EV_DECOR1, 0);
+      SetState (EV_DECOR2, 0);
+      SetState (EV_DECOR3, 0);
+      SetState (EV_DECOR4, 1);
+      SetState (EV_DECOR5, 0);
       break;
 
-    case WM_DECOR5:
-      SetState (WM_DECOR1, 0);
-      SetState (WM_DECOR2, 0);
-      SetState (WM_DECOR3, 0);
-      SetState (WM_DECOR4, 0);
-      SetState (WM_DECOR5, 1);
+    case EV_DECOR5:
+      SetState (EV_DECOR1, 0);
+      SetState (EV_DECOR2, 0);
+      SetState (EV_DECOR3, 0);
+      SetState (EV_DECOR4, 0);
+      SetState (EV_DECOR5, 1);
       break;
 
-    case WM_PHASE_SKILL1:
+    case EV_PHASE_SKILL1:
       m_pDecor->SetSkill (0);
-      SetState (WM_PHASE_SKILL1, true);
-      SetState (WM_PHASE_SKILL2, false);
+      SetState (EV_PHASE_SKILL1, true);
+      SetState (EV_PHASE_SKILL2, false);
       break;
-    case WM_PHASE_SKILL2:
+    case EV_PHASE_SKILL2:
       m_pDecor->SetSkill (1);
-      SetState (WM_PHASE_SKILL1, false);
-      SetState (WM_PHASE_SKILL2, true);
+      SetState (EV_PHASE_SKILL1, false);
+      SetState (EV_PHASE_SKILL2, true);
       break;
 
-    case WM_BUTTON0:
-    case WM_BUTTON1:
-    case WM_BUTTON2:
-    case WM_BUTTON3:
-    case WM_BUTTON4:
-    case WM_BUTTON5:
-    case WM_BUTTON6:
-    case WM_BUTTON7:
-    case WM_BUTTON8:
-    case WM_BUTTON9:
-    case WM_BUTTON10:
-    case WM_BUTTON11:
-    case WM_BUTTON12:
-    case WM_BUTTON13:
-    case WM_BUTTON14:
-    case WM_BUTTON15:
-    case WM_BUTTON16:
-    case WM_BUTTON17:
-    case WM_BUTTON18:
-    case WM_BUTTON19:
-    case WM_BUTTON20:
-    case WM_BUTTON21:
-    case WM_BUTTON22:
-    case WM_BUTTON23:
-    case WM_BUTTON24:
-    case WM_BUTTON25:
-    case WM_BUTTON26:
-    case WM_BUTTON27:
-    case WM_BUTTON28:
-    case WM_BUTTON29:
-    case WM_BUTTON30:
-    case WM_BUTTON31:
-    case WM_BUTTON32:
-    case WM_BUTTON33:
-    case WM_BUTTON34:
-    case WM_BUTTON35:
-    case WM_BUTTON36:
-    case WM_BUTTON37:
-    case WM_BUTTON38:
-    case WM_BUTTON39:
+    case EV_BUTTON0:
+    case EV_BUTTON1:
+    case EV_BUTTON2:
+    case EV_BUTTON3:
+    case EV_BUTTON4:
+    case EV_BUTTON5:
+    case EV_BUTTON6:
+    case EV_BUTTON7:
+    case EV_BUTTON8:
+    case EV_BUTTON9:
+    case EV_BUTTON10:
+    case EV_BUTTON11:
+    case EV_BUTTON12:
+    case EV_BUTTON13:
+    case EV_BUTTON14:
+    case EV_BUTTON15:
+    case EV_BUTTON16:
+    case EV_BUTTON17:
+    case EV_BUTTON18:
+    case EV_BUTTON19:
+    case EV_BUTTON20:
+    case EV_BUTTON21:
+    case EV_BUTTON22:
+    case EV_BUTTON23:
+    case EV_BUTTON24:
+    case EV_BUTTON25:
+    case EV_BUTTON26:
+    case EV_BUTTON27:
+    case EV_BUTTON28:
+    case EV_BUTTON29:
+    case EV_BUTTON30:
+    case EV_BUTTON31:
+    case EV_BUTTON32:
+    case EV_BUTTON33:
+    case EV_BUTTON34:
+    case EV_BUTTON35:
+    case EV_BUTTON36:
+    case EV_BUTTON37:
+    case EV_BUTTON38:
+    case EV_BUTTON39:
       ChangeButtons (event.user.code);
       break;
 
-    case WM_READ0:
-    case WM_READ1:
-    case WM_READ2:
-    case WM_READ3:
-    case WM_READ4:
-    case WM_READ5:
-    case WM_READ6:
-    case WM_READ7:
-    case WM_READ8:
-    case WM_READ9:
+    case EV_READ0:
+    case EV_READ1:
+    case EV_READ2:
+    case EV_READ3:
+    case EV_READ4:
+    case EV_READ5:
+    case EV_READ6:
+    case EV_READ7:
+    case EV_READ8:
+    case EV_READ9:
       Read (event.user.code);
-      ChangePhase (WM_PHASE_PLAY); // joue
+      ChangePhase (EV_PHASE_PLAY); // joue
       break;
 
-    case WM_WRITE0:
-    case WM_WRITE1:
-    case WM_WRITE2:
-    case WM_WRITE3:
-    case WM_WRITE4:
-    case WM_WRITE5:
-    case WM_WRITE6:
-    case WM_WRITE7:
-    case WM_WRITE8:
-    case WM_WRITE9:
+    case EV_WRITE0:
+    case EV_WRITE1:
+    case EV_WRITE2:
+    case EV_WRITE3:
+    case EV_WRITE4:
+    case EV_WRITE5:
+    case EV_WRITE6:
+    case EV_WRITE7:
+    case EV_WRITE8:
+    case EV_WRITE9:
       Write (event.user.code);
-      if (m_phase == WM_PHASE_WRITEp)
+      if (m_phase == EV_PHASE_WRITEp)
       {
-        ChangePhase (WM_PHASE_PLAY); // joue
+        ChangePhase (EV_PHASE_PLAY); // joue
       }
       else
       {
-        ChangePhase (WM_PHASE_STOP); // pause
+        ChangePhase (EV_PHASE_STOP); // pause
       }
       break;
 
-    case WM_MOVIE:
+    case EV_MOVIE:
       StartMovie ("movie/essai.avi");
-      ChangePhase (WM_PHASE_INIT);
+      ChangePhase (EV_PHASE_INIT);
       break;
     }
   }
@@ -5487,9 +5487,9 @@ void CEvent::IntroStep ()
 
   if (m_introTime > 20 * 1)
   {
-    if (m_phase == WM_PHASE_INTRO1)
+    if (m_phase == EV_PHASE_INTRO1)
     {
-      ChangePhase (WM_PHASE_INIT);
+      ChangePhase (EV_PHASE_INIT);
       return;
     }
   }

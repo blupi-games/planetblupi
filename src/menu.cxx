@@ -490,5 +490,5 @@ bool CMenu::MouseUp (POINT pos)
 void CMenu::Message ()
 {
   if (m_selRank != -1)
-    CEvent::PushUserEvent (WM_BUTTON0 + m_selRank);
+    CEvent::PushUserEvent (EV_BUTTON0 + m_selRank);
 }

@@ -1567,7 +1567,7 @@ Sint32 CDecor::CountFloor (Sint32 channel, Sint32 icon)
 //  action = 0          sélection jeu
 //           1          construction d'une cellule 1x1
 //           2          construction d'une cellule 2x2
-//           WM_ACTION* action
+//           EV_ACTION* action
 
 Errors CDecor::CelOkForAction (
   POINT cel, Sint32 action, Sint32 rank, Sint32 icons[4][4],
@@ -1591,10 +1591,10 @@ Errors CDecor::CelOkForAction (
   celOutline2.x = -1;
 
   if (
-    action == 2 || action == WM_ACTION_ABAT1 || action == WM_ACTION_ROC1 ||
-    action == WM_ACTION_DROP || action == WM_ACTION_LABO ||
-    action == WM_ACTION_FLOWER1 || action == WM_ACTION_CULTIVE ||
-    action == WM_ACTION_FLAG)
+    action == 2 || action == EV_ACTION_ABAT1 || action == EV_ACTION_ROC1 ||
+    action == EV_ACTION_DROP || action == EV_ACTION_LABO ||
+    action == EV_ACTION_FLOWER1 || action == EV_ACTION_CULTIVE ||
+    action == EV_ACTION_FLAG)
   {
     cel.x = (cel.x / 2) * 2;
     cel.y = (cel.y / 2) * 2;
@@ -1640,24 +1640,24 @@ Errors CDecor::CelOkForAction (
     icons[2][2] = ICON_HILI_BUILD;
   }
 
-  if (action == WM_ACTION_STOP)
+  if (action == EV_ACTION_STOP)
   {
     error = Errors::MISC;
     if (
       m_blupi[rank].stop == 0 &&
-      (m_blupi[rank].goalAction == WM_ACTION_GO ||
-       (m_blupi[rank].goalAction >= WM_ACTION_ABAT1 &&
-        m_blupi[rank].goalAction <= WM_ACTION_ABAT6) ||
-       (m_blupi[rank].goalAction >= WM_ACTION_ROC1 &&
-        m_blupi[rank].goalAction <= WM_ACTION_ROC7) ||
-       m_blupi[rank].goalAction == WM_ACTION_CULTIVE ||
-       m_blupi[rank].goalAction == WM_ACTION_CULTIVE2 ||
-       m_blupi[rank].goalAction == WM_ACTION_FLAG ||
-       m_blupi[rank].goalAction == WM_ACTION_FLAG2 ||
-       m_blupi[rank].goalAction == WM_ACTION_FLAG3 ||
-       m_blupi[rank].goalAction == WM_ACTION_FLOWER1 ||
-       m_blupi[rank].goalAction == WM_ACTION_FLOWER2 ||
-       m_blupi[rank].goalAction == WM_ACTION_FLOWER3))
+      (m_blupi[rank].goalAction == EV_ACTION_GO ||
+       (m_blupi[rank].goalAction >= EV_ACTION_ABAT1 &&
+        m_blupi[rank].goalAction <= EV_ACTION_ABAT6) ||
+       (m_blupi[rank].goalAction >= EV_ACTION_ROC1 &&
+        m_blupi[rank].goalAction <= EV_ACTION_ROC7) ||
+       m_blupi[rank].goalAction == EV_ACTION_CULTIVE ||
+       m_blupi[rank].goalAction == EV_ACTION_CULTIVE2 ||
+       m_blupi[rank].goalAction == EV_ACTION_FLAG ||
+       m_blupi[rank].goalAction == EV_ACTION_FLAG2 ||
+       m_blupi[rank].goalAction == EV_ACTION_FLAG3 ||
+       m_blupi[rank].goalAction == EV_ACTION_FLOWER1 ||
+       m_blupi[rank].goalAction == EV_ACTION_FLOWER2 ||
+       m_blupi[rank].goalAction == EV_ACTION_FLOWER3))
       error = Errors::NONE;
     if (
       m_blupi[rank].stop == 0 && m_blupi[rank].goalAction != 0 &&
@@ -1667,7 +1667,7 @@ Errors CDecor::CelOkForAction (
       error = Errors::NONE;
   }
 
-  if (action == WM_ACTION_GO)
+  if (action == EV_ACTION_GO)
   {
     if (m_decor[cel.x / 2][cel.y / 2].objectIcon == 113) // maison ?
     {
@@ -1702,7 +1702,7 @@ Errors CDecor::CelOkForAction (
       icons[1][1] = ICON_HILI_ERR;
   }
 
-  if (action == WM_ACTION_ABAT1)
+  if (action == EV_ACTION_ABAT1)
   {
     GetObject (cel, channel, icon);
     if (
@@ -1727,7 +1727,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_ROC1)
+  if (action == EV_ACTION_ROC1)
   {
     GetObject (cel, channel, icon);
     if (
@@ -1753,7 +1753,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action >= WM_ACTION_BUILD1 && action <= WM_ACTION_BUILD6)
+  if (action >= EV_ACTION_BUILD1 && action <= EV_ACTION_BUILD6)
   {
     if (cel.x % 2 != 1 || cel.y % 2 != 1)
     {
@@ -1771,9 +1771,9 @@ Errors CDecor::CelOkForAction (
       }
 
       if (
-        action == WM_ACTION_BUILD1 || // cabane ?
-        action == WM_ACTION_BUILD2 || // couveuse ?
-        action == WM_ACTION_BUILD6)   // téléporteur ?
+        action == EV_ACTION_BUILD1 || // cabane ?
+        action == EV_ACTION_BUILD2 || // couveuse ?
+        action == EV_ACTION_BUILD6)   // téléporteur ?
       {
         GetFloor (cel, channel, icon);
         if (
@@ -1784,7 +1784,7 @@ Errors CDecor::CelOkForAction (
         }
       }
 
-      if (action == WM_ACTION_BUILD4) // mine ?
+      if (action == EV_ACTION_BUILD4) // mine ?
       {
         GetFloor (cel, channel, icon);
         if (channel != CHFLOOR || icon != 71) // terre à fer ?
@@ -1794,13 +1794,13 @@ Errors CDecor::CelOkForAction (
       }
 
       if (
-        action == WM_ACTION_BUILD6 &&  // téléporteur ?
+        action == EV_ACTION_BUILD6 &&  // téléporteur ?
         CountFloor (CHFLOOR, 80) >= 2) // déjà 2 ?
       {
         error = Errors::TELE2; // déjà 2 téléporteurs
       }
 
-      if (action == WM_ACTION_BUILD3 || action == WM_ACTION_BUILD5)
+      if (action == EV_ACTION_BUILD3 || action == EV_ACTION_BUILD5)
         start = 44; // pierres
       else
         start = 36; // planches
@@ -1845,7 +1845,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_WALL)
+  if (action == EV_ACTION_WALL)
   {
     if (cel.x % 2 != 1 || cel.y % 2 != 1)
     {
@@ -1898,7 +1898,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_TOWER)
+  if (action == EV_ACTION_TOWER)
   {
     bool bTour;
 
@@ -1989,7 +1989,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_PALIS)
+  if (action == EV_ACTION_PALIS)
   {
     if (cel.x % 2 != 1 || cel.y % 2 != 1)
     {
@@ -2037,7 +2037,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_BRIDGEE)
+  if (action == EV_ACTION_BRIDGEE)
   {
     POINT test;
 
@@ -2091,7 +2091,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_CARRY)
+  if (action == EV_ACTION_CARRY)
   {
     if (cel.x % 2 != 1 || cel.y % 2 != 1)
     {
@@ -2130,7 +2130,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_DROP)
+  if (action == EV_ACTION_DROP)
   {
     if (!bTransport || bVehiculeA)
     {
@@ -2195,7 +2195,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_CULTIVE)
+  if (action == EV_ACTION_CULTIVE)
   {
     if (!bStrong || bTransport || bVehicule)
     {
@@ -2232,7 +2232,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_LABO)
+  if (action == EV_ACTION_LABO)
   {
     if (!bStrong || !bTransport || bVehicule)
     {
@@ -2275,7 +2275,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_FLOWER1)
+  if (action == EV_ACTION_FLOWER1)
   {
     GetObject (cel, channel, icon);
     if (
@@ -2300,7 +2300,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_DYNAMITE)
+  if (action == EV_ACTION_DYNAMITE)
   {
     if (cel.x % 2 != 1 || cel.y % 2 != 1)
     {
@@ -2356,7 +2356,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_EAT)
+  if (action == EV_ACTION_EAT)
   {
     if (cel.x % 2 != 1 || cel.y % 2 != 1)
     {
@@ -2383,7 +2383,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_DRINK)
+  if (action == EV_ACTION_DRINK)
   {
     if (cel.x % 2 != 1 || cel.y % 2 != 1)
     {
@@ -2410,7 +2410,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_BOATE)
+  if (action == EV_ACTION_BOATE)
   {
     POINT test;
 
@@ -2466,7 +2466,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_DJEEP)
+  if (action == EV_ACTION_DJEEP)
   {
     cel.x = (cel.x / 2) * 2;
     cel.y = (cel.y / 2) * 2;
@@ -2498,7 +2498,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_DARMURE)
+  if (action == EV_ACTION_DARMURE)
   {
     cel.x = (cel.x / 2) * 2;
     cel.y = (cel.y / 2) * 2;
@@ -2530,7 +2530,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_FLAG)
+  if (action == EV_ACTION_FLAG)
   {
     if (!bStrong || bTransport || bVehicule)
     {
@@ -2573,7 +2573,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_EXTRAIT)
+  if (action == EV_ACTION_EXTRAIT)
   {
     if (!bStrong || bTransport || bVehicule)
     {
@@ -2611,18 +2611,18 @@ Errors CDecor::CelOkForAction (
   }
 
   if (
-    action == WM_ACTION_FABJEEP || action == WM_ACTION_FABMINE ||
-    action == WM_ACTION_FABARMURE)
+    action == EV_ACTION_FABJEEP || action == EV_ACTION_FABMINE ||
+    action == EV_ACTION_FABARMURE)
   {
     if (!bStrong || !bTransport || bVehicule)
     {
       error = Errors::MISC; // pas assez fort
     }
-    if (action == WM_ACTION_FABJEEP && m_blupi[rank].perso == 8) // disciple ?
+    if (action == EV_ACTION_FABJEEP && m_blupi[rank].perso == 8) // disciple ?
     {
       error = Errors::MISC; // impossible
     }
-    if (action == WM_ACTION_FABARMURE && m_blupi[rank].perso == 8) // disciple ?
+    if (action == EV_ACTION_FABARMURE && m_blupi[rank].perso == 8) // disciple ?
     {
       error = Errors::MISC; // impossible
     }
@@ -2660,7 +2660,7 @@ Errors CDecor::CelOkForAction (
     }
   }
 
-  if (action == WM_ACTION_FABDISC)
+  if (action == EV_ACTION_FABDISC)
   {
     if (!bStrong || !bTransport || bVehicule)
     {

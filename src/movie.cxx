@@ -205,7 +205,7 @@ bool CMovie::Play (RECT rect, const std::string & pFilename)
     return false;
 
   playMovie ();
-  CEvent::PushUserEvent (WM_MOVIE_PLAY);
+  CEvent::PushUserEvent (EV_MOVIE_PLAY);
 
   return true;
 }
@@ -280,6 +280,6 @@ bool CMovie::Render ()
   SDL_RenderCopy (g_renderer, m_videoTex, nullptr, nullptr);
 
   SDL_RenderPresent (g_renderer);
-  CEvent::PushUserEvent (WM_MOVIE_PLAY);
+  CEvent::PushUserEvent (EV_MOVIE_PLAY);
   return true;
 }

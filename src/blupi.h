@@ -65,11 +65,11 @@ typedef Sint32 LPARAM;
 #define VK_RIGHT 0x27
 #define VK_DOWN  0x28
 
-#define WM_KEYDOWN     0x0100
-#define WM_KEYUP       0x0101
-#define WM_MOUSEMOVE   0x0200
-#define WM_LBUTTONDOWN 0x0201
-#define WM_LBUTTONUP   0x0202
-#define WM_RBUTTONDOWN 0x0204
-#define WM_RBUTTONUP   0x0205
+#define EV_KEYDOWN     0x0100
+#define EV_KEYUP       0x0101
+#define EV_MOUSEMOVE   0x0200
+#define EV_LBUTTONDOWN 0x0201
+#define EV_LBUTTONUP   0x0202
+#define EV_RBUTTONDOWN 0x0204
+#define EV_RBUTTONUP   0x0205
 // clang-format on
