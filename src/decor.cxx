@@ -2957,6 +2957,8 @@ const char * CDecor::GetResHili (POINT posMouse)
     {12, {false, translate ("Enemy rocket")}},
     {14, {false, translate ("Platinium")}},
     {16, {true, translate ("Armour")}},
+    {17, {false, translate ("Enemy construction")}},
+    {18, {false, translate ("Enemy construction")}},
     {20, {false, translate ("Wall")}},
     {21, {false, translate ("Wall")}},
     {22, {false, translate ("Wall")}},
