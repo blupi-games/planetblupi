@@ -1554,7 +1554,8 @@ void CDecor::AjustObject (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits)
   {
     if (
       cel.x > 0 && cel.x % 2 == 0 && cel.y % 2 == 1 &&
-      (m_decor[(cel.x - 2) / 2][cel.y / 2].objectIcon == 100 || // usine ?
+      (m_decor[(cel.x - 2) / 2][cel.y / 2].objectIcon == 17 || // factory
+       m_decor[(cel.x - 2) / 2][cel.y / 2].objectIcon == 100 ||
        m_decor[(cel.x - 2) / 2][cel.y / 2].objectIcon == 102 ||
        m_decor[(cel.x - 2) / 2][cel.y / 2].objectIcon == 104 ||
        m_decor[(cel.x - 2) / 2][cel.y / 2].objectIcon == 115))
