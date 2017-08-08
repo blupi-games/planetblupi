@@ -116,31 +116,31 @@
 
 // Actions :
 
-#define ACTION_STOP         0       // arrêt
-#define ACTION_STOPf        1       // arrêt fatigué
-#define ACTION_MARCHE       2       // marche
-#define ACTION_MARCHEf      3       // marche fatigué
-#define ACTION_BUILD        4       // construit
+#define ACTION_STOP         0       // stop
+#define ACTION_STOPTIRED    1       // stop tiredness
+#define ACTION_WALK         2       // walk
+#define ACTION_WALKTIRED    3       // walk tiredness
+#define ACTION_BUILD        4       // build
 #define ACTION_PIOCHE       5       // pioche
 #define ACTION_ENERGY       6       // prend de l'énergie
-#define ACTION_TAKE         8       // fait sauter un objet sur la tête (est)
-#define ACTION_DEPOSE       9       // repose l'objet sur la tête (est)
+#define ACTION_TAKE         8       // take with a jump the object on the head (est)
+#define ACTION_DROP         9       // drop the object which is on the head (est)
 #define ACTION_SCIE         10      // scie du bois
-#define ACTION_BRULE        11      // blupi crame !
-#define ACTION_TCHAO        12      // blupi disparait !
-#define ACTION_MANGE        13      // blupi mange
-#define ACTION_NAISSANCE    14      // naissance
+#define ACTION_BURN         11      // blupi is burning !
+#define ACTION_TCHAO        12      // blupi disappeard !
+#define ACTION_EAT          13      // blupi eats
+#define ACTION_BORN         14      // born
 #define ACTION_SAUTE2       15      // saute par-dessus un obstacle
 #define ACTION_SAUTE3       16      // saute par-dessus un obstacle
 #define ACTION_SAUTE4       17      // saute par-dessus un obstacle
 #define ACTION_SAUTE5       18      // saute par-dessus un obstacle
-#define ACTION_PONT         19      // pousse un pont
+#define ACTION_BRIDGE       19      // push a bridge
 #define ACTION_MISC1        20      // divers 1 (hausse les épaules)
 #define ACTION_MISC2        21      // divers 2 (grat-grat)
 #define ACTION_MISC3        22      // divers 3 (yoyo)
 #define ACTION_MISC1f       23      // divers 1 fatigué (bof-bof)
 #define ACTION_GLISSE       24      // glisse en marchant
-#define ACTION_BOIT         25      // blupi boit
+#define ACTION_DRINK        25      // blupi is drinking
 #define ACTION_LABO         26      // blupi travaille dans son laboratoire
 #define ACTION_DYNAMITE     27      // blupi fait péter la dynamite
 #define ACTION_DELAY        28      // blupi attend un frame
@@ -149,14 +149,14 @@
 #define ACTION_MECHE        31      // blupi se bouche les oreilles
 #define ACTION_STOPb        32      // arrêt en bateau
 #define ACTION_MARCHEb      33      // avance en bateau
-#define ACTION_STOPj        34      // arrêt en jeep
-#define ACTION_MARCHEj      35      // avance en jeep
+#define ACTION_STOPJEEP     34      // stop when using a jeep
+#define ACTION_WALKJEEP     35      // going in jeep
 #define ACTION_ELECTRO      36      // blupi électrocuté
-#define ACTION_GRILLE1      37      // blupi grille (phase 1)
-#define ACTION_GRILLE2      38      // blupi grille (phase 2)
-#define ACTION_GRILLE3      39      // blupi grille (phase 3)
+#define ACTION_GRILL1       37      // blupi grills (phase 1)
+#define ACTION_GRILL2       38      // blupi grills (phase 2)
+#define ACTION_GRILL3       39      // blupi grills (phase 3)
 #define ACTION_MISC4        40      // divers 4 (ferme les yeux)
-#define ACTION_CONTENT      41      // blupi est content
+#define ACTION_HAPPY        41      // blupi is happy
 #define ACTION_ARROSE       42      // blupi arrose
 #define ACTION_BECHE        43      // blupi bèche
 #define ACTION_CUEILLE3     44      // blupi cueille des fleurs
@@ -170,54 +170,54 @@
 #define ACTION_TELEPORTE1   52      // téléporte
 #define ACTION_TELEPORTE2   53      // téléporte
 #define ACTION_TELEPORTE3   54      // téléporte
-#define ACTION_STOPa        55      // arrêt armure
-#define ACTION_MARCHEa      56      // marche armure
-#define ACTION_ARMUREOPEN   57      // ouvre armure
-#define ACTION_ARMURECLOSE  58      // ferme armure
-#define ACTION_SAUTE1       59      // saute dans la jeep
+#define ACTION_STOPARMOR    55      // stop armor
+#define ACTION_WALKARMOR    56      // walk armor
+#define ACTION_ARMOROPEN    57      // open armor
+#define ACTION_ARMORCLOSE   58      // close armor
+#define ACTION_JUMPJEEP     59      // jump in the jeep
 #define ACTION_MISC6        60      // divers 6 (diabolo)
 
-#define ACTION_A_STOP       100     // araignée: arrêt
-#define ACTION_A_MARCHE     101     // araignée: marche
-#define ACTION_A_SAUT       102     // araignée: saute
-#define ACTION_A_GRILLE     103     // araignée: grille dans rayon
-#define ACTION_A_POISON     105     // araignée: empoisonée
-#define ACTION_A_MORT1      106     // araignée: meurt
-#define ACTION_A_MORT2      107     // araignée: meurt
-#define ACTION_A_MORT3      108     // araignée: meurt
+#define ACTION_S_STOP       100     // spider: stop
+#define ACTION_S_WALK       101     // spider: walk
+#define ACTION_S_JUMP       102     // spider: jump
+#define ACTION_S_GRILL      103     // spider: grill in rays
+#define ACTION_S_POISON     105     // spider: poisoned
+#define ACTION_S_DEAD1      106     // spider: dead
+#define ACTION_S_DEAD2      107     // spider: dead
+#define ACTION_S_DEAD3      108     // spider: dead
 
-#define ACTION_V_STOP       200     // virus: arrêt
-#define ACTION_V_MARCHE     201     // virus: marche
-#define ACTION_V_GRILLE     202     // virus: grille dans rayon
+#define ACTION_V_STOP       200     // virus: stop
+#define ACTION_V_WALK       201     // virus: walk
+#define ACTION_V_GRILL      202     // virus: grill in rays
 
-#define ACTION_T_STOP       300     // tracks: arrêt
-#define ACTION_T_MARCHE     301     // tracks: marche
-#define ACTION_T_ECRASE     302     // tracks: écrase un objet
+#define ACTION_T_STOP       300     // tracks: stop
+#define ACTION_T_WALK       301     // tracks: walk
+#define ACTION_T_CRUSHED    302     // tracks: crushed an object
 
-#define ACTION_R_STOP       400     // robot: arrêt
-#define ACTION_R_MARCHE     401     // robot: marche
+#define ACTION_R_STOP       400     // robot: stop
+#define ACTION_R_WALK       401     // robot: walk
 #define ACTION_R_APLAT      402     // robot: applatit
 #define ACTION_R_BUILD      403     // robot: construit
 #define ACTION_R_DELAY      404     // robot: construit
-#define ACTION_R_CHARGE     405     // robot: recharge
-#define ACTION_R_ECRASE     406     // robot: écrase un objet
+#define ACTION_R_LOAD       405     // robot: reload
+#define ACTION_R_CRUSHED    406     // robot: crushed an object
 
-#define ACTION_B_STOP       500     // bombe: arrêt
-#define ACTION_B_MARCHE     501     // bombe: marche
+#define ACTION_B_STOP       500     // bomb: stop
+#define ACTION_B_WALK       501     // bomb: walk
 
-#define ACTION_D_DELAY      600     // détonnateur: attend
+#define ACTION_D_DELAY      600     // detonator: wait
 
-#define ACTION_E_STOP       700     // électro: arrêt
-#define ACTION_E_MARCHE     701     // électro: marche
-#define ACTION_E_DEBUT      702     // électro: débute
-#define ACTION_E_RAYON      703     // électro: rayonne
+#define ACTION_E_STOP       700     // electro: stop
+#define ACTION_E_WALK       701     // electro: walk
+#define ACTION_E_BEGIN      702     // electro: begin
+#define ACTION_E_RAYON      703     // electro: rayon
 
-#define ACTION_D_STOP       800     // disciple: arrêt
-#define ACTION_D_MARCHE     801     // disciple: marche
-#define ACTION_D_BUILD      802     // disciple: construit
+#define ACTION_D_STOP       800     // disciple: stop
+#define ACTION_D_WALK       801     // disciple: walk
+#define ACTION_D_BUILD      802     // disciple: build
 #define ACTION_D_PIOCHE     803     // disciple: pioche
 #define ACTION_D_SCIE       804     // disciple: scie du bois
-#define ACTION_D_TCHAO      805     // disciple: disparait !
+#define ACTION_D_TCHAO      805     // disciple: disappeard !
 #define ACTION_D_CUEILLE1   806     // disciple: cueille des fleurs
 #define ACTION_D_CUEILLE2   807     // disciple: cueille des fleurs
 #define ACTION_D_MECHE      808     // disciple: se bouche les oreilles

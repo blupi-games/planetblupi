@@ -63,10 +63,10 @@ Sint32 CDecor::BlupiCreate (
   if (
     perso == 0 && action == ACTION_STOP && // blupi ?
     energy <= MAXENERGY / 4)
-    action = ACTION_STOPf;
+    action = ACTION_STOPTIRED;
 
   if (perso == 1 && action == ACTION_STOP) // araignée ?
-    action = ACTION_A_STOP;
+    action = ACTION_S_STOP;
 
   if (perso == 2 && action == ACTION_STOP) // virus ?
     action = ACTION_V_STOP;
@@ -465,12 +465,12 @@ void CDecor::BlupiSound (Sint32 rank, Sint32 sound, POINT pos, bool bStop)
 // Sons associés à des actions.
 // clang-format off
 static const Sint16 tableSound[] = {
-  ACTION_BRULE,    SOUND_BRULE,
+  ACTION_BURN,     SOUND_BRULE,
   ACTION_TCHAO,    SOUND_TCHAO,
-  ACTION_MANGE,    SOUND_MANGE,
-  ACTION_BOIT,     SOUND_BOIT,
+  ACTION_EAT,      SOUND_MANGE,
+  ACTION_DRINK,    SOUND_BOIT,
   ACTION_GLISSE,   SOUND_GLISSE,
-  ACTION_R_CHARGE, SOUND_R_CHARGE,
+  ACTION_R_LOAD,   SOUND_R_CHARGE,
   -1
 };
 // clang-format on
@@ -503,27 +503,27 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
       if (m_blupi[rank].action == ACTION_STOP)
         m_blupi[rank].action = ACTION_STOPb;
 
-      if (m_blupi[rank].action == ACTION_MARCHE)
+      if (m_blupi[rank].action == ACTION_WALK)
         m_blupi[rank].action = ACTION_MARCHEb;
     }
 
     if (m_blupi[rank].vehicule == 2) // en jeep ?
     {
       if (m_blupi[rank].action == ACTION_STOP)
-        m_blupi[rank].action = ACTION_STOPj;
+        m_blupi[rank].action = ACTION_STOPJEEP;
 
-      if (m_blupi[rank].action == ACTION_MARCHE)
-        m_blupi[rank].action = ACTION_MARCHEj;
+      if (m_blupi[rank].action == ACTION_WALK)
+        m_blupi[rank].action = ACTION_WALKJEEP;
     }
 
     if (m_blupi[rank].vehicule == 3) // armure ?
     {
       if (m_blupi[rank].action == ACTION_STOP)
-        m_blupi[rank].action = ACTION_STOPa;
+        m_blupi[rank].action = ACTION_STOPARMOR;
 
-      if (m_blupi[rank].action == ACTION_MARCHE)
+      if (m_blupi[rank].action == ACTION_WALK)
       {
-        m_blupi[rank].action = ACTION_MARCHEa;
+        m_blupi[rank].action = ACTION_WALKARMOR;
         m_blupi[rank].step   = (m_blupi[rank].step / 2) * 2;
       }
     }
@@ -531,11 +531,11 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
     if (m_blupi[rank].energy <= MAXENERGY / 4) // peu de forces ?
     {
       if (m_blupi[rank].action == ACTION_STOP)
-        m_blupi[rank].action = ACTION_STOPf;
+        m_blupi[rank].action = ACTION_STOPTIRED;
 
-      if (m_blupi[rank].action == ACTION_MARCHE)
+      if (m_blupi[rank].action == ACTION_WALK)
       {
-        m_blupi[rank].action = ACTION_MARCHEf;
+        m_blupi[rank].action = ACTION_WALKTIRED;
         m_blupi[rank].step   = (m_blupi[rank].step / 2) * 2;
       }
     }
@@ -576,7 +576,7 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
         m_blupi[rank].step   = 0;
       }
     }
-    if (m_blupi[rank].action == ACTION_STOPf && m_blupi[rank].goalAction == 0)
+    if (m_blupi[rank].action == ACTION_STOPTIRED && m_blupi[rank].goalAction == 0)
     {
       rand = Random (0, 100);
       if (
@@ -604,51 +604,51 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
       m_blupi[rank].action == ACTION_BECHE ||
       m_blupi[rank].action == ACTION_SCIE ||
       m_blupi[rank].action == ACTION_TAKE ||
-      m_blupi[rank].action == ACTION_DEPOSE ||
-      m_blupi[rank].action == ACTION_BRULE ||
+      m_blupi[rank].action == ACTION_DROP ||
+      m_blupi[rank].action == ACTION_BURN ||
       m_blupi[rank].action == ACTION_TCHAO ||
-      m_blupi[rank].action == ACTION_GRILLE1 ||
-      m_blupi[rank].action == ACTION_GRILLE2 ||
-      m_blupi[rank].action == ACTION_GRILLE3 ||
+      m_blupi[rank].action == ACTION_GRILL1 ||
+      m_blupi[rank].action == ACTION_GRILL2 ||
+      m_blupi[rank].action == ACTION_GRILL3 ||
       m_blupi[rank].action == ACTION_ELECTRO ||
-      m_blupi[rank].action == ACTION_MANGE ||
-      m_blupi[rank].action == ACTION_BOIT ||
-      m_blupi[rank].action == ACTION_NAISSANCE ||
-      m_blupi[rank].action == ACTION_SAUTE1 ||
+      m_blupi[rank].action == ACTION_EAT ||
+      m_blupi[rank].action == ACTION_DRINK ||
+      m_blupi[rank].action == ACTION_BORN ||
+      m_blupi[rank].action == ACTION_JUMPJEEP ||
       m_blupi[rank].action == ACTION_SAUTE2 ||
       m_blupi[rank].action == ACTION_SAUTE3 ||
       m_blupi[rank].action == ACTION_SAUTE4 ||
       m_blupi[rank].action == ACTION_SAUTE5 ||
       //?          m_blupi[rank].action == ACTION_GLISSE       ||
-      m_blupi[rank].action == ACTION_PONT ||
+      m_blupi[rank].action == ACTION_BRIDGE ||
       m_blupi[rank].action == ACTION_MECHE ||
-      m_blupi[rank].action == ACTION_A_GRILLE ||
-      m_blupi[rank].action == ACTION_V_GRILLE ||
-      m_blupi[rank].action == ACTION_T_ECRASE ||
-      m_blupi[rank].action == ACTION_R_MARCHE ||
+      m_blupi[rank].action == ACTION_S_GRILL ||
+      m_blupi[rank].action == ACTION_V_GRILL ||
+      m_blupi[rank].action == ACTION_T_CRUSHED ||
+      m_blupi[rank].action == ACTION_R_WALK ||
       m_blupi[rank].action == ACTION_R_APLAT ||
       m_blupi[rank].action == ACTION_R_BUILD ||
-      m_blupi[rank].action == ACTION_R_CHARGE ||
-      m_blupi[rank].action == ACTION_B_MARCHE ||
-      m_blupi[rank].action == ACTION_E_MARCHE ||
+      m_blupi[rank].action == ACTION_R_LOAD ||
+      m_blupi[rank].action == ACTION_B_WALK ||
+      m_blupi[rank].action == ACTION_E_WALK ||
       m_blupi[rank].action == ACTION_MARCHEb ||
-      m_blupi[rank].action == ACTION_MARCHEj ||
+      m_blupi[rank].action == ACTION_WALKJEEP ||
       m_blupi[rank].action == ACTION_TELEPORTE1 ||
       m_blupi[rank].action == ACTION_TELEPORTE2 ||
       m_blupi[rank].action == ACTION_TELEPORTE3 ||
-      m_blupi[rank].action == ACTION_ARMUREOPEN ||
-      m_blupi[rank].action == ACTION_ARMURECLOSE)
+      m_blupi[rank].action == ACTION_ARMOROPEN ||
+      m_blupi[rank].action == ACTION_ARMORCLOSE)
       m_blupi[rank].step = 0;
   }
 
   if (m_blupi[rank].perso == 1) // araignée ?
   {
-    if (m_blupi[rank].action == ACTION_MARCHE)
-      m_blupi[rank].action = ACTION_A_MARCHE;
+    if (m_blupi[rank].action == ACTION_WALK)
+      m_blupi[rank].action = ACTION_S_WALK;
 
     if (m_blupi[rank].action == ACTION_STOP)
     {
-      m_blupi[rank].action  = ACTION_A_STOP;
+      m_blupi[rank].action  = ACTION_S_STOP;
       m_blupi[rank].sDirect = Random (0, 7) * 16;
     }
 
@@ -657,8 +657,8 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
 
   if (m_blupi[rank].perso == 2) // virus ?
   {
-    if (m_blupi[rank].action == ACTION_MARCHE)
-      m_blupi[rank].action = ACTION_V_MARCHE;
+    if (m_blupi[rank].action == ACTION_WALK)
+      m_blupi[rank].action = ACTION_V_WALK;
 
     if (m_blupi[rank].action == ACTION_STOP)
       m_blupi[rank].action = ACTION_V_STOP;
@@ -668,8 +668,8 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
 
   if (m_blupi[rank].perso == 3) // tracks ?
   {
-    if (m_blupi[rank].action == ACTION_MARCHE)
-      m_blupi[rank].action = ACTION_T_MARCHE;
+    if (m_blupi[rank].action == ACTION_WALK)
+      m_blupi[rank].action = ACTION_T_WALK;
 
     if (m_blupi[rank].action == ACTION_STOP)
       m_blupi[rank].action = ACTION_T_STOP;
@@ -679,8 +679,8 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
 
   if (m_blupi[rank].perso == 4) // robot ?
   {
-    if (m_blupi[rank].action == ACTION_MARCHE)
-      m_blupi[rank].action = ACTION_R_MARCHE;
+    if (m_blupi[rank].action == ACTION_WALK)
+      m_blupi[rank].action = ACTION_R_WALK;
 
     if (m_blupi[rank].action == ACTION_STOP)
       m_blupi[rank].action = ACTION_R_STOP;
@@ -690,8 +690,8 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
 
   if (m_blupi[rank].perso == 5) // bombe ?
   {
-    if (m_blupi[rank].action == ACTION_MARCHE)
-      m_blupi[rank].action = ACTION_B_MARCHE;
+    if (m_blupi[rank].action == ACTION_WALK)
+      m_blupi[rank].action = ACTION_B_WALK;
 
     if (m_blupi[rank].action == ACTION_STOP)
       m_blupi[rank].action = ACTION_B_STOP;
@@ -701,8 +701,8 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
 
   if (m_blupi[rank].perso == 7) // électro ?
   {
-    if (m_blupi[rank].action == ACTION_MARCHE)
-      m_blupi[rank].action = ACTION_E_MARCHE;
+    if (m_blupi[rank].action == ACTION_WALK)
+      m_blupi[rank].action = ACTION_E_WALK;
 
     if (m_blupi[rank].action == ACTION_STOP)
       m_blupi[rank].action = ACTION_E_STOP;
@@ -715,8 +715,8 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
     if (direct != -1)
       m_blupi[rank].sDirect = direct;
 
-    if (m_blupi[rank].action == ACTION_MARCHE)
-      m_blupi[rank].action = ACTION_D_MARCHE;
+    if (m_blupi[rank].action == ACTION_WALK)
+      m_blupi[rank].action = ACTION_D_WALK;
 
     if (m_blupi[rank].action == ACTION_STOP)
       m_blupi[rank].action = ACTION_D_STOP;
@@ -1706,7 +1706,7 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
     if (rank >= 0)
     {
       m_blupi[rank].energy = MAXENERGY / 4;
-      BlupiInitAction (rank, ACTION_NAISSANCE);
+      BlupiInitAction (rank, ACTION_BORN);
     }
 
     cel.x++;
@@ -1714,7 +1714,7 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
     if (rank >= 0)
     {
       m_blupi[rank].energy = MAXENERGY / 4;
-      BlupiInitAction (rank, ACTION_NAISSANCE);
+      BlupiInitAction (rank, ACTION_BORN);
     }
 
     cel.x--;
@@ -1723,7 +1723,7 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
     if (rank >= 0)
     {
       m_blupi[rank].energy = MAXENERGY / 4;
-      BlupiInitAction (rank, ACTION_NAISSANCE);
+      BlupiInitAction (rank, ACTION_BORN);
     }
 
     cel.x++;
@@ -1731,7 +1731,7 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
     if (rank >= 0)
     {
       m_blupi[rank].energy = MAXENERGY / 4;
-      BlupiInitAction (rank, ACTION_NAISSANCE);
+      BlupiInitAction (rank, ACTION_BORN);
     }
     return true;
   }
@@ -2527,9 +2527,9 @@ bool CDecor::BlupiNextAction (Sint32 rank)
   // Blupi perd de l'énergie s'il fait qq chose.
   if (
     m_blupi[rank].action != ACTION_STOP &&
-    m_blupi[rank].action != ACTION_STOPf &&
+    m_blupi[rank].action != ACTION_STOPTIRED &&
     m_blupi[rank].action != ACTION_STOPb &&
-    m_blupi[rank].action != ACTION_STOPj &&
+    m_blupi[rank].action != ACTION_STOPJEEP &&
     m_blupi[rank].action != ACTION_MISC1 &&
     m_blupi[rank].action != ACTION_MISC2 &&
     m_blupi[rank].action != ACTION_MISC3 &&
@@ -2548,7 +2548,7 @@ bool CDecor::BlupiNextAction (Sint32 rank)
         a = 1;
       min = 0;
       if (
-        m_blupi[rank].action != ACTION_MARCHE &&
+        m_blupi[rank].action != ACTION_WALK &&
         (m_blupi[rank].goalAction == EV_ACTION_WALL ||
          m_blupi[rank].goalAction == EV_ACTION_TOWER))
       {
@@ -2569,7 +2569,7 @@ bool CDecor::BlupiNextAction (Sint32 rank)
   }
 
   // Blupi prend de l'énergie s'il mange.
-  if (m_blupi[rank].action == ACTION_MANGE)
+  if (m_blupi[rank].action == ACTION_EAT)
   {
     if (m_blupi[rank].energy < MAXENERGY)
       m_blupi[rank].energy += MAXENERGY / (40 * 3);
@@ -2587,14 +2587,14 @@ bool CDecor::BlupiNextAction (Sint32 rank)
   }
 
   // Le robot prend de l'énergie s'il se recharge.
-  if (m_blupi[rank].action == ACTION_R_CHARGE)
+  if (m_blupi[rank].action == ACTION_R_LOAD)
   {
     if (m_blupi[rank].energy < MAXENERGY)
       m_blupi[rank].energy = MAXENERGY;
   }
 
   // Blupi guérrit s'il boit.
-  if (m_blupi[rank].action == ACTION_BOIT)
+  if (m_blupi[rank].action == ACTION_DRINK)
   {
     m_blupi[rank].bMalade = false;
     if (m_blupi[rank].energy < MAXENERGY)
@@ -2604,7 +2604,7 @@ bool CDecor::BlupiNextAction (Sint32 rank)
   // Si blupi est presque complètement épuisé, il stoppe.
   if (
     !bOK && m_blupi[rank].perso == 0 && m_blupi[rank].energy < 50 &&
-    m_blupi[rank].energy != 0 && m_blupi[rank].action == ACTION_MARCHEf)
+    m_blupi[rank].energy != 0 && m_blupi[rank].action == ACTION_WALKTIRED)
   {
     BlupiInitAction (rank, ACTION_STOP);
     GoalStop (rank, true);
@@ -2627,10 +2627,10 @@ void CDecor::BlupiNextGoal (Sint32 rank)
 
   // Si blupi termine une action "mort", il doit disparaître.
   if (
-    m_blupi[rank].action == ACTION_BRULE ||
+    m_blupi[rank].action == ACTION_BURN ||
     m_blupi[rank].action == ACTION_TCHAO ||
-    m_blupi[rank].action == ACTION_A_GRILLE ||
-    m_blupi[rank].action == ACTION_V_GRILLE)
+    m_blupi[rank].action == ACTION_S_GRILL ||
+    m_blupi[rank].action == ACTION_V_GRILL)
   {
     BlupiDelete (rank); // snif ...
     return;
@@ -2712,7 +2712,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
       channel == CHOBJECT && (icon == 10000 || icon == 10001) && // rayon ?
       MoveIsUsed (cel))                                          // enclenché ?
     {
-      BlupiInitAction (rank, ACTION_A_GRILLE);
+      BlupiInitAction (rank, ACTION_S_GRILL);
       goto init;
     }
 
@@ -2777,7 +2777,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
       channel == CHOBJECT && (icon == 10000 || icon == 10001) && // rayon ?
       MoveIsUsed (cel))                                          // enclenché ?
     {
-      BlupiInitAction (rank, ACTION_V_GRILLE);
+      BlupiInitAction (rank, ACTION_V_GRILL);
       goto init;
     }
 
@@ -2846,7 +2846,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
         PutObject (cel, -1, -1); // plus d'objet
 
         BlupiSound (rank, SOUND_T_ECRASE, pos);
-        BlupiInitAction (rank, ACTION_T_ECRASE);
+        BlupiInitAction (rank, ACTION_T_CRUSHED);
         goto init;
       }
     }
@@ -2868,7 +2868,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
       }
       BlupiDelete (m_blupiHere); // plus de blupi !
       BlupiSound (rank, SOUND_AIE, pos);
-      BlupiInitAction (rank, ACTION_T_ECRASE); // écrase blupi
+      BlupiInitAction (rank, ACTION_T_CRUSHED); // écrase blupi
       goto init;
     }
     m_blupi[rank].bExist = true;
@@ -2926,7 +2926,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
         PutObject (cel, -1, -1); // plus d'objet
 
         BlupiSound (rank, SOUND_T_ECRASE, pos);
-        BlupiInitAction (rank, ACTION_R_ECRASE);
+        BlupiInitAction (rank, ACTION_R_CRUSHED);
         goto init;
       }
     }
@@ -3129,18 +3129,18 @@ void CDecor::BlupiDestCel (Sint32 rank)
   m_blupi[rank].destCel = m_blupi[rank].cel;
 
   if (
-    m_blupi[rank].action == ACTION_MARCHE ||
-    m_blupi[rank].action == ACTION_MARCHEf ||
+    m_blupi[rank].action == ACTION_WALK ||
+    m_blupi[rank].action == ACTION_WALKTIRED ||
     m_blupi[rank].action == ACTION_MARCHEb ||
-    m_blupi[rank].action == ACTION_MARCHEj ||
-    m_blupi[rank].action == ACTION_MARCHEa ||
-    m_blupi[rank].action == ACTION_A_MARCHE ||
-    m_blupi[rank].action == ACTION_V_MARCHE ||
-    m_blupi[rank].action == ACTION_T_MARCHE ||
-    m_blupi[rank].action == ACTION_R_MARCHE ||
-    m_blupi[rank].action == ACTION_B_MARCHE ||
-    m_blupi[rank].action == ACTION_E_MARCHE ||
-    m_blupi[rank].action == ACTION_D_MARCHE)
+    m_blupi[rank].action == ACTION_WALKJEEP ||
+    m_blupi[rank].action == ACTION_WALKARMOR ||
+    m_blupi[rank].action == ACTION_S_WALK ||
+    m_blupi[rank].action == ACTION_V_WALK ||
+    m_blupi[rank].action == ACTION_T_WALK ||
+    m_blupi[rank].action == ACTION_R_WALK ||
+    m_blupi[rank].action == ACTION_B_WALK ||
+    m_blupi[rank].action == ACTION_E_WALK ||
+    m_blupi[rank].action == ACTION_D_WALK)
   {
     vector = GetVector (m_blupi[rank].sDirect);
 

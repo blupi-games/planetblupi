@@ -220,7 +220,7 @@ bool CDecor::CheminTestDirection (
   {
     // Peut-on marcher normalement ?
     bFree  = IsFreeDirect (cel, tryDirect, rank);
-    action = ACTION_MARCHE;
+    action = ACTION_WALK;
     cout   = 1; // coût minimal
   }
 

@@ -1293,7 +1293,7 @@ void CDecor::MoveStep (bool bFirst)
       {
         if (
           m_blupi[rankBlupi].action == ACTION_STOP ||
-          m_blupi[rankBlupi].action == ACTION_STOPf)
+          m_blupi[rankBlupi].action == ACTION_STOPTIRED)
           continue;
       }
 

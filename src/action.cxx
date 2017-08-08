@@ -66,7 +66,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_STOPf,
+        ACTION_STOPTIRED,
         CHBLUPI,
         {
             {1, 69},    // e
@@ -132,7 +132,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_STOPj,
+        ACTION_STOPJEEP,
         CHBLUPI,
         {
             {1, 48},    // e
@@ -157,7 +157,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_STOPa,
+        ACTION_STOPARMOR,
         CHBLUPI,
         {
             {1, 322},   // e
@@ -207,7 +207,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_MARCHE,
+        ACTION_WALK,
         CHBLUPI,
         {
             {6, 0, 1, 2, 3, 4, 5},      // e
@@ -243,7 +243,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_MARCHEf,
+        ACTION_WALKTIRED,
         CHBLUPI,
         {
             {8, 69, 69, 70, 70, 69, 69, 71, 71}, // e
@@ -330,7 +330,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_MARCHEj,
+        ACTION_WALKJEEP,
         CHBLUPI,
         {
             {1, 48},    // e
@@ -357,7 +357,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_MARCHEa,
+        ACTION_WALKARMOR,
         CHBLUPI,
         {
             {8, 322, 322, 323, 323, 322, 322, 324, 324}, // e
@@ -382,7 +382,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_SAUTE1,
+        ACTION_JUMPJEEP,
         CHBLUPI,
         {
             {   15, 106, 106, 106, 106, 106, 136, 136, 136, 136, 136,
@@ -1167,7 +1167,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_PONT,
+        ACTION_BRIDGE,
         CHBLUPI,
         {
             {8, 48, 49, 50, 51, 52, 53, 54, 55}, // e
@@ -1239,7 +1239,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_DEPOSE,
+        ACTION_DROP,
         CHBLUPI,
         {
             {10, 106, 106, 106, 106, 106, 48, 48, 48, 48, 48},
@@ -1266,7 +1266,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_BRULE,
+        ACTION_BURN,
         CHBLUPI,
         {
             {8, 48, 49, 50, 51, 52, 53, 54, 55},
@@ -1311,7 +1311,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_GRILLE1,
+        ACTION_GRILL1,
         CHBLUPI,
         {
             {   40, 273, 273, 273, 273, 273, 273, 273, 273, 273, 274,
@@ -1327,7 +1327,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_GRILLE2,
+        ACTION_GRILL2,
         CHBLUPI,
         {
             {   12, 275, 273, 275,
@@ -1343,7 +1343,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_GRILLE3,
+        ACTION_GRILL3,
         CHBLUPI,
         {
             {   50, 279, 280, 279, 280, 280, 279, 280, 279, 279, 280,
@@ -1360,7 +1360,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_MANGE,
+        ACTION_EAT,
         CHBLUPI,
         {
             {   39, 113, 114, 114, 113, 113, 113, 114, 114, 113, 114,
@@ -1376,7 +1376,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_BOIT,
+        ACTION_DRINK,
         CHBLUPI,
         {
             {1, 193},
@@ -1388,7 +1388,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_CONTENT,
+        ACTION_HAPPY,
         CHBLUPI,
         {
             {1, 48},    // e
@@ -1413,7 +1413,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_NAISSANCE,
+        ACTION_BORN,
         CHBLUPI,
         {
             {   20 + 9,  115, 115, 115, 115, 115, 115, 115, 115, 115, 115,
@@ -1658,7 +1658,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_ARMUREOPEN,
+        ACTION_ARMOROPEN,
         CHBLUPI,
         {
             {1, 346},
@@ -1672,7 +1672,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_ARMURECLOSE,
+        ACTION_ARMORCLOSE,
         CHBLUPI,
         {
             {1, 346},
@@ -1714,7 +1714,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_D_MARCHE,
+        ACTION_D_WALK,
         CHBLUPI,
         {
             {1, 48},    // e
@@ -1967,7 +1967,7 @@ static const DescAction action_table[] =
     // Araignée :
 
     {
-        ACTION_A_STOP,
+        ACTION_S_STOP,
         CHBLUPI,
         {
             {4, 116, 117, 117, 116}, // e
@@ -1992,7 +1992,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_A_MARCHE,
+        ACTION_S_WALK,
         CHBLUPI,
         {
             {10, 117, 117, 117, 117, 117, 117, 117, 117, 116, 116},
@@ -2033,7 +2033,7 @@ static const DescAction action_table[] =
         {10, -1, -1, -1, -1, -1, -1, -1, -1, -1, SOUND_A_SAUT},
     },
     {
-        ACTION_A_GRILLE,
+        ACTION_S_GRILL,
         CHBLUPI,
         {
             {   40, 165, 165, 166, 165, 165, 166, 165, 166, 165, 165,
@@ -2055,7 +2055,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_A_POISON,
+        ACTION_S_POISON,
         CHBLUPI,
         {
             {8, 117, 119, 121, 123, 125, 127, 129, 131},
@@ -2067,7 +2067,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_A_MORT1,
+        ACTION_S_DEAD1,
         CHBLUPI,
         {
             {6, 314, 315, 316, 317, 316, 315},
@@ -2079,7 +2079,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_A_MORT2,
+        ACTION_S_DEAD2,
         CHBLUPI,
         {
             {   50, 314, 314, 314, 314, 314, 315, 316, 315, 315, 316,
@@ -2096,7 +2096,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_A_MORT3,
+        ACTION_S_DEAD3,
         CHBLUPI,
         {
             {1, 317},
@@ -2123,7 +2123,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_V_MARCHE,
+        ACTION_V_WALK,
         CHBLUPI,
         {
             {10, 160, 161, 162, 163, 161, 160, 162, 161, 163, 162},
@@ -2148,7 +2148,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_V_GRILLE,
+        ACTION_V_GRILL,
         CHBLUPI,
         {
             {5, 164, 160, 164, 164, 160},
@@ -2195,7 +2195,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_T_MARCHE,
+        ACTION_T_WALK,
         CHBLUPI,
         {
             {1, 200},   // e
@@ -2220,7 +2220,7 @@ static const DescAction action_table[] =
         {5, SOUND_T_MOTEUR, -1, -1, -1, -1},
     },
     {
-        ACTION_T_ECRASE,
+        ACTION_T_CRUSHED,
         CHBLUPI,
         {
             {8, 200, 201, 201, 200, 200, 215, 215, 200}, // e
@@ -2273,7 +2273,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_R_MARCHE,
+        ACTION_R_WALK,
         CHBLUPI,
         {
             {1, 216},   // e
@@ -2438,7 +2438,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_R_CHARGE,
+        ACTION_R_LOAD,
         CHBLUPI,
         {
             {1, 216},   // e
@@ -2463,7 +2463,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_R_ECRASE,
+        ACTION_R_CRUSHED,
         CHBLUPI,
         {
             {8, 216, 217, 217, 216, 216, 231, 231, 216}, // e
@@ -2516,7 +2516,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_B_MARCHE,
+        ACTION_B_WALK,
         CHBLUPI,
         {
             {10, 233, 233, 233, 233, 232, 232, 232, 232, 232, 232},
@@ -2646,7 +2646,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_E_MARCHE,
+        ACTION_E_WALK,
         CHBLUPI,
         {
             {1, 266},
@@ -2671,7 +2671,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_E_DEBUT,
+        ACTION_E_BEGIN,
         CHBLUPI,
         {
             {1, 266},

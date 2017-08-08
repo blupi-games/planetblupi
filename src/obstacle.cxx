@@ -2344,7 +2344,7 @@ bool CDecor::SearchBestBase (
     if (!bFree)
     {
       bFree  = IsFreeDirect (cel, tryDirect, rank);
-      action = ACTION_MARCHE;
+      action = ACTION_WALK;
     }
 
     if (!bFree)
@@ -2483,7 +2483,7 @@ bool CDecor::SearchBestPass (Sint32 rank, Sint32 & action)
         {
           m_blupi[rank].cel     = iCel;
           m_blupi[rank].sDirect = direct;
-          action                = ACTION_MARCHE;
+          action                = ACTION_WALK;
           return true;
         }
       }

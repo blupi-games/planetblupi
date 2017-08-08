@@ -92,7 +92,7 @@ static Sint16 table_goal_maison[] =
     EV_ACTION_HOUSE,
     GOAL_GOHILI2,       +1, +1, false,
     GOAL_ACTION,        ACTION_STOP, DIRECT_E,
-    GOAL_ACTION,        ACTION_CONTENT, DIRECT_E,
+    GOAL_ACTION,        ACTION_HAPPY, DIRECT_E,
     GOAL_TERM,
     0
 };
@@ -1006,7 +1006,7 @@ static Sint16 table_goal_depose[] =
     GOAL_BUILDOBJECT,  0, -1, -2, -2, -1, -1, 11, 1, 1 * 100,
     GOAL_ADDMOVES,     0, -1, 4,
     GOAL_DEPOSE,
-    GOAL_ACTION,        ACTION_DEPOSE, DIRECT_E,
+    GOAL_ACTION,        ACTION_DROP, DIRECT_E,
     GOAL_FINISHMOVE,
     GOAL_TERM,
     0
@@ -1026,7 +1026,7 @@ static Sint16 table_goal_depose2[] =
     GOAL_BUILDOBJECT,  -1, 0, -2, -2, -1, -1, 11, 1, 1 * 100,
     GOAL_ADDMOVES,     -1, 0, 5,
     GOAL_DEPOSE,
-    GOAL_ACTION,        ACTION_DEPOSE, DIRECT_S,
+    GOAL_ACTION,        ACTION_DROP, DIRECT_S,
     GOAL_FINISHMOVE,
     GOAL_TERM,
     0
@@ -1045,7 +1045,7 @@ static Sint16 table_goal_newblupi[] =
     GOAL_BUILDOBJECT,  0, -1, -2, -2, -1, -1, 11, 1, 1 * 100,
     GOAL_ADDMOVES,     0, -1, 4,
     GOAL_DEPOSE,
-    GOAL_ACTION,        ACTION_DEPOSE, DIRECT_E,
+    GOAL_ACTION,        ACTION_DROP, DIRECT_E,
     GOAL_FINISHMOVE,
     GOAL_GOBLUPI,       -1, 0, true,
     GOAL_GROUP,         3,
@@ -1143,9 +1143,9 @@ static Sint16 table_goal_mange[] =
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         0, -1,
     GOAL_BUILDOBJECT,  0, -1, -1, -1, -1, -1, DIMOBJY, 1, -1 * 100,
-    GOAL_ACTION,        ACTION_MANGE, DIRECT_E,
-    GOAL_ACTION,        ACTION_MANGE, DIRECT_E,
-    GOAL_ACTION,        ACTION_MANGE, DIRECT_E,
+    GOAL_ACTION,        ACTION_EAT, DIRECT_E,
+    GOAL_ACTION,        ACTION_EAT, DIRECT_E,
+    GOAL_ACTION,        ACTION_EAT, DIRECT_E,
 
     GOAL_GROUP,         2,
     GOAL_FINISHMOVE,
@@ -1166,9 +1166,9 @@ static Sint16 table_goal_mange2[] =
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         -1, 0,
     GOAL_BUILDOBJECT,  -1, 0, -1, -1, -1, -1, DIMOBJY, 1, -1 * 100,
-    GOAL_ACTION,        ACTION_MANGE, DIRECT_E,
-    GOAL_ACTION,        ACTION_MANGE, DIRECT_E,
-    GOAL_ACTION,        ACTION_MANGE, DIRECT_E,
+    GOAL_ACTION,        ACTION_EAT, DIRECT_E,
+    GOAL_ACTION,        ACTION_EAT, DIRECT_E,
+    GOAL_ACTION,        ACTION_EAT, DIRECT_E,
 
     GOAL_GROUP,         2,
     GOAL_FINISHMOVE,
@@ -1189,9 +1189,9 @@ static Sint16 table_goal_boit[] =
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         0, -1,
     GOAL_PUTOBJECT,    0, -1, -1, -1,
-    GOAL_ACTION,       ACTION_BOIT, DIRECT_E,
-    GOAL_ACTION,        ACTION_BOIT, DIRECT_E,
-    GOAL_ACTION,        ACTION_BOIT, DIRECT_E,
+    GOAL_ACTION,       ACTION_DRINK, DIRECT_E,
+    GOAL_ACTION,        ACTION_DRINK, DIRECT_E,
+    GOAL_ACTION,        ACTION_DRINK, DIRECT_E,
     GOAL_ACTION,        ACTION_STOP, DIRECT_E,
     GOAL_TERM,
     0
@@ -1208,9 +1208,9 @@ static Sint16 table_goal_boit2[] =
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         -1, 0,
     GOAL_PUTOBJECT,    -1, 0, -1, -1,
-    GOAL_ACTION,       ACTION_BOIT, DIRECT_E,
-    GOAL_ACTION,        ACTION_BOIT, DIRECT_E,
-    GOAL_ACTION,        ACTION_BOIT, DIRECT_E,
+    GOAL_ACTION,       ACTION_DRINK, DIRECT_E,
+    GOAL_ACTION,        ACTION_DRINK, DIRECT_E,
+    GOAL_ACTION,        ACTION_DRINK, DIRECT_E,
     GOAL_ACTION,        ACTION_STOP, DIRECT_S,
     GOAL_TERM,
     0
@@ -1739,7 +1739,7 @@ static Sint16 table_goal_pontel[] =
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_BUILDOBJECT,  -10, -10, CHOBJECT, 72, -1, -1, DIMOBJY, 1, -1 * 100,
     GOAL_ADDMOVES,     -10, -10, 6, // pont vers l'est
-    GOAL_ACTION,        ACTION_PONT, DIRECT_E,
+    GOAL_ACTION,        ACTION_BRIDGE, DIRECT_E,
     GOAL_GROUP,         4,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    -10, -10, -1, -1,
@@ -1785,7 +1785,7 @@ static Sint16 table_goal_pontol[] =
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_BUILDOBJECT,  -10, -10, CHOBJECT, 72, -1, -1, DIMOBJY, 1, -1 * 100,
     GOAL_ADDMOVES,     -10, -10, 7, // pont vers l'ouest
-    GOAL_ACTION,        ACTION_PONT, DIRECT_O,
+    GOAL_ACTION,        ACTION_BRIDGE, DIRECT_O,
     GOAL_GROUP,         4,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    -10, -10, -1, -1,
@@ -1831,7 +1831,7 @@ static Sint16 table_goal_pontsl[] =
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_BUILDOBJECT,  -10, -10, CHOBJECT, 73, -1, -1, DIMOBJY, 1, -1 * 100,
     GOAL_ADDMOVES,     -10, -10, 8, // pont vers le sud
-    GOAL_ACTION,        ACTION_PONT, DIRECT_S,
+    GOAL_ACTION,        ACTION_BRIDGE, DIRECT_S,
     GOAL_GROUP,         4,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    -10, -10, -1, -1,
@@ -1876,7 +1876,7 @@ static Sint16 table_goal_pontnl[] =
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_BUILDOBJECT,  -10, -10, CHOBJECT, 73, -1, -1, DIMOBJY, 1, -1 * 100,
     GOAL_ADDMOVES,     -10, -10, 9, // pont vers le nord
-    GOAL_ACTION,        ACTION_PONT, DIRECT_N,
+    GOAL_ACTION,        ACTION_BRIDGE, DIRECT_N,
     GOAL_GROUP,         4,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    -10, -10, -1, -1,
@@ -1917,7 +1917,7 @@ static Sint16 table_goal_bateaue[] =
     GOAL_GROUP,         2,
     GOAL_BUILDOBJECT,  -1, 0, CHOBJECT, 117, -1, -1, DIMOBJY, 1, -1 * 100,
     GOAL_ADDMOVES,     -1, 0, 6, // bateau vers l'est
-    GOAL_ACTION,        ACTION_PONT, DIRECT_E,
+    GOAL_ACTION,        ACTION_BRIDGE, DIRECT_E,
     GOAL_GROUP,         4,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    -1, 0, -1, -1,
@@ -1949,7 +1949,7 @@ static Sint16 table_goal_bateaus[] =
     GOAL_GROUP,         2,
     GOAL_BUILDOBJECT,  0, -1, CHOBJECT, 117, -1, -1, DIMOBJY, 1, -1 * 100,
     GOAL_ADDMOVES,     0, -1, 8, // bateau vers le sud
-    GOAL_ACTION,        ACTION_PONT, DIRECT_S,
+    GOAL_ACTION,        ACTION_BRIDGE, DIRECT_S,
     GOAL_GROUP,         4,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    0, -1, -1, -1,
@@ -1982,7 +1982,7 @@ static Sint16 table_goal_bateauo[] =
     GOAL_GROUP,         2,
     GOAL_BUILDOBJECT,  -1, 0, CHOBJECT, 117, -1, -1, DIMOBJY, 1, -1 * 100,
     GOAL_ADDMOVES,     -1, 0, 7, // bateau vers l'ouest
-    GOAL_ACTION,        ACTION_PONT, DIRECT_O,
+    GOAL_ACTION,        ACTION_BRIDGE, DIRECT_O,
     GOAL_GROUP,         4,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    -1, 0, -1, -1,
@@ -2014,7 +2014,7 @@ static Sint16 table_goal_bateaun[] =
     GOAL_GROUP,         2,
     GOAL_BUILDOBJECT,  0, -1, CHOBJECT, 117, -1, -1, DIMOBJY, 1, -1 * 100,
     GOAL_ADDMOVES,     0, -1, 9, // bateau vers le nord
-    GOAL_ACTION,        ACTION_PONT, DIRECT_N,
+    GOAL_ACTION,        ACTION_BRIDGE, DIRECT_N,
     GOAL_GROUP,         4,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    0, -1, -1, -1,
@@ -2440,16 +2440,16 @@ static Sint16 table_goal_r_make1[] =
     GOAL_GROUP,         2,
     GOAL_USINEFREE,    -1, -1,
     GOAL_INTERRUPT,    0,  // prioritaire
-    GOAL_ACTION,        ACTION_R_CHARGE, DIRECT_O,
-    GOAL_ACTION,        ACTION_R_CHARGE, DIRECT_O,
+    GOAL_ACTION,        ACTION_R_LOAD, DIRECT_O,
+    GOAL_ACTION,        ACTION_R_LOAD, DIRECT_O,
     GOAL_ACTION,        ACTION_R_BUILD, DIRECT_O,
-    GOAL_ACTION,        ACTION_R_CHARGE, DIRECT_O,
-    GOAL_ACTION,        ACTION_R_CHARGE, DIRECT_O,
+    GOAL_ACTION,        ACTION_R_LOAD, DIRECT_O,
+    GOAL_ACTION,        ACTION_R_LOAD, DIRECT_O,
     GOAL_ACTION,        ACTION_R_BUILD, DIRECT_O,
-    GOAL_ACTION,        ACTION_R_CHARGE, DIRECT_O,
+    GOAL_ACTION,        ACTION_R_LOAD, DIRECT_O,
     GOAL_ACTION,        ACTION_R_BUILD, DIRECT_O,
-    GOAL_ACTION,        ACTION_R_CHARGE, DIRECT_O,
-    GOAL_ACTION,        ACTION_R_CHARGE, DIRECT_O,
+    GOAL_ACTION,        ACTION_R_LOAD, DIRECT_O,
+    GOAL_ACTION,        ACTION_R_LOAD, DIRECT_O,
     GOAL_ACTION,        ACTION_R_BUILD, DIRECT_O,
     GOAL_TERM,
     0
@@ -2787,7 +2787,7 @@ static Sint16 table_goal_mjeep[] =
     GOAL_TESTOBJECT,   -1, 0, CHOBJECT, 118,
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         -1, 0,
-    GOAL_ACTION,        ACTION_SAUTE1, DIRECT_S,
+    GOAL_ACTION,        ACTION_JUMPJEEP, DIRECT_S,
     GOAL_GROUP,         2,
     GOAL_PUTOBJECT,    -1, -1, -1, -1, // enlève la jeep
     GOAL_VEHICULE,     2,  // en jeep
@@ -2817,7 +2817,7 @@ static Sint16 table_goal_djeep[] =
     GOAL_PUTOBJECT,    -1, -1, CHOBJECT, 118, // remet la jeep
     GOAL_VEHICULE,     0,  // à pied
     GOAL_ACTUALISE,
-    GOAL_ACTION,        ACTION_SAUTE1, DIRECT_N,
+    GOAL_ACTION,        ACTION_JUMPJEEP, DIRECT_N,
     GOAL_ACTION,        ACTION_STOP, DIRECT_N,
     GOAL_ACTION,        ACTION_STOP, DIRECT_N,
     GOAL_ACTION,        ACTION_STOP, DIRECT_N,
@@ -2845,7 +2845,7 @@ static Sint16 table_goal_marmure[] =
     GOAL_ACTION,        ACTION_STOP, DIRECT_E,
     GOAL_GROUP,         2,
     GOAL_PUTOBJECT,    -1, -1, -1, -1, // enlève l'armure
-    GOAL_ACTION,       ACTION_ARMURECLOSE, DIRECT_E,
+    GOAL_ACTION,       ACTION_ARMORCLOSE, DIRECT_E,
     GOAL_VEHICULE,      3,  // en armure
     GOAL_ACTION,        ACTION_STOP, DIRECT_E,
     GOAL_ACTION,        ACTION_STOP, DIRECT_E,
@@ -2882,7 +2882,7 @@ static Sint16 table_goal_darmure[] =
     GOAL_ACTION,        ACTION_STOP, DIRECT_E,
     GOAL_ACTION,        ACTION_STOP, DIRECT_E,
     GOAL_ACTION,        ACTION_STOP, DIRECT_E,
-    GOAL_ACTION,        ACTION_ARMUREOPEN, DIRECT_E,
+    GOAL_ACTION,        ACTION_ARMOROPEN, DIRECT_E,
     GOAL_GROUP,         3,
     GOAL_WORK,         -1, -1,
     GOAL_PUTOBJECT,    -1, -1, CHOBJECT, 16, // remet l'armure
@@ -3190,27 +3190,27 @@ static Sint16 table_goal_e_rayon[] =
     GOAL_GOHILI2,       0, 0, false,
     GOAL_SOUND,         SOUND_E_TOURNE,
     GOAL_ACTION,        ACTION_E_RAYON, DIRECT_E,
-    GOAL_ACTION,        ACTION_E_DEBUT, DIRECT_E,
-    GOAL_ACTION,        ACTION_E_DEBUT, DIRECT_E,
+    GOAL_ACTION,        ACTION_E_BEGIN, DIRECT_E,
+    GOAL_ACTION,        ACTION_E_BEGIN, DIRECT_E,
     GOAL_ACTION,        ACTION_E_RAYON, DIRECT_E,
-    GOAL_ACTION,        ACTION_E_DEBUT, DIRECT_E,
-    GOAL_ACTION,        ACTION_E_DEBUT, DIRECT_E,
-    GOAL_ACTION,        ACTION_E_DEBUT, DIRECT_E,
+    GOAL_ACTION,        ACTION_E_BEGIN, DIRECT_E,
+    GOAL_ACTION,        ACTION_E_BEGIN, DIRECT_E,
+    GOAL_ACTION,        ACTION_E_BEGIN, DIRECT_E,
     GOAL_ACTION,        ACTION_E_RAYON, DIRECT_E,
     GOAL_ACTION,        ACTION_E_RAYON, DIRECT_E,
-    GOAL_ACTION,        ACTION_E_DEBUT, DIRECT_E,
+    GOAL_ACTION,        ACTION_E_BEGIN, DIRECT_E,
     GOAL_ACTION,        ACTION_E_RAYON, DIRECT_E,
-    GOAL_ACTION,        ACTION_E_DEBUT, DIRECT_E,
+    GOAL_ACTION,        ACTION_E_BEGIN, DIRECT_E,
     GOAL_ACTION,        ACTION_E_RAYON, DIRECT_E,
-    GOAL_ACTION,        ACTION_E_DEBUT, DIRECT_E,
+    GOAL_ACTION,        ACTION_E_BEGIN, DIRECT_E,
     GOAL_ACTION,        ACTION_E_RAYON, DIRECT_E,
     GOAL_ACTION,        ACTION_E_RAYON, DIRECT_E,
     GOAL_SKIPSKILL,     1, 7,
     GOAL_ACTION,       ACTION_E_RAYON, DIRECT_E,
-    GOAL_ACTION,       ACTION_E_DEBUT, DIRECT_E,
-    GOAL_ACTION,       ACTION_E_DEBUT, DIRECT_E,
+    GOAL_ACTION,       ACTION_E_BEGIN, DIRECT_E,
+    GOAL_ACTION,       ACTION_E_BEGIN, DIRECT_E,
     GOAL_ACTION,       ACTION_E_RAYON, DIRECT_E,
-    GOAL_ACTION,       ACTION_E_DEBUT, DIRECT_E,
+    GOAL_ACTION,       ACTION_E_BEGIN, DIRECT_E,
     GOAL_ACTION,       ACTION_E_RAYON, DIRECT_E,
     GOAL_ACTION,       ACTION_E_RAYON, DIRECT_E,
     GOAL_SOUND,         SOUND_E_RAYON,
@@ -3283,9 +3283,9 @@ static Sint16 table_goal_electro[] =
     GOAL_ACTION,        ACTION_ELECTRO, DIRECT_SE,
     GOAL_TAKEOBJECT,    -1, -1, -1, -1, // ne porte plus rien
     GOAL_SOUND,         SOUND_TCHAO,
-    GOAL_ACTION,        ACTION_GRILLE1, DIRECT_SE,
-    GOAL_ACTION,        ACTION_GRILLE2, DIRECT_SE,
-    GOAL_ACTION,        ACTION_GRILLE3, DIRECT_SE,
+    GOAL_ACTION,        ACTION_GRILL1, DIRECT_SE,
+    GOAL_ACTION,        ACTION_GRILL2, DIRECT_SE,
+    GOAL_ACTION,        ACTION_GRILL3, DIRECT_SE,
     GOAL_DELETE,        // blupi meurt brutalement
     GOAL_TERM,
     0
@@ -3300,9 +3300,9 @@ static Sint16 table_goal_electrom[] =
     GOAL_MALADE,       false,
     GOAL_TAKEOBJECT,   -1, -1, -1, -1, // ne porte plus rien
     GOAL_SOUND,        SOUND_TCHAO,
-    GOAL_ACTION,        ACTION_GRILLE1, DIRECT_SE,
-    GOAL_ACTION,        ACTION_GRILLE2, DIRECT_SE,
-    GOAL_ACTION,        ACTION_GRILLE3, DIRECT_SE,
+    GOAL_ACTION,        ACTION_GRILL1, DIRECT_SE,
+    GOAL_ACTION,        ACTION_GRILL2, DIRECT_SE,
+    GOAL_ACTION,        ACTION_GRILL3, DIRECT_SE,
     GOAL_DELETE,        // blupi meurt brutalement
     GOAL_TERM,
     0
@@ -3318,9 +3318,9 @@ static Sint16 table_goal_grille[] =
     GOAL_MALADE,       false,
     GOAL_TAKEOBJECT,   -1, -1, -1, -1, // ne porte plus rien
     GOAL_SOUND,        SOUND_BRULE,
-    GOAL_ACTION,        ACTION_GRILLE1, DIRECT_SE,
-    GOAL_ACTION,        ACTION_GRILLE2, DIRECT_SE,
-    GOAL_ACTION,        ACTION_GRILLE3, DIRECT_SE,
+    GOAL_ACTION,        ACTION_GRILL1, DIRECT_SE,
+    GOAL_ACTION,        ACTION_GRILL2, DIRECT_SE,
+    GOAL_ACTION,        ACTION_GRILL3, DIRECT_SE,
     GOAL_DELETE,        // blupi meurt brutalement
     GOAL_TERM,
     0
@@ -3333,10 +3333,10 @@ static Sint16 table_goal_a_mort[] =
     GOAL_INTERRUPT, 0,  // prioritaire
     GOAL_ACTION,        ACTION_STOP, DIRECT_E,
     GOAL_SOUND,         SOUND_A_POISON,
-    GOAL_ACTION,        ACTION_A_POISON, DIRECT_E,
-    GOAL_ACTION,        ACTION_A_MORT1, DIRECT_E,
-    GOAL_ACTION,        ACTION_A_MORT2, DIRECT_E,
-    GOAL_ACTION,        ACTION_A_MORT3, DIRECT_E,
+    GOAL_ACTION,        ACTION_S_POISON, DIRECT_E,
+    GOAL_ACTION,        ACTION_S_DEAD1, DIRECT_E,
+    GOAL_ACTION,        ACTION_S_DEAD2, DIRECT_E,
+    GOAL_ACTION,        ACTION_S_DEAD3, DIRECT_E,
     GOAL_DELETE,        // l'araignée meurt brutalement
     GOAL_TERM,
     0
