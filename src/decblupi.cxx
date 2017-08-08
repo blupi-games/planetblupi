@@ -2548,8 +2548,9 @@ bool CDecor::BlupiNextAction (Sint32 rank)
         a = 1;
       min = 0;
       if (
-        m_blupi[rank].goalAction == EV_ACTION_WALL ||
-        m_blupi[rank].goalAction == EV_ACTION_TOWER)
+        m_blupi[rank].action != ACTION_MARCHE &&
+        (m_blupi[rank].goalAction == EV_ACTION_WALL ||
+         m_blupi[rank].goalAction == EV_ACTION_TOWER))
       {
         a   = 5;
         min = 1;
