@@ -1750,6 +1750,12 @@ bool CDecor::IsFreeCelGo (POINT cel, Sint32 rank)
                             icon == 122))  // mine de fer ?
     return false;
 
+  // Refuse to go in an ennemy factory when the door is open.
+  if (
+    channel == CHOBJECT &&
+    (icon == 18 || icon == 101 || icon == 103 || icon == 105 || icon == 116))
+    return false;
+
   bOK = IsFreeCel (cel, rank);
   if (bOK)
     return true;
