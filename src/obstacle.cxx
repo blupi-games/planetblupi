@@ -1427,10 +1427,6 @@ lock:
   return;
 }
 
-// (*)  Blupi est passe muraille lorsqu'il embarque ou débarque
-//      du bateau. Dans ce cas, tous les sols (rivages) doivent
-//      permettre de passer. En revanche, pas les obstacles !
-
 // Ajuste un obstacle en fonction du personnage.
 
 void CDecor::AjustObject (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits)
@@ -1449,19 +1445,7 @@ void CDecor::AjustObject (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits)
     {
       goto lock; // blupi ne peut pas aller dans le bateau
     }
-    //      if ( m_blupi[rank].interrupt == -1 )  // passe muraille (*) ?
-    //      {
-    //          goto pass;
-    //      }
-    //      if ( cel.x > 0 && cel.x%2 == 0 && cel.y%2 == 1 &&
-    //           (m_decor[(cel.x-2)/2][cel.y/2].objectIcon == 100 ||  // usine ?
-    //            m_decor[(cel.x-2)/2][cel.y/2].objectIcon == 102 ||
-    //            m_decor[(cel.x-2)/2][cel.y/2].objectIcon == 104 ||
-    //            m_decor[(cel.x-2)/2][cel.y/2].objectIcon == 115 ||
-    //            m_decor[(cel.x-2)/2][cel.y/2].objectIcon ==  17) )
-    //      {
-    //          goto lock;  // blupi ne peut pas bloquer la porte
-    //      }
+
     if (
       cel.x % 2 == 1 && cel.y % 2 == 1 &&
       m_decor[cel.x / 2][cel.y / 2].objectIcon == 99) // recharge ?
