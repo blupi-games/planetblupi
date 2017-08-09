@@ -123,7 +123,7 @@
 #define ACTION_BUILD        4       // build
 #define ACTION_PIOCHE       5       // pioche
 #define ACTION_ENERGY       6       // prend de l'énergie
-#define ACTION_TAKE         8       // take with a jump the object on the head (est)
+#define ACTION_CARRY        8       // take with a jump the object on the head (est)
 #define ACTION_DROP         9       // drop the object which is on the head (est)
 #define ACTION_SCIE         10      // scie du bois
 #define ACTION_BURN         11      // blupi is burning !

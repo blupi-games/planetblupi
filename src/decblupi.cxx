@@ -604,7 +604,7 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
       m_blupi[rank].action == ACTION_ARROSE ||
       m_blupi[rank].action == ACTION_BECHE ||
       m_blupi[rank].action == ACTION_SCIE ||
-      m_blupi[rank].action == ACTION_TAKE ||
+      m_blupi[rank].action == ACTION_CARRY ||
       m_blupi[rank].action == ACTION_DROP ||
       m_blupi[rank].action == ACTION_BURN ||
       m_blupi[rank].action == ACTION_TCHAO ||

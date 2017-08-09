@@ -1195,7 +1195,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_TAKE,
+        ACTION_CARRY,
         CHBLUPI,
         {
             {   2 + 6 + 15, 106, 106, 48, 48, 48, 48, 48, 48, 106,

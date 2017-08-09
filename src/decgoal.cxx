@@ -967,7 +967,7 @@ static Sint16 table_goal_carry[] =
     GOAL_WORK,         0, -1,
     GOAL_BUILDOBJECT,  0, -1, -2, -2, -1, -1, 9 + 18, 1, 1 * 100,
     GOAL_ADDMOVES,     0, -1, 2,
-    GOAL_ACTION,        ACTION_TAKE, DIRECT_E,
+    GOAL_ACTION,        ACTION_CARRY, DIRECT_E,
     GOAL_TAKE,          0, -1,
     GOAL_TERM,
     0
@@ -986,7 +986,7 @@ static Sint16 table_goal_carry2[] =
     GOAL_WORK,         -1, 0,
     GOAL_BUILDOBJECT,  -1, 0, -2, -2, -1, -1, 9 + 18, 1, 1 * 100,
     GOAL_ADDMOVES,     -1, 0, 3,
-    GOAL_ACTION,        ACTION_TAKE, DIRECT_S,
+    GOAL_ACTION,        ACTION_CARRY, DIRECT_S,
     GOAL_TAKE,          -1, 0,
     GOAL_TERM,
     0
