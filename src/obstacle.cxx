@@ -2104,7 +2104,7 @@ bool CDecor::IsFreeJump (POINT cel, Sint32 direct, Sint32 rank, Sint32 & action)
   if (!IsFreeCel (cel, rank) || IsBlupiHere (cel, true))
     return false;
 
-  action = ACTION_SAUTE2 + (i - 1);
+  action = ACTION_JUMP2 + (i - 1);
   return true;
 }
 
@@ -2126,7 +2126,7 @@ bool CDecor::IsFreeGlisse (
   if (!IsFreeDirect (cel, direct, rank))
     return false;
 
-  action = ACTION_GLISSE;
+  action = ACTION_SLIDE;
   return true;
 }
 

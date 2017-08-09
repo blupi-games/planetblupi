@@ -467,10 +467,10 @@ void CDecor::BlupiSound (Sint32 rank, Sint32 sound, POINT pos, bool bStop)
 static const Sint16 tableSound[] = {
   ACTION_BURN,     SOUND_BRULE,
   ACTION_TCHAO,    SOUND_TCHAO,
-  ACTION_EAT,      SOUND_MANGE,
-  ACTION_DRINK,    SOUND_BOIT,
-  ACTION_GLISSE,   SOUND_GLISSE,
-  ACTION_R_LOAD,   SOUND_R_CHARGE,
+  ACTION_EAT,      SOUND_EAT,
+  ACTION_DRINK,    SOUND_DRINK,
+  ACTION_SLIDE,    SOUND_SLIDE,
+  ACTION_R_LOAD,   SOUND_R_LOAD,
   -1
 };
 // clang-format on
@@ -616,10 +616,10 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
       m_blupi[rank].action == ACTION_DRINK ||
       m_blupi[rank].action == ACTION_BORN ||
       m_blupi[rank].action == ACTION_JUMPJEEP ||
-      m_blupi[rank].action == ACTION_SAUTE2 ||
-      m_blupi[rank].action == ACTION_SAUTE3 ||
-      m_blupi[rank].action == ACTION_SAUTE4 ||
-      m_blupi[rank].action == ACTION_SAUTE5 ||
+      m_blupi[rank].action == ACTION_JUMP2 ||
+      m_blupi[rank].action == ACTION_JUMP3 ||
+      m_blupi[rank].action == ACTION_JUMP4 ||
+      m_blupi[rank].action == ACTION_JUMP5 ||
       //?          m_blupi[rank].action == ACTION_GLISSE       ||
       m_blupi[rank].action == ACTION_BRIDGE ||
       m_blupi[rank].action == ACTION_MECHE ||
@@ -2582,7 +2582,7 @@ bool CDecor::BlupiNextAction (Sint32 rank)
         a   = 5;
         min = 1;
       }
-      if (m_blupi[rank].action == ACTION_GLISSE)
+      if (m_blupi[rank].action == ACTION_SLIDE)
       {
         if (m_bSuper)
           a = 0;

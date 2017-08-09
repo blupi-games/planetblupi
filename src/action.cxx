@@ -325,7 +325,7 @@ static const DescAction action_table[] =
             {10, 5, +600,   0, +1, +600,   0, +1, +600,   0, 0, +600,   0, -1, +600,   0, -1},
 #endif
         },
-        {   20, -1, -1, SOUND_BATEAU, -1, -1, -1, -1, -1, -1, -1,
+        {   20, -1, -1, SOUND_BOAT, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
         },
     },
@@ -438,7 +438,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_SAUTE2,
+        ACTION_JUMP2,
         CHBLUPI,
         {
             {   15, 106, 106, 106, 106, 106, 136, 136, 136, 136, 136,
@@ -494,7 +494,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_SAUTE3,
+        ACTION_JUMP3,
         CHBLUPI,
         {
             {   20, 106, 106, 106, 106, 106, 136, 136, 136, 136, 136,
@@ -555,7 +555,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_SAUTE4,
+        ACTION_JUMP4,
         CHBLUPI,
         {
             {   25, 106, 106, 106, 106, 106, 136, 136, 136, 136, 136,
@@ -629,7 +629,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_SAUTE5,
+        ACTION_JUMP5,
         CHBLUPI,
         {
             {   30, 106, 106, 106, 106, 106, 136, 136, 136, 136, 136,
@@ -711,7 +711,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_GLISSE,
+        ACTION_SLIDE,
         CHBLUPI,
         {
             {8, 48, 49, 50, 51, 52, 53, 54, 55}, // e
@@ -1007,11 +1007,11 @@ static const DescAction action_table[] =
             {40, 1, 0, 0, 0},           // n
             {40, 1, 0, 0, 0},           // ne
         },
-        {   40, -1, -1, -1, SOUND_SCIE, -1, -1, -1, -1,
-            -1, -1, -1, SOUND_SCIE, -1, -1, -1, -1,
-            -1, -1, -1, SOUND_SCIE, -1, -1, -1, -1,
-            -1, -1, -1, SOUND_SCIE, -1, -1, -1, -1,
-            -1, -1, -1, SOUND_SCIE, -1, -1, -1, -1
+        {   40, -1, -1, -1, SOUND_SAW, -1, -1, -1, -1,
+            -1, -1, -1, SOUND_SAW, -1, -1, -1, -1,
+            -1, -1, -1, SOUND_SAW, -1, -1, -1, -1,
+            -1, -1, -1, SOUND_SAW, -1, -1, -1, -1,
+            -1, -1, -1, SOUND_SAW, -1, -1, -1, -1
         },
     },
     {
@@ -2912,13 +2912,13 @@ Sint32 GetAmplitude (Sint16 action)
 {
   switch (action)
   {
-  case ACTION_SAUTE2:
+  case ACTION_JUMP2:
     return 2;
-  case ACTION_SAUTE3:
+  case ACTION_JUMP3:
     return 3;
-  case ACTION_SAUTE4:
+  case ACTION_JUMP4:
     return 4;
-  case ACTION_SAUTE5:
+  case ACTION_JUMP5:
     return 5;
   }
 

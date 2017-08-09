@@ -130,16 +130,16 @@
 #define ACTION_TCHAO        12      // blupi disappeard !
 #define ACTION_EAT          13      // blupi eats
 #define ACTION_BORN         14      // born
-#define ACTION_SAUTE2       15      // saute par-dessus un obstacle
-#define ACTION_SAUTE3       16      // saute par-dessus un obstacle
-#define ACTION_SAUTE4       17      // saute par-dessus un obstacle
-#define ACTION_SAUTE5       18      // saute par-dessus un obstacle
+#define ACTION_JUMP2        15      // jump over an obstacle
+#define ACTION_JUMP3        16      // jump over an obstacle
+#define ACTION_JUMP4        17      // jump over an obstacle
+#define ACTION_JUMP5        18      // jump over an obstacle
 #define ACTION_BRIDGE       19      // push a bridge
 #define ACTION_MISC1        20      // divers 1 (hausse les épaules)
 #define ACTION_MISC2        21      // divers 2 (grat-grat)
 #define ACTION_MISC3        22      // divers 3 (yoyo)
 #define ACTION_MISC1f       23      // divers 1 fatigué (bof-bof)
-#define ACTION_GLISSE       24      // glisse en marchant
+#define ACTION_SLIDE        24      // slide when walking
 #define ACTION_DRINK        25      // blupi is drinking
 #define ACTION_LABO         26      // blupi travaille dans son laboratoire
 #define ACTION_DYNAMITE     27      // blupi fait péter la dynamite
@@ -242,11 +242,11 @@
 #define SOUND_COUPTOC       12
 #define SOUND_SAUT          13
 #define SOUND_HOP           14
-#define SOUND_SCIE          15
-#define SOUND_FEU           16
+#define SOUND_SAW           15
+#define SOUND_FIRE          16
 #define SOUND_BRULE         17
 #define SOUND_TCHAO         18
-#define SOUND_MANGE         19
+#define SOUND_EAT           19
 #define SOUND_NAISSANCE     20
 #define SOUND_A_SAUT        21
 #define SOUND_A_HIHI        22
@@ -255,8 +255,8 @@
 #define SOUND_RAYON1        25
 #define SOUND_RAYON2        26
 #define SOUND_VIRUS         27
-#define SOUND_GLISSE        28
-#define SOUND_BOIT          29
+#define SOUND_SLIDE         28
+#define SOUND_DRINK         29
 #define SOUND_LABO          30
 #define SOUND_DYNAMITE      31
 #define SOUND_PORTE         32
@@ -269,9 +269,9 @@
 #define SOUND_R_MOTEUR      39
 #define SOUND_R_APLAT       40
 #define SOUND_R_ROTATE      41
-#define SOUND_R_CHARGE      42
+#define SOUND_R_LOAD        42
 #define SOUND_B_SAUT        43
-#define SOUND_BATEAU        44
+#define SOUND_BOAT          44
 #define SOUND_JEEP          45
 #define SOUND_MINE          46
 #define SOUND_USINE         47

@@ -1145,7 +1145,7 @@ void CDecor::MoveFire (Sint32 rank)
   m_decor[x / 2][y / 2].fire++;
 
   pos = ConvCelToPos (GetCel (x, y));
-  m_pSound->PlayImage (SOUND_FEU, pos);
+  m_pSound->PlayImage (SOUND_FIRE, pos);
 
   if (m_decor[x / 2][y / 2].objectIcon >= 0) // objet qui brule ?
   {
