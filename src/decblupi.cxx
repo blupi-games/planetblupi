@@ -576,7 +576,8 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
         m_blupi[rank].step   = 0;
       }
     }
-    if (m_blupi[rank].action == ACTION_STOPTIRED && m_blupi[rank].goalAction == 0)
+    if (
+      m_blupi[rank].action == ACTION_STOPTIRED && m_blupi[rank].goalAction == 0)
     {
       rand = Random (0, 100);
       if (
