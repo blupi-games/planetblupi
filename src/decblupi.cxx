@@ -598,12 +598,12 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
       m_blupi[rank].action == ACTION_BUILDSEC ||
       m_blupi[rank].action == ACTION_BUILDSOURD ||
       m_blupi[rank].action == ACTION_BUILDPIERRE ||
-      m_blupi[rank].action == ACTION_PIOCHE ||
+      m_blupi[rank].action == ACTION_PICKAXE ||
       m_blupi[rank].action == ACTION_PIOCHEPIERRE ||
       m_blupi[rank].action == ACTION_PIOCHESOURD ||
       m_blupi[rank].action == ACTION_ARROSE ||
       m_blupi[rank].action == ACTION_BECHE ||
-      m_blupi[rank].action == ACTION_SCIE ||
+      m_blupi[rank].action == ACTION_SAW ||
       m_blupi[rank].action == ACTION_CARRY ||
       m_blupi[rank].action == ACTION_DROP ||
       m_blupi[rank].action == ACTION_BURN ||
@@ -722,14 +722,14 @@ void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
     if (m_blupi[rank].action == ACTION_STOP)
       m_blupi[rank].action = ACTION_D_STOP;
 
-    if (m_blupi[rank].action == ACTION_PIOCHE)
-      m_blupi[rank].action = ACTION_D_PIOCHE;
+    if (m_blupi[rank].action == ACTION_PICKAXE)
+      m_blupi[rank].action = ACTION_D_PICKAXE;
 
     if (m_blupi[rank].action == ACTION_BUILD)
       m_blupi[rank].action = ACTION_D_BUILD;
 
-    if (m_blupi[rank].action == ACTION_SCIE)
-      m_blupi[rank].action = ACTION_D_SCIE;
+    if (m_blupi[rank].action == ACTION_SAW)
+      m_blupi[rank].action = ACTION_D_SAW;
 
     if (m_blupi[rank].action == ACTION_TCHAO)
       m_blupi[rank].action = ACTION_D_TCHAO;

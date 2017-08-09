@@ -886,7 +886,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_PIOCHE,
+        ACTION_PICKAXE,
         CHBLUPI,
         {
             {   16 + 4 + 16 + 4,
@@ -985,7 +985,7 @@ static const DescAction action_table[] =
         },
     },
     {
-        ACTION_SCIE,
+        ACTION_SAW,
         CHBLUPI,
         {
             {1, 100},                   // e
@@ -1764,7 +1764,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_D_PIOCHE,
+        ACTION_D_PICKAXE,
         CHBLUPI,
         {
             {1, 290},       // e
@@ -1839,7 +1839,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_D_SCIE,
+        ACTION_D_SAW,
         CHBLUPI,
         {
             {8, 290, 290, 304, 304, 290, 290, 292, 292}, // e

@@ -121,11 +121,11 @@
 #define ACTION_WALK         2       // walk
 #define ACTION_WALKTIRED    3       // walk tiredness
 #define ACTION_BUILD        4       // build
-#define ACTION_PIOCHE       5       // pioche
+#define ACTION_PICKAXE      5       // pickaxe
 #define ACTION_ENERGY       6       // prend de l'énergie
 #define ACTION_CARRY        8       // take with a jump the object on the head (est)
 #define ACTION_DROP         9       // drop the object which is on the head (est)
-#define ACTION_SCIE         10      // scie du bois
+#define ACTION_SAW          10      // saw wood
 #define ACTION_BURN         11      // blupi is burning !
 #define ACTION_TCHAO        12      // blupi disappeard !
 #define ACTION_EAT          13      // blupi eats
@@ -215,8 +215,8 @@
 #define ACTION_D_STOP       800     // disciple: stop
 #define ACTION_D_WALK       801     // disciple: walk
 #define ACTION_D_BUILD      802     // disciple: build
-#define ACTION_D_PIOCHE     803     // disciple: pioche
-#define ACTION_D_SCIE       804     // disciple: scie du bois
+#define ACTION_D_PICKAXE    803     // disciple: pickaxe
+#define ACTION_D_SAW        804     // disciple: saw wood
 #define ACTION_D_TCHAO      805     // disciple: disappeard !
 #define ACTION_D_CUEILLE1   806     // disciple: cueille des fleurs
 #define ACTION_D_CUEILLE2   807     // disciple: cueille des fleurs
