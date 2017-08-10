@@ -433,7 +433,7 @@ static const DescAction action_table[] =
             {1, 1, 0, 0, 0},    // ne
         },
         {   15, SOUND_HOP, -1, -1, -1,
-            SOUND_SAUT, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            SOUND_JUMP, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             SOUND_COUPTOC
         },
     },
@@ -489,7 +489,7 @@ static const DescAction action_table[] =
             {1, 1, 0, 0, 0},    // ne
         },
         {   15, SOUND_HOP, -1, -1, -1,
-            SOUND_SAUT, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            SOUND_JUMP, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             SOUND_COUPTOC
         },
     },
@@ -549,7 +549,7 @@ static const DescAction action_table[] =
             {1, 1, 0, 0, 0},    // ne
         },
         {   20, SOUND_HOP, -1, -1, -1,
-            SOUND_SAUT, -1, -1, -1, -1, -1, -1,
+            SOUND_JUMP, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1,
             SOUND_COUPTOC
         },
@@ -622,7 +622,7 @@ static const DescAction action_table[] =
             {1, 1, 0, 0, 0},    // ne
         },
         {   25, SOUND_HOP, -1, -1, -1,
-            SOUND_SAUT, -1, -1, -1, -1, -1, -1,
+            SOUND_JUMP, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1,
             SOUND_COUPTOC
@@ -704,7 +704,7 @@ static const DescAction action_table[] =
             {1, 1, 0, 0, 0},    // ne
         },
         {   30, SOUND_HOP, -1, -1, -1,
-            SOUND_SAUT, -1, -1, -1, -1, -1, -1,
+            SOUND_JUMP, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1,
             SOUND_COUPTOC
@@ -1234,7 +1234,7 @@ static const DescAction action_table[] =
             {1, 1, 0, 0, 0},
         },
         {   2 + 6 + 15, SOUND_HOP,     -1, -1, -1, -1, -1, -1, -1,
-            SOUND_SAUT,    -1, -1, -1, -1, -1, -1, -1, -1,
+            SOUND_JUMP,    -1, -1, -1, -1, -1, -1, -1, -1,
             SOUND_COUPTOC, -1, -1, -1, -1, -1
         },
     },
@@ -1305,9 +1305,9 @@ static const DescAction action_table[] =
         {
             {60, 1, 0, 0, 0},
         },
-        {   30, SOUND_BRULE, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            SOUND_BRULE, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            SOUND_BRULE, -1, -1, -1, -1, -1, -1, -1, -1, -1
+        {   30, SOUND_BURN, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            SOUND_BURN, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            SOUND_BURN, -1, -1, -1, -1, -1, -1, -1, -1, -1
         },
     },
     {
@@ -1432,9 +1432,9 @@ static const DescAction action_table[] =
                 0, 0, 0
             },
         },
-        {   20 + 9,  SOUND_NAISSANCE, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+        {   20 + 9,  SOUND_BORN, -1, -1, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            SOUND_NAISSANCE, -1, -1, -1, -1, -1, -1, -1,
+            SOUND_BORN, -1, -1, -1, -1, -1, -1, -1,
             SOUND_COUPTOC
         },
     },
@@ -2030,7 +2030,7 @@ static const DescAction action_table[] =
                 +600, 0, +2, +600, 0, +8, +600, 0, +10, +600, 0, +10, +600, 0, +10
             },
         },
-        {10, -1, -1, -1, -1, -1, -1, -1, -1, -1, SOUND_A_SAUT},
+        {10, -1, -1, -1, -1, -1, -1, -1, -1, -1, SOUND_S_JUMP},
     },
     {
         ACTION_S_GRILL,
@@ -2217,7 +2217,7 @@ static const DescAction action_table[] =
             {10, 1, +300, -150, 0},     // n
             {15, 1, +400,   0, 0},      // ne
         },
-        {5, SOUND_T_MOTEUR, -1, -1, -1, -1},
+        {5, SOUND_T_ENGINE, -1, -1, -1, -1},
     },
     {
         ACTION_T_CRUSHED,
@@ -2350,7 +2350,7 @@ static const DescAction action_table[] =
             },
 #endif
         },
-        {   20, -1, -1, SOUND_R_MOTEUR, -1, -1, -1, -1, -1, -1, -1,
+        {   20, -1, -1, SOUND_R_ENGINE, -1, -1, -1, -1, -1, -1, -1,
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
         },
     },
@@ -2597,9 +2597,9 @@ static const DescAction action_table[] =
             },
 #endif
         },
-        {   30, -1, -1, SOUND_B_SAUT, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, SOUND_B_SAUT, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, SOUND_B_SAUT, -1, -1, -1, -1, -1, -1, -1
+        {   30, -1, -1, SOUND_B_JUMP, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, SOUND_B_JUMP, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, SOUND_B_JUMP, -1, -1, -1, -1, -1, -1, -1
         },
     },
 

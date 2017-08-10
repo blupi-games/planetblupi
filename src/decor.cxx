@@ -2860,15 +2860,15 @@ void CDecor::CelHiliButton (POINT cel, Sint32 button)
 
   if (
     button == BUTTON_ABAT || button == BUTTON_ABATn || button == BUTTON_ROC ||
-    button == BUTTON_ROCn || button == BUTTON_MUR || button == BUTTON_TOUR ||
-    button == BUTTON_PALIS || button == BUTTON_PONT ||
+    button == BUTTON_ROCn || button == BUTTON_WALL || button == BUTTON_TOWER ||
+    button == BUTTON_PALIS || button == BUTTON_BRIDGE ||
     button == BUTTON_CULTIVE || button == BUTTON_DEPOSE ||
-    button == BUTTON_LABO || button == BUTTON_FLEUR ||
-    button == BUTTON_FLEURn || button == BUTTON_DYNAMITE ||
-    button == BUTTON_BATEAU || button == BUTTON_DJEEP ||
-    button == BUTTON_DARMURE || button == BUTTON_DRAPEAU ||
+    button == BUTTON_LABO || button == BUTTON_FLOWER ||
+    button == BUTTON_FLOWERn || button == BUTTON_DYNAMITE ||
+    button == BUTTON_BOAT || button == BUTTON_DJEEP ||
+    button == BUTTON_DARMOR || button == BUTTON_FLAG ||
     button == BUTTON_EXTRAIT || button == BUTTON_FABJEEP ||
-    button == BUTTON_FABARMURE || button == BUTTON_FABMINE ||
+    button == BUTTON_MAKEARMOR || button == BUTTON_FABMINE ||
     button == BUTTON_FABDISC ||
     (button >= BUTTON_BUILD1 && button <= BUTTON_BUILD6))
   {
@@ -2903,15 +2903,15 @@ void CDecor::CelHiliRepeat (Sint32 list)
   button = m_blupi[rank].listButton[i];
   if (
     button == BUTTON_ABAT || button == BUTTON_ABATn || button == BUTTON_ROC ||
-    button == BUTTON_ROCn || button == BUTTON_MUR || button == BUTTON_TOUR ||
-    button == BUTTON_PALIS || button == BUTTON_PONT ||
+    button == BUTTON_ROCn || button == BUTTON_WALL || button == BUTTON_TOWER ||
+    button == BUTTON_PALIS || button == BUTTON_BRIDGE ||
     button == BUTTON_CULTIVE || button == BUTTON_DEPOSE ||
-    button == BUTTON_LABO || button == BUTTON_FLEUR ||
-    button == BUTTON_FLEURn || button == BUTTON_DYNAMITE ||
-    button == BUTTON_BATEAU || button == BUTTON_DJEEP ||
-    button == BUTTON_DARMURE || button == BUTTON_DRAPEAU ||
+    button == BUTTON_LABO || button == BUTTON_FLOWER ||
+    button == BUTTON_FLOWERn || button == BUTTON_DYNAMITE ||
+    button == BUTTON_BOAT || button == BUTTON_DJEEP ||
+    button == BUTTON_DARMOR || button == BUTTON_FLAG ||
     button == BUTTON_EXTRAIT || button == BUTTON_FABJEEP ||
-    button == BUTTON_FABARMURE || button == BUTTON_FABMINE ||
+    button == BUTTON_MAKEARMOR || button == BUTTON_FABMINE ||
     button == BUTTON_FABDISC ||
     (button >= BUTTON_BUILD1 && button <= BUTTON_BUILD6))
   {
@@ -3270,7 +3270,7 @@ void CDecor::MemoPos (Sint32 rank, bool bRecord)
       m_pSound->PlayImage (SOUND_BOING, pos);
     else
     {
-      m_pSound->PlayImage (SOUND_BUT, pos);
+      m_pSound->PlayImage (SOUND_GOAL, pos);
       SetCoin (m_memoPos[rank], false);
     }
   }

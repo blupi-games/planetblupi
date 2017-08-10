@@ -3636,7 +3636,7 @@ void CEvent::ChangeButtons (Sint32 message)
 
     pButtonExist[message - EV_BUTTON0] = state;
     pButtonExist[BUTTON_DJEEP]         = true;
-    pButtonExist[BUTTON_DARMURE]       = true;
+    pButtonExist[BUTTON_DARMOR]       = true;
   }
 
   if (m_phase == EV_PHASE_TERM)
@@ -4898,7 +4898,7 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
             pos.x = LXIMAGE / 2;
             pos.y = LYIMAGE / 2;
             if (bEnable)
-              m_pSound->PlayImage (SOUND_BUT, pos);
+              m_pSound->PlayImage (SOUND_GOAL, pos);
             else
               m_pSound->PlayImage (SOUND_BOING, pos);
 

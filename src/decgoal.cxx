@@ -1227,15 +1227,15 @@ static Sint16 table_goal_fleur1[] =
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         0, -1,
     GOAL_BUILDOBJECT,  0, -1, CHOBJECT, 82, -1, -1, DIMOBJY + 20, 1, -1 * 100,
-    GOAL_SOUND,         SOUND_FLEUR,
+    GOAL_SOUND,         SOUND_FLOWER,
     GOAL_ACTION,        ACTION_CUEILLE1, DIRECT_E,
     GOAL_ACTION,        ACTION_CUEILLE1, DIRECT_S,
     GOAL_GOBLUPI,       0, -1, true,
-    GOAL_SOUND,         SOUND_FLEUR,
+    GOAL_SOUND,         SOUND_FLOWER,
     GOAL_ACTION,        ACTION_CUEILLE1, DIRECT_S,
     GOAL_ACTION,        ACTION_CUEILLE1, DIRECT_E,
     GOAL_GOBLUPI,       +1, 0, true,
-    GOAL_SOUND,         SOUND_FLEUR,
+    GOAL_SOUND,         SOUND_FLOWER,
     GOAL_ACTION,        ACTION_CUEILLE1, DIRECT_S,
     GOAL_ACTION,        ACTION_CUEILLE1, DIRECT_S,
     GOAL_FINISHMOVE,
@@ -1255,15 +1255,15 @@ static Sint16 table_goal_fleur2[] =
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         0, -1,
     GOAL_BUILDOBJECT,  0, -1, CHOBJECT, 84, -1, -1, DIMOBJY + 20, 1, -1 * 100,
-    GOAL_SOUND,         SOUND_FLEUR,
+    GOAL_SOUND,         SOUND_FLOWER,
     GOAL_ACTION,        ACTION_CUEILLE2, DIRECT_E,
     GOAL_ACTION,        ACTION_CUEILLE2, DIRECT_S,
     GOAL_GOBLUPI,       0, -1, true,
-    GOAL_SOUND,         SOUND_FLEUR,
+    GOAL_SOUND,         SOUND_FLOWER,
     GOAL_ACTION,        ACTION_CUEILLE2, DIRECT_S,
     GOAL_ACTION,        ACTION_CUEILLE2, DIRECT_E,
     GOAL_GOBLUPI,       +1, 0, true,
-    GOAL_SOUND,         SOUND_FLEUR,
+    GOAL_SOUND,         SOUND_FLOWER,
     GOAL_ACTION,        ACTION_CUEILLE2, DIRECT_S,
     GOAL_ACTION,        ACTION_CUEILLE2, DIRECT_S,
     GOAL_FINISHMOVE,
@@ -1283,15 +1283,15 @@ static Sint16 table_goal_fleur3[] =
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         0, -1,
     GOAL_BUILDOBJECT,  0, -1, CHOBJECT, 95, -1, -1, DIMOBJY + 20, 1, -1 * 100,
-    GOAL_SOUND,         SOUND_FLEUR,
+    GOAL_SOUND,         SOUND_FLOWER,
     GOAL_ACTION,        ACTION_CUEILLE3, DIRECT_E,
     GOAL_ACTION,        ACTION_CUEILLE3, DIRECT_S,
     GOAL_GOBLUPI,       0, -1, true,
-    GOAL_SOUND,         SOUND_FLEUR,
+    GOAL_SOUND,         SOUND_FLOWER,
     GOAL_ACTION,        ACTION_CUEILLE3, DIRECT_S,
     GOAL_ACTION,        ACTION_CUEILLE3, DIRECT_E,
     GOAL_GOBLUPI,       +1, 0, true,
-    GOAL_SOUND,         SOUND_FLEUR,
+    GOAL_SOUND,         SOUND_FLOWER,
     GOAL_ACTION,        ACTION_CUEILLE3, DIRECT_S,
     GOAL_ACTION,        ACTION_CUEILLE3, DIRECT_S,
     GOAL_FINISHMOVE,
@@ -1308,7 +1308,7 @@ static Sint16 table_goal_labo[] =
     GOAL_GOHILI2,       +1, +1, false,
     GOAL_ENERGY,        MAXENERGY / 4,
     GOAL_ACTION,        ACTION_STOP, DIRECT_N,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         6,
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         -1, -1,
@@ -1320,7 +1320,7 @@ static Sint16 table_goal_labo[] =
     GOAL_ACTION,        ACTION_STOP, DIRECT_O,
     GOAL_SOUND,         SOUND_LABO,
     GOAL_ACTION,        ACTION_LABO, DIRECT_E,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         4,
     GOAL_LABO,
     GOAL_FINISHMOVE,
@@ -2463,7 +2463,7 @@ static Sint16 table_goal_r_make2[] =
     GOAL_GROUP,         2,
     GOAL_USINEFREE,    -2, -1,
     GOAL_INTERRUPT,    0,  // prioritaire
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     -2, -1, CHOBJECT, 101, // ouvre la porte
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
@@ -2471,7 +2471,7 @@ static Sint16 table_goal_r_make2[] =
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_GOBLUPI,       -1, 0, true,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_PUTOBJECT,    -1, -1, CHOBJECT, 100, // ferme la porte
     GOAL_CACHE,        true, false,
@@ -2492,25 +2492,25 @@ static Sint16 table_goal_r_make2[] =
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_WAITFREE,      2, 0,
     GOAL_WAITFREE,      3, 0,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    0, -1, CHOBJECT, 101, // ouvre la porte
     GOAL_NEWPERSO,      +1, 0, 1, // araignée (qui sortira)
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     0, -1, CHOBJECT, 100, // ferme la porte
     GOAL_GOBLUPI,       +1, 0, true,
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_WAITFREE,      1, 0,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_CACHE,        false, false,
     GOAL_PUTOBJECT,    -1, -1, CHOBJECT, 101, // ouvre la porte
     GOAL_GOBLUPI,       +1, 0, true,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     -2, -1, CHOBJECT, 100, // ferme la porte
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_N,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_N,
@@ -2528,7 +2528,7 @@ static Sint16 table_goal_r_make3[] =
     GOAL_GROUP,         2,
     GOAL_USINEFREE,    -2, -1,
     GOAL_INTERRUPT,    0,  // prioritaire
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     -2, -1, CHOBJECT, 103, // ouvre la porte
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
@@ -2536,7 +2536,7 @@ static Sint16 table_goal_r_make3[] =
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_GOBLUPI,       -1, 0, true,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_PUTOBJECT,    -1, -1, CHOBJECT, 102, // ferme la porte
     GOAL_CACHE,        true, false,
@@ -2557,24 +2557,24 @@ static Sint16 table_goal_r_make3[] =
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_WAITFREE,      2, 0,
     GOAL_WAITFREE,      3, 0,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    0, -1, CHOBJECT, 103, // ouvre la porte
     GOAL_NEWPERSO,      +1, 0, 2, // virus (qui sortira)
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     0, -1, CHOBJECT, 102, // ferme la porte
     GOAL_GOBLUPI,       +1, 0, true,
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_WAITFREE,      1, 0,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_CACHE,        false, false,
     GOAL_PUTOBJECT,    -1, -1, CHOBJECT, 103, // ouvre la porte
     GOAL_GOBLUPI,       +1, 0, true,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     -2, -1, CHOBJECT, 102, // ferme la porte
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_N,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_N,
@@ -2592,7 +2592,7 @@ static Sint16 table_goal_r_make4[] =
     GOAL_GROUP,         2,
     GOAL_USINEFREE,    -2, -1,
     GOAL_INTERRUPT,    0,  // prioritaire
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     -2, -1, CHOBJECT, 105, // ouvre la porte
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
@@ -2600,7 +2600,7 @@ static Sint16 table_goal_r_make4[] =
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_GOBLUPI,       -1, 0, true,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_PUTOBJECT,    -1, -1, CHOBJECT, 104, // ferme la porte
     GOAL_CACHE,        true, false,
@@ -2621,24 +2621,24 @@ static Sint16 table_goal_r_make4[] =
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_WAITFREE,      2, 0,
     GOAL_WAITFREE,      3, 0,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    0, -1, CHOBJECT, 105, // ouvre la porte
     GOAL_NEWPERSO,      +1, 0, 3, // tracks (qui sortira)
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     0, -1, CHOBJECT, 104, // ferme la porte
     GOAL_GOBLUPI,       +1, 0, true,
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_WAITFREE,      1, 0,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_CACHE,        false, false,
     GOAL_PUTOBJECT,    -1, -1, CHOBJECT, 105, // ouvre la porte
     GOAL_GOBLUPI,       +1, 0, true,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     -2, -1, CHOBJECT, 104, // ferme la porte
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_N,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_N,
@@ -2656,7 +2656,7 @@ static Sint16 table_goal_r_make5[] =
     GOAL_GROUP,         2,
     GOAL_USINEFREE,    -2, -1,
     GOAL_INTERRUPT,    0,  // prioritaire
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     -2, -1, CHOBJECT, 116, // ouvre la porte
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
@@ -2664,7 +2664,7 @@ static Sint16 table_goal_r_make5[] =
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_GOBLUPI,       -1, 0, true,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_PUTOBJECT,    -1, -1, CHOBJECT, 115, // ferme la porte
     GOAL_CACHE,        true, false,
@@ -2685,24 +2685,24 @@ static Sint16 table_goal_r_make5[] =
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_WAITFREE,      2, 0,
     GOAL_WAITFREE,      3, 0,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    0, -1, CHOBJECT, 116, // ouvre la porte
     GOAL_NEWPERSO,      +1, 0, 5, // bombe (qui sortira)
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     0, -1, CHOBJECT, 115, // ferme la porte
     GOAL_GOBLUPI,       +1, 0, true,
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_WAITFREE,      1, 0,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_CACHE,        false, false,
     GOAL_PUTOBJECT,    -1, -1, CHOBJECT, 116, // ouvre la porte
     GOAL_GOBLUPI,       +1, 0, true,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     -2, -1, CHOBJECT, 115, // ferme la porte
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_N,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_N,
@@ -2720,7 +2720,7 @@ static Sint16 table_goal_r_make6[] =
     GOAL_GROUP,         2,
     GOAL_USINEFREE,    -2, -1,
     GOAL_INTERRUPT,    0,  // prioritaire
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     -2, -1, CHOBJECT, 18, // ouvre la porte
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
@@ -2728,7 +2728,7 @@ static Sint16 table_goal_r_make6[] =
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_O,
     GOAL_GOBLUPI,       -1, 0, true,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_PUTOBJECT,    -1, -1, CHOBJECT, 17, // ferme la porte
     GOAL_CACHE,        true, false,
@@ -2749,24 +2749,24 @@ static Sint16 table_goal_r_make6[] =
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_WAITFREE,      2, 0,
     GOAL_WAITFREE,      3, 0,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    0, -1, CHOBJECT, 18, // ouvre la porte
     GOAL_NEWPERSO,      +1, 0, 7, // électro (qui sortira)
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     0, -1, CHOBJECT, 17, // ferme la porte
     GOAL_GOBLUPI,       +1, 0, true,
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_WAITFREE,      1, 0,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_CACHE,        false, false,
     GOAL_PUTOBJECT,    -1, -1, CHOBJECT, 18, // ouvre la porte
     GOAL_GOBLUPI,       +1, 0, true,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     -2, -1, CHOBJECT, 17, // ferme la porte
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_N,
     GOAL_ACTION,        ACTION_R_STOP, DIRECT_N,
@@ -2959,7 +2959,7 @@ static Sint16 table_goal_extrait[] =
     GOAL_GOHILI2,       +1, +1, false,
     GOAL_ENERGY,        MAXENERGY / 4,
     GOAL_ACTION,        ACTION_STOP, DIRECT_N,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         6,
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         -1, -1,
@@ -2976,7 +2976,7 @@ static Sint16 table_goal_extrait[] =
     GOAL_ADDMOVES,     -1, -1, 11, // secoue
     GOAL_SOUND,         SOUND_MINE,
     GOAL_ACTION,        ACTION_LABO, DIRECT_E,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         4,
     GOAL_TAKEOBJECT,   -1, -1, CHOBJECT, 123, // porte du fer
     GOAL_FINISHMOVE,
@@ -3006,7 +3006,7 @@ static Sint16 table_goal_fabjeep[] =
     GOAL_GOHILI2,       +1, +1, false,
     GOAL_ENERGY,        MAXENERGY / 4,
     GOAL_ACTION,        ACTION_STOP, DIRECT_N,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         6,
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         -1, -1,
@@ -3023,7 +3023,7 @@ static Sint16 table_goal_fabjeep[] =
     GOAL_ADDMOVES,     -1, -1, 12, // secoue
     GOAL_SOUND,         SOUND_USINE,
     GOAL_ACTION,        ACTION_LABO, DIRECT_E,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         5,
     GOAL_TAKEOBJECT,   -1, -1, -1, -1, // ne porte plus rien
     GOAL_VEHICULE,     2,  // en jeep
@@ -3049,7 +3049,7 @@ static Sint16 table_goal_fabarmure[] =
     GOAL_GOHILI2,       +1, +1, false,
     GOAL_ENERGY,        MAXENERGY / 4,
     GOAL_ACTION,        ACTION_STOP, DIRECT_N,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         6,
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         -1, -1,
@@ -3066,7 +3066,7 @@ static Sint16 table_goal_fabarmure[] =
     GOAL_ADDMOVES,     -1, -1, 12, // secoue
     GOAL_SOUND,         SOUND_USINE,
     GOAL_ACTION,        ACTION_LABO, DIRECT_E,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         5,
     GOAL_TAKEOBJECT,   -1, -1, -1, -1, // ne porte plus rien
     GOAL_VEHICULE,     3,  // en armure
@@ -3092,7 +3092,7 @@ static Sint16 table_goal_fabmine[] =
     GOAL_GOHILI2,       +1, +1, false,
     GOAL_ENERGY,        MAXENERGY / 4,
     GOAL_ACTION,        ACTION_STOP, DIRECT_N,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         6,
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         -1, -1,
@@ -3109,7 +3109,7 @@ static Sint16 table_goal_fabmine[] =
     GOAL_ADDMOVES,     -1, -1, 12, // secoue
     GOAL_SOUND,         SOUND_USINE,
     GOAL_ACTION,        ACTION_LABO, DIRECT_E,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         4,
     GOAL_TAKEOBJECT,   -1, -1, CHOBJECT, 125, // porte une mine
     GOAL_FINISHMOVE,
@@ -3139,7 +3139,7 @@ static Sint16 table_goal_fabdisc[] =
     GOAL_GOHILI2,       +1, +1, false,
     GOAL_ENERGY,        MAXENERGY / 4,
     GOAL_ACTION,        ACTION_STOP, DIRECT_N,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         4,
     GOAL_INTERRUPT,    0,  // prioritaire
     GOAL_WORK,         -1, -1,
@@ -3158,18 +3158,18 @@ static Sint16 table_goal_fabdisc[] =
     GOAL_ADDMOVES,     0, -1, 12, // secoue
     GOAL_SOUND,         SOUND_USINE,
     GOAL_ACTION,        ACTION_LABO, DIRECT_E,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         2,
     GOAL_FINISHMOVE,
     GOAL_PUTOBJECT,    0, -1, CHOBJECT, 120, // ouvre la porte
     GOAL_NEWPERSO,      +1, 0, 8, // disciple (qui sortira)
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_PUTOBJECT,     0, -1, CHOBJECT, 119, // ferme la porte
     GOAL_GOBLUPI,       +1, 0, true,
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
     GOAL_ACTION,        ACTION_R_DELAY, DIRECT_E,
-    GOAL_SOUND,         SOUND_PORTE,
+    GOAL_SOUND,         SOUND_DOOR,
     GOAL_GROUP,         3,
     GOAL_TAKEOBJECT,   -1, -1, -1, -1, // ne porte plus rien
     GOAL_CACHE,        false, false,
@@ -3317,7 +3317,7 @@ static Sint16 table_goal_grille[] =
     GOAL_GROUP,         3,
     GOAL_MALADE,       false,
     GOAL_TAKEOBJECT,   -1, -1, -1, -1, // ne porte plus rien
-    GOAL_SOUND,        SOUND_BRULE,
+    GOAL_SOUND,        SOUND_BURN,
     GOAL_ACTION,        ACTION_GRILL1, DIRECT_SE,
     GOAL_ACTION,        ACTION_GRILL2, DIRECT_SE,
     GOAL_ACTION,        ACTION_GRILL3, DIRECT_SE,

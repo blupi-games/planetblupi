@@ -426,8 +426,8 @@ void CDecor::BlupiSound (Sint32 rank, Sint32 sound, POINT pos, bool bStop)
   if (rank != -1 && m_blupi[rank].perso == 8) // disciple ?
   {
     if (
-      sound == SOUND_HOP || sound == SOUND_BRULE || sound == SOUND_TCHAO ||
-      sound == SOUND_FLEUR || sound == SOUND_ARROSE)
+      sound == SOUND_HOP || sound == SOUND_BURN || sound == SOUND_TCHAO ||
+      sound == SOUND_FLOWER || sound == SOUND_ARROSE)
       newSound = -1;
     else
       newSound = sound;
@@ -465,7 +465,7 @@ void CDecor::BlupiSound (Sint32 rank, Sint32 sound, POINT pos, bool bStop)
 // Sons associés à des actions.
 // clang-format off
 static const Sint16 tableSound[] = {
-  ACTION_BURN,     SOUND_BRULE,
+  ACTION_BURN,     SOUND_BURN,
   ACTION_TCHAO,    SOUND_TCHAO,
   ACTION_EAT,      SOUND_EAT,
   ACTION_DRINK,    SOUND_DRINK,
@@ -786,7 +786,7 @@ Sint32 CDecor::ListGetParam (Sint32 rank, Sint32 button, POINT cel)
 {
   Sint32 icon;
 
-  if (button == BUTTON_CARRY || button == BUTTON_FLEUR)
+  if (button == BUTTON_CARRY || button == BUTTON_FLOWER)
     return m_decor[cel.x / 2][cel.y / 2].objectIcon;
 
   if (button == BUTTON_DEPOSE)
@@ -814,7 +814,7 @@ bool CDecor::ListPut (Sint32 rank, Sint32 button, POINT cel, POINT cMem)
     return true;
 
   // Mémorise "mange" seulement après un "cultive".
-  if (button == BUTTON_MANGE && m_blupi[rank].listButton[0] != BUTTON_CULTIVE)
+  if (button == BUTTON_EAT && m_blupi[rank].listButton[0] != BUTTON_CULTIVE)
     return true;
 
   // Si prend/dépose à la suite au même endroit,
@@ -892,10 +892,10 @@ Sint32 CDecor::ListSearch (
 
   static Sint32 table_series[] = {
     0, // errors
-    2,  BUTTON_CULTIVE, BUTTON_MANGE,
+    2,  BUTTON_CULTIVE, BUTTON_EAT,
 
     1, // errors
-    4,  BUTTON_FLEUR,   BUTTON_CARRY,     BUTTON_LABO,    BUTTON_DEPOSE,
+    4,  BUTTON_FLOWER,   BUTTON_CARRY,     BUTTON_LABO,    BUTTON_DEPOSE,
 
     2, // errors
     3,  BUTTON_CARRY,   BUTTON_LABO,      BUTTON_DEPOSE,
@@ -907,7 +907,7 @@ Sint32 CDecor::ListSearch (
     3,  BUTTON_EXTRAIT, BUTTON_FABJEEP,   BUTTON_DJEEP,
 
     5, // errors
-    3,  BUTTON_EXTRAIT, BUTTON_FABARMURE, BUTTON_DARMURE,
+    3,  BUTTON_EXTRAIT, BUTTON_MAKEARMOR, BUTTON_DARMOR,
 
     6, // errors
     4,  BUTTON_ABAT,    BUTTON_CARRY,     BUTTON_DEPOSE,  BUTTON_PALIS,
@@ -916,16 +916,16 @@ Sint32 CDecor::ListSearch (
     3,  BUTTON_CARRY,   BUTTON_DEPOSE,    BUTTON_PALIS,
 
     8, // errors
-    4,  BUTTON_ABAT,    BUTTON_CARRY,     BUTTON_DEPOSE,  BUTTON_PONT,
+    4,  BUTTON_ABAT,    BUTTON_CARRY,     BUTTON_DEPOSE,  BUTTON_BRIDGE,
 
     9, // errors
-    3,  BUTTON_CARRY,   BUTTON_DEPOSE,    BUTTON_PONT,
+    3,  BUTTON_CARRY,   BUTTON_DEPOSE,    BUTTON_BRIDGE,
 
     10, // errors
-    4,  BUTTON_ABAT,    BUTTON_CARRY,     BUTTON_DEPOSE,  BUTTON_BATEAU,
+    4,  BUTTON_ABAT,    BUTTON_CARRY,     BUTTON_DEPOSE,  BUTTON_BOAT,
 
     11, // errors
-    3,  BUTTON_CARRY,   BUTTON_DEPOSE,    BUTTON_BATEAU,
+    3,  BUTTON_CARRY,   BUTTON_DEPOSE,    BUTTON_BOAT,
 
     -1,
   };
@@ -991,7 +991,7 @@ bool CDecor::RepeatAdjust (
     CHOBJECT,
     37,
     43,
-    BUTTON_MANGE,
+    BUTTON_EAT,
     CHOBJECT,
     60,
     60,
@@ -999,7 +999,7 @@ bool CDecor::RepeatAdjust (
     CHOBJECT,
     36,
     36,
-    BUTTON_BATEAU,
+    BUTTON_BOAT,
     CHOBJECT,
     36,
     36,
@@ -1011,7 +1011,7 @@ bool CDecor::RepeatAdjust (
     -1,
     -1,
     -1,
-    BUTTON_DARMURE,
+    BUTTON_DARMOR,
     -1,
     -1,
     -1,
@@ -1088,7 +1088,7 @@ bool CDecor::RepeatAdjust (
 
   if (
     button == BUTTON_DEPOSE && // dépose pour un bateau ?
-    list > 0 && m_blupi[rank].listButton[list - 1] == BUTTON_BATEAU)
+    list > 0 && m_blupi[rank].listButton[list - 1] == BUTTON_BOAT)
   {
     if (SearchOtherBateau (rank, cel, 100, test, icon))
     {
@@ -1120,7 +1120,7 @@ bool CDecor::RepeatAdjust (
     i += 4;
   }
 
-  if (button == BUTTON_CARRY || button == BUTTON_FLEUR)
+  if (button == BUTTON_CARRY || button == BUTTON_FLOWER)
   {
     channel = CHOBJECT;
     icon1   = param;
@@ -2752,7 +2752,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
       if (channel == CHOBJECT && icon == 60) // tomates ?
       {
         PutObject (cel, -1, -1); // plus de tomates
-        BlupiSound (rank, SOUND_A_HIHI, pos);
+        BlupiSound (rank, SOUND_S_HIHI, pos);
       }
       if (channel == CHOBJECT && icon == 92) // poison ?
       {
@@ -2767,7 +2767,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
       }
       if (channel == CHOBJECT && icon == 93) // piège ?
       {
-        BlupiSound (rank, SOUND_PIEGE, pos);
+        BlupiSound (rank, SOUND_TRAP, pos);
         PutObject (cel, CHOBJECT, 96); // araignée piégée
         BlupiDelete (rank);            // supprime araignée
         return;
@@ -2864,7 +2864,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
         }
         if (icon == 93) // piège ?
         {
-          BlupiSound (rank, SOUND_PIEGE, pos);
+          BlupiSound (rank, SOUND_TRAP, pos);
           PutObject (cel, CHOBJECT, 97); // tracks piégé
           BlupiDelete (rank);            // supprime tracks
           return;
@@ -2944,7 +2944,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
         }
         if (icon == 93) // piège ?
         {
-          BlupiSound (rank, SOUND_PIEGE, pos);
+          BlupiSound (rank, SOUND_TRAP, pos);
           PutObject (cel, CHOBJECT, 98); // robot piégé
           BlupiDelete (rank);            // supprime robot
           return;
@@ -2990,7 +2990,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
       GetObject (cel, channel, icon);
       if (channel == CHOBJECT && icon == 93) // piège ?
       {
-        BlupiSound (rank, SOUND_PIEGE, pos);
+        BlupiSound (rank, SOUND_TRAP, pos);
         PutObject (cel, CHOBJECT, 114); // bombe piégée
         BlupiDelete (rank);             // supprime bombe
         return;
@@ -3034,7 +3034,7 @@ void CDecor::BlupiNextGoal (Sint32 rank)
       GetObject (cel, channel, icon);
       if (channel == CHOBJECT && icon == 93) // piège ?
       {
-        BlupiSound (rank, SOUND_PIEGE, pos);
+        BlupiSound (rank, SOUND_TRAP, pos);
         PutObject (cel, CHOBJECT, 19); // électro piégée
         BlupiDelete (rank);            // supprime électro
         return;
@@ -3691,7 +3691,7 @@ Sint32 CDecor::GetDefButton (POINT cel)
       if (icon == 44)
         button = BUTTON_CARRY; // pierres
       if (icon == 60)
-        button = BUTTON_MANGE; // tomates
+        button = BUTTON_EAT; // tomates
       if (icon == 63)
         button = BUTTON_CARRY; // oeufs
       if (icon == 80)
@@ -3738,7 +3738,7 @@ Sint32 CDecor::GetDefButton (POINT cel)
      button == BUTTON_CULTIVE))
     return -1;
 
-  if (m_blupi[rank].energy > (MAXENERGY / 4) * 3 && button == BUTTON_MANGE)
+  if (m_blupi[rank].energy > (MAXENERGY / 4) * 3 && button == BUTTON_EAT)
     button = BUTTON_CARRY;
 
   if (m_buttonExist[button] == 0) // bouton existe ?
@@ -3799,9 +3799,9 @@ bool CDecor::BlupiGoal (Sint32 rank, Sint32 button, POINT cel, POINT cMem)
     button  = BUTTON_ROC;
     bRepeat = true;
   }
-  if (button == BUTTON_FLEURn)
+  if (button == BUTTON_FLOWERn)
   {
-    button  = BUTTON_FLEUR;
+    button  = BUTTON_FLOWER;
     bRepeat = true;
   }
   action = table_actions[button];
@@ -4293,9 +4293,9 @@ void CDecor::BlupiGetButtons (
                                    0,
                                    BUTTON_DJEEP,
                                    0,
-                                   BUTTON_DARMURE,
+                                   BUTTON_DARMOR,
                                    0,
-                                   BUTTON_MANGE,
+                                   BUTTON_EAT,
                                    0,
                                    BUTTON_BOIT,
                                    0,
@@ -4315,13 +4315,13 @@ void CDecor::BlupiGetButtons (
                                    0,
                                    BUTTON_CULTIVE,
                                    0,
-                                   BUTTON_FLEUR,
+                                   BUTTON_FLOWER,
                                    0,
-                                   BUTTON_FLEURn,
+                                   BUTTON_FLOWERn,
                                    0,
                                    BUTTON_DYNAMITE,
                                    0,
-                                   BUTTON_DRAPEAU,
+                                   BUTTON_FLAG,
                                    0,
                                    BUTTON_EXTRAIT,
                                    0,
@@ -4331,7 +4331,7 @@ void CDecor::BlupiGetButtons (
                                    0,
                                    BUTTON_FABDISC,
                                    0,
-                                   BUTTON_FABARMURE,
+                                   BUTTON_MAKEARMOR,
                                    0,
                                    BUTTON_BUILD1,
                                    36, // si planches (cabane)
@@ -4341,9 +4341,9 @@ void CDecor::BlupiGetButtons (
                                    36, // si planches (mine)
                                    BUTTON_PALIS,
                                    36, // si planches
-                                   BUTTON_PONT,
+                                   BUTTON_BRIDGE,
                                    36, // si planches
-                                   BUTTON_BATEAU,
+                                   BUTTON_BOAT,
                                    36, // si planches
                                    BUTTON_BUILD6,
                                    36, // si planches (téléporteur)
@@ -4351,9 +4351,9 @@ void CDecor::BlupiGetButtons (
                                    44, // si pierres (laboratoire)
                                    BUTTON_BUILD5,
                                    44, // si pierres (usine)
-                                   BUTTON_MUR,
+                                   BUTTON_WALL,
                                    44, // si pierres
-                                   BUTTON_TOUR,
+                                   BUTTON_TOWER,
                                    44, // si pierres
                                    BUTTON_STOP,
                                    0,
@@ -4561,7 +4561,7 @@ Sint32 CDecor::IsTerminated ()
   if (m_term.bHachBlupi)
   {
     if (m_winLastHachBlupi < m_nbStatHachBlupi)
-      m_pSound->PlayImage (SOUND_BUT, pos);
+      m_pSound->PlayImage (SOUND_GOAL, pos);
     m_winLastHachBlupi = m_nbStatHachBlupi;
 
     if (m_nbStatHachBlupi < m_nbStatHach * 4)
@@ -4571,7 +4571,7 @@ Sint32 CDecor::IsTerminated ()
   if (m_term.bHachPlanche)
   {
     if (m_winLastHachPlanche < m_nbStatHachPlanche)
-      m_pSound->PlayImage (SOUND_BUT, pos);
+      m_pSound->PlayImage (SOUND_GOAL, pos);
     m_winLastHachPlanche = m_nbStatHachPlanche;
 
     if (m_nbStatHachPlanche < m_nbStatHach)
@@ -4581,7 +4581,7 @@ Sint32 CDecor::IsTerminated ()
   if (m_term.bHachTomate)
   {
     if (m_winLastHachTomate < m_nbStatHachTomate)
-      m_pSound->PlayImage (SOUND_BUT, pos);
+      m_pSound->PlayImage (SOUND_GOAL, pos);
     m_winLastHachTomate = m_nbStatHachTomate;
 
     if (m_nbStatHachTomate < m_nbStatHach)
@@ -4591,7 +4591,7 @@ Sint32 CDecor::IsTerminated ()
   if (m_term.bHachMetal)
   {
     if (m_winLastHachMetal < m_nbStatHachMetal)
-      m_pSound->PlayImage (SOUND_BUT, pos);
+      m_pSound->PlayImage (SOUND_GOAL, pos);
     m_winLastHachMetal = m_nbStatHachMetal;
 
     if (m_nbStatHachMetal < m_nbStatHach)
@@ -4608,7 +4608,7 @@ Sint32 CDecor::IsTerminated ()
     m_winLastRobots = m_nbStatRobots;
 
     if (m_winLastHachRobot < m_nbStatHachRobot)
-      m_pSound->PlayImage (SOUND_BUT, pos);
+      m_pSound->PlayImage (SOUND_GOAL, pos);
     m_winLastHachRobot = m_nbStatHachRobot;
 
     if (m_nbStatHachRobot < m_nbStatHach)
@@ -4618,7 +4618,7 @@ Sint32 CDecor::IsTerminated ()
   if (m_term.bHomeBlupi)
   {
     if (m_winLastHomeBlupi < m_nbStatHomeBlupi)
-      m_pSound->PlayImage (SOUND_BUT, pos);
+      m_pSound->PlayImage (SOUND_GOAL, pos);
     m_winLastHomeBlupi = m_nbStatHomeBlupi;
 
     if (m_nbStatHomeBlupi < m_nbStatHome)
@@ -4628,7 +4628,7 @@ Sint32 CDecor::IsTerminated ()
   if (m_term.bKillRobots)
   {
     if (m_winLastRobots > m_nbStatRobots)
-      m_pSound->PlayImage (SOUND_BUT, pos);
+      m_pSound->PlayImage (SOUND_GOAL, pos);
     m_winLastRobots = m_nbStatRobots;
 
     if (m_nbStatRobots > 0)
@@ -4644,12 +4644,12 @@ delay:
     if (out == 1) // perdu ?
     {
       if (!m_pSound->PlayImage (SOUND_LOST, pos))
-        m_pSound->PlayImage (SOUND_BUT, pos);
+        m_pSound->PlayImage (SOUND_GOAL, pos);
     }
     else
     {
       if (!m_pSound->PlayImage (SOUND_WIN, pos))
-        m_pSound->PlayImage (SOUND_BUT, pos);
+        m_pSound->PlayImage (SOUND_GOAL, pos);
     }
 
     return out; // perdu/gagné
