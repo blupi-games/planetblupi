@@ -87,19 +87,19 @@
 #define CHMASK2         15
 
 #define FOGHIDE         4
-
+// clang-format on
 
 // Directions :
-
-#define DIRECT_E        (0*16)      // est
-#define DIRECT_SE       (1*16)      // sud-est
-#define DIRECT_S        (2*16)      // sud
-#define DIRECT_SO       (3*16)      // sud-ouest
-#define DIRECT_O        (4*16)      // ouest
-#define DIRECT_NO       (5*16)      // nord-ouest
-#define DIRECT_N        (6*16)      // nord
-#define DIRECT_NE       (7*16)      // nord-est
-
+enum Directions {
+  DIRECT_E  = (0 * 16), // east
+  DIRECT_SE = (1 * 16), // south-east
+  DIRECT_S  = (2 * 16), // south
+  DIRECT_SO = (3 * 16), // south-west
+  DIRECT_O  = (4 * 16), // west
+  DIRECT_NO = (5 * 16), // north-west
+  DIRECT_N  = (6 * 16), // north
+  DIRECT_NE = (7 * 16), // north-east
+};
 /*                  NO
  *            O     |     N
  *             \    |    /
@@ -113,250 +113,240 @@
  *          (y)     SE    (x)
  */
 
+// Actions:
+enum Actions {
+  ACTION_STOP         = 0,   // stop
+  ACTION_STOPTIRED    = 1,   // stop tiredness
+  ACTION_WALK         = 2,   // walk
+  ACTION_WALKTIRED    = 3,   // walk tiredness
+  ACTION_BUILD        = 4,   // build
+  ACTION_PICKAXE      = 5,   // pickaxe
+  ACTION_ENERGY       = 6,   // prend de l'énergie
+  ACTION_CARRY        = 8,   // take with a jump the object on the head (est)
+  ACTION_DROP         = 9,   // drop the object which is on the head (est)
+  ACTION_SAW          = 10,  // saw wood
+  ACTION_BURN         = 11,  // blupi is burning !
+  ACTION_TCHAO        = 12,  // blupi disappeard !
+  ACTION_EAT          = 13,  // blupi eats
+  ACTION_BORN         = 14,  // born
+  ACTION_JUMP2        = 15,  // jump over an obstacle
+  ACTION_JUMP3        = 16,  // jump over an obstacle
+  ACTION_JUMP4        = 17,  // jump over an obstacle
+  ACTION_JUMP5        = 18,  // jump over an obstacle
+  ACTION_BRIDGE       = 19,  // push a bridge
+  ACTION_MISC1        = 20,  // divers 1 (hausse les épaules)
+  ACTION_MISC2        = 21,  // divers 2 (grat-grat)
+  ACTION_MISC3        = 22,  // divers 3 (yoyo)
+  ACTION_MISC1f       = 23,  // divers 1 fatigué (bof-bof)
+  ACTION_SLIDE        = 24,  // slide when walking
+  ACTION_DRINK        = 25,  // blupi is drinking
+  ACTION_LABO         = 26,  // blupi travaille dans son laboratoire
+  ACTION_DYNAMITE     = 27,  // blupi fait péter la dynamite
+  ACTION_DELAY        = 28,  // blupi attend un frame
+  ACTION_CUEILLE1     = 29,  // blupi cueille des fleurs
+  ACTION_CUEILLE2     = 30,  // blupi cueille des fleurs
+  ACTION_MECHE        = 31,  // blupi se bouche les oreilles
+  ACTION_STOPb        = 32,  // arrêt en bateau
+  ACTION_MARCHEb      = 33,  // avance en bateau
+  ACTION_STOPJEEP     = 34,  // stop when using a jeep
+  ACTION_WALKJEEP     = 35,  // going in jeep
+  ACTION_ELECTRO      = 36,  // blupi électrocuté
+  ACTION_GRILL1       = 37,  // blupi grills (phase 1)
+  ACTION_GRILL2       = 38,  // blupi grills (phase 2)
+  ACTION_GRILL3       = 39,  // blupi grills (phase 3)
+  ACTION_MISC4        = 40,  // divers 4 (ferme les yeux)
+  ACTION_HAPPY        = 41,  // blupi is happy
+  ACTION_ARROSE       = 42,  // blupi arrose
+  ACTION_BECHE        = 43,  // blupi bèche
+  ACTION_CUEILLE3     = 44,  // blupi cueille des fleurs
+  ACTION_BUILDBREF    = 45,  // construit
+  ACTION_BUILDSEC     = 46,  // construit
+  ACTION_BUILDSOURD   = 47,  // construit
+  ACTION_BUILDPIERRE  = 48,  // construit
+  ACTION_PIOCHEPIERRE = 49,  // pioche
+  ACTION_PIOCHESOURD  = 50,  // pioche
+  ACTION_MISC5        = 51,  // divers 5 (ohé)
+  ACTION_TELEPORTE1   = 52,  // téléporte
+  ACTION_TELEPORTE2   = 53,  // téléporte
+  ACTION_TELEPORTE3   = 54,  // téléporte
+  ACTION_STOPARMOR    = 55,  // stop armor
+  ACTION_WALKARMOR    = 56,  // walk armor
+  ACTION_ARMOROPEN    = 57,  // open armor
+  ACTION_ARMORCLOSE   = 58,  // close armor
+  ACTION_JUMPJEEP     = 59,  // jump in the jeep
+  ACTION_MISC6        = 60,  // divers 6 (diabolo)
+  ACTION_S_STOP       = 100, // spider: stop
+  ACTION_S_WALK       = 101, // spider: walk
+  ACTION_S_JUMP       = 102, // spider: jump
+  ACTION_S_GRILL      = 103, // spider: grill in rays
+  ACTION_S_POISON     = 105, // spider: poisoned
+  ACTION_S_DEAD1      = 106, // spider: dead
+  ACTION_S_DEAD2      = 107, // spider: dead
+  ACTION_S_DEAD3      = 108, // spider: dead
+  ACTION_V_STOP       = 200, // virus: stop
+  ACTION_V_WALK       = 201, // virus: walk
+  ACTION_V_GRILL      = 202, // virus: grill in rays
+  ACTION_T_STOP       = 300, // tracks: stop
+  ACTION_T_WALK       = 301, // tracks: walk
+  ACTION_T_CRUSHED    = 302, // tracks: crushed an object
+  ACTION_R_STOP       = 400, // robot: stop
+  ACTION_R_WALK       = 401, // robot: walk
+  ACTION_R_APLAT      = 402, // robot: applatit
+  ACTION_R_BUILD      = 403, // robot: construit
+  ACTION_R_DELAY      = 404, // robot: construit
+  ACTION_R_LOAD       = 405, // robot: reload
+  ACTION_R_CRUSHED    = 406, // robot: crushed an object
+  ACTION_B_STOP       = 500, // bomb: stop
+  ACTION_B_WALK       = 501, // bomb: walk
+  ACTION_D_DELAY      = 600, // detonator: wait
+  ACTION_E_STOP       = 700, // electro: stop
+  ACTION_E_WALK       = 701, // electro: walk
+  ACTION_E_BEGIN      = 702, // electro: begin
+  ACTION_E_RAYON      = 703, // electro: rayon
+  ACTION_D_STOP       = 800, // disciple: stop
+  ACTION_D_WALK       = 801, // disciple: walk
+  ACTION_D_BUILD      = 802, // disciple: build
+  ACTION_D_PICKAXE    = 803, // disciple: pickaxe
+  ACTION_D_SAW        = 804, // disciple: saw wood
+  ACTION_D_TCHAO      = 805, // disciple: disappeard !
+  ACTION_D_CUEILLE1   = 806, // disciple: cueille des fleurs
+  ACTION_D_CUEILLE2   = 807, // disciple: cueille des fleurs
+  ACTION_D_MECHE      = 808, // disciple: se bouche les oreilles
+  ACTION_D_ARROSE     = 809, // disciple: arrose
+  ACTION_D_BECHE      = 810, // disciple: bèche
+};
 
-// Actions :
+// Sounds:
+enum Sounds {
+  SOUND_CLICK       = 0,
+  SOUND_BOING       = 1,
+  SOUND_OK1         = 2,
+  SOUND_OK2         = 3,
+  SOUND_OK3         = 4,
+  SOUND_GO1         = 5,
+  SOUND_GO2         = 6,
+  SOUND_GO3         = 7,
+  SOUND_TERM1       = 8,
+  SOUND_TERM2       = 9,
+  SOUND_TERM3       = 10,
+  SOUND_COUPTERRE   = 11,
+  SOUND_COUPTOC     = 12,
+  SOUND_JUMP        = 13,
+  SOUND_HOP         = 14,
+  SOUND_SAW         = 15,
+  SOUND_FIRE        = 16,
+  SOUND_BURN        = 17,
+  SOUND_TCHAO       = 18,
+  SOUND_EAT         = 19,
+  SOUND_BORN        = 20,
+  SOUND_S_JUMP      = 21,
+  SOUND_S_HIHI      = 22,
+  SOUND_PLOUF       = 23,
+  SOUND_GOAL        = 24,
+  SOUND_RAYON1      = 25,
+  SOUND_RAYON2      = 26,
+  SOUND_VIRUS       = 27,
+  SOUND_SLIDE       = 28,
+  SOUND_DRINK       = 29,
+  SOUND_LABO        = 30,
+  SOUND_DYNAMITE    = 31,
+  SOUND_DOOR        = 32,
+  SOUND_FLOWER      = 33,
+  SOUND_T_ENGINE    = 34,
+  SOUND_T_ECRASE    = 35,
+  SOUND_TRAP        = 36,
+  SOUND_AIE         = 37,
+  SOUND_A_POISON    = 38,
+  SOUND_R_ENGINE    = 39,
+  SOUND_R_APLAT     = 40,
+  SOUND_R_ROTATE    = 41,
+  SOUND_R_LOAD      = 42,
+  SOUND_B_JUMP      = 43,
+  SOUND_BOAT        = 44,
+  SOUND_JEEP        = 45,
+  SOUND_MINE        = 46,
+  SOUND_USINE       = 47,
+  SOUND_E_RAYON     = 48,
+  SOUND_E_TOURNE    = 49,
+  SOUND_ARROSE      = 50,
+  SOUND_BECHE       = 51,
+  SOUND_D_BOING     = 52,
+  SOUND_D_OK        = 53,
+  SOUND_D_GO        = 54,
+  SOUND_D_TERM      = 55,
+  SOUND_BOING1      = 56,
+  SOUND_BOING2      = 57,
+  SOUND_BOING3      = 58,
+  SOUND_OK4         = 59,
+  SOUND_OK5         = 60,
+  SOUND_OK6         = 61,
+  SOUND_OK1f        = 62,
+  SOUND_OK2f        = 63,
+  SOUND_OK3f        = 64,
+  SOUND_OK1e        = 65,
+  SOUND_OK2e        = 66,
+  SOUND_OK3e        = 67,
+  SOUND_GO4         = 68,
+  SOUND_GO5         = 69,
+  SOUND_GO6         = 70,
+  SOUND_TERM4       = 71,
+  SOUND_TERM5       = 72,
+  SOUND_TERM6       = 73,
+  SOUND_COUPSEC     = 74,
+  SOUND_COUPPIERRE  = 75,
+  SOUND_COUPSOURD   = 76,
+  SOUND_COUPBREF    = 77,
+  SOUND_OPEN        = 78,
+  SOUND_CLOSE       = 79,
+  SOUND_TELEPORTE   = 80,
+  SOUND_ARMUREOPEN  = 81,
+  SOUND_ARMURECLOSE = 82,
+  SOUND_WIN         = 83,
+  SOUND_LOST        = 84,
+};
 
-#define ACTION_STOP         0       // stop
-#define ACTION_STOPTIRED    1       // stop tiredness
-#define ACTION_WALK         2       // walk
-#define ACTION_WALKTIRED    3       // walk tiredness
-#define ACTION_BUILD        4       // build
-#define ACTION_PICKAXE      5       // pickaxe
-#define ACTION_ENERGY       6       // prend de l'énergie
-#define ACTION_CARRY        8       // take with a jump the object on the head (est)
-#define ACTION_DROP         9       // drop the object which is on the head (est)
-#define ACTION_SAW          10      // saw wood
-#define ACTION_BURN         11      // blupi is burning !
-#define ACTION_TCHAO        12      // blupi disappeard !
-#define ACTION_EAT          13      // blupi eats
-#define ACTION_BORN         14      // born
-#define ACTION_JUMP2        15      // jump over an obstacle
-#define ACTION_JUMP3        16      // jump over an obstacle
-#define ACTION_JUMP4        17      // jump over an obstacle
-#define ACTION_JUMP5        18      // jump over an obstacle
-#define ACTION_BRIDGE       19      // push a bridge
-#define ACTION_MISC1        20      // divers 1 (hausse les épaules)
-#define ACTION_MISC2        21      // divers 2 (grat-grat)
-#define ACTION_MISC3        22      // divers 3 (yoyo)
-#define ACTION_MISC1f       23      // divers 1 fatigué (bof-bof)
-#define ACTION_SLIDE        24      // slide when walking
-#define ACTION_DRINK        25      // blupi is drinking
-#define ACTION_LABO         26      // blupi travaille dans son laboratoire
-#define ACTION_DYNAMITE     27      // blupi fait péter la dynamite
-#define ACTION_DELAY        28      // blupi attend un frame
-#define ACTION_CUEILLE1     29      // blupi cueille des fleurs
-#define ACTION_CUEILLE2     30      // blupi cueille des fleurs
-#define ACTION_MECHE        31      // blupi se bouche les oreilles
-#define ACTION_STOPb        32      // arrêt en bateau
-#define ACTION_MARCHEb      33      // avance en bateau
-#define ACTION_STOPJEEP     34      // stop when using a jeep
-#define ACTION_WALKJEEP     35      // going in jeep
-#define ACTION_ELECTRO      36      // blupi électrocuté
-#define ACTION_GRILL1       37      // blupi grills (phase 1)
-#define ACTION_GRILL2       38      // blupi grills (phase 2)
-#define ACTION_GRILL3       39      // blupi grills (phase 3)
-#define ACTION_MISC4        40      // divers 4 (ferme les yeux)
-#define ACTION_HAPPY        41      // blupi is happy
-#define ACTION_ARROSE       42      // blupi arrose
-#define ACTION_BECHE        43      // blupi bèche
-#define ACTION_CUEILLE3     44      // blupi cueille des fleurs
-#define ACTION_BUILDBREF    45      // construit
-#define ACTION_BUILDSEC     46      // construit
-#define ACTION_BUILDSOURD   47      // construit
-#define ACTION_BUILDPIERRE  48      // construit
-#define ACTION_PIOCHEPIERRE 49      // pioche
-#define ACTION_PIOCHESOURD  50      // pioche
-#define ACTION_MISC5        51      // divers 5 (ohé)
-#define ACTION_TELEPORTE1   52      // téléporte
-#define ACTION_TELEPORTE2   53      // téléporte
-#define ACTION_TELEPORTE3   54      // téléporte
-#define ACTION_STOPARMOR    55      // stop armor
-#define ACTION_WALKARMOR    56      // walk armor
-#define ACTION_ARMOROPEN    57      // open armor
-#define ACTION_ARMORCLOSE   58      // close armor
-#define ACTION_JUMPJEEP     59      // jump in the jeep
-#define ACTION_MISC6        60      // divers 6 (diabolo)
+// Buttons (play):
+enum Buttons {
+  BUTTON_NONE      = -1,
+  BUTTON_GO        = 0,
+  BUTTON_STOP      = 1,
+  BUTTON_EAT       = 2,
+  BUTTON_CARRY     = 3,
+  BUTTON_DEPOSE    = 4,
+  BUTTON_ABAT      = 5,
+  BUTTON_ROC       = 6,
+  BUTTON_CULTIVE   = 7,
+  BUTTON_BUILD1    = 8,
+  BUTTON_BUILD2    = 9,
+  BUTTON_BUILD3    = 10,
+  BUTTON_BUILD4    = 11,
+  BUTTON_BUILD5    = 12,
+  BUTTON_BUILD6    = 13,
+  BUTTON_WALL      = 14,
+  BUTTON_PALIS     = 15,
+  BUTTON_ABATn     = 16,
+  BUTTON_ROCn      = 17,
+  BUTTON_BRIDGE    = 18,
+  BUTTON_TOWER     = 19,
+  BUTTON_BOIT      = 20,
+  BUTTON_LABO      = 21,
+  BUTTON_FLOWER    = 22,
+  BUTTON_FLOWERn   = 23,
+  BUTTON_DYNAMITE  = 24,
+  BUTTON_BOAT      = 25,
+  BUTTON_DJEEP     = 26,
+  BUTTON_FLAG      = 27,
+  BUTTON_EXTRAIT   = 28,
+  BUTTON_FABJEEP   = 29,
+  BUTTON_FABMINE   = 30,
+  BUTTON_FABDISC   = 31,
+  BUTTON_REPEAT    = 32,
+  BUTTON_DARMOR    = 33,
+  BUTTON_MAKEARMOR = 34,
+  MAXBUTTON        = 40,
+};
 
-#define ACTION_S_STOP       100     // spider: stop
-#define ACTION_S_WALK       101     // spider: walk
-#define ACTION_S_JUMP       102     // spider: jump
-#define ACTION_S_GRILL      103     // spider: grill in rays
-#define ACTION_S_POISON     105     // spider: poisoned
-#define ACTION_S_DEAD1      106     // spider: dead
-#define ACTION_S_DEAD2      107     // spider: dead
-#define ACTION_S_DEAD3      108     // spider: dead
-
-#define ACTION_V_STOP       200     // virus: stop
-#define ACTION_V_WALK       201     // virus: walk
-#define ACTION_V_GRILL      202     // virus: grill in rays
-
-#define ACTION_T_STOP       300     // tracks: stop
-#define ACTION_T_WALK       301     // tracks: walk
-#define ACTION_T_CRUSHED    302     // tracks: crushed an object
-
-#define ACTION_R_STOP       400     // robot: stop
-#define ACTION_R_WALK       401     // robot: walk
-#define ACTION_R_APLAT      402     // robot: applatit
-#define ACTION_R_BUILD      403     // robot: construit
-#define ACTION_R_DELAY      404     // robot: construit
-#define ACTION_R_LOAD       405     // robot: reload
-#define ACTION_R_CRUSHED    406     // robot: crushed an object
-
-#define ACTION_B_STOP       500     // bomb: stop
-#define ACTION_B_WALK       501     // bomb: walk
-
-#define ACTION_D_DELAY      600     // detonator: wait
-
-#define ACTION_E_STOP       700     // electro: stop
-#define ACTION_E_WALK       701     // electro: walk
-#define ACTION_E_BEGIN      702     // electro: begin
-#define ACTION_E_RAYON      703     // electro: rayon
-
-#define ACTION_D_STOP       800     // disciple: stop
-#define ACTION_D_WALK       801     // disciple: walk
-#define ACTION_D_BUILD      802     // disciple: build
-#define ACTION_D_PICKAXE    803     // disciple: pickaxe
-#define ACTION_D_SAW        804     // disciple: saw wood
-#define ACTION_D_TCHAO      805     // disciple: disappeard !
-#define ACTION_D_CUEILLE1   806     // disciple: cueille des fleurs
-#define ACTION_D_CUEILLE2   807     // disciple: cueille des fleurs
-#define ACTION_D_MECHE      808     // disciple: se bouche les oreilles
-#define ACTION_D_ARROSE     809     // disciple: arrose
-#define ACTION_D_BECHE      810     // disciple: bèche
-
-
-// Sons :
-
-#define SOUND_CLICK         0
-#define SOUND_BOING         1
-#define SOUND_OK1           2
-#define SOUND_OK2           3
-#define SOUND_OK3           4
-#define SOUND_GO1           5
-#define SOUND_GO2           6
-#define SOUND_GO3           7
-#define SOUND_TERM1         8
-#define SOUND_TERM2         9
-#define SOUND_TERM3         10
-#define SOUND_COUPTERRE     11
-#define SOUND_COUPTOC       12
-#define SOUND_JUMP          13
-#define SOUND_HOP           14
-#define SOUND_SAW           15
-#define SOUND_FIRE          16
-#define SOUND_BURN          17
-#define SOUND_TCHAO         18
-#define SOUND_EAT           19
-#define SOUND_BORN          20
-#define SOUND_S_JUMP        21
-#define SOUND_S_HIHI        22
-#define SOUND_PLOUF         23
-#define SOUND_GOAL          24
-#define SOUND_RAYON1        25
-#define SOUND_RAYON2        26
-#define SOUND_VIRUS         27
-#define SOUND_SLIDE         28
-#define SOUND_DRINK         29
-#define SOUND_LABO          30
-#define SOUND_DYNAMITE      31
-#define SOUND_DOOR          32
-#define SOUND_FLOWER        33
-#define SOUND_T_ENGINE      34
-#define SOUND_T_ECRASE      35
-#define SOUND_TRAP          36
-#define SOUND_AIE           37
-#define SOUND_A_POISON      38
-#define SOUND_R_ENGINE      39
-#define SOUND_R_APLAT       40
-#define SOUND_R_ROTATE      41
-#define SOUND_R_LOAD        42
-#define SOUND_B_JUMP        43
-#define SOUND_BOAT          44
-#define SOUND_JEEP          45
-#define SOUND_MINE          46
-#define SOUND_USINE         47
-#define SOUND_E_RAYON       48
-#define SOUND_E_TOURNE      49
-#define SOUND_ARROSE        50
-#define SOUND_BECHE         51
-#define SOUND_D_BOING       52
-#define SOUND_D_OK          53
-#define SOUND_D_GO          54
-#define SOUND_D_TERM        55
-#define SOUND_BOING1        56
-#define SOUND_BOING2        57
-#define SOUND_BOING3        58
-#define SOUND_OK4           59
-#define SOUND_OK5           60
-#define SOUND_OK6           61
-#define SOUND_OK1f          62
-#define SOUND_OK2f          63
-#define SOUND_OK3f          64
-#define SOUND_OK1e          65
-#define SOUND_OK2e          66
-#define SOUND_OK3e          67
-#define SOUND_GO4           68
-#define SOUND_GO5           69
-#define SOUND_GO6           70
-#define SOUND_TERM4         71
-#define SOUND_TERM5         72
-#define SOUND_TERM6         73
-#define SOUND_COUPSEC       74
-#define SOUND_COUPPIERRE    75
-#define SOUND_COUPSOURD     76
-#define SOUND_COUPBREF      77
-#define SOUND_OPEN          78
-#define SOUND_CLOSE         79
-#define SOUND_TELEPORTE     80
-#define SOUND_ARMUREOPEN    81
-#define SOUND_ARMURECLOSE   82
-#define SOUND_WIN           83
-#define SOUND_LOST          84
-
-
-// Boutons (play) :
-
-#define MAXBUTTON           40
-
-#define BUTTON_GO           0
-#define BUTTON_STOP         1
-#define BUTTON_EAT          2
-#define BUTTON_CARRY        3
-#define BUTTON_DEPOSE       4
-#define BUTTON_ABAT         5
-#define BUTTON_ROC          6
-#define BUTTON_CULTIVE      7
-#define BUTTON_BUILD1       8
-#define BUTTON_BUILD2       9
-#define BUTTON_BUILD3       10
-#define BUTTON_BUILD4       11
-#define BUTTON_BUILD5       12
-#define BUTTON_BUILD6       13
-#define BUTTON_WALL         14
-#define BUTTON_PALIS        15
-#define BUTTON_ABATn        16
-#define BUTTON_ROCn         17
-#define BUTTON_BRIDGE       18
-#define BUTTON_TOWER        19
-#define BUTTON_BOIT         20
-#define BUTTON_LABO         21
-#define BUTTON_FLOWER       22
-#define BUTTON_FLOWERn      23
-#define BUTTON_DYNAMITE     24
-#define BUTTON_BOAT         25
-#define BUTTON_DJEEP        26
-#define BUTTON_FLAG         27
-#define BUTTON_EXTRAIT      28
-#define BUTTON_FABJEEP      29
-#define BUTTON_FABMINE      30
-#define BUTTON_FABDISC      31
-#define BUTTON_REPEAT       32
-#define BUTTON_DARMOR       33
-#define BUTTON_MAKEARMOR    34
-// clang-format on
-
-// Erreurs :
-
+// Errors:
 enum Errors {
   NONE     = 0,
   MISC     = 1,
