@@ -80,6 +80,9 @@ CPixmap::~CPixmap ()
     if (tex.second.texMask)
       SDL_DestroyTexture (tex.second.texMask);
   }
+
+  if (m_lpSDLBlupi)
+    SDL_FreeSurface (m_lpSDLBlupi);
 }
 
 // Crï¿½e l'objet DirectDraw principal.
@@ -228,7 +231,7 @@ bool CPixmap::Cache (
   std::string   file    = GetBaseDir () + pFilename;
   SDL_Surface * surface = IMG_Load (file.c_str ());
 
-  if (channel == CHBLUPI)
+  if (channel == CHBLUPI && !m_lpSDLBlupi)
     m_lpSDLBlupi = surface;
 
   SDL_Texture * texture = SDL_CreateTextureFromSurface (g_renderer, surface);
