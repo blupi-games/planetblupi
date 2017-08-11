@@ -1593,8 +1593,9 @@ Errors CDecor::CelOkForAction (
   if (
     action == 2 || action == EV_ACTION_ABAT1 || action == EV_ACTION_ROC1 ||
     action == EV_ACTION_DROP || action == EV_ACTION_LABO ||
-    action == EV_ACTION_FLOWER1 || action == EV_ACTION_CULTIVE ||
-    action == EV_ACTION_FLAG)
+    action == EV_ACTION_FABJEEP || action == EV_ACTION_FABARMURE ||
+    action == EV_ACTION_FABMINE || action == EV_ACTION_FLOWER1 ||
+    action == EV_ACTION_CULTIVE || action == EV_ACTION_FLAG)
   {
     cel.x = (cel.x / 2) * 2;
     cel.y = (cel.y / 2) * 2;
