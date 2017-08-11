@@ -23,6 +23,8 @@
 #include <SDL2/SDL.h>
 #include <libintl.h>
 
+#include "config.h"
+
 extern SDL_Window *   g_window;
 extern SDL_Renderer * g_renderer;
 extern bool           g_bFullScreen;
@@ -51,6 +53,14 @@ typedef Sint32 LPARAM;
 
 #define LOWORD(l) ((Uint16) (((Uint32) (l)) & 0xffff))
 #define HIWORD(l) ((Uint16) ((((Uint32) (l)) >> 16) & 0xffff))
+
+#define PB_STRINGIFY(s) #s
+#define PB_TOSTRING(s) PB_STRINGIFY (s)
+#define PB_VERSION_DOT(a, b, c) a##.##b##.##c
+#define PB_VERSION(a, b, c) PB_VERSION_DOT (a, b, c)
+#define PLANETBLUPI_VERSION \
+  PB_VERSION (PB_VERSION_MAJOR, PB_VERSION_MINOR, PB_VERSION_PATCH)
+#define PLANETBLUPI_VERSION_STR PB_TOSTRING (PLANETBLUPI_VERSION)
 
 #ifdef _WIN32
 #define countof(a) _countof (a)

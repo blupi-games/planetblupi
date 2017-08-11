@@ -19,6 +19,8 @@
  */
 
 #include <SDL2/SDL_image.h>
+#include <argagg/argagg.hpp>
+#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -375,7 +377,7 @@ static void HandleEvent (const SDL_Event & event)
 
 // Error with DoInit function.
 
-static bool InitFail (const char * msg)
+static void InitFail (const char * msg)
 {
   char buffer[100];
 
@@ -387,13 +389,51 @@ static bool InitFail (const char * msg)
     SDL_MessageBoxFlags::SDL_MESSAGEBOX_ERROR, "Error", buffer, g_window);
 
   FinishObjects ();
-  return false;
+}
+
+static int parseArgs (int argc, char * argv[], bool & exit)
+{
+  argagg::parser argparser{{
+    {"help", {"-h", "--help"}, "print this help message and axit", 0},
+    {"version", {"-V", "--version"}, "print version and exit", 0},
+  }};
+
+  argagg::parser_results args;
+  try
+  {
+    args = argparser.parse (argc, argv);
+  }
+  catch (const std::exception & e)
+  {
+    std::cerr << e.what () << std::endl;
+    return EXIT_FAILURE;
+  }
+
+  if (args["help"])
+  {
+    std::cerr << "Usage: planetblupi [options]" << std::endl << argparser;
+    exit = true;
+    return EXIT_SUCCESS;
+  }
+
+  if (args["version"])
+  {
+    std::cerr << PLANETBLUPI_VERSION_STR << std::endl;
+    exit = true;
+    return EXIT_SUCCESS;
+  }
+
+  return EXIT_SUCCESS;
 }
 
 // Main initialization function.
 
-static bool DoInit (Sint32 argc, char * argv[])
+static int DoInit (int argc, char * argv[], bool & exit)
 {
+  int rc = parseArgs (argc, argv, exit);
+  if (exit)
+    return rc;
+
   POINT totalDim, iconDim;
   RECT  rcRect;
   bool  bOK;
@@ -402,7 +442,7 @@ static bool DoInit (Sint32 argc, char * argv[])
 
   auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
   if (res < 0)
-    return false;
+    return EXIT_FAILURE;
 
   // Create a window.
   if (g_bFullScreen)
@@ -417,7 +457,7 @@ static bool DoInit (Sint32 argc, char * argv[])
   if (!g_window)
   {
     printf ("%s", SDL_GetError ());
-    return false;
+    return EXIT_FAILURE;
   }
 
 #if 0
@@ -432,11 +472,14 @@ static bool DoInit (Sint32 argc, char * argv[])
   {
     printf ("%s", SDL_GetError ());
     SDL_DestroyWindow (g_window);
-    return false;
+    return EXIT_FAILURE;
   }
 
   if (!bOK) // Something wrong with config.ini file?
-    return InitFail ("Game not correctly installed");
+  {
+    InitFail ("Game not correctly installed");
+    return EXIT_FAILURE;
+  }
 
   SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
 
@@ -468,12 +511,18 @@ static bool DoInit (Sint32 argc, char * argv[])
   // Create the main pixmap.
   g_pPixmap = new CPixmap;
   if (g_pPixmap == nullptr)
-    return InitFail ("New pixmap");
+  {
+    InitFail ("New pixmap");
+    return EXIT_FAILURE;
+  }
 
   totalDim.x = LXIMAGE;
   totalDim.y = LYIMAGE;
   if (!g_pPixmap->Create (totalDim))
-    return InitFail ("Create pixmap");
+  {
+    InitFail ("Create pixmap");
+    return EXIT_FAILURE;
+  }
 
   OutputDebug ("Image: init\n");
   totalDim.x = LXIMAGE;
@@ -485,7 +534,7 @@ static bool DoInit (Sint32 argc, char * argv[])
 #else
   if (!g_pPixmap->Cache (CHBACK, "image/init.png", totalDim, iconDim))
 #endif
-    return false;
+    return EXIT_FAILURE;
 
   OutputDebug ("Image: init\n");
   totalDim.x = LXIMAGE;
@@ -493,7 +542,7 @@ static bool DoInit (Sint32 argc, char * argv[])
   iconDim.x  = 0;
   iconDim.y  = 0;
   if (!g_pPixmap->Cache (CHGROUND, "image/init.png", totalDim, iconDim))
-    return false;
+    return EXIT_FAILURE;
 
   rcRect.left   = 0;
   rcRect.top    = 0;
@@ -507,87 +556,126 @@ static bool DoInit (Sint32 argc, char * argv[])
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
   if (!g_pPixmap->Cache (CHFLOOR, "image/floor000.png", totalDim, iconDim))
-    return InitFail ("Cache floor000.png");
+  {
+    InitFail ("Cache floor000.png");
+    return EXIT_FAILURE;
+  }
 
   totalDim.x = DIMOBJX * 16;
   totalDim.y = DIMOBJY * 8;
   iconDim.x  = DIMOBJX;
   iconDim.y  = DIMOBJY;
   if (!g_pPixmap->Cache (CHOBJECT, "image/obj000.png", totalDim, iconDim))
-    return InitFail ("Cache obj000.png");
+  {
+    InitFail ("Cache obj000.png");
+    return EXIT_FAILURE;
+  }
 
   if (!g_pPixmap->Cache (CHOBJECTo, "image/obj-o000.png", totalDim, iconDim))
-    return InitFail ("Cache obj-o000.png");
+  {
+    InitFail ("Cache obj-o000.png");
+    return EXIT_FAILURE;
+  }
 
   totalDim.x = DIMBLUPIX * 16;
   totalDim.y = DIMBLUPIY * 23;
   iconDim.x  = DIMBLUPIX;
   iconDim.y  = DIMBLUPIY;
   if (!g_pPixmap->Cache (CHBLUPI, "image/blupi.png", totalDim, iconDim))
-    return InitFail ("Cache blupi.png");
+  {
+    InitFail ("Cache blupi.png");
+    return EXIT_FAILURE;
+  }
 
   totalDim.x = 64;
   totalDim.y = 66;
   iconDim.x  = 64;
   iconDim.y  = 66 / 2;
   if (!g_pPixmap->Cache (CHHILI, "image/hili.png", totalDim, iconDim))
-    return InitFail ("Cache hili.png");
+  {
+    InitFail ("Cache hili.png");
+    return EXIT_FAILURE;
+  }
 
   totalDim.x = DIMCELX * 2 * 3;
   totalDim.y = DIMCELY * 2 * 5;
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
   if (!g_pPixmap->Cache (CHFOG, "image/fog.png", totalDim, iconDim))
-    return InitFail ("Cache fog.png");
+  {
+    InitFail ("Cache fog.png");
+    return EXIT_FAILURE;
+  }
 
   totalDim.x = DIMCELX * 2 * 16;
   totalDim.y = DIMCELY * 2 * 1;
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
   if (!g_pPixmap->Cache (CHMASK1, "image/mask1.png", totalDim, iconDim))
-    return InitFail ("Cache mask1.png");
+  {
+    InitFail ("Cache mask1.png");
+    return EXIT_FAILURE;
+  }
 
   totalDim.x = DIMCELX * 2 * 16;
   totalDim.y = DIMCELY * 2 * 1;
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
   if (!g_pPixmap->Cache (CHMASK2, "image/mask2.png", totalDim, iconDim))
-    return InitFail ("Cache mask2.png");
+  {
+    InitFail ("Cache mask2.png");
+    return EXIT_FAILURE;
+  }
 
   totalDim.x = DIMBUTTONX * 6;
   totalDim.y = DIMBUTTONY * 21;
   iconDim.x  = DIMBUTTONX;
   iconDim.y  = DIMBUTTONY;
   if (!g_pPixmap->Cache (CHBUTTON, "image/button00.png", totalDim, iconDim))
-    return InitFail ("Cache button00.png");
+  {
+    InitFail ("Cache button00.png");
+    return EXIT_FAILURE;
+  }
 
   totalDim.x = DIMJAUGEX * 1;
   totalDim.y = DIMJAUGEY * 4;
   iconDim.x  = DIMJAUGEX;
   iconDim.y  = DIMJAUGEY;
   if (!g_pPixmap->Cache (CHJAUGE, "image/jauge.png", totalDim, iconDim))
-    return InitFail ("Cache jauge.png");
+  {
+    InitFail ("Cache jauge.png");
+    return EXIT_FAILURE;
+  }
 
   totalDim.x = DIMTEXTX * 16;
   totalDim.y = DIMTEXTY * 8 * 3;
   iconDim.x  = DIMTEXTX;
   iconDim.y  = DIMTEXTY;
   if (!g_pPixmap->Cache (CHTEXT, "image/text.png", totalDim, iconDim))
-    return InitFail ("Cache text.png");
+  {
+    InitFail ("Cache text.png");
+    return EXIT_FAILURE;
+  }
 
   totalDim.x = DIMLITTLEX * 16;
   totalDim.y = DIMLITTLEY * 8;
   iconDim.x  = DIMLITTLEX;
   iconDim.y  = DIMLITTLEY;
   if (!g_pPixmap->Cache (CHLITTLE, "image/little.png", totalDim, iconDim))
-    return InitFail ("Cache little.png");
+  {
+    InitFail ("Cache little.png");
+    return EXIT_FAILURE;
+  }
 
   totalDim.x = 426;
   totalDim.y = 52;
   iconDim.x  = 426;
   iconDim.y  = 52;
   if (!g_pPixmap->Cache (CHBIGNUM, "image/bignum.png", totalDim, iconDim))
-    return InitFail ("Cache bignum.png");
+  {
+    InitFail ("Cache bignum.png");
+    return EXIT_FAILURE;
+  }
 
   // Load all cursors
   g_pPixmap->LoadCursors ();
@@ -596,7 +684,10 @@ static bool DoInit (Sint32 argc, char * argv[])
   // Create the sound manager.
   g_pSound = new CSound;
   if (g_pSound == nullptr)
-    return InitFail ("New sound");
+  {
+    InitFail ("New sound");
+    return EXIT_FAILURE;
+  }
 
   g_pSound->Create ();
   g_pSound->CacheAll ();
@@ -605,14 +696,20 @@ static bool DoInit (Sint32 argc, char * argv[])
   // Create the movie manager.
   g_pMovie = new CMovie;
   if (g_pMovie == nullptr)
-    return InitFail ("New movie");
+  {
+    InitFail ("New movie");
+    return EXIT_FAILURE;
+  }
 
   g_pMovie->Create ();
 
   // Create the decor manager.
   g_pDecor = new CDecor;
   if (g_pDecor == nullptr)
-    return InitFail ("New decor");
+  {
+    InitFail ("New decor");
+    return EXIT_FAILURE;
+  }
 
   g_pDecor->Create (g_pSound, g_pPixmap);
   g_pDecor->MapInitColors ();
@@ -620,14 +717,17 @@ static bool DoInit (Sint32 argc, char * argv[])
   // Create the event manager.
   g_pEvent = new CEvent;
   if (g_pEvent == nullptr)
-    return InitFail ("New event");
+  {
+    InitFail ("New event");
+    return EXIT_FAILURE;
+  }
 
   g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
   g_pEvent->SetFullScreen (g_bFullScreen);
   g_pEvent->ChangePhase (EV_PHASE_INTRO1);
 
   g_bTermInit = true;
-  return true;
+  return EXIT_SUCCESS;
 }
 
 static void initGettext ()
@@ -642,8 +742,10 @@ int main (int argc, char * argv[])
 {
   initGettext ();
 
-  if (!DoInit (argc, argv))
-    return -1;
+  int  res  = 0;
+  bool exit = false;
+  if ((res = DoInit (argc, argv, exit)) || exit)
+    return res;
 
   SDL_TimerID updateTimer = SDL_AddTimer (
     g_timerInterval,
