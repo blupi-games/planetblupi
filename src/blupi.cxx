@@ -47,12 +47,22 @@ CSound *  g_pSound  = nullptr; // sound principal
 CMovie *  g_pMovie  = nullptr; // movie principal
 CDecor *  g_pDecor  = nullptr;
 
-bool        g_bFullScreen   = false; // false si mode de test
-Sint32      g_speedRate     = 1;
-Sint32      g_timerInterval = 50;    // inverval = 50ms
-bool        g_bTermInit     = false; // initialisation en cours
-Uint32      g_lastPhase     = 999;
-int         g_rendererType  = 0;
+bool   g_bFullScreen   = false; // false si mode de test
+Sint32 g_speedRate     = 1;
+Sint32 g_timerInterval = 50; // inverval = 50ms
+int    g_rendererType  = 0;
+
+enum Settings {
+  SETTING_FULLSCREEN    = 1 << 0,
+  SETTING_SPEEDRATE     = 1 << 1,
+  SETTING_TIMERINTERVAL = 1 << 2,
+  SETTING_RENDERER      = 1 << 3,
+};
+
+static int g_settingsOverload = 0;
+
+bool        g_bTermInit = false; // initialisation en cours
+Uint32      g_lastPhase = 999;
 static bool g_pause;
 
 /**
@@ -95,41 +105,53 @@ static bool ReadConfig ()
   buffer[nb] = 0;
   fclose (file);
 
-  pText = strstr (buffer, "SpeedRate=");
-  if (pText != nullptr)
+  if (!(g_settingsOverload & SETTING_SPEEDRATE))
   {
-    g_speedRate = GetNum (pText + 10);
-    if (g_speedRate < 1)
-      g_speedRate = 1;
-    if (g_speedRate > 2)
-      g_speedRate = 2;
+    pText = strstr (buffer, "SpeedRate=");
+    if (pText != nullptr)
+    {
+      g_speedRate = GetNum (pText + 10);
+      if (g_speedRate < 1)
+        g_speedRate = 1;
+      if (g_speedRate > 2)
+        g_speedRate = 2;
+    }
   }
 
-  pText = strstr (buffer, "Timer=");
-  if (pText != nullptr)
+  if (!(g_settingsOverload & SETTING_TIMERINTERVAL))
   {
-    g_timerInterval = GetNum (pText + 6);
-    if (g_timerInterval < 10)
-      g_timerInterval = 10;
-    if (g_timerInterval > 1000)
-      g_timerInterval = 1000;
+    pText = strstr (buffer, "Timer=");
+    if (pText != nullptr)
+    {
+      g_timerInterval = GetNum (pText + 6);
+      if (g_timerInterval < 10)
+        g_timerInterval = 10;
+      if (g_timerInterval > 1000)
+        g_timerInterval = 1000;
+    }
   }
 
-  pText = strstr (buffer, "FullScreen=");
-  if (pText != nullptr)
+  if (!(g_settingsOverload & SETTING_FULLSCREEN))
   {
-    g_bFullScreen = !!GetNum (pText + 11);
-    if (g_bFullScreen != 0)
-      g_bFullScreen = 1;
+    pText = strstr (buffer, "FullScreen=");
+    if (pText != nullptr)
+    {
+      g_bFullScreen = !!GetNum (pText + 11);
+      if (g_bFullScreen != 0)
+        g_bFullScreen = 1;
+    }
   }
 
-  pText = strstr (buffer, "Renderer=");
-  if (pText)
+  if (!(g_settingsOverload & SETTING_RENDERER))
   {
-    if (!strncmp (pText + 9, "software", 8))
-      g_rendererType = SDL_RENDERER_SOFTWARE;
-    else if (!strncmp (pText + 9, "accelerated", 11))
-      g_rendererType = SDL_RENDERER_ACCELERATED;
+    pText = strstr (buffer, "Renderer=");
+    if (pText)
+    {
+      if (!strncmp (pText + 9, "software", 8))
+        g_rendererType = SDL_RENDERER_SOFTWARE;
+      else if (!strncmp (pText + 9, "accelerated", 11))
+        g_rendererType = SDL_RENDERER_ACCELERATED;
+    }
   }
 
   return true;
@@ -394,8 +416,24 @@ static void InitFail (const char * msg)
 static int parseArgs (int argc, char * argv[], bool & exit)
 {
   argagg::parser argparser{{
-    {"help", {"-h", "--help"}, "print this help message and axit", 0},
+    {"help", {"-h", "--help"}, "print this help message and exit", 0},
     {"version", {"-V", "--version"}, "print version and exit", 0},
+    {"speedrate",
+     {"-s", "--speed-rate"},
+     "change the speed rate [1;2] (default: 1)",
+     1},
+    {"timerinterval",
+     {"-t", "--timer-interval"},
+     "set the timer interval (refresh)",
+     1},
+    {"fullscreen",
+     {"-f", "--fullscreen"},
+     "load in fullscreen [on;off] (default: on)",
+     1},
+    {"renderer",
+     {"-r", "--renderer"},
+     "set a renderer [auto;software;accelerated] (default: auto)",
+     1},
   }};
 
   argagg::parser_results args;
@@ -421,6 +459,36 @@ static int parseArgs (int argc, char * argv[], bool & exit)
     std::cerr << PLANETBLUPI_VERSION_STR << std::endl;
     exit = true;
     return EXIT_SUCCESS;
+  }
+
+  if (args["speedrate"])
+  {
+    g_speedRate = args["speedrate"];
+    g_settingsOverload |= SETTING_SPEEDRATE;
+  }
+
+  if (args["timerinterval"])
+  {
+    g_timerInterval = args["timerinterval"];
+    g_settingsOverload |= SETTING_TIMERINTERVAL;
+  }
+
+  if (args["fullscreen"])
+  {
+    g_bFullScreen =
+      args["fullscreen"].as<std::string> () != std::string ("off");
+    g_settingsOverload |= SETTING_FULLSCREEN;
+  }
+
+  if (args["renderer"])
+  {
+    if (args["renderer"].as<std::string> () == "auto")
+      g_rendererType = 0;
+    else if (args["renderer"].as<std::string> () == "software")
+      g_rendererType = SDL_RENDERER_SOFTWARE;
+    else if (args["renderer"].as<std::string> () == "accelerated")
+      g_rendererType = SDL_RENDERER_ACCELERATED;
+    g_settingsOverload |= SETTING_RENDERER;
   }
 
   return EXIT_SUCCESS;
