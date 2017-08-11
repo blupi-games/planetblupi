@@ -785,6 +785,7 @@ on the endianness (byte order) of the machine */
     // FIXME: change cursor first value to 0
     m_lpSDLCursors[sprite - 1] =
       SDL_CreateColorCursor (surface, hotspot.x, hotspot.y);
+    SDL_FreeSurface (surface);
   }
 }
 
