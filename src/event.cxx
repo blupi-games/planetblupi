@@ -4847,51 +4847,56 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
             {
               if (m_rankCheat == 0) // vision ?
                 m_pDecor->EnableFog (false);
-              if (
+              else if (
                 m_rankCheat == 1 || // power ?
                 m_rankCheat == 2)   // lonesome ?
                 m_pDecor->BlupiCheat (m_rankCheat);
             }
 
-            if (m_rankCheat == 3) // allmissions ?
+            switch (m_rankCheat)
+            {
+            case 3: // allmissions ?
             {
               m_bAllMissions = !m_bAllMissions;
               bEnable        = m_bAllMissions;
               m_bChangeCheat = true;
+              break;
             }
-            if (m_rankCheat == 4) // quick ?
+            case 4: // quick ?
             {
               m_bSpeed       = !m_bSpeed;
               bEnable        = m_bSpeed;
               m_bChangeCheat = true;
+              break;
             }
-
-            if (m_rankCheat == 5) // helpme ?
+            case 5: // helpme ?
             {
               m_bHelp        = !m_bHelp;
               bEnable        = m_bHelp;
               m_bChangeCheat = true;
+              break;
             }
-
-            if (m_rankCheat == 6) // invincible ?
+            case 6: // invincible ?
             {
               m_pDecor->SetInvincible (!m_pDecor->GetInvincible ());
               bEnable        = m_pDecor->GetInvincible ();
               m_bChangeCheat = true;
+              break;
             }
-
-            if (m_rankCheat == 7) // superblupi ?
+            case 7: // superblupi ?
             {
               m_pDecor->SetSuper (!m_pDecor->GetSuper ());
               bEnable        = m_pDecor->GetSuper ();
               m_bChangeCheat = true;
+              break;
             }
-
-            if (m_rankCheat == 8) // construire ?
+            case 8: // construire ?
             {
               m_bAccessBuild = !m_bAccessBuild;
               bEnable        = m_bAccessBuild;
               m_bChangeCheat = true;
+              break;
+            }
             }
 
             if (m_phase != EV_PHASE_PLAY)
