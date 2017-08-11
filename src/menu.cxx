@@ -154,7 +154,7 @@ CMenu::~CMenu ()
 
 bool CMenu::Create (
   CPixmap * pPixmap, CSound * pSound, CEvent * pEvent, POINT pos, Sint32 nb,
-  Sint32 * pButtons, Errors * pErrors,
+  Buttons * pButtons, Errors * pErrors,
   std::unordered_map<Sint32, const char *> & texts, Sint32 perso)
 {
   pos.x -= DIMBUTTONX / 2;
@@ -197,7 +197,7 @@ bool CMenu::Create (
 // Met à jour le menu.
 
 void CMenu::Update (
-  Sint32 nb, Sint32 * pButtons, Errors * pErrors,
+  Sint32 nb, Buttons * pButtons, Errors * pErrors,
   std::unordered_map<Sint32, const char *> & texts)
 {
   Sint32 i;

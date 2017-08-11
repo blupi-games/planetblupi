@@ -200,7 +200,7 @@ protected:
   bool                                     m_bMenu;
   POINT                                    m_menuPos;
   Sint32                                   m_menuNb;
-  Sint32                                   m_menuButtons[MAXBUTTON];
+  Buttons                                  m_menuButtons[MAXBUTTON];
   Errors                                   m_menuErrors[MAXBUTTON];
   std::unordered_map<Sint32, const char *> m_menuTexts;
   Sint32                                   m_menuPerso;

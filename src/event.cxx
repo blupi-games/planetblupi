@@ -3438,10 +3438,11 @@ bool CEvent::IsShift ()
 
 bool CEvent::PlayDown (POINT pos, const SDL_Event & event)
 {
-  bool   bDecor = false;
-  bool   bMap   = false;
-  Sint32 rank, button, h;
-  POINT  cel;
+  bool    bDecor = false;
+  bool    bMap   = false;
+  Sint32  rank, h;
+  Buttons button;
+  POINT   cel;
 
   m_pDecor->BlupiSetArrow (0, false); // enlève toutes les flèches
 
@@ -3613,9 +3614,10 @@ void CEvent::SetLanguage ()
 
 void CEvent::ChangeButtons (Sint32 message)
 {
-  Sint32 button, state, volume, max;
-  char * pButtonExist;
-  Term * pTerm;
+  Buttons button;
+  Sint32  state, volume, max;
+  char *  pButtonExist;
+  Term *  pTerm;
 
   if (m_phase == EV_PHASE_PLAY)
   {

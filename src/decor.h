@@ -269,45 +269,45 @@ public:
   void   BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct = -1);
   void   BlupiChangeAction (Sint32 rank, Sint32 action, Sint32 direct = -1);
   void   ListFlush (Sint32 rank);
-  Sint32 ListGetParam (Sint32 rank, Sint32 button, POINT cel);
-  bool   ListPut (Sint32 rank, Sint32 button, POINT cel, POINT cMem);
+  Sint32 ListGetParam (Sint32 rank, Buttons button, POINT cel);
+  bool   ListPut (Sint32 rank, Buttons button, POINT cel, POINT cMem);
   void   ListRemove (Sint32 rank);
   Sint32 ListSearch (
-    Sint32 rank, Sint32 button, POINT cel, const char *& textForButton);
+    Sint32 rank, Buttons button, POINT cel, const char *& textForButton);
   bool RepeatAdjust (
     Sint32 rank, Sint32 button, POINT & cel, POINT & cMem, Sint32 param,
     Sint32 list);
-  void   GoalStart (Sint32 rank, Sint32 action, POINT cel);
-  bool   GoalNextPhase (Sint32 rank);
-  void   SetTotalTime (Sint32 total);
-  Sint32 GetTotalTime ();
-  void   GoalInitJauge (Sint32 rank);
-  void   GoalInitPassCel (Sint32 rank);
-  void   GoalAdjustCel (Sint32 rank, Sint32 & x, Sint32 & y);
-  bool   GoalNextOp (Sint32 rank, Sint16 * pTable);
-  void   GoalUnwork (Sint32 rank);
-  void   GoalStop (Sint32 rank, bool bError = false, bool bSound = true);
-  bool   BlupiIsGoalUsed (POINT cel);
-  void   BlupiStartStopRayon (Sint32 rank, POINT startCel, POINT endCel);
-  bool   BlupiRotate (Sint32 rank);
-  bool   BlupiNextAction (Sint32 rank);
-  void   BlupiNextGoal (Sint32 rank);
-  void   BlupiStep (bool bFirst);
-  void   BlupiGetRect (Sint32 rank, RECT & rect);
-  Sint32 GetTargetBlupi (POINT pos);
-  void   BlupiDeselect ();
-  void   BlupiDeselect (Sint32 rank);
-  void   BlupiSetArrow (Sint32 rank, bool bArrow);
-  void   InitOutlineRect ();
-  void   BlupiHiliDown (POINT pos, bool bAdd = false);
-  void   BlupiHiliMove (POINT pos);
-  void   BlupiHiliUp (POINT pos);
-  void   BlupiDrawHili ();
-  Sint32 GetDefButton (POINT cel);
-  bool   BlupiGoal (Sint32 rank, Sint32 button, POINT cel, POINT cMem);
-  void   BlupiGoal (POINT cel, Sint32 button);
-  void   BlupiDestCel (Sint32 rank);
-  bool   IsTracksHere (POINT cel, bool bSkipInMove);
+  void    GoalStart (Sint32 rank, Sint32 action, POINT cel);
+  bool    GoalNextPhase (Sint32 rank);
+  void    SetTotalTime (Sint32 total);
+  Sint32  GetTotalTime ();
+  void    GoalInitJauge (Sint32 rank);
+  void    GoalInitPassCel (Sint32 rank);
+  void    GoalAdjustCel (Sint32 rank, Sint32 & x, Sint32 & y);
+  bool    GoalNextOp (Sint32 rank, Sint16 * pTable);
+  void    GoalUnwork (Sint32 rank);
+  void    GoalStop (Sint32 rank, bool bError = false, bool bSound = true);
+  bool    BlupiIsGoalUsed (POINT cel);
+  void    BlupiStartStopRayon (Sint32 rank, POINT startCel, POINT endCel);
+  bool    BlupiRotate (Sint32 rank);
+  bool    BlupiNextAction (Sint32 rank);
+  void    BlupiNextGoal (Sint32 rank);
+  void    BlupiStep (bool bFirst);
+  void    BlupiGetRect (Sint32 rank, RECT & rect);
+  Sint32  GetTargetBlupi (POINT pos);
+  void    BlupiDeselect ();
+  void    BlupiDeselect (Sint32 rank);
+  void    BlupiSetArrow (Sint32 rank, bool bArrow);
+  void    InitOutlineRect ();
+  void    BlupiHiliDown (POINT pos, bool bAdd = false);
+  void    BlupiHiliMove (POINT pos);
+  void    BlupiHiliUp (POINT pos);
+  void    BlupiDrawHili ();
+  Buttons GetDefButton (POINT cel);
+  bool    BlupiGoal (Sint32 rank, Buttons button, POINT cel, POINT cMem);
+  void    BlupiGoal (POINT cel, Buttons button);
+  void    BlupiDestCel (Sint32 rank);
+  bool    IsTracksHere (POINT cel, bool bSkipInMove);
   bool IsBlupiHereEx (POINT cel1, POINT cel2, Sint32 exRank, bool bSkipInMove);
   bool IsBlupiHereEx (POINT cel, Sint32 exRank, bool bSkipInMove);
   bool IsBlupiHere (POINT cel, bool bSkipInMove);
@@ -315,7 +315,7 @@ public:
   void GetLevelJauge (Sint32 * pLevels, Sint32 * pTypes);
   bool IsWorkBlupi (Sint32 rank);
   void BlupiGetButtons (
-    POINT pos, Sint32 & nb, Sint32 * pButtons, Errors * pErrors,
+    POINT pos, Sint32 & nb, Buttons * pButtons, Errors * pErrors,
     std::unordered_map<Sint32, const char *> & texts, Sint32 & perso);
   void   TerminatedInit ();
   Sint32 IsTerminated ();

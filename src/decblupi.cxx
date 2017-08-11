@@ -775,14 +775,14 @@ void CDecor::ListFlush (Sint32 rank)
   Sint32 i;
 
   for (i = 0; i < MAXLIST; i++)
-    m_blupi[rank].listButton[i] = -1;
+    m_blupi[rank].listButton[i] = BUTTON_NONE;
   m_blupi[rank].repeatLevelHope = -1;
   m_blupi[rank].repeatLevel     = -1;
 }
 
 // Retourne le paramètre associé à une action.
 
-Sint32 CDecor::ListGetParam (Sint32 rank, Sint32 button, POINT cel)
+Sint32 CDecor::ListGetParam (Sint32 rank, Buttons button, POINT cel)
 {
   Sint32 icon;
 
@@ -806,7 +806,7 @@ Sint32 CDecor::ListGetParam (Sint32 rank, Sint32 button, POINT cel)
 
 // Ajoute une action dans la liste.
 
-bool CDecor::ListPut (Sint32 rank, Sint32 button, POINT cel, POINT cMem)
+bool CDecor::ListPut (Sint32 rank, Buttons button, POINT cel, POINT cMem)
 {
   Sint32 i, last;
 
@@ -863,7 +863,7 @@ void CDecor::ListRemove (Sint32 rank)
     m_blupi[rank].listParam[i]  = m_blupi[rank].listParam[i + 1];
   }
 
-  m_blupi[rank].listButton[MAXLIST - 1] = -1;
+  m_blupi[rank].listButton[MAXLIST - 1] = BUTTON_NONE;
 }
 
 // Cherche une action à répéter dans la liste.
@@ -871,7 +871,7 @@ void CDecor::ListRemove (Sint32 rank)
 // Retourne -1 si aucune répétiton n'est possible.
 
 Sint32 CDecor::ListSearch (
-  Sint32 rank, Sint32 button, POINT cel, const char *& textForButton)
+  Sint32 rank, Buttons button, POINT cel, const char *& textForButton)
 {
   Sint32 i, j, param, nb;
 
@@ -1329,12 +1329,13 @@ Sint32 table_multi_goal[16 * 2] = {
 
 bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
 {
-  Sint32 op, x, y;
-  Sint32 action, direct, channel, icon, mchannel, micon;
-  Sint32 total, step, delai, first, last, first2, last2, flag, i;
-  Sint32 button, param;
-  POINT  pos, cel, cMem, destCel;
-  bool   bOK, bError = true;
+  Sint32  op, x, y;
+  Sint32  action, direct, channel, icon, mchannel, micon;
+  Sint32  total, step, delai, first, last, first2, last2, flag, i;
+  Sint32  param;
+  Buttons button;
+  POINT   pos, cel, cMem, destCel;
+  bool    bOK, bError = true;
 
   pos = ConvCelToPos (m_blupi[rank].cel);
 
@@ -2103,7 +2104,7 @@ error:
   GoalStop (rank, bError, i == -1);
   if (i != -1) // répétition en cours ?
   {
-    button = m_blupi[rank].listButton[i];
+    button = static_cast<Buttons> (m_blupi[rank].listButton[i]);
     cMem   = m_blupi[rank].listCel[i];
     param  = m_blupi[rank].listParam[i];
     cel    = cMem;
@@ -3651,10 +3652,11 @@ void CDecor::BlupiDrawHili ()
 // Est utilisé pour trouver que faire lors d'un clic
 // avec le bouton de droite.
 
-Sint32 CDecor::GetDefButton (POINT cel)
+Buttons CDecor::GetDefButton (POINT cel)
 {
-  Sint32 button, rank, channel, icon;
-  POINT  iCel;
+  Buttons button;
+  Sint32  rank, channel, icon;
+  POINT   iCel;
 
   iCel  = cel;
   cel.x = (cel.x / 2) * 2;
@@ -3662,7 +3664,7 @@ Sint32 CDecor::GetDefButton (POINT cel)
   GetObject (cel, channel, icon);
 
   if (m_nbBlupiHili == 0)
-    return -1;
+    return BUTTON_NONE;
   if (m_nbBlupiHili > 1)
     return BUTTON_GO;
 
@@ -3736,20 +3738,20 @@ Sint32 CDecor::GetDefButton (POINT cel)
      m_blupi[rank].takeChannel != -1) &&
     (button == BUTTON_ABAT || button == BUTTON_CARRY || button == BUTTON_ROC ||
      button == BUTTON_CULTIVE))
-    return -1;
+    return BUTTON_NONE;
 
   if (m_blupi[rank].energy > (MAXENERGY / 4) * 3 && button == BUTTON_EAT)
     button = BUTTON_CARRY;
 
   if (m_buttonExist[button] == 0) // bouton existe ?
-    return -1;
+    return BUTTON_NONE;
 
   return button;
 }
 
 // Indique un but visé à Sint32 terme, pour un blupi donné.
 
-bool CDecor::BlupiGoal (Sint32 rank, Sint32 button, POINT cel, POINT cMem)
+bool CDecor::BlupiGoal (Sint32 rank, Buttons button, POINT cel, POINT cMem)
 {
   POINT  goalHili, goalHili2, goal, test;
   Sint32 i, action, channel, icon, error, direct, step;
@@ -4012,7 +4014,7 @@ bool CDecor::BlupiGoal (Sint32 rank, Sint32 button, POINT cel, POINT cMem)
 // Indique un but visé à Sint32 terme, pour tous les blupi
 // sélectionnés.
 
-void CDecor::BlupiGoal (POINT cel, Sint32 button)
+void CDecor::BlupiGoal (POINT cel, Buttons button)
 {
   POINT  bPos, avg;
   Sint32 rank, nb, nbHili;
@@ -4277,87 +4279,60 @@ bool CDecor::IsWorkBlupi (Sint32 rank)
 // pour le blupi sélectionné.
 
 void CDecor::BlupiGetButtons (
-  POINT pos, Sint32 & nb, Sint32 * pButtons, Errors * pErrors,
+  POINT pos, Sint32 & nb, Buttons * pButtons, Errors * pErrors,
   std::unordered_map<Sint32, const char *> & texts, Sint32 & perso)
 {
-  Sint32 *     pB = pButtons;
+  Buttons *    pB = pButtons;
   Errors *     pE = pErrors;
   POINT        cel, cel2;
-  Sint32       i, rank, button, channel, icon;
+  Sint32       i, rank, channel, icon;
   Errors       error;
+  Buttons      button;
   bool         bBuild = false;
   bool         bPut;
   const char * textForButton;
 
-  static Sint32 table_buttons[] = {BUTTON_GO,
-                                   0,
-                                   BUTTON_DJEEP,
-                                   0,
-                                   BUTTON_DARMOR,
-                                   0,
-                                   BUTTON_EAT,
-                                   0,
-                                   BUTTON_BOIT,
-                                   0,
-                                   BUTTON_CARRY,
-                                   0,
-                                   BUTTON_DEPOSE,
-                                   0,
-                                   BUTTON_LABO,
-                                   0,
-                                   BUTTON_ABAT,
-                                   0,
-                                   BUTTON_ABATn,
-                                   0,
-                                   BUTTON_ROC,
-                                   0,
-                                   BUTTON_ROCn,
-                                   0,
-                                   BUTTON_CULTIVE,
-                                   0,
-                                   BUTTON_FLOWER,
-                                   0,
-                                   BUTTON_FLOWERn,
-                                   0,
-                                   BUTTON_DYNAMITE,
-                                   0,
-                                   BUTTON_FLAG,
-                                   0,
-                                   BUTTON_EXTRAIT,
-                                   0,
-                                   BUTTON_FABJEEP,
-                                   0,
-                                   BUTTON_FABMINE,
-                                   0,
-                                   BUTTON_FABDISC,
-                                   0,
-                                   BUTTON_MAKEARMOR,
-                                   0,
-                                   BUTTON_BUILD1,
-                                   36, // si planches (cabane)
-                                   BUTTON_BUILD2,
-                                   36, // si planches (nurserie)
-                                   BUTTON_BUILD4,
-                                   36, // si planches (mine)
-                                   BUTTON_PALIS,
-                                   36, // si planches
-                                   BUTTON_BRIDGE,
-                                   36, // si planches
-                                   BUTTON_BOAT,
-                                   36, // si planches
-                                   BUTTON_BUILD6,
-                                   36, // si planches (téléporteur)
-                                   BUTTON_BUILD3,
-                                   44, // si pierres (laboratoire)
-                                   BUTTON_BUILD5,
-                                   44, // si pierres (usine)
-                                   BUTTON_WALL,
-                                   44, // si pierres
-                                   BUTTON_TOWER,
-                                   44, // si pierres
-                                   BUTTON_STOP,
-                                   0,
-                                   -1};
+  static struct {
+    Buttons button;
+    Sint32  icon;
+  } table_buttons[] = {
+    //
+    {BUTTON_GO, 0},        //
+    {BUTTON_DJEEP, 0},     //
+    {BUTTON_DARMOR, 0},    //
+    {BUTTON_EAT, 0},       //
+    {BUTTON_BOIT, 0},      //
+    {BUTTON_CARRY, 0},     //
+    {BUTTON_DEPOSE, 0},    //
+    {BUTTON_LABO, 0},      //
+    {BUTTON_ABAT, 0},      //
+    {BUTTON_ABATn, 0},     //
+    {BUTTON_ROC, 0},       //
+    {BUTTON_ROCn, 0},      //
+    {BUTTON_CULTIVE, 0},   //
+    {BUTTON_FLOWER, 0},    //
+    {BUTTON_FLOWERn, 0},   //
+    {BUTTON_DYNAMITE, 0},  //
+    {BUTTON_FLAG, 0},      //
+    {BUTTON_EXTRAIT, 0},   //
+    {BUTTON_FABJEEP, 0},   //
+    {BUTTON_FABMINE, 0},   //
+    {BUTTON_FABDISC, 0},   //
+    {BUTTON_MAKEARMOR, 0}, //
+    {BUTTON_BUILD1, 36},   // si planches (cabane)
+    {BUTTON_BUILD2, 36},   // si planches (nurserie)
+    {BUTTON_BUILD4, 36},   // si planches (mine)
+    {BUTTON_PALIS, 36},    // si planches
+    {BUTTON_BRIDGE, 36},   // si planches
+    {BUTTON_BOAT, 36},     // si planches
+    {BUTTON_BUILD6, 36},   // si planches (téléporteur)
+    {BUTTON_BUILD3, 44},   // si pierres (laboratoire)
+    {BUTTON_BUILD5, 44},   // si pierres (usine)
+    {BUTTON_WALL, 44},     // si pierres
+    {BUTTON_TOWER, 44},    // si pierres
+    {BUTTON_STOP, 0},      //
+    {BUTTON_NONE, 0}       //
+  };
 
   nb    = 0;
   perso = 0;
@@ -4425,13 +4400,12 @@ void CDecor::BlupiGetButtons (
   }
 
   // Met les différentes actions.
-  i = 0;
-  while (table_buttons[i] != -1)
+  for (size_t i = 0; i < countof (table_buttons); ++i)
   {
-    button = table_buttons[i];
+    button = table_buttons[i].button;
 
     if (m_buttonExist[button] == 0)
-      goto next;
+      continue;
 
     error = CelOkForAction (cel, table_actions[button], m_rankBlupiHili);
 
@@ -4441,14 +4415,14 @@ void CDecor::BlupiGetButtons (
       bPut = false;
 
     if (
-      bBuild && table_buttons[i + 1] != 0 && // toujours présent si matière ?
+      bBuild && table_buttons[i].icon != 0 && // toujours présent si matière ?
       (m_rankBlupiHili < 0 ||
        m_blupi[m_rankBlupiHili].perso != 8 || // pas disciple ?
-       table_buttons[i + 1] != 44))           // ni pierres ?
+       table_buttons[i].icon != 44))          // ni pierres ?
     {
       GetObject (cel2, channel, icon);
       if (
-        channel == CHOBJECT && icon == table_buttons[i + 1] && // matière ?
+        channel == CHOBJECT && icon == table_buttons[i].icon && // matière ?
         cel.x % 2 == 1 && cel.y % 2 == 1)
       {
         bPut = true; // bouton présent, mais disable !
@@ -4461,9 +4435,6 @@ void CDecor::BlupiGetButtons (
       *pE++ = error;
       nb++;
     }
-
-  next:
-    i += 2;
   }
 
   // Si le premier bouton est "abat", ajoute "va" devant !
