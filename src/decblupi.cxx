@@ -311,7 +311,7 @@ void CDecor::BlupiCheat (Sint32 cheat)
 
 void CDecor::BlupiActualise (Sint32 rank)
 {
-  Sint16 sound;
+  Sounds sound;
 
   Action (
     m_blupi[rank].action, m_blupi[rank].aDirect, m_blupi[rank].phase,
@@ -416,9 +416,9 @@ void CDecor::BlupiAdaptIcon (Sint32 rank)
 // Si bStop=true, on stoppe le son précédent associé
 // à ce blupi (rank), si nécessaire.
 
-void CDecor::BlupiSound (Sint32 rank, Sint32 sound, POINT pos, bool bStop)
+void CDecor::BlupiSound (Sint32 rank, Sounds sound, POINT pos, bool bStop)
 {
-  Sint32 newSound;
+  Sounds newSound;
 
   if (rank == -1)
     rank = m_rankBlupiHili;
@@ -428,7 +428,7 @@ void CDecor::BlupiSound (Sint32 rank, Sint32 sound, POINT pos, bool bStop)
     if (
       sound == SOUND_HOP || sound == SOUND_BURN || sound == SOUND_TCHAO ||
       sound == SOUND_FLOWER || sound == SOUND_ARROSE)
-      newSound = -1;
+      newSound = SOUND_NONE;
     else
       newSound = sound;
 
@@ -451,7 +451,7 @@ void CDecor::BlupiSound (Sint32 rank, Sint32 sound, POINT pos, bool bStop)
       sound == SOUND_TERM4 || sound == SOUND_TERM5 || sound == SOUND_TERM6)
       newSound = SOUND_D_TERM;
 
-    if (newSound == -1)
+    if (newSound == SOUND_NONE)
       return;
     sound = newSound;
   }
@@ -464,34 +464,33 @@ void CDecor::BlupiSound (Sint32 rank, Sint32 sound, POINT pos, bool bStop)
 
 // Sons associés à des actions.
 // clang-format off
-static const Sint16 tableSound[] = {
-  ACTION_BURN,     SOUND_BURN,
-  ACTION_TCHAO,    SOUND_TCHAO,
-  ACTION_EAT,      SOUND_EAT,
-  ACTION_DRINK,    SOUND_DRINK,
-  ACTION_SLIDE,    SOUND_SLIDE,
-  ACTION_R_LOAD,   SOUND_R_LOAD,
-  -1
+static const struct {
+ Sint16 action;
+ Sounds sound;
+} tableSound[] = {
+    {ACTION_BURN,     SOUND_BURN},
+    {ACTION_TCHAO,    SOUND_TCHAO},
+        {ACTION_EAT,      SOUND_EAT},
+            {ACTION_DRINK,    SOUND_DRINK},
+                {ACTION_SLIDE,    SOUND_SLIDE},
+                    {ACTION_R_LOAD,   SOUND_R_LOAD},
 };
 // clang-format on
 // Effectue quelques initialisations pour une nouvelle action.
 
 void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
 {
-  const auto * pTable = tableSound;
-  POINT        pos;
-  Sint32       rand;
+  POINT  pos;
+  Sint32 rand;
 
-  while (*pTable != -1)
+  for (size_t i = 0; i < countof (tableSound); ++i)
   {
-    if (pTable[0] == action)
+    if (tableSound[i].action == action)
     {
       pos = ConvCelToPos (m_blupi[rank].cel);
-      BlupiSound (rank, pTable[1], pos);
+      BlupiSound (rank, tableSound[i].sound, pos);
       break;
     }
-
-    pTable += 2;
   }
 
   m_blupi[rank].action = action;
@@ -1834,7 +1833,7 @@ bool CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
   if (op == GOAL_SOUND)
   {
     icon = *pTable++;
-    BlupiSound (rank, icon, pos);
+    BlupiSound (rank, static_cast<Sounds> (icon), pos);
     return true;
   }
 
@@ -2151,12 +2150,12 @@ void CDecor::GoalStop (Sint32 rank, bool bError, bool bSound)
 {
   POINT pos;
 
-  static Sint32 table_sound_term[6] = {
+  static Sounds table_sound_term[] = {
     SOUND_TERM1, SOUND_TERM2, SOUND_TERM3,
     SOUND_TERM4, SOUND_TERM5, SOUND_TERM6,
   };
 
-  static Sint32 table_sound_boing[3] = {
+  static Sounds table_sound_boing[] = {
     SOUND_BOING1, SOUND_BOING2, SOUND_BOING3,
   };
 
@@ -2195,12 +2194,16 @@ void CDecor::GoalStop (Sint32 rank, bool bError, bool bSound)
     {
       pos.x = LXIMAGE / 2;
       pos.y = LYIMAGE / 2;
-      BlupiSound (rank, table_sound_boing[Random (0, 2)], pos, true);
+      BlupiSound (
+        rank, table_sound_boing[Random (0, countof (table_sound_boing) - 1)],
+        pos, true);
     }
     else
     {
       pos = ConvCelToPos (m_blupi[rank].cel);
-      BlupiSound (rank, table_sound_term[Random (0, 5)], pos, true);
+      BlupiSound (
+        rank, table_sound_term[Random (0, countof (table_sound_term) - 1)], pos,
+        true);
     }
   }
 }
@@ -2426,7 +2429,7 @@ bool CDecor::BlupiNextAction (Sint32 rank)
   bool   bOK;
   POINT  pos, iCel;
   Sint32 a, min;
-  Sint16 sound;
+  Sounds sound;
 
   if (!m_blupi[rank].bExist)
     return false;
@@ -2473,7 +2476,7 @@ bool CDecor::BlupiNextAction (Sint32 rank)
       m_blupi[rank].pos, m_blupi[rank].posZ, sound);
     BlupiAdaptIcon (rank);
 
-    if (sound != -1)
+    if (sound != SOUND_NONE)
     {
       pos = ConvCelToPos (m_blupi[rank].cel);
       BlupiSound (rank, sound, pos);
@@ -3379,20 +3382,21 @@ void CDecor::BlupiHiliMove (POINT pos)
 
 void CDecor::BlupiHiliUp (POINT pos)
 {
-  Sint32 rank, r, nb, sound;
+  Sint32 rank, r, nb;
+  Sounds sound;
   bool   bEnerve = false;
   POINT  c1, c2;
 
-  static Sint32 table_sound_ok[6] = {
+  static Sounds table_sound_ok[] = {
     SOUND_OK1, SOUND_OK2, SOUND_OK3, SOUND_OK4, SOUND_OK5, SOUND_OK6,
   };
 
-  static Sint32 table_sound_okf[3] = // si fatigué
+  static Sounds table_sound_okf[] = // si fatigué
     {
       SOUND_OK1f, SOUND_OK2f, SOUND_OK3f,
     };
 
-  static Sint32 table_sound_oke[3] = // si énervé
+  static Sounds table_sound_oke[] = // si énervé
     {
       SOUND_OK1e, SOUND_OK2e, SOUND_OK3e,
     };
@@ -3470,15 +3474,15 @@ void CDecor::BlupiHiliUp (POINT pos)
     if (nb > 0)
     {
       if (nb > 1) // sélection multiple ?
-        sound = table_sound_ok[Random (0, 5)];
+        sound = table_sound_ok[Random (0, countof (table_sound_ok) - 1)];
       else
       {
         if (m_blupi[rank].energy <= MAXENERGY / 4)
-          sound = table_sound_okf[Random (0, 2)];
+          sound = table_sound_okf[Random (0, countof (table_sound_okf) - 1)];
         else
-          sound = table_sound_ok[Random (0, 5)];
+          sound = table_sound_ok[Random (0, countof (table_sound_ok) - 1)];
         if (bEnerve) // déjà sélectionné y'a peu ?
-          sound = table_sound_oke[Random (0, 2)];
+          sound = table_sound_oke[Random (0, countof (table_sound_oke) - 1)];
       }
       BlupiSound (rank, sound, pos, true);
     }
@@ -4019,22 +4023,23 @@ void CDecor::BlupiGoal (POINT cel, Buttons button)
   POINT  bPos, avg;
   Sint32 rank, nb, nbHili;
 
-  static Sint32 table_sound_go[6] = {
+  static Sounds table_sound_go[] = {
     SOUND_GO1, SOUND_GO2, SOUND_GO3, SOUND_GO4, SOUND_GO5, SOUND_GO6,
   };
 
-  static Sint32 table_sound_gom[3] = {
+  static Sounds table_sound_gom[] = {
     SOUND_GO4, SOUND_GO5, SOUND_GO6,
   };
 
-  static Sint32 table_sound_boing[3] = {
+  static Sounds table_sound_boing[] = {
     SOUND_BOING1, SOUND_BOING2, SOUND_BOING3,
   };
 
   if (button == -1)
   {
     avg = ConvCelToPos (cel);
-    m_pSound->PlayImage (table_sound_boing[Random (0, 2)], avg);
+    m_pSound->PlayImage (
+      table_sound_boing[Random (0, countof (table_sound_boing) - 1)], avg);
     return;
   }
 

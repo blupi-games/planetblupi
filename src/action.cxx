@@ -2732,7 +2732,7 @@ static const DescAction action_table[] =
 
 bool Action (
   Sint16 action, Sint16 direct, Sint16 & phase, Sint16 & step, Sint16 & channel,
-  Sint16 & icon, POINT & pos, Sint16 & posZ, Sint16 & sound)
+  Sint16 & icon, POINT & pos, Sint16 & posZ, Sounds & sound)
 {
   const auto * pTable = action_table;
   Sint16       nbIcon, nbPhase, nbMove, nbSound, i;
@@ -2757,9 +2757,10 @@ bool Action (
       icon    = pTable->icons[direct / 16][1 + step % nbIcon];
 
       if (nbSound == 0 || step >= nbSound)
-        sound = -1;
+        sound = SOUND_NONE;
       else
-        sound = pTable->sounds[1 + step % nbSound];
+        sound =
+          static_cast<Sounds> (pTable->sounds[1 + step % nbSound]); // FIXME
 
       for (i = 0; i < phase; i++)
       {

@@ -218,6 +218,7 @@ enum Actions {
 
 // Sounds:
 enum Sounds {
+  SOUND_NONE        = -1,
   SOUND_CLICK       = 0,
   SOUND_BOING       = 1,
   SOUND_OK1         = 2,

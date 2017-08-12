@@ -2665,7 +2665,8 @@ void CEvent::HideMouse (bool bHide)
 bool CEvent::EventButtons (const SDL_Event & event, POINT pos)
 {
   POINT  test;
-  Sint32 lg, sound;
+  Sint32 lg;
+  Sounds sound;
 
   // Cherche le tool tips à utiliser pour la souris.
   m_textToolTips[0] = 0;
@@ -3540,7 +3541,7 @@ bool CEvent::PlayMove (POINT pos)
 
 bool CEvent::PlayUp (POINT pos)
 {
-  static Sint32 table_sound_boing[3] = {
+  static Sounds table_sound_boing[] = {
     SOUND_BOING1, SOUND_BOING2, SOUND_BOING3,
   };
 
@@ -3555,7 +3556,9 @@ bool CEvent::PlayUp (POINT pos)
       m_pDecor->BlupiGetButtons (
         pos, m_menuNb, m_menuButtons, m_menuErrors, m_menuTexts, m_menuPerso);
       if (m_menuNb == 0)
-        m_pDecor->BlupiSound (-1, table_sound_boing[Random (0, 2)], pos);
+        m_pDecor->BlupiSound (
+          -1, table_sound_boing[Random (0, countof (table_sound_boing) - 1)],
+          pos);
       else
       {
         m_menuCel = m_pDecor->ConvPosToCel (pos);
@@ -4809,7 +4812,8 @@ bool CEvent::TreatEvent (const SDL_Event & event)
 bool CEvent::TreatEventBase (const SDL_Event & event)
 {
   POINT  pos;
-  Sint32 i, sound;
+  Sint32 i;
+  Sounds sound;
   char   c;
   bool   bEnable;
 

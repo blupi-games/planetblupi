@@ -265,7 +265,7 @@ public:
   void   BlupiActualise (Sint32 rank);
   void   BlupiAdaptIcon (Sint32 rank);
   void   BlupiPushFog (Sint32 rank);
-  void   BlupiSound (Sint32 rank, Sint32 sound, POINT pos, bool bStop = false);
+  void   BlupiSound (Sint32 rank, Sounds sound, POINT pos, bool bStop = false);
   void   BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct = -1);
   void   BlupiChangeAction (Sint32 rank, Sint32 action, Sint32 direct = -1);
   void   ListFlush (Sint32 rank);
