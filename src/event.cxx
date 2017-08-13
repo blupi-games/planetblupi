@@ -2100,7 +2100,7 @@ bool CEvent::DrawButtons ()
     m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1); // dessine le fond
     if (m_speed > 1)
     {
-      sprintf (res, "x%d", m_speed);
+      snprintf (res, sizeof (res), "x%d", m_speed);
       DrawText (m_pPixmap, pos, res);
     }
 
@@ -2178,7 +2178,7 @@ bool CEvent::DrawButtons ()
       world = m_fileWorld[i];
       time  = m_fileTime[i];
 
-      sprintf (text, "%d", i + 1);
+      snprintf (text, sizeof (text), "%d", i + 1);
       lg    = GetTextWidth (text);
       pos.x = (420 + 460) / 2 - lg / 2;
       pos.y = 30 + 12 + 42 * i;
@@ -2436,19 +2436,19 @@ bool CEvent::DrawButtons ()
     DrawTextCenter (gettext ("Music\nvolume"), 399 + 40, 80);
     DrawTextCenter (gettext ("Video\nsequences"), 514 + 40, 80);
 
-    sprintf (res, "x%d", m_speed);
+    snprintf (res, sizeof (res), "x%d", m_speed);
     lg    = GetTextWidth (res);
     pos.x = (54 + 40) - lg / 2;
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
 
-    sprintf (res, "%d", m_pSound->GetAudioVolume ());
+    snprintf (res, sizeof (res), "%d", m_pSound->GetAudioVolume ());
     lg    = GetTextWidth (res);
     pos.x = (284 + 40) - lg / 2;
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
 
-    sprintf (res, "%d", m_pSound->GetMidiVolume ());
+    snprintf (res, sizeof (res), "%d", m_pSound->GetMidiVolume ());
     lg    = GetTextWidth (res);
     pos.x = (399 + 40) - lg / 2;
     pos.y = 330 - 20;
@@ -2465,7 +2465,7 @@ bool CEvent::DrawButtons ()
     if (!m_scrollSpeed)
       snprintf (res, sizeof (res), "%s", gettext ("None"));
     else
-      sprintf (res, "%d", m_scrollSpeed);
+      snprintf (res, sizeof (res), "%d", m_scrollSpeed);
     lg    = GetTextWidth (res);
     pos.x = (169 + 40) - lg / 2;
     pos.y = 330 - 20;
@@ -4275,7 +4275,7 @@ void CEvent::PrivateLibelle ()
     snprintf (
       buffer, sizeof (buffer), "%s",
       gettext ("1|The Blupi population must\n1|be of at least %d Blupi."));
-    sprintf (string, buffer, term.nbMaxBlupi);
+    snprintf (string, sizeof (string), buffer, term.nbMaxBlupi);
     strcat (m_libelle, "\n1|\n");
     strcat (m_libelle, string);
   }

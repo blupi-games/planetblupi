@@ -137,7 +137,7 @@ void CSound::CacheAll ()
 
   for (i = 0; i < MAXSOUND; i++)
   {
-    sprintf (name, "sound%.3d.wav", i);
+    snprintf (name, sizeof (name), "sound%.3d.wav", i);
     if (!Cache (i, name))
       break;
   }

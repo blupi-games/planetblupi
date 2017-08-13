@@ -713,7 +713,7 @@ void CDecor::StatisticDraw ()
       m_pPixmap->DrawIcon (-1, CHBUTTON, icon, pos);
 
       nb = pStatistic->nb;
-      sprintf (text, "%d", nb);
+      snprintf (text, sizeof (text), "%d", nb);
       pos.x += 3 + 34;
       pos.y += 5 + 7;
       DrawText (m_pPixmap, pos, text);

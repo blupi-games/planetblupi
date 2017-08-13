@@ -238,7 +238,7 @@ bool CDecor::LoadImages ()
   totalDim.y = DIMCELY * 2 * 6;
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
-  sprintf (filename, "image/floor%.3d.png", m_region);
+  snprintf (filename, sizeof (filename), "image/floor%.3d.png", m_region);
   if (!m_pPixmap->Cache (CHFLOOR, filename, totalDim, iconDim))
     return false;
 
@@ -246,11 +246,11 @@ bool CDecor::LoadImages ()
   totalDim.y = DIMOBJY * 8;
   iconDim.x  = DIMOBJX;
   iconDim.y  = DIMOBJY;
-  sprintf (filename, "image/obj%.3d.png", m_region);
+  snprintf (filename, sizeof (filename), "image/obj%.3d.png", m_region);
   if (!m_pPixmap->Cache (CHOBJECT, filename, totalDim, iconDim))
     return false;
 
-  sprintf (filename, "image/obj-o%.3d.png", m_region);
+  snprintf (filename, sizeof (filename), "image/obj-o%.3d.png", m_region);
   if (!m_pPixmap->Cache (CHOBJECTo, filename, totalDim, iconDim))
     return false;
 
@@ -708,7 +708,7 @@ void CDecor::BuildMoveObject (Sint32 x, Sint32 y, POINT pos, Sint32 rank)
     m_pPixmap->DrawIcon (
       -1, m_decor[x / 2][y / 2].objectChannel, m_decor[x / 2][y / 2].objectIcon,
       pos);
-    sprintf (string, "%d", m_move[rank].icon - MOVEICONNB);
+    snprintf (string, sizeof (string), "%d", m_move[rank].icon - MOVEICONNB);
     textPos.x = pos.x + DIMCELX / 2 + 32;
     textPos.y = pos.y + (DIMOBJY - DIMCELY * 2) + 36;
     DrawTextCenter (m_pPixmap, textPos, string, FONTLITTLE);

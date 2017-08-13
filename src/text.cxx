@@ -335,7 +335,7 @@ void DrawBignum (CPixmap * pPixmap, POINT pos, Sint32 num)
   Sint32 start, lg;
   RECT   rect;
 
-  sprintf (string, "%d", num);
+  snprintf (string, sizeof (string), "%d", num);
 
   rect.top    = 0;
   rect.bottom = 52;
@@ -361,7 +361,7 @@ Sint32 GetBignumWidth (Sint32 num)
   Sint32 start, lg;
   Sint32 width = -4;
 
-  sprintf (string, "%d", num);
+  snprintf (string, sizeof (string), "%d", num);
 
   while (string[i] != 0)
   {
