@@ -96,8 +96,8 @@ protected:
     SDL_BlendMode = SDL_BLENDMODE_BLEND);
 
   RECT      MouseRectSprite ();
-  SDL_Point GetCursorHotSpot (Sint32 sprite);
-  SDL_Rect  GetCursorRect (Sint32 sprite);
+  SDL_Point GetCursorHotSpot (MouseSprites sprite);
+  SDL_Rect  GetCursorRect (MouseSprites sprite);
 
 protected:
   bool  m_bDebug;

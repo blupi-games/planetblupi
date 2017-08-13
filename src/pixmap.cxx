@@ -662,7 +662,7 @@ RECT CPixmap::MouseRectSprite ()
   return rcRect;
 }
 
-SDL_Point CPixmap::GetCursorHotSpot (Sint32 sprite)
+SDL_Point CPixmap::GetCursorHotSpot (MouseSprites sprite)
 {
   static const Sint32 hotspots[MAXCURSORS * 2] = {
     30, 30, // SPRITE_ARROW
@@ -694,7 +694,7 @@ SDL_Point CPixmap::GetCursorHotSpot (Sint32 sprite)
   return hotspot;
 }
 
-SDL_Rect CPixmap::GetCursorRect (Sint32 sprite)
+SDL_Rect CPixmap::GetCursorRect (MouseSprites sprite)
 {
   Sint32   rank;
   SDL_Rect rcRect;
@@ -773,10 +773,11 @@ on the endianness (byte order) of the machine */
   amask = 0xff000000;
 #endif
 
-  for (int sprite = SPRITE_BEGIN; sprite <= SPRITE_END; ++sprite)
+  for (int i = SPRITE_BEGIN; i <= SPRITE_END; ++i)
   {
-    SDL_Point hotspot = this->GetCursorHotSpot (sprite);
-    SDL_Rect  rect    = this->GetCursorRect (sprite);
+    MouseSprites sprite  = static_cast<MouseSprites> (i);
+    SDL_Point    hotspot = this->GetCursorHotSpot (sprite);
+    SDL_Rect     rect    = this->GetCursorRect (sprite);
 
     SDL_Surface * surface =
       SDL_CreateRGBSurface (0, rect.w, rect.h, 32, rmask, gmask, bmask, amask);
