@@ -129,8 +129,8 @@ public:
   void IntroStep ();
 
   Uint8 GetWindowScale ();
+  void  SetUpdateVersion (const std::string & version);
 
-public:
   static void PushUserEvent (Sint32 code, void * data = nullptr);
 
 protected:
@@ -247,6 +247,8 @@ protected:
   Uint16                                   m_keymod;
   POINT                                    m_debugPos;
   Sint32                                   m_introTime;
+  Sint32                                   m_updateBlinking;
+  std::string                              m_updateVersion;
 };
 
 /////////////////////////////////////////////////////////////////////////////

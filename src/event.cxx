@@ -1590,6 +1590,8 @@ CEvent::CEvent ()
     m_Lang = m_Languages.begin () + 3;
   else
     m_Lang = m_Languages.begin ();
+
+  m_updateBlinking = 0;
 }
 
 // Destructeur.
@@ -1870,6 +1872,11 @@ void AddCheatCode (char * pDst, char * pSrc)
   pDst[j] = 0;
 }
 
+void CEvent::SetUpdateVersion (const std::string & version)
+{
+  this->m_updateVersion = version;
+}
+
 // Dessine un texte multi-lignes centré.
 
 void CEvent::DrawTextCenter (const char * text, Sint32 x, Sint32 y, Sint32 font)
@@ -1945,6 +1952,17 @@ bool CEvent::DrawButtons ()
       res, sizeof (res), "%s %u.%u.%u", gettext ("Version"), PB_VERSION_MAJOR,
       PB_VERSION_MINOR, PB_VERSION_PATCH);
     DrawText (m_pPixmap, pos, res, FONTLITTLE);
+
+    if (!this->m_updateVersion.empty () && this->m_updateBlinking++ % 80 < 40)
+    {
+      pos.x = 70;
+      pos.y = 465;
+      snprintf (
+        res, sizeof (res),
+        gettext ("New version available for download on www.blupi.org (v%s)"),
+        this->m_updateVersion.c_str ());
+      DrawText (m_pPixmap, pos, res, FONTLITTLE);
+    }
   }
 
   if (m_phase == EV_PHASE_SETUP || m_phase == EV_PHASE_SETUPp)

@@ -22,9 +22,15 @@
 #include <argagg/argagg.hpp>
 #include <curl/curl.h>
 #include <iostream>
+#include <iterator>
+#include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
+#include <thread>
+#include <vector>
+
+#include "json.hpp"
 
 #include "blupi.h"
 #include "button.h"
@@ -73,6 +79,25 @@ struct url_data {
   char *   buffer;
   size_t   size;
 };
+
+template <typename Out>
+void split (const std::string & s, char delim, Out result)
+{
+  std::stringstream ss;
+  ss.str (s);
+  std::string item;
+  while (std::getline (ss, item, delim))
+  {
+    *(result++) = item;
+  }
+}
+
+std::vector<std::string> split (const std::string & s, char delim)
+{
+  std::vector<std::string> elems;
+  split (s, delim, std::back_inserter (elems));
+  return elems;
+}
 
 /**
  * \brief Read an integer from a string.
@@ -387,6 +412,28 @@ static void HandleEvent (const SDL_Event & event)
       SDL_WarpMouseInWindow (g_window, coord->x, coord->y);
       delete coord;
       break;
+    }
+
+    case EV_CHECKUPDATE:
+    {
+      std::string * data = static_cast<std::string *> (event.user.data1);
+
+      using json    = nlohmann::json;
+      json jsonData = json::parse (*data);
+
+      /* Check if the remote version is newer */
+      std::vector<std::string>  list = split (jsonData["version"], '.');
+      std::vector<unsigned int> version (3);
+      std::transform (
+        list.begin (), list.end (), version.begin (),
+        [](const std::string & s) -> unsigned int { return std::stoi (s); });
+
+      if (
+        PB_VERSION_INT (version[0], version[1], version[2]) >
+        PLANETBLUPI_VERSION_INT)
+        g_pEvent->SetUpdateVersion (jsonData["version"]);
+
+      delete data;
     }
 
     case EV_MUSIC_STOP:
