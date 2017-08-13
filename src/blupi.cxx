@@ -20,6 +20,7 @@
 
 #include <SDL2/SDL_image.h>
 #include <argagg/argagg.hpp>
+#include <curl/curl.h>
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -42,11 +43,12 @@
 SDL_Window *   g_window;
 SDL_Renderer * g_renderer;
 
-CEvent *  g_pEvent  = nullptr;
-CPixmap * g_pPixmap = nullptr; // pixmap principal
-CSound *  g_pSound  = nullptr; // sound principal
-CMovie *  g_pMovie  = nullptr; // movie principal
-CDecor *  g_pDecor  = nullptr;
+CEvent *      g_pEvent       = nullptr;
+CPixmap *     g_pPixmap      = nullptr; // pixmap principal
+CSound *      g_pSound       = nullptr; // sound principal
+CMovie *      g_pMovie       = nullptr; // movie principal
+CDecor *      g_pDecor       = nullptr;
+std::thread * g_updateThread = nullptr;
 
 bool   g_bFullScreen   = false; // false si mode de test
 Sint32 g_speedRate     = 1;
@@ -65,6 +67,12 @@ static int g_settingsOverload = 0;
 bool        g_bTermInit = false; // initialisation en cours
 Uint32      g_lastPhase = 999;
 static bool g_pause;
+
+struct url_data {
+  CURLcode status;
+  char *   buffer;
+  size_t   size;
+};
 
 /**
  * \brief Read an integer from a string.
@@ -412,6 +420,64 @@ static void InitFail (const char * msg)
     SDL_MessageBoxFlags::SDL_MESSAGEBOX_ERROR, "Error", buffer, g_window);
 
   FinishObjects ();
+}
+
+static size_t
+updateCallback (void * ptr, size_t size, size_t nmemb, void * data)
+{
+  size_t     realsize = size * nmemb;
+  url_data * mem      = static_cast<url_data *> (data);
+
+  mem->buffer =
+    static_cast<char *> (realloc (mem->buffer, mem->size + realsize + 1));
+  if (mem->buffer)
+  {
+    memcpy (&(mem->buffer[mem->size]), ptr, realsize);
+    mem->size += realsize;
+    mem->buffer[mem->size] = 0;
+  }
+
+  return realsize;
+}
+
+static void CheckForUpdates ()
+{
+  url_data chunk;
+
+  chunk.buffer = nullptr; /* we expect realloc(NULL, size) to work */
+  chunk.size   = 0;       /* no data at this point */
+  chunk.status = CURLE_FAILED_INIT;
+
+  CURL * curl = curl_easy_init ();
+  if (!curl)
+    return;
+
+  curl_easy_setopt (curl, CURLOPT_NOSIGNAL, 1);
+  curl_easy_setopt (curl, CURLOPT_FAILONERROR, 1);
+  curl_easy_setopt (curl, CURLOPT_FOLLOWLOCATION, 1);
+
+  curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, updateCallback);
+
+  curl_easy_setopt (curl, CURLOPT_URL, "http://blupi.org/update/planet");
+  curl_easy_setopt (curl, CURLOPT_WRITEDATA, (void *) &chunk);
+  chunk.status = curl_easy_perform (curl);
+
+  if (chunk.status)
+  {
+    const char * err = curl_easy_strerror (chunk.status);
+    SDL_LogError (
+      SDL_LOG_CATEGORY_APPLICATION, "Check for updates, error: %s", err);
+  }
+  else
+  {
+    std::string * res = new std::string (chunk.buffer, chunk.size);
+    CEvent::PushUserEvent (EV_CHECKUPDATE, res);
+  }
+
+  if (chunk.buffer)
+    free (chunk.buffer);
+
+  curl_easy_cleanup (curl);
 }
 
 static int parseArgs (int argc, char * argv[], bool & exit)
@@ -792,6 +858,7 @@ static int DoInit (int argc, char * argv[], bool & exit)
   }
 
   g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
+  g_updateThread = new std::thread (CheckForUpdates);
   g_pEvent->SetFullScreen (g_bFullScreen);
   g_pEvent->ChangePhase (EV_PHASE_INTRO1);
 
@@ -838,5 +905,12 @@ int main (int argc, char * argv[])
   SDL_RemoveTimer (updateTimer);
   FinishObjects ();
   SDL_Quit ();
+
+  if (g_updateThread)
+  {
+    g_updateThread->join ();
+    delete (g_updateThread);
+  }
+
   return 0;
 }

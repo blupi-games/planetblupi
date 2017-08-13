@@ -81,6 +81,7 @@ find_package (PkgConfig REQUIRED)
 pkg_search_module (SDL2 REQUIRED sdl2)
 pkg_search_module (SDL2_MIXER REQUIRED SDL2_mixer)
 pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
+pkg_search_module (CURL REQUIRED libcurl)
 # Static dependencies for SDL_kitchensink
 pkg_search_module (PNG REQUIRED libpng)
 pkg_search_module (AVCODEC REQUIRED libavcodec)
@@ -106,6 +107,7 @@ target_link_libraries (planetblupi PUBLIC
   ${SDL2_STATIC_LIBRARIES}
   ${SDL2_MIXER_STATIC_LIBRARIES}
   ${SDL2_IMAGE_STATIC_LIBRARIES}
+  ${CURL_STATIC_LIBRARIES}
   SDL_kitchensink
   ${PNG_STATIC_LIBRARIES}
   ${AVCODEC_STATIC_LIBRARIES}
