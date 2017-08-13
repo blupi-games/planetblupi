@@ -1901,21 +1901,6 @@ bool CEvent::DrawButtons ()
   RECT   rect;
   bool   bEnable;
 
-//?
-#if 0
-    pos.x = 1;
-    pos.y = 1;
-    rect.left   = pos.x;
-    rect.right  = pos.x + 50;
-    rect.top    = pos.y;
-    rect.bottom = pos.y + DIMLITTLEY;
-    m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1); // dessine le fond
-    time = m_pDecor->GetTotalTime();
-    sprintf (text, "time=%d", time);
-    DrawText (m_pPixmap, pos, text, FONTLITTLE);
-#endif
-  //?
-
   if (
     (m_phase == EV_PHASE_PLAY && m_bChangeCheat) ||
     (m_phase != EV_PHASE_PLAY && m_phase != EV_PHASE_INSERT &&

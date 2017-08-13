@@ -179,12 +179,10 @@ void CDecor::CheminFillTerrain (Sint32 rank)
               m_cheminWork[pos + i * next] = step + cout - ampli + i;
 
             m_cheminWork[last] = step + cout;
-            //?         char buffer[50];
-            //?         sprintf(buffer, "word = %d;%d  %d\n", last%200,
-            // last/200, step+cout); ?         OutputDebug(buffer);
+
             dx = m_blupi[rank].goalCel.x - last % MAXCELX;
             dy = m_blupi[rank].goalCel.y - last / MAXCELX;
-            //?                 dist = dy*dy + dx*dx;
+
             dist = (Sint32) (dy * dy) + (Sint32) (dx * dx);
             fifo.put (last, dist);
           }
