@@ -463,19 +463,15 @@ void CDecor::BlupiSound (Sint32 rank, Sounds sound, POINT pos, bool bStop)
 }
 
 // Sons associés à des actions.
-// clang-format off
 static const struct {
- Sint16 action;
- Sounds sound;
+  Sint16 action;
+  Sounds sound;
 } tableSound[] = {
-    {ACTION_BURN,     SOUND_BURN},
-    {ACTION_TCHAO,    SOUND_TCHAO},
-        {ACTION_EAT,      SOUND_EAT},
-            {ACTION_DRINK,    SOUND_DRINK},
-                {ACTION_SLIDE,    SOUND_SLIDE},
-                    {ACTION_R_LOAD,   SOUND_R_LOAD},
+  {ACTION_BURN, SOUND_BURN},   {ACTION_TCHAO, SOUND_TCHAO},
+  {ACTION_EAT, SOUND_EAT},     {ACTION_DRINK, SOUND_DRINK},
+  {ACTION_SLIDE, SOUND_SLIDE}, {ACTION_R_LOAD, SOUND_R_LOAD},
 };
-// clang-format on
+
 // Effectue quelques initialisations pour une nouvelle action.
 
 void CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
