@@ -2638,7 +2638,7 @@ void CEvent::WaitMouse (bool bWait)
     m_mouseSprite = SPRITE_WAIT;
   else
     m_mouseSprite = MousePosToSprite (GetMousePos ());
-  m_pPixmap->SetMouseSprite (m_mouseSprite, m_bDemoPlay);
+  m_pPixmap->SetMouseSprite (m_mouseSprite);
   m_pPixmap->ChangeSprite (m_mouseSprite);
 }
 
@@ -2659,7 +2659,7 @@ void CEvent::HideMouse (bool bHide)
     SDL_ShowCursor (SDL_TRUE);
   }
 
-  m_pPixmap->SetMouseSprite (m_mouseSprite, m_bDemoPlay);
+  m_pPixmap->SetMouseSprite (m_mouseSprite);
   m_pPixmap->ChangeSprite (m_mouseSprite);
 }
 

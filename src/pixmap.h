@@ -84,7 +84,7 @@ public:
 
   bool Display ();
 
-  void SetMouseSprite (Sint32 sprite, bool bDemoPlay);
+  void SetMouseSprite (MouseSprites sprite);
   void MouseShow (bool bShow);
   void LoadCursors ();
   void ChangeSprite (MouseSprites sprite);
@@ -105,8 +105,8 @@ protected:
   POINT m_dim;      // dimensions totales
   RECT  m_clipRect; // rectangle de clipping
 
-  Sint32 m_mouseSprite;
-  bool   m_bBackDisplayed;
+  MouseSprites m_mouseSprite;
+  bool         m_bBackDisplayed;
 
   SDL_Cursor *                            m_lpCurrentCursor;
   SDL_Cursor *                            m_lpSDLCursors[MAXCURSORS];

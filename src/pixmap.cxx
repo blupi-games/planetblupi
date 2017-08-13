@@ -597,7 +597,7 @@ bool CPixmap::Display ()
 
 // Change le lutin de la souris.
 
-void CPixmap::SetMouseSprite (Sint32 sprite, bool bDemoPlay)
+void CPixmap::SetMouseSprite (MouseSprites sprite)
 {
   if (m_mouseSprite == sprite)
     return;
@@ -773,7 +773,7 @@ on the endianness (byte order) of the machine */
   amask = 0xff000000;
 #endif
 
-  for (Sint32 sprite = SPRITE_BEGIN; sprite <= SPRITE_END; ++sprite)
+  for (int sprite = SPRITE_BEGIN; sprite <= SPRITE_END; ++sprite)
   {
     SDL_Point hotspot = this->GetCursorHotSpot (sprite);
     SDL_Rect  rect    = this->GetCursorRect (sprite);
