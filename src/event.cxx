@@ -3338,73 +3338,70 @@ void CEvent::DecorAutoShift ()
   {
     if (m_shiftPhase == 0) // début du shift ?
     {
-      m_shiftOffset.x = 0;
-      m_shiftOffset.y = 0;
-      m_shiftVector.x = 0;
-      m_shiftVector.y = 0;
-
-      if (m_mouseSprite == SPRITE_ARROWL)
+      switch (m_mouseSprite)
       {
+      default:
+        m_shiftOffset.x = 0;
+        m_shiftOffset.y = 0;
+        m_shiftVector.x = 0;
+        m_shiftVector.y = 0;
+        break;
+
+      case SPRITE_ARROWL:
         m_shiftOffset.x = +2;
         m_shiftOffset.y = 0;
         m_shiftVector.x = -1;
         m_shiftVector.y = +1;
-      }
+        break;
 
-      if (m_mouseSprite == SPRITE_ARROWR)
-      {
+      case SPRITE_ARROWR:
         m_shiftOffset.x = -2;
         m_shiftOffset.y = 0;
         m_shiftVector.x = +1;
         m_shiftVector.y = -1;
-      }
+        break;
 
-      if (m_mouseSprite == SPRITE_ARROWU)
-      {
+      case SPRITE_ARROWU:
         m_shiftOffset.x = 0;
         m_shiftOffset.y = +2;
         m_shiftVector.x = -1;
         m_shiftVector.y = -1;
-      }
+        break;
 
-      if (m_mouseSprite == SPRITE_ARROWD)
-      {
+      case SPRITE_ARROWD:
         m_shiftOffset.x = 0;
         m_shiftOffset.y = -2;
         m_shiftVector.x = +1;
         m_shiftVector.y = +1;
-      }
+        break;
 
-      if (m_mouseSprite == SPRITE_ARROWUL)
-      {
+      case SPRITE_ARROWUL:
         m_shiftOffset.x = +1;
         m_shiftOffset.y = +1;
         m_shiftVector.x = -1;
         m_shiftVector.y = 0;
-      }
+        break;
 
-      if (m_mouseSprite == SPRITE_ARROWUR)
-      {
+      case SPRITE_ARROWUR:
         m_shiftOffset.x = -1;
         m_shiftOffset.y = +1;
         m_shiftVector.x = 0;
         m_shiftVector.y = -1;
-      }
+        break;
 
-      if (m_mouseSprite == SPRITE_ARROWDL)
-      {
+      case SPRITE_ARROWDL:
         m_shiftOffset.x = +1;
         m_shiftOffset.y = -1;
         m_shiftVector.x = 0;
         m_shiftVector.y = +1;
-      }
+        break;
 
-      if (m_mouseSprite == SPRITE_ARROWDR)
-      {
+      case SPRITE_ARROWDR:
         m_shiftOffset.x = -1;
         m_shiftOffset.y = -1;
         m_shiftVector.x = +1;
         m_shiftVector.y = 0;
+        break;
       }
 
       if (m_shiftVector.x != 0 || m_shiftVector.y != 0)
