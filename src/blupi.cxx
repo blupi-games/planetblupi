@@ -21,6 +21,7 @@
 #include <SDL2/SDL_image.h>
 #include <argagg/argagg.hpp>
 #include <curl/curl.h>
+#include <fstream>
 #include <iostream>
 #include <iterator>
 #include <sstream>
@@ -98,92 +99,56 @@ static std::vector<std::string> split (const std::string & s, char delim)
 }
 
 /**
- * \brief Read an integer from a string.
- *
- * \param[in] p - Input string.
- * \returns the integer.
- */
-static Sint32 GetNum (char * p)
-{
-  Sint32 n = 0;
-
-  while (*p >= '0' && *p <= '9')
-  {
-    n *= 10;
-    n += (*p++) - '0';
-  }
-
-  return n;
-}
-
-/**
  * \brief Read the config file.
  *
  * \returns true on success.
  */
 static bool ReadConfig ()
 {
-  FILE * file = nullptr;
-  char   buffer[200];
-  char * pText;
-  size_t nb;
+  const auto config = GetBaseDir () + "data/config.json";
 
-  const auto config = GetBaseDir () + "data/config.ini";
+  std::ifstream  file (config, std::ifstream::in);
+  nlohmann::json j;
+  file >> j;
 
-  file = fopen (config.c_str (), "rb");
-  if (file == nullptr)
-    return false;
-  nb         = fread (buffer, sizeof (char), 200 - 1, file);
-  buffer[nb] = 0;
-  fclose (file);
-
-  if (!(g_settingsOverload & SETTING_SPEEDRATE))
+  if (
+    !(g_settingsOverload & SETTING_SPEEDRATE) &&
+    j.find ("speedrate") != j.end ())
   {
-    pText = strstr (buffer, "SpeedRate=");
-    if (pText != nullptr)
-    {
-      g_speedRate = GetNum (pText + 10);
-      if (g_speedRate < 1)
-        g_speedRate = 1;
-      if (g_speedRate > 2)
-        g_speedRate = 2;
-    }
+    g_speedRate = j["speedrate"].get<int> ();
+    if (g_speedRate < 1)
+      g_speedRate = 1;
+    if (g_speedRate > 2)
+      g_speedRate = 2;
   }
 
-  if (!(g_settingsOverload & SETTING_TIMERINTERVAL))
+  if (
+    !(g_settingsOverload & SETTING_TIMERINTERVAL) &&
+    j.find ("timerinterval") != j.end ())
   {
-    pText = strstr (buffer, "Timer=");
-    if (pText != nullptr)
-    {
-      g_timerInterval = GetNum (pText + 6);
-      if (g_timerInterval < 10)
-        g_timerInterval = 10;
-      if (g_timerInterval > 1000)
-        g_timerInterval = 1000;
-    }
+    g_timerInterval = j["timerinterval"].get<int> ();
+    if (g_timerInterval < 10)
+      g_timerInterval = 10;
+    if (g_timerInterval > 1000)
+      g_timerInterval = 1000;
   }
 
-  if (!(g_settingsOverload & SETTING_FULLSCREEN))
+  if (
+    !(g_settingsOverload & SETTING_FULLSCREEN) &&
+    j.find ("fullscreen") != j.end ())
   {
-    pText = strstr (buffer, "FullScreen=");
-    if (pText != nullptr)
-    {
-      g_bFullScreen = !!GetNum (pText + 11);
-      if (g_bFullScreen != 0)
-        g_bFullScreen = 1;
-    }
+    g_bFullScreen = !j["fullscreen"].get<bool> ();
+    if (g_bFullScreen != 0)
+      g_bFullScreen = 1;
   }
 
-  if (!(g_settingsOverload & SETTING_RENDERER))
+  if (
+    !(g_settingsOverload & SETTING_RENDERER) && j.find ("renderer") != j.end ())
   {
-    pText = strstr (buffer, "Renderer=");
-    if (pText)
-    {
-      if (!strncmp (pText + 9, "software", 8))
-        g_rendererType = SDL_RENDERER_SOFTWARE;
-      else if (!strncmp (pText + 9, "accelerated", 11))
-        g_rendererType = SDL_RENDERER_ACCELERATED;
-    }
+    if (j["renderer"] == "software")
+      g_rendererType = SDL_RENDERER_SOFTWARE;
+    else if (j["renderer"] == "accelerated")
+      g_rendererType = SDL_RENDERER_ACCELERATED;
   }
 
   return true;
@@ -618,7 +583,7 @@ static int DoInit (int argc, char * argv[], bool & exit)
   RECT  rcRect;
   bool  bOK;
 
-  bOK = ReadConfig (); // lit le fichier config.ini
+  bOK = ReadConfig (); // lit le fichier config.json
 
   auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
   if (res < 0)
@@ -655,7 +620,7 @@ static int DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
-  if (!bOK) // Something wrong with config.ini file?
+  if (!bOK) // Something wrong with config.json file?
   {
     InitFail ("Game not correctly installed");
     return EXIT_FAILURE;
