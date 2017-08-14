@@ -61,6 +61,7 @@ bool   g_bFullScreen   = false; // false si mode de test
 Sint32 g_speedRate     = 1;
 Sint32 g_timerInterval = 50; // inverval = 50ms
 int    g_rendererType  = 0;
+bool   g_restoreBugs   = false; // restore original < v1.9 bugs
 
 enum Settings {
   SETTING_FULLSCREEN    = 1 << 0,
@@ -501,26 +502,29 @@ CheckForUpdates ()
 static int
 parseArgs (int argc, char * argv[], bool & exit)
 {
-  argagg::parser argparser{{
-    {"help", {"-h", "--help"}, "print this help message and exit", 0},
-    {"version", {"-V", "--version"}, "print version and exit", 0},
-    {"speedrate",
-     {"-s", "--speed-rate"},
-     "change the speed rate [1;2] (default: 1)",
-     1},
-    {"timerinterval",
-     {"-t", "--timer-interval"},
-     "set the timer interval (refresh)",
-     1},
-    {"fullscreen",
-     {"-f", "--fullscreen"},
-     "load in fullscreen [on;off] (default: on)",
-     1},
-    {"renderer",
-     {"-r", "--renderer"},
-     "set a renderer [auto;software;accelerated] (default: auto)",
-     1},
-  }};
+  argagg::parser argparser{
+    {{"help", {"-h", "--help"}, "print this help message and exit", 0},
+     {"version", {"-V", "--version"}, "print version and exit", 0},
+     {"speedrate",
+      {"-s", "--speed-rate"},
+      "change the speed rate [1;2] (default: 1)",
+      1},
+     {"timerinterval",
+      {"-t", "--timer-interval"},
+      "set the timer interval (refresh)",
+      1},
+     {"fullscreen",
+      {"-f", "--fullscreen"},
+      "load in fullscreen [on;off] (default: on)",
+      1},
+     {"renderer",
+      {"-r", "--renderer"},
+      "set a renderer [auto;software;accelerated] (default: auto)",
+      1},
+     {"restorebugs",
+      {"-b", "--restore-bugs"},
+      "restore funny original bugs of older versions < v1.9",
+      0}}};
 
   argagg::parser_results args;
   try
@@ -576,6 +580,9 @@ parseArgs (int argc, char * argv[], bool & exit)
       g_rendererType = SDL_RENDERER_ACCELERATED;
     g_settingsOverload |= SETTING_RENDERER;
   }
+
+  if (args["restorebugs"])
+    g_restoreBugs = true;
 
   return EXIT_SUCCESS;
 }

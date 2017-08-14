@@ -1761,7 +1761,7 @@ CDecor::IsFreeCelGo (POINT cel, Sint32 rank)
 
   // Refuse to go in an enemy factory when the door is open.
   if (
-    channel == CHOBJECT &&
+    !g_restoreBugs && channel == CHOBJECT &&
     (icon == 18 || icon == 101 || icon == 103 || icon == 105 || icon == 116))
     return false;
 

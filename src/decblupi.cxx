@@ -2460,29 +2460,32 @@ CDecor::BlupiNextAction (Sint32 rank)
   if (!m_blupi[rank].bExist)
     return false;
 
-  /* Check if a Blupi is already doing a conflicting action at the same place.
-   * It happens for example when a blupi wants to carry an object from a
-   * direction and a second from the other direction. Without this check, the
-   * object is duplicated.
-   */
-  for (int i = 0; i < MAXBLUPI; ++i)
+  if (!g_restoreBugs)
   {
-    if (rank == i || !m_blupi[i].bExist)
-      continue;
-
-    if (
-      (m_blupi[rank].goalAction == EV_ACTION_CARRY ||
-       m_blupi[rank].goalAction == EV_ACTION_EAT ||
-       m_blupi[rank].goalAction == EV_ACTION_DRINK) &&
-      (m_blupi[i].goalAction == EV_ACTION_CARRY2 ||
-       m_blupi[i].goalAction == EV_ACTION_EAT2 ||
-       m_blupi[i].goalAction == EV_ACTION_DRINK2) &&
-      m_blupi[rank].goalHili.x == m_blupi[i].goalHili.x &&
-      m_blupi[rank].goalHili.y == m_blupi[i].goalHili.y)
+    /* Check if a Blupi is already doing a conflicting action at the same place.
+     * It happens for example when a blupi wants to carry an object from a
+     * direction and a second from the other direction. Without this check, the
+     * object is duplicated.
+     */
+    for (int i = 0; i < MAXBLUPI; ++i)
     {
-      BlupiInitAction (i, ACTION_STOP);
-      GoalStop (i, true);
-      return false;
+      if (rank == i || !m_blupi[i].bExist)
+        continue;
+
+      if (
+        (m_blupi[rank].goalAction == EV_ACTION_CARRY ||
+         m_blupi[rank].goalAction == EV_ACTION_EAT ||
+         m_blupi[rank].goalAction == EV_ACTION_DRINK) &&
+        (m_blupi[i].goalAction == EV_ACTION_CARRY2 ||
+         m_blupi[i].goalAction == EV_ACTION_EAT2 ||
+         m_blupi[i].goalAction == EV_ACTION_DRINK2) &&
+        m_blupi[rank].goalHili.x == m_blupi[i].goalHili.x &&
+        m_blupi[rank].goalHili.y == m_blupi[i].goalHili.y)
+      {
+        BlupiInitAction (i, ACTION_STOP);
+        GoalStop (i, true);
+        return false;
+      }
     }
   }
 
