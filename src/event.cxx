@@ -1551,6 +1551,7 @@ CEvent::CEvent ()
   m_bDemoPlay       = false;
   m_pDemoBuffer     = nullptr;
   m_pDemoSDLBuffer  = nullptr;
+  m_bStartRecording = false;
   m_demoTime        = 0;
   m_keymod          = 0;
   m_posHelpButton   = {-1, -1};
@@ -2946,17 +2947,10 @@ bool CEvent::ChangePhase (Uint32 phase)
 
   if (phase == EV_PHASE_INIT)
     m_demoTime = 0;
-  if (
-    phase == EV_PHASE_PLAY && !m_bDemoPlay &&
-    GetPhysicalWorld () >= 150 && // mission spéciale démo ?
-    GetPhysicalWorld () < 200)
-  {
-    DemoRecStart (); // début enregistrement
-  }
+  if (phase == EV_PHASE_PLAY && !m_bDemoPlay && m_bStartRecording)
+    DemoRecStart (); // start recording
   if (phase != EV_PHASE_PLAY)
-  {
-    DemoRecStop (); // stoppe l'enregistrement d'une démo
-  }
+    DemoRecStop (); // stop recording
 
   m_pDecor->UndoClose (); // libère le buffer undo
 
