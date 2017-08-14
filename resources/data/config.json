@@ -1,5 +1,5 @@
 {
-  "fullscreen": 1,
+  "fullscreen": true,
   "speedrate": 1,
   "timerinterval": 50
 }
