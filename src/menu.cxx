@@ -75,7 +75,8 @@ static const Sint16 table_button_icon[] = {
   106, // fabarmure
 };
 
-static const char * GetText (Sint32 rank)
+static const char *
+GetText (Sint32 rank)
 {
   static const char * list[] = {
     translate ("Go"),
@@ -118,7 +119,8 @@ static const char * GetText (Sint32 rank)
   return gettext (list[rank]);
 }
 
-static const char * GetErr (Sint32 rank)
+static const char *
+GetErr (Sint32 rank)
 {
   static const char * list[] = {
     translate ("Impossible"),         translate ("Inadequate ground"),
@@ -152,7 +154,8 @@ CMenu::~CMenu ()
 
 // Crée un nouveau bouton.
 
-bool CMenu::Create (
+bool
+CMenu::Create (
   CPixmap * pPixmap, CSound * pSound, CEvent * pEvent, POINT pos, Sint32 nb,
   Buttons * pButtons, Errors * pErrors,
   std::unordered_map<Sint32, const char *> & texts, Sint32 perso)
@@ -196,7 +199,8 @@ bool CMenu::Create (
 
 // Met à jour le menu.
 
-void CMenu::Update (
+void
+CMenu::Update (
   Sint32 nb, Buttons * pButtons, Errors * pErrors,
   std::unordered_map<Sint32, const char *> & texts)
 {
@@ -224,7 +228,8 @@ void CMenu::Update (
 
 // Détruit le menu.
 
-void CMenu::Delete ()
+void
+CMenu::Delete ()
 {
   m_nbButtons = 0;
   m_selRank   = -1;
@@ -232,7 +237,8 @@ void CMenu::Delete ()
 
 // Dessine un bouton dans son état.
 
-void CMenu::Draw ()
+void
+CMenu::Draw ()
 {
   Sint32 i, state, icon;
   POINT  pos;
@@ -349,7 +355,8 @@ void CMenu::Draw ()
 
 // Retourne le bouton sélectionné.
 
-Sint32 CMenu::GetSel ()
+Sint32
+CMenu::GetSel ()
 {
   if (m_selRank == -1)
     return -1;
@@ -359,14 +366,16 @@ Sint32 CMenu::GetSel ()
 
 // Retourne le rang sélectionné.
 
-Sint32 CMenu::GetRank ()
+Sint32
+CMenu::GetRank ()
 {
   return m_selRank;
 }
 
 // Retourne true si le bouton sélectionné a une erreur.
 
-bool CMenu::IsError ()
+bool
+CMenu::IsError ()
 {
   if (m_selRank == -1)
     return true;
@@ -379,14 +388,16 @@ bool CMenu::IsError ()
 
 // Indique si le menu existe.
 
-bool CMenu::IsExist ()
+bool
+CMenu::IsExist ()
 {
   return (m_nbButtons == 0) ? false : true;
 }
 
 // Traitement d'un événement.
 
-bool CMenu::TreatEvent (const SDL_Event & event)
+bool
+CMenu::TreatEvent (const SDL_Event & event)
 {
   POINT pos;
 
@@ -434,7 +445,8 @@ bool CMenu::TreatEvent (const SDL_Event & event)
 
 // Détecte dans quel bouton est la souris.
 
-Sint32 CMenu::Detect (POINT pos)
+Sint32
+CMenu::Detect (POINT pos)
 {
   Sint32 rank;
 
@@ -453,14 +465,16 @@ Sint32 CMenu::Detect (POINT pos)
 
 // Bouton de la souris pressé.
 
-bool CMenu::MouseDown (POINT pos)
+bool
+CMenu::MouseDown (POINT pos)
 {
   return false;
 }
 
 // Souris déplacés.
 
-bool CMenu::MouseMove (POINT pos)
+bool
+CMenu::MouseMove (POINT pos)
 {
   m_selRank = Detect (pos);
 
@@ -478,7 +492,8 @@ bool CMenu::MouseMove (POINT pos)
 
 // Bouton de la souris relâché.
 
-bool CMenu::MouseUp (POINT pos)
+bool
+CMenu::MouseUp (POINT pos)
 {
   m_selRank = Detect (pos);
 
@@ -487,7 +502,8 @@ bool CMenu::MouseUp (POINT pos)
 
 // Envoie le message.
 
-void CMenu::Message ()
+void
+CMenu::Message ()
 {
   if (m_selRank != -1)
     CEvent::PushUserEvent (EV_BUTTON0 + m_selRank);

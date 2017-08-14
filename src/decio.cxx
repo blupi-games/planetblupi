@@ -105,8 +105,8 @@ typedef struct {
 
 // Sauve le décor sur disque.
 
-bool CDecor::Write (
-  Sint32 rank, bool bUser, Sint32 world, Sint32 time, Sint32 total)
+bool
+CDecor::Write (Sint32 rank, bool bUser, Sint32 world, Sint32 time, Sint32 total)
 {
   std::string filename;
   FILE *      file    = nullptr;
@@ -188,7 +188,8 @@ error:
 
 // Lit le décor sur disque.
 
-bool CDecor::Read (
+bool
+CDecor::Read (
   Sint32 rank, bool bUser, Sint32 & world, Sint32 & time, Sint32 & total)
 {
   std::string filename;
@@ -327,7 +328,8 @@ error:
 
 // Indique si un fichier existe sur disque.
 
-bool CDecor::FileExist (
+bool
+CDecor::FileExist (
   Sint32 rank, bool bUser, Sint32 & world, Sint32 & time, Sint32 & total)
 {
   std::string filename;
@@ -401,7 +403,8 @@ error:
 
 // Initialise un décor neutre.
 
-void CDecor::Flush ()
+void
+CDecor::Flush ()
 {
   Sint32 x, y, i, icon;
 

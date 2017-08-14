@@ -1605,7 +1605,8 @@ CEvent::~CEvent ()
 
 // Retourne la position de la souris.
 
-POINT CEvent::GetMousePos ()
+POINT
+CEvent::GetMousePos ()
 {
   POINT  pos;
   Sint32 x, y;
@@ -1619,7 +1620,8 @@ POINT CEvent::GetMousePos ()
 
 // Initialise le mode full screen ou non.
 
-void CEvent::SetFullScreen (bool bFullScreen)
+void
+CEvent::SetFullScreen (bool bFullScreen)
 {
   if (bFullScreen == m_bFullScreen)
     return;
@@ -1660,7 +1662,8 @@ void CEvent::SetFullScreen (bool bFullScreen)
  * \param[in] prevScale - The current scale.
  * \param[in] newScale - The new scale.
  */
-void CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
+void
+CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
 {
   int x, y;
   SDL_GetMouseState (&x, &y);
@@ -1682,14 +1685,16 @@ void CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
   CEvent::PushUserEvent (EV_WARPMOUSE, coord);
 }
 
-Uint8 CEvent::GetWindowScale ()
+Uint8
+CEvent::GetWindowScale ()
 {
   return m_WindowScale;
 }
 
 // Crée le gestionnaire d'événements.
 
-void CEvent::Create (
+void
+CEvent::Create (
   CPixmap * pPixmap, CDecor * pDecor, CSound * pSound, CMovie * pMovie)
 {
   POINT pos;
@@ -1711,7 +1716,8 @@ void CEvent::Create (
 
 // Retourne l'index d'un bouton.
 
-Sint32 CEvent::GetButtonIndex (Sint32 button)
+Sint32
+CEvent::GetButtonIndex (Sint32 button)
 {
   int i = 0;
 
@@ -1728,7 +1734,8 @@ Sint32 CEvent::GetButtonIndex (Sint32 button)
   return -1;
 }
 
-Sint32 CEvent::GetState (Sint32 button)
+Sint32
+CEvent::GetState (Sint32 button)
 {
   Sint32 index;
 
@@ -1739,7 +1746,8 @@ Sint32 CEvent::GetState (Sint32 button)
   return m_buttons[index].GetState ();
 }
 
-void CEvent::SetState (Sint32 button, Sint32 state)
+void
+CEvent::SetState (Sint32 button, Sint32 state)
 {
   Sint32 index;
 
@@ -1750,7 +1758,8 @@ void CEvent::SetState (Sint32 button, Sint32 state)
   m_buttons[index].SetState (state);
 }
 
-bool CEvent::GetEnable (Sint32 button)
+bool
+CEvent::GetEnable (Sint32 button)
 {
   Sint32 index;
 
@@ -1761,7 +1770,8 @@ bool CEvent::GetEnable (Sint32 button)
   return m_buttons[index].GetEnable ();
 }
 
-void CEvent::SetEnable (Sint32 button, bool bEnable)
+void
+CEvent::SetEnable (Sint32 button, bool bEnable)
 {
   Sint32 index;
 
@@ -1772,7 +1782,8 @@ void CEvent::SetEnable (Sint32 button, bool bEnable)
   m_buttons[index].SetEnable (bEnable);
 }
 
-bool CEvent::GetHide (Sint32 button)
+bool
+CEvent::GetHide (Sint32 button)
 {
   Sint32 index;
 
@@ -1783,7 +1794,8 @@ bool CEvent::GetHide (Sint32 button)
   return m_buttons[index].GetHide ();
 }
 
-void CEvent::SetHide (Sint32 button, bool bHide)
+void
+CEvent::SetHide (Sint32 button, bool bHide)
 {
   Sint32 index;
 
@@ -1794,7 +1806,8 @@ void CEvent::SetHide (Sint32 button, bool bHide)
   m_buttons[index].SetHide (bHide);
 }
 
-Sint32 CEvent::GetMenu (Sint32 button)
+Sint32
+CEvent::GetMenu (Sint32 button)
 {
   Sint32 index;
 
@@ -1805,7 +1818,8 @@ Sint32 CEvent::GetMenu (Sint32 button)
   return m_buttons[index].GetMenu ();
 }
 
-void CEvent::SetMenu (Sint32 button, Sint32 menu)
+void
+CEvent::SetMenu (Sint32 button, Sint32 menu)
 {
   Sint32 index;
 
@@ -1818,7 +1832,8 @@ void CEvent::SetMenu (Sint32 button, Sint32 menu)
 
 // Crée tous les boutons nécessaires à la phase en cours.
 
-bool CEvent::CreateButtons ()
+bool
+CEvent::CreateButtons ()
 {
   Sint32 i = 0, message;
   POINT  pos;
@@ -1859,7 +1874,8 @@ bool CEvent::CreateButtons ()
 
 // Ajoute un cheat-code dans un buffer.
 
-void AddCheatCode (char * pDst, char * pSrc)
+void
+AddCheatCode (char * pDst, char * pSrc)
 {
   Sint32 i;
   size_t j;
@@ -1874,14 +1890,16 @@ void AddCheatCode (char * pDst, char * pSrc)
   pDst[j] = 0;
 }
 
-void CEvent::SetUpdateVersion (const std::string & version)
+void
+CEvent::SetUpdateVersion (const std::string & version)
 {
   this->m_updateVersion = version;
 }
 
 // Dessine un texte multi-lignes centré.
 
-void CEvent::DrawTextCenter (const char * text, Sint32 x, Sint32 y, Sint32 font)
+void
+CEvent::DrawTextCenter (const char * text, Sint32 x, Sint32 y, Sint32 font)
 {
   POINT pos;
   pos.x = x;
@@ -1891,7 +1909,8 @@ void CEvent::DrawTextCenter (const char * text, Sint32 x, Sint32 y, Sint32 font)
 
 // Dessine tous les boutons de la phase en cours.
 
-bool CEvent::DrawButtons ()
+bool
+CEvent::DrawButtons ()
 {
   Sint32 i;
   Sint32 levels[2];
@@ -2553,7 +2572,8 @@ bool CEvent::DrawButtons ()
 
 // Retourne le lutin à utiliser à une position donnée.
 
-MouseSprites CEvent::MousePosToSprite (POINT pos)
+MouseSprites
+CEvent::MousePosToSprite (POINT pos)
 {
   MouseSprites sprite;
   bool         bUp = false, bDown = false, bLeft = false, bRight = false;
@@ -2624,7 +2644,8 @@ MouseSprites CEvent::MousePosToSprite (POINT pos)
 
 // Gère le lutin de la souris.
 
-void CEvent::MouseSprite (POINT pos)
+void
+CEvent::MouseSprite (POINT pos)
 {
   m_mouseSprite = MousePosToSprite (pos);
   m_pPixmap->ChangeSprite (m_mouseSprite);
@@ -2632,7 +2653,8 @@ void CEvent::MouseSprite (POINT pos)
 
 // Met ou enlève le sablier de la souris.
 
-void CEvent::WaitMouse (bool bWait)
+void
+CEvent::WaitMouse (bool bWait)
 {
   m_bWaitMouse = bWait;
 
@@ -2646,7 +2668,8 @@ void CEvent::WaitMouse (bool bWait)
 
 // Cache ou montre la souris.
 
-void CEvent::HideMouse (bool bHide)
+void
+CEvent::HideMouse (bool bHide)
 {
   m_bHideMouse = bHide;
 
@@ -2667,7 +2690,8 @@ void CEvent::HideMouse (bool bHide)
 
 // Traite les événements pour tous les boutons.
 
-bool CEvent::EventButtons (const SDL_Event & event, POINT pos)
+bool
+CEvent::EventButtons (const SDL_Event & event, POINT pos)
 {
   POINT  test;
   Sint32 lg;
@@ -2827,7 +2851,8 @@ bool CEvent::EventButtons (const SDL_Event & event, POINT pos)
 
 // Indique si la souris est sur un bouton.
 
-bool CEvent::MouseOnButton (POINT pos)
+bool
+CEvent::MouseOnButton (POINT pos)
 {
   Sint32 i;
 
@@ -2847,7 +2872,8 @@ bool CEvent::MouseOnButton (POINT pos)
 
 // Retourne l'index dans table pour une phase donnée.
 
-Sint32 CEvent::SearchPhase (Uint32 phase)
+Sint32
+CEvent::SearchPhase (Uint32 phase)
 {
   Sint32 i = 0;
 
@@ -2863,7 +2889,8 @@ Sint32 CEvent::SearchPhase (Uint32 phase)
 
 // Donne le numéro du monde.
 
-Sint32 CEvent::GetWorld ()
+Sint32
+CEvent::GetWorld ()
 {
   if (m_bPrivate)
     return m_private;
@@ -2875,7 +2902,8 @@ Sint32 CEvent::GetWorld ()
 
 // Donne le numéro physique du monde.
 
-Sint32 CEvent::GetPhysicalWorld ()
+Sint32
+CEvent::GetPhysicalWorld ()
 {
   if (m_bPrivate)
     return m_private + 200;
@@ -2885,7 +2913,8 @@ Sint32 CEvent::GetPhysicalWorld ()
     return m_mission + 100;
 }
 
-Sint32 CEvent::GetImageWorld ()
+Sint32
+CEvent::GetImageWorld ()
 {
   if (m_bPrivate)
     return 2;
@@ -2897,7 +2926,8 @@ Sint32 CEvent::GetImageWorld ()
 
 // Indique si l'aide est disponible.
 
-bool CEvent::IsHelpHide ()
+bool
+CEvent::IsHelpHide ()
 {
   bool bHide = true;
 
@@ -2913,7 +2943,8 @@ bool CEvent::IsHelpHide ()
 
 // Change de phase.
 
-bool CEvent::ChangePhase (Uint32 phase)
+bool
+CEvent::ChangePhase (Uint32 phase)
 {
   Sint32      index, world, time, total, music, i, max;
   POINT       totalDim, iconDim;
@@ -3263,14 +3294,16 @@ bool CEvent::ChangePhase (Uint32 phase)
 
 // Retourne la phase en cours.
 
-Uint32 CEvent::GetPhase ()
+Uint32
+CEvent::GetPhase ()
 {
   return m_phase;
 }
 
 // Essaye de lire le CD-Rom.
 
-void CEvent::TryInsert ()
+void
+CEvent::TryInsert ()
 {
   if (m_tryInsertCount == 0)
     ChangePhase (m_tryPhase);
@@ -3280,7 +3313,8 @@ void CEvent::TryInsert ()
 
 // Fait démarrer un film si nécessaire.
 
-void CEvent::MovieToStart ()
+void
+CEvent::MovieToStart ()
 {
   if (m_movieToStart[0] != 0) // y a-t-il un film à démarrer ?
   {
@@ -3299,7 +3333,8 @@ void CEvent::MovieToStart ()
 
 // Décale le décor.
 
-void CEvent::DecorShift (Sint32 dx, Sint32 dy)
+void
+CEvent::DecorShift (Sint32 dx, Sint32 dy)
 {
   POINT coin;
 
@@ -3317,7 +3352,8 @@ void CEvent::DecorShift (Sint32 dx, Sint32 dy)
 
 // Décale le décor lorsque la souris touche un bord.
 
-void CEvent::DecorAutoShift ()
+void
+CEvent::DecorAutoShift ()
 {
   Sint32 max;
   POINT  offset;
@@ -3425,14 +3461,16 @@ void CEvent::DecorAutoShift ()
 
 // Indique su un shift est en cours.
 
-bool CEvent::IsShift ()
+bool
+CEvent::IsShift ()
 {
   return m_bShift;
 }
 
 // Modifie le décor lorsque le bouton de la souris est pressé.
 
-bool CEvent::PlayDown (POINT pos, const SDL_Event & event)
+bool
+CEvent::PlayDown (POINT pos, const SDL_Event & event)
 {
   bool    bDecor = false;
   bool    bMap   = false;
@@ -3504,7 +3542,8 @@ bool CEvent::PlayDown (POINT pos, const SDL_Event & event)
 
 // Modifie le décor lorsque la souris est déplacée.
 
-bool CEvent::PlayMove (POINT pos)
+bool
+CEvent::PlayMove (POINT pos)
 {
   if (m_bMenu)
   {
@@ -3534,7 +3573,8 @@ bool CEvent::PlayMove (POINT pos)
 
 // Modifie le décor lorsque le bouton de la souris est relâché.
 
-bool CEvent::PlayUp (POINT pos)
+bool
+CEvent::PlayUp (POINT pos)
 {
   static Sounds table_sound_boing[] = {
     SOUND_BOING1, SOUND_BOING2, SOUND_BOING3,
@@ -3572,7 +3612,8 @@ bool CEvent::PlayUp (POINT pos)
   return true;
 }
 
-void CEvent::SetLanguage ()
+void
+CEvent::SetLanguage ()
 {
   static char  env[64];
   const char * lang;
@@ -3610,7 +3651,8 @@ void CEvent::SetLanguage ()
 // Clic dans un bouton.
 // Message = EV_BUTTON0..EV_BUTTON39
 
-void CEvent::ChangeButtons (Sint32 message)
+void
+CEvent::ChangeButtons (Sint32 message)
 {
   Buttons button;
   Sint32  state, volume, max;
@@ -3817,7 +3859,8 @@ void CEvent::ChangeButtons (Sint32 message)
 
 // Met un sol si nécessaire sous un objet.
 
-void CEvent::BuildFloor (POINT cel, Sint32 insIcon)
+void
+CEvent::BuildFloor (POINT cel, Sint32 insIcon)
 {
   Sint32 iFloor, channel, icon;
 
@@ -3870,7 +3913,8 @@ void CEvent::BuildFloor (POINT cel, Sint32 insIcon)
 
 // Enlève si nécessaire un objet sur l'eau.
 
-void CEvent::BuildWater (POINT cel, Sint32 insIcon)
+void
+CEvent::BuildWater (POINT cel, Sint32 insIcon)
 {
   Sint32 channel, icon;
 
@@ -3922,7 +3966,8 @@ static Sint32 tableHome[] = {
 
 // Modifie le décor lorsque le bouton de la souris est pressé.
 
-bool CEvent::BuildDown (POINT pos, Uint16 mod, bool bMix)
+bool
+CEvent::BuildDown (POINT pos, Uint16 mod, bool bMix)
 {
   POINT  cel;
   Sint32 menu, channel, icon;
@@ -4081,7 +4126,8 @@ bool CEvent::BuildDown (POINT pos, Uint16 mod, bool bMix)
 
 // Modifie le décor lorsque la souris est déplacée.
 
-bool CEvent::BuildMove (POINT pos, Uint16 mod, const SDL_Event & event)
+bool
+CEvent::BuildMove (POINT pos, Uint16 mod, const SDL_Event & event)
 {
   if (event.motion.state & SDL_BUTTON (SDL_BUTTON_LEFT)) // bouton souris pressé
                                                          // ?
@@ -4097,7 +4143,8 @@ bool CEvent::BuildMove (POINT pos, Uint16 mod, const SDL_Event & event)
 
 // Démarre un film non interractif.
 
-bool CEvent::StartMovie (const std::string & pFilename)
+bool
+CEvent::StartMovie (const std::string & pFilename)
 {
   RECT rect;
 
@@ -4124,7 +4171,8 @@ bool CEvent::StartMovie (const std::string & pFilename)
 
 // Stoppe un film non interractif.
 
-void CEvent::StopMovie ()
+void
+CEvent::StopMovie ()
 {
   m_pMovie->Stop ();
   ChangePhase (m_phase);
@@ -4133,14 +4181,16 @@ void CEvent::StopMovie ()
 
 // Indique s'il y a un film en cours.
 
-bool CEvent::IsMovie ()
+bool
+CEvent::IsMovie ()
 {
   return m_bRunMovie;
 }
 
 // Lit une partie (user000.blp).
 
-void CEvent::Read (Sint32 message)
+void
+CEvent::Read (Sint32 message)
 {
   Sint32 world, time, total;
 
@@ -4170,7 +4220,8 @@ void CEvent::Read (Sint32 message)
 
 // Ecrit une partie (user000.blp).
 
-void CEvent::Write (Sint32 message)
+void
+CEvent::Write (Sint32 message)
 {
   Sint32 time, total;
 
@@ -4182,7 +4233,8 @@ void CEvent::Write (Sint32 message)
 
 // Initialise le libellé d'une mission privée.
 
-void CEvent::PrivateLibelle ()
+void
+CEvent::PrivateLibelle ()
 {
   Sint32       i, nb, h1, h2;
   Term         term;
@@ -4266,7 +4318,8 @@ void CEvent::PrivateLibelle ()
 
 // Lit le libellé d'un monde.
 
-bool CEvent::ReadLibelle (Sint32 world, bool bSchool, bool bHelp)
+bool
+CEvent::ReadLibelle (Sint32 world, bool bSchool, bool bHelp)
 {
   FILE * file    = nullptr;
   char * pBuffer = nullptr;
@@ -4343,7 +4396,8 @@ error:
 
 // Sauve les informations sur disque.
 
-bool CEvent::WriteInfo ()
+bool
+CEvent::WriteInfo ()
 {
   std::string filename;
   FILE *      file = nullptr;
@@ -4388,7 +4442,8 @@ error:
 
 // Lit les informations sur disque.
 
-bool CEvent::ReadInfo ()
+bool
+CEvent::ReadInfo ()
 {
   std::string filename;
   FILE *      file = nullptr;
@@ -4431,7 +4486,8 @@ error:
 
 // Modifie la vitesse du jeu.
 
-void CEvent::SetSpeed (Sint32 speed)
+void
+CEvent::SetSpeed (Sint32 speed)
 {
   Sint32 max;
 
@@ -4446,19 +4502,22 @@ void CEvent::SetSpeed (Sint32 speed)
   m_speed = speed;
 }
 
-Sint32 CEvent::GetSpeed ()
+Sint32
+CEvent::GetSpeed ()
 {
   return m_speed;
 }
 
-bool CEvent::GetPause ()
+bool
+CEvent::GetPause ()
 {
   return m_bPause;
 }
 
 // Début de l'enregistrement d'une démo.
 
-void CEvent::DemoRecStart ()
+void
+CEvent::DemoRecStart ()
 {
   m_pDemoSDLBuffer = (DemoSDLEvent *) malloc (MAXDEMO * sizeof (DemoSDLEvent));
   if (m_pDemoSDLBuffer == nullptr)
@@ -4478,7 +4537,8 @@ void CEvent::DemoRecStart ()
 // Fin de l'enregistrement d'une démo.
 // Sauve le fichier sur disque.
 
-void CEvent::DemoRecStop ()
+void
+CEvent::DemoRecStop ()
 {
   FILE *     file = nullptr;
   DemoHeader header;
@@ -4515,7 +4575,8 @@ void CEvent::DemoRecStop ()
 // Début de la reproduction d'une démo.
 // Lit le fichier sur disque.
 
-bool CEvent::DemoPlayStart ()
+bool
+CEvent::DemoPlayStart ()
 {
   std::string filename;
   FILE *      file = nullptr;
@@ -4588,7 +4649,8 @@ bool CEvent::DemoPlayStart ()
 
 // Fin de la reproduction d'une démo.
 
-void CEvent::DemoPlayStop ()
+void
+CEvent::DemoPlayStop ()
 {
   if (m_pDemoBuffer != nullptr)
   {
@@ -4609,7 +4671,8 @@ void CEvent::DemoPlayStop ()
   ChangePhase (EV_PHASE_INIT);
 }
 
-void CEvent::WinToSDLEvent (
+void
+CEvent::WinToSDLEvent (
   Uint32 msg, WPARAM wParam, LPARAM lParam, SDL_Event & event)
 {
 #define GET_X_LPARAM(lp) ((Sint32) (Sint16) LOWORD (lp))
@@ -4708,7 +4771,8 @@ void CEvent::WinToSDLEvent (
 
 // Avance l'index d'enregistrement ou de reproduction.
 
-void CEvent::DemoStep ()
+void
+CEvent::DemoStep ()
 {
   Uint32 time    = 0;
   Uint32 message = 0;
@@ -4804,7 +4868,8 @@ void CEvent::DemoStep ()
 /**
  * \brief Store an event for the demos
  */
-void CEvent::DemoRecEvent (const SDL_Event & event)
+void
+CEvent::DemoRecEvent (const SDL_Event & event)
 {
   if (!m_bDemoRec || !m_pDemoSDLBuffer)
     return;
@@ -4843,14 +4908,16 @@ void CEvent::DemoRecEvent (const SDL_Event & event)
 
 // Retourne la dernière position de la souris.
 
-POINT CEvent::GetLastMousePos ()
+POINT
+CEvent::GetLastMousePos ()
 {
   return m_oldMousePos;
 }
 
 // Traitement d'un événement.
 
-bool CEvent::TreatEvent (const SDL_Event & event)
+bool
+CEvent::TreatEvent (const SDL_Event & event)
 {
   if (m_bDemoPlay)
   {
@@ -4871,7 +4938,8 @@ bool CEvent::TreatEvent (const SDL_Event & event)
 
 // Traitement d'un événement.
 
-bool CEvent::TreatEventBase (const SDL_Event & event)
+bool
+CEvent::TreatEventBase (const SDL_Event & event)
 {
   POINT  pos;
   Sint32 i;
@@ -5554,7 +5622,8 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
 
 // Passe les images d'introduction.
 
-void CEvent::IntroStep ()
+void
+CEvent::IntroStep ()
 {
   m_introTime++;
 
@@ -5568,7 +5637,8 @@ void CEvent::IntroStep ()
   }
 }
 
-void CEvent::PushUserEvent (Sint32 code, void * data)
+void
+CEvent::PushUserEvent (Sint32 code, void * data)
 {
   SDL_Event event;
 

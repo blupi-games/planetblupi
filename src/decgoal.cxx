@@ -3550,7 +3550,8 @@ static Sint16 *table_pGoal[] =
 
 // Retourne le pointeur à la table table_goal_*.
 
-Sint16 * GetTableGoal (Sint32 action)
+Sint16 *
+GetTableGoal (Sint32 action)
 {
   Sint16 ** ppTable = table_pGoal;
 

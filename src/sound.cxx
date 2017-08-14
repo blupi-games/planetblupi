@@ -27,7 +27,8 @@
 
 // Stops all sounds.
 
-bool CSound::StopAllSounds (bool immediat)
+bool
+CSound::StopAllSounds (bool immediat)
 {
   for (Sint32 i = 0; i < MAXSOUND; i++)
   {
@@ -84,7 +85,8 @@ CSound::~CSound ()
 
 // Initialisation de DirectSound.
 
-bool CSound::Create ()
+bool
+CSound::Create ()
 {
   if (
     Mix_OpenAudio (44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096) == -1)
@@ -99,36 +101,42 @@ bool CSound::Create ()
 
 // Enclenche ou dï¿½clenche le son.
 
-void CSound::SetState (bool bState)
+void
+CSound::SetState (bool bState)
 {
   m_bState = bState;
 }
 
 // Gestion des volumes audio (.wav) et midi (.mid).
 
-void CSound::SetAudioVolume (Sint32 volume)
+void
+CSound::SetAudioVolume (Sint32 volume)
 {
   m_audioVolume = volume;
 }
 
-Sint32 CSound::GetAudioVolume ()
+Sint32
+CSound::GetAudioVolume ()
 {
   return m_audioVolume;
 }
 
-void CSound::SetMidiVolume (Sint32 volume)
+void
+CSound::SetMidiVolume (Sint32 volume)
 {
   m_midiVolume = volume;
 }
 
-Sint32 CSound::GetMidiVolume ()
+Sint32
+CSound::GetMidiVolume ()
 {
   return m_midiVolume;
 }
 
 // Cache tous les ficheirs son (.wav).
 
-void CSound::CacheAll ()
+void
+CSound::CacheAll ()
 {
   Sint32 i;
   char   name[50];
@@ -145,7 +153,8 @@ void CSound::CacheAll ()
 
 // Charge un fichier son (.wav).
 
-bool CSound::Cache (Sint32 channel, const std::string & pFilename)
+bool
+CSound::Cache (Sint32 channel, const std::string & pFilename)
 {
   if (channel < 0 || channel >= MAXSOUND)
     return false;
@@ -190,7 +199,8 @@ err:
   return false;
 }
 
-void CSound::FlushAll ()
+void
+CSound::FlushAll ()
 {
   for (size_t ch = 0; ch < sizeof (m_lpSDL); ++ch)
     Flush (ch);
@@ -198,7 +208,8 @@ void CSound::FlushAll ()
 
 // Dï¿½charge un son.
 
-void CSound::Flush (Sint32 channel)
+void
+CSound::Flush (Sint32 channel)
 {
   if (channel < 0 || channel >= MAXSOUND)
     return;
@@ -215,7 +226,8 @@ void CSound::Flush (Sint32 channel)
 // Le panoramique est compris entre 255,0 (gauche), 127,128 (centre)
 // et 0,255 (droite).
 
-bool CSound::Play (Sint32 channel, Sint32 volume, Uint8 panLeft, Uint8 panRight)
+bool
+CSound::Play (Sint32 channel, Sint32 volume, Uint8 panLeft, Uint8 panRight)
 {
   if (!m_bState || !m_audioVolume)
     return true;
@@ -238,7 +250,8 @@ bool CSound::Play (Sint32 channel, Sint32 volume, Uint8 panLeft, Uint8 panRight)
 // Si rank != -1, il indique le rang du blupi dont il faudra
 // ï¿½ventuellement stopper le dernier son en cours !
 
-bool CSound::PlayImage (Sounds channel, POINT pos, Sint32 rank)
+bool
+CSound::PlayImage (Sounds channel, POINT pos, Sint32 rank)
 {
   Sint32 volumex, volumey, volume;
   Sounds stopCh;
@@ -299,7 +312,8 @@ bool CSound::PlayImage (Sounds channel, POINT pos, Sint32 rank)
 // Uses MCI to play a MIDI file. The window procedure
 // is notified when playback is complete.
 
-bool CSound::PlayMusic (const std::string & lpszMIDIFilename)
+bool
+CSound::PlayMusic (const std::string & lpszMIDIFilename)
 {
   std::string path = GetBaseDir ();
 
@@ -331,7 +345,8 @@ bool CSound::PlayMusic (const std::string & lpszMIDIFilename)
 
 // Restart the MIDI player.
 
-bool CSound::RestartMusic ()
+bool
+CSound::RestartMusic ()
 {
   OutputDebug ("RestartMusic\n");
 
@@ -345,7 +360,8 @@ bool CSound::RestartMusic ()
 
 // Shuts down the MIDI player.
 
-void CSound::SuspendMusic ()
+void
+CSound::SuspendMusic ()
 {
   if (m_nbSuspendSkip != 0)
   {
@@ -359,7 +375,8 @@ void CSound::SuspendMusic ()
 
 // Shuts down the MIDI player.
 
-void CSound::StopMusic ()
+void
+CSound::StopMusic ()
 {
   SuspendMusic ();
   m_MIDIFilename[0] = 0;
@@ -367,19 +384,22 @@ void CSound::StopMusic ()
 
 // Retourne true si une musique est en cours.
 
-bool CSound::IsPlayingMusic ()
+bool
+CSound::IsPlayingMusic ()
 {
   return (m_MIDIFilename[0] != 0);
 }
 
-bool CSound::IsStoppedOnDemand ()
+bool
+CSound::IsStoppedOnDemand ()
 {
   return m_bStopped;
 }
 
 // Adapte le volume de la musique en cours, si nï¿½cessaire.
 
-void CSound::AdaptVolumeMusic ()
+void
+CSound::AdaptVolumeMusic ()
 {
   if (m_midiVolume != m_lastMidiVolume)
   {
@@ -390,7 +410,8 @@ void CSound::AdaptVolumeMusic ()
 
 // Indique le nombre de suspend ï¿½ sauter.
 
-void CSound::SetSuspendSkip (Sint32 nb)
+void
+CSound::SetSuspendSkip (Sint32 nb)
 {
   m_nbSuspendSkip = nb;
 }

@@ -31,7 +31,8 @@
  * \param[in] c - The character (incremented if 0xC3 UTF-8).
  * \returns the offset.
  */
-static Sint32 GetOffset (const char *& c)
+static Sint32
+GetOffset (const char *& c)
 {
   static const unsigned char table_accents[] = {
     /*    ü     à     â     é     è     ë     ê     ï             */
@@ -63,7 +64,8 @@ static Sint32 GetOffset (const char *& c)
  * \param[in] font - The font used (little or normal).
  * \returns the length.
  */
-Sint32 GetCharWidth (const char *& c, Sint32 font)
+Sint32
+GetCharWidth (const char *& c, Sint32 font)
 {
   // clang-format off
   static const unsigned char table_width[] =
@@ -105,7 +107,8 @@ Sint32 GetCharWidth (const char *& c, Sint32 font)
  * \param[in] pText - The text.
  * \param[in] font - The font style (little or normal).
  */
-void DrawText (CPixmap * pPixmap, POINT pos, const char * pText, Sint32 font)
+void
+DrawText (CPixmap * pPixmap, POINT pos, const char * pText, Sint32 font)
 {
   Sint32 rank;
 
@@ -128,7 +131,8 @@ void DrawText (CPixmap * pPixmap, POINT pos, const char * pText, Sint32 font)
 
 // Affiche un texte penché.
 
-void DrawTextPente (
+void
+DrawTextPente (
   CPixmap * pPixmap, POINT pos, const char * pText, Sint32 pente, Sint32 font)
 {
   Sint32 rank, lg, rel, start;
@@ -154,7 +158,8 @@ void DrawTextPente (
 // Si part != -1, n'affiche que les lignes qui commencent
 // par "n|", avec n=part.
 
-void DrawTextRect (
+void
+DrawTextRect (
   CPixmap * pPixmap, POINT pos, char * pText, Sint32 pente, Sint32 font,
   Sint32 part)
 {
@@ -210,8 +215,8 @@ void DrawTextRect (
 // Affiche un texte centré pouvant éventuellement
 // contenir plusieurs lignes séparées par des '\n'.
 
-void DrawTextCenter (
-  CPixmap * pPixmap, POINT pos, const char * pText, Sint32 font)
+void
+DrawTextCenter (CPixmap * pPixmap, POINT pos, const char * pText, Sint32 font)
 {
   char   text[100];
   char * pDest;
@@ -252,7 +257,8 @@ void DrawTextCenter (
 
 // Retourne la hauteur d'un texte.
 
-Sint32 GetTextHeight (char * pText, Sint32 font, Sint32 part)
+Sint32
+GetTextHeight (char * pText, Sint32 font, Sint32 part)
 {
   char   text[100];
   char * pDest;
@@ -303,7 +309,8 @@ Sint32 GetTextHeight (char * pText, Sint32 font, Sint32 part)
 
 // Retourne la longueur d'un texte.
 
-Sint32 GetTextWidth (const char * pText, Sint32 font)
+Sint32
+GetTextWidth (const char * pText, Sint32 font)
 {
   Sint32 width = 0;
 
@@ -318,7 +325,8 @@ Sint32 GetTextWidth (const char * pText, Sint32 font)
 
 // Retourne la longueur d'un grand chiffre.
 
-void GetBignumInfo (Sint32 num, Sint32 & start, Sint32 & lg)
+void
+GetBignumInfo (Sint32 num, Sint32 & start, Sint32 & lg)
 {
   static Sint32 table[11] = {0, 53, 87, 133, 164, 217, 253, 297, 340, 382, 426};
 
@@ -328,7 +336,8 @@ void GetBignumInfo (Sint32 num, Sint32 & start, Sint32 & lg)
 
 // Affiche un grand nombre.
 
-void DrawBignum (CPixmap * pPixmap, POINT pos, Sint32 num)
+void
+DrawBignum (CPixmap * pPixmap, POINT pos, Sint32 num)
 {
   char   string[10];
   Sint32 i = 0;
@@ -354,7 +363,8 @@ void DrawBignum (CPixmap * pPixmap, POINT pos, Sint32 num)
 
 // Retourne la longueur d'un grand nombre.
 
-Sint32 GetBignumWidth (Sint32 num)
+Sint32
+GetBignumWidth (Sint32 num)
 {
   char   string[10];
   Sint32 i = 0;

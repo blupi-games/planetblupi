@@ -43,7 +43,8 @@ CJauge::~CJauge ()
 
 // Crée un nouveau bouton.
 
-bool CJauge::Create (CPixmap * pPixmap, CSound * pSound, POINT pos, Sint32 type)
+bool
+CJauge::Create (CPixmap * pPixmap, CSound * pSound, POINT pos, Sint32 type)
 {
   m_pPixmap = pPixmap;
   m_pSound  = pSound;
@@ -59,7 +60,8 @@ bool CJauge::Create (CPixmap * pPixmap, CSound * pSound, POINT pos, Sint32 type)
 
 // Dessine un bouton dans son état.
 
-void CJauge::Draw ()
+void
+CJauge::Draw ()
 {
   Sint32 part;
   RECT   rect;
@@ -94,7 +96,8 @@ void CJauge::Draw ()
 
 // Modifie le niveau.
 
-void CJauge::SetLevel (Sint32 level)
+void
+CJauge::SetLevel (Sint32 level)
 {
   if (level < 0)
     level = 0;
@@ -106,22 +109,26 @@ void CJauge::SetLevel (Sint32 level)
 
 // Modifie le type.
 
-void CJauge::SetType (Sint32 type)
+void
+CJauge::SetType (Sint32 type)
 {
   m_type = type;
 }
 
-bool CJauge::GetHide ()
+bool
+CJauge::GetHide ()
 {
   return m_bHide;
 }
 
-void CJauge::SetHide (bool bHide)
+void
+CJauge::SetHide (bool bHide)
 {
   m_bHide = bHide;
 }
 
-POINT CJauge::GetPos ()
+POINT
+CJauge::GetPos ()
 {
   return m_pos;
 }

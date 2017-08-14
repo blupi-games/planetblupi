@@ -24,7 +24,8 @@
 
 // Mémorise toutes les positions des blupi.
 
-void CDecor::CheminMemPos (Sint32 exRank)
+void
+CDecor::CheminMemPos (Sint32 exRank)
 {
   Sint32 rank, index;
 
@@ -57,7 +58,8 @@ void CDecor::CheminMemPos (Sint32 exRank)
 
 // Teste si une positiion est occupée par un blupi.
 
-bool CDecor::CheminTestPos (POINT pos, Sint32 & rank)
+bool
+CDecor::CheminTestPos (POINT pos, Sint32 & rank)
 {
   Sint32 i;
 
@@ -77,7 +79,8 @@ bool CDecor::CheminTestPos (POINT pos, Sint32 & rank)
 // à la recherche du chemin le plus court
 
 // retourne la direction à prendre
-Sint32 CDecor::CheminARebours (Sint32 rank)
+Sint32
+CDecor::CheminARebours (Sint32 rank)
 {
   Sint32 pos, rebours, last, dir, set;
   POINT  v;
@@ -119,7 +122,8 @@ Sint32 CDecor::CheminARebours (Sint32 rank)
 // semblable à la précédente,
 // mais les points à explorer sont classés selon leur distance à la cible
 
-void CDecor::CheminFillTerrain (Sint32 rank)
+void
+CDecor::CheminFillTerrain (Sint32 rank)
 {
   Sint32 pos, last, dest, dist;
   Sint32 step, dir, cout, action, max, next, ampli;
@@ -196,7 +200,8 @@ void CDecor::CheminFillTerrain (Sint32 rank)
 // et le "prix à payer" pour aller dans cette direction
 // coût doit être déterminé en sortie
 
-bool CDecor::CheminTestDirection (
+bool
+CDecor::CheminTestDirection (
   Sint32 rank, Sint32 pos, Sint32 dir, Sint32 & next, Sint32 & ampli,
   Sint32 & cout, Sint32 & action)
 {
@@ -284,7 +289,8 @@ bool CDecor::CheminTestDirection (
 
 // Retourne true si on a assigné une nouvelle direction à blupi.
 
-bool CDecor::CheminCherche (Sint32 rank, Sint32 & action)
+bool
+CDecor::CheminCherche (Sint32 rank, Sint32 & action)
 {
   Sint32 cout; // prix pour aller dans une direction
   Sint32 pos, dir, next, ampli;
@@ -326,7 +332,8 @@ bool CDecor::CheminCherche (Sint32 rank, Sint32 & action)
 
 // Teste s'il est possible de se rendre à un endroit donné.
 
-bool CDecor::IsCheminFree (Sint32 rank, POINT dest, Sint32 button)
+bool
+CDecor::IsCheminFree (Sint32 rank, POINT dest, Sint32 button)
 {
   Sint32 action, sDirect;
   POINT  goalCel, passCel, limit;

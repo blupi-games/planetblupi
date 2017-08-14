@@ -38,14 +38,16 @@
 
 // Affiche un message de debug.
 
-void OutputDebug (const char * pMessage)
+void
+OutputDebug (const char * pMessage)
 {
   SDL_LogDebug (SDL_LOG_CATEGORY_APPLICATION, "%s", pMessage);
 }
 
 // Conversion de la position de la souris.
 
-POINT ConvLongToPos (LPARAM lParam)
+POINT
+ConvLongToPos (LPARAM lParam)
 {
   POINT pos;
 
@@ -63,7 +65,8 @@ POINT ConvLongToPos (LPARAM lParam)
 static int g_seed;
 
 /* Initialize the Microsoft pseudo-random generator */
-void InitRandom ()
+void
+InitRandom ()
 {
   g_seed = 1;
   // srand (1);
@@ -74,14 +77,16 @@ void InitRandom ()
  * platforms.
  * See http://stackoverflow.com/a/1280765/842097
  */
-int ms_rand ()
+int
+ms_rand ()
 {
   g_seed = g_seed * 0x343fd + 0x269EC3;
   return (g_seed >> 0x10) & 0x7FFF;
 }
 
 /* Returns a random number between two values (included). */
-Sint32 Random (Sint32 min, Sint32 max)
+Sint32
+Random (Sint32 min, Sint32 max)
 {
   Sint32 n;
 
@@ -91,19 +96,22 @@ Sint32 Random (Sint32 min, Sint32 max)
   return (Sint32) n;
 }
 
-std::string GetLocale ()
+std::string
+GetLocale ()
 {
   return gettext ("en");
 }
 
 // Retourne le nom de dossier en cours.
 
-std::string GetBaseDir ()
+std::string
+GetBaseDir ()
 {
   return GetShareDir () + "planetblupi/";
 }
 
-std::string GetShareDir ()
+std::string
+GetShareDir ()
 {
   static std::string basePath;
 
@@ -126,7 +134,8 @@ std::string GetShareDir ()
 // Ajoute le chemin permettant de lire un fichier
 // utilisateur.
 
-void AddUserPath (std::string & pFilename)
+void
+AddUserPath (std::string & pFilename)
 {
   const char * pText;
   size_t       pos;

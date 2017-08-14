@@ -31,7 +31,8 @@
 
 // Initialize avi libraries.
 
-bool CMovie::initAVI ()
+bool
+CMovie::initAVI ()
 {
   // Initialize Kitchensink with network support and all formats.
   Sint32 err = Kit_Init (KIT_INIT_FORMATS);
@@ -46,7 +47,8 @@ bool CMovie::initAVI ()
 
 // Closes the opened AVI file and the opened device type. |
 
-void CMovie::termAVI ()
+void
+CMovie::termAVI ()
 {
   Kit_Quit ();
 }
@@ -54,7 +56,8 @@ void CMovie::termAVI ()
 // Close the movie and anything associated with it.                 |
 // This function clears the <m_fPlaying> and <m_fMovieOpen> flags   |
 
-void CMovie::fileCloseMovie ()
+void
+CMovie::fileCloseMovie ()
 {
   m_fPlaying   = false; // can't be playing any longer
   m_fMovieOpen = false; // no more movies open
@@ -85,7 +88,8 @@ void CMovie::fileCloseMovie ()
 // the movie paused when opened.
 // Sets <m_fMovieOpen> on success.
 
-bool CMovie::fileOpenMovie (RECT rect, const std::string & pFilename)
+bool
+CMovie::fileOpenMovie (RECT rect, const std::string & pFilename)
 {
   const auto path = GetBaseDir () + pFilename;
 
@@ -133,7 +137,8 @@ bool CMovie::fileOpenMovie (RECT rect, const std::string & pFilename)
 
 // Play/pause the movie depending on the state
 
-void CMovie::playMovie ()
+void
+CMovie::playMovie ()
 {
   m_fPlaying = !m_fPlaying; // swap the play flag
 
@@ -167,7 +172,8 @@ CMovie::~CMovie ()
 
 // Ouvre la librairie avi.
 
-bool CMovie::Create ()
+bool
+CMovie::Create ()
 {
   m_bEnable = initAVI ();
   return m_bEnable;
@@ -175,14 +181,16 @@ bool CMovie::Create ()
 
 // Retourne l'état de DirectMovie.
 
-bool CMovie::GetEnable ()
+bool
+CMovie::GetEnable ()
 {
   return m_bEnable;
 }
 
 // Indique si un film existe.
 
-bool CMovie::IsExist (const std::string & pFilename)
+bool
+CMovie::IsExist (const std::string & pFilename)
 {
   const auto path = GetBaseDir () + pFilename;
   FILE *     file;
@@ -197,7 +205,8 @@ bool CMovie::IsExist (const std::string & pFilename)
 
 // Montre un film avi.
 
-bool CMovie::Play (RECT rect, const std::string & pFilename)
+bool
+CMovie::Play (RECT rect, const std::string & pFilename)
 {
   if (!m_bEnable)
     return false;
@@ -212,7 +221,8 @@ bool CMovie::Play (RECT rect, const std::string & pFilename)
 
 // Stoppe le film avi.
 
-void CMovie::Stop ()
+void
+CMovie::Stop ()
 {
   if (!m_bEnable)
     return;
@@ -220,7 +230,8 @@ void CMovie::Stop ()
   fileCloseMovie ();
 }
 
-void CMovie::Pause ()
+void
+CMovie::Pause ()
 {
   if (!m_bEnable || !m_fPlaying)
     return;
@@ -231,7 +242,8 @@ void CMovie::Pause ()
   Kit_PlayerPause (m_player);
 }
 
-void CMovie::Resume ()
+void
+CMovie::Resume ()
 {
   if (!m_bEnable || !m_fPlaying)
     return;
@@ -242,7 +254,8 @@ void CMovie::Resume ()
   Kit_PlayerPlay (m_player);
 }
 
-bool CMovie::Render ()
+bool
+CMovie::Render ()
 {
   if (!m_bEnable || !m_fPlaying)
     return false;

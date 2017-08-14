@@ -1285,7 +1285,8 @@ static char tableObstacleObject[] =
 // Retourne les obstacles autour d'une cellule, sous la
 // forme d'un tableau de 3x3.
 
-void CDecor::SearchFloor (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits)
+void
+CDecor::SearchFloor (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits)
 {
   char * pTable;
   Sint32 first, last;
@@ -1334,7 +1335,8 @@ void CDecor::SearchFloor (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits)
 // Retourne les obstacles autour d'une cellule, sous la
 // forme d'un tableau de 3x3.
 
-void CDecor::SearchObject (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits)
+void
+CDecor::SearchObject (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits)
 {
   char * pTable;
   Sint32 dx, dy, x, y, i;
@@ -1368,7 +1370,8 @@ void CDecor::SearchObject (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits)
 
 // Ajuste un sol en fonction du personnage.
 
-void CDecor::AjustFloor (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits)
+void
+CDecor::AjustFloor (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits)
 {
   Sint32 i;
 
@@ -1429,7 +1432,8 @@ lock:
 
 // Ajuste un obstacle en fonction du personnage.
 
-void CDecor::AjustObject (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits)
+void
+CDecor::AjustObject (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits)
 {
   Sint32 i;
 
@@ -1577,7 +1581,8 @@ lock:
 
 // Copie un tableau 3x3 dans un tableau 9x9.
 
-void Copy33To99 (Sint32 * pSrc33, Sint32 * pDst99, Sint32 dx, Sint32 dy)
+void
+Copy33To99 (Sint32 * pSrc33, Sint32 * pDst99, Sint32 dx, Sint32 dy)
 {
   Sint32 x, y;
 
@@ -1590,7 +1595,8 @@ void Copy33To99 (Sint32 * pSrc33, Sint32 * pDst99, Sint32 dx, Sint32 dy)
 
 // Indique s'il est possible d'avancer dans une direction donnée.
 
-bool CDecor::IsFreeDirect (POINT cel, Sint32 direct, Sint32 rank)
+bool
+CDecor::IsFreeDirect (POINT cel, Sint32 direct, Sint32 rank)
 {
   Sint32 icon, workBlupi;
   Sint32 bits[3 * 3], obstacles[9 * 9];
@@ -1672,7 +1678,8 @@ bool CDecor::IsFreeDirect (POINT cel, Sint32 direct, Sint32 rank)
 // Est utilisé lors du dessin (BuildPutBlupi), pour savoir
 // si blupi est devant un objet.
 
-bool CDecor::IsFreeCelObstacle (POINT cel)
+bool
+CDecor::IsFreeCelObstacle (POINT cel)
 {
   Sint32 icon;
   Sint32 bits[9];
@@ -1701,7 +1708,8 @@ bool CDecor::IsFreeCelObstacle (POINT cel)
 // en tenant compte uniquement des sols.
 // Retourne true si blupi peut y aller !
 
-bool CDecor::IsFreeCelFloor (POINT cel, Sint32 rank)
+bool
+CDecor::IsFreeCelFloor (POINT cel, Sint32 rank)
 {
   Sint32 icon;
   Sint32 bits[9];
@@ -1725,7 +1733,8 @@ bool CDecor::IsFreeCelFloor (POINT cel, Sint32 rank)
 // Est utilisé pour savoir si blupi peut venir ici
 // débarquer en bateau ou monter dans sa jeep.
 
-bool CDecor::IsFreeCelGo (POINT cel, Sint32 rank)
+bool
+CDecor::IsFreeCelGo (POINT cel, Sint32 rank)
 {
   bool   bOK;
   POINT  limit;
@@ -1789,7 +1798,8 @@ bool CDecor::IsFreeCelGo (POINT cel, Sint32 rank)
 // Est utilisé pour savoir comment est la mise en évidence (hili)
 // à cet endroit.
 
-bool CDecor::IsFreeCelHili (POINT cel, Sint32 rank)
+bool
+CDecor::IsFreeCelHili (POINT cel, Sint32 rank)
 {
   bool   bOK;
   POINT  limit;
@@ -1836,7 +1846,8 @@ bool CDecor::IsFreeCelHili (POINT cel, Sint32 rank)
 // Indique si une cellule est libre.
 // Est utilisé pour savoir si blupi peut venir ici.
 
-bool CDecor::IsFreeCel (POINT cel, Sint32 rank)
+bool
+CDecor::IsFreeCel (POINT cel, Sint32 rank)
 {
   Sint32 icon, workBlupi;
   Sint32 bits[9];
@@ -1874,7 +1885,8 @@ bool CDecor::IsFreeCel (POINT cel, Sint32 rank)
 
 // Indique si blupi peut déposer un objet ici.
 
-bool CDecor::IsFreeCelDepose (POINT cel, Sint32 rank)
+bool
+CDecor::IsFreeCelDepose (POINT cel, Sint32 rank)
 {
   Sint32 icon;
 
@@ -1898,7 +1910,8 @@ bool CDecor::IsFreeCelDepose (POINT cel, Sint32 rank)
 // Le point retourné dans "limit" indique jusqu'où il est
 // possible de marcher normalement (sans passe muraille).
 
-bool CDecor::IsFreeCelEmbarque (
+bool
+CDecor::IsFreeCelEmbarque (
   POINT cel, Sint32 rank, Sint32 & action, POINT & limit)
 {
   bool   bOK;
@@ -1979,7 +1992,8 @@ bool CDecor::IsFreeCelEmbarque (
 // Le point retourné dans "limit" indique jusqu'où il est
 // possible de naviguer normalement (sans passe muraille).
 
-bool CDecor::IsFreeCelDebarque (
+bool
+CDecor::IsFreeCelDebarque (
   POINT cel, Sint32 rank, Sint32 & action, POINT & limit)
 {
   bool   bOK;
@@ -2049,7 +2063,8 @@ bool CDecor::IsFreeCelDebarque (
 
 // Indique s'il est possible de sauter dans une direction.
 
-bool CDecor::IsFreeJump (POINT cel, Sint32 direct, Sint32 rank, Sint32 & action)
+bool
+CDecor::IsFreeJump (POINT cel, Sint32 direct, Sint32 rank, Sint32 & action)
 {
   POINT  depart, vector;
   Sint32 i, icon;
@@ -2110,8 +2125,8 @@ bool CDecor::IsFreeJump (POINT cel, Sint32 direct, Sint32 rank, Sint32 & action)
 
 // Indique s'il est possible de glisser dans une direction.
 
-bool CDecor::IsFreeGlisse (
-  POINT cel, Sint32 direct, Sint32 rank, Sint32 & action)
+bool
+CDecor::IsFreeGlisse (POINT cel, Sint32 direct, Sint32 rank, Sint32 & action)
 {
   Sint32 channel, icon;
 
@@ -2133,7 +2148,8 @@ bool CDecor::IsFreeGlisse (
 // Cherche la meilleure direction pour atteindre un but.
 // Retourne -1 si on est déjà sur le but.
 
-Sint32 CDecor::DirectSearch (POINT cel, POINT goal)
+Sint32
+CDecor::DirectSearch (POINT cel, POINT goal)
 {
   POINT  dir;
   Sint32 direct, tan;
@@ -2234,7 +2250,8 @@ Sint32 CDecor::DirectSearch (POINT cel, POINT goal)
 
 // Vide les positions déjà essayées.
 
-void CDecor::FlushUsed (Sint32 rank)
+void
+CDecor::FlushUsed (Sint32 rank)
 {
   m_blupi[rank].nbUsed       = 0;
   m_blupi[rank].nextRankUsed = 0;
@@ -2242,7 +2259,8 @@ void CDecor::FlushUsed (Sint32 rank)
 
 // Ajoute une position déjà été essayée.
 
-void CDecor::AddUsedPos (Sint32 rank, POINT pos)
+void
+CDecor::AddUsedPos (Sint32 rank, POINT pos)
 {
   Sint32 i, j, old;
 
@@ -2294,7 +2312,8 @@ void CDecor::AddUsedPos (Sint32 rank, POINT pos)
 
 // Cherche si une position a déjà été essayée.
 
-bool CDecor::IsUsedPos (Sint32 rank, POINT pos)
+bool
+CDecor::IsUsedPos (Sint32 rank, POINT pos)
 {
   Sint32 i;
 
@@ -2311,7 +2330,8 @@ bool CDecor::IsUsedPos (Sint32 rank, POINT pos)
 
 // Cherche la meilleure direction pour atteindre un but.
 
-bool CDecor::SearchBestBase (
+bool
+CDecor::SearchBestBase (
   Sint32 rank, Sint32 & action, POINT & newCel, Sint32 & direct)
 {
   Sint32 searchDirect[8] = {0, 1, 7, 2, 6, 5, 3, 4};
@@ -2404,7 +2424,8 @@ bool CDecor::SearchBestBase (
 
 // Cherche la meilleure direction pour atteindre un but.
 
-bool CDecor::SearchBestPass (Sint32 rank, Sint32 & action)
+bool
+CDecor::SearchBestPass (Sint32 rank, Sint32 & action)
 {
   Blupi  iBlupi;
   Sint32 i, j, direct;
@@ -2513,7 +2534,8 @@ bool CDecor::SearchBestPass (Sint32 rank, Sint32 & action)
 // Le sol doit permettre d'aller aux 4 coins, et il ne doit
 // pas y avoir un autre blupi que soi-même.
 
-bool CDecor::IsWorkableObject (POINT cel, Sint32 rank)
+bool
+CDecor::IsWorkableObject (POINT cel, Sint32 rank)
 {
   if (
     !IsFreeCelFloor (GetCel (cel, 0, 0), -1) ||
@@ -2540,7 +2562,8 @@ bool CDecor::IsWorkableObject (POINT cel, Sint32 rank)
 // Cherche un autre objet pour continuer une action
 // (comme par exemple abatre des arbres).
 
-bool CDecor::SearchOtherObject (
+bool
+CDecor::SearchOtherObject (
   Sint32 rank, POINT initCel, Sint32 action, Sint32 distMax, Sint32 channel,
   Sint32 firstIcon1, Sint32 lastIcon1, Sint32 firstIcon2, Sint32 lastIcon2,
   POINT & foundCel, Sint32 & foundIcon)
@@ -2658,7 +2681,8 @@ bool CDecor::SearchOtherObject (
 // Cherche un autre sol pouvant contenir du fer, pour y
 // planter un drapeau.
 
-bool CDecor::SearchOtherDrapeau (
+bool
+CDecor::SearchOtherDrapeau (
   Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
   Sint32 & foundIcon)
 {
@@ -2720,7 +2744,8 @@ bool CDecor::SearchOtherDrapeau (
 // Cherche un autre sol permettant de déposer du bois
 // pour construire un bateau.
 
-bool CDecor::SearchOtherBateau (
+bool
+CDecor::SearchOtherBateau (
   Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
   Sint32 & foundIcon)
 {
@@ -2767,7 +2792,8 @@ bool CDecor::SearchOtherBateau (
 
 // Vérifie si l'objet peut être détruit par l'araignée.
 
-bool CDecor::IsSpiderObject (Sint32 icon)
+bool
+CDecor::IsSpiderObject (Sint32 icon)
 {
   return (
     icon == 60 || // tomates ?
@@ -2777,7 +2803,8 @@ bool CDecor::IsSpiderObject (Sint32 icon)
 
 // Cherche un autre objet pour l'araignée.
 
-bool CDecor::SearchSpiderObject (
+bool
+CDecor::SearchSpiderObject (
   Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
   Sint32 & foundIcon)
 {
@@ -2837,7 +2864,8 @@ bool CDecor::SearchSpiderObject (
 
 // Vérifie si l'objet peut être détruit par le tracks.
 
-bool CDecor::IsTracksObject (Sint32 icon)
+bool
+CDecor::IsTracksObject (Sint32 icon)
 {
   return (
     icon == 36 ||                 // planches ?
@@ -2857,7 +2885,8 @@ bool CDecor::IsTracksObject (Sint32 icon)
 
 // Cherche un autre objet pour le tracks.
 
-bool CDecor::SearchTracksObject (
+bool
+CDecor::SearchTracksObject (
   Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
   Sint32 & foundIcon)
 {
@@ -2942,7 +2971,8 @@ bool CDecor::SearchTracksObject (
 
 // Vérifie si l'objet peut être détruit par le robot.
 
-bool CDecor::IsRobotObject (Sint32 icon)
+bool
+CDecor::IsRobotObject (Sint32 icon)
 {
   return (
     icon == 85 ||  // dynamite ?
@@ -2954,7 +2984,8 @@ bool CDecor::IsRobotObject (Sint32 icon)
 // Cherche une autre action pour le robot.
 // C'est ici qu'est contenue l'IA du robot !
 
-bool CDecor::SearchRobotObject (
+bool
+CDecor::SearchRobotObject (
   Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
   Sint32 & foundIcon, Sint32 & foundAction)
 {
@@ -3250,7 +3281,8 @@ bool CDecor::SearchRobotObject (
 
 // Teste si un emplacement est ok pour bâtir une usine.
 
-bool CDecor::IsUsineBuild (Sint32 rank, POINT cel)
+bool
+CDecor::IsUsineBuild (Sint32 rank, POINT cel)
 {
   Sint32 icon, channel;
   Sint32 x, y;
@@ -3278,7 +3310,8 @@ bool CDecor::IsUsineBuild (Sint32 rank, POINT cel)
 // L'usine doit être libre devant (lieu de stationnement
 // pour l'ennemi qui sera construit).
 
-bool CDecor::IsUsineFree (Sint32 rank, POINT cel)
+bool
+CDecor::IsUsineFree (Sint32 rank, POINT cel)
 {
   Sint32 channel, icon;
 
@@ -3304,7 +3337,8 @@ bool CDecor::IsUsineFree (Sint32 rank, POINT cel)
 
 // Vérifie si l'objet peut être détruit par une bombe.
 
-bool CDecor::IsBombeObject (Sint32 icon)
+bool
+CDecor::IsBombeObject (Sint32 icon)
 {
   return (
     icon == 36 ||                 // planches ?
@@ -3317,7 +3351,8 @@ bool CDecor::IsBombeObject (Sint32 icon)
 
 // Cherche un autre objet pour une bombe.
 
-bool CDecor::SearchBombeObject (
+bool
+CDecor::SearchBombeObject (
   Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
   Sint32 & foundIcon)
 {
@@ -3377,7 +3412,8 @@ bool CDecor::SearchBombeObject (
 
 // Cherche un autre objet pour un électro.
 
-bool CDecor::SearchElectroObject (
+bool
+CDecor::SearchElectroObject (
   Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
   Sint32 & foundIcon)
 {
@@ -3486,7 +3522,8 @@ bool CDecor::SearchElectroObject (
 // Teste si une position est très proche du feu.
 // Si oui, retourne true.
 
-bool CDecor::IsFireCel (POINT cel)
+bool
+CDecor::IsFireCel (POINT cel)
 {
   Sint32 x, y;
   POINT  test;
@@ -3517,7 +3554,8 @@ bool CDecor::IsFireCel (POINT cel)
 // Teste si une position est très proche d'un virus.
 // Si oui, retourne true.
 
-bool CDecor::IsVirusCel (POINT cel)
+bool
+CDecor::IsVirusCel (POINT cel)
 {
   Sint32 rank;
 
@@ -3539,7 +3577,8 @@ bool CDecor::IsVirusCel (POINT cel)
 // d'une cellule donnée (cel).
 // Retourne 0 si c'est possible, ou une erreur autrement !
 
-Errors CDecor::IsBuildPont (POINT & cel, Sint32 & iconBuild)
+Errors
+CDecor::IsBuildPont (POINT & cel, Sint32 & iconBuild)
 {
   POINT  vector, test;
   Sint32 i, channel, icon, p1, p2, p3, r1, r2, nb, rest;
@@ -3664,7 +3703,8 @@ Errors CDecor::IsBuildPont (POINT & cel, Sint32 & iconBuild)
 // Regarde s'il est possible de construire un bateau à partir
 // d'une cellule donnée (cel).
 
-bool CDecor::IsBuildBateau (POINT cel, Sint32 & direct)
+bool
+CDecor::IsBuildBateau (POINT cel, Sint32 & direct)
 {
   Sint32 fChannel, fIcon;
   Sint32 oChannel, oIcon;
@@ -3715,7 +3755,8 @@ bool CDecor::IsBuildBateau (POINT cel, Sint32 & direct)
 
 // Vide toutes les positions visitées.
 
-void CDecor::InitDrapeau ()
+void
+CDecor::InitDrapeau ()
 {
   Sint32 i;
 
@@ -3728,7 +3769,8 @@ void CDecor::InitDrapeau ()
 
 // Mémorise une cellule visitée (ne contenant pas de fer).
 
-void CDecor::AddDrapeau (POINT cel)
+void
+CDecor::AddDrapeau (POINT cel)
 {
   Sint32 i;
 
@@ -3743,7 +3785,8 @@ void CDecor::AddDrapeau (POINT cel)
 
 // Supprime une cellule visitée (ne contenant pas de fer).
 
-void CDecor::SubDrapeau (POINT cel)
+void
+CDecor::SubDrapeau (POINT cel)
 {
   Sint32 i;
 
@@ -3759,7 +3802,8 @@ void CDecor::SubDrapeau (POINT cel)
 
 // Teste si une cellule a déjà été visitée.
 
-bool CDecor::TestDrapeau (POINT cel)
+bool
+CDecor::TestDrapeau (POINT cel)
 {
   Sint32 i;
 

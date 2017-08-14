@@ -54,7 +54,8 @@ CButton::~CButton ()
 
 // Crée un nouveau bouton.
 
-bool CButton::Create (
+bool
+CButton::Create (
   CPixmap * pPixmap, CSound * pSound, POINT pos, Sint32 type, Sint32 * pMenu,
   Sint32 nbMenu, const char ** pToolTips, Sint32 region, Uint32 message)
 {
@@ -141,7 +142,8 @@ bool CButton::Create (
 
 // Dessine un bouton dans son état.
 
-void CButton::Draw ()
+void
+CButton::Draw ()
 {
   Sint32 i;
   POINT  pos;
@@ -184,50 +186,59 @@ void CButton::Draw ()
   }
 }
 
-Sint32 CButton::GetState ()
+Sint32
+CButton::GetState ()
 {
   return m_state;
 }
 
-void CButton::SetState (Sint32 state)
+void
+CButton::SetState (Sint32 state)
 {
   m_state      = state;
   m_mouseState = state;
 }
 
-Sint32 CButton::GetMenu ()
+Sint32
+CButton::GetMenu ()
 {
   return m_selMenu;
 }
 
-void CButton::SetMenu (Sint32 menu)
+void
+CButton::SetMenu (Sint32 menu)
 {
   m_selMenu = menu;
 }
 
-bool CButton::GetEnable ()
+bool
+CButton::GetEnable ()
 {
   return m_bEnable;
 }
 
-void CButton::SetEnable (bool bEnable)
+void
+CButton::SetEnable (bool bEnable)
 {
   m_bEnable = bEnable;
 }
 
-bool CButton::GetHide ()
+bool
+CButton::GetHide ()
 {
   return m_bHide;
 }
 
-void CButton::SetHide (bool bHide)
+void
+CButton::SetHide (bool bHide)
 {
   m_bHide = bHide;
 }
 
 // Traitement d'un événement.
 
-bool CButton::TreatEvent (const SDL_Event & event)
+bool
+CButton::TreatEvent (const SDL_Event & event)
 {
   POINT pos;
 
@@ -277,7 +288,8 @@ bool CButton::TreatEvent (const SDL_Event & event)
 
 // Indique si la souris est sur ce bouton.
 
-bool CButton::MouseOnButton (POINT pos)
+bool
+CButton::MouseOnButton (POINT pos)
 {
   return Detect (pos);
 }
@@ -285,7 +297,8 @@ bool CButton::MouseOnButton (POINT pos)
 // Retourne le tooltips pour un bouton, en fonction
 // de la position de la souris.
 
-const char * CButton::GetToolTips (POINT pos)
+const char *
+CButton::GetToolTips (POINT pos)
 {
   Sint32 width = m_dim.x;
   Sint32 rank;
@@ -320,7 +333,8 @@ const char * CButton::GetToolTips (POINT pos)
 
 // Détecte si la souris est dans le bouton.
 
-bool CButton::Detect (POINT pos)
+bool
+CButton::Detect (POINT pos)
 {
   Sint32 width = m_dim.x;
 
@@ -340,7 +354,8 @@ bool CButton::Detect (POINT pos)
 
 // Bouton de la souris pressé.
 
-bool CButton::MouseDown (POINT pos)
+bool
+CButton::MouseDown (POINT pos)
 {
   if (!Detect (pos))
     return false;
@@ -356,7 +371,8 @@ bool CButton::MouseDown (POINT pos)
 
 // Souris déplacés.
 
-bool CButton::MouseMove (POINT pos)
+bool
+CButton::MouseMove (POINT pos)
 {
   bool   bDetect;
   Sint32 iState, iMenu;
@@ -398,7 +414,8 @@ bool CButton::MouseMove (POINT pos)
 
 // Bouton de la souris relâché.
 
-bool CButton::MouseUp (POINT pos)
+bool
+CButton::MouseUp (POINT pos)
 {
   bool bDetect;
 

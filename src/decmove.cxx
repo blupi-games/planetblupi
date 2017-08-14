@@ -621,7 +621,8 @@ static Sint16 table_move12[] =
 };
 // clang-format on
 
-Sint16 * GetListMoves (Sint32 rank)
+Sint16 *
+GetListMoves (Sint32 rank)
 {
   switch (rank)
   {
@@ -780,7 +781,8 @@ static Sint16 table_icon11[] =
 };
 // clang-format on
 
-Sint16 * GetListIcons (Sint32 rank)
+Sint16 *
+GetListIcons (Sint32 rank)
 {
   switch (rank)
   {
@@ -814,7 +816,8 @@ Sint16 * GetListIcons (Sint32 rank)
 /**
  * \brief Remove all animated environments.
  */
-void CDecor::MoveFlush ()
+void
+CDecor::MoveFlush ()
 {
   Sint32 i, x, y;
 
@@ -833,7 +836,8 @@ void CDecor::MoveFlush ()
  *
  * \returns the duration.
  */
-Sint32 CDecor::MoveMaxFire ()
+Sint32
+CDecor::MoveMaxFire ()
 {
   if (m_skill >= 1)
     return (MAXFIRE / 4) * 3;
@@ -843,7 +847,8 @@ Sint32 CDecor::MoveMaxFire ()
 /**
  * \brief Initialize all environment perpetual movements.
  */
-void CDecor::MoveFixInit ()
+void
+CDecor::MoveFixInit ()
 {
   Sint32 x, y;
 
@@ -901,7 +906,8 @@ void CDecor::MoveFixInit ()
  * \param[in] bNotIfExist - ?
  * \returns true on success.
  */
-bool CDecor::MoveCreate (
+bool
+CDecor::MoveCreate (
   POINT cel, Sint32 rankBlupi, bool bFloor, Sint32 channel, Sint32 icon,
   Sint32 maskChannel, Sint32 maskIcon, Sint32 total, Sint32 delai, Sint32 stepY,
   bool bMisc, bool bNotIfExist)
@@ -957,7 +963,8 @@ create:
 
 // Ajoute un mouvement.
 
-bool CDecor::MoveAddMoves (POINT cel, Sint32 rankMoves)
+bool
+CDecor::MoveAddMoves (POINT cel, Sint32 rankMoves)
 {
   Sint32 rank;
 
@@ -979,7 +986,8 @@ bool CDecor::MoveAddMoves (POINT cel, Sint32 rankMoves)
 
 // Ajoute un mouvement.
 
-bool CDecor::MoveAddIcons (POINT cel, Sint32 rankIcons, bool bContinue)
+bool
+CDecor::MoveAddIcons (POINT cel, Sint32 rankIcons, bool bContinue)
 {
   Sint32 rank;
 
@@ -1009,7 +1017,8 @@ bool CDecor::MoveAddIcons (POINT cel, Sint32 rankIcons, bool bContinue)
  * \param[in] cel - Position.
  * \returns true if possible.
  */
-bool CDecor::MoveStartFire (POINT cel)
+bool
+CDecor::MoveStartFire (POINT cel)
 {
   Sint32 channel, icon;
 
@@ -1063,7 +1072,8 @@ bool CDecor::MoveStartFire (POINT cel)
 
 // Démarre le feu si c'est possible par proximité.
 
-void CDecor::MoveProxiFire (POINT cel)
+void
+CDecor::MoveProxiFire (POINT cel)
 {
   Sint32 cx, cy, xx, yy, x, y, channel, icon;
 
@@ -1129,7 +1139,8 @@ void CDecor::MoveProxiFire (POINT cel)
 
 // Fait évoluer le feu.
 
-void CDecor::MoveFire (Sint32 rank)
+void
+CDecor::MoveFire (Sint32 rank)
 {
   Sint32 x, y, icon, newIcon;
   POINT  pos;
@@ -1271,7 +1282,8 @@ void CDecor::MoveFire (Sint32 rank)
 
 // Fait évoluer tous les décors animés.
 
-void CDecor::MoveStep (bool bFirst)
+void
+CDecor::MoveStep (bool bFirst)
 {
   Sint32 rank, rankBlupi;
 
@@ -1321,7 +1333,8 @@ void CDecor::MoveStep (bool bFirst)
 
 // Termine un mouvement pour une cellule donnée.
 
-void CDecor::MoveFinish (POINT cel)
+void
+CDecor::MoveFinish (POINT cel)
 {
   Sint32 rank;
 
@@ -1347,7 +1360,8 @@ void CDecor::MoveFinish (POINT cel)
 
 // Termine un mouvement, d'après le rang du blupi.
 
-void CDecor::MoveFinish (Sint32 rankBlupi)
+void
+CDecor::MoveFinish (Sint32 rankBlupi)
 {
   Sint32 rank;
 
@@ -1360,7 +1374,8 @@ void CDecor::MoveFinish (Sint32 rankBlupi)
 
 // Vérifie si une cellule est déjà utilisée.
 
-bool CDecor::MoveIsUsed (POINT cel)
+bool
+CDecor::MoveIsUsed (POINT cel)
 {
   Sint32 rank;
 
@@ -1377,7 +1392,8 @@ bool CDecor::MoveIsUsed (POINT cel)
 
 // Retourne l'objet en construction à un endroit donné.
 
-bool CDecor::MoveGetObject (POINT cel, Sint32 & channel, Sint32 & icon)
+bool
+CDecor::MoveGetObject (POINT cel, Sint32 & channel, Sint32 & icon)
 {
   Sint32 rank;
 
@@ -1398,7 +1414,8 @@ bool CDecor::MoveGetObject (POINT cel, Sint32 & channel, Sint32 & icon)
 
 // Modifie un objet en construction à un endroit donné.
 
-bool CDecor::MovePutObject (POINT cel, Sint32 channel, Sint32 icon)
+bool
+CDecor::MovePutObject (POINT cel, Sint32 channel, Sint32 icon)
 {
   Sint32 rank;
 

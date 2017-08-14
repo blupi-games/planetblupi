@@ -35,7 +35,8 @@
 
 #define TEXTDELAY 10 // délai avant apparition tooltips
 
-POINT GetCel (Sint32 x, Sint32 y)
+POINT
+GetCel (Sint32 x, Sint32 y)
 {
   POINT cel;
 
@@ -45,7 +46,8 @@ POINT GetCel (Sint32 x, Sint32 y)
   return cel;
 }
 
-POINT GetCel (POINT cel, Sint32 x, Sint32 y)
+POINT
+GetCel (POINT cel, Sint32 x, Sint32 y)
 {
   cel.x += x;
   cel.y += y;
@@ -58,7 +60,8 @@ POINT GetCel (POINT cel, Sint32 x, Sint32 y)
 // bord (-2) pour permettre de gérer le brouillard proprement
 // jusque dans les bords !
 
-bool IsValid (POINT cel)
+bool
+IsValid (POINT cel)
 {
   if (cel.x < 2 || cel.x >= MAXCELX - 2 || cel.y < 2 || cel.y >= MAXCELX - 2)
     return false;
@@ -67,7 +70,8 @@ bool IsValid (POINT cel)
 
 // Retourne un vecteur orienté dans une direction donnée.
 
-POINT GetVector (Sint32 direct)
+POINT
+GetVector (Sint32 direct)
 {
   POINT vector;
 
@@ -164,7 +168,8 @@ CDecor::~CDecor ()
 
 // Initialisation générale.
 
-void CDecor::Create (CSound * pSound, CPixmap * pPixmap)
+void
+CDecor::Create (CSound * pSound, CPixmap * pPixmap)
 {
   m_pSound   = pSound;
   m_pPixmap  = pPixmap;
@@ -173,7 +178,8 @@ void CDecor::Create (CSound * pSound, CPixmap * pPixmap)
 
 // Initialise le décor avec un sol plat partout.
 
-void CDecor::Init (Sint32 channel, Sint32 icon)
+void
+CDecor::Init (Sint32 channel, Sint32 icon)
 {
   Sint32 x, y;
 
@@ -206,7 +212,8 @@ void CDecor::Init (Sint32 channel, Sint32 icon)
 
 // Initialise le décor après une modification.
 
-void CDecor::InitAfterBuild ()
+void
+CDecor::InitAfterBuild ()
 {
   ClearFog (); // met tout sous le brouillard
   ClearFire ();
@@ -217,7 +224,8 @@ void CDecor::InitAfterBuild ()
 
 // Initialise les mises en évidence, avant de jouer.
 
-void CDecor::ResetHili ()
+void
+CDecor::ResetHili ()
 {
   m_bHiliRect = false; // plus de rectangle
   InitOutlineRect ();
@@ -225,7 +233,8 @@ void CDecor::ResetHili ()
 
 // Charge les images nécessaires au décor.
 
-bool CDecor::LoadImages ()
+bool
+CDecor::LoadImages ()
 {
   POINT totalDim, iconDim;
   char  filename[50];
@@ -262,7 +271,8 @@ bool CDecor::LoadImages ()
 
 // Met partout du brouillard, sauf aux endroits des blupi.
 
-void CDecor::ClearFog ()
+void
+CDecor::ClearFog ()
 {
   Sint32 x, y, rank;
 
@@ -285,7 +295,8 @@ void CDecor::ClearFog ()
 
 // Permet de nouveau aux cellules brulées de bruler.
 
-void CDecor::ClearFire ()
+void
+CDecor::ClearFire ()
 {
   Sint32 x, y;
 
@@ -308,14 +319,16 @@ void CDecor::ClearFire ()
 
 // Indique le mode jeu/construction.
 
-void CDecor::SetBuild (bool bBuild)
+void
+CDecor::SetBuild (bool bBuild)
 {
   m_bBuild = bBuild;
 }
 
 // Indique s'il faut tenir compte du brouillard.
 
-void CDecor::EnableFog (bool bEnable)
+void
+CDecor::EnableFog (bool bEnable)
 {
   m_bFog     = bEnable;
   m_bOutline = false;
@@ -323,31 +336,36 @@ void CDecor::EnableFog (bool bEnable)
 
 // Gestion du mode invincible.
 
-bool CDecor::GetInvincible ()
+bool
+CDecor::GetInvincible ()
 {
   return m_bInvincible;
 }
 
-void CDecor::SetInvincible (bool bInvincible)
+void
+CDecor::SetInvincible (bool bInvincible)
 {
   m_bInvincible = bInvincible;
 }
 
 // Gestion du mode costaud (superblupi).
 
-bool CDecor::GetSuper ()
+bool
+CDecor::GetSuper ()
 {
   return m_bSuper;
 }
 
-void CDecor::SetSuper (bool bSuper)
+void
+CDecor::SetSuper (bool bSuper)
 {
   m_bSuper = bSuper;
 }
 
 // Bascule le mode outline.
 
-void CDecor::FlipOutline ()
+void
+CDecor::FlipOutline ()
 {
   m_bOutline        = !m_bOutline;
   m_timeFlipOutline = m_timeConst + 50;
@@ -355,7 +373,8 @@ void CDecor::FlipOutline ()
 
 // Initialise un sol dans une cellule.
 
-bool CDecor::PutFloor (POINT cel, Sint32 channel, Sint32 icon)
+bool
+CDecor::PutFloor (POINT cel, Sint32 channel, Sint32 icon)
 {
   if (cel.x < 0 || cel.x >= MAXCELX || cel.y < 0 || cel.y >= MAXCELY)
     return false;
@@ -372,7 +391,8 @@ bool CDecor::PutFloor (POINT cel, Sint32 channel, Sint32 icon)
 
 // Initialise un objet dans une cellule.
 
-bool CDecor::PutObject (POINT cel, Sint32 channel, Sint32 icon)
+bool
+CDecor::PutObject (POINT cel, Sint32 channel, Sint32 icon)
 {
   if (cel.x < 0 || cel.x >= MAXCELX || cel.y < 0 || cel.y >= MAXCELY)
     return false;
@@ -390,7 +410,8 @@ bool CDecor::PutObject (POINT cel, Sint32 channel, Sint32 icon)
 
 // Retourne un sol dans une cellule.
 
-bool CDecor::GetFloor (POINT cel, Sint32 & channel, Sint32 & icon)
+bool
+CDecor::GetFloor (POINT cel, Sint32 & channel, Sint32 & icon)
 {
   if (cel.x < 0 || cel.x >= MAXCELX || cel.y < 0 || cel.y >= MAXCELY)
     return false;
@@ -403,7 +424,8 @@ bool CDecor::GetFloor (POINT cel, Sint32 & channel, Sint32 & icon)
 
 // Retourne une objet dans une cellule.
 
-bool CDecor::GetObject (POINT cel, Sint32 & channel, Sint32 & icon)
+bool
+CDecor::GetObject (POINT cel, Sint32 & channel, Sint32 & icon)
 {
   if (cel.x < 0 || cel.x >= MAXCELX || cel.y < 0 || cel.y >= MAXCELY)
     return false;
@@ -416,7 +438,8 @@ bool CDecor::GetObject (POINT cel, Sint32 & channel, Sint32 & icon)
 
 // Modifie le feu pour une cellule.
 
-bool CDecor::SetFire (POINT cel, bool bFire)
+bool
+CDecor::SetFire (POINT cel, bool bFire)
 {
   if (cel.x < 0 || cel.x >= MAXCELX || cel.y < 0 || cel.y >= MAXCELY)
     return false;
@@ -428,7 +451,8 @@ bool CDecor::SetFire (POINT cel, bool bFire)
 
 // Modifie l'offset pour le shift.
 
-void CDecor::SetShiftOffset (POINT offset)
+void
+CDecor::SetShiftOffset (POINT offset)
 {
   m_shiftOffset   = offset;
   m_bGroundRedraw = true;
@@ -436,7 +460,8 @@ void CDecor::SetShiftOffset (POINT offset)
 
 // Convertit la position d'une cellule en coordonnée graphique.
 
-POINT CDecor::ConvCelToPos (POINT cel)
+POINT
+CDecor::ConvCelToPos (POINT cel)
 {
   POINT pos;
 
@@ -451,7 +476,8 @@ POINT CDecor::ConvCelToPos (POINT cel)
 
 // Convertit une coordonnée graphique en cellule.
 
-POINT CDecor::ConvPosToCel (POINT pos, bool bMap)
+POINT
+CDecor::ConvPosToCel (POINT pos, bool bMap)
 {
   POINT cel;
 
@@ -482,7 +508,8 @@ POINT CDecor::ConvPosToCel (POINT pos, bool bMap)
 
 // Convertit une coordonnée graphique en grande cellule (2x2).
 
-POINT CDecor::ConvPosToCel2 (POINT pos)
+POINT
+CDecor::ConvPosToCel2 (POINT pos)
 {
   POINT cel;
 
@@ -523,7 +550,8 @@ POINT CDecor::ConvPosToCel2 (POINT pos)
 // il faut toujours mettre blupi le plus au fond possible
 // (minimiser x et y).
 
-void CDecor::BuildPutBlupi ()
+void
+CDecor::BuildPutBlupi ()
 {
   Sint32 x, y, dx, dy, xMin, yMin, rank, clipLeft;
   POINT  pos;
@@ -642,7 +670,8 @@ void CDecor::BuildPutBlupi ()
 
 // Dessine une cellule du décor contenant un sol animé.
 
-void CDecor::BuildMoveFloor (Sint32 x, Sint32 y, POINT pos, Sint32 rank)
+void
+CDecor::BuildMoveFloor (Sint32 x, Sint32 y, POINT pos, Sint32 rank)
 {
   Sint32   icon, nb;
   Sint16 * pTable;
@@ -680,7 +709,8 @@ void CDecor::BuildMoveFloor (Sint32 x, Sint32 y, POINT pos, Sint32 rank)
 
 // Dessine une cellule du décor contenant un objet animé.
 
-void CDecor::BuildMoveObject (Sint32 x, Sint32 y, POINT pos, Sint32 rank)
+void
+CDecor::BuildMoveObject (Sint32 x, Sint32 y, POINT pos, Sint32 rank)
 {
   Sint32   hBuild, offset, startY, endY;
   Sint32   channel, icon, nb;
@@ -789,7 +819,8 @@ void CDecor::BuildMoveObject (Sint32 x, Sint32 y, POINT pos, Sint32 rank)
 
 // Déplace l'objet transporté par blupi.
 
-void BuildMoveTransport (Sint32 icon, POINT & pos)
+void
+BuildMoveTransport (Sint32 icon, POINT & pos)
 {
   pos.x -= DIMCELX / 2;
   pos.y -= 96;
@@ -885,7 +916,8 @@ void BuildMoveTransport (Sint32 icon, POINT & pos)
 
 // Construit tous les sols fixes dans CHGROUND.
 
-void CDecor::BuildGround (RECT clip)
+void
+CDecor::BuildGround (RECT clip)
 {
   //? OutputDebug("BuildGround\n");
   Sint32 x, y, i, j, nbx, nby, width, height, channel, icon;
@@ -1009,7 +1041,8 @@ void CDecor::BuildGround (RECT clip)
 
 // Construit le décor dans un pixmap.
 
-void CDecor::Build (RECT clip, POINT posMouse)
+void
+CDecor::Build (RECT clip, POINT posMouse)
 {
   Sint32 x, y, i, j, nbx, nby, width, height, rank, icon, channel, n;
   POINT  iCel, mCel, cel, iPos, mPos, cPos, pos, tPos;
@@ -1513,7 +1546,8 @@ term:
 //   0  début de mise à jour périodique
 //   1  mise à jour périodique suivante
 
-void CDecor::NextPhase (Sint32 mode)
+void
+CDecor::NextPhase (Sint32 mode)
 {
   if (mode == -1)
     m_phase = -1;
@@ -1529,21 +1563,24 @@ void CDecor::NextPhase (Sint32 mode)
 
 // Modifie le temps total passé dans cette partie.
 
-void CDecor::SetTotalTime (Sint32 total)
+void
+CDecor::SetTotalTime (Sint32 total)
 {
   m_totalTime = total;
 }
 
 // Retourne le temps total passé dans cette partie.
 
-Sint32 CDecor::GetTotalTime ()
+Sint32
+CDecor::GetTotalTime ()
 {
   return m_totalTime;
 }
 
 // Compte le nombre total de sols contenus dans les décors.
 
-Sint32 CDecor::CountFloor (Sint32 channel, Sint32 icon)
+Sint32
+CDecor::CountFloor (Sint32 channel, Sint32 icon)
 {
   Sint32 x, y;
   Sint32 nb = 0;
@@ -1569,7 +1606,8 @@ Sint32 CDecor::CountFloor (Sint32 channel, Sint32 icon)
 //           2          construction d'une cellule 2x2
 //           EV_ACTION* action
 
-Errors CDecor::CelOkForAction (
+Errors
+CDecor::CelOkForAction (
   POINT cel, Sint32 action, Sint32 rank, Sint32 icons[4][4],
   POINT & celOutline1, POINT & celOutline2)
 {
@@ -2707,7 +2745,8 @@ Errors CDecor::CelOkForAction (
 // Indique si une cellule est ok pour une action.
 // Le rang du blupi qui effectuera le travail est donnée dans rank.
 
-Errors CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank)
+Errors
+CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank)
 {
   Sint32 icons[4][4];
   POINT  celOutline1, celOutline2;
@@ -2717,7 +2756,8 @@ Errors CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank)
 
 // Retourne le rang du nième blupi sélectionné.
 
-Sint32 CDecor::GetHiliRankBlupi (Sint32 nb)
+Sint32
+CDecor::GetHiliRankBlupi (Sint32 nb)
 {
   Sint32 rank;
 
@@ -2748,7 +2788,8 @@ Sint32 CDecor::GetHiliRankBlupi (Sint32 nb)
 //           1          construction d'une cellule 1x1
 //           2          construction d'une cellule 2x2
 
-void CDecor::CelHili (POINT pos, Sint32 action)
+void
+CDecor::CelHili (POINT pos, Sint32 action)
 {
   Sint32 x, y, i, channel, icon, rank, nb;
   POINT  cel;
@@ -2851,7 +2892,8 @@ void CDecor::CelHili (POINT pos, Sint32 action)
 
 // Marque la cellule visée par la souris pour un bouton donné.
 
-void CDecor::CelHiliButton (POINT cel, Sint32 button)
+void
+CDecor::CelHiliButton (POINT cel, Sint32 button)
 {
   POINT celOutline1, celOutline2;
 
@@ -2882,7 +2924,8 @@ void CDecor::CelHiliButton (POINT cel, Sint32 button)
 
 // Marque la cellule visée par la souris pour une répétition donnée.
 
-void CDecor::CelHiliRepeat (Sint32 list)
+void
+CDecor::CelHiliRepeat (Sint32 list)
 {
   Sint32 rank, button, x, y, i;
   POINT  cel;
@@ -2937,7 +2980,8 @@ void CDecor::CelHiliRepeat (Sint32 list)
 // Retourne l'identificateur du texte correspondant à
 // l'objet ou au blupi visé par la souris.
 
-const char * CDecor::GetResHili (POINT posMouse)
+const char *
+CDecor::GetResHili (POINT posMouse)
 {
   Sint32 icon;
 
@@ -3208,14 +3252,16 @@ const char * CDecor::GetResHili (POINT posMouse)
 // Indique si le menu est présent et qu'il faut cacher
 // les tooltips du décor.
 
-void CDecor::HideTooltips (bool bHide)
+void
+CDecor::HideTooltips (bool bHide)
 {
   m_bHideTooltips = bHide;
 }
 
 // Modifie l'origine supérieure/gauche du décor.
 
-void CDecor::SetCoin (POINT coin, bool bCenter)
+void
+CDecor::SetCoin (POINT coin, bool bCenter)
 {
   if (bCenter)
   {
@@ -3238,19 +3284,22 @@ void CDecor::SetCoin (POINT coin, bool bCenter)
   m_textLastPos.x = -1; // tooltips plus lavable !
 }
 
-POINT CDecor::GetCoin ()
+POINT
+CDecor::GetCoin ()
 {
   return m_celCoin;
 }
 
-POINT CDecor::GetHome ()
+POINT
+CDecor::GetHome ()
 {
   return m_celHome;
 }
 
 // Mémoirise une position pendant le jeu.
 
-void CDecor::MemoPos (Sint32 rank, bool bRecord)
+void
+CDecor::MemoPos (Sint32 rank, bool bRecord)
 {
   POINT pos;
 
@@ -3279,38 +3328,44 @@ void CDecor::MemoPos (Sint32 rank, bool bRecord)
 
 // Gestion du temps absolu global.
 
-void CDecor::SetTime (Sint32 time)
+void
+CDecor::SetTime (Sint32 time)
 {
   m_time            = time;
   m_timeConst       = time; // vraiment ?
   m_timeFlipOutline = time;
 }
 
-Sint32 CDecor::GetTime ()
+Sint32
+CDecor::GetTime ()
 {
   return m_time;
 }
 
 // Gestion de la musique midi.
 
-void CDecor::SetMusic (Sint32 music)
+void
+CDecor::SetMusic (Sint32 music)
 {
   m_music = music;
 }
 
-Sint32 CDecor::GetMusic ()
+Sint32
+CDecor::GetMusic ()
 {
   return m_music;
 }
 
 // Gestion de la difficulté.
 
-void CDecor::SetSkill (Sint32 skill)
+void
+CDecor::SetSkill (Sint32 skill)
 {
   m_skill = skill;
 }
 
-Sint32 CDecor::GetSkill ()
+Sint32
+CDecor::GetSkill ()
 {
   return m_skill;
 }
@@ -3321,36 +3376,42 @@ Sint32 CDecor::GetSkill ()
 //  2 = hiver
 //  3 = sapin
 
-void CDecor::SetRegion (Sint32 region)
+void
+CDecor::SetRegion (Sint32 region)
 {
   m_region = region;
 }
 
-Sint32 CDecor::GetRegion ()
+Sint32
+CDecor::GetRegion ()
 {
   return m_region;
 }
 
 // Gestion des infos.
 
-void CDecor::SetInfoMode (bool bInfo)
+void
+CDecor::SetInfoMode (bool bInfo)
 {
   m_bInfo         = bInfo;
   m_bGroundRedraw = true; // faudra redessiner les sols
 }
 
-bool CDecor::GetInfoMode ()
+bool
+CDecor::GetInfoMode ()
 {
   return m_bInfo;
 }
 
-void CDecor::SetInfoHeight (Sint32 height)
+void
+CDecor::SetInfoHeight (Sint32 height)
 {
   m_infoHeight    = height;
   m_bGroundRedraw = true; // faudra redessiner les sols
 }
 
-Sint32 CDecor::GetInfoHeight ()
+Sint32
+CDecor::GetInfoHeight ()
 {
   if (m_bInfo)
     return m_infoHeight;
@@ -3360,14 +3421,16 @@ Sint32 CDecor::GetInfoHeight ()
 
 // Retourne le pointeur à la liste des boutons existants.
 
-char * CDecor::GetButtonExist ()
+char *
+CDecor::GetButtonExist ()
 {
   return m_buttonExist;
 }
 
 // Ouvre le buffer pour le undo pendant la construction.
 
-void CDecor::UndoOpen ()
+void
+CDecor::UndoOpen ()
 {
   if (m_pUndoDecor == nullptr)
     m_pUndoDecor =
@@ -3376,7 +3439,8 @@ void CDecor::UndoOpen ()
 
 // Ferme le buffer pour le undo pendant la construction.
 
-void CDecor::UndoClose ()
+void
+CDecor::UndoClose ()
 {
   if (m_pUndoDecor != nullptr)
   {
@@ -3387,7 +3451,8 @@ void CDecor::UndoClose ()
 
 // Copie le décor dans le buffer pour le undo.
 
-void CDecor::UndoCopy ()
+void
+CDecor::UndoCopy ()
 {
   UndoOpen (); // ouvre le buffer du undo si nécessaire
 
@@ -3398,7 +3463,8 @@ void CDecor::UndoCopy ()
 
 // Revient en arrière pour tout le décor.
 
-void CDecor::UndoBack ()
+void
+CDecor::UndoBack ()
 {
   if (m_pUndoDecor != nullptr)
   {
@@ -3411,7 +3477,8 @@ void CDecor::UndoBack ()
 
 // Indique s'il est possible d'effectuer un undo.
 
-bool CDecor::IsUndo ()
+bool
+CDecor::IsUndo ()
 {
   return (m_pUndoDecor != nullptr);
 }

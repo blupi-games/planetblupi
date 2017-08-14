@@ -88,7 +88,8 @@ CPixmap::~CPixmap ()
 // Crï¿½e l'objet DirectDraw principal.
 // Retourne false en cas d'erreur.
 
-bool CPixmap::Create (POINT dim)
+bool
+CPixmap::Create (POINT dim)
 {
   m_dim = dim;
 
@@ -102,7 +103,8 @@ bool CPixmap::Create (POINT dim)
 
 // Rempli une zone rectangulaire avec une couleur uniforme.
 
-void CPixmap::Fill (RECT rect, COLORREF color)
+void
+CPixmap::Fill (RECT rect, COLORREF color)
 {
   // ï¿½ faire si nï¿½cessaire ...
 }
@@ -110,7 +112,8 @@ void CPixmap::Fill (RECT rect, COLORREF color)
 // Effectue un appel BltFast.
 // Les modes sont 0=transparent, 1=opaque.
 
-Sint32 CPixmap::BltFast (Sint32 chDst, size_t channel, POINT dst, RECT rcRect)
+Sint32
+CPixmap::BltFast (Sint32 chDst, size_t channel, POINT dst, RECT rcRect)
 {
   Sint32 res, limit;
 
@@ -172,7 +175,8 @@ Sint32 CPixmap::BltFast (Sint32 chDst, size_t channel, POINT dst, RECT rcRect)
 // Effectue un appel BltFast.
 // Les modes sont 0=transparent, 1=opaque.
 
-Sint32 CPixmap::BltFast (
+Sint32
+CPixmap::BltFast (
   SDL_Texture * lpSDL, size_t channel, POINT dst, RECT rcRect,
   SDL_BlendMode mode)
 {
@@ -208,7 +212,8 @@ Sint32 CPixmap::BltFast (
  *
  * \returns true on success.
  */
-bool CPixmap::ReloadTargetTextures ()
+bool
+CPixmap::ReloadTargetTextures ()
 {
   for (auto & tex : m_SDLTextureInfo)
   {
@@ -225,7 +230,8 @@ bool CPixmap::ReloadTargetTextures ()
 
 // Cache une image contenant des icï¿½nes.
 
-bool CPixmap::Cache (
+bool
+CPixmap::Cache (
   size_t channel, const std::string & pFilename, POINT totalDim, POINT iconDim)
 {
   std::string   file    = GetBaseDir () + pFilename;
@@ -284,8 +290,8 @@ bool CPixmap::Cache (
 
 // Cache une image globale.
 
-bool CPixmap::Cache (
-  size_t channel, const std::string & pFilename, POINT totalDim)
+bool
+CPixmap::Cache (size_t channel, const std::string & pFilename, POINT totalDim)
 {
   POINT iconDim;
 
@@ -297,7 +303,8 @@ bool CPixmap::Cache (
 
 // Cache une image provenant d'un bitmap.
 
-bool CPixmap::Cache (size_t channel, SDL_Surface * surface, POINT totalDim)
+bool
+CPixmap::Cache (size_t channel, SDL_Surface * surface, POINT totalDim)
 {
   // Create the offscreen surface, by loading our bitmap.
   if (
@@ -319,21 +326,24 @@ bool CPixmap::Cache (size_t channel, SDL_Surface * surface, POINT totalDim)
 
 // Modifie la rï¿½gion de clipping.
 
-void CPixmap::SetClipping (RECT clip)
+void
+CPixmap::SetClipping (RECT clip)
 {
   m_clipRect = clip;
 }
 
 // Retourne la rï¿½gion de clipping.
 
-RECT CPixmap::GetClipping ()
+RECT
+CPixmap::GetClipping ()
 {
   return m_clipRect;
 }
 
 // Teste si un point fait partie d'une icï¿½ne.
 
-bool CPixmap::IsIconPixel (size_t channel, Sint32 rank, POINT pos)
+bool
+CPixmap::IsIconPixel (size_t channel, Sint32 rank, POINT pos)
 {
   Sint32 nbx, nby;
 
@@ -370,7 +380,8 @@ bool CPixmap::IsIconPixel (size_t channel, Sint32 rank, POINT pos)
 // Dessine une partie d'image rectangulaire.
 // Les modes sont 0=transparent, 1=opaque.
 
-bool CPixmap::DrawIcon (
+bool
+CPixmap::DrawIcon (
   Sint32 chDst, size_t channel, Sint32 rank, POINT pos, bool bMask)
 {
   Sint32 nbx, nby;
@@ -407,7 +418,8 @@ bool CPixmap::DrawIcon (
 //  32,32   34,33
 //  33,48   35,49
 
-bool CPixmap::DrawIconDemi (
+bool
+CPixmap::DrawIconDemi (
   Sint32 chDst, size_t channel, Sint32 rank, POINT pos, bool bMask)
 {
   Sint32 nbx, nby;
@@ -438,7 +450,8 @@ bool CPixmap::DrawIconDemi (
 
 // Dessine une partie d'image rectangulaire.
 
-bool CPixmap::DrawIconPart (
+bool
+CPixmap::DrawIconPart (
   Sint32 chDst, size_t channel, Sint32 rank, POINT pos, Sint32 startY,
   Sint32 endY, bool bMask)
 {
@@ -471,7 +484,8 @@ bool CPixmap::DrawIconPart (
 
 // Dessine une partie d'image n'importe oï¿½.
 
-bool CPixmap::DrawPart (
+bool
+CPixmap::DrawPart (
   Sint32 chDst, size_t channel, POINT dest, RECT rect, bool bMask)
 {
   if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
@@ -482,7 +496,8 @@ bool CPixmap::DrawPart (
 
 // Dessine une partie d'image rectangulaire.
 
-bool CPixmap::DrawImage (Sint32 chDst, size_t channel, RECT rect)
+bool
+CPixmap::DrawImage (Sint32 chDst, size_t channel, RECT rect)
 {
   POINT  dst;
   Sint32 res;
@@ -506,7 +521,8 @@ bool CPixmap::DrawImage (Sint32 chDst, size_t channel, RECT rect)
 
 // Construit une icï¿½ne en utilisant un masque.
 
-bool CPixmap::BuildIconMask (
+bool
+CPixmap::BuildIconMask (
   size_t channelMask, Sint32 rankMask, size_t channel, Sint32 rankSrc,
   Sint32 rankDst)
 {
@@ -588,7 +604,8 @@ bool CPixmap::BuildIconMask (
 // Affiche le pixmap ï¿½ l'ï¿½cran.
 // Retourne false en cas d'erreur.
 
-bool CPixmap::Display ()
+bool
+CPixmap::Display ()
 {
   m_bBackDisplayed = true;
   SDL_RenderPresent (g_renderer);
@@ -597,7 +614,8 @@ bool CPixmap::Display ()
 
 // Change le lutin de la souris.
 
-void CPixmap::SetMouseSprite (MouseSprites sprite)
+void
+CPixmap::SetMouseSprite (MouseSprites sprite)
 {
   if (m_mouseSprite == sprite)
     return;
@@ -609,7 +627,8 @@ void CPixmap::SetMouseSprite (MouseSprites sprite)
 
 // Montre ou cache la souris.
 
-void CPixmap::MouseShow (bool bShow)
+void
+CPixmap::MouseShow (bool bShow)
 {
   SDL_ShowCursor (bShow);
 }
@@ -617,7 +636,8 @@ void CPixmap::MouseShow (bool bShow)
 // Retourne le rectangle correspondant au sprite
 // de la souris dans CHBLUPI.
 
-RECT CPixmap::MouseRectSprite ()
+RECT
+CPixmap::MouseRectSprite ()
 {
   Sint32 rank, nbx;
   RECT   rcRect;
@@ -662,7 +682,8 @@ RECT CPixmap::MouseRectSprite ()
   return rcRect;
 }
 
-SDL_Point CPixmap::GetCursorHotSpot (MouseSprites sprite)
+SDL_Point
+CPixmap::GetCursorHotSpot (MouseSprites sprite)
 {
   static const Sint32 hotspots[MAXCURSORS * 2] = {
     30, 30, // SPRITE_ARROW
@@ -694,7 +715,8 @@ SDL_Point CPixmap::GetCursorHotSpot (MouseSprites sprite)
   return hotspot;
 }
 
-SDL_Rect CPixmap::GetCursorRect (MouseSprites sprite)
+SDL_Rect
+CPixmap::GetCursorRect (MouseSprites sprite)
 {
   Sint32   rank;
   SDL_Rect rcRect;
@@ -755,7 +777,8 @@ SDL_Rect CPixmap::GetCursorRect (MouseSprites sprite)
   return rcRect;
 }
 
-void CPixmap::LoadCursors ()
+void
+CPixmap::LoadCursors ()
 {
   Uint32 rmask, gmask, bmask, amask;
 
@@ -790,7 +813,8 @@ on the endianness (byte order) of the machine */
   }
 }
 
-void CPixmap::ChangeSprite (MouseSprites sprite)
+void
+CPixmap::ChangeSprite (MouseSprites sprite)
 {
   if (m_lpCurrentCursor == m_lpSDLCursors[sprite - 1])
     return;

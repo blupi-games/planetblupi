@@ -82,7 +82,8 @@ struct url_data {
 };
 
 template <typename Out>
-static void split (const std::string & s, char delim, Out result)
+static void
+split (const std::string & s, char delim, Out result)
 {
   std::stringstream ss;
   ss.str (s);
@@ -91,7 +92,8 @@ static void split (const std::string & s, char delim, Out result)
     *(result++) = item;
 }
 
-static std::vector<std::string> split (const std::string & s, char delim)
+static std::vector<std::string>
+split (const std::string & s, char delim)
 {
   std::vector<std::string> elems;
   split (s, delim, std::back_inserter (elems));
@@ -103,7 +105,8 @@ static std::vector<std::string> split (const std::string & s, char delim)
  *
  * \returns true on success.
  */
-static bool ReadConfig ()
+static bool
+ReadConfig ()
 {
   const auto config = GetBaseDir () + "data/config.json";
 
@@ -157,7 +160,8 @@ static bool ReadConfig ()
 /**
  * \brief Main frame update.
  */
-static void UpdateFrame (void)
+static void
+UpdateFrame (void)
 {
   RECT   clip, rcRect;
   Uint32 phase;
@@ -254,7 +258,8 @@ static void UpdateFrame (void)
 /**
  * \brief Finished with all objects we use; release them.
  */
-static void FinishObjects (void)
+static void
+FinishObjects (void)
 {
   if (g_pMovie != nullptr)
   {
@@ -289,7 +294,8 @@ static void FinishObjects (void)
   }
 }
 
-static void HandleEvent (const SDL_Event & event)
+static void
+HandleEvent (const SDL_Event & event)
 {
   POINT totalDim, iconDim;
 
@@ -418,7 +424,8 @@ static void HandleEvent (const SDL_Event & event)
 
 // Error with DoInit function.
 
-static void InitFail (const char * msg)
+static void
+InitFail (const char * msg)
 {
   char buffer[100];
 
@@ -450,7 +457,8 @@ updateCallback (void * ptr, size_t size, size_t nmemb, void * data)
   return realsize;
 }
 
-static void CheckForUpdates ()
+static void
+CheckForUpdates ()
 {
   url_data chunk;
 
@@ -490,7 +498,8 @@ static void CheckForUpdates ()
   curl_easy_cleanup (curl);
 }
 
-static int parseArgs (int argc, char * argv[], bool & exit)
+static int
+parseArgs (int argc, char * argv[], bool & exit)
 {
   argagg::parser argparser{{
     {"help", {"-h", "--help"}, "print this help message and exit", 0},
@@ -573,7 +582,8 @@ static int parseArgs (int argc, char * argv[], bool & exit)
 
 // Main initialization function.
 
-static int DoInit (int argc, char * argv[], bool & exit)
+static int
+DoInit (int argc, char * argv[], bool & exit)
 {
   int rc = parseArgs (argc, argv, exit);
   if (exit)
@@ -876,7 +886,8 @@ static int DoInit (int argc, char * argv[], bool & exit)
   return EXIT_SUCCESS;
 }
 
-static void initGettext ()
+static void
+initGettext ()
 {
   setlocale (LC_ALL, "");
   textdomain ("planetblupi");
@@ -884,7 +895,8 @@ static void initGettext ()
   bind_textdomain_codeset ("planetblupi", "UTF-8");
 }
 
-int main (int argc, char * argv[])
+int
+main (int argc, char * argv[])
 {
   initGettext ();
 

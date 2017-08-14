@@ -2730,7 +2730,8 @@ static const DescAction action_table[] =
 // Calcule l'action suivante.
 // Retourne false lorsque l'action est terminée.
 
-bool Action (
+bool
+Action (
   Sint16 action, Sint16 direct, Sint16 & phase, Sint16 & step, Sint16 & channel,
   Sint16 & icon, POINT & pos, Sint16 & posZ, Sounds & sound)
 {
@@ -2816,7 +2817,8 @@ static const Sint16 rotate_table[] =
 
 // Tourne une icône dans une direction donnée.
 
-bool Rotate (Sint16 & icon, Sint16 direct)
+bool
+Rotate (Sint16 & icon, Sint16 direct)
 {
   const auto * pTable = rotate_table;
   Sint16       i;
@@ -2877,7 +2879,8 @@ bool Rotate (Sint16 & icon, Sint16 direct)
 
 // Retourne la direction d'une icône.
 
-Sint32 GetIconDirect (Sint16 icon)
+Sint32
+GetIconDirect (Sint16 icon)
 {
   const auto * pTable = rotate_table;
   Sint16       i;
@@ -2909,7 +2912,8 @@ Sint32 GetIconDirect (Sint16 icon)
 // Retourne l'amplitude d'une action, en nombre
 // de cellules.
 
-Sint32 GetAmplitude (Sint16 action)
+Sint32
+GetAmplitude (Sint16 action)
 {
   switch (action)
   {

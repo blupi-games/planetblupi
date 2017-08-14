@@ -68,7 +68,8 @@ static const char tableDark[13 * 4] =
 
 // Retourne les bits contenant de l'eau.
 
-bool CDecor::GetSeeBits (POINT cel, char * pBits, Sint32 index)
+bool
+CDecor::GetSeeBits (POINT cel, char * pBits, Sint32 index)
 {
   Sint32 icon;
 
@@ -140,13 +141,15 @@ bool CDecor::GetSeeBits (POINT cel, char * pBits, Sint32 index)
   return true;
 }
 
-static void CopyBits (char * pDst, char * pSrc)
+static void
+CopyBits (char * pDst, char * pSrc)
 {
   for (Sint32 i = 0; i < 4; i++)
     *pDst++ = *pSrc++;
 }
 
-static bool ChangeBits (char * pDst, char * pSrc)
+static bool
+ChangeBits (char * pDst, char * pSrc)
 {
   for (Sint32 i = 0; i < 4; i++)
   {
@@ -158,7 +161,8 @@ static bool ChangeBits (char * pDst, char * pSrc)
 
 // Retourne l'icône correspondant aux bits d'eaux.
 
-Sint32 CDecor::GetSeeIcon (char * pBits, Sint32 index)
+Sint32
+CDecor::GetSeeIcon (char * pBits, Sint32 index)
 {
   Sint32 i;
 
@@ -203,7 +207,8 @@ Sint32 CDecor::GetSeeIcon (char * pBits, Sint32 index)
 
 // Arrange le sol après une modification.
 
-void CDecor::ArrangeFloor (POINT cel)
+void
+CDecor::ArrangeFloor (POINT cel)
 {
   POINT  test;
   Sint32 max, index, icon;
@@ -418,7 +423,8 @@ static const Sint16 tableMurDir[4 * 2] =
 // index=1 si palissade (65..71)
 // index=2 si barrière  (106..112)
 
-void CDecor::ArrangeMur (POINT cel, Sint32 & icon, Sint32 index)
+void
+CDecor::ArrangeMur (POINT cel, Sint32 & icon, Sint32 index)
 {
   Sint32 i, x, y, channel;
   Sint32 first, last, matiere;
@@ -487,7 +493,8 @@ void CDecor::ArrangeMur (POINT cel, Sint32 & icon, Sint32 index)
 
 // Arrange les objets avant une construction.
 
-void CDecor::ArrangeBuild (POINT cel, Sint32 & channel, Sint32 & icon)
+void
+CDecor::ArrangeBuild (POINT cel, Sint32 & channel, Sint32 & icon)
 {
   Sint32 index, i, x, y;
   Sint32 first, last, matiere;
@@ -562,7 +569,8 @@ void CDecor::ArrangeBuild (POINT cel, Sint32 & channel, Sint32 & icon)
 
 // Arrange les objets après une modification.
 
-void CDecor::ArrangeObject (POINT cel)
+void
+CDecor::ArrangeObject (POINT cel)
 {
   Sint32 channel, icon;
   Sint32 first, last;
@@ -696,7 +704,8 @@ void CDecor::ArrangeObject (POINT cel)
 
 // Test s'il faut remplir le sol ici.
 
-bool CDecor::ArrangeFillTestFloor (POINT cel1, POINT cel2)
+bool
+CDecor::ArrangeFillTestFloor (POINT cel1, POINT cel2)
 {
   POINT  cel;
   Sint32 icon1, icon2;
@@ -750,7 +759,8 @@ bool CDecor::ArrangeFillTestFloor (POINT cel1, POINT cel2)
 
 // Test s'il faut remplir ici.
 
-bool CDecor::ArrangeFillTest (POINT pos)
+bool
+CDecor::ArrangeFillTest (POINT pos)
 {
   POINT cel1, cel2;
 
@@ -789,7 +799,8 @@ bool CDecor::ArrangeFillTest (POINT pos)
 
 // Modifie le décor lors d'un remplissage.
 
-void CDecor::ArrangeFillPut (POINT pos, Sint32 channel, Sint32 icon)
+void
+CDecor::ArrangeFillPut (POINT pos, Sint32 channel, Sint32 icon)
 {
   if (m_bFillFloor)
   {
@@ -811,7 +822,8 @@ void CDecor::ArrangeFillPut (POINT pos, Sint32 channel, Sint32 icon)
 
 // Rempli un sol à partir d'une position donnée.
 
-void CDecor::ArrangeFillSearch (POINT pos)
+void
+CDecor::ArrangeFillSearch (POINT pos)
 {
   Sint32 startX, endX;
 
@@ -884,7 +896,8 @@ void CDecor::ArrangeFillSearch (POINT pos)
 
 // Rempli un sol à partir d'une position donnée.
 
-void CDecor::ArrangeFill (POINT pos, Sint32 channel, Sint32 icon, bool bFloor)
+void
+CDecor::ArrangeFill (POINT pos, Sint32 channel, Sint32 icon, bool bFloor)
 {
   m_bFillFloor = bFloor;
 
@@ -921,7 +934,8 @@ void CDecor::ArrangeFill (POINT pos, Sint32 channel, Sint32 icon, bool bFloor)
 // Supprime tous les personnages bloqués dans des murs
 // ou debout sur l'eau.
 
-void CDecor::ArrangeBlupi ()
+void
+CDecor::ArrangeBlupi ()
 {
   Sint32 rank;
 

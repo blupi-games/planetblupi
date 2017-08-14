@@ -375,7 +375,8 @@ static Statistic table_statistic[] =
 
 // Retourne la statistique correspondant à un rang donné.
 
-Statistic * StatisticGet (Sint32 rank)
+Statistic *
+StatisticGet (Sint32 rank)
 {
   Statistic * pStatistic;
 
@@ -397,7 +398,8 @@ Statistic * StatisticGet (Sint32 rank)
 
 // Réinitialise les statistiques.
 
-void CDecor::StatisticInit ()
+void
+CDecor::StatisticInit ()
 {
   Statistic * pStatistic;
 
@@ -418,7 +420,8 @@ void CDecor::StatisticInit ()
 
 // Met à jour tous les compteurs des statistiques.
 
-void CDecor::StatisticUpdate ()
+void
+CDecor::StatisticUpdate ()
 {
   Sint32      rank, x, y, icon, nb;
   bool        bHach;
@@ -620,7 +623,8 @@ void CDecor::StatisticUpdate ()
 
 // Retourne le nombre de blupi.
 
-Sint32 CDecor::StatisticGetBlupi ()
+Sint32
+CDecor::StatisticGetBlupi ()
 {
   return table_statistic[STATBLUPIf].nb + table_statistic[STATBLUPIm].nb +
          table_statistic[STATBLUPI].nb;
@@ -628,14 +632,16 @@ Sint32 CDecor::StatisticGetBlupi ()
 
 // Retourne le nombre de cellules en feu.
 
-Sint32 CDecor::StatisticGetFire ()
+Sint32
+CDecor::StatisticGetFire ()
 {
   return table_statistic[STATFEU].nb;
 }
 
 // Dessine toutes les statistiques.
 
-void CDecor::StatisticDraw ()
+void
+CDecor::StatisticDraw ()
 {
   POINT        pos;
   RECT         rect;
@@ -756,7 +762,8 @@ void CDecor::StatisticDraw ()
 
 // Génère les statistiques.
 
-void CDecor::GenerateStatictic ()
+void
+CDecor::GenerateStatictic ()
 {
   if (m_bBuild)
     return;
@@ -771,7 +778,8 @@ void CDecor::GenerateStatictic ()
 
 // Bouton pressé dans les statistiques.
 
-bool CDecor::StatisticDown (POINT pos)
+bool
+CDecor::StatisticDown (POINT pos)
 {
   Sint32      hili, rank, x, y, show, icon;
   POINT       cel;
@@ -955,7 +963,8 @@ select:
 
 // Souris déplacée dans les statistiques.
 
-bool CDecor::StatisticMove (POINT pos)
+bool
+CDecor::StatisticMove (POINT pos)
 {
   Sint32 rank;
 
@@ -969,14 +978,16 @@ bool CDecor::StatisticMove (POINT pos)
 
 // Bouton relâché dans les statistiques.
 
-bool CDecor::StatisticUp (POINT pos)
+bool
+CDecor::StatisticUp (POINT pos)
 {
   return false;
 }
 
 // Détecte dans quelle statistique est la souris.
 
-Sint32 CDecor::StatisticDetect (POINT pos)
+Sint32
+CDecor::StatisticDetect (POINT pos)
 {
   Sint32 rank;
 

@@ -53,7 +53,8 @@ static Uint32 g_map32_bits[DIMMAPY][DIMMAPX];
 
 // Initialise les couleurs pour la carte.
 
-void CDecor::MapInitColors ()
+void
+CDecor::MapInitColors ()
 {
   // FIXME: add big-endian support
   const auto MapRGB = [](Uint8 r, Uint8 g, Uint8 b) {
@@ -108,7 +109,8 @@ void CDecor::MapInitColors ()
 
 // COnversion d'un cellule en point dans la carte.
 
-POINT CDecor::ConvCelToMap (POINT cel)
+POINT
+CDecor::ConvCelToMap (POINT cel)
 {
   POINT pos;
 
@@ -123,7 +125,8 @@ POINT CDecor::ConvCelToMap (POINT cel)
 
 // Conversion d'un point dans la carte en cellule.
 
-POINT CDecor::ConvMapToCel (POINT pos)
+POINT
+CDecor::ConvMapToCel (POINT pos)
 {
   POINT cel;
 
@@ -141,7 +144,8 @@ POINT CDecor::ConvMapToCel (POINT pos)
 
 // Déplace le décor suite à un clic dans la carte.
 
-bool CDecor::MapMove (POINT pos)
+bool
+CDecor::MapMove (POINT pos)
 {
   POINT cel;
 
@@ -420,7 +424,8 @@ static char color_fire[4] = {
 // Met le contenu d'une cellule dans le bitmap de la carte
 // (sol, objets et brouillard).
 
-void CDecor::MapPutCel (POINT pos)
+void
+CDecor::MapPutCel (POINT pos)
 {
   POINT  cel, fogCel;
   Sint32 icon, i;
@@ -492,7 +497,8 @@ color:
 
 // Génère la carte.
 
-bool CDecor::GenerateMap ()
+bool
+CDecor::GenerateMap ()
 {
   POINT  pos, cel;
   Sint32 dx, rank, i;
