@@ -65,6 +65,16 @@ typedef struct {
   Uint32 lParam; // LPARAM
 } DemoEvent;
 
+struct DemoSDLEvent {
+  Uint32 time;
+  Uint32 type;
+  Sint32 scancode; // keysym
+  Sint32 sym;      // keysym
+  Uint8  button;
+  Sint32 x;
+  Sint32 y;
+};
+
 enum class Language {
   en    = 0,
   en_US = 1,
@@ -166,7 +176,7 @@ protected:
   void DemoPlayStop ();
   static void
        WinToSDLEvent (Uint32 msg, WPARAM wParam, LPARAM lParam, SDL_Event & event);
-  void DemoRecEvent (Uint32 message, WPARAM wParam, LPARAM lParam);
+  void DemoRecEvent (const SDL_Event & event);
 
 protected:
   std::vector<Language>                    m_Languages;
@@ -240,7 +250,8 @@ protected:
   bool                                     m_bDemoRec;
   bool                                     m_bDemoPlay;
   DemoEvent *                              m_pDemoBuffer;
-  Sint32                                   m_demoTime;
+  DemoSDLEvent *                           m_pDemoSDLBuffer;
+  Uint32                                   m_demoTime;
   size_t                                   m_demoIndex;
   size_t                                   m_demoEnd;
   Sint32                                   m_demoNumber;

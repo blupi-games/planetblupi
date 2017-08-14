@@ -1550,6 +1550,7 @@ CEvent::CEvent ()
   m_bDemoRec        = false;
   m_bDemoPlay       = false;
   m_pDemoBuffer     = nullptr;
+  m_pDemoSDLBuffer  = nullptr;
   m_demoTime        = 0;
   m_keymod          = 0;
   m_posHelpButton   = {-1, -1};
@@ -4465,10 +4466,10 @@ bool CEvent::GetPause ()
 
 void CEvent::DemoRecStart ()
 {
-  m_pDemoBuffer = (DemoEvent *) malloc (MAXDEMO * sizeof (DemoEvent));
-  if (m_pDemoBuffer == nullptr)
+  m_pDemoSDLBuffer = (DemoSDLEvent *) malloc (MAXDEMO * sizeof (DemoSDLEvent));
+  if (m_pDemoSDLBuffer == nullptr)
     return;
-  memset (m_pDemoBuffer, 0, MAXDEMO * sizeof (DemoEvent));
+  memset (m_pDemoSDLBuffer, 0, MAXDEMO * sizeof (DemoSDLEvent));
 
   m_demoTime  = 0;
   m_demoIndex = 0;
@@ -4491,7 +4492,7 @@ void CEvent::DemoRecStop ()
   if (m_bDemoPlay)
     return;
 
-  if (m_pDemoBuffer != nullptr)
+  if (m_pDemoSDLBuffer != nullptr)
   {
     const auto demo = GetBaseDir () + "data/demo.blp";
     unlink (demo.c_str ());
@@ -4499,18 +4500,18 @@ void CEvent::DemoRecStop ()
     if (file != nullptr)
     {
       memset (&header, 0, sizeof (DemoHeader));
-      header.majRev   = 1;
+      header.majRev   = 2;
       header.minRev   = 0;
       header.bSchool  = m_bSchool;
       header.bPrivate = m_bPrivate;
       header.world    = GetPhysicalWorld ();
       header.skill    = m_pDecor->GetSkill ();
       fwrite (&header, sizeof (DemoHeader), 1, file);
-      fwrite (m_pDemoBuffer, sizeof (DemoEvent), m_demoIndex, file);
+      fwrite (m_pDemoSDLBuffer, sizeof (DemoSDLEvent), m_demoIndex, file);
       fclose (file);
     }
-    free (m_pDemoBuffer);
-    m_pDemoBuffer = nullptr;
+    free (m_pDemoSDLBuffer);
+    m_pDemoSDLBuffer = nullptr;
   }
 
   m_bDemoRec = false;
@@ -4528,11 +4529,6 @@ bool CEvent::DemoPlayStart ()
   Sint32      world, time, total;
   size_t      nb;
 
-  m_pDemoBuffer = (DemoEvent *) malloc (MAXDEMO * sizeof (DemoEvent));
-  if (m_pDemoBuffer == nullptr)
-    return false;
-  memset (m_pDemoBuffer, 0, MAXDEMO * sizeof (DemoEvent));
-
   filename = string_format (GetBaseDir () + "data/demo%.3d.blp", m_demoNumber);
   file     = fopen (filename.c_str (), "rb");
   if (file == nullptr)
@@ -4548,11 +4544,34 @@ bool CEvent::DemoPlayStart ()
     DemoPlayStop ();
     return false;
   }
+
+  if (header.majRev == 1)
+  {
+    m_pDemoBuffer = (DemoEvent *) malloc (MAXDEMO * sizeof (DemoEvent));
+    if (m_pDemoBuffer == nullptr)
+      return false;
+    memset (m_pDemoBuffer, 0, MAXDEMO * sizeof (DemoEvent));
+  }
+  else if (header.majRev == 2)
+  {
+    m_pDemoSDLBuffer =
+      static_cast<DemoSDLEvent *> (calloc (MAXDEMO, sizeof (DemoSDLEvent)));
+    if (!m_pDemoSDLBuffer)
+    {
+      fclose (file);
+      DemoPlayStop ();
+      return false;
+    }
+  }
+
   m_bSchool  = !!header.bSchool;
   m_bPrivate = !!header.bPrivate;
   m_pDecor->SetSkill (header.skill);
 
-  m_demoEnd = fread (m_pDemoBuffer, sizeof (DemoEvent), MAXDEMO, file);
+  if (header.majRev == 1)
+    m_demoEnd = fread (m_pDemoBuffer, sizeof (DemoEvent), MAXDEMO, file);
+  else if (header.majRev == 2)
+    m_demoEnd = fread (m_pDemoSDLBuffer, sizeof (DemoSDLEvent), MAXDEMO, file);
   fclose (file);
 
   m_demoTime  = 0;
@@ -4582,6 +4601,13 @@ void CEvent::DemoPlayStop ()
     free (m_pDemoBuffer);
     m_pDemoBuffer = nullptr;
   }
+
+  if (m_pDemoSDLBuffer)
+  {
+    free (m_pDemoSDLBuffer);
+    m_pDemoSDLBuffer = nullptr;
+  }
+
   m_bDemoPlay = false;
   m_bDemoRec  = false;
   m_demoTime  = 0;
@@ -4690,10 +4716,10 @@ void CEvent::WinToSDLEvent (
 
 void CEvent::DemoStep ()
 {
-  Sint32 time;
-  Uint32 message;
-  WPARAM wParam;
-  LPARAM lParam;
+  Uint32 time    = 0;
+  Uint32 message = 0;
+  WPARAM wParam  = 0;
+  LPARAM lParam  = 0;
 
   if (m_phase == EV_PHASE_INIT)
   {
@@ -4706,28 +4732,63 @@ void CEvent::DemoStep ()
 
   if (
     m_bDemoPlay && // démo en lecture ?
-    m_pDemoBuffer != nullptr)
+    (m_pDemoBuffer || m_pDemoSDLBuffer))
   {
     while (true)
     {
-      time = m_pDemoBuffer[m_demoIndex].time;
+      SDL_Event event = {0};
+
+      if (m_pDemoBuffer) // Old Win32 events format
+      {
+        time    = m_pDemoBuffer[m_demoIndex].time;
+        message = m_pDemoBuffer[m_demoIndex].message;
+        wParam  = m_pDemoBuffer[m_demoIndex].wParam;
+        lParam  = m_pDemoBuffer[m_demoIndex].lParam;
+      }
+      else if (m_pDemoSDLBuffer) // New SDL events format
+      {
+        time       = m_pDemoSDLBuffer[m_demoIndex].time;
+        event.type = m_pDemoSDLBuffer[m_demoIndex].type;
+        event.key.keysym.scancode =
+          static_cast<SDL_Scancode> (m_pDemoSDLBuffer[m_demoIndex].scancode);
+        event.key.keysym.sym = m_pDemoSDLBuffer[m_demoIndex].sym;
+        if (event.type == SDL_MOUSEMOTION)
+        {
+          event.motion.x = m_pDemoSDLBuffer[m_demoIndex].x;
+          event.motion.y = m_pDemoSDLBuffer[m_demoIndex].y;
+        }
+        else
+        {
+          event.button.button = m_pDemoSDLBuffer[m_demoIndex].button;
+          event.button.x      = m_pDemoSDLBuffer[m_demoIndex].x;
+          event.button.y      = m_pDemoSDLBuffer[m_demoIndex].y;
+        }
+      }
+
       if (time > m_demoTime)
         break;
 
-      message = m_pDemoBuffer[m_demoIndex].message;
-      wParam  = m_pDemoBuffer[m_demoIndex].wParam;
-      lParam  = m_pDemoBuffer[m_demoIndex].lParam;
       m_demoIndex++;
 
-      if (message == EV_MOUSEMOVE)
+      if (message == EV_MOUSEMOVE || event.type == SDL_MOUSEMOTION)
       {
-        POINT pos = ConvLongToPos (lParam);
+        POINT pos;
+
+        if (m_pDemoBuffer)
+          pos = ConvLongToPos (lParam);
+        else
+        {
+          pos.x = event.motion.x;
+          pos.y = event.motion.y;
+        }
+
         SDL_WarpMouseInWindow (
           g_window, pos.x * m_WindowScale, pos.y * m_WindowScale);
       }
 
-      SDL_Event event = {0};
-      CEvent::WinToSDLEvent (message, wParam, lParam, event);
+      if (m_pDemoBuffer)
+        CEvent::WinToSDLEvent (message, wParam, lParam, event);
+
       TreatEventBase (event);
 
       if (m_demoIndex >= m_demoEnd)
@@ -4746,37 +4807,44 @@ void CEvent::DemoStep ()
   m_demoTime++;
 }
 
-// Mémorise un événement.
-
-void CEvent::DemoRecEvent (Uint32 message, WPARAM wParam, LPARAM lParam)
+/**
+ * \brief Store an event for the demos
+ */
+void CEvent::DemoRecEvent (const SDL_Event & event)
 {
-  if (
-    m_bDemoRec && m_pDemoBuffer != nullptr &&
-    (message == EV_KEYDOWN || message == EV_KEYUP ||
-     message == EV_LBUTTONDOWN || message == EV_RBUTTONDOWN ||
-     message == EV_MOUSEMOVE || message == EV_LBUTTONUP ||
-     message == EV_RBUTTONUP))
-  {
-    if (
-      m_demoIndex > 0 && message == EV_MOUSEMOVE &&
-      m_pDemoBuffer[m_demoIndex - 1].time == m_demoTime &&
-      m_pDemoBuffer[m_demoIndex - 1].message == message)
-    {
-      m_pDemoBuffer[m_demoIndex - 1].wParam = static_cast<Uint32> (wParam);
-      m_pDemoBuffer[m_demoIndex - 1].lParam = static_cast<Uint32> (lParam);
-    }
-    else
-    {
-      m_pDemoBuffer[m_demoIndex].time    = m_demoTime;
-      m_pDemoBuffer[m_demoIndex].message = message;
-      m_pDemoBuffer[m_demoIndex].wParam  = static_cast<Uint32> (wParam);
-      m_pDemoBuffer[m_demoIndex].lParam  = static_cast<Uint32> (lParam);
+  if (!m_bDemoRec || !m_pDemoSDLBuffer)
+    return;
 
-      m_demoIndex++;
-      if (m_demoIndex >= MAXDEMO)
-        DemoRecStop ();
-    }
+  switch (event.type)
+  {
+  case SDL_KEYUP:
+  case SDL_KEYDOWN:
+    m_pDemoSDLBuffer[m_demoIndex].type     = event.type;
+    m_pDemoSDLBuffer[m_demoIndex].time     = m_demoTime;
+    m_pDemoSDLBuffer[m_demoIndex].scancode = event.key.keysym.scancode;
+    m_pDemoSDLBuffer[m_demoIndex].sym      = event.key.keysym.sym;
+    break;
+
+  case SDL_MOUSEBUTTONUP:
+  case SDL_MOUSEBUTTONDOWN:
+    m_pDemoSDLBuffer[m_demoIndex].type   = event.type;
+    m_pDemoSDLBuffer[m_demoIndex].time   = m_demoTime;
+    m_pDemoSDLBuffer[m_demoIndex].button = event.button.button;
+    m_pDemoSDLBuffer[m_demoIndex].x      = event.button.x;
+    m_pDemoSDLBuffer[m_demoIndex].y      = event.button.y;
+    break;
+
+  case SDL_MOUSEMOTION:
+    m_pDemoSDLBuffer[m_demoIndex].type = event.type;
+    m_pDemoSDLBuffer[m_demoIndex].time = m_demoTime;
+    m_pDemoSDLBuffer[m_demoIndex].x    = event.motion.x;
+    m_pDemoSDLBuffer[m_demoIndex].y    = event.motion.y;
+    break;
   }
+
+  m_demoIndex++;
+  if (m_demoIndex >= MAXDEMO)
+    DemoRecStop ();
 }
 
 // Retourne la dernière position de la souris.
@@ -4817,7 +4885,7 @@ bool CEvent::TreatEventBase (const SDL_Event & event)
   char   c;
   bool   bEnable;
 
-  // DemoRecEvent(message, wParam, lParam); XXX: use SDL_Event
+  DemoRecEvent (event);
 
   switch (event.type)
   {
