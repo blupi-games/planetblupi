@@ -5237,14 +5237,18 @@ CEvent::TreatEventBase (const SDL_Event & event)
       }
       return true;
     case SDLK_F3:
-      if (m_phase == EV_PHASE_PLAY && !m_bDemoPlay && m_bStartRecording)
+      if (m_phase == EV_PHASE_PLAY && !m_bDemoPlay && !m_bStartRecording)
       {
         DemoRecStart (); // start recording
         m_bStartRecording = true;
       }
       break;
     case SDLK_F4:
-      m_bStartRecording = false;
+      if (m_phase == EV_PHASE_PLAY && !m_bDemoPlay && m_bStartRecording)
+      {
+        DemoRecStop (); // stop recording
+        m_bStartRecording = false;
+      }
       break;
     case SDLK_F9:
       if (m_phase == EV_PHASE_PLAY)
