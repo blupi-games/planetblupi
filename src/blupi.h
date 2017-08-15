@@ -29,7 +29,7 @@ extern SDL_Window *   g_window;
 extern SDL_Renderer * g_renderer;
 extern bool           g_bFullScreen;
 extern bool           g_restoreBugs;
-extern bool           g_enableRecoder;
+extern bool           g_enableRecorder;
 
 struct POINT {
   Sint32 x;
