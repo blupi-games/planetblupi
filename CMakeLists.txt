@@ -217,6 +217,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     set (CPACK_BUNDLE_NAME "Planet Blupi")
     set (CPACK_BUNDLE_PLIST "${CMAKE_BINARY_DIR}/Info.plist")
     set (CPACK_BUNDLE_STARTUP_COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/resources/darwin/Planet Blupi")
+    set (CPACK_PACKAGE_FILE_NAME "planetblupi-${PB_VERSION_MAJOR}.${PB_VERSION_MINOR}.${PB_VERSION_PATCH}")
 
     set (BUNDLE_VERSION "${PB_VERSION_MAJOR}.${PB_VERSION_MINOR}.${PB_VERSION_PATCH}")
     set (BUNDLE_IDENTIFIER "org.blupi.planet")
