@@ -2076,24 +2076,24 @@ CEvent::DrawButtons ()
     }
     m_menu.Draw ();
 
+    // Dessine la rose des vents.
+    if (!m_bPause && !m_bDemoPlay)
+    {
+      DrawTextCenter (gettext ("N"), (10 + 134) / 2, 17);
+      DrawTextCenter (gettext ("S"), (10 + 134) / 2, 126);
+      DrawTextCenter (gettext ("W"), 14, 70);
+      DrawTextCenter (gettext ("E"), 129, 70);
+    }
+
     // Dessine la pause.
     if (m_bPause)
       DrawTextCenter (gettext ("Game paused"), (10 + 134) / 2, 20);
     else
     {
       if (m_bDemoRec) // recording demo ?
-        DrawTextCenter (gettext ("REC"), (10 + 134) / 2, 20, FONTRED);
+        DrawTextCenter (gettext ("REC"), (10 + 38) / 2, 20, FONTRED);
       if (m_bDemoPlay) // playing demo ?
         DrawTextCenter (gettext ("Demo"), (10 + 134) / 2, 20, FONTRED);
-    }
-
-    // Dessine la rose des vents.
-    if (!m_bPause && !m_bDemoRec && !m_bDemoPlay)
-    {
-      DrawTextCenter (gettext ("N"), (10 + 134) / 2, 17);
-      DrawTextCenter (gettext ("S"), (10 + 134) / 2, 126);
-      DrawTextCenter (gettext ("W"), 14, 70);
-      DrawTextCenter (gettext ("E"), 129, 70);
     }
 
     // Dessine la vitesse.
