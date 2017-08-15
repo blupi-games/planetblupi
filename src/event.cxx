@@ -5237,7 +5237,7 @@ CEvent::TreatEventBase (const SDL_Event & event)
         m_pDecor->SetInfoMode (!m_pDecor->GetInfoMode ());
       }
       return true;
-    case SDLK_F8:
+    case SDLK_F9:
       if (m_phase == EV_PHASE_PLAY)
         m_pDecor->MemoPos (0, !!(m_keymod & KMOD_CTRL));
       return true;
