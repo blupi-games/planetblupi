@@ -2978,8 +2978,7 @@ CEvent::ChangePhase (Uint32 phase)
 
   if (phase == EV_PHASE_INIT)
     m_demoTime = 0;
-  if (phase == EV_PHASE_PLAY && !m_bDemoPlay && m_bStartRecording)
-    DemoRecStart (); // start recording
+
   if (phase != EV_PHASE_PLAY)
     DemoRecStop (); // stop recording
 
@@ -5237,6 +5236,16 @@ CEvent::TreatEventBase (const SDL_Event & event)
         m_pDecor->SetInfoMode (!m_pDecor->GetInfoMode ());
       }
       return true;
+    case SDLK_F3:
+      if (m_phase == EV_PHASE_PLAY && !m_bDemoPlay && m_bStartRecording)
+      {
+        DemoRecStart (); // start recording
+        m_bStartRecording = true;
+      }
+      break;
+    case SDLK_F4:
+      m_bStartRecording = false;
+      break;
     case SDLK_F9:
       if (m_phase == EV_PHASE_PLAY)
         m_pDecor->MemoPos (0, !!(m_keymod & KMOD_CTRL));
