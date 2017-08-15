@@ -57,11 +57,12 @@ CMovie *      g_pMovie       = nullptr; // movie principal
 CDecor *      g_pDecor       = nullptr;
 std::thread * g_updateThread = nullptr;
 
-bool   g_bFullScreen   = false; // false si mode de test
-Sint32 g_speedRate     = 1;
-Sint32 g_timerInterval = 50; // inverval = 50ms
-int    g_rendererType  = 0;
-bool   g_restoreBugs   = false; // restore original < v1.9 bugs
+bool   g_bFullScreen    = false; // false si mode de test
+Sint32 g_speedRate      = 1;
+Sint32 g_timerInterval  = 50; // inverval = 50ms
+int    g_rendererType   = 0;
+bool   g_enableRecorder = false;
+bool   g_restoreBugs    = false; // restore original < v1.9 bugs
 
 enum Settings {
   SETTING_FULLSCREEN    = 1 << 0,
@@ -521,6 +522,10 @@ parseArgs (int argc, char * argv[], bool & exit)
       {"-r", "--renderer"},
       "set a renderer [auto;software;accelerated] (default: auto)",
       1},
+     {"enablerecorder",
+      {"-c", "--enable-recorder"},
+      "enable the recorder feature (F3/F4)",
+      0},
      {"restorebugs",
       {"-b", "--restore-bugs"},
       "restore funny original bugs of older versions < v1.9",
@@ -580,6 +585,9 @@ parseArgs (int argc, char * argv[], bool & exit)
       g_rendererType = SDL_RENDERER_ACCELERATED;
     g_settingsOverload |= SETTING_RENDERER;
   }
+
+  if (args["enablerecorder"])
+    g_enableRecorder = true;
 
   if (args["restorebugs"])
     g_restoreBugs = true;
