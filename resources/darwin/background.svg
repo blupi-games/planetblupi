@@ -200,17 +200,19 @@
      inkscape:window-width="1920"
      units="px"
      showgrid="false"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="layer4"
      inkscape:document-units="px"
-     inkscape:cy="332.37711"
-     inkscape:cx="601.93579"
+     inkscape:cy="278.7817"
+     inkscape:cx="418.75032"
      inkscape:zoom="0.7"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
      bordercolor="#666666"
      pagecolor="#ffffff"
-     id="base" />
+     id="base"
+     inkscape:pagecheckerboard="true"
+     borderlayer="true" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -219,15 +221,29 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
      inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="background"
+     style="display:inline"
+     sodipodi:insensitive="true">
+    <rect
+       style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:10.60000038;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal"
+       id="rect4858"
+       width="1000"
+       height="730"
+       x="0"
+       y="-2.5794129e-06" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
      id="layer3"
-     inkscape:label="background 1"
-     style="opacity:0.1"
+     inkscape:label="planet"
+     style="display:inline;opacity:0.1"
      sodipodi:insensitive="true">
     <image
        y="-125.70284"
@@ -242,8 +258,9 @@
   <g
      inkscape:groupmode="layer"
      id="layer2"
-     inkscape:label="background"
-     sodipodi:insensitive="true">
+     inkscape:label="line_arrow"
+     sodipodi:insensitive="true"
+     style="display:inline">
     <path
        style="fill:#999999;fill-rule:evenodd;stroke:#e6e6e6;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 10,137.05987 H 990.00001"
@@ -285,5 +302,22 @@
          d="M 419.56612,430.57396 H 520.5336"
          style="fill:none;fill-rule:evenodd;stroke:#e6e6e6;stroke-width:9.80000019;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker5573)" />
     </g>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="title"
+     sodipodi:insensitive="true">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:20px;line-height:25px;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#e6e6e6;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="25.714285"
+       y="102.85714"
+       id="text4855"><tspan
+         sodipodi:role="line"
+         id="tspan4853"
+         x="25.714285"
+         y="102.85714"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:85.33333588px;font-family:'Domestic Manners';-inkscape-font-specification:'Domestic Manners';fill:#e6e6e6">Planet Blupi</tspan></text>
   </g>
 </svg>
