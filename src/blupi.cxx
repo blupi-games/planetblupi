@@ -31,7 +31,7 @@
 #include <thread>
 #include <vector>
 
-#include "json.hpp"
+#include "json/json.hpp"
 
 #include "blupi.h"
 #include "button.h"
