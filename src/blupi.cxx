@@ -478,7 +478,7 @@ CheckForUpdates ()
 
   curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, updateCallback);
 
-  curl_easy_setopt (curl, CURLOPT_URL, "http://blupi.org/update/planet");
+  curl_easy_setopt (curl, CURLOPT_URL, "http://blupi.org/update/planet.json");
   curl_easy_setopt (curl, CURLOPT_WRITEDATA, (void *) &chunk);
   chunk.status = curl_easy_perform (curl);
 
