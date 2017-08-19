@@ -160,7 +160,15 @@ install (TARGETS planetblupi
   RUNTIME DESTINATION bin
 )
 
-install (DIRECTORY resources/data DESTINATION share/planetblupi)
+install (
+  DIRECTORY resources/data DESTINATION share/planetblupi
+  PATTERN "world2*.blp" EXCLUDE
+)
+install (
+  DIRECTORY resources/data DESTINATION share/planetblupi
+  CONFIGURATIONS Debug
+  PATTERN "world2*.blp"
+)
 install (DIRECTORY resources/image DESTINATION share/planetblupi)
 install (DIRECTORY resources/movie DESTINATION share/planetblupi)
 install (DIRECTORY resources/sound DESTINATION share/planetblupi)
