@@ -22,10 +22,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "kitchensink/kitchensink.h"
+
 #include "blupi.h"
 #include "def.h"
 #include "event.h"
-#include "kitchensink/kitchensink.h"
 #include "misc.h"
 #include "movie.h"
 

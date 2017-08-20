@@ -18,9 +18,6 @@
  * along with this program. If not, see http://gnu.org/licenses
  */
 
-#include <SDL2/SDL_image.h>
-#include <argagg/argagg.hpp>
-#include <curl/curl.h>
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -30,6 +27,10 @@
 #include <string>
 #include <thread>
 #include <vector>
+
+#include <SDL2/SDL_image.h>
+#include <argagg/argagg.hpp>
+#include <curl/curl.h>
 
 #include "json/json.hpp"
 

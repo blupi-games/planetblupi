@@ -18,8 +18,6 @@
  * along with this program. If not, see http://gnu.org/licenses
  */
 
-#include <SDL2/SDL_log.h>
-#include <SDL2/SDL_mouse.h>
 #include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,6 +29,9 @@
 #else /* _WIN32 */
 #include <sys/stat.h>
 #endif /*! _WIN32 */
+
+#include <SDL2/SDL_log.h>
+#include <SDL2/SDL_mouse.h>
 
 #include "blupi.h"
 #include "def.h"
