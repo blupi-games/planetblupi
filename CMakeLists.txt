@@ -163,11 +163,13 @@ install (TARGETS planetblupi
 install (
   DIRECTORY resources/data DESTINATION share/planetblupi
   PATTERN "world2*.blp" EXCLUDE
+  PATTERN "world*.dev.blp" EXCLUDE
 )
 install (
   DIRECTORY resources/data DESTINATION share/planetblupi
   CONFIGURATIONS Debug
   PATTERN "world2*.blp"
+  PATTERN "world*.dev.blp"
 )
 install (DIRECTORY resources/image DESTINATION share/planetblupi)
 install (DIRECTORY resources/movie DESTINATION share/planetblupi)
