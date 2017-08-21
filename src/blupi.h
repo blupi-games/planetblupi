@@ -53,6 +53,8 @@ typedef Uint32 WPARAM;
 typedef Sint32 LPARAM;
 #endif
 
+#undef LOWORD
+#undef HIWORD
 #define LOWORD(l) ((Uint16) (((Uint32) (l)) & 0xffff))
 #define HIWORD(l) ((Uint16) ((((Uint32) (l)) >> 16) & 0xffff))
 
