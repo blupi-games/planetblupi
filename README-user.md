@@ -49,15 +49,15 @@ useful operation on the selected spot.
 
 | Keys         | Description |
 | ------------ | ----------- |
-| Arrows       | Scrolls the visible part of the scene.            |
-| Spacebar     | Shows or hides items.                             |
-| F1           | Describes the goal without interrupting the game. |
-| F5           | Normal speed (x1).                                |
-| F6           | Double speed (x2).                                |
-| Home         | Returns to place of mission departure             |
-| Ctrl+F9..F12 | Bookmarks a spot.                                 |
-| F9..F12      | Returns to the corresponding bookmarked spot.     |
-| Pause        | Temporarily suspends the game.                    |
+| <kbd>Arrows</kbd>       | Scrolls the visible part of the scene.            |
+| <kbd>Spacebar</kbd>     | Shows or hides items.                             |
+| <kbd>F1</kbd>           | Describes the goal without interrupting the game. |
+| <kbd>F5</kbd>           | Normal speed (x1).                                |
+| <kbd>F6</kbd>           | Double speed (x2).                                |
+| <kbd>Home</kbd>         | Returns to place of mission departure             |
+| <kbd>Ctrl</kbd>+<kbd>F9</kbd>..<kbd>F12</kbd> | Bookmarks a spot.           |
+| <kbd>F9</kbd>..<kbd>F12</kbd> | Returns to the corresponding bookmarked spot. |
+| <kbd>Pause</kbd>        | Temporarily suspends the game.                    |
 
 When you switch to an other application, the game is automatically paused.
 
