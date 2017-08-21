@@ -52,7 +52,17 @@ endif ()
 
 add_executable (planetblupi ${sources})
 
-file (COPY resources/data  DESTINATION share/planetblupi)
+# These copies are necessary with our stuff for AppImage because it's not
+# supported by CPack.
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+  file (COPY resources/data DESTINATION share/planetblupi)
+else ()
+  file (
+    COPY resources/data DESTINATION share/planetblupi
+    PATTERN "world2*.blp" EXCLUDE
+    PATTERN "world*.dev.blp" EXCLUDE
+  )
+endif ()
 file (COPY resources/image DESTINATION share/planetblupi)
 file (COPY resources/movie DESTINATION share/planetblupi)
 file (COPY resources/sound DESTINATION share/planetblupi)
