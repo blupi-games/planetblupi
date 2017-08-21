@@ -1605,10 +1605,10 @@ CEvent::~CEvent ()
 
 // Retourne la position de la souris.
 
-POINT
+Point
 CEvent::GetMousePos ()
 {
-  POINT  pos;
+  Point  pos;
   Sint32 x, y;
 
   SDL_GetMouseState (&x, &y);
@@ -1697,7 +1697,7 @@ void
 CEvent::Create (
   CPixmap * pPixmap, CDecor * pDecor, CSound * pSound, CMovie * pMovie)
 {
-  POINT pos;
+  Point pos;
 
   m_pPixmap = pPixmap;
   m_pDecor  = pDecor;
@@ -1836,7 +1836,7 @@ bool
 CEvent::CreateButtons ()
 {
   Sint32 i = 0, message;
-  POINT  pos;
+  Point  pos;
 
   if (m_index < 0)
     return false;
@@ -1901,7 +1901,7 @@ CEvent::SetUpdateVersion (const std::string & version)
 void
 CEvent::DrawTextCenter (const char * text, Sint32 x, Sint32 y, Sint32 font)
 {
-  POINT pos;
+  Point pos;
   pos.x = x;
   pos.y = y;
   ::DrawTextCenter (m_pPixmap, pos, text, font);
@@ -1918,8 +1918,8 @@ CEvent::DrawButtons ()
   Sint32 world, time, lg, button, volume, pente, icon;
   char   res[100];
   char   text[100];
-  POINT  pos;
-  RECT   rect;
+  Point  pos;
+  Rect   rect;
   bool   bEnable;
 
   if (
@@ -2573,7 +2573,7 @@ CEvent::DrawButtons ()
 // Retourne le lutin à utiliser à une position donnée.
 
 MouseSprites
-CEvent::MousePosToSprite (POINT pos)
+CEvent::MousePosToSprite (Point pos)
 {
   MouseSprites sprite;
   bool         bUp = false, bDown = false, bLeft = false, bRight = false;
@@ -2645,7 +2645,7 @@ CEvent::MousePosToSprite (POINT pos)
 // Gère le lutin de la souris.
 
 void
-CEvent::MouseSprite (POINT pos)
+CEvent::MouseSprite (Point pos)
 {
   m_mouseSprite = MousePosToSprite (pos);
   m_pPixmap->ChangeSprite (m_mouseSprite);
@@ -2691,9 +2691,9 @@ CEvent::HideMouse (bool bHide)
 // Traite les événements pour tous les boutons.
 
 bool
-CEvent::EventButtons (const SDL_Event & event, POINT pos)
+CEvent::EventButtons (const SDL_Event & event, Point pos)
 {
-  POINT  test;
+  Point  test;
   Sint32 lg;
   Sounds sound;
 
@@ -2852,7 +2852,7 @@ CEvent::EventButtons (const SDL_Event & event, POINT pos)
 // Indique si la souris est sur un bouton.
 
 bool
-CEvent::MouseOnButton (POINT pos)
+CEvent::MouseOnButton (Point pos)
 {
   Sint32 i;
 
@@ -2947,7 +2947,7 @@ bool
 CEvent::ChangePhase (Uint32 phase)
 {
   Sint32      index, world, time, total, music, i, max;
-  POINT       totalDim, iconDim;
+  Point       totalDim, iconDim;
   std::string filename;
   char *      pButtonExist;
   bool        bEnable, bHide;
@@ -3335,7 +3335,7 @@ CEvent::MovieToStart ()
 void
 CEvent::DecorShift (Sint32 dx, Sint32 dy)
 {
-  POINT coin;
+  Point coin;
 
   if (m_phase != EV_PHASE_PLAY && m_phase != EV_PHASE_BUILD)
     return;
@@ -3355,7 +3355,7 @@ void
 CEvent::DecorAutoShift ()
 {
   Sint32 max;
-  POINT  offset;
+  Point  offset;
 
   m_bShift = false;
 
@@ -3469,13 +3469,13 @@ CEvent::IsShift ()
 // Modifie le décor lorsque le bouton de la souris est pressé.
 
 bool
-CEvent::PlayDown (POINT pos, const SDL_Event & event)
+CEvent::PlayDown (Point pos, const SDL_Event & event)
 {
   bool    bDecor = false;
   bool    bMap   = false;
   Sint32  rank, h;
   Buttons button;
-  POINT   cel;
+  Point   cel;
 
   m_pDecor->BlupiSetArrow (0, false); // enlève toutes les flèches
 
@@ -3542,7 +3542,7 @@ CEvent::PlayDown (POINT pos, const SDL_Event & event)
 // Modifie le décor lorsque la souris est déplacée.
 
 bool
-CEvent::PlayMove (POINT pos)
+CEvent::PlayMove (Point pos)
 {
   if (m_bMenu)
   {
@@ -3573,7 +3573,7 @@ CEvent::PlayMove (POINT pos)
 // Modifie le décor lorsque le bouton de la souris est relâché.
 
 bool
-CEvent::PlayUp (POINT pos)
+CEvent::PlayUp (Point pos)
 {
   static Sounds table_sound_boing[] = {
     SOUND_BOING1, SOUND_BOING2, SOUND_BOING3,
@@ -3859,7 +3859,7 @@ CEvent::ChangeButtons (Sint32 message)
 // Met un sol si nécessaire sous un objet.
 
 void
-CEvent::BuildFloor (POINT cel, Sint32 insIcon)
+CEvent::BuildFloor (Point cel, Sint32 insIcon)
 {
   Sint32 iFloor, channel, icon;
 
@@ -3913,7 +3913,7 @@ CEvent::BuildFloor (POINT cel, Sint32 insIcon)
 // Enlève si nécessaire un objet sur l'eau.
 
 void
-CEvent::BuildWater (POINT cel, Sint32 insIcon)
+CEvent::BuildWater (Point cel, Sint32 insIcon)
 {
   Sint32 channel, icon;
 
@@ -3966,9 +3966,9 @@ static Sint32 tableHome[] = {
 // Modifie le décor lorsque le bouton de la souris est pressé.
 
 bool
-CEvent::BuildDown (POINT pos, Uint16 mod, bool bMix)
+CEvent::BuildDown (Point pos, Uint16 mod, bool bMix)
 {
-  POINT  cel;
+  Point  cel;
   Sint32 menu, channel, icon;
 
   if (bMix && m_pDecor->MapMove (pos))
@@ -4126,7 +4126,7 @@ CEvent::BuildDown (POINT pos, Uint16 mod, bool bMix)
 // Modifie le décor lorsque la souris est déplacée.
 
 bool
-CEvent::BuildMove (POINT pos, Uint16 mod, const SDL_Event & event)
+CEvent::BuildMove (Point pos, Uint16 mod, const SDL_Event & event)
 {
   if (event.motion.state & SDL_BUTTON (SDL_BUTTON_LEFT)) // bouton souris pressé
                                                          // ?
@@ -4145,7 +4145,7 @@ CEvent::BuildMove (POINT pos, Uint16 mod, const SDL_Event & event)
 bool
 CEvent::StartMovie (const std::string & pFilename)
 {
-  RECT rect;
+  Rect rect;
 
   if (!m_pMovie->GetEnable ())
     return false;
@@ -4829,7 +4829,7 @@ CEvent::DemoStep ()
 
       if (message == EV_MOUSEMOVE || event.type == SDL_MOUSEMOTION)
       {
-        POINT pos;
+        Point pos;
 
         if (m_pDemoBuffer)
           pos = ConvLongToPos (lParam);
@@ -4907,7 +4907,7 @@ CEvent::DemoRecEvent (const SDL_Event & event)
 
 // Retourne la dernière position de la souris.
 
-POINT
+Point
 CEvent::GetLastMousePos ()
 {
   return m_oldMousePos;
@@ -4940,7 +4940,7 @@ CEvent::TreatEvent (const SDL_Event & event)
 bool
 CEvent::TreatEventBase (const SDL_Event & event)
 {
-  POINT  pos;
+  Point  pos;
   Sint32 i;
   Sounds sound;
   char   c;

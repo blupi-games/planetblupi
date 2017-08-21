@@ -908,7 +908,7 @@ CDecor::MoveFixInit ()
  */
 bool
 CDecor::MoveCreate (
-  POINT cel, Sint32 rankBlupi, bool bFloor, Sint32 channel, Sint32 icon,
+  Point cel, Sint32 rankBlupi, bool bFloor, Sint32 channel, Sint32 icon,
   Sint32 maskChannel, Sint32 maskIcon, Sint32 total, Sint32 delai, Sint32 stepY,
   bool bMisc, bool bNotIfExist)
 {
@@ -964,7 +964,7 @@ create:
 // Ajoute un mouvement.
 
 bool
-CDecor::MoveAddMoves (POINT cel, Sint32 rankMoves)
+CDecor::MoveAddMoves (Point cel, Sint32 rankMoves)
 {
   Sint32 rank;
 
@@ -987,7 +987,7 @@ CDecor::MoveAddMoves (POINT cel, Sint32 rankMoves)
 // Ajoute un mouvement.
 
 bool
-CDecor::MoveAddIcons (POINT cel, Sint32 rankIcons, bool bContinue)
+CDecor::MoveAddIcons (Point cel, Sint32 rankIcons, bool bContinue)
 {
   Sint32 rank;
 
@@ -1018,7 +1018,7 @@ CDecor::MoveAddIcons (POINT cel, Sint32 rankIcons, bool bContinue)
  * \returns true if possible.
  */
 bool
-CDecor::MoveStartFire (POINT cel)
+CDecor::MoveStartFire (Point cel)
 {
   Sint32 channel, icon;
 
@@ -1073,7 +1073,7 @@ CDecor::MoveStartFire (POINT cel)
 // Démarre le feu si c'est possible par proximité.
 
 void
-CDecor::MoveProxiFire (POINT cel)
+CDecor::MoveProxiFire (Point cel)
 {
   Sint32 cx, cy, xx, yy, x, y, channel, icon;
 
@@ -1143,7 +1143,7 @@ void
 CDecor::MoveFire (Sint32 rank)
 {
   Sint32 x, y, icon, newIcon;
-  POINT  pos;
+  Point  pos;
 
   x = (m_move[rank].cel.x / 2) * 2;
   y = (m_move[rank].cel.y / 2) * 2;
@@ -1334,7 +1334,7 @@ CDecor::MoveStep (bool bFirst)
 // Termine un mouvement pour une cellule donnée.
 
 void
-CDecor::MoveFinish (POINT cel)
+CDecor::MoveFinish (Point cel)
 {
   Sint32 rank;
 
@@ -1375,7 +1375,7 @@ CDecor::MoveFinish (Sint32 rankBlupi)
 // Vérifie si une cellule est déjà utilisée.
 
 bool
-CDecor::MoveIsUsed (POINT cel)
+CDecor::MoveIsUsed (Point cel)
 {
   Sint32 rank;
 
@@ -1393,7 +1393,7 @@ CDecor::MoveIsUsed (POINT cel)
 // Retourne l'objet en construction à un endroit donné.
 
 bool
-CDecor::MoveGetObject (POINT cel, Sint32 & channel, Sint32 & icon)
+CDecor::MoveGetObject (Point cel, Sint32 & channel, Sint32 & icon)
 {
   Sint32 rank;
 
@@ -1415,7 +1415,7 @@ CDecor::MoveGetObject (POINT cel, Sint32 & channel, Sint32 & icon)
 // Modifie un objet en construction à un endroit donné.
 
 bool
-CDecor::MovePutObject (POINT cel, Sint32 channel, Sint32 icon)
+CDecor::MovePutObject (Point cel, Sint32 channel, Sint32 icon)
 {
   Sint32 rank;
 

@@ -90,7 +90,7 @@ CMovie::fileCloseMovie ()
 // Sets <m_fMovieOpen> on success.
 
 bool
-CMovie::fileOpenMovie (RECT rect, const std::string & pFilename)
+CMovie::fileOpenMovie (Rect rect, const std::string & pFilename)
 {
   const auto path = GetBaseDir () + pFilename;
 
@@ -207,7 +207,7 @@ CMovie::IsExist (const std::string & pFilename)
 // Montre un film avi.
 
 bool
-CMovie::Play (RECT rect, const std::string & pFilename)
+CMovie::Play (Rect rect, const std::string & pFilename)
 {
   if (!m_bEnable)
     return false;

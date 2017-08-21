@@ -31,19 +31,19 @@ extern bool           g_bFullScreen;
 extern bool           g_restoreBugs;
 extern bool           g_enableRecorder;
 
-struct POINT {
+struct Point {
   Sint32 x;
   Sint32 y;
 };
 
-struct RECT {
+struct Rect {
   Sint32 left;
   Sint32 top;
   Sint32 right;
   Sint32 bottom;
 };
 
-typedef Uint32 COLORREF;
+typedef Uint32 ColorRef;
 
 #if defined(_WIN64)
 typedef unsigned __int64 WPARAM;

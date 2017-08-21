@@ -44,7 +44,7 @@ CJauge::~CJauge ()
 // Crée un nouveau bouton.
 
 bool
-CJauge::Create (CPixmap * pPixmap, CSound * pSound, POINT pos, Sint32 type)
+CJauge::Create (CPixmap * pPixmap, CSound * pSound, Point pos, Sint32 type)
 {
   m_pPixmap = pPixmap;
   m_pSound  = pSound;
@@ -64,7 +64,7 @@ void
 CJauge::Draw ()
 {
   Sint32 part;
-  RECT   rect;
+  Rect   rect;
 
   if (m_bHide) // bouton caché ?
   {
@@ -127,7 +127,7 @@ CJauge::SetHide (bool bHide)
   m_bHide = bHide;
 }
 
-POINT
+Point
 CJauge::GetPos ()
 {
   return m_pos;

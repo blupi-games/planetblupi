@@ -59,7 +59,7 @@ CDecor::CheminMemPos (Sint32 exRank)
 // Teste si une positiion est occupée par un blupi.
 
 bool
-CDecor::CheminTestPos (POINT pos, Sint32 & rank)
+CDecor::CheminTestPos (Point pos, Sint32 & rank)
 {
   Sint32 i;
 
@@ -83,7 +83,7 @@ Sint32
 CDecor::CheminARebours (Sint32 rank)
 {
   Sint32 pos, rebours, last, dir, set;
-  POINT  v;
+  Point  v;
 
   pos = m_blupi[rank].goalCel.y * MAXCELX + m_blupi[rank].goalCel.x;
 
@@ -205,7 +205,7 @@ CDecor::CheminTestDirection (
   Sint32 rank, Sint32 pos, Sint32 dir, Sint32 & next, Sint32 & ampli,
   Sint32 & cout, Sint32 & action)
 {
-  POINT  cel, vector, newCel;
+  Point  cel, vector, newCel;
   bool   bFree;
   Sint32 tryDirect, workBlupi, rankHere;
 
@@ -333,10 +333,10 @@ CDecor::CheminCherche (Sint32 rank, Sint32 & action)
 // Teste s'il est possible de se rendre à un endroit donné.
 
 bool
-CDecor::IsCheminFree (Sint32 rank, POINT dest, Sint32 button)
+CDecor::IsCheminFree (Sint32 rank, Point dest, Sint32 button)
 {
   Sint32 action, sDirect;
-  POINT  goalCel, passCel, limit;
+  Point  goalCel, passCel, limit;
   bool   bOK;
 
   if (button == BUTTON_STOP)

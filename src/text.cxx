@@ -108,7 +108,7 @@ GetCharWidth (const char *& c, Sint32 font)
  * \param[in] font - The font style (little or normal).
  */
 void
-DrawText (CPixmap * pPixmap, POINT pos, const char * pText, Sint32 font)
+DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
 {
   Sint32 rank;
 
@@ -133,7 +133,7 @@ DrawText (CPixmap * pPixmap, POINT pos, const char * pText, Sint32 font)
 
 void
 DrawTextPente (
-  CPixmap * pPixmap, POINT pos, const char * pText, Sint32 pente, Sint32 font)
+  CPixmap * pPixmap, Point pos, const char * pText, Sint32 pente, Sint32 font)
 {
   Sint32 rank, lg, rel, start;
 
@@ -160,7 +160,7 @@ DrawTextPente (
 
 void
 DrawTextRect (
-  CPixmap * pPixmap, POINT pos, char * pText, Sint32 pente, Sint32 font,
+  CPixmap * pPixmap, Point pos, char * pText, Sint32 pente, Sint32 font,
   Sint32 part)
 {
   char   text[100];
@@ -216,12 +216,12 @@ DrawTextRect (
 // contenir plusieurs lignes séparées par des '\n'.
 
 void
-DrawTextCenter (CPixmap * pPixmap, POINT pos, const char * pText, Sint32 font)
+DrawTextCenter (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
 {
   char   text[100];
   char * pDest;
   Sint32 itl;
-  POINT  start;
+  Point  start;
 
   if (font == FONTLITTLE)
     itl = DIMLITTLEY;
@@ -337,12 +337,12 @@ GetBignumInfo (Sint32 num, Sint32 & start, Sint32 & lg)
 // Affiche un grand nombre.
 
 void
-DrawBignum (CPixmap * pPixmap, POINT pos, Sint32 num)
+DrawBignum (CPixmap * pPixmap, Point pos, Sint32 num)
 {
   char   string[10];
   Sint32 i = 0;
   Sint32 start, lg;
-  RECT   rect;
+  Rect   rect;
 
   snprintf (string, sizeof (string), "%d", num);
 

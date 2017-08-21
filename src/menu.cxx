@@ -156,7 +156,7 @@ CMenu::~CMenu ()
 
 bool
 CMenu::Create (
-  CPixmap * pPixmap, CSound * pSound, CEvent * pEvent, POINT pos, Sint32 nb,
+  CPixmap * pPixmap, CSound * pSound, CEvent * pEvent, Point pos, Sint32 nb,
   Buttons * pButtons, Errors * pErrors,
   std::unordered_map<Sint32, const char *> & texts, Sint32 perso)
 {
@@ -241,8 +241,8 @@ void
 CMenu::Draw ()
 {
   Sint32 i, state, icon;
-  POINT  pos;
-  RECT   oldClip, clipRect;
+  Point  pos;
+  Rect   oldClip, clipRect;
   char   text[50];
   char * pText;
 
@@ -399,7 +399,7 @@ CMenu::IsExist ()
 bool
 CMenu::TreatEvent (const SDL_Event & event)
 {
-  POINT pos;
+  Point pos;
 
   if (m_nbButtons == 0)
     return false;
@@ -446,7 +446,7 @@ CMenu::TreatEvent (const SDL_Event & event)
 // Détecte dans quel bouton est la souris.
 
 Sint32
-CMenu::Detect (POINT pos)
+CMenu::Detect (Point pos)
 {
   Sint32 rank;
 
@@ -466,7 +466,7 @@ CMenu::Detect (POINT pos)
 // Bouton de la souris pressé.
 
 bool
-CMenu::MouseDown (POINT pos)
+CMenu::MouseDown (Point pos)
 {
   return false;
 }
@@ -474,7 +474,7 @@ CMenu::MouseDown (POINT pos)
 // Souris déplacés.
 
 bool
-CMenu::MouseMove (POINT pos)
+CMenu::MouseMove (Point pos)
 {
   m_selRank = Detect (pos);
 
@@ -493,7 +493,7 @@ CMenu::MouseMove (POINT pos)
 // Bouton de la souris relâché.
 
 bool
-CMenu::MouseUp (POINT pos)
+CMenu::MouseUp (Point pos)
 {
   m_selRank = Detect (pos);
 

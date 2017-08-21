@@ -88,7 +88,7 @@ public:
   CEvent ();
   ~CEvent ();
 
-  POINT GetMousePos ();
+  Point GetMousePos ();
   void
          Create (CPixmap * pPixmap, CDecor * pDecor, CSound * pSound, CMovie * pMovie);
   void   SetFullScreen (bool bFullScreen);
@@ -112,11 +112,11 @@ public:
   void   SetMenu (Sint32 button, Sint32 menu);
 
   bool         DrawButtons ();
-  MouseSprites MousePosToSprite (POINT pos);
-  void         MouseSprite (POINT pos);
+  MouseSprites MousePosToSprite (Point pos);
+  void         MouseSprite (Point pos);
   void         WaitMouse (bool bWait);
   void         HideMouse (bool bHide);
-  POINT        GetLastMousePos ();
+  Point        GetLastMousePos ();
   bool         TreatEvent (const SDL_Event & event);
   bool         TreatEventBase (const SDL_Event & event);
 
@@ -146,24 +146,24 @@ public:
 protected:
   void DrawTextCenter (const char * text, Sint32 x, Sint32 y, Sint32 font = 0);
   bool CreateButtons ();
-  bool EventButtons (const SDL_Event & event, POINT pos);
-  bool MouseOnButton (POINT pos);
+  bool EventButtons (const SDL_Event & event, Point pos);
+  bool MouseOnButton (Point pos);
   Sint32 SearchPhase (Uint32 phase);
   void   DecorShift (Sint32 dx, Sint32 dy);
 
-  bool PlayDown (POINT pos, const SDL_Event & event);
-  bool PlayMove (POINT pos);
-  bool PlayUp (POINT pos);
+  bool PlayDown (Point pos, const SDL_Event & event);
+  bool PlayMove (Point pos);
+  bool PlayUp (Point pos);
 
   void SetLanguage ();
   void SetWindowSize (Uint8 prevScale, Uint8 newScale);
 
   void ChangeButtons (Sint32 message);
 
-  void BuildFloor (POINT cel, Sint32 insIcon);
-  void BuildWater (POINT cel, Sint32 insIcon);
-  bool BuildDown (POINT pos, Uint16 mod, bool bMix = true);
-  bool BuildMove (POINT pos, Uint16 mod, const SDL_Event & event);
+  void BuildFloor (Point cel, Sint32 insIcon);
+  void BuildWater (Point cel, Sint32 insIcon);
+  bool BuildDown (Point pos, Uint16 mod, bool bMix = true);
+  bool BuildMove (Point pos, Uint16 mod, const SDL_Event & event);
 
   void PrivateLibelle ();
   bool ReadLibelle (Sint32 world, bool bSchool, bool bHelp);
@@ -208,19 +208,19 @@ protected:
   CJauge                                   m_jauges[2];
   CMenu                                    m_menu;
   bool                                     m_bMenu;
-  POINT                                    m_menuPos;
+  Point                                    m_menuPos;
   Sint32                                   m_menuNb;
   Buttons                                  m_menuButtons[MAXBUTTON];
   Errors                                   m_menuErrors[MAXBUTTON];
   std::unordered_map<Sint32, const char *> m_menuTexts;
   Sint32                                   m_menuPerso;
-  POINT                                    m_menuCel;
-  POINT                                    m_oldMousePos;
+  Point                                    m_menuCel;
+  Point                                    m_oldMousePos;
   bool                                     m_bMouseDown;
   bool                                     m_bHili;
   Sint32                                   m_fileWorld[10];
   Sint32                                   m_fileTime[10];
-  POINT                                    m_posToolTips;
+  Point                                    m_posToolTips;
   char                                     m_textToolTips[50];
   MouseSprites                             m_mouseSprite;
   bool                                     m_bFillMouse;
@@ -237,13 +237,13 @@ protected:
   bool                                     m_bPause;
   bool                                     m_bShift;
   Sint32                                   m_shiftPhase;
-  POINT                                    m_shiftVector;
-  POINT                                    m_shiftOffset;
+  Point                                    m_shiftVector;
+  Point                                    m_shiftOffset;
   char                                     m_libelle[1000];
   Sint32                                   m_tryPhase;
   Sint32                                   m_tryInsertCount;
-  POINT                                    m_posInfoButton;
-  POINT                                    m_posHelpButton;
+  Point                                    m_posInfoButton;
+  Point                                    m_posHelpButton;
   bool                                     m_bHiliInfoButton;
   bool                                     m_bHiliHelpButton;
   bool                                     m_bInfoHelp;
@@ -257,7 +257,7 @@ protected:
   size_t                                   m_demoEnd;
   Sint32                                   m_demoNumber;
   Uint16                                   m_keymod;
-  POINT                                    m_debugPos;
+  Point                                    m_debugPos;
   Sint32                                   m_introTime;
   Sint32                                   m_updateBlinking;
   std::string                              m_updateVersion;

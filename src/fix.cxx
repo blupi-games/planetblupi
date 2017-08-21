@@ -69,7 +69,7 @@ static const char tableDark[13 * 4] =
 // Retourne les bits contenant de l'eau.
 
 bool
-CDecor::GetSeeBits (POINT cel, char * pBits, Sint32 index)
+CDecor::GetSeeBits (Point cel, char * pBits, Sint32 index)
 {
   Sint32 icon;
 
@@ -208,9 +208,9 @@ CDecor::GetSeeIcon (char * pBits, Sint32 index)
 // Arrange le sol après une modification.
 
 void
-CDecor::ArrangeFloor (POINT cel)
+CDecor::ArrangeFloor (Point cel)
 {
-  POINT  test;
+  Point  test;
   Sint32 max, index, icon;
   char   here[4], bits[4], init[4];
   bool   bModif = false;
@@ -424,7 +424,7 @@ static const Sint16 tableMurDir[4 * 2] =
 // index=2 si barrière  (106..112)
 
 void
-CDecor::ArrangeMur (POINT cel, Sint32 & icon, Sint32 index)
+CDecor::ArrangeMur (Point cel, Sint32 & icon, Sint32 index)
 {
   Sint32 i, x, y, channel;
   Sint32 first, last, matiere;
@@ -494,7 +494,7 @@ CDecor::ArrangeMur (POINT cel, Sint32 & icon, Sint32 index)
 // Arrange les objets avant une construction.
 
 void
-CDecor::ArrangeBuild (POINT cel, Sint32 & channel, Sint32 & icon)
+CDecor::ArrangeBuild (Point cel, Sint32 & channel, Sint32 & icon)
 {
   Sint32 index, i, x, y;
   Sint32 first, last, matiere;
@@ -570,12 +570,12 @@ CDecor::ArrangeBuild (POINT cel, Sint32 & channel, Sint32 & icon)
 // Arrange les objets après une modification.
 
 void
-CDecor::ArrangeObject (POINT cel)
+CDecor::ArrangeObject (Point cel)
 {
   Sint32 channel, icon;
   Sint32 first, last;
   Sint32 index, i, j, k, x, y;
-  POINT  vector, test, pos;
+  Point  vector, test, pos;
   bool   bTour;
 
   for (index = 0; index < 3; index++)
@@ -705,9 +705,9 @@ CDecor::ArrangeObject (POINT cel)
 // Test s'il faut remplir le sol ici.
 
 bool
-CDecor::ArrangeFillTestFloor (POINT cel1, POINT cel2)
+CDecor::ArrangeFillTestFloor (Point cel1, Point cel2)
 {
-  POINT  cel;
+  Point  cel;
   Sint32 icon1, icon2;
 
   icon1 = m_fillSearchIcon;
@@ -760,9 +760,9 @@ CDecor::ArrangeFillTestFloor (POINT cel1, POINT cel2)
 // Test s'il faut remplir ici.
 
 bool
-CDecor::ArrangeFillTest (POINT pos)
+CDecor::ArrangeFillTest (Point pos)
 {
-  POINT cel1, cel2;
+  Point cel1, cel2;
 
   if (m_pFillMap[(pos.x / 2) + (pos.y / 2) * (MAXCELX / 2)] == 1)
     return false;
@@ -800,7 +800,7 @@ CDecor::ArrangeFillTest (POINT pos)
 // Modifie le décor lors d'un remplissage.
 
 void
-CDecor::ArrangeFillPut (POINT pos, Sint32 channel, Sint32 icon)
+CDecor::ArrangeFillPut (Point pos, Sint32 channel, Sint32 icon)
 {
   if (m_bFillFloor)
   {
@@ -823,7 +823,7 @@ CDecor::ArrangeFillPut (POINT pos, Sint32 channel, Sint32 icon)
 // Rempli un sol à partir d'une position donnée.
 
 void
-CDecor::ArrangeFillSearch (POINT pos)
+CDecor::ArrangeFillSearch (Point pos)
 {
   Sint32 startX, endX;
 
@@ -897,7 +897,7 @@ CDecor::ArrangeFillSearch (POINT pos)
 // Rempli un sol à partir d'une position donnée.
 
 void
-CDecor::ArrangeFill (POINT pos, Sint32 channel, Sint32 icon, bool bFloor)
+CDecor::ArrangeFill (Point pos, Sint32 channel, Sint32 icon, bool bFloor)
 {
   m_bFillFloor = bFloor;
 

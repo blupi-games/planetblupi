@@ -32,7 +32,7 @@ typedef struct {
   Sint32 nbMove;
   Sint32 lgMove;
   Sint16 reserve1[100];
-  POINT  celCoin;
+  Point  celCoin;
   Sint16 world;
   Sint32 time;
   char   buttonExist[MAXBUTTON];
@@ -41,7 +41,7 @@ typedef struct {
   Sint16 region;
   Sint32 totalTime;
   Sint16 skill;
-  POINT  memoPos[4];
+  Point  memoPos[4];
   Sint16 reserve2[29];
 } DescFile;
 
@@ -53,18 +53,18 @@ typedef struct {
 
   Sint16 goalAction; // action (Sint32 terme)
   Sint16 goalPhase;  // phase (Sint32 terme)
-  POINT  goalCel;    // cellule visée (Sint32 terme)
-  POINT  passCel;    // cellule tranversante
+  Point  goalCel;    // cellule visée (Sint32 terme)
+  Point  passCel;    // cellule tranversante
 
   Sint16 energy; // énergie restante
 
-  POINT  cel;     // cellule actuelle
-  POINT  destCel; // cellule destination
+  Point  cel;     // cellule actuelle
+  Point  destCel; // cellule destination
   Sint16 action;  // action en cours
   Sint16 aDirect; // direction actuelle
   Sint16 sDirect; // direction souhaitée
 
-  POINT  pos;  // position relative à partir de la cellule
+  Point  pos;  // position relative à partir de la cellule
   Sint16 posZ; // déplacement z
   Sint16 channel;
   Sint16 lastIcon;
@@ -76,13 +76,13 @@ typedef struct {
 
   Sint32 nbUsed; // nb de points déjà visités
   char   nextRankUsed;
-  POINT  posUsed[MAXUSED];
+  Point  posUsed[MAXUSED];
   char   rankUsed[MAXUSED];
 
   Sint16 takeChannel; // objet transporté
   Sint16 takeIcon;
 
-  POINT fix; // point fixe (cultive, pont)
+  Point fix; // point fixe (cultive, pont)
 
   Sint16 jaugePhase;
   Sint16 jaugeMax;
@@ -92,7 +92,7 @@ typedef struct {
   Sint16 nLoop;    // nb de boucles pour GOAL_OTHERLOOP
   Sint16 cLoop;    // boucle en cours
   Sint16 vIcon;    // icône variable
-  POINT  goalHili; // but visé
+  Point  goalHili; // but visé
   Sint16 bMalade;  // true -> blupi malade
   Sint16 bCache;   // true -> caché (pas dessiné)
   Sint16 vehicule; // véhicule utilisé par blupi, voir (**)
@@ -170,7 +170,7 @@ CDecor::Write (Sint32 rank, bool bUser, Sint32 world, Sint32 time, Sint32 total)
   if (nb < MAXMOVE)
     goto error;
 
-  nb = fwrite (m_lastDrapeau, sizeof (POINT), MAXLASTDRAPEAU, file);
+  nb = fwrite (m_lastDrapeau, sizeof (Point), MAXLASTDRAPEAU, file);
   if (nb < MAXLASTDRAPEAU)
     goto error;
 
@@ -306,7 +306,7 @@ CDecor::Read (
   if (nb < MAXMOVE)
     goto error;
 
-  nb = fread (m_lastDrapeau, sizeof (POINT), MAXLASTDRAPEAU, file);
+  nb = fread (m_lastDrapeau, sizeof (Point), MAXLASTDRAPEAU, file);
   if (nb < MAXLASTDRAPEAU)
     InitDrapeau ();
 

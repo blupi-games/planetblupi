@@ -30,7 +30,7 @@ public:
   CJauge ();
   ~CJauge ();
 
-  bool Create (CPixmap * pPixmap, CSound * pSound, POINT pos, Sint32 type);
+  bool Create (CPixmap * pPixmap, CSound * pSound, Point pos, Sint32 type);
   void Draw ();
 
   void SetLevel (Sint32 level);
@@ -39,15 +39,15 @@ public:
   bool GetHide ();
   void SetHide (bool bHide);
 
-  POINT GetPos ();
+  Point GetPos ();
 
 protected:
   CPixmap * m_pPixmap;
   CDecor *  m_pDecor;
   CSound *  m_pSound;
   bool      m_bHide; // true si bouton caché
-  POINT     m_pos;   // coin sup/gauche
-  POINT     m_dim;   // dimensions
+  Point     m_pos;   // coin sup/gauche
+  Point     m_dim;   // dimensions
   Sint32    m_type;
   Sint32    m_level;
 };

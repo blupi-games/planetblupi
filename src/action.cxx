@@ -2733,7 +2733,7 @@ static const DescAction action_table[] =
 bool
 Action (
   Sint16 action, Sint16 direct, Sint16 & phase, Sint16 & step, Sint16 & channel,
-  Sint16 & icon, POINT & pos, Sint16 & posZ, Sounds & sound)
+  Sint16 & icon, Point & pos, Sint16 & posZ, Sounds & sound)
 {
   const auto * pTable = action_table;
   Sint16       nbIcon, nbPhase, nbMove, nbSound, i;

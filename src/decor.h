@@ -65,18 +65,18 @@ typedef struct {
 
   Sint16 goalAction; // action (Sint32 terme)
   Sint16 goalPhase;  // phase (Sint32 terme)
-  POINT  goalCel;    // cellule visée (Sint32 terme)
-  POINT  passCel;    // cellule tranversante
+  Point  goalCel;    // cellule visée (Sint32 terme)
+  Point  passCel;    // cellule tranversante
 
   Sint16 energy; // énergie restante
 
-  POINT  cel;     // cellule actuelle
-  POINT  destCel; // cellule destination
+  Point  cel;     // cellule actuelle
+  Point  destCel; // cellule destination
   Sint16 action;  // action en cours
   Sint16 aDirect; // direction actuelle
   Sint16 sDirect; // direction souhaitée
 
-  POINT  pos;  // position relative à partir de la cellule
+  Point  pos;  // position relative à partir de la cellule
   Sint16 posZ; // déplacement z
   Sint16 channel;
   Sint16 lastIcon;
@@ -88,13 +88,13 @@ typedef struct {
 
   Sint32 nbUsed; // nb de points déjà visités
   char   nextRankUsed;
-  POINT  posUsed[MAXUSED];
+  Point  posUsed[MAXUSED];
   char   rankUsed[MAXUSED];
 
   Sint16 takeChannel; // objet transporté
   Sint16 takeIcon;
 
-  POINT fix; // point fixe (cultive, pont)
+  Point fix; // point fixe (cultive, pont)
 
   Sint16 jaugePhase;
   Sint16 jaugeMax;
@@ -104,7 +104,7 @@ typedef struct {
   Sint16 nLoop;    // nb de boucles pour GOAL_OTHERLOOP
   Sint16 cLoop;    // boucle en cours
   Sint16 vIcon;    // icône variable
-  POINT  goalHili; // but visé
+  Point  goalHili; // but visé
   Sint16 bMalade;  // true -> blupi malade
   Sint16 bCache;   // true -> caché (pas dessiné)
   Sint16 vehicule; // véhicule utilisé par blupi, voir (**)
@@ -114,7 +114,7 @@ typedef struct {
   char   clicDelay;
   char   reserve2[2];
   Sint16 listButton[MAXLIST];
-  POINT  listCel[MAXLIST];
+  Point  listCel[MAXLIST];
   Sint16 listParam[MAXLIST];
   Sint16 repeatLevelHope;
   Sint16 repeatLevel;
@@ -145,7 +145,7 @@ typedef struct {
 typedef struct {
   Sint32 bExist; // true -> utilisé
 
-  POINT  cel;       // cellule du décor
+  Point  cel;       // cellule du décor
   Sint16 rankBlupi; // blupi travaillant ici
 
   Sint32 bFloor; // true -> floor, false -> object
@@ -174,110 +174,110 @@ public:
   ~CDecor ();
 
   // Arrange.cpp
-  void ArrangeFloor (POINT cel);
-  void ArrangeMur (POINT cel, Sint32 & icon, Sint32 index);
-  void ArrangeBuild (POINT cel, Sint32 & channel, Sint32 & icon);
-  void ArrangeObject (POINT cel);
+  void ArrangeFloor (Point cel);
+  void ArrangeMur (Point cel, Sint32 & icon, Sint32 index);
+  void ArrangeBuild (Point cel, Sint32 & channel, Sint32 & icon);
+  void ArrangeObject (Point cel);
 
-  bool ArrangeFillTestFloor (POINT cel1, POINT cel2);
-  bool ArrangeFillTest (POINT pos);
-  void ArrangeFillPut (POINT pos, Sint32 channel, Sint32 icon);
-  void ArrangeFillSearch (POINT pos);
-  void ArrangeFill (POINT pos, Sint32 channel, Sint32 icon, bool bFloor);
+  bool ArrangeFillTestFloor (Point cel1, Point cel2);
+  bool ArrangeFillTest (Point pos);
+  void ArrangeFillPut (Point pos, Sint32 channel, Sint32 icon);
+  void ArrangeFillSearch (Point pos);
+  void ArrangeFill (Point pos, Sint32 channel, Sint32 icon, bool bFloor);
 
   void ArrangeBlupi ();
 
   // Obstacle.cpp
-  void SearchFloor (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits);
-  void SearchObject (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits);
-  void AjustFloor (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits);
-  void AjustObject (Sint32 rank, Sint32 icon, POINT cel, Sint32 * pBits);
-  bool IsFreeDirect (POINT cel, Sint32 direct, Sint32 rank);
-  bool IsFreeCelObstacle (POINT cel);
-  bool IsFreeCelFloor (POINT cel, Sint32 rank);
-  bool IsFreeCelGo (POINT cel, Sint32 rank);
-  bool IsFreeCelHili (POINT cel, Sint32 rank);
-  bool IsFreeCel (POINT cel, Sint32 rank);
-  bool IsFreeCelDepose (POINT cel, Sint32 rank);
+  void SearchFloor (Sint32 rank, Sint32 icon, Point cel, Sint32 * pBits);
+  void SearchObject (Sint32 rank, Sint32 icon, Point cel, Sint32 * pBits);
+  void AjustFloor (Sint32 rank, Sint32 icon, Point cel, Sint32 * pBits);
+  void AjustObject (Sint32 rank, Sint32 icon, Point cel, Sint32 * pBits);
+  bool IsFreeDirect (Point cel, Sint32 direct, Sint32 rank);
+  bool IsFreeCelObstacle (Point cel);
+  bool IsFreeCelFloor (Point cel, Sint32 rank);
+  bool IsFreeCelGo (Point cel, Sint32 rank);
+  bool IsFreeCelHili (Point cel, Sint32 rank);
+  bool IsFreeCel (Point cel, Sint32 rank);
+  bool IsFreeCelDepose (Point cel, Sint32 rank);
   bool
-  IsFreeCelEmbarque (POINT cel, Sint32 rank, Sint32 & action, POINT & limit);
+  IsFreeCelEmbarque (Point cel, Sint32 rank, Sint32 & action, Point & limit);
   bool
-         IsFreeCelDebarque (POINT cel, Sint32 rank, Sint32 & action, POINT & limit);
-  bool   IsFreeJump (POINT cel, Sint32 direct, Sint32 rank, Sint32 & action);
-  bool   IsFreeGlisse (POINT cel, Sint32 direct, Sint32 rank, Sint32 & action);
-  Sint32 DirectSearch (POINT cel, POINT goal);
+         IsFreeCelDebarque (Point cel, Sint32 rank, Sint32 & action, Point & limit);
+  bool   IsFreeJump (Point cel, Sint32 direct, Sint32 rank, Sint32 & action);
+  bool   IsFreeGlisse (Point cel, Sint32 direct, Sint32 rank, Sint32 & action);
+  Sint32 DirectSearch (Point cel, Point goal);
   void   FlushUsed (Sint32 rank);
-  void   AddUsedPos (Sint32 rank, POINT pos);
-  bool   IsUsedPos (Sint32 rank, POINT pos);
+  void   AddUsedPos (Sint32 rank, Point pos);
+  bool   IsUsedPos (Sint32 rank, Point pos);
   bool   SearchBestBase (
-      Sint32 rank, Sint32 & action, POINT & newCel, Sint32 & direct);
+      Sint32 rank, Sint32 & action, Point & newCel, Sint32 & direct);
   bool SearchBestPass (Sint32 rank, Sint32 & action);
-  bool IsWorkableObject (POINT cel, Sint32 rank);
+  bool IsWorkableObject (Point cel, Sint32 rank);
   bool SearchOtherObject (
-    Sint32 rank, POINT initCel, Sint32 action, Sint32 distMax, Sint32 channel,
+    Sint32 rank, Point initCel, Sint32 action, Sint32 distMax, Sint32 channel,
     Sint32 firstIcon1, Sint32 lastIcon1, Sint32 firstIcon2, Sint32 lastIcon2,
-    POINT & foundCel, Sint32 & foundIcon);
+    Point & foundCel, Sint32 & foundIcon);
   bool SearchOtherDrapeau (
-    Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
+    Sint32 rank, Point initCel, Sint32 distMax, Point & foundCel,
     Sint32 & foundIcon);
   bool SearchOtherBateau (
-    Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
+    Sint32 rank, Point initCel, Sint32 distMax, Point & foundCel,
     Sint32 & foundIcon);
   bool IsSpiderObject (Sint32 icon);
   bool SearchSpiderObject (
-    Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
+    Sint32 rank, Point initCel, Sint32 distMax, Point & foundCel,
     Sint32 & foundIcon);
   bool IsTracksObject (Sint32 icon);
   bool SearchTracksObject (
-    Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
+    Sint32 rank, Point initCel, Sint32 distMax, Point & foundCel,
     Sint32 & foundIcon);
   bool IsRobotObject (Sint32 icon);
   bool SearchRobotObject (
-    Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
+    Sint32 rank, Point initCel, Sint32 distMax, Point & foundCel,
     Sint32 & foundIcon, Sint32 & foundAction);
   bool IsBombeObject (Sint32 icon);
   bool SearchBombeObject (
-    Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
+    Sint32 rank, Point initCel, Sint32 distMax, Point & foundCel,
     Sint32 & foundIcon);
   bool SearchElectroObject (
-    Sint32 rank, POINT initCel, Sint32 distMax, POINT & foundCel,
+    Sint32 rank, Point initCel, Sint32 distMax, Point & foundCel,
     Sint32 & foundIcon);
-  bool   IsUsineBuild (Sint32 rank, POINT cel);
-  bool   IsUsineFree (Sint32 rank, POINT cel);
-  bool   IsFireCel (POINT cel);
-  bool   IsVirusCel (POINT cel);
-  Errors IsBuildPont (POINT & cel, Sint32 & iconBuild);
-  bool   IsBuildBateau (POINT cel, Sint32 & direct);
+  bool   IsUsineBuild (Sint32 rank, Point cel);
+  bool   IsUsineFree (Sint32 rank, Point cel);
+  bool   IsFireCel (Point cel);
+  bool   IsVirusCel (Point cel);
+  Errors IsBuildPont (Point & cel, Sint32 & iconBuild);
+  bool   IsBuildBateau (Point cel, Sint32 & direct);
   void   InitDrapeau ();
-  void   AddDrapeau (POINT cel);
-  void   SubDrapeau (POINT cel);
-  bool   TestDrapeau (POINT cel);
+  void   AddDrapeau (Point cel);
+  void   SubDrapeau (Point cel);
+  bool   TestDrapeau (Point cel);
 
   // DecBlupi.cpp
   void   BlupiFlush ();
   Sint32 BlupiCreate (
-    POINT cel, Sint32 action, Sint32 direct, Sint32 perso, Sint32 energy);
-  bool   BlupiDelete (POINT cel, Sint32 perso = -1);
+    Point cel, Sint32 action, Sint32 direct, Sint32 perso, Sint32 energy);
+  bool   BlupiDelete (Point cel, Sint32 perso = -1);
   void   BlupiDelete (Sint32 rank);
-  void   BlupiKill (Sint32 exRank, POINT cel, Sint32 type);
+  void   BlupiKill (Sint32 exRank, Point cel, Sint32 type);
   bool   BlupiIfExist (Sint32 rank);
   void   BlupiCheat (Sint32 cheat);
   void   BlupiActualise (Sint32 rank);
   void   BlupiAdaptIcon (Sint32 rank);
   void   BlupiPushFog (Sint32 rank);
-  void   BlupiSound (Sint32 rank, Sounds sound, POINT pos, bool bStop = false);
+  void   BlupiSound (Sint32 rank, Sounds sound, Point pos, bool bStop = false);
   void   BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct = -1);
   void   BlupiChangeAction (Sint32 rank, Sint32 action, Sint32 direct = -1);
   void   ListFlush (Sint32 rank);
-  Sint32 ListGetParam (Sint32 rank, Buttons button, POINT cel);
-  bool   ListPut (Sint32 rank, Buttons button, POINT cel, POINT cMem);
+  Sint32 ListGetParam (Sint32 rank, Buttons button, Point cel);
+  bool   ListPut (Sint32 rank, Buttons button, Point cel, Point cMem);
   void   ListRemove (Sint32 rank);
   Sint32 ListSearch (
-    Sint32 rank, Buttons button, POINT cel, const char *& textForButton);
+    Sint32 rank, Buttons button, Point cel, const char *& textForButton);
   bool RepeatAdjust (
-    Sint32 rank, Sint32 button, POINT & cel, POINT & cMem, Sint32 param,
+    Sint32 rank, Sint32 button, Point & cel, Point & cMem, Sint32 param,
     Sint32 list);
-  void    GoalStart (Sint32 rank, Sint32 action, POINT cel);
+  void    GoalStart (Sint32 rank, Sint32 action, Point cel);
   bool    GoalNextPhase (Sint32 rank);
   void    SetTotalTime (Sint32 total);
   Sint32  GetTotalTime ();
@@ -287,35 +287,35 @@ public:
   bool    GoalNextOp (Sint32 rank, Sint16 * pTable);
   void    GoalUnwork (Sint32 rank);
   void    GoalStop (Sint32 rank, bool bError = false, bool bSound = true);
-  bool    BlupiIsGoalUsed (POINT cel);
-  void    BlupiStartStopRayon (Sint32 rank, POINT startCel, POINT endCel);
+  bool    BlupiIsGoalUsed (Point cel);
+  void    BlupiStartStopRayon (Sint32 rank, Point startCel, Point endCel);
   bool    BlupiRotate (Sint32 rank);
   bool    BlupiNextAction (Sint32 rank);
   void    BlupiNextGoal (Sint32 rank);
   void    BlupiStep (bool bFirst);
-  void    BlupiGetRect (Sint32 rank, RECT & rect);
-  Sint32  GetTargetBlupi (POINT pos);
+  void    BlupiGetRect (Sint32 rank, Rect & rect);
+  Sint32  GetTargetBlupi (Point pos);
   void    BlupiDeselect ();
   void    BlupiDeselect (Sint32 rank);
   void    BlupiSetArrow (Sint32 rank, bool bArrow);
   void    InitOutlineRect ();
-  void    BlupiHiliDown (POINT pos, bool bAdd = false);
-  void    BlupiHiliMove (POINT pos);
-  void    BlupiHiliUp (POINT pos);
+  void    BlupiHiliDown (Point pos, bool bAdd = false);
+  void    BlupiHiliMove (Point pos);
+  void    BlupiHiliUp (Point pos);
   void    BlupiDrawHili ();
-  Buttons GetDefButton (POINT cel);
-  bool    BlupiGoal (Sint32 rank, Buttons button, POINT cel, POINT cMem);
-  void    BlupiGoal (POINT cel, Buttons button);
+  Buttons GetDefButton (Point cel);
+  bool    BlupiGoal (Sint32 rank, Buttons button, Point cel, Point cMem);
+  void    BlupiGoal (Point cel, Buttons button);
   void    BlupiDestCel (Sint32 rank);
-  bool    IsTracksHere (POINT cel, bool bSkipInMove);
-  bool IsBlupiHereEx (POINT cel1, POINT cel2, Sint32 exRank, bool bSkipInMove);
-  bool IsBlupiHereEx (POINT cel, Sint32 exRank, bool bSkipInMove);
-  bool IsBlupiHere (POINT cel, bool bSkipInMove);
-  bool IsBlupiHere (POINT cel, Sint32 direct, bool bSkipInMove);
+  bool    IsTracksHere (Point cel, bool bSkipInMove);
+  bool IsBlupiHereEx (Point cel1, Point cel2, Sint32 exRank, bool bSkipInMove);
+  bool IsBlupiHereEx (Point cel, Sint32 exRank, bool bSkipInMove);
+  bool IsBlupiHere (Point cel, bool bSkipInMove);
+  bool IsBlupiHere (Point cel, Sint32 direct, bool bSkipInMove);
   void GetLevelJauge (Sint32 * pLevels, Sint32 * pTypes);
   bool IsWorkBlupi (Sint32 rank);
   void BlupiGetButtons (
-    POINT pos, Sint32 & nb, Buttons * pButtons, Errors * pErrors,
+    Point pos, Sint32 & nb, Buttons * pButtons, Errors * pErrors,
     std::unordered_map<Sint32, const char *> & texts, Sint32 & perso);
   void   TerminatedInit ();
   Sint32 IsTerminated ();
@@ -326,20 +326,20 @@ public:
   Sint32 MoveMaxFire ();
   void   MoveFixInit ();
   bool   MoveCreate (
-      POINT cel, Sint32 rankBlupi, bool bFloor, Sint32 channel, Sint32 icon,
+      Point cel, Sint32 rankBlupi, bool bFloor, Sint32 channel, Sint32 icon,
       Sint32 maskChannel, Sint32 maskIcon, Sint32 total, Sint32 delai,
       Sint32 stepY, bool bMisc = false, bool bNotIfExist = false);
-  bool MoveAddMoves (POINT cel, Sint32 rankMoves);
-  bool MoveAddIcons (POINT cel, Sint32 rankIcons, bool bContinue = false);
-  bool MoveStartFire (POINT cel);
-  void MoveProxiFire (POINT cel);
+  bool MoveAddMoves (Point cel, Sint32 rankMoves);
+  bool MoveAddIcons (Point cel, Sint32 rankIcons, bool bContinue = false);
+  bool MoveStartFire (Point cel);
+  void MoveProxiFire (Point cel);
   void MoveFire (Sint32 rank);
   void MoveStep (bool bFirst);
-  void MoveFinish (POINT cel);
+  void MoveFinish (Point cel);
   void MoveFinish (Sint32 rankBlupi);
-  bool MoveIsUsed (POINT cel);
-  bool MoveGetObject (POINT cel, Sint32 & channel, Sint32 & icon);
-  bool MovePutObject (POINT cel, Sint32 channel, Sint32 icon);
+  bool MoveIsUsed (Point cel);
+  bool MoveGetObject (Point cel, Sint32 & channel, Sint32 & icon);
+  bool MovePutObject (Point cel, Sint32 channel, Sint32 icon);
 
   // DecIO.cpp
   bool Write (Sint32 rank, bool bUser, Sint32 world, Sint32 time, Sint32 total);
@@ -351,10 +351,10 @@ public:
 
   // DecMap.cpp
   void  MapInitColors ();
-  POINT ConvCelToMap (POINT cel);
-  POINT ConvMapToCel (POINT pos);
-  bool  MapMove (POINT pos);
-  void  MapPutCel (POINT pos);
+  Point ConvCelToMap (Point cel);
+  Point ConvMapToCel (Point pos);
+  bool  MapMove (Point pos);
+  void  MapPutCel (Point pos);
   bool  GenerateMap ();
 
   // DecStat.cpp
@@ -364,27 +364,27 @@ public:
   Sint32 StatisticGetFire ();
   void   StatisticDraw ();
   void   GenerateStatictic ();
-  bool   StatisticDown (POINT pos);
-  bool   StatisticMove (POINT pos);
-  bool   StatisticUp (POINT pos);
-  Sint32 StatisticDetect (POINT pos);
+  bool   StatisticDown (Point pos);
+  bool   StatisticMove (Point pos);
+  bool   StatisticUp (Point pos);
+  Sint32 StatisticDetect (Point pos);
 
   // Chemin.cpp
   void   CheminMemPos (Sint32 exRank);
-  bool   CheminTestPos (POINT pos, Sint32 & rank);
+  bool   CheminTestPos (Point pos, Sint32 & rank);
   Sint32 CheminARebours (Sint32 rank);
   void   CheminFillTerrain (Sint32 rank);
   bool   CheminTestDirection (
       Sint32 rank, Sint32 pos, Sint32 dir, Sint32 & next, Sint32 & ampli,
       Sint32 & cout, Sint32 & action);
   bool CheminCherche (Sint32 rank, Sint32 & action);
-  bool IsCheminFree (Sint32 rank, POINT dest, Sint32 button);
+  bool IsCheminFree (Sint32 rank, Point dest, Sint32 button);
 
   // Decor.cpp
-  void  SetShiftOffset (POINT offset);
-  POINT ConvCelToPos (POINT cel);
-  POINT ConvPosToCel (POINT pos, bool bMap = false);
-  POINT ConvPosToCel2 (POINT pos);
+  void  SetShiftOffset (Point offset);
+  Point ConvCelToPos (Point cel);
+  Point ConvPosToCel (Point pos, bool bMap = false);
+  Point ConvPosToCel2 (Point pos);
 
   void Create (CSound * pSound, CPixmap * pPixmap);
   void Init (Sint32 channel, Sint32 icon);
@@ -400,15 +400,15 @@ public:
   bool GetSuper ();
   void SetSuper (bool bSuper);
   void FlipOutline ();
-  bool PutFloor (POINT cel, Sint32 channel, Sint32 icon);
-  bool PutObject (POINT cel, Sint32 channel, Sint32 icon);
-  bool GetFloor (POINT cel, Sint32 & channel, Sint32 & icon);
-  bool GetObject (POINT cel, Sint32 & channel, Sint32 & icon);
-  bool SetFire (POINT cel, bool bFire);
+  bool PutFloor (Point cel, Sint32 channel, Sint32 icon);
+  bool PutObject (Point cel, Sint32 channel, Sint32 icon);
+  bool GetFloor (Point cel, Sint32 & channel, Sint32 & icon);
+  bool GetObject (Point cel, Sint32 & channel, Sint32 & icon);
+  bool SetFire (Point cel, bool bFire);
 
-  void  SetCoin (POINT coin, bool bCenter = false);
-  POINT GetCoin ();
-  POINT GetHome ();
+  void  SetCoin (Point coin, bool bCenter = false);
+  Point GetCoin ();
+  Point GetHome ();
   void  MemoPos (Sint32 rank, bool bRecord);
 
   void   SetTime (Sint32 time);
@@ -431,22 +431,22 @@ public:
   char * GetButtonExist ();
 
   void BuildPutBlupi ();
-  void BuildMoveFloor (Sint32 x, Sint32 y, POINT pos, Sint32 rank);
-  void BuildMoveObject (Sint32 x, Sint32 y, POINT pos, Sint32 rank);
-  void BuildGround (RECT clip);
-  void Build (RECT clip, POINT posMouse);
+  void BuildMoveFloor (Sint32 x, Sint32 y, Point pos, Sint32 rank);
+  void BuildMoveObject (Sint32 x, Sint32 y, Point pos, Sint32 rank);
+  void BuildGround (Rect clip);
+  void Build (Rect clip, Point posMouse);
   void NextPhase (Sint32 mode);
 
   Sint32 CountFloor (Sint32 channel, Sint32 icon);
   Errors CelOkForAction (
-    POINT cel, Sint32 action, Sint32 rank, Sint32 icons[4][4],
-    POINT & celOutline1, POINT & celOutline2);
-  Errors       CelOkForAction (POINT cel, Sint32 action, Sint32 rank);
+    Point cel, Sint32 action, Sint32 rank, Sint32 icons[4][4],
+    Point & celOutline1, Point & celOutline2);
+  Errors       CelOkForAction (Point cel, Sint32 action, Sint32 rank);
   Sint32       GetHiliRankBlupi (Sint32 nb);
-  void         CelHili (POINT pos, Sint32 action);
-  void         CelHiliButton (POINT cel, Sint32 button);
+  void         CelHili (Point pos, Sint32 action);
+  void         CelHiliButton (Point cel, Sint32 button);
   void         CelHiliRepeat (Sint32 list);
-  const char * GetResHili (POINT posMouse);
+  const char * GetResHili (Point posMouse);
   void         HideTooltips (bool bHide);
 
   void UndoOpen ();
@@ -456,7 +456,7 @@ public:
   bool IsUndo ();
 
 protected:
-  bool   GetSeeBits (POINT cel, char * pBits, Sint32 index);
+  bool   GetSeeBits (Point cel, char * pBits, Sint32 index);
   Sint32 GetSeeIcon (char * pBits, Sint32 index);
 
 protected:
@@ -467,17 +467,17 @@ protected:
   Sint16    m_rankBlupi[MAXCELX][MAXCELY];
   Blupi     m_blupi[MAXBLUPI];
   Move      m_move[MAXMOVE];
-  POINT     m_celCoin; // cellule sup/gauche
-  POINT     m_celHome; // pour touche Home
-  POINT     m_celHili;
-  POINT     m_celOutline1;
-  POINT     m_celOutline2;
-  POINT     m_shiftOffset;
+  Point     m_celCoin; // cellule sup/gauche
+  Point     m_celHome; // pour touche Home
+  Point     m_celHili;
+  Point     m_celOutline1;
+  Point     m_celOutline2;
+  Point     m_shiftOffset;
   Sint32    m_iconHili[4][4];
   Sint32    m_rankHili; // rang du blupi visé
   bool      m_bHiliRect;
-  POINT     m_p1Hili; // coins rectangle de sélection
-  POINT     m_p2Hili;
+  Point     m_p1Hili; // coins rectangle de sélection
+  Point     m_p2Hili;
   Sint32    m_shiftHili;
   Sint32    m_nbBlupiHili;   // nb de blupi sélectionnés
   Sint32    m_rankBlupiHili; // rang blupi sélectionné
@@ -491,7 +491,7 @@ protected:
   Sint32    m_timeFlipOutline; // temps quand basculer mode outline
   Sint32    m_totalTime;       // temps total passé sur une partie
   Sint32    m_phase;           // phase pour la carte
-  POINT     m_celArrow;        // cellule avec flèche
+  Point     m_celArrow;        // cellule avec flèche
   bool      m_bOutline;
   bool      m_bGroundRedraw;
   char      m_buttonExist[MAXBUTTON];
@@ -524,19 +524,19 @@ protected:
   Sint32    m_region;             // numéro région (*)
   Sint32    m_lastRegion;         // numéro dernière région
   Sint32    m_blupiHere;
-  POINT     m_lastDrapeau[MAXLASTDRAPEAU];
+  Point     m_lastDrapeau[MAXLASTDRAPEAU];
   bool      m_bHideTooltips; // true -> menu présent
   char      m_text[50];
-  POINT     m_textLastPos;
+  Point     m_textLastPos;
   Sint32    m_textCount;
   Sint32    m_skill;
   bool      m_bInfo;
   Sint32    m_infoHeight;
-  POINT     m_memoPos[4];
+  Point     m_memoPos[4];
 
   Uint8  m_cheminWork[MAXCELX * MAXCELY];
   Sint32 m_cheminNbPos;
-  POINT  m_cheminPos[MAXBLUPI * 2];
+  Point  m_cheminPos[MAXBLUPI * 2];
   Sint32 m_cheminRank[MAXBLUPI * 2];
 
   bool   m_bFillFloor;
@@ -557,10 +557,10 @@ protected:
 
 /////////////////////////////////////////////////////////////////////////////
 
-POINT GetCel (Sint32 x, Sint32 y);
-POINT GetCel (POINT cel, Sint32 x, Sint32 y);
-bool  IsValid (POINT cel);
-POINT GetVector (Sint32 direct);
+Point GetCel (Sint32 x, Sint32 y);
+Point GetCel (Point cel, Sint32 x, Sint32 y);
+bool  IsValid (Point cel);
+Point GetVector (Sint32 direct);
 
 extern Sint32       table_multi_goal[];
 extern const Sint16 table_actions[];

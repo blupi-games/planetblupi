@@ -115,7 +115,7 @@ void
 CDecor::BlupiPushFog (Sint32 rank)
 {
   Sint32 x, y, i;
-  POINT  cel;
+  Point  cel;
   char   cBits[4];
   char   nBits[4];
 

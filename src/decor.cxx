@@ -35,10 +35,10 @@
 
 #define TEXTDELAY 10 // délai avant apparition tooltips
 
-POINT
+Point
 GetCel (Sint32 x, Sint32 y)
 {
-  POINT cel;
+  Point cel;
 
   cel.x = x;
   cel.y = y;
@@ -46,8 +46,8 @@ GetCel (Sint32 x, Sint32 y)
   return cel;
 }
 
-POINT
-GetCel (POINT cel, Sint32 x, Sint32 y)
+Point
+GetCel (Point cel, Sint32 x, Sint32 y)
 {
   cel.x += x;
   cel.y += y;
@@ -61,7 +61,7 @@ GetCel (POINT cel, Sint32 x, Sint32 y)
 // jusque dans les bords !
 
 bool
-IsValid (POINT cel)
+IsValid (Point cel)
 {
   if (cel.x < 2 || cel.x >= MAXCELX - 2 || cel.y < 2 || cel.y >= MAXCELX - 2)
     return false;
@@ -70,10 +70,10 @@ IsValid (POINT cel)
 
 // Retourne un vecteur orienté dans une direction donnée.
 
-POINT
+Point
 GetVector (Sint32 direct)
 {
-  POINT vector;
+  Point vector;
 
   vector.x = 0;
   vector.y = 0;
@@ -236,7 +236,7 @@ CDecor::ResetHili ()
 bool
 CDecor::LoadImages ()
 {
-  POINT totalDim, iconDim;
+  Point totalDim, iconDim;
   char  filename[50];
 
   if (m_region == m_lastRegion)
@@ -374,7 +374,7 @@ CDecor::FlipOutline ()
 // Initialise un sol dans une cellule.
 
 bool
-CDecor::PutFloor (POINT cel, Sint32 channel, Sint32 icon)
+CDecor::PutFloor (Point cel, Sint32 channel, Sint32 icon)
 {
   if (cel.x < 0 || cel.x >= MAXCELX || cel.y < 0 || cel.y >= MAXCELY)
     return false;
@@ -392,7 +392,7 @@ CDecor::PutFloor (POINT cel, Sint32 channel, Sint32 icon)
 // Initialise un objet dans une cellule.
 
 bool
-CDecor::PutObject (POINT cel, Sint32 channel, Sint32 icon)
+CDecor::PutObject (Point cel, Sint32 channel, Sint32 icon)
 {
   if (cel.x < 0 || cel.x >= MAXCELX || cel.y < 0 || cel.y >= MAXCELY)
     return false;
@@ -411,7 +411,7 @@ CDecor::PutObject (POINT cel, Sint32 channel, Sint32 icon)
 // Retourne un sol dans une cellule.
 
 bool
-CDecor::GetFloor (POINT cel, Sint32 & channel, Sint32 & icon)
+CDecor::GetFloor (Point cel, Sint32 & channel, Sint32 & icon)
 {
   if (cel.x < 0 || cel.x >= MAXCELX || cel.y < 0 || cel.y >= MAXCELY)
     return false;
@@ -425,7 +425,7 @@ CDecor::GetFloor (POINT cel, Sint32 & channel, Sint32 & icon)
 // Retourne une objet dans une cellule.
 
 bool
-CDecor::GetObject (POINT cel, Sint32 & channel, Sint32 & icon)
+CDecor::GetObject (Point cel, Sint32 & channel, Sint32 & icon)
 {
   if (cel.x < 0 || cel.x >= MAXCELX || cel.y < 0 || cel.y >= MAXCELY)
     return false;
@@ -439,7 +439,7 @@ CDecor::GetObject (POINT cel, Sint32 & channel, Sint32 & icon)
 // Modifie le feu pour une cellule.
 
 bool
-CDecor::SetFire (POINT cel, bool bFire)
+CDecor::SetFire (Point cel, bool bFire)
 {
   if (cel.x < 0 || cel.x >= MAXCELX || cel.y < 0 || cel.y >= MAXCELY)
     return false;
@@ -452,7 +452,7 @@ CDecor::SetFire (POINT cel, bool bFire)
 // Modifie l'offset pour le shift.
 
 void
-CDecor::SetShiftOffset (POINT offset)
+CDecor::SetShiftOffset (Point offset)
 {
   m_shiftOffset   = offset;
   m_bGroundRedraw = true;
@@ -460,10 +460,10 @@ CDecor::SetShiftOffset (POINT offset)
 
 // Convertit la position d'une cellule en coordonnée graphique.
 
-POINT
-CDecor::ConvCelToPos (POINT cel)
+Point
+CDecor::ConvCelToPos (Point cel)
 {
-  POINT pos;
+  Point pos;
 
   pos.x = ((cel.x - m_celCoin.x) - (cel.y - m_celCoin.y)) * (DIMCELX / 2);
   pos.y = ((cel.x - m_celCoin.x) + (cel.y - m_celCoin.y)) * (DIMCELY / 2);
@@ -476,10 +476,10 @@ CDecor::ConvCelToPos (POINT cel)
 
 // Convertit une coordonnée graphique en cellule.
 
-POINT
-CDecor::ConvPosToCel (POINT pos, bool bMap)
+Point
+CDecor::ConvPosToCel (Point pos, bool bMap)
 {
-  POINT cel;
+  Point cel;
 
   if (
     bMap && pos.x >= POSMAPX && pos.x < POSMAPX + DIMMAPX && pos.y >= POSMAPY &&
@@ -508,10 +508,10 @@ CDecor::ConvPosToCel (POINT pos, bool bMap)
 
 // Convertit une coordonnée graphique en grande cellule (2x2).
 
-POINT
-CDecor::ConvPosToCel2 (POINT pos)
+Point
+CDecor::ConvPosToCel2 (Point pos)
 {
-  POINT cel;
+  Point cel;
 
   pos.x -= POSDRAWX + DIMCELX / 2;
   pos.y -= POSDRAWY;
@@ -554,7 +554,7 @@ void
 CDecor::BuildPutBlupi ()
 {
   Sint32 x, y, dx, dy, xMin, yMin, rank, clipLeft;
-  POINT  pos;
+  Point  pos;
 
   for (rank = 0; rank < MAXBLUPI; rank++)
   {
@@ -671,7 +671,7 @@ CDecor::BuildPutBlupi ()
 // Dessine une cellule du décor contenant un sol animé.
 
 void
-CDecor::BuildMoveFloor (Sint32 x, Sint32 y, POINT pos, Sint32 rank)
+CDecor::BuildMoveFloor (Sint32 x, Sint32 y, Point pos, Sint32 rank)
 {
   Sint32   icon, nb;
   Sint16 * pTable;
@@ -710,7 +710,7 @@ CDecor::BuildMoveFloor (Sint32 x, Sint32 y, POINT pos, Sint32 rank)
 // Dessine une cellule du décor contenant un objet animé.
 
 void
-CDecor::BuildMoveObject (Sint32 x, Sint32 y, POINT pos, Sint32 rank)
+CDecor::BuildMoveObject (Sint32 x, Sint32 y, Point pos, Sint32 rank)
 {
   Sint32   hBuild, offset, startY, endY;
   Sint32   channel, icon, nb;
@@ -732,7 +732,7 @@ CDecor::BuildMoveObject (Sint32 x, Sint32 y, POINT pos, Sint32 rank)
   // Dessine un chiffre par-dessus
   if (m_move[rank].icon >= MOVEICONNB && m_move[rank].icon <= MOVEICONNB + 100)
   {
-    POINT textPos;
+    Point textPos;
     char  string[20];
 
     m_pPixmap->DrawIcon (
@@ -820,7 +820,7 @@ CDecor::BuildMoveObject (Sint32 x, Sint32 y, POINT pos, Sint32 rank)
 // Déplace l'objet transporté par blupi.
 
 void
-BuildMoveTransport (Sint32 icon, POINT & pos)
+BuildMoveTransport (Sint32 icon, Point & pos)
 {
   pos.x -= DIMCELX / 2;
   pos.y -= 96;
@@ -917,11 +917,11 @@ BuildMoveTransport (Sint32 icon, POINT & pos)
 // Construit tous les sols fixes dans CHGROUND.
 
 void
-CDecor::BuildGround (RECT clip)
+CDecor::BuildGround (Rect clip)
 {
   //? OutputDebug("BuildGround\n");
   Sint32 x, y, i, j, nbx, nby, width, height, channel, icon;
-  POINT  iCel, mCel, iPos, mPos, cPos, pos;
+  Point  iCel, mCel, iPos, mPos, cPos, pos;
 
   width  = clip.right - clip.left;
   height = clip.bottom - clip.top;
@@ -1042,11 +1042,11 @@ CDecor::BuildGround (RECT clip)
 // Construit le décor dans un pixmap.
 
 void
-CDecor::Build (RECT clip, POINT posMouse)
+CDecor::Build (Rect clip, Point posMouse)
 {
   Sint32 x, y, i, j, nbx, nby, width, height, rank, icon, channel, n;
-  POINT  iCel, mCel, cel, iPos, mPos, cPos, pos, tPos;
-  RECT   oldClip, clipRect;
+  Point  iCel, mCel, cel, iPos, mPos, cPos, pos, tPos;
+  Rect   oldClip, clipRect;
 
   static Sint32 table_eau[6]       = {70, 68, 14, 69, 14, 68};
   static Sint32 table_random_x[10] = {2, 5, 1, 9, 4, 0, 6, 3, 8, 7};
@@ -1608,8 +1608,8 @@ CDecor::CountFloor (Sint32 channel, Sint32 icon)
 
 Errors
 CDecor::CelOkForAction (
-  POINT cel, Sint32 action, Sint32 rank, Sint32 icons[4][4],
-  POINT & celOutline1, POINT & celOutline2)
+  Point cel, Sint32 action, Sint32 rank, Sint32 icons[4][4],
+  Point & celOutline1, Point & celOutline2)
 {
   Sint32 x, y, i, j, channel, icon, nb, start, direct;
   Errors error      = Errors::NONE;
@@ -1617,7 +1617,7 @@ CDecor::CelOkForAction (
   bool   bTransport = false;
   bool   bVehicule  = false;
   bool   bVehiculeA = false;
-  POINT  vector;
+  Point  vector;
 
   for (x = 0; x < 4; x++)
   {
@@ -2078,7 +2078,7 @@ CDecor::CelOkForAction (
 
   if (action == EV_ACTION_BRIDGEE)
   {
-    POINT test;
+    Point test;
 
     if (cel.x % 2 != 1 || cel.y % 2 != 1)
     {
@@ -2451,7 +2451,7 @@ CDecor::CelOkForAction (
 
   if (action == EV_ACTION_BOATE)
   {
-    POINT test;
+    Point test;
 
     if (cel.x % 2 != 1 || cel.y % 2 != 1)
     {
@@ -2746,10 +2746,10 @@ CDecor::CelOkForAction (
 // Le rang du blupi qui effectuera le travail est donnée dans rank.
 
 Errors
-CDecor::CelOkForAction (POINT cel, Sint32 action, Sint32 rank)
+CDecor::CelOkForAction (Point cel, Sint32 action, Sint32 rank)
 {
   Sint32 icons[4][4];
-  POINT  celOutline1, celOutline2;
+  Point  celOutline1, celOutline2;
 
   return CelOkForAction (cel, action, rank, icons, celOutline1, celOutline2);
 }
@@ -2789,10 +2789,10 @@ CDecor::GetHiliRankBlupi (Sint32 nb)
 //           2          construction d'une cellule 2x2
 
 void
-CDecor::CelHili (POINT pos, Sint32 action)
+CDecor::CelHili (Point pos, Sint32 action)
 {
   Sint32 x, y, i, channel, icon, rank, nb;
-  POINT  cel;
+  Point  cel;
 
   for (x = 0; x < 4; x++)
   {
@@ -2893,9 +2893,9 @@ CDecor::CelHili (POINT pos, Sint32 action)
 // Marque la cellule visée par la souris pour un bouton donné.
 
 void
-CDecor::CelHiliButton (POINT cel, Sint32 button)
+CDecor::CelHiliButton (Point cel, Sint32 button)
 {
-  POINT celOutline1, celOutline2;
+  Point celOutline1, celOutline2;
 
   CelOkForAction (
     cel, table_actions[button], m_rankBlupiHili, m_iconHili, celOutline1,
@@ -2928,7 +2928,7 @@ void
 CDecor::CelHiliRepeat (Sint32 list)
 {
   Sint32 rank, button, x, y, i;
-  POINT  cel;
+  Point  cel;
 
   for (x = 0; x < 4; x++)
   {
@@ -2981,7 +2981,7 @@ CDecor::CelHiliRepeat (Sint32 list)
 // l'objet ou au blupi visé par la souris.
 
 const char *
-CDecor::GetResHili (POINT posMouse)
+CDecor::GetResHili (Point posMouse)
 {
   Sint32 icon;
 
@@ -3261,7 +3261,7 @@ CDecor::HideTooltips (bool bHide)
 // Modifie l'origine supérieure/gauche du décor.
 
 void
-CDecor::SetCoin (POINT coin, bool bCenter)
+CDecor::SetCoin (Point coin, bool bCenter)
 {
   if (bCenter)
   {
@@ -3284,13 +3284,13 @@ CDecor::SetCoin (POINT coin, bool bCenter)
   m_textLastPos.x = -1; // tooltips plus lavable !
 }
 
-POINT
+Point
 CDecor::GetCoin ()
 {
   return m_celCoin;
 }
 
-POINT
+Point
 CDecor::GetHome ()
 {
   return m_celHome;
@@ -3301,7 +3301,7 @@ CDecor::GetHome ()
 void
 CDecor::MemoPos (Sint32 rank, bool bRecord)
 {
-  POINT pos;
+  Point pos;
 
   pos.x = LXIMAGE / 2;
   pos.y = LYIMAGE / 2;

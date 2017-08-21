@@ -33,7 +33,7 @@ public:
   ~CMenu ();
 
   bool Create (
-    CPixmap * pPixmap, CSound * pSound, CEvent * pEvent, POINT pos, Sint32 nb,
+    CPixmap * pPixmap, CSound * pSound, CEvent * pEvent, Point pos, Sint32 nb,
     Buttons * pButtons, Errors * pErrors,
     std::unordered_map<Sint32, const char *> & texts, Sint32 perso);
   void Update (
@@ -50,20 +50,20 @@ public:
   bool TreatEvent (const SDL_Event & event);
 
 protected:
-  Sint32 Detect (POINT pos);
-  bool   MouseDown (POINT pos);
-  bool   MouseMove (POINT pos);
-  bool   MouseUp (POINT pos);
+  Sint32 Detect (Point pos);
+  bool   MouseDown (Point pos);
+  bool   MouseMove (Point pos);
+  bool   MouseUp (Point pos);
 
 protected:
   CPixmap *                                m_pPixmap;
   CDecor *                                 m_pDecor;
   CSound *                                 m_pSound;
   CEvent *                                 m_pEvent;
-  POINT                                    m_pos; // coin sup/gauche
-  POINT                                    m_dim; // dimensions
+  Point                                    m_pos; // coin sup/gauche
+  Point                                    m_dim; // dimensions
   Sint32                                   m_nbButtons;
-  POINT                                    m_nbCel;
+  Point                                    m_nbCel;
   Sint32                                   m_perso;
   Sint32                                   m_buttons[MAXBUTTON];
   Errors                                   m_errors[MAXBUTTON];

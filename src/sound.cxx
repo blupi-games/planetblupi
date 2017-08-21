@@ -251,7 +251,7 @@ CSound::Play (Sint32 channel, Sint32 volume, Uint8 panLeft, Uint8 panRight)
 // ï¿½ventuellement stopper le dernier son en cours !
 
 bool
-CSound::PlayImage (Sounds channel, POINT pos, Sint32 rank)
+CSound::PlayImage (Sounds channel, Point pos, Sint32 rank)
 {
   Sint32 volumex, volumey, volume;
   Sounds stopCh;

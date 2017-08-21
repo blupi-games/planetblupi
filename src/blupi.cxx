@@ -166,9 +166,9 @@ ReadConfig ()
 static void
 UpdateFrame (void)
 {
-  RECT   clip, rcRect;
+  Rect   clip, rcRect;
   Uint32 phase;
-  POINT  posMouse;
+  Point  posMouse;
   Sint32 i, term, speed;
 
   posMouse = g_pEvent->GetLastMousePos ();
@@ -300,7 +300,7 @@ FinishObjects (void)
 static void
 HandleEvent (const SDL_Event & event)
 {
-  POINT totalDim, iconDim;
+  Point totalDim, iconDim;
 
   if (!g_pause && g_pEvent != nullptr && g_pEvent->TreatEvent (event))
     return;
@@ -605,8 +605,8 @@ DoInit (int argc, char * argv[], bool & exit)
   if (exit)
     return rc;
 
-  POINT totalDim, iconDim;
-  RECT  rcRect;
+  Point totalDim, iconDim;
+  Rect  rcRect;
   bool  bOK;
 
   bOK = ReadConfig (); // lit le fichier config.json

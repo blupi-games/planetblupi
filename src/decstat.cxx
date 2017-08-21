@@ -643,8 +643,8 @@ CDecor::StatisticGetFire ()
 void
 CDecor::StatisticDraw ()
 {
-  POINT        pos;
-  RECT         rect;
+  Point        pos;
+  Rect         rect;
   Sint32       rank, icon, nb;
   Statistic *  pStatistic;
   char         text[50];
@@ -779,10 +779,10 @@ CDecor::GenerateStatictic ()
 // Bouton pressé dans les statistiques.
 
 bool
-CDecor::StatisticDown (POINT pos)
+CDecor::StatisticDown (Point pos)
 {
   Sint32      hili, rank, x, y, show, icon;
-  POINT       cel;
+  Point       cel;
   Statistic * pStatistic;
 
   StatisticUpdate ();
@@ -964,7 +964,7 @@ select:
 // Souris déplacée dans les statistiques.
 
 bool
-CDecor::StatisticMove (POINT pos)
+CDecor::StatisticMove (Point pos)
 {
   Sint32 rank;
 
@@ -979,7 +979,7 @@ CDecor::StatisticMove (POINT pos)
 // Bouton relâché dans les statistiques.
 
 bool
-CDecor::StatisticUp (POINT pos)
+CDecor::StatisticUp (Point pos)
 {
   return false;
 }
@@ -987,7 +987,7 @@ CDecor::StatisticUp (POINT pos)
 // Détecte dans quelle statistique est la souris.
 
 Sint32
-CDecor::StatisticDetect (POINT pos)
+CDecor::StatisticDetect (Point pos)
 {
   Sint32 rank;
 

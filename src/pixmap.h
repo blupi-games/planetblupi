@@ -34,8 +34,8 @@ struct TextureInfo {
   SDL_Texture * texture;
   bool          target; // can be used as a render target
   std::string   file;
-  POINT         dimTotal;
-  POINT         dimIcon;
+  Point         dimTotal;
+  Point         dimIcon;
 
   TextureInfo ()
     : texMask (nullptr)
@@ -53,30 +53,30 @@ public:
   CPixmap ();
   ~CPixmap ();
 
-  bool Create (POINT dim);
-  void Fill (RECT rect, COLORREF color);
+  bool Create (Point dim);
+  void Fill (Rect rect, ColorRef color);
 
   bool ReloadTargetTextures ();
   bool Cache (
-    size_t channel, const std::string & pFilename, POINT totalDim,
-    POINT iconDim);
-  bool Cache (size_t channel, const std::string & pFilename, POINT totalDim);
-  bool Cache (size_t channel, SDL_Surface * surface, POINT totalDim);
-  void SetClipping (RECT clip);
-  RECT GetClipping ();
+    size_t channel, const std::string & pFilename, Point totalDim,
+    Point iconDim);
+  bool Cache (size_t channel, const std::string & pFilename, Point totalDim);
+  bool Cache (size_t channel, SDL_Surface * surface, Point totalDim);
+  void SetClipping (Rect clip);
+  Rect GetClipping ();
 
-  bool IsIconPixel (size_t channel, Sint32 rank, POINT pos);
+  bool IsIconPixel (size_t channel, Sint32 rank, Point pos);
 
   bool DrawIcon (
-    Sint32 chDst, size_t channel, Sint32 rank, POINT pos, bool bMask = false);
+    Sint32 chDst, size_t channel, Sint32 rank, Point pos, bool bMask = false);
   bool DrawIconDemi (
-    Sint32 chDst, size_t channel, Sint32 rank, POINT pos, bool bMask = false);
+    Sint32 chDst, size_t channel, Sint32 rank, Point pos, bool bMask = false);
   bool DrawIconPart (
-    Sint32 chDst, size_t channel, Sint32 rank, POINT pos, Sint32 startY,
+    Sint32 chDst, size_t channel, Sint32 rank, Point pos, Sint32 startY,
     Sint32 endY, bool bMask = false);
   bool DrawPart (
-    Sint32 chDst, size_t channel, POINT dest, RECT rect, bool bMask = false);
-  bool DrawImage (Sint32 chDst, size_t channel, RECT rect);
+    Sint32 chDst, size_t channel, Point dest, Rect rect, bool bMask = false);
+  bool DrawImage (Sint32 chDst, size_t channel, Rect rect);
 
   bool BuildIconMask (
     size_t channelMask, Sint32 rankMask, size_t channel, Sint32 rankSrc,
@@ -90,20 +90,20 @@ public:
   void ChangeSprite (MouseSprites sprite);
 
 protected:
-  Sint32 BltFast (Sint32 chDst, size_t channel, POINT dst, RECT rcRect);
+  Sint32 BltFast (Sint32 chDst, size_t channel, Point dst, Rect rcRect);
   Sint32 BltFast (
-    SDL_Texture * lpSDL, size_t channel, POINT dst, RECT rcRect,
+    SDL_Texture * lpSDL, size_t channel, Point dst, Rect rcRect,
     SDL_BlendMode = SDL_BLENDMODE_BLEND);
 
-  RECT      MouseRectSprite ();
+  Rect      MouseRectSprite ();
   SDL_Point GetCursorHotSpot (MouseSprites sprite);
   SDL_Rect  GetCursorRect (MouseSprites sprite);
 
 protected:
   bool  m_bDebug;
   bool  m_bPalette;
-  POINT m_dim;      // dimensions totales
-  RECT  m_clipRect; // rectangle de clipping
+  Point m_dim;      // dimensions totales
+  Rect  m_clipRect; // rectangle de clipping
 
   MouseSprites m_mouseSprite;
   bool         m_bBackDisplayed;

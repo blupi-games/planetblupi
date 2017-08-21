@@ -109,10 +109,10 @@ CDecor::MapInitColors ()
 
 // COnversion d'un cellule en point dans la carte.
 
-POINT
-CDecor::ConvCelToMap (POINT cel)
+Point
+CDecor::ConvCelToMap (Point cel)
 {
-  POINT pos;
+  Point pos;
 
   pos.x = (cel.x - m_celCoin.x) - (cel.y - m_celCoin.y);
   pos.y = ((cel.x - m_celCoin.x) + (cel.y - m_celCoin.y)) / 2;
@@ -125,10 +125,10 @@ CDecor::ConvCelToMap (POINT cel)
 
 // Conversion d'un point dans la carte en cellule.
 
-POINT
-CDecor::ConvMapToCel (POINT pos)
+Point
+CDecor::ConvMapToCel (Point pos)
 {
-  POINT cel;
+  Point cel;
 
   pos.x -= ((DIMMAPX - MAPCADREX) / 4) * 2;
   pos.y -= ((DIMMAPY - MAPCADREY) / 4) * 2;
@@ -145,9 +145,9 @@ CDecor::ConvMapToCel (POINT pos)
 // Déplace le décor suite à un clic dans la carte.
 
 bool
-CDecor::MapMove (POINT pos)
+CDecor::MapMove (Point pos)
 {
-  POINT cel;
+  Point cel;
 
   if (
     pos.x >= POSMAPX && pos.x < POSMAPX + DIMMAPX && pos.y >= POSMAPY &&
@@ -425,9 +425,9 @@ static char color_fire[4] = {
 // (sol, objets et brouillard).
 
 void
-CDecor::MapPutCel (POINT pos)
+CDecor::MapPutCel (Point pos)
 {
-  POINT  cel, fogCel;
+  Point  cel, fogCel;
   Sint32 icon, i;
   char * pColors;
 
@@ -500,17 +500,17 @@ color:
 bool
 CDecor::GenerateMap ()
 {
-  POINT  pos, cel;
+  Point  pos, cel;
   Sint32 dx, rank, i;
 
   auto DrawMap = [&]() -> bool {
     if (!m_SurfaceMap)
       return true;
 
-    POINT dim = {DIMMAPX, DIMMAPY};
+    Point dim = {DIMMAPX, DIMMAPY};
     m_pPixmap->Cache (CHMAP, m_SurfaceMap, dim);
 
-    POINT pos = {POSMAPX, POSMAPY};
+    Point pos = {POSMAPX, POSMAPY};
     m_pPixmap->DrawIcon (-1, CHMAP, 0, pos);
 
     return true;

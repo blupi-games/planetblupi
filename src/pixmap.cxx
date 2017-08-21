@@ -89,7 +89,7 @@ CPixmap::~CPixmap ()
 // Retourne false en cas d'erreur.
 
 bool
-CPixmap::Create (POINT dim)
+CPixmap::Create (Point dim)
 {
   m_dim = dim;
 
@@ -104,7 +104,7 @@ CPixmap::Create (POINT dim)
 // Rempli une zone rectangulaire avec une couleur uniforme.
 
 void
-CPixmap::Fill (RECT rect, COLORREF color)
+CPixmap::Fill (Rect rect, ColorRef color)
 {
   // ï¿½ faire si nï¿½cessaire ...
 }
@@ -113,7 +113,7 @@ CPixmap::Fill (RECT rect, COLORREF color)
 // Les modes sont 0=transparent, 1=opaque.
 
 Sint32
-CPixmap::BltFast (Sint32 chDst, size_t channel, POINT dst, RECT rcRect)
+CPixmap::BltFast (Sint32 chDst, size_t channel, Point dst, Rect rcRect)
 {
   Sint32 res, limit;
 
@@ -177,7 +177,7 @@ CPixmap::BltFast (Sint32 chDst, size_t channel, POINT dst, RECT rcRect)
 
 Sint32
 CPixmap::BltFast (
-  SDL_Texture * lpSDL, size_t channel, POINT dst, RECT rcRect,
+  SDL_Texture * lpSDL, size_t channel, Point dst, Rect rcRect,
   SDL_BlendMode mode)
 {
   Sint32 res;
@@ -232,7 +232,7 @@ CPixmap::ReloadTargetTextures ()
 
 bool
 CPixmap::Cache (
-  size_t channel, const std::string & pFilename, POINT totalDim, POINT iconDim)
+  size_t channel, const std::string & pFilename, Point totalDim, Point iconDim)
 {
   std::string   file    = GetBaseDir () + pFilename;
   SDL_Surface * surface = IMG_Load (file.c_str ());
@@ -291,9 +291,9 @@ CPixmap::Cache (
 // Cache une image globale.
 
 bool
-CPixmap::Cache (size_t channel, const std::string & pFilename, POINT totalDim)
+CPixmap::Cache (size_t channel, const std::string & pFilename, Point totalDim)
 {
-  POINT iconDim;
+  Point iconDim;
 
   iconDim.x = 0;
   iconDim.y = 0;
@@ -304,7 +304,7 @@ CPixmap::Cache (size_t channel, const std::string & pFilename, POINT totalDim)
 // Cache une image provenant d'un bitmap.
 
 bool
-CPixmap::Cache (size_t channel, SDL_Surface * surface, POINT totalDim)
+CPixmap::Cache (size_t channel, SDL_Surface * surface, Point totalDim)
 {
   // Create the offscreen surface, by loading our bitmap.
   if (
@@ -327,14 +327,14 @@ CPixmap::Cache (size_t channel, SDL_Surface * surface, POINT totalDim)
 // Modifie la rï¿½gion de clipping.
 
 void
-CPixmap::SetClipping (RECT clip)
+CPixmap::SetClipping (Rect clip)
 {
   m_clipRect = clip;
 }
 
 // Retourne la rï¿½gion de clipping.
 
-RECT
+Rect
 CPixmap::GetClipping ()
 {
   return m_clipRect;
@@ -343,7 +343,7 @@ CPixmap::GetClipping ()
 // Teste si un point fait partie d'une icï¿½ne.
 
 bool
-CPixmap::IsIconPixel (size_t channel, Sint32 rank, POINT pos)
+CPixmap::IsIconPixel (size_t channel, Sint32 rank, Point pos)
 {
   Sint32 nbx, nby;
 
@@ -382,10 +382,10 @@ CPixmap::IsIconPixel (size_t channel, Sint32 rank, POINT pos)
 
 bool
 CPixmap::DrawIcon (
-  Sint32 chDst, size_t channel, Sint32 rank, POINT pos, bool bMask)
+  Sint32 chDst, size_t channel, Sint32 rank, Point pos, bool bMask)
 {
   Sint32 nbx, nby;
-  RECT   rect;
+  Rect   rect;
 
   auto texInfo = m_SDLTextureInfo.find (channel);
   if (channel != CHMAP && texInfo == m_SDLTextureInfo.end ())
@@ -420,10 +420,10 @@ CPixmap::DrawIcon (
 
 bool
 CPixmap::DrawIconDemi (
-  Sint32 chDst, size_t channel, Sint32 rank, POINT pos, bool bMask)
+  Sint32 chDst, size_t channel, Sint32 rank, Point pos, bool bMask)
 {
   Sint32 nbx, nby;
-  RECT   rect;
+  Rect   rect;
 
   auto texInfo = m_SDLTextureInfo.find (channel);
   if (texInfo == m_SDLTextureInfo.end ())
@@ -452,11 +452,11 @@ CPixmap::DrawIconDemi (
 
 bool
 CPixmap::DrawIconPart (
-  Sint32 chDst, size_t channel, Sint32 rank, POINT pos, Sint32 startY,
+  Sint32 chDst, size_t channel, Sint32 rank, Point pos, Sint32 startY,
   Sint32 endY, bool bMask)
 {
   Sint32 nbx, nby;
-  RECT   rect;
+  Rect   rect;
 
   auto texInfo = m_SDLTextureInfo.find (channel);
   if (texInfo == m_SDLTextureInfo.end ())
@@ -486,7 +486,7 @@ CPixmap::DrawIconPart (
 
 bool
 CPixmap::DrawPart (
-  Sint32 chDst, size_t channel, POINT dest, RECT rect, bool bMask)
+  Sint32 chDst, size_t channel, Point dest, Rect rect, bool bMask)
 {
   if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
     return false;
@@ -497,9 +497,9 @@ CPixmap::DrawPart (
 // Dessine une partie d'image rectangulaire.
 
 bool
-CPixmap::DrawImage (Sint32 chDst, size_t channel, RECT rect)
+CPixmap::DrawImage (Sint32 chDst, size_t channel, Rect rect)
 {
-  POINT  dst;
+  Point  dst;
   Sint32 res;
 
   if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
@@ -527,8 +527,8 @@ CPixmap::BuildIconMask (
   Sint32 rankDst)
 {
   Sint32 nbx, nby;
-  POINT  posDst, posDstMask;
-  RECT   rect, rectMask;
+  Point  posDst, posDstMask;
+  Rect   rect, rectMask;
   Sint32 res;
 
   auto texInfo = m_SDLTextureInfo.find (channel);
@@ -636,11 +636,11 @@ CPixmap::MouseShow (bool bShow)
 // Retourne le rectangle correspondant au sprite
 // de la souris dans CHBLUPI.
 
-RECT
+Rect
 CPixmap::MouseRectSprite ()
 {
   Sint32 rank, nbx;
-  RECT   rcRect;
+  Rect   rcRect;
 
   rank = 348;
   if (m_mouseSprite == SPRITE_ARROW)

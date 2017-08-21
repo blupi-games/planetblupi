@@ -47,10 +47,10 @@ OutputDebug (const char * pMessage)
 
 // Conversion de la position de la souris.
 
-POINT
+Point
 ConvLongToPos (LPARAM lParam)
 {
-  POINT pos;
+  Point pos;
 
   pos.x = LOWORD (lParam); // horizontal position of cursor
   pos.y = HIWORD (lParam); // vertical position of cursor

@@ -35,7 +35,7 @@ public:
   ~CButton ();
 
   bool Create (
-    CPixmap * pPixmap, CSound * pSound, POINT pos, Sint32 type, Sint32 * pMenu,
+    CPixmap * pPixmap, CSound * pSound, Point pos, Sint32 type, Sint32 * pMenu,
     Sint32 nbMenu, const char ** pToolTips, Sint32 region, Uint32 message);
   void Draw ();
 
@@ -52,15 +52,15 @@ public:
   void SetHide (bool bHide);
 
   bool TreatEvent (const SDL_Event & event);
-  bool MouseOnButton (POINT pos);
+  bool MouseOnButton (Point pos);
 
-  const char * GetToolTips (POINT pos);
+  const char * GetToolTips (Point pos);
 
 protected:
-  bool Detect (POINT pos);
-  bool MouseDown (POINT pos);
-  bool MouseMove (POINT pos);
-  bool MouseUp (POINT pos);
+  bool Detect (Point pos);
+  bool MouseDown (Point pos);
+  bool MouseMove (Point pos);
+  bool MouseUp (Point pos);
 
 protected:
   CPixmap * m_pPixmap;
@@ -71,8 +71,8 @@ protected:
   bool   m_bEnable;      // true si bouton actif
   bool   m_bHide;        // true si bouton caché
   Uint32 m_message;      // message envoyé si bouton actionné
-  POINT  m_pos;          // coin sup/gauche
-  POINT  m_dim;          // dimensions
+  Point  m_pos;          // coin sup/gauche
+  Point  m_dim;          // dimensions
   Sint32 m_state;        // 0=relâché, 1=pressé, +2=survollé
   Sint32 m_mouseState;   // 0=relâché, 1=pressé, +2=survollé
   Sint32 m_iconMenu[20]; // icônes du sous-menu
