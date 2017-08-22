@@ -48,8 +48,6 @@ if (USE_APPIMAGE AND "${CMAKE_BUILD_TYPE}" STREQUAL "Release")
   set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -s")
 endif ()
 
-add_executable (planetblupi ${sources})
-
 # These copies are necessary with our stuff for AppImage because it's not
 # supported by CPack.
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
@@ -73,6 +71,7 @@ endif ()
 # Windows stuff
 
 if (MINGW)
+  file (COPY resources/win32/blupi.ico DESTINATION "${CMAKE_BINARY_DIR}")
   configure_file (
     "${CMAKE_CURRENT_SOURCE_DIR}/resources/win32/planetblupi.rc.in"
     "${CMAKE_BINARY_DIR}/planetblupi.rc"
@@ -118,6 +117,8 @@ set_property (TARGET SDL_kitchensink PROPERTY IMPORTED_LOCATION ${CMAKE_INSTALL_
 ###########################
 ## Main binary dependencies
 ###########################
+
+add_executable (planetblupi ${sources})
 
 target_link_libraries (planetblupi PUBLIC
   ${Intl_LIBRARIES}
