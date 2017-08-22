@@ -71,7 +71,7 @@ endif ()
 # Windows stuff
 
 if (MINGW)
-  file (COPY resources/win32/blupi.ico DESTINATION "${CMAKE_BINARY_DIR}")
+  file (COPY resources/icon/blupi.ico DESTINATION "${CMAKE_BINARY_DIR}")
   configure_file (
     "${CMAKE_CURRENT_SOURCE_DIR}/resources/win32/planetblupi.rc.in"
     "${CMAKE_BINARY_DIR}/planetblupi.rc"
