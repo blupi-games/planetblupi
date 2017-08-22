@@ -27,11 +27,6 @@ include_directories ("${PROJECT_BINARY_DIR}/include")
 file (GLOB_RECURSE sources src/*.cxx src/*.h)
 file (GLOB_RECURSE po      resources/po/*.po)
 
-if (MINGW)
-  file (GLOB_RECURSE rc resources/win32/*.rc)
-  list (APPEND sources ${rc})
-endif (MINGW)
-
 if (APPIMAGE_APPRUN_PROGRAM AND APPIMAGE_ASSISTANT_PROGRAM)
   set (USE_APPIMAGE ON)
 endif ()
@@ -78,6 +73,14 @@ endif ()
 # Windows stuff
 
 if (MINGW)
+  configure_file (
+    "${CMAKE_CURRENT_SOURCE_DIR}/resources/win32/planetblupi.rc.in"
+    "${CMAKE_BINARY_DIR}/planetblupi.rc"
+    @ONLY
+  )
+
+  list (APPEND sources "${CMAKE_BINARY_DIR}/planetblupi.rc")
+
   set (CMAKE_RC_COMPILER_INIT windres)
   enable_language (RC)
   set (CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
@@ -102,6 +105,8 @@ pkg_search_module (AVFORMAT REQUIRED libavformat)
 pkg_search_module (AVUTIL REQUIRED libavutil)
 pkg_search_module (SWSCALE REQUIRED libswscale)
 pkg_search_module (SWRESAMPLE REQUIRED libswresample)
+
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCURL_STATICLIB")
 
 ##################
 ## SDL_kitchensink
@@ -224,6 +229,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     set (CMAKE_PACKAGED_OUTPUT_PREFIX ${CMAKE_INSTALL_PREFIX})
     APPIMAGE_PACKAGE (planetblupi ${PB_PACKAGE_NAME} ${PB_PRODUCT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "${CMAKE_BINARY_DIR}/share" "" "" "blupi")
   elseif (MINGW)
+    set (CPACK_PACKAGE_FILE_NAME "${PB_PACKAGE_NAME}-${PB_VERSION_MAJOR}.${PB_VERSION_MINOR}.${PB_VERSION_PATCH}")
     set (CPACK_GENERATOR "NSIS64")
     set (CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\resources\\\\nsis\\\\installer.bmp")
     set (CPACK_NSIS_COMPRESSOR "/SOLID lzma")
