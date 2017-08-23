@@ -2538,8 +2538,8 @@ CEvent::DrawButtons ()
     pos.y = 40;
     DrawText (m_pPixmap, pos, text);
 
-    text = gettext (
-      "This game is an original creation of EPSITEC SA, CH-1092 Belmont");
+    text = gettext ("This game is an original creation of Epsitec SA, CH-1400 "
+                    "Yverdon-les-Bains");
 
     lg    = GetTextWidth (text);
     pos.x = LXIMAGE / 2 - lg / 2;
