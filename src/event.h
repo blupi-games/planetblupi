@@ -76,6 +76,7 @@ struct DemoSDLEvent {
 };
 
 enum class Language {
+  undef = -1,
   en    = 0,
   en_US = 1,
   fr    = 2,
@@ -155,8 +156,10 @@ protected:
   bool PlayMove (Point pos);
   bool PlayUp (Point pos);
 
-  void SetLanguage ();
-  void SetWindowSize (Uint8 prevScale, Uint8 newScale);
+  Language GetStartLanguage ();
+  Language GetLanguage ();
+  void     SetLanguage (Language lang = Language::undef);
+  void     SetWindowSize (Uint8 prevScale, Uint8 newScale);
 
   void ChangeButtons (Sint32 message);
 
@@ -181,6 +184,7 @@ protected:
 protected:
   std::vector<Language>                    m_Languages;
   std::vector<Language>::iterator          m_Lang;
+  std::string                              m_LangStart;
   Sint32                                   m_speed;
   Sint32                                   m_exercice;
   Sint32                                   m_mission;

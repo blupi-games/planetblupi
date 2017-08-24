@@ -51,6 +51,7 @@
 #define MAXDEMO 2000
 
 typedef struct {
+  // v1.0
   Sint16 majRev;
   Sint16 minRev;
   Sint16 reserve1[9];
@@ -65,7 +66,10 @@ typedef struct {
   Sint16 bAccessBuild;
   Sint16 prive;
   Sint16 skill;
-  Sint16 reserve2[93];
+  // v1.1
+  Sint16 language;
+
+  Sint16 reserve2[92];
 } DescInfo;
 
 // Toutes les premières lettres doivent
@@ -1584,11 +1588,13 @@ CEvent::CEvent ()
   m_Languages.push_back (Language::fr);
   m_Languages.push_back (Language::de);
 
-  if (GetLocale () == "en_US")
+  this->m_LangStart = GetLocale ();
+
+  if (this->m_LangStart == "en_US")
     m_Lang = m_Languages.begin () + 1;
-  else if (GetLocale () == "fr")
+  else if (this->m_LangStart == "fr")
     m_Lang = m_Languages.begin () + 2;
-  else if (GetLocale () == "de")
+  else if (this->m_LangStart == "de")
     m_Lang = m_Languages.begin () + 3;
   else
     m_Lang = m_Languages.begin ();
@@ -3611,30 +3617,52 @@ CEvent::PlayUp (Point pos)
   return true;
 }
 
+Language
+CEvent::GetStartLanguage ()
+{
+  if (this->m_LangStart == "en_US")
+    return Language::en_US;
+  if (this->m_LangStart == "fr")
+    return Language::fr;
+  if (this->m_LangStart == "de")
+    return Language::de;
+  return Language::en;
+}
+
+Language
+CEvent::GetLanguage ()
+{
+  return *this->m_Lang;
+}
+
 void
-CEvent::SetLanguage ()
+CEvent::SetLanguage (Language lang)
 {
   static char  env[64];
-  const char * lang;
+  const char * slang;
+
+  if (lang != Language::undef)
+    m_Lang = m_Languages.begin () + static_cast<int> (lang);
 
   switch (*m_Lang)
   {
   default:
+  case Language::undef:
   case Language::en:
-    lang = "C";
+    slang = "C";
     break;
   case Language::en_US:
-    lang = "en_US";
+    slang = "en_US";
     break;
   case Language::fr:
-    lang = "fr";
+    slang = "fr";
     break;
   case Language::de:
-    lang = "de";
+    slang = "de";
     break;
   }
 
-  snprintf (env, sizeof (env), "LANGUAGE=%s", lang);
+  snprintf (env, sizeof (env), "LANGUAGE=%s", slang);
 
   {
     putenv (env);
@@ -4411,7 +4439,7 @@ CEvent::WriteInfo ()
     goto error;
 
   info.majRev       = 1;
-  info.minRev       = 0;
+  info.minRev       = 1;
   info.prive        = m_private;
   info.exercice     = m_exercice;
   info.mission      = m_mission;
@@ -4425,6 +4453,11 @@ CEvent::WriteInfo ()
 
   info.audioVolume = m_pSound->GetAudioVolume ();
   info.midiVolume  = m_pSound->GetMidiVolume ();
+
+  /* Global settings */
+  info.language = static_cast<Sint16> (
+    this->GetLanguage () != this->GetStartLanguage () ? this->GetLanguage ()
+                                                      : Language::undef);
 
   nb = fwrite (&info, sizeof (info), 1, file);
   if (nb < 1)
@@ -4473,6 +4506,9 @@ CEvent::ReadInfo ()
 
   m_pSound->SetAudioVolume (info.audioVolume);
   m_pSound->SetMidiVolume (info.midiVolume);
+
+  if ((info.majRev == 1 && info.minRev >= 1) || info.majRev >= 2)
+    this->SetLanguage (static_cast<Language> (info.language));
 
   fclose (file);
   return true;
