@@ -15,9 +15,9 @@ to construct your own missions.
 
 ## Screen problems
 
-What ever your screen resolution is, the game
-"Planet Blupi" always runs in 640x480 on full screen. If your screen does not
-support this mode, you may run the game in windowed mode. Proceed as follows:
+What ever your screen resolution is, the game "Planet Blupi" always runs in
+640x480 on full screen. If your screen does not support this mode, you may run
+the game by default in windowed mode. Proceed as follows:
 
 - 1. Quit the game "Planet Blupi".
 - 2. Open the file  "<INSTALLDIR>/data/config.json" with a text editor.
