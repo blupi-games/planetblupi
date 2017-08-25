@@ -254,7 +254,7 @@ protected:
   bool                                     m_bDemoRec;
   bool                                     m_bDemoPlay;
   DemoEvent *                              m_pDemoBuffer;
-  DemoSDLEvent *                           m_pDemoSDLBuffer;
+  std::vector<DemoSDLEvent>                m_pDemoSDLBuffer;
   bool                                     m_bStartRecording;
   Uint32                                   m_demoTime;
   size_t                                   m_demoIndex;
