@@ -4848,7 +4848,7 @@ CEvent::DemoStep ()
           event.motion.x = m_pDemoSDLBuffer[m_demoIndex].x;
           event.motion.y = m_pDemoSDLBuffer[m_demoIndex].y;
         }
-        else
+        else if (event.type != SDL_KEYUP && event.type != SDL_KEYDOWN)
         {
           event.button.button = m_pDemoSDLBuffer[m_demoIndex].button;
           event.button.x      = m_pDemoSDLBuffer[m_demoIndex].x;
