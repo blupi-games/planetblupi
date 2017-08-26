@@ -72,7 +72,7 @@ InitRandom ()
  * platforms.
  * See http://stackoverflow.com/a/1280765/842097
  */
-int
+static int
 ms_rand ()
 {
   g_seed = g_seed * 0x343fd + 0x269EC3;
