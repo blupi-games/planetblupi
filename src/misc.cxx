@@ -54,12 +54,6 @@ ConvLongToPos (LPARAM lParam)
 
   pos.x = LOWORD (lParam); // horizontal position of cursor
   pos.y = HIWORD (lParam); // vertical position of cursor
-
-  //  if ( !g_bFullScreen )
-  //  {
-  //      pos.y -= GetSystemMetrics(SM_CYCAPTION);
-  //  }
-
   return pos;
 }
 
