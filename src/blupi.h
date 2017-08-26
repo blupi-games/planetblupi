@@ -22,6 +22,7 @@
 
 #include <SDL2/SDL.h>
 #include <libintl.h>
+#include <string>
 
 #include "config.h"
 
@@ -30,6 +31,7 @@ extern SDL_Renderer * g_renderer;
 extern bool           g_bFullScreen;
 extern bool           g_restoreBugs;
 extern bool           g_enableRecorder;
+extern std::string    g_playRecord;
 
 struct Point {
   Sint32 x;

@@ -175,7 +175,7 @@ protected:
 
   void DemoRecStart ();
   void DemoRecStop ();
-  bool DemoPlayStart ();
+  bool DemoPlayStart (const std::string * demoFile = nullptr);
   void DemoPlayStop ();
   static void
        WinToSDLEvent (Uint32 msg, WPARAM wParam, LPARAM lParam, SDL_Event & event);

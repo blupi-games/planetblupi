@@ -4612,7 +4612,7 @@ CEvent::DemoRecStop ()
 // Lit le fichier sur disque.
 
 bool
-CEvent::DemoPlayStart ()
+CEvent::DemoPlayStart (const std::string * demoFile)
 {
   std::string filename;
   FILE *      file = nullptr;
@@ -4620,8 +4620,11 @@ CEvent::DemoPlayStart ()
   Sint32      world, time, total;
   size_t      nb;
 
-  filename = string_format (GetBaseDir () + "data/demo%.3d.blp", m_demoNumber);
-  file     = fopen (filename.c_str (), "rb");
+  filename =
+    demoFile
+      ? *demoFile
+      : string_format (GetBaseDir () + "data/demo%.3d.blp", m_demoNumber);
+  file = fopen (filename.c_str (), "rb");
   if (file == nullptr)
   {
     DemoPlayStop ();
@@ -4819,7 +4822,13 @@ CEvent::DemoStep ()
 
   if (m_phase == EV_PHASE_INIT)
   {
-    if (m_demoTime > DEF_TIME_DEMO) // ~30 secondes écoulées ?
+    if (!g_playRecord.empty ())
+    {
+      m_demoNumber = -1;
+      DemoPlayStart (&g_playRecord);
+      g_playRecord = "";
+    }
+    else if (m_demoTime > DEF_TIME_DEMO) // ~30 secondes écoulées ?
     {
       m_demoNumber = 0;
       DemoPlayStart (); // démarre une démo automatique
@@ -4885,7 +4894,7 @@ CEvent::DemoStep ()
 
       TreatEventBase (event);
 
-      if (m_demoIndex >= m_demoEnd)
+      if (m_demoIndex >= m_demoEnd && m_demoNumber >= 0)
       {
         m_demoNumber++;        // démo suivante
         if (!DemoPlayStart ()) // démarre la démo suivante
