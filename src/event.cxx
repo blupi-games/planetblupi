@@ -4937,6 +4937,9 @@ CEvent::DemoRecEvent (const SDL_Event & event)
     demoEvent.x    = event.motion.x;
     demoEvent.y    = event.motion.y;
     break;
+
+  default:
+    return;
   }
 
   m_pDemoSDLBuffer.push_back (demoEvent);
