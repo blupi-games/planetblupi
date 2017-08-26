@@ -4563,6 +4563,8 @@ CEvent::DemoRecStart ()
   InitRandom ();
   m_pDecor->SetTime (0);
   m_speed = 1;
+
+  m_bStartRecording = true;
 }
 
 // Fin de l'enregistrement d'une démo.
@@ -4601,8 +4603,9 @@ CEvent::DemoRecStop ()
   }
 
   m_pDemoSDLBuffer.clear ();
-  m_bDemoRec = false;
-  m_demoTime = 0;
+  m_bDemoRec        = false;
+  m_demoTime        = 0;
+  m_bStartRecording = false;
 }
 
 // Début de la reproduction d'une démo.
@@ -5276,19 +5279,13 @@ CEvent::TreatEventBase (const SDL_Event & event)
       if (
         g_enableRecorder && m_phase == EV_PHASE_PLAY && !m_bDemoPlay &&
         !m_bStartRecording)
-      {
         DemoRecStart (); // start recording
-        m_bStartRecording = true;
-      }
       break;
     case SDLK_F4:
       if (
         g_enableRecorder && m_phase == EV_PHASE_PLAY && !m_bDemoPlay &&
         m_bStartRecording)
-      {
         DemoRecStop (); // stop recording
-        m_bStartRecording = false;
-      }
       break;
     case SDLK_F9:
       if (m_phase == EV_PHASE_PLAY)
