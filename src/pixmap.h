@@ -54,7 +54,6 @@ public:
   ~CPixmap ();
 
   bool Create (Point dim);
-  void Fill (Rect rect, ColorRef color);
 
   bool ReloadTargetTextures ();
   bool Cache (

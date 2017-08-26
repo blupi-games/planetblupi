@@ -101,14 +101,6 @@ CPixmap::Create (Point dim)
   return true;
 }
 
-// Rempli une zone rectangulaire avec une couleur uniforme.
-
-void
-CPixmap::Fill (Rect rect, ColorRef color)
-{
-  // ï¿½ faire si nï¿½cessaire ...
-}
-
 // Effectue un appel BltFast.
 // Les modes sont 0=transparent, 1=opaque.
 
