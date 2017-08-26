@@ -146,7 +146,7 @@ AddUserPath (std::string & pFilename)
     path += pFilename;
     last      = path[pos];
     path[pos] = 0;
-    mkdir (path.c_str (), 755);
+    mkdir (path.c_str (), 0755);
     path[pos] = last;
   }
   else
