@@ -2612,7 +2612,6 @@ Public License instead of this License.  But first, please read
 # libpng - LICENSE
 ################################################################################
 
-
 This copy of the libpng notices is provided for your convenience.  In case of
 any discrepancy between this copy and the notices in the file png.h that is
 included in the libpng distribution, the latter shall prevail.
@@ -2773,7 +2772,6 @@ SOFTWARE.
 ################################################################################
 # SDL2 - LICENSE
 ################################################################################
-
 
 Simple DirectMedia Layer
 Copyright (C) 1997-2017 Sam Lantinga <slouken@libsdl.org>
