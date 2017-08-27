@@ -63,6 +63,9 @@ file (COPY resources/image DESTINATION share/planetblupi)
 file (COPY resources/movie DESTINATION share/planetblupi)
 file (COPY resources/sound DESTINATION share/planetblupi)
 file (COPY resources/music DESTINATION share/planetblupi)
+file (COPY LICENSE.all DESTINATION share/doc/planetblupi)
+file (RENAME "${CMAKE_BINARY_DIR}/share/doc/planetblupi/LICENSE.all"
+             "${CMAKE_BINARY_DIR}/share/doc/planetblupi/copyright")
 
 if (UNIX AND NOT APPLE)
   file (COPY resources/icon/hicolor DESTINATION share/icons)
@@ -194,6 +197,7 @@ install (DIRECTORY resources/image DESTINATION share/planetblupi)
 install (DIRECTORY resources/movie DESTINATION share/planetblupi)
 install (DIRECTORY resources/sound DESTINATION share/planetblupi)
 install (DIRECTORY resources/music DESTINATION share/planetblupi)
+install (FILES LICENSE.all DESTINATION share/doc/planetblupi RENAME copyright)
 
 if (UNIX AND NOT APPLE)
   install (DIRECTORY resources/icon/hicolor DESTINATION share/icons)
