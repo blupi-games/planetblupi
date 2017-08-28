@@ -2552,7 +2552,8 @@ CEvent::DrawButtons ()
       gettext (" - libpng under own license"),
       gettext (" - SDL_kitchensink under MIT"),
       gettext (" - SDL2, SDL2_image and SDL2_mixer under zlib license"),
-      gettext (" - zlib under own license")};
+      gettext (" - zlib under own license"),
+      gettext ("All licenses available under share/doc/planetblupi/copyright")};
 
     for (size_t i = 0; i < countof (libs); ++i)
     {

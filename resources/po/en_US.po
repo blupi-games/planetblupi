@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-28 07:16+0200\n"
+"POT-Creation-Date: 2017-08-28 07:26+0200\n"
 "PO-Revision-Date: 2017-02-27 21:28+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -126,63 +126,67 @@ msgid ""
 "2: Transform"
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4308
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4309
 msgid ""
 "1|Drop planks on striped \n"
 "1|paving stones."
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4318
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4319
 msgid ""
 "1|Drop platinium on striped \n"
 "1|paving stones."
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4313
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4314
 msgid ""
 "1|Drop tomatoes on striped \n"
 "1|paving stones."
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4328
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4329
 msgid ""
 "1|Each Blupi in\n"
 "1|his house."
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4303
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4304
 msgid ""
 "1|Go on striped\n"
 "1|paving stones."
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4287
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4288
 msgid "1|Goal :"
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4298
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4299
 msgid ""
 "1|Kill all\n"
 "1|enemies !"
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4333
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4334
 msgid ""
 "1|Resist until\n"
 "1|fire extinction ..."
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4348
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4349
 #, c-format
 msgid ""
 "1|The Blupi population must\n"
 "1|be of at least %d Blupi."
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4323
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:4324
 msgid ""
 "1|The robot must reach\n"
 "1|the striped paving stones."
+msgstr ""
+
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2556
+msgid "All licenses available under share/doc/planetblupi/copyright"
 msgstr ""
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:129
@@ -241,7 +245,7 @@ msgstr ""
 msgid "Blupi on striped paving stones"
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2746
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2747
 msgid "Blupi's energy"
 msgstr ""
 
@@ -632,7 +636,7 @@ msgstr ""
 msgid "Inflammable ground"
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2581
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2582
 msgid "Insert CD-Rom Planet Blupi and wait a few seconds..."
 msgstr ""
 
@@ -926,7 +930,7 @@ msgstr ""
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:329
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:629
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/blupi.cxx:633
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:3688
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:3689
 msgid "Planet Blupi"
 msgstr ""
 
@@ -1171,7 +1175,7 @@ msgstr ""
 msgid "Teleporter"
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2564
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2565
 msgid ""
 "This game is an original creation of Epsitec SA, CH-1400 Yverdon-les-Bains"
 msgstr ""
@@ -1321,7 +1325,7 @@ msgstr ""
 msgid "Windowed"
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2748
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2749
 msgid "Work done"
 msgstr ""
 
@@ -1362,7 +1366,7 @@ msgstr "en_US"
 msgid "free slot"
 msgstr ""
 
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2571
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2572
 msgid "http://www.blupi.org            info@blupi.org"
 msgstr ""
 
