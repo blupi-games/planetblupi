@@ -2524,21 +2524,19 @@ CEvent::DrawButtons ()
     }
   }
 
-  // Affiche le texte de fin de la version demo.
+  // Show the ending text
   if (m_phase == EV_PHASE_BYE)
   {
     char * text;
 
-    text = gettext ("You have played Planet Blupi.");
-
+    text  = gettext ("You have played Planet Blupi.");
     lg    = GetTextWidth (text);
     pos.x = LXIMAGE / 2 - lg / 2;
     pos.y = 20;
     DrawText (m_pPixmap, pos, text);
 
-    text = gettext ("We hope you have had as much fun playing the game as we "
+    text  = gettext ("We hope you have had as much fun playing the game as we "
                     "had making it !");
-
     lg    = GetTextWidth (text);
     pos.x = LXIMAGE / 2 - lg / 2;
     pos.y = 40;
@@ -2570,8 +2568,7 @@ CEvent::DrawButtons ()
     pos.y = 430;
     DrawText (m_pPixmap, pos, text);
 
-    text = gettext ("http://www.blupi.org            info@blupi.org");
-
+    text  = gettext ("http://www.blupi.org            info@blupi.org");
     lg    = GetTextWidth (text);
     pos.x = LXIMAGE / 2 - lg / 2;
     pos.y = 450;
