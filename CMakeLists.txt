@@ -166,7 +166,7 @@ foreach (file ${_gmoFiles})
 
   add_custom_command (OUTPUT ${_out}/planetblupi.mo
     COMMAND ${CMAKE_COMMAND} -E copy ${file} ${_out}/planetblupi.mo
-    DEPENDS ${file}
+    DEPENDS translations ${file}
   )
 
   add_custom_target ("po-${_lang}" ALL ${_all}
