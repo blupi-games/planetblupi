@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-08-28 07:16+0200\n"
-"PO-Revision-Date: 2017-08-28 07:21+0200\n"
+"PO-Revision-Date: 2017-08-28 07:22+0200\n"
 "Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -27,7 +27,7 @@ msgstr " - GNU/gettext et GNU/libiconv sous GPLv3"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2554
 msgid " - SDL2, SDL2_image and SDL2_mixer under zlib license"
-msgstr " - SDL2, SDL2_image et SDL2_mixer sous license zlib"
+msgstr " - SDL2, SDL2_image et SDL2_mixer sous licence zlib"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2553
 msgid " - SDL_kitchensink under MIT"
