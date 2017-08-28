@@ -2544,9 +2544,27 @@ CEvent::DrawButtons ()
     pos.y = 40;
     DrawText (m_pPixmap, pos, text);
 
-    text = gettext ("This game is an original creation of Epsitec SA, CH-1400 "
-                    "Yverdon-les-Bains");
+    static const std::string libs[] = {
+      gettext (
+        "This game uses statically linked free and open-source libraries:"),
+      gettext (" - argagg under MIT"),
+      gettext (" - FFmpeg under LGPLv2.1"),
+      gettext (" - GNU/gettext and GNU/libiconv under GPLv3"),
+      gettext (" - libcurl under MIT/X derivate"),
+      gettext (" - libpng under own license"),
+      gettext (" - SDL_kitchensink under MIT"),
+      gettext (" - SDL2, SDL2_image and SDL2_mixer under zlib license"),
+      gettext (" - zlib under own license")};
 
+    for (size_t i = 0; i < countof (libs); ++i)
+    {
+      pos.x = 30;
+      pos.y = 120 + i * 20;
+      DrawText (m_pPixmap, pos, libs[i].c_str ());
+    }
+
+    text  = gettext ("This game is an original creation of Epsitec SA, CH-1400 "
+                    "Yverdon-les-Bains");
     lg    = GetTextWidth (text);
     pos.x = LXIMAGE / 2 - lg / 2;
     pos.y = 430;
