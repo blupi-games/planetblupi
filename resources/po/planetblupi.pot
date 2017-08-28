@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-28 21:58+0200\n"
+"POT-Creation-Date: 2017-08-28 22:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -711,31 +711,31 @@ msgstr ""
 msgid "This game uses statically linked free and open-source libraries:"
 msgstr ""
 
-msgid " - argagg under MIT"
+msgid " - argagg (MIT)"
 msgstr ""
 
-msgid " - FFmpeg under LGPLv2.1"
+msgid " - FFmpeg (LGPLv2.1)"
 msgstr ""
 
-msgid " - GNU/gettext and GNU/libiconv under GPLv3"
+msgid " - GNU/gettext and GNU/libiconv (GPLv3)"
 msgstr ""
 
-msgid " - libcurl under MIT/X derivate"
+msgid " - libcurl (MIT/X derivate)"
 msgstr ""
 
-msgid " - libpng under own license"
+msgid " - libpng (own license)"
 msgstr ""
 
-msgid " - SDL_kitchensink under MIT"
+msgid " - SDL_kitchensink (MIT)"
 msgstr ""
 
-msgid " - SDL2, SDL2_image and SDL2_mixer under zlib license"
+msgid " - SDL2, SDL2_image and SDL2_mixer (zlib license)"
 msgstr ""
 
-msgid " - zlib under own license"
+msgid " - zlib (own license)"
 msgstr ""
 
-msgid "All licenses available under share/doc/planetblupi/copyright"
+msgid "All licenses are available under share/doc/planetblupi/copyright"
 msgstr ""
 
 msgid ""
