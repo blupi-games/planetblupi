@@ -148,7 +148,7 @@ find_package (Gettext)
 set (_potFile ${CMAKE_CURRENT_SOURCE_DIR}/resources/po/${PROJECT_NAME}.pot)
 
 add_custom_command (OUTPUT ${_potFile}
-  COMMAND xgettext --keyword=translate -o ${_potFile} ${sources}
+  COMMAND xgettext --no-location --keyword=translate -o ${_potFile} ${sources}
   DEPENDS ${sources}
   COMMENT "Extract translatable messages to ${_potFile}"
 )
