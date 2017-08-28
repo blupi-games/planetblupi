@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-28 07:26+0200\n"
-"PO-Revision-Date: 2017-08-06 21:31+0200\n"
+"POT-Creation-Date: 2017-08-28 07:32+0200\n"
+"PO-Revision-Date: 2017-08-28 17:51+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -366,6 +366,8 @@ msgid ""
 "Change the\n"
 "window size"
 msgstr ""
+"Fentergrösse\n"
+"anpassen"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:250
 msgid "Construct this game"
@@ -584,7 +586,7 @@ msgstr "Verschneiter Wald"
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1475
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2511
 msgid "Fullscreen"
-msgstr ""
+msgstr "Vollbildschirm"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2096
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2283
@@ -609,9 +611,8 @@ msgstr ""
 "des Spiels"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:151
-#, fuzzy
 msgid "Global settings"
-msgstr "Einstellungen"
+msgstr "Allgemeine Einstellungen"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:959
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:82
@@ -662,9 +663,8 @@ msgid "Increase volume"
 msgstr "Lauter"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1493
-#, fuzzy
 msgid "Increase window size"
-msgstr "Lauter"
+msgstr "Fenstergrösse vergrössern"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3158
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decor.cxx:3159
@@ -693,6 +693,12 @@ msgstr ""
 "Füge die Planet Blupi CD-Rom in das Laufwerk ein und warte einige "
 "Sekunden ..."
 
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2490
+msgid ""
+"Interface language\n"
+"and sounds"
+msgstr "Sprache und Sound"
+
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:739
 msgid "Interrupt"
 msgstr "Halt"
@@ -718,12 +724,6 @@ msgstr "Jeep"
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:92
 msgid "Laboratory"
 msgstr "Labor"
-
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2490
-msgid ""
-"Language interface\n"
-"and sounds"
-msgstr ""
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2435
 msgid "Last construction resolved !"
@@ -887,7 +887,7 @@ msgstr "N"
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1974
 #, c-format
 msgid "New version available for download on www.blupi.org (v%s)"
-msgstr ""
+msgstr "Neue Version (v%s) auf www.blupi.org zum Download verfügbar"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:232
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:804
@@ -896,9 +896,8 @@ msgid "Next game"
 msgstr "Nächste Mission"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1469
-#, fuzzy
 msgid "Next language"
-msgstr "Nächste Mission"
+msgstr "Nächste Sprache"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:180
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:203
@@ -945,7 +944,7 @@ msgstr "Normaler Untergrund"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:130
 msgid "Not enough energy"
-msgstr ""
+msgstr "Ungenügend Energie"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2430
 msgid "Now go on mission."
@@ -1029,9 +1028,8 @@ msgid "Previous game"
 msgstr "Vorhergehende Mission"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1463
-#, fuzzy
 msgid "Previous language"
-msgstr "Vorhergehende Mission"
+msgstr "Vorherige Sprache"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:174
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:197
@@ -1082,7 +1080,7 @@ msgstr "Leiser"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1487
 msgid "Reduce window size"
-msgstr ""
+msgstr "Fenstergrösse verkleinern"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:977
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:114
@@ -1144,6 +1142,8 @@ msgid ""
 "Select the\n"
 "window mode"
 msgstr ""
+"Fenstermodus\n"
+"auswählen"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:741
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:244
@@ -1245,6 +1245,8 @@ msgstr "Beammaschine"
 msgid ""
 "This game is an original creation of Epsitec SA, CH-1400 Yverdon-les-Bains"
 msgstr ""
+"Dieses Spiel wurde ursprünglich durch Epsitec SA, CH-1400 Yverdon-les-Bains "
+"entwickelt"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2547
 msgid "This game uses statically linked free and open-source libraries:"
@@ -1391,7 +1393,7 @@ msgstr "Toll, Du hast es geschafft"
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:1481
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2511
 msgid "Windowed"
-msgstr ""
+msgstr "Fenster"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2749
 msgid "Work done"

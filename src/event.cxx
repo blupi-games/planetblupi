@@ -2487,7 +2487,7 @@ CEvent::DrawButtons ()
   // Draw the settings
   if (m_phase == EV_PHASE_SETTINGS)
   {
-    DrawTextCenter (gettext ("Language interface\nand sounds"), 54 + 40, 80);
+    DrawTextCenter (gettext ("Interface language\nand sounds"), 54 + 40, 80);
     DrawTextCenter (gettext ("Select the\nwindow mode"), 169 + 40, 80);
     DrawTextCenter (gettext ("Change the\nwindow size"), 284 + 40, 80);
 

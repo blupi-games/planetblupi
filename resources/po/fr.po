@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-28 07:26+0200\n"
-"PO-Revision-Date: 2017-08-28 07:27+0200\n"
+"POT-Creation-Date: 2017-08-28 07:32+0200\n"
+"PO-Revision-Date: 2017-08-28 07:33+0200\n"
 "Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -687,6 +687,15 @@ msgid "Insert CD-Rom Planet Blupi and wait a few seconds..."
 msgstr ""
 "Veuillez insérer le CD-Rom Planète Blupi, puis attendre quelques secondes ..."
 
+#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2490
+msgid ""
+"Interface language\n"
+"and sounds"
+msgstr ""
+"Langue de\n"
+"l'interface et\n"
+"des bruitages"
+
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/decstat.cxx:739
 msgid "Interrupt"
 msgstr "Interrompre"
@@ -712,15 +721,6 @@ msgstr "Jeep"
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/menu.cxx:92
 msgid "Laboratory"
 msgstr "Laboratoire"
-
-#: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2490
-msgid ""
-"Language interface\n"
-"and sounds"
-msgstr ""
-"Langue de\n"
-"l'interface et\n"
-"des bruitages"
 
 #: /home/schroeterm/devel/planetblupi-dev/planetblupi/src/event.cxx:2435
 msgid "Last construction resolved !"
