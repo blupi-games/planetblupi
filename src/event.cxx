@@ -2550,15 +2550,15 @@ CEvent::DrawButtons ()
     static const std::string libs[] = {
       gettext (
         "This game uses statically linked free and open-source libraries:"),
-      gettext (" - argagg under MIT"),
-      gettext (" - FFmpeg under LGPLv2.1"),
-      gettext (" - GNU/gettext and GNU/libiconv under GPLv3"),
-      gettext (" - libcurl under MIT/X derivate"),
-      gettext (" - libpng under own license"),
-      gettext (" - SDL_kitchensink under MIT"),
-      gettext (" - SDL2, SDL2_image and SDL2_mixer under zlib license"),
-      gettext (" - zlib under own license"),
-      gettext ("All licenses available under share/doc/planetblupi/copyright")};
+      gettext (" - argagg (MIT)"),
+      gettext (" - FFmpeg (LGPLv2.1)"),
+      gettext (" - GNU/gettext and GNU/libiconv (GPLv3)"),
+      gettext (" - libcurl (MIT/X derivate)"),
+      gettext (" - libpng (own license)"),
+      gettext (" - SDL_kitchensink (MIT)"),
+      gettext (" - SDL2, SDL2_image and SDL2_mixer (zlib license)"),
+      gettext (" - zlib (own license)"),
+      gettext ("All licenses are available under share/doc/planetblupi/copyright")};
 
     for (size_t i = 0; i < countof (libs); ++i)
     {

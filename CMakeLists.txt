@@ -148,7 +148,7 @@ find_package (Gettext)
 set (_potFile ${CMAKE_CURRENT_SOURCE_DIR}/resources/po/${PROJECT_NAME}.pot)
 
 add_custom_command (OUTPUT ${_potFile}
-  COMMAND xgettext --keyword=translate -o ${_potFile} ${sources}
+  COMMAND xgettext --no-location --keyword=translate -o ${_potFile} ${sources}
   DEPENDS ${sources}
   COMMENT "Extract translatable messages to ${_potFile}"
 )
@@ -166,7 +166,7 @@ foreach (file ${_gmoFiles})
 
   add_custom_command (OUTPUT ${_out}/planetblupi.mo
     COMMAND ${CMAKE_COMMAND} -E copy ${file} ${_out}/planetblupi.mo
-    DEPENDS ${file}
+    DEPENDS translations ${file}
   )
 
   add_custom_target ("po-${_lang}" ALL ${_all}
