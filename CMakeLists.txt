@@ -86,6 +86,8 @@ if (MINGW)
   set (CMAKE_RC_COMPILER_INIT windres)
   enable_language (RC)
   set (CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
+
+  set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -mwindows")
 endif (MINGW)
 
 # Dependencies
