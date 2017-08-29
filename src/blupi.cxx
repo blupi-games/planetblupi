@@ -402,8 +402,11 @@ HandleEvent (const SDL_Event & event)
         [](const std::string & s) -> unsigned int { return std::stoi (s); });
 
       if (
+        (!!PB_VERSION_EXTRA[0] &&
+         PB_VERSION_INT (version[0], version[1], version[2]) >=
+           PLANETBLUPI_VERSION_INT) ||
         PB_VERSION_INT (version[0], version[1], version[2]) >
-        PLANETBLUPI_VERSION_INT)
+          PLANETBLUPI_VERSION_INT)
         g_pEvent->SetUpdateVersion (jsonData["version"]);
 
       delete data;

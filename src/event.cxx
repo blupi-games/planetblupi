@@ -1961,11 +1961,11 @@ CEvent::DrawButtons ()
 
   if (m_phase == EV_PHASE_INIT)
   {
-    pos.x = 570;
-    pos.y = 465;
     snprintf (
-      res, sizeof (res), "%s %u.%u.%u", gettext ("Version"), PB_VERSION_MAJOR,
-      PB_VERSION_MINOR, PB_VERSION_PATCH);
+      res, sizeof (res), "%s %u.%u.%u%s", gettext ("Version"), PB_VERSION_MAJOR,
+      PB_VERSION_MINOR, PB_VERSION_PATCH, PB_VERSION_EXTRA);
+    pos.x = LXIMAGE - GetTextWidth (res, FONTLITTLE) - 4;
+    pos.y = 465;
     DrawText (m_pPixmap, pos, res, FONTLITTLE);
 
     if (!this->m_updateVersion.empty () && this->m_updateBlinking++ % 80 < 40)
@@ -2558,7 +2558,8 @@ CEvent::DrawButtons ()
       gettext (" - SDL_kitchensink (MIT)"),
       gettext (" - SDL2, SDL2_image and SDL2_mixer (zlib license)"),
       gettext (" - zlib (own license)"),
-      gettext ("All licenses are available under share/doc/planetblupi/copyright")};
+      gettext (
+        "All licenses are available under share/doc/planetblupi/copyright")};
 
     for (size_t i = 0; i < countof (libs); ++i)
     {

@@ -10,12 +10,12 @@ BEGIN
     BEGIN
       VALUE "CompanyName", "Epsitec SA"
       VALUE "FileDescription", "@PB_DESCRIPTION@"
-      VALUE "FileVersion", "@PB_VERSION_MAJOR@.@PB_VERSION_MINOR@.@PB_VERSION_PATCH@"
+      VALUE "FileVersion", "@PB_VERSION_MAJOR@.@PB_VERSION_MINOR@.@PB_VERSION_PATCH@@PB_VERSION_EXTRA@"
       VALUE "InternalName", "@PB_PACKAGE_NAME@"
       VALUE "LegalCopyright", "Epsitec SA, Daniel Roux and Mathieu Schroeter"
       VALUE "OriginalFilename", "@PB_PACKAGE_NAME@.exe"
       VALUE "ProductName", "@PB_PRODUCT_NAME@"
-      VALUE "ProductVersion", "@PB_VERSION_MAJOR@.@PB_VERSION_MINOR@.@PB_VERSION_PATCH@"
+      VALUE "ProductVersion", "@PB_VERSION_MAJOR@.@PB_VERSION_MINOR@.@PB_VERSION_PATCH@@PB_VERSION_EXTRA@"
     END
   END
   BLOCK "VarFileInfo"
