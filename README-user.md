@@ -1,5 +1,5 @@
 
-# Planet Blupi (v1.9)
+# Planet Blupi (v1.9.x)
 
 This version contains over 30 missions and a built in editor, which enables you
 to construct your own missions.
@@ -19,9 +19,9 @@ What ever your screen resolution is, the game "Planet Blupi" always runs in
 640x480 on full screen. If your screen does not support this mode, you may run
 the game by default in windowed mode. Proceed as follows:
 
-- 1. Quit the game "Planet Blupi".
-- 2. Open the file  "<INSTALLDIR>/data/config.json" with a text editor.
-- 3. Replace `fullscreen: true` by "fullscreen: false".
+- 1. Quit the game _Planet Blupi_.
+- 2. Open the file `<INSTALLDIR>/data/config.json` with a text editor.
+- 3. Replace `fullscreen: true` by `fullscreen: false`.
 - 4. Save and restart the game.
 
 In this mode the screen is no more scrolled if the mouse touches the window
@@ -49,21 +49,23 @@ useful operation on the selected spot.
 
 | Keys         | Description |
 | ------------ | ----------- |
-| <kbd>Arrows</kbd>       | Scrolls the visible part of the scene.            |
-| <kbd>Spacebar</kbd>     | Shows or hides items.                             |
-| <kbd>F1</kbd>           | Describes the goal without interrupting the game. |
-| <kbd>F5</kbd>           | Normal speed (x1).                                |
-| <kbd>F6</kbd>           | Double speed (x2).                                |
-| <kbd>Home</kbd>         | Returns to place of mission departure             |
-| <kbd>Ctrl</kbd>+<kbd>F9</kbd>..<kbd>F12</kbd> | Bookmarks a spot.           |
-| <kbd>F9</kbd>..<kbd>F12</kbd> | Returns to the corresponding bookmarked spot. |
-| <kbd>Pause</kbd>        | Temporarily suspends the game.                    |
+| <kbd>Arrows</kbd>                             | Scrolls the visible part of the scene.            |
+| <kbd>Spacebar</kbd>                           | Shows or hides items.                             |
+| <kbd>F1</kbd>                                 | Describes the goal without interrupting the game. |
+| <kbd>F5</kbd>                                 | Normal speed (x1).                                |
+| <kbd>F6</kbd>                                 | Double speed (x2).                                |
+| <kbd>Home</kbd>                               | Returns to place of mission departure             |
+| <kbd>Ctrl</kbd>+<kbd>F9</kbd>..<kbd>F12</kbd> | Bookmarks a spot.                                 |
+| <kbd>F9</kbd>..<kbd>F12</kbd>                 | Returns to the corresponding bookmarked spot.     |
+| <kbd>Pause</kbd>                              | Temporarily suspends the game.                    |
 
 When you switch to an other application, the game is automatically paused.
 
-## EPSITEC
+## Epsitec SA
 
-Planet Blupi is an original creation of EPSITEC SA.
+_Planet Blupi_ is an original creation of [Epsitec SA][1].
 
-http://www.blupi.org
+http://www.blupi.org  
 info@blupi.org
+
+[1]: http://www.epsitec.ch
