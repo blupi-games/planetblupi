@@ -240,7 +240,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     set (CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\resources\\\\nsis\\\\installer.bmp")
     set (CPACK_NSIS_COMPRESSOR "/SOLID lzma")
     set (CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\planetblupi.exe")
-    set (CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\www.blupi.org")
+    set (CPACK_NSIS_URL_INFO_ABOUT "http://www.blupi.org")
     set (CPACK_NSIS_MUI_FINISHPAGE_RUN "planetblupi")
     include (CPack)
     add_custom_command (TARGET planetblupi
