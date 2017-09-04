@@ -88,6 +88,7 @@ if (MINGW)
   enable_language (RC)
   set (CMAKE_RC_COMPILE_OBJECT "<CMAKE_RC_COMPILER> <FLAGS> -O coff <DEFINES> -i <SOURCE> -o <OBJECT>")
 
+  # Remove cmd window when executing planetblupi
   set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -mwindows")
 endif (MINGW)
 
@@ -179,7 +180,9 @@ foreach (file ${_gmoFiles})
   add_dependencies (planetblupi "po-${_lang}")
 endforeach (file)
 
+##############
 # Installation
+##############
 
 install (TARGETS planetblupi
   RUNTIME DESTINATION bin
