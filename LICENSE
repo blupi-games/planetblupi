@@ -1,3 +1,22 @@
+
+This game is linked on some static libraries:
+
+ argagg             MIT
+ FFmpeg             LGPLv2.1
+ GNU/gettext        GPLv3
+ libcurl            MIT/X derivate
+ GNU/libiconv       GPLv3
+ libpng             own license
+ SDL_kitchensink    MIT
+ SDL2               zlib license
+ SDL2_image         zlib license
+ SDL2_mixer         zlib license
+ zlib               own license
+
+
+Planet Blupi is licensed under GPLv3, see LICENSE.all/copyright for details.
+
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
