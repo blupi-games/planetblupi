@@ -1,5 +1,5 @@
 [Desktop Entry]
-Version=1.1
+Version=1.0
 Type=Application
 Name=@PB_PRODUCT_NAME@
 GenericName=Video Game
@@ -7,4 +7,4 @@ Comment=@CPACK_PACKAGE_DESCRIPTION_SUMMARY@
 Exec=@APPIMAGE_EXEC@
 StartupWMClass=@APPIMAGE_EXEC_WM@
 Icon=@APPIMAGE_ICON_REF@
-Categories=Game
+Categories=Game;
