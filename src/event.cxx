@@ -5315,6 +5315,11 @@ CEvent::TreatEventBase (const SDL_Event & event)
         g_enableRecorder && m_phase == EV_PHASE_PLAY && !m_bDemoPlay &&
         m_bStartRecording)
         DemoRecStop (); // stop recording
+      else if (m_phase == EV_PHASE_PLAY && m_bDemoPlay)
+      {
+        DemoPlayStop ();
+        return true;
+      }
       break;
     case SDLK_F9:
       if (m_phase == EV_PHASE_PLAY)
