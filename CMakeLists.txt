@@ -249,7 +249,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     include (CPack)
 
     find_program (SIGNTOOL_EXECUTABLE signtool)
-    if (SIGNTOOL_EXECUTABLE)
+    if (SIGN_APP AND SIGNTOOL_EXECUTABLE)
       add_custom_command (TARGET planetblupi
                           POST_BUILD
                           COMMAND ${SIGNTOOL_EXECUTABLE}
@@ -261,7 +261,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
                         POST_BUILD
                         COMMAND make package)
 
-    if (SIGNTOOL_EXECUTABLE)
+    if (SIGN_APP AND SIGNTOOL_EXECUTABLE)
       add_custom_command (TARGET planetblupi
                           POST_BUILD
                           COMMAND ${SIGNTOOL_EXECUTABLE}
