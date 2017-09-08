@@ -114,6 +114,7 @@ pkg_search_module (SWRESAMPLE REQUIRED libswresample)
 
 if (UNIX AND NOT APPLE)
   pkg_search_module (ALSA REQUIRED alsa)
+  pkg_search_module (PULSE REQUIRED libpulse)
 endif ()
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCURL_STATICLIB")
@@ -148,7 +149,11 @@ set (planetblupi_DEPS
 )
 
 if (UNIX AND NOT APPLE)
-  list (APPEND planetblupi_DEPS ${ALSA_STATIC_LIBRARIES})
+  list (APPEND planetblupi_DEPS
+    ${ALSA_STATIC_LIBRARIES}
+    ${PULSE_STATIC_LIBRARIES}
+  )
+  set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L${CMAKE_INSTALL_PREFIX}/lib/pulseaudio")
 endif ()
 
 target_link_libraries (planetblupi PUBLIC ${planetblupi_DEPS})
