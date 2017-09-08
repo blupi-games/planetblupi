@@ -113,7 +113,7 @@ pkg_search_module (SWSCALE REQUIRED libswscale)
 pkg_search_module (SWRESAMPLE REQUIRED libswresample)
 
 if (UNIX AND NOT APPLE)
-  pkg_search_module (ALSA_REQUIRED alsa)
+  pkg_search_module (ALSA REQUIRED alsa)
 endif ()
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCURL_STATICLIB")
