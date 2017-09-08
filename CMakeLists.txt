@@ -112,6 +112,10 @@ pkg_search_module (AVUTIL REQUIRED libavutil)
 pkg_search_module (SWSCALE REQUIRED libswscale)
 pkg_search_module (SWRESAMPLE REQUIRED libswresample)
 
+if (UNIX AND NOT APPLE)
+  pkg_search_module (ALSA_REQUIRED alsa)
+endif ()
+
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCURL_STATICLIB")
 
 ##################
@@ -127,7 +131,7 @@ set_property (TARGET SDL_kitchensink PROPERTY IMPORTED_LOCATION ${CMAKE_INSTALL_
 
 add_executable (planetblupi ${sources})
 
-target_link_libraries (planetblupi PUBLIC
+set (planetblupi_DEPS
   ${Intl_LIBRARIES}
   ${Iconv_LIBRARIES}
   ${SDL2_STATIC_LIBRARIES}
@@ -142,6 +146,12 @@ target_link_libraries (planetblupi PUBLIC
   ${SWSCALE_STATIC_LIBRARIES}
   ${SWRESAMPLE_STATIC_LIBRARIES}
 )
+
+if (UNIX AND NOT APPLE)
+  list (APPEND planetblupi_DEPS ${ALSA_STATIC_LIBRARIES})
+endif ()
+
+target_link_libraries (planetblupi PUBLIC ${planetblupi_DEPS})
 
 ##########
 ## GetText
