@@ -238,7 +238,8 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     set (CMAKE_PACKAGED_OUTPUT_PREFIX ${CMAKE_INSTALL_PREFIX})
     APPIMAGE_PACKAGE (planetblupi ${PB_PACKAGE_NAME} ${PB_PRODUCT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "${CMAKE_BINARY_DIR}/share" "" "" "blupi")
   elseif (MINGW)
-    set (CPACK_PACKAGE_FILE_NAME "${PB_PACKAGE_NAME}-${PB_VERSION_MAJOR}.${PB_VERSION_MINOR}.${PB_VERSION_PATCH}${PB_VERSION_EXTRA}")
+    set (INSTALLER_FILE_NAME "${PB_PACKAGE_NAME}-${PB_VERSION_MAJOR}.${PB_VERSION_MINOR}.${PB_VERSION_PATCH}${PB_VERSION_EXTRA}")
+    set (CPACK_PACKAGE_FILE_NAME "${INSTALLER_FILE_NAME}")
     set (CPACK_GENERATOR "NSIS64")
     set (CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}\\\\resources\\\\nsis\\\\installer.bmp")
     set (CPACK_NSIS_COMPRESSOR "/SOLID lzma")
@@ -246,9 +247,27 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     set (CPACK_NSIS_URL_INFO_ABOUT "http://www.blupi.org")
     set (CPACK_NSIS_MUI_FINISHPAGE_RUN "planetblupi")
     include (CPack)
+
+    find_program (SIGNTOOL_EXECUTABLE signtool)
+    if (SIGNTOOL_EXECUTABLE)
+      add_custom_command (TARGET planetblupi
+                          POST_BUILD
+                          COMMAND ${SIGNTOOL_EXECUTABLE}
+                            sign -a -fd sha1 -t http://time.certum.pl -v
+                            "${CMAKE_BINARY_DIR}/planetblupi.exe")
+    endif ()
+
     add_custom_command (TARGET planetblupi
                         POST_BUILD
                         COMMAND make package)
+
+    if (SIGNTOOL_EXECUTABLE)
+      add_custom_command (TARGET planetblupi
+                          POST_BUILD
+                          COMMAND ${SIGNTOOL_EXECUTABLE}
+                            sign -a -fd sha1 -t http://time.certum.pl
+                            "${CMAKE_BINARY_DIR}/${INSTALLER_FILE_NAME}.exe")
+    endif ()
   elseif (APPLE)
     set (CPACK_GENERATOR "Bundle")
     set (CPACK_BUNDLE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/darwin/icon.icns")
