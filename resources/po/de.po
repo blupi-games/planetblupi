@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-28 22:07+0200\n"
-"PO-Revision-Date: 2017-08-28 22:15+0200\n"
+"POT-Creation-Date: 2017-09-09 09:13+0200\n"
+"PO-Revision-Date: 2017-09-09 09:13+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -33,11 +33,17 @@ msgstr " - SDL_kitchensink (MIT)"
 msgid " - argagg (MIT)"
 msgstr " - argagg (MIT)"
 
+msgid " - libasound (LGPLv2.1)"
+msgstr " - libasound (LGPLv2.1)"
+
 msgid " - libcurl (MIT/X derivate)"
 msgstr " - libcurl (MIT/X Derivatlizenz)"
 
 msgid " - libpng (own license)"
 msgstr " - libpng (Eigene Lizenz)"
+
+msgid " - libpulse (LGPLv2.1)"
+msgstr " - libpulse (LGPLv2.1)"
 
 msgid " - zlib (own license)"
 msgstr " - zlib (Eigene Lizenz)"

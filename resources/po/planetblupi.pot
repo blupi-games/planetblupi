@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-28 22:07+0200\n"
+"POT-Creation-Date: 2017-09-09 09:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -720,10 +720,16 @@ msgstr ""
 msgid " - GNU/gettext and GNU/libiconv (GPLv3)"
 msgstr ""
 
+msgid " - libasound (LGPLv2.1)"
+msgstr ""
+
 msgid " - libcurl (MIT/X derivate)"
 msgstr ""
 
 msgid " - libpng (own license)"
+msgstr ""
+
+msgid " - libpulse (LGPLv2.1)"
 msgstr ""
 
 msgid " - SDL_kitchensink (MIT)"
