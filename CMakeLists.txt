@@ -99,6 +99,7 @@ set (CMAKE_LIBRARY_PATH ${CMAKE_INSTALL_PREFIX}/lib)
 find_package (Intl REQUIRED)
 find_package (Iconv REQUIRED)
 find_package (Argagg REQUIRED)
+find_package (SDLKitchensink REQUIRED)
 
 find_package (PkgConfig REQUIRED)
 pkg_search_module (SDL2 REQUIRED sdl2)
@@ -120,13 +121,6 @@ endif ()
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCURL_STATICLIB")
 
-##################
-## SDL_kitchensink
-##################
-
-add_library (SDL_kitchensink STATIC IMPORTED)
-set_property (TARGET SDL_kitchensink PROPERTY IMPORTED_LOCATION ${CMAKE_INSTALL_PREFIX}/lib/libSDL_kitchensink_static.a)
-
 ###########################
 ## Main binary dependencies
 ###########################
@@ -140,7 +134,7 @@ set (planetblupi_DEPS
   ${SDL2_MIXER_STATIC_LIBRARIES}
   ${SDL2_IMAGE_STATIC_LIBRARIES}
   ${CURL_STATIC_LIBRARIES}
-  SDL_kitchensink
+  ${SDLKitchensink_STATIC_LIBRARIES}
   ${PNG_STATIC_LIBRARIES}
   ${AVCODEC_STATIC_LIBRARIES}
   ${AVFORMAT_STATIC_LIBRARIES}
