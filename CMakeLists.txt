@@ -98,6 +98,7 @@ set (CMAKE_INCLUDE_PATH ${CMAKE_INSTALL_PREFIX}/include)
 set (CMAKE_LIBRARY_PATH ${CMAKE_INSTALL_PREFIX}/lib)
 find_package (Intl REQUIRED)
 find_package (Iconv REQUIRED)
+find_package (Argagg REQUIRED)
 
 find_package (PkgConfig REQUIRED)
 pkg_search_module (SDL2 REQUIRED sdl2)
