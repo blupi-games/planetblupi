@@ -144,13 +144,10 @@ endif ()
 
 add_executable (planetblupi ${sources})
 
-set (planetblupi_DEPS
-  ${Intl_LIBRARIES}
-  ${Iconv_LIBRARIES}
-)
-
 if ("${STATIC_BUILD}")
-  list (APPEND planetblupi_DEPS
+  set (planetblupi_DEPS
+    ${Intl_LIBRARIES}
+    ${Iconv_LIBRARIES}
     ${SDL2_STATIC_LIBRARIES}
     ${SDL2_MIXER_STATIC_LIBRARIES}
     ${SDL2_IMAGE_STATIC_LIBRARIES}
@@ -172,7 +169,7 @@ if ("${STATIC_BUILD}")
     set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L${CMAKE_INSTALL_PREFIX}/lib/pulseaudio")
   endif ()
 else ()
-  list (APPEND planetblupi_DEPS
+  set (planetblupi_DEPS
     ${SDL2_LIBRARIES}
     ${SDL2_MIXER_LIBRARIES}
     ${SDL2_IMAGE_LIBRARIES}
