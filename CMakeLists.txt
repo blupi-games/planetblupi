@@ -98,8 +98,10 @@ endif (MINGW)
 
 # Dependencies
 
-set (CMAKE_INCLUDE_PATH ${CMAKE_INSTALL_PREFIX}/include)
-set (CMAKE_LIBRARY_PATH ${CMAKE_INSTALL_PREFIX}/lib)
+if ("${STATIC_BUILD}")
+  set (CMAKE_INCLUDE_PATH ${CMAKE_INSTALL_PREFIX}/include)
+  set (CMAKE_LIBRARY_PATH ${CMAKE_INSTALL_PREFIX}/lib)
+endif ()
 
 find_package (Intl REQUIRED)
 include_directories (${Intl_INCLUDE_DIRS})
