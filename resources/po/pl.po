@@ -1,0 +1,847 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-09 09:13+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: TerranovaTeam <contact@colobot.info>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+
+msgid " - FFmpeg (LGPLv2.1)"
+msgstr ""
+
+msgid " - GNU/gettext and GNU/libiconv (GPLv3)"
+msgstr ""
+
+msgid " - SDL2, SDL2_image and SDL2_mixer (zlib license)"
+msgstr ""
+
+msgid " - SDL_kitchensink (MIT)"
+msgstr ""
+
+msgid " - argagg (MIT)"
+msgstr ""
+
+msgid " - libasound (LGPLv2.1)"
+msgstr ""
+
+msgid " - libcurl (MIT/X derivate)"
+msgstr ""
+
+msgid " - libpng (own license)"
+msgstr ""
+
+msgid " - libpulse (LGPLv2.1)"
+msgstr ""
+
+msgid " - zlib (own license)"
+msgstr ""
+
+msgid "(isolated tower)"
+msgstr ""
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Build a bridge"
+msgstr ""
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Make a boat"
+msgstr ""
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Make a palisade"
+msgstr ""
+
+msgid ""
+"1: Extract iron\n"
+"2: Make a Jeep"
+msgstr ""
+
+msgid ""
+"1: Extract iron\n"
+"2: Make a bomb"
+msgstr ""
+
+msgid ""
+"1: Extract iron\n"
+"2: Make an armour"
+msgstr ""
+
+msgid ""
+"1: Grow tomatoes\n"
+"2: Eat"
+msgstr ""
+
+msgid ""
+"1: Make a bunch\n"
+"2: Transform"
+msgstr ""
+
+msgid ""
+"1: Take\n"
+"2: Build a bridge"
+msgstr ""
+
+msgid ""
+"1: Take\n"
+"2: Build palisade"
+msgstr ""
+
+msgid ""
+"1: Take\n"
+"2: Make a boat"
+msgstr ""
+
+msgid ""
+"1: Take\n"
+"2: Transform"
+msgstr ""
+
+msgid ""
+"1|Drop planks on striped \n"
+"1|paving stones."
+msgstr ""
+
+msgid ""
+"1|Drop platinium on striped \n"
+"1|paving stones."
+msgstr ""
+
+msgid ""
+"1|Drop tomatoes on striped \n"
+"1|paving stones."
+msgstr ""
+
+msgid ""
+"1|Each Blupi in\n"
+"1|his house."
+msgstr ""
+
+msgid ""
+"1|Go on striped\n"
+"1|paving stones."
+msgstr ""
+
+msgid "1|Goal :"
+msgstr ""
+
+msgid ""
+"1|Kill all\n"
+"1|enemies !"
+msgstr ""
+
+msgid ""
+"1|Resist until\n"
+"1|fire extinction ..."
+msgstr ""
+
+#, c-format
+msgid ""
+"1|The Blupi population must\n"
+"1|be of at least %d Blupi."
+msgstr ""
+
+msgid ""
+"1|The robot must reach\n"
+"1|the striped paving stones."
+msgstr ""
+
+msgid "All licenses are available under share/doc/planetblupi/copyright"
+msgstr ""
+
+msgid "Already two teleporters"
+msgstr ""
+
+msgid "Another mistake..."
+msgstr ""
+
+msgid "Armour"
+msgstr ""
+
+msgid "Available buttons"
+msgstr ""
+
+msgid "Bang, failed again !"
+msgstr ""
+
+msgid "Bank"
+msgstr ""
+
+msgid "Blow up"
+msgstr ""
+
+msgid "Blupi"
+msgstr ""
+
+msgid "Blupi in house"
+msgstr ""
+
+msgid "Blupi on striped paving stones"
+msgstr ""
+
+msgid "Blupi's energy"
+msgstr ""
+
+msgid "Blupi's house"
+msgstr ""
+
+msgid "Boat"
+msgstr ""
+
+msgid "Bouncing bomb"
+msgstr ""
+
+msgid "Bridge"
+msgstr ""
+
+msgid "Bridge finished"
+msgstr ""
+
+msgid "Buildings"
+msgstr ""
+
+msgid "Bulldozer"
+msgstr ""
+
+msgid "Bunch of flowers"
+msgstr ""
+
+msgid "Burnt ground"
+msgstr ""
+
+msgid "Cancel last operation"
+msgstr ""
+
+msgid "Carve a rock"
+msgstr ""
+
+msgid "Carve rocks"
+msgstr ""
+
+msgid ""
+"Change the\n"
+"window size"
+msgstr ""
+
+msgid "Construct this game"
+msgstr ""
+
+msgid "Construction"
+msgstr ""
+
+msgid "Construction number"
+msgstr ""
+
+msgid "Continue this game"
+msgstr ""
+
+msgid "Cut down a tree"
+msgstr ""
+
+msgid "Cut down trees"
+msgstr ""
+
+msgid "Decorative plants"
+msgstr ""
+
+msgid "Delete figure"
+msgstr ""
+
+msgid "Delete fire"
+msgstr ""
+
+msgid "Delete item"
+msgstr ""
+
+msgid "Demo"
+msgstr ""
+
+msgid "Desert"
+msgstr ""
+
+msgid "Difficult"
+msgstr ""
+
+msgid "Drink"
+msgstr ""
+
+msgid "Drop"
+msgstr ""
+
+msgid "Dynamite"
+msgstr ""
+
+msgid "E"
+msgstr ""
+
+msgid "Easy"
+msgstr ""
+
+msgid "Eat"
+msgstr ""
+
+msgid "Eggs"
+msgstr ""
+
+msgid "Electrocutor"
+msgstr ""
+
+msgid "Ending conditions"
+msgstr ""
+
+msgid "Enemy barrier"
+msgstr ""
+
+msgid "Enemy buildings"
+msgstr ""
+
+msgid "Enemy construction"
+msgstr ""
+
+msgid "Enemy ground"
+msgstr ""
+
+msgid "Enemy rocket"
+msgstr ""
+
+msgid "Excellent..."
+msgstr ""
+
+msgid "Extract iron"
+msgstr ""
+
+msgid "Faster"
+msgstr ""
+
+msgid "Finish"
+msgstr ""
+
+msgid "Fire"
+msgstr ""
+
+msgid "Fire out"
+msgstr ""
+
+msgid "Flag"
+msgstr ""
+
+msgid "Flowers"
+msgstr ""
+
+msgid "Forest"
+msgstr ""
+
+msgid "Forest under snow"
+msgstr ""
+
+msgid "Fullscreen"
+msgstr ""
+
+msgid "Game paused"
+msgstr ""
+
+msgid "Garden shed"
+msgstr ""
+
+msgid ""
+"Global game\n"
+"speed"
+msgstr ""
+
+msgid "Global settings"
+msgstr ""
+
+msgid "Go"
+msgstr ""
+
+msgid "Grow tomatoes"
+msgstr ""
+
+msgid "Help"
+msgstr ""
+
+msgid "Help number"
+msgstr ""
+
+msgid "Helper robot"
+msgstr ""
+
+msgid "Ice"
+msgstr ""
+
+msgid "Impossible"
+msgstr ""
+
+#, c-format
+msgid "Impossible to win if less than %d Blupi"
+msgstr ""
+
+msgid "Inadequate ground"
+msgstr ""
+
+msgid "Increase volume"
+msgstr ""
+
+msgid "Increase window size"
+msgstr ""
+
+msgid "Incubator"
+msgstr ""
+
+msgid "Incubator or teleporter"
+msgstr ""
+
+msgid "Inflammable ground"
+msgstr ""
+
+msgid "Insert CD-Rom Planet Blupi and wait a few seconds..."
+msgstr ""
+
+msgid ""
+"Interface language\n"
+"and sounds"
+msgstr ""
+
+msgid "Interrupt"
+msgstr ""
+
+msgid "Iron"
+msgstr ""
+
+msgid "Items"
+msgstr ""
+
+msgid "Jeep"
+msgstr ""
+
+msgid "Laboratory"
+msgstr ""
+
+msgid "Last construction resolved !"
+msgstr ""
+
+msgid "Leave Jeep"
+msgstr ""
+
+#, c-format
+msgid "Lost if less than %d Blupi"
+msgstr ""
+
+msgid "Make a Jeep"
+msgstr ""
+
+msgid "Make a helper robot"
+msgstr ""
+
+msgid "Make a time bomb"
+msgstr ""
+
+msgid "Make armour"
+msgstr ""
+
+msgid "Make bunch of flowers"
+msgstr ""
+
+msgid "Make bunches of flowers"
+msgstr ""
+
+msgid "Master robot"
+msgstr ""
+
+msgid "Medical potion"
+msgstr ""
+
+msgid "Mine"
+msgstr ""
+
+msgid "Miscellaneous ground"
+msgstr ""
+
+msgid "Mission number"
+msgstr ""
+
+msgid "Mission over..."
+msgstr ""
+
+msgid "Missions"
+msgstr ""
+
+msgid ""
+"Music\n"
+"volume"
+msgstr ""
+
+msgid "Music choice"
+msgstr ""
+
+msgid "Music number 1"
+msgstr ""
+
+msgid "Music number 2"
+msgstr ""
+
+msgid "Music number 3"
+msgstr ""
+
+msgid "Music number 4"
+msgstr ""
+
+msgid "Music number 5"
+msgstr ""
+
+msgid "Music number 6"
+msgstr ""
+
+msgid "Music number 7"
+msgstr ""
+
+msgid "Music number 8"
+msgstr ""
+
+msgid "Music number 9"
+msgstr ""
+
+msgid "N"
+msgstr ""
+
+#, c-format
+msgid "New version available for download on www.blupi.org (v%s)"
+msgstr ""
+
+msgid "Next game"
+msgstr ""
+
+msgid "Next language"
+msgstr ""
+
+msgid "Next page"
+msgstr ""
+
+msgid "No"
+msgstr ""
+
+msgid "No more enemies"
+msgstr ""
+
+msgid "No music"
+msgstr ""
+
+msgid "No video"
+msgstr ""
+
+msgid "No, not that way !"
+msgstr ""
+
+msgid "No, wrong way ..."
+msgstr ""
+
+msgid "None"
+msgstr ""
+
+msgid "Normal ground"
+msgstr ""
+
+msgid "Not enough energy"
+msgstr ""
+
+msgid "Now go on mission."
+msgstr ""
+
+msgid "Occupied ground"
+msgstr ""
+
+msgid "Open another game"
+msgstr ""
+
+msgid "Opposite bank no good"
+msgstr ""
+
+msgid "Palisade"
+msgstr ""
+
+msgid "Paving stones"
+msgstr ""
+
+msgid "Planet Blupi"
+msgstr ""
+
+msgid "Planet Blupi -- stop"
+msgstr ""
+
+msgid "Planks"
+msgstr ""
+
+msgid "Planks on striped paving stones"
+msgstr ""
+
+msgid "Platinium"
+msgstr ""
+
+msgid "Platinium on striped paving stones"
+msgstr ""
+
+msgid "Play this game"
+msgstr ""
+
+msgid "Poison"
+msgstr ""
+
+msgid "Prairie"
+msgstr ""
+
+msgid "Previous game"
+msgstr ""
+
+msgid "Previous language"
+msgstr ""
+
+msgid "Previous page"
+msgstr ""
+
+msgid "Prospect for iron"
+msgstr ""
+
+msgid "Protection tower"
+msgstr ""
+
+msgid "Quit"
+msgstr ""
+
+msgid "Quit Planet Blupi"
+msgstr ""
+
+msgid "Quit construction"
+msgstr ""
+
+msgid "Quit this game"
+msgstr ""
+
+msgid "REC"
+msgstr ""
+
+msgid "Reduce volume"
+msgstr ""
+
+msgid "Reduce window size"
+msgstr ""
+
+msgid "Repeat"
+msgstr ""
+
+msgid "Restart this game"
+msgstr ""
+
+msgid "Robot on striped paving stones"
+msgstr ""
+
+msgid "Rocks"
+msgstr ""
+
+msgid "S"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Save this game"
+msgstr ""
+
+msgid "Scenery choice"
+msgstr ""
+
+msgid ""
+"Scroll speed\n"
+"with mouse"
+msgstr ""
+
+msgid ""
+"Select the\n"
+"window mode"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
+
+msgid "Show videos"
+msgstr ""
+
+msgid "Sick Blupi"
+msgstr ""
+
+msgid "Skill level"
+msgstr ""
+
+msgid "Slower"
+msgstr ""
+
+msgid ""
+"Sound effect\n"
+"volume"
+msgstr ""
+
+msgid "Special pavings"
+msgstr ""
+
+msgid "Spider"
+msgstr ""
+
+msgid "Starting fire"
+msgstr ""
+
+msgid "Sterile ground"
+msgstr ""
+
+msgid "Sticky trap"
+msgstr ""
+
+msgid "Stones"
+msgstr ""
+
+msgid "Stop"
+msgstr ""
+
+msgid "Striped paving stones"
+msgstr ""
+
+msgid "Take"
+msgstr ""
+
+msgid "Teleporter"
+msgstr ""
+
+msgid ""
+"This game is an original creation of Epsitec SA, CH-1400 Yverdon-les-Bains"
+msgstr ""
+
+msgid "This game uses statically linked free and open-source libraries:"
+msgstr ""
+
+msgid "Time bomb"
+msgstr ""
+
+msgid "Tired Blupi"
+msgstr ""
+
+msgid "Tomatoes"
+msgstr ""
+
+msgid "Tomatoes on striped paving stones"
+msgstr ""
+
+msgid "Too close to water"
+msgstr ""
+
+msgid "Training"
+msgstr ""
+
+msgid "Training number"
+msgstr ""
+
+msgid "Transform"
+msgstr ""
+
+msgid "Transport"
+msgstr ""
+
+msgid "Trapped enemy"
+msgstr ""
+
+msgid "Tree"
+msgstr ""
+
+msgid "Tree trunks"
+msgstr ""
+
+msgid "Version"
+msgstr ""
+
+msgid "Very good, success on all missions !"
+msgstr ""
+
+msgid "Very good."
+msgstr ""
+
+msgid ""
+"Video\n"
+"sequences"
+msgstr ""
+
+msgid "Virus"
+msgstr ""
+
+msgid "W"
+msgstr ""
+
+msgid "Wall"
+msgstr ""
+
+msgid "Wall or palisade"
+msgstr ""
+
+msgid "Water"
+msgstr ""
+
+msgid "We hope you have had as much fun playing the game as we had making it !"
+msgstr ""
+
+msgid "Weapons"
+msgstr ""
+
+msgid "Well done !"
+msgstr ""
+
+msgid "Windowed"
+msgstr ""
+
+msgid "Work done"
+msgstr ""
+
+msgid "Workshop"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "Yes, great ..."
+msgstr ""
+
+msgid "You have failed, try again..."
+msgstr ""
+
+msgid "You have played Planet Blupi."
+msgstr ""
+
+#, c-format
+msgid "construction %d, time %d"
+msgstr ""
+
+msgid "en"
+msgstr "pl"
+
+msgid "free slot"
+msgstr ""
+
+msgid "http://www.blupi.org            info@blupi.org"
+msgstr ""
+
+#, c-format
+msgid "mission %d, time %d"
+msgstr ""
+
+#, c-format
+msgid "training %d, time %d"
+msgstr ""

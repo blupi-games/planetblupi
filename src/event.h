@@ -81,6 +81,7 @@ enum class Language {
   en_US = 1,
   fr    = 2,
   de    = 3,
+  pl    = 4,
 };
 
 class CEvent
