@@ -96,10 +96,18 @@ endif (MINGW)
 
 set (CMAKE_INCLUDE_PATH ${CMAKE_INSTALL_PREFIX}/include)
 set (CMAKE_LIBRARY_PATH ${CMAKE_INSTALL_PREFIX}/lib)
+
 find_package (Intl REQUIRED)
+include_directories (${Intl_INCLUDE_DIRS})
+
 find_package (Iconv REQUIRED)
+include_directories (${Iconv_INCLUDE_DIRS})
+
 find_package (Argagg REQUIRED)
+include_directories (${Argagg_INCLUDE_DIRS})
+
 find_package (SDLKitchensink REQUIRED)
+include_directories (${SDLKitchensink_INCLUDE_DIRS})
 
 find_package (PkgConfig REQUIRED)
 pkg_search_module (SDL2 REQUIRED sdl2)
