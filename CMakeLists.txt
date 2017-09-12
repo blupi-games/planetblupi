@@ -145,8 +145,6 @@ set (planetblupi_DEPS
 
 if ("${STATIC_BUILD}")
   list (APPEND planetblupi_DEPS
-    ${Intl_LIBRARIES}
-    ${Iconv_LIBRARIES}
     ${SDL2_STATIC_LIBRARIES}
     ${SDL2_MIXER_STATIC_LIBRARIES}
     ${SDL2_IMAGE_STATIC_LIBRARIES}
