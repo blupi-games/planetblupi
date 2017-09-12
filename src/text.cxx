@@ -22,13 +22,14 @@
 #include <stdlib.h>
 
 #include "def.h"
+#include "misc.h"
 #include "pixmap.h"
 #include "text.h"
 
 /**
  * \brief Return the character offset for the sprite.
  *
- * \param[in] c - The character (incremented if 0xC3 UTF-8).
+ * \param[in] c - The character (incremented if 0xC3 or 0xC4 or 0xC5 UTF-8).
  * \returns the offset.
  */
 static Sint32
@@ -43,13 +44,35 @@ GetOffset (const char *& c)
     0xAE, 0xB4, 0xB9, 0xBB, 0xA4, 0xB6, 0xA7, // UTF-8
   };
 
+  static const unsigned char table_accents_pl[] = {
+    /* Polish */
+    /*    ń     *     ó     ę     *     ć     *     *             */
+    0x84, 0xFF, 0xB3, 0x99, 0xFF, 0x87, 0xFF, 0xFF, // UTF-8
+    /*    ź     ż     *     *     ą     ł     ś                   */
+    0xBA, 0xBC, 0xFF, 0xFF, 0x85, 0x82, 0x9B, // UTF-8
+  };
+
   if (static_cast<unsigned char> (*c) == 0xC3)
     c++;
+  if (static_cast<unsigned char> (*c) == 0xC4)
+    c++;
+  if (static_cast<unsigned char> (*c) == 0xC5)
+    c++;
 
-  for (unsigned int i = 0; i < countof (table_accents); ++i)
+  if(GetLocale() == "pl") {
+    for (unsigned int i = 0; i < countof (table_accents_pl); ++i)
+    {
+      if ((unsigned char) *c == table_accents_pl[i])
+        return 15 + i;
+    }
+  }
+  else
   {
-    if ((unsigned char) *c == table_accents[i])
-      return 15 + i;
+    for (unsigned int i = 0; i < countof (table_accents); ++i)
+    {
+      if ((unsigned char) *c == table_accents[i])
+        return 15 + i;
+    }
   }
   if (*c < 0)
     return 1; // square

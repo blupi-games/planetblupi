@@ -833,7 +833,10 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = DIMTEXTY * 8 * 3;
   iconDim.x  = DIMTEXTX;
   iconDim.y  = DIMTEXTY;
-  if (!g_pPixmap->Cache (CHTEXT, "image/text.png", totalDim, iconDim))
+  std::string text_filename = "image/text.png";
+  if (GetLocale() == "pl")
+    text_filename = "image/text_pl.png"; // TODO: Merge into one texture, or use TTF fonts instead?
+  if (!g_pPixmap->Cache (CHTEXT, text_filename, totalDim, iconDim))
   {
     InitFail ("Cache text.png");
     return EXIT_FAILURE;
@@ -843,7 +846,10 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = DIMLITTLEY * 8;
   iconDim.x  = DIMLITTLEX;
   iconDim.y  = DIMLITTLEY;
-  if (!g_pPixmap->Cache (CHLITTLE, "image/little.png", totalDim, iconDim))
+  std::string little_filename = "image/little.png";
+  if (GetLocale() == "pl")
+    little_filename = "image/little_pl.png"; // TODO: Merge into one texture, or use TTF fonts instead?
+  if (!g_pPixmap->Cache (CHLITTLE, little_filename, totalDim, iconDim))
   {
     InitFail ("Cache little.png");
     return EXIT_FAILURE;

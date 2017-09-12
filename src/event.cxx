@@ -3702,6 +3702,31 @@ CEvent::SetLanguage (Language lang)
   SDL_SetWindowTitle (g_window, gettext ("Planet Blupi"));
 
   m_pSound->CacheAll ();
+
+  Point totalDim, iconDim;
+  totalDim.x = DIMTEXTX * 16;
+  totalDim.y = DIMTEXTY * 8 * 3;
+  iconDim.x  = DIMTEXTX;
+  iconDim.y  = DIMTEXTY;
+  std::string text_filename = "image/text.png";
+  if (GetLocale() == "pl")
+    text_filename = "image/text_pl.png";
+  if (!m_pPixmap->Cache (CHTEXT, text_filename, totalDim, iconDim))
+  {
+    printf ("Error (Cache text.png)");
+  }
+
+  totalDim.x = DIMLITTLEX * 16;
+  totalDim.y = DIMLITTLEY * 8;
+  iconDim.x  = DIMLITTLEX;
+  iconDim.y  = DIMLITTLEY;
+  std::string little_filename = "image/little.png";
+  if (GetLocale() == "pl")
+    little_filename = "image/little_pl.png";
+  if (!m_pPixmap->Cache (CHLITTLE, little_filename, totalDim, iconDim))
+  {
+    printf ("Error (Cache little.png)");
+  }
 }
 
 // Clic dans un bouton.
