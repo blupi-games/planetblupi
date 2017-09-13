@@ -80,5 +80,3 @@ protected:
   Sint32                   m_lastMidiVolume;
   Sint32                   m_nbSuspendSkip;
 };
-
-/////////////////////////////////////////////////////////////////////////////
