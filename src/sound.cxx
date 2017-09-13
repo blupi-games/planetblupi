@@ -28,11 +28,14 @@
 // Stops all sounds.
 
 bool
-CSound::StopAllSounds (bool immediat)
+CSound::StopAllSounds (bool immediat, const std::set<Sint32> * except)
 {
   for (Sint32 i = 0; i < MAXSOUND; i++)
   {
     if (!m_lpSDL[i])
+      continue;
+
+    if (except && except->find (i) != except->end ())
       continue;
 
     if (Mix_Playing (i + 1) == SDL_TRUE)

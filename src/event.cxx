@@ -20,6 +20,7 @@
 
 #include <assert.h>
 #include <ctime>
+#include <set>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unordered_map>
@@ -3031,7 +3032,10 @@ CEvent::ChangePhase (Uint32 phase)
 
   // FIXME: pause is better if the game is not stop but just interrupted
   if (m_phase == EV_PHASE_PLAY && m_phase != phase)
-    m_pSound->StopAllSounds (false);
+  {
+    static const std::set<Sint32> except = {SOUND_WIN, SOUND_LOST};
+    m_pSound->StopAllSounds (false, &except);
+  }
 
   m_phase = phase; // change de phase
   m_index = index;
