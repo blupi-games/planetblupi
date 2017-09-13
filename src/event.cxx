@@ -1519,7 +1519,7 @@ CEvent::CEvent ()
 {
   Sint32 i;
 
-  m_bFullScreen     = g_bFullScreen;
+  m_bFullScreen     = false;
   m_WindowScale     = 1;
   m_exercice        = 0;
   m_mission         = 0;

@@ -627,14 +627,9 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
 
   // Create a window.
-  if (g_bFullScreen)
-    g_window = SDL_CreateWindow (
-      gettext ("Planet Blupi"), 0, 0, LXIMAGE, LYIMAGE,
-      SDL_WINDOW_FULLSCREEN | SDL_WINDOW_BORDERLESS | SDL_WINDOW_INPUT_GRABBED);
-  else
-    g_window = SDL_CreateWindow (
-      gettext ("Planet Blupi"), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-      LXIMAGE, LYIMAGE, 0);
+  g_window = SDL_CreateWindow (
+    gettext ("Planet Blupi"), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    LXIMAGE, LYIMAGE, 0);
 
   if (!g_window)
   {
