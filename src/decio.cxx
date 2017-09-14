@@ -120,7 +120,10 @@ CDecor::Write (Sint32 rank, bool bUser, Sint32 world, Sint32 time, Sint32 total)
     AddUserPath (filename);
   }
   else
-    filename = string_format (GetBaseDir () + "data/world%.3d.blp", rank);
+  {
+    filename = string_format ("data/world%.3d.blp", rank);
+    AddUserPath (filename);
+  }
 
   file = fopen (filename.c_str (), "wb");
   if (file == nullptr)
@@ -205,6 +208,11 @@ CDecor::Read (
   if (bUser)
   {
     filename = string_format ("data/user%.3d.blp", rank);
+    AddUserPath (filename);
+  }
+  else if (rank >= 200)
+  {
+    filename = string_format ("data/world%.3d.blp", rank);
     AddUserPath (filename);
   }
   else
@@ -341,6 +349,11 @@ CDecor::FileExist (
   if (bUser)
   {
     filename = string_format ("data/user%.3d.blp", rank);
+    AddUserPath (filename);
+  }
+  else if (rank >= 200)
+  {
+    filename = string_format ("data/world%.3d.blp", rank);
     AddUserPath (filename);
   }
   else
