@@ -1259,62 +1259,68 @@ static Phase table[] =
             {
                 EV_BUTTON1,
                 0, {1, 40},
-                170 + 42 * 0, 30 + 42 * 0,
+                170 + 42 * 1, 30 + 42 * 0,
                 { translate ("No music") },
             },
             {
                 EV_BUTTON2,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 1,
+                170 + 42 * 0, 30 + 42 * 0,
                 { translate ("Music number 1") },
             },
             {
                 EV_BUTTON3,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 2,
+                170 + 42 * 0, 30 + 42 * 1,
                 { translate ("Music number 2") },
             },
             {
                 EV_BUTTON4,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 3,
+                170 + 42 * 0, 30 + 42 * 2,
                 { translate ("Music number 3") },
             },
             {
                 EV_BUTTON5,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 4,
+                170 + 42 * 0, 30 + 42 * 3,
                 { translate ("Music number 4") },
             },
             {
                 EV_BUTTON6,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 5,
+                170 + 42 * 0, 30 + 42 * 4,
                 { translate ("Music number 5") },
             },
             {
                 EV_BUTTON7,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 6,
+                170 + 42 * 0, 30 + 42 * 5,
                 { translate ("Music number 6") },
             },
             {
                 EV_BUTTON8,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 7,
+                170 + 42 * 0, 30 + 42 * 6,
                 { translate ("Music number 7") },
             },
             {
                 EV_BUTTON9,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 8,
+                170 + 42 * 0, 30 + 42 * 7,
                 { translate ("Music number 8") },
             },
             {
                 EV_BUTTON10,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 9,
+                170 + 42 * 0, 30 + 42 * 8,
                 { translate ("Music number 9") },
+            },
+            {
+                EV_BUTTON11,
+                0, {1, 44},
+                170 + 42 * 0, 30 + 42 * 9,
+                { translate ("Music number 10") },
             },
             {
                 EV_PHASE_BUILD,
@@ -3250,7 +3256,7 @@ CEvent::ChangePhase (Uint32 phase)
   {
     music = m_pDecor->GetMusic ();
 
-    for (i = 0; i < 10; i++)
+    for (i = 0; i < 11; i++)
       SetState (EV_BUTTON1 + i, music == i ? 1 : 0);
   }
 
