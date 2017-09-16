@@ -625,6 +625,12 @@ DoInit (int argc, char * argv[], bool & exit)
 
   bOK = ReadConfig (); // lit le fichier config.json
 
+  if (!bOK) // Something wrong with config.json file?
+  {
+    InitFail ("Game not correctly installed");
+    return EXIT_FAILURE;
+  }
+
   auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
   if (res < 0)
     return EXIT_FAILURE;
@@ -652,12 +658,6 @@ DoInit (int argc, char * argv[], bool & exit)
   {
     printf ("%s", SDL_GetError ());
     SDL_DestroyWindow (g_window);
-    return EXIT_FAILURE;
-  }
-
-  if (!bOK) // Something wrong with config.json file?
-  {
-    InitFail ("Game not correctly installed");
     return EXIT_FAILURE;
   }
 
