@@ -114,7 +114,10 @@ ReadConfig ()
 {
   const auto config = GetBaseDir () + "data/config.json";
 
-  std::ifstream  file (config, std::ifstream::in);
+  std::ifstream file (config, std::ifstream::in);
+  if (!file)
+    return false;
+
   nlohmann::json j;
   file >> j;
 
