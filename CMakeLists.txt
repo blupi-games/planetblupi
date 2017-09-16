@@ -40,10 +40,6 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND "${STATIC_BUILD}")
   set (CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
 endif ()
 
-if (NOT "${STATIC_BUILD}")
-  set (CMAKE_EXE_LINKER_FLAGS "-lpthread")
-endif ()
-
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g3")
 endif ()
@@ -175,6 +171,7 @@ else ()
     ${SDL2_IMAGE_LIBRARIES}
     ${CURL_LIBRARIES}
     ${SDLKitchensink_LIBRARIES}
+    pthread
   )
 endif ()
 
