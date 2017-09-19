@@ -140,6 +140,7 @@ public:
   void IntroStep ();
 
   Uint8 GetWindowScale ();
+  void  SetWindowSize (Uint8 newScale);
   void  SetUpdateVersion (const std::string & version);
 
   static void PushUserEvent (Sint32 code, void * data = nullptr);
