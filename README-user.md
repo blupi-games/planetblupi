@@ -8,7 +8,7 @@ to construct your own missions.
 
 | Category | Description |
 | -------- | ----------- |
-| OS       | At least GNU/Linux 2.6.32, macOS 10.8 or Microsoft Windows Vista   |
+| OS       | At least GNU/Linux 2.6.32, macOS 10.9 or Microsoft Windows Vista   |
 | VIDEO    | An 3D accelerated video card is highly recommended                 |
 | SOUND    | Any sound card supported by ALSA, PulseAudio, macOS or DirectSound |
 | INPUT    | Keyboard and mouse                                                 |
