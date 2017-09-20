@@ -1680,8 +1680,8 @@ CEvent::SetWindowSize (Uint8 newScale)
   if (newScale == m_WindowScale)
     return;
 
-  auto scale = m_WindowScale;
-  m_WindowScale = scale;
+  auto scale    = m_WindowScale;
+  m_WindowScale = newScale;
   switch (newScale)
   {
   case 1:
