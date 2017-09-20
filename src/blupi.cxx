@@ -157,7 +157,7 @@ ReadConfig ()
   if (!(g_settingsOverload & SETTING_ZOOM) && j.find ("zoom") != j.end ())
   {
     g_windowScale = j["zoom"].get<Uint8> ();
-    if (g_windowScale != 0)
+    if (g_windowScale != 1 && g_windowScale != 2)
       g_windowScale = 1;
   }
 
