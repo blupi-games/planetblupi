@@ -72,7 +72,7 @@ enum Settings {
   SETTING_SPEEDRATE     = 1 << 1,
   SETTING_TIMERINTERVAL = 1 << 2,
   SETTING_RENDERER      = 1 << 3,
-  SETTING_ZOOM         = 1 << 4,
+  SETTING_ZOOM          = 1 << 4,
 };
 
 static int g_settingsOverload = 0;
