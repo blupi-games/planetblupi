@@ -924,7 +924,8 @@ DoInit (int argc, char * argv[], bool & exit)
   g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
   g_updateThread = new std::thread (CheckForUpdates);
   g_pEvent->SetFullScreen (g_bFullScreen);
-  g_pEvent->SetWindowSize (g_windowScale);
+  if (!g_bFullScreen)
+    g_pEvent->SetWindowSize (g_windowScale);
   g_pEvent->ChangePhase (EV_PHASE_INTRO1);
 
   g_bTermInit = true;
