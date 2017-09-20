@@ -59,6 +59,7 @@ CDecor *      g_pDecor       = nullptr;
 std::thread * g_updateThread = nullptr;
 
 bool        g_bFullScreen    = false; // false si mode de test
+Uint8       g_windowScale    = 1;
 Sint32      g_speedRate      = 1;
 Sint32      g_timerInterval  = 50; // inverval = 50ms
 int         g_rendererType   = 0;
@@ -71,6 +72,7 @@ enum Settings {
   SETTING_SPEEDRATE     = 1 << 1,
   SETTING_TIMERINTERVAL = 1 << 2,
   SETTING_RENDERER      = 1 << 3,
+  SETTING_ZOOM          = 1 << 4,
 };
 
 static int g_settingsOverload = 0;
@@ -150,6 +152,13 @@ ReadConfig ()
     g_bFullScreen = j["fullscreen"].get<bool> ();
     if (g_bFullScreen != 0)
       g_bFullScreen = 1;
+  }
+
+  if (!(g_settingsOverload & SETTING_ZOOM) && j.find ("zoom") != j.end ())
+  {
+    g_windowScale = j["zoom"].get<Uint8> ();
+    if (g_windowScale != 1 && g_windowScale != 2)
+      g_windowScale = 1;
   }
 
   if (
@@ -526,6 +535,10 @@ parseArgs (int argc, char * argv[], bool & exit)
       {"-f", "--fullscreen"},
       "load in fullscreen [on;off] (default: on)",
       1},
+     {"zoom",
+      {"-z", "--zoom"},
+      "change the window scale (only if fullscreen is off) [1;2] (default: 1)",
+      1},
      {"renderer",
       {"-r", "--renderer"},
       "set a renderer [auto;software;accelerated] (default: auto)",
@@ -585,6 +598,12 @@ parseArgs (int argc, char * argv[], bool & exit)
     g_bFullScreen =
       args["fullscreen"].as<std::string> () != std::string ("off");
     g_settingsOverload |= SETTING_FULLSCREEN;
+  }
+
+  if (args["zoom"])
+  {
+    g_windowScale = args["zoom"];
+    g_settingsOverload |= SETTING_ZOOM;
   }
 
   if (args["renderer"])
@@ -905,6 +924,8 @@ DoInit (int argc, char * argv[], bool & exit)
   g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
   g_updateThread = new std::thread (CheckForUpdates);
   g_pEvent->SetFullScreen (g_bFullScreen);
+  if (!g_bFullScreen)
+    g_pEvent->SetWindowSize (g_windowScale);
   g_pEvent->ChangePhase (EV_PHASE_INTRO1);
 
   g_bTermInit = true;

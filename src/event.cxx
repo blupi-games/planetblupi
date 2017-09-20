@@ -1672,6 +1672,33 @@ CEvent::SetFullScreen (bool bFullScreen)
  *
  * We use an integer scale to be sure that the pixels are always well formed.
  *
+ * \param[in] newScale - The new scale.
+ */
+void
+CEvent::SetWindowSize (Uint8 newScale)
+{
+  if (newScale == m_WindowScale)
+    return;
+
+  auto scale    = m_WindowScale;
+  m_WindowScale = newScale;
+  switch (newScale)
+  {
+  case 1:
+  case 2:
+    SetWindowSize (scale, m_WindowScale);
+    break;
+
+  default:
+    return;
+  }
+}
+
+/**
+ * \brief Change the size of the window.
+ *
+ * We use an integer scale to be sure that the pixels are always well formed.
+ *
  * \param[in] prevScale - The current scale.
  * \param[in] newScale - The new scale.
  */
