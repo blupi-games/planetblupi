@@ -154,9 +154,9 @@ ReadConfig ()
       g_bFullScreen = 1;
   }
 
-  if (!(g_settingsOverload & SETTING_ZOOM) && j.find ("scale") != j.end ())
+  if (!(g_settingsOverload & SETTING_ZOOM) && j.find ("zoom") != j.end ())
   {
-    g_windowScale = j["scale"].get<Uint8> ();
+    g_windowScale = j["zoom"].get<Uint8> ();
     if (g_windowScale != 0)
       g_windowScale = 1;
   }
