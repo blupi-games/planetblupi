@@ -630,8 +630,10 @@ CDecor::ArrangeObject (Point cel)
 
   // Arrange les rayons entre les tours.
   if (
-    m_decor[cel.x / 2][cel.y / 2].objectIcon == 27 || // tour ?
-    m_decor[cel.x / 2][cel.y / 2].objectIcon == -1)   // rien ?
+    !g_restoreBugs ||
+    (g_restoreBugs &&
+     (m_decor[cel.x / 2][cel.y / 2].objectIcon == 27 || // tour ?
+      m_decor[cel.x / 2][cel.y / 2].objectIcon == -1)))
   {
     for (i = 0; i < 4; i++)
     {
