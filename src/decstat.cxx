@@ -472,6 +472,17 @@ CDecor::StatisticUpdate ()
       }
       if (m_blupi[rank].perso == 8) // disciple ?
         table_statistic[STATDISCIPLE].nb++;
+
+      // Hide enemies from the stat when hidden by the fog
+      if (this->GetSkill () >= 1)
+      {
+        auto fogCel = m_blupi[rank].cel;
+        fogCel.x    = (fogCel.x / 4) * 4;
+        fogCel.y    = (fogCel.y / 4) * 4;
+        if (m_decor[fogCel.x / 2][fogCel.y / 2].fog == FOGHIDE) // hidden?
+          continue;
+      }
+
       if (m_blupi[rank].perso == 4) // robot ?
       {
         table_statistic[STATROBOT].nb++;
