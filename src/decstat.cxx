@@ -1020,6 +1020,14 @@ CDecor::StatisticDetect (Point pos)
     if (rank >= STATNB)
       return -1;
 
+    auto pStatistic = StatisticGet (rank);
+    if (
+      this->GetSkill () >= 1 && pStatistic->perso >= 0 &&
+      (pStatistic->perso != 0 && pStatistic->perso != 8))
+    {
+      return -1;
+    }
+
     return rank;
   }
 
