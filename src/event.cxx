@@ -5303,6 +5303,9 @@ CEvent::TreatEventBase (const SDL_Event & event)
       m_pDecor->FlipOutline ();
       return true;
     case SDLK_PAUSE:
+      if (this->m_pDecor->GetSkill () >= 1)
+        return true;
+
       m_bPause = !m_bPause;
       if (m_phase == EV_PHASE_PLAY)
       {
