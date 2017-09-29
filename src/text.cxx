@@ -36,12 +36,10 @@ GetOffset (const char *& c)
 {
   /* clang-format off */
   static const unsigned char table_accents[] = {
-    /*    ü     à     â     é     è     ë     ê     ï             */
-    /*  0xFC, 0xE0, 0xE2, 0xE9, 0xE8, 0xEB, 0xEA, 0xEF, // CP1252 */
-    0xBC, 0xA0, 0xA2, 0xA9, 0xA8, 0xAB, 0xAA, 0xAF, // UTF-8
-    /*    î     ô     ù     û     ä     ö     ç                   */
-    /*  0xEE, 0xF4, 0xF9, 0xFB, 0xE4, 0xF6, 0xE7,       // CP1252 */
-    0xAE, 0xB4, 0xB9, 0xBB, 0xA4, 0xB6, 0xA7, // UTF-8
+  /*  ü     à     â     é     è     ë     ê     ï            */
+    0xBC, 0xA0, 0xA2, 0xA9, 0xA8, 0xAB, 0xAA, 0xAF, /* UTF-8 */
+  /*  î     ô     ù     û     ä     ö     ç                  */
+    0xAE, 0xB4, 0xB9, 0xBB, 0xA4, 0xB6, 0xA7,       /* UTF-8 */
   };
 
   static const unsigned char table_extended[] = {
@@ -54,10 +52,8 @@ GetOffset (const char *& c)
     c++;
 
   for (unsigned int i = 0; i < countof (table_accents); ++i)
-  {
     if ((unsigned char) *c == table_accents[i])
       return 15 + i;
-  }
 
   for (unsigned int i = 0; i < countof (table_extended); ++i)
     if ((unsigned char) *c == table_extended[i])
