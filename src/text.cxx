@@ -34,6 +34,7 @@
 static Sint32
 GetOffset (const char *& c)
 {
+  /* clang-format off */
   static const unsigned char table_accents[] = {
     /*    ü     à     â     é     è     ë     ê     ï             */
     /*  0xFC, 0xE0, 0xE2, 0xE9, 0xE8, 0xEB, 0xEA, 0xEF, // CP1252 */
@@ -43,6 +44,12 @@ GetOffset (const char *& c)
     0xAE, 0xB4, 0xB9, 0xBB, 0xA4, 0xB6, 0xA7, // UTF-8
   };
 
+  static const unsigned char table_extended[] = {
+  /*  ò     ì                                                */
+    0xB2, 0xAC,                                     /* UTF-8 */
+  };
+  /* clang-format on */
+
   if (static_cast<unsigned char> (*c) == 0xC3)
     c++;
 
@@ -51,6 +58,11 @@ GetOffset (const char *& c)
     if ((unsigned char) *c == table_accents[i])
       return 15 + i;
   }
+
+  for (unsigned int i = 0; i < countof (table_extended); ++i)
+    if ((unsigned char) *c == table_extended[i])
+      return 127 + i;
+
   if (*c < 0)
     return 1; // square
 
@@ -77,7 +89,8 @@ GetCharWidth (const char *& c, Sint32 font)
     12,  8,  9,  9,  9,  8,  8,  8,  9,  4,  8,  9,  8, 10,  9,  9,
      8,  9,  8,  9, 10,  8,  9, 11,  9,  8, 10,  7, 10,  7, 13, 13,
      9,  9,  8,  8,  8,  8,  6,  8,  8,  4,  6,  8,  4, 12,  8,  8,
-     8,  8,  7,  6,  7,  8,  8, 10,  8,  8,  7,  6,  6,  6, 10,  0,
+     8,  8,  7,  6,  7,  8,  8, 10,  8,  8,  7,  6,  6,  6, 10,  8,
+     5,
   };
 
   static const unsigned char table_width_little[] =
@@ -89,7 +102,8 @@ GetCharWidth (const char *& c, Sint32 font)
      9,  8,  6,  7,  7,  5,  5,  8,  7,  2,  4,  7,  5, 10,  7,  8,
      6,  8,  7,  6,  6,  6,  8, 12,  7,  6,  6,  3,  5,  3,  6,  8,
      4,  6,  6,  6,  6,  6,  4,  6,  6,  2,  3,  5,  2, 10,  6,  6,
-     6,  6,  3,  5,  3,  6,  6,  8,  6,  6,  5,  4,  6,  4,  7,  0,
+     6,  6,  3,  5,  3,  6,  6,  8,  6,  6,  5,  4,  6,  4,  7,  6,
+     3,
   };
   // clang-format on
 
@@ -118,7 +132,7 @@ DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
 
     if (font != FONTLITTLE)
     {
-      rank += 128 * font;
+      rank += (128 + 16) * font;
       pPixmap->DrawIcon (-1, CHTEXT, rank, pos);
     }
     else
@@ -142,7 +156,7 @@ DrawTextPente (
   while (*pText != 0)
   {
     rank = GetOffset (pText);
-    rank += 128 * font;
+    rank += (128 + 16) * font;
     pPixmap->DrawIcon (-1, CHTEXT, rank, pos);
 
     lg = GetCharWidth (pText, font);

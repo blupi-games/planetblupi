@@ -847,7 +847,7 @@ DoInit (int argc, char * argv[], bool & exit)
   }
 
   totalDim.x = DIMTEXTX * 16;
-  totalDim.y = DIMTEXTY * 8 * 3;
+  totalDim.y = DIMTEXTY * 9 * 3;
   iconDim.x  = DIMTEXTX;
   iconDim.y  = DIMTEXTY;
   if (!g_pPixmap->Cache (CHTEXT, "image/text.png", totalDim, iconDim))
