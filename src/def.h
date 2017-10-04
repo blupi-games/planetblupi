@@ -25,13 +25,13 @@
 // clang-format off
 #define _INTRO          true    // true si images d'introduction
 
-
-#define LXIMAGE         640     // dimensions de la fenêtre de jeu
+#define SCRFACTOR       4 / 3
+#define LXIMAGE         (480 * SCRFACTOR + (480 * SCRFACTOR) % 2)     // dimensions de la fenêtre de jeu
 #define LYIMAGE         480
 
 #define POSDRAWX        144     // surface de dessin
 #define POSDRAWY        15
-#define DIMDRAWX        480
+#define DIMDRAWX        (LXIMAGE - (640 - 480))
 #define DIMDRAWY        450
 
 #define POSMAPX         8       // surface pour la carte
