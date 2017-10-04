@@ -90,14 +90,14 @@ GetVector (Sint32 direct)
   case DIRECT_S:
     vector.y = +1;
     break;
-  case DIRECT_SO:
+  case DIRECT_SW:
     vector.x = -1;
     vector.y = +1;
     break;
-  case DIRECT_O:
+  case DIRECT_W:
     vector.x = -1;
     break;
-  case DIRECT_NO:
+  case DIRECT_NW:
     vector.x = -1;
     vector.y = -1;
     break;

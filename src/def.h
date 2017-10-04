@@ -94,9 +94,9 @@ enum Directions {
   DIRECT_E  = (0 * 16), // east
   DIRECT_SE = (1 * 16), // south-east
   DIRECT_S  = (2 * 16), // south
-  DIRECT_SO = (3 * 16), // south-west
-  DIRECT_O  = (4 * 16), // west
-  DIRECT_NO = (5 * 16), // north-west
+  DIRECT_SW = (3 * 16), // south-west
+  DIRECT_W  = (4 * 16), // west
+  DIRECT_NW = (5 * 16), // north-west
   DIRECT_N  = (6 * 16), // north
   DIRECT_NE = (7 * 16), // north-east
 };

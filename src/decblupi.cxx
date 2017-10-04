@@ -4014,7 +4014,7 @@ CDecor::BlupiGoal (Sint32 rank, Buttons button, Point cel, Point cMem)
 
     if (direct == DIRECT_S)
       action = EV_ACTION_BOATS;
-    if (direct == DIRECT_O)
+    if (direct == DIRECT_W)
       action = EV_ACTION_BOATO;
     if (direct == DIRECT_N)
       action = EV_ACTION_BOATN;

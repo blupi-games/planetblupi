@@ -2228,17 +2228,17 @@ CDecor::DirectSearch (Point cel, Point goal)
     {
       if (dir.y > 0)
       {
-        direct = DIRECT_SO;
+        direct = DIRECT_SW;
         if (tan < 41)
-          direct = DIRECT_O;
+          direct = DIRECT_W;
         if (tan > 241)
           direct = DIRECT_S;
       }
       else
       {
-        direct = DIRECT_NO;
+        direct = DIRECT_NW;
         if (tan < 41)
-          direct = DIRECT_O;
+          direct = DIRECT_W;
         if (tan > 241)
           direct = DIRECT_N;
       }
@@ -3724,7 +3724,7 @@ CDecor::IsBuildBateau (Point cel, Sint32 & direct)
     fChannel == CHFLOOR && fIcon == 4 && // rivage ?
     oChannel == -1 && oIcon == -1)
   {
-    direct = DIRECT_O;
+    direct = DIRECT_W;
     return true;
   }
 
