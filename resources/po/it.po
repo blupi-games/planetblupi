@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-09-29 10:21+0200\n"
-"PO-Revision-Date: 2017-09-29 10:28+0200\n"
+"PO-Revision-Date: 2017-10-04 13:28+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it\n"
@@ -22,10 +22,10 @@ msgid " - FFmpeg (LGPLv2.1)"
 msgstr " - FFmpeg (LGPLv2.1)"
 
 msgid " - GNU/gettext and GNU/libiconv (GPLv3)"
-msgstr ""
+msgstr " - GNU/gettext e GNU/libiconv (GPLv3)"
 
 msgid " - SDL2, SDL2_image and SDL2_mixer (zlib license)"
-msgstr ""
+msgstr " - SDL2, SDL2_image e SDL2_mixer (zlib licensa)"
 
 msgid " - SDL_kitchensink (MIT)"
 msgstr " - SDL_kitchensink (MIT)"
@@ -37,16 +37,16 @@ msgid " - libasound (LGPLv2.1)"
 msgstr " - libasound (LGPLv2.1)"
 
 msgid " - libcurl (MIT/X derivate)"
-msgstr ""
+msgstr " - libcurl (MIT/X derivata)"
 
 msgid " - libpng (own license)"
-msgstr ""
+msgstr " - libpng (licensa personale)"
 
 msgid " - libpulse (LGPLv2.1)"
 msgstr " - libpulse (LGPLv2.1)"
 
 msgid " - zlib (own license)"
-msgstr ""
+msgstr " - zlib (licensa personale)"
 
 msgid "(isolated tower)"
 msgstr "(torre isolata)"
@@ -203,7 +203,7 @@ msgstr ""
 "1|le lastre tratteggiate."
 
 msgid "All licenses are available under share/doc/planetblupi/copyright"
-msgstr ""
+msgstr "Tutte le license sono disponibili in share/doc/planetblupi/copyright"
 
 msgid "Already two teleporters"
 msgstr "Esistono già due teletrasporti"
@@ -278,6 +278,8 @@ msgid ""
 "Change the\n"
 "window size"
 msgstr ""
+"Cambiare la dimensione\n"
+"della finestra"
 
 msgid "Construct this game"
 msgstr "Costruire questa partita"
@@ -394,7 +396,7 @@ msgid "Forest under snow"
 msgstr "Foresta innevata"
 
 msgid "Fullscreen"
-msgstr ""
+msgstr "Schermata intera"
 
 msgid "Game paused"
 msgstr "Partita interrotta"
@@ -410,7 +412,7 @@ msgstr ""
 "del gioco"
 
 msgid "Global settings"
-msgstr ""
+msgstr "Configurazione globale"
 
 msgid "Go"
 msgstr "Va"
@@ -444,7 +446,7 @@ msgid "Increase volume"
 msgstr "Alza il volume"
 
 msgid "Increase window size"
-msgstr ""
+msgstr "Aumentare la dimensione della finestra"
 
 msgid "Incubator"
 msgstr "Incubatrice"
@@ -462,6 +464,8 @@ msgid ""
 "Interface language\n"
 "and sounds"
 msgstr ""
+"Lingua dell'interfaccia\n"
+"e dei suoni"
 
 msgid "Interrupt"
 msgstr "Interrompere"
@@ -572,13 +576,13 @@ msgstr "N"
 
 #, c-format
 msgid "New version available for download on www.blupi.org (v%s)"
-msgstr ""
+msgstr "Nuova versione disponibile su www.blupi.org (v%s)"
 
 msgid "Next game"
 msgstr "Partita successiva"
 
 msgid "Next language"
-msgstr ""
+msgstr "Prossima lingua"
 
 msgid "Next page"
 msgstr "Pagina successiva"
@@ -608,7 +612,7 @@ msgid "Normal ground"
 msgstr "Terreno normale"
 
 msgid "Not enough energy"
-msgstr ""
+msgstr "Energia limitata"
 
 msgid "Now go on mission."
 msgstr "Ora passa alle missioni."
@@ -659,7 +663,7 @@ msgid "Previous game"
 msgstr "Partita precedente"
 
 msgid "Previous language"
-msgstr ""
+msgstr "Lingua precedente"
 
 msgid "Previous page"
 msgstr "Pagina precedente"
@@ -689,7 +693,7 @@ msgid "Reduce volume"
 msgstr "Abbassa il volume"
 
 msgid "Reduce window size"
-msgstr ""
+msgstr "Ridurre la dimesione della finestra"
 
 msgid "Repeat"
 msgstr "Ripeti"
@@ -726,9 +730,11 @@ msgid ""
 "Select the\n"
 "window mode"
 msgstr ""
+"Selezionare il\n"
+"modo finestra"
 
 msgid "Settings"
-msgstr "Setting"
+msgstr "Configurazione"
 
 msgid "Show videos"
 msgstr "Mostra i video"
@@ -786,7 +792,7 @@ msgstr ""
 "les-Bains"
 
 msgid "This game uses statically linked free and open-source libraries:"
-msgstr ""
+msgstr "Questo gioco utilizza delle librerie open-source:"
 
 msgid "Time bomb"
 msgstr "Bomba a tempo"
@@ -825,7 +831,7 @@ msgid "Tree trunks"
 msgstr "Tronchi"
 
 msgid "Version"
-msgstr ""
+msgstr "Versione"
 
 msgid "Very good, success on all missions !"
 msgstr "Splendido, hai concluso il gioco !"
@@ -867,7 +873,7 @@ msgid "Well done !"
 msgstr "Bravo, ce l'hai fatta !"
 
 msgid "Windowed"
-msgstr ""
+msgstr "Finestra"
 
 msgid "Work done"
 msgstr "Lavoro in corso"
