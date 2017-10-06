@@ -21,7 +21,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "blupi.h"
 #include "def.h"
+#include "event.h"
 #include "pixmap.h"
 #include "text.h"
 
@@ -121,6 +123,8 @@ void
 DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
 {
   Sint32 rank;
+
+  auto phase = g_pEvent->GetPhase ();
 
   while (*pText != '\0')
   {

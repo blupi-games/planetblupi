@@ -192,8 +192,8 @@ UpdateFrame (void)
 
   rcRect.left   = 0;
   rcRect.top    = 0;
-  rcRect.right  = LXIMAGE;
-  rcRect.bottom = LYIMAGE;
+  rcRect.right  = LXLOGIC;
+  rcRect.bottom = LYLOGIC;
   g_pPixmap->DrawImage (-1, CHBACK, rcRect); // draw the background
 
   if (phase == EV_PHASE_INTRO1)
@@ -724,8 +724,8 @@ DoInit (int argc, char * argv[], bool & exit)
   }
 
   OutputDebug ("Image: init\n");
-  totalDim.x = LXIMAGE;
-  totalDim.y = LYIMAGE;
+  totalDim.x = LXLOGIC;
+  totalDim.y = LYLOGIC;
   iconDim.x  = 0;
   iconDim.y  = 0;
 #if _INTRO
@@ -736,8 +736,8 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
 
   OutputDebug ("Image: init\n");
-  totalDim.x = LXIMAGE;
-  totalDim.y = LYIMAGE;
+  totalDim.x = LXLOGIC;
+  totalDim.y = LYLOGIC;
   iconDim.x  = 0;
   iconDim.y  = 0;
   if (!g_pPixmap->Cache (CHGROUND, "image/init.png", totalDim, iconDim))
@@ -745,8 +745,8 @@ DoInit (int argc, char * argv[], bool & exit)
 
   rcRect.left   = 0;
   rcRect.top    = 0;
-  rcRect.right  = LXIMAGE;
-  rcRect.bottom = LYIMAGE;
+  rcRect.right  = LXLOGIC;
+  rcRect.bottom = LYLOGIC;
   g_pPixmap->DrawImage (-1, CHBACK, rcRect); // dessine le fond
   g_pPixmap->Display ();
 

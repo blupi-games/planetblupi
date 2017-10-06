@@ -497,8 +497,16 @@ CPixmap::DrawImage (Sint32 chDst, size_t channel, Rect rect)
   if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
     return false;
 
-  dst.x = rect.left;
-  dst.y = rect.top;
+  if (channel == CHBACK)
+  {
+    dst.x = (LXIMAGE - LXLOGIC) / 2;
+    dst.y = (LYIMAGE - LYLOGIC) / 2;
+  }
+  else
+  {
+    dst.x = rect.left;
+    dst.y = rect.top;
+  }
 
   res = BltFast (chDst, channel, dst, rect);
 

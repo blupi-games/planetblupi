@@ -20,6 +20,8 @@
 
 #pragma once
 
+#include "blupi.h"
+
 class CPixmap;
 class CDecor;
 class CSound;

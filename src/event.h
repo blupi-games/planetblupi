@@ -24,7 +24,6 @@
 #include <unordered_map>
 #include <vector>
 
-#include "blupi.h"
 #include "button.h"
 #include "menu.h"
 #include "progress.h"
@@ -148,7 +147,7 @@ public:
 
 protected:
   void DrawTextCenter (const char * text, Sint32 x, Sint32 y, Sint32 font = 0);
-  bool CreateButtons ();
+  bool CreateButtons (Sint32 phase);
   bool EventButtons (const SDL_Event & event, Point pos);
   bool MouseOnButton (Point pos);
   Sint32 SearchPhase (Uint32 phase);

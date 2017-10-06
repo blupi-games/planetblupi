@@ -26,12 +26,15 @@
 
 #include "config.h"
 
+class CEvent;
+
 extern SDL_Window *   g_window;
 extern SDL_Renderer * g_renderer;
 extern bool           g_bFullScreen;
 extern bool           g_restoreBugs;
 extern bool           g_enableRecorder;
 extern std::string    g_playRecord;
+extern CEvent *       g_pEvent;
 
 struct Point {
   Sint32 x;

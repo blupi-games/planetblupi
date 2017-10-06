@@ -1876,7 +1876,7 @@ CEvent::SetMenu (Sint32 button, Sint32 menu)
 // Crée tous les boutons nécessaires à la phase en cours.
 
 bool
-CEvent::CreateButtons ()
+CEvent::CreateButtons (Sint32 phase)
 {
   Sint32 i = 0, message;
   Point  pos;
@@ -1889,6 +1889,9 @@ CEvent::CreateButtons ()
     pos.x   = table[m_index].buttons[i].x;
     pos.y   = table[m_index].buttons[i].y;
     message = table[m_index].buttons[i].message;
+
+    if (phase != EV_PHASE_PLAY && phase != EV_PHASE_BUILD)
+      pos.x += LXOFFSET;
 
     if (m_bPrivate)
     {
@@ -2004,7 +2007,7 @@ CEvent::DrawButtons ()
 
     if (!this->m_updateVersion.empty () && this->m_updateBlinking++ % 80 < 40)
     {
-      pos.x = 70;
+      pos.x = 70 + LXOFFSET;
       pos.y = 465;
       snprintf (
         res, sizeof (res),
@@ -2218,7 +2221,7 @@ CEvent::DrawButtons ()
     else
       snprintf (res, sizeof (res), "%s", gettext ("Save this game"));
 
-    pos.x = 420;
+    pos.x = 420 + LXOFFSET;
     pos.y = 8;
     DrawText (m_pPixmap, pos, res);
 
@@ -2229,11 +2232,11 @@ CEvent::DrawButtons ()
 
       snprintf (text, sizeof (text), "%d", i + 1);
       lg    = GetTextWidth (text);
-      pos.x = (420 + 460) / 2 - lg / 2;
+      pos.x = (420 + 460) / 2 - lg / 2 + LXOFFSET;
       pos.y = 30 + 12 + 42 * i;
       DrawText (m_pPixmap, pos, text, FONTSLIM);
 
-      pos.x = 420 + 50;
+      pos.x = 420 + 50 + LXOFFSET;
 
       if (world >= 0)
       {
@@ -2264,14 +2267,14 @@ CEvent::DrawButtons ()
 
     DrawTextCenter (gettext ("Ending conditions"), (10 + 134) / 2, 20);
 
-    pos.x = 170 + 42 * 2 + 4;
+    pos.x = 170 + 42 * 2 + 4 + LXOFFSET;
     pos.y = 30 + 12 + 42 * 4;
     snprintf (
       text, sizeof (text), gettext ("Lost if less than %d Blupi"),
       pTerm->nbMinBlupi);
     DrawText (m_pPixmap, pos, text);
 
-    pos.x = 170 + 42 * 2 + 4;
+    pos.x = 170 + 42 * 2 + 4 + LXOFFSET;
     pos.y = 30 + 12 + 42 * 5;
     snprintf (
       text, sizeof (text), gettext ("Impossible to win if less than %d Blupi"),
@@ -2303,7 +2306,7 @@ CEvent::DrawButtons ()
       snprintf (res, sizeof (res), "%s", gettext ("Construction number"));
 
     lg    = GetTextWidth (res);
-    pos.x = (140 + 270) / 2 - lg / 2;
+    pos.x = (140 + 270) / 2 - lg / 2 + LXOFFSET;
     pos.y = 70;
     if (m_bSchool)
       pos.x -= 40;
@@ -2319,7 +2322,7 @@ CEvent::DrawButtons ()
   {
     char * text = gettext ("Game paused");
     lg          = GetTextWidth (text);
-    pos.x       = (140 + 270) / 2 - lg / 2;
+    pos.x       = (140 + 270) / 2 - lg / 2 + LXOFFSET;
     pos.y       = 70;
     if (m_bSchool)
       pos.x -= 40;
@@ -2335,7 +2338,7 @@ CEvent::DrawButtons ()
   {
     char * text = gettext ("Help number");
     lg          = GetTextWidth (text);
-    pos.x       = (140 + 270) / 2 - lg / 2;
+    pos.x       = (140 + 270) / 2 - lg / 2 + LXOFFSET;
     pos.y       = 70;
     if (m_bSchool)
       pos.x -= 40;
@@ -2359,7 +2362,7 @@ CEvent::DrawButtons ()
       world = m_private;
 
     lg    = GetBignumWidth (world + 1);
-    pos.x = (140 + 270) / 2 - lg / 2;
+    pos.x = (140 + 270) / 2 - lg / 2 + LXOFFSET;
     pos.y = 100;
     if (m_bSchool)
       pos.x -= 40;
@@ -2387,6 +2390,7 @@ CEvent::DrawButtons ()
           pos.x = 150 + 50;
           pos.y = 230 + 13;
         }
+        pos.x += LXOFFSET;
         DrawText (m_pPixmap, pos, gettext ("Easy"), FONTSLIM);
       }
 
@@ -2402,6 +2406,7 @@ CEvent::DrawButtons ()
           pos.x = 150 + 50;
           pos.y = 230 + 42 + 13;
         }
+        pos.x += LXOFFSET;
         DrawText (m_pPixmap, pos, gettext ("Difficult"), FONTSLIM);
       }
     }
@@ -2426,6 +2431,7 @@ CEvent::DrawButtons ()
       pente = 0;
     else
       pente = 19;
+    pos.x += LXOFFSET;
     DrawTextRect (m_pPixmap, pos, m_libelle, pente, FONTSLIM);
   }
 
@@ -2440,7 +2446,7 @@ CEvent::DrawButtons ()
       gettext ("No, not that way !"),
     };
 
-    pos.x = 60;
+    pos.x = 60 + LXOFFSET;
     pos.y = 443;
     DrawText (m_pPixmap, pos, list[GetWorld () % 5]);
   }
@@ -2454,7 +2460,7 @@ CEvent::DrawButtons ()
       gettext ("Mission over..."),
     };
 
-    pos.x = 60;
+    pos.x = 60 + LXOFFSET;
     pos.y = 443;
     DrawText (m_pPixmap, pos, list[GetWorld () % 5]);
   }
@@ -2471,7 +2477,7 @@ CEvent::DrawButtons ()
     if (m_bPrivate)
       text = gettext ("Last construction resolved !");
 
-    pos.x = 60;
+    pos.x = 60 + LXOFFSET;
     pos.y = 443;
     DrawText (m_pPixmap, pos, text);
   }
@@ -2487,19 +2493,19 @@ CEvent::DrawButtons ()
 
     snprintf (res, sizeof (res), "x%d", m_speed);
     lg    = GetTextWidth (res);
-    pos.x = (54 + 40) - lg / 2;
+    pos.x = (54 + 40) - lg / 2 + LXOFFSET;
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
 
     snprintf (res, sizeof (res), "%d", m_pSound->GetAudioVolume ());
     lg    = GetTextWidth (res);
-    pos.x = (284 + 40) - lg / 2;
+    pos.x = (284 + 40) - lg / 2 + LXOFFSET;
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
 
     snprintf (res, sizeof (res), "%d", m_pSound->GetMidiVolume ());
     lg    = GetTextWidth (res);
-    pos.x = (399 + 40) - lg / 2;
+    pos.x = (399 + 40) - lg / 2 + LXOFFSET;
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
 
@@ -2507,7 +2513,7 @@ CEvent::DrawButtons ()
     if (m_pMovie->GetEnable () && m_bMovie)
       text = gettext ("Yes");
     lg    = GetTextWidth (text);
-    pos.x = (514 + 40) - lg / 2;
+    pos.x = (514 + 40) - lg / 2 + LXOFFSET;
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
 
@@ -2516,7 +2522,7 @@ CEvent::DrawButtons ()
     else
       snprintf (res, sizeof (res), "%d", m_scrollSpeed);
     lg    = GetTextWidth (res);
-    pos.x = (169 + 40) - lg / 2;
+    pos.x = (169 + 40) - lg / 2 + LXOFFSET;
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
   }
@@ -2542,14 +2548,14 @@ CEvent::DrawButtons ()
       lang = "Italiano";
 
     lg    = GetTextWidth (lang.c_str ());
-    pos.x = (54 + 40) - lg / 2;
+    pos.x = (54 + 40) - lg / 2 + LXOFFSET;
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, lang.c_str ());
 
     const char * text =
       m_bFullScreen ? gettext ("Fullscreen") : gettext ("Windowed");
     lg    = GetTextWidth (text);
-    pos.x = (169 + 40) - lg / 2;
+    pos.x = (169 + 40) - lg / 2 + LXOFFSET;
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
 
@@ -2557,7 +2563,7 @@ CEvent::DrawButtons ()
     {
       snprintf (res, sizeof (res), "%dx", m_WindowScale);
       lg    = GetTextWidth (res);
-      pos.x = (284 + 40) - lg / 2;
+      pos.x = (284 + 40) - lg / 2 + LXOFFSET;
       pos.y = 330 - 20;
       DrawText (m_pPixmap, pos, res);
     }
@@ -2599,7 +2605,7 @@ CEvent::DrawButtons ()
 
     for (size_t i = 0; i < countof (libs); ++i)
     {
-      pos.x = 30;
+      pos.x = 30 + LXOFFSET;
       pos.y = 120 + i * 20;
       DrawText (m_pPixmap, pos, libs[i].c_str ());
     }
@@ -3171,7 +3177,7 @@ CEvent::ChangePhase (Uint32 phase)
 
   m_jauges[0].SetHide (true); // cache les jauges
   m_jauges[1].SetHide (true);
-  CreateButtons (); // crée les boutons selon la phase
+  CreateButtons (phase); // crée les boutons selon la phase
   m_bMenu = false;
   m_pDecor->HideTooltips (false);
   m_menu.Delete ();

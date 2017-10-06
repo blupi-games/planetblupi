@@ -25,13 +25,16 @@
 // clang-format off
 #define _INTRO          true    // true for init screen
 
-#define SCRFACTOR       4 / 3
-#define LXIMAGE         (480 * SCRFACTOR + (480 * SCRFACTOR) % 2) // window size
-#define LYIMAGE         480
+#define SCRFACTOR       16 / 9
+#define LXLOGIC         640
+#define LYLOGIC         480
+#define LXIMAGE         (LYLOGIC * SCRFACTOR + (LYLOGIC * SCRFACTOR) % 2) // window size
+#define LYIMAGE         LYLOGIC
+#define LXOFFSET        ((LXIMAGE - LXLOGIC) / 2)
 
 #define POSDRAWX        144     // draw surface
 #define POSDRAWY        15
-#define DIMDRAWX        (LXIMAGE - (640 - 480))
+#define DIMDRAWX        (LXIMAGE - (LXLOGIC - LYLOGIC))
 #define DIMDRAWY        450
 
 #define POSMAPX         8       // map surface
