@@ -474,18 +474,20 @@ CDecor::StatisticUpdate ()
         table_statistic[STATDISCIPLE].nb++;
 
       // Hide enemies from the stat when hidden by the fog
+      bool hide = false;
       if (this->GetSkill () >= 1)
       {
         auto fogCel = m_blupi[rank].cel;
         fogCel.x    = (fogCel.x / 4) * 4;
         fogCel.y    = (fogCel.y / 4) * 4;
         if (m_decor[fogCel.x / 2][fogCel.y / 2].fog == FOGHIDE) // hidden?
-          continue;
+          hide = true;
       }
 
       if (m_blupi[rank].perso == 4) // robot ?
       {
-        table_statistic[STATROBOT].nb++;
+        if (!hide)
+          table_statistic[STATROBOT].nb++;
         m_nbStatRobots++;
         x = (m_blupi[rank].cel.x / 2) * 2;
         y = (m_blupi[rank].cel.y / 2) * 2;
@@ -496,27 +498,32 @@ CDecor::StatisticUpdate ()
       }
       if (m_blupi[rank].perso == 3) // tracks ?
       {
-        table_statistic[STATTRACKS].nb++;
+        if (!hide)
+          table_statistic[STATTRACKS].nb++;
         if (!m_term.bHachRobot) // pas robot sur hachures ?
           m_nbStatRobots++;
       }
       if (m_blupi[rank].perso == 1) // araignée ?
       {
-        table_statistic[STATARAIGNEE].nb++;
+        if (!hide)
+          table_statistic[STATARAIGNEE].nb++;
         if (!m_term.bHachRobot) // pas robot sur hachures ?
           m_nbStatRobots++;
       }
       if (m_blupi[rank].perso == 2) // virus ?
-        table_statistic[STATVIRUS].nb++;
+        if (!hide)
+          table_statistic[STATVIRUS].nb++;
       if (m_blupi[rank].perso == 5) // bombe ?
       {
-        table_statistic[STATBOMBE].nb++;
+        if (!hide)
+          table_statistic[STATBOMBE].nb++;
         if (!m_term.bHachRobot) // pas robot sur hachures ?
           m_nbStatRobots++;
       }
       if (m_blupi[rank].perso == 7) // électro ?
       {
-        table_statistic[STATELECTRO].nb++;
+        if (!hide)
+          table_statistic[STATELECTRO].nb++;
         if (!m_term.bHachRobot) // pas robot sur hachures ?
           m_nbStatRobots++;
       }
