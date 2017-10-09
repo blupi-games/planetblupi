@@ -11,7 +11,7 @@ link_directories (${CMAKE_INSTALL_PREFIX}/lib)
 
 project (planetblupi)
 set (PB_VERSION_MAJOR 1)
-set (PB_VERSION_MINOR 10)
+set (PB_VERSION_MINOR 11)
 set (PB_VERSION_PATCH 0)
 set (PB_VERSION_EXTRA "")
 set (PB_PRODUCT_NAME "Planet Blupi")
