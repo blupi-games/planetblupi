@@ -3087,8 +3087,8 @@ CEvent::ChangePhase (Uint32 phase)
   filename = table[m_index].backName;
   if (filename.find ("%.3d") != std::string::npos) // "%.3d" dans le nom ?
     filename = string_format (table[m_index].backName, GetImageWorld ());
-  totalDim.x = LXIMAGE;
-  totalDim.y = LYIMAGE;
+  totalDim.x = LXLOGIC;
+  totalDim.y = LYLOGIC;
   iconDim.x  = 0;
   iconDim.y  = 0;
   if (!m_pPixmap->Cache (CHBACK, filename, totalDim, iconDim))
