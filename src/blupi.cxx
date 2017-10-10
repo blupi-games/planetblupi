@@ -736,11 +736,9 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
 
   OutputDebug ("Image: init\n");
-  totalDim.x = LXLOGIC;
-  totalDim.y = LYLOGIC;
-  iconDim.x  = 0;
-  iconDim.y  = 0;
-  if (!g_pPixmap->Cache (CHGROUND, "image/init.png", totalDim, iconDim))
+  totalDim.x = LXIMAGE;
+  totalDim.y = LYIMAGE;
+  if (!g_pPixmap->Cache (CHGROUND, totalDim))
     return EXIT_FAILURE;
 
   rcRect.left   = 0;
