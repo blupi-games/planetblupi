@@ -212,10 +212,53 @@ CPixmap::ReloadTargetTextures ()
     if (!tex.second.target)
       continue;
 
-    if (!Cache (
-          tex.first, tex.second.file, tex.second.dimTotal, tex.second.dimIcon))
+    if (tex.second.file.empty ())
+    {
+      if (!Cache (tex.first, tex.second.dimTotal))
+        return false;
+    }
+    else if (!Cache (
+               tex.first, tex.second.file, tex.second.dimTotal,
+               tex.second.dimIcon))
       return false;
   }
+
+  return true;
+}
+
+bool
+CPixmap::Cache (size_t channel, Point totalDim)
+{
+  if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
+  {
+    m_SDLTextureInfo[channel].texture = SDL_CreateTexture (
+      g_renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, totalDim.x,
+      totalDim.y);
+
+    if (!m_SDLTextureInfo[channel].texture)
+    {
+      SDL_LogError (
+        SDL_LOG_CATEGORY_APPLICATION, "Couldn't create texture: %s",
+        SDL_GetError ());
+      return false;
+    }
+
+    SDL_SetTextureBlendMode (
+      m_SDLTextureInfo[channel].texture, SDL_BLENDMODE_BLEND);
+  }
+  else
+  {
+    SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
+    SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 0);
+    SDL_RenderClear (g_renderer);
+    SDL_SetRenderTarget (g_renderer, nullptr);
+  }
+
+  m_SDLTextureInfo[channel].texMask  = nullptr;
+  m_SDLTextureInfo[channel].target   = true;
+  m_SDLTextureInfo[channel].dimIcon  = Point{0, 0};
+  m_SDLTextureInfo[channel].dimTotal = totalDim;
+  m_SDLTextureInfo[channel].file     = "";
 
   return true;
 }

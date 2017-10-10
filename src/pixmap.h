@@ -56,6 +56,7 @@ public:
   bool Create (Point dim);
 
   bool ReloadTargetTextures ();
+  bool Cache (size_t channel, Point totalDim);
   bool Cache (
     size_t channel, const std::string & pFilename, Point totalDim,
     Point iconDim);
