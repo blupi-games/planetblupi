@@ -2267,7 +2267,8 @@ CEvent::DrawButtons ()
   {
     Term * pTerm = m_pDecor->GetTerminated ();
 
-    DrawTextCenter (gettext ("Ending conditions"), (10 + 134) / 2, 20);
+    DrawTextCenter (
+      gettext ("Ending conditions"), (10 + 134) / 2 + LXOFFSET, 20);
 
     pos.x = 170 + 42 * 2 + 4 + LXOFFSET;
     pos.y = 30 + 12 + 42 * 4;
@@ -2286,15 +2287,16 @@ CEvent::DrawButtons ()
 
   // Dessine les textes pour les choix des boutons.
   if (m_phase == EV_PHASE_BUTTON)
-    DrawTextCenter (gettext ("Available buttons"), (10 + 134) / 2, 20);
+    DrawTextCenter (
+      gettext ("Available buttons"), (10 + 134) / 2 + LXOFFSET, 20);
 
   // Dessine les textes pour le choix des musiques.
   if (m_phase == EV_PHASE_MUSIC)
-    DrawTextCenter (gettext ("Music choice"), (10 + 134) / 2, 20);
+    DrawTextCenter (gettext ("Music choice"), (10 + 134) / 2 + LXOFFSET, 20);
 
   // Dessine les textes pour le choix de la région.
   if (m_phase == EV_PHASE_REGION)
-    DrawTextCenter (gettext ("Scenery choice"), (10 + 134) / 2, 20);
+    DrawTextCenter (gettext ("Scenery choice"), (10 + 134) / 2 + LXOFFSET, 20);
 
   // Ajoute "Mission numéro".
   if (m_phase == EV_PHASE_INFO)
@@ -2487,11 +2489,12 @@ CEvent::DrawButtons ()
   // Dessine les réglages.
   if (m_phase == EV_PHASE_SETUP || m_phase == EV_PHASE_SETUPp)
   {
-    DrawTextCenter (gettext ("Global game\nspeed"), 54 + 40, 80);
-    DrawTextCenter (gettext ("Scroll speed\nwith mouse"), 169 + 40, 80);
-    DrawTextCenter (gettext ("Sound effect\nvolume"), 284 + 40, 80);
-    DrawTextCenter (gettext ("Music\nvolume"), 399 + 40, 80);
-    DrawTextCenter (gettext ("Video\nsequences"), 514 + 40, 80);
+    DrawTextCenter (gettext ("Global game\nspeed"), 54 + 40 + LXOFFSET, 80);
+    DrawTextCenter (
+      gettext ("Scroll speed\nwith mouse"), 169 + 40 + LXOFFSET, 80);
+    DrawTextCenter (gettext ("Sound effect\nvolume"), 284 + 40 + LXOFFSET, 80);
+    DrawTextCenter (gettext ("Music\nvolume"), 399 + 40 + LXOFFSET, 80);
+    DrawTextCenter (gettext ("Video\nsequences"), 514 + 40 + LXOFFSET, 80);
 
     snprintf (res, sizeof (res), "x%d", m_speed);
     lg    = GetTextWidth (res);
@@ -2532,9 +2535,12 @@ CEvent::DrawButtons ()
   // Draw the settings
   if (m_phase == EV_PHASE_SETTINGS)
   {
-    DrawTextCenter (gettext ("Interface language\nand sounds"), 54 + 40, 80);
-    DrawTextCenter (gettext ("Select the\nwindow mode"), 169 + 40, 80);
-    DrawTextCenter (gettext ("Change the\nwindow size"), 284 + 40, 80);
+    DrawTextCenter (
+      gettext ("Interface language\nand sounds"), 54 + 40 + LXOFFSET, 80);
+    DrawTextCenter (
+      gettext ("Select the\nwindow mode"), 169 + 40 + LXOFFSET, 80);
+    DrawTextCenter (
+      gettext ("Change the\nwindow size"), 284 + 40 + LXOFFSET, 80);
 
     const auto  locale = GetLocale ();
     std::string lang;
