@@ -1552,7 +1552,6 @@ CEvent::CEvent ()
   m_bSpeed          = false;
   m_bHelp           = false;
   m_bAllMissions    = false;
-  m_bChangeCheat    = false;
   m_scrollSpeed     = 1;
   m_bPause          = false;
   m_bShift          = false;
@@ -1968,12 +1967,10 @@ CEvent::DrawButtons ()
   bool   bEnable;
 
   if (
-    (m_phase == EV_PHASE_PLAY && m_bChangeCheat) ||
+    (m_phase == EV_PHASE_PLAY) ||
     (m_phase != EV_PHASE_PLAY && m_phase != EV_PHASE_INSERT &&
      m_phase != EV_PHASE_INTRO1 && m_phase != EV_PHASE_BYE))
   {
-    m_bChangeCheat = false;
-
     text[0] = 0;
     if (m_bAllMissions)
       AddCheatCode (text, cheat_code[3]);
@@ -1985,14 +1982,17 @@ CEvent::DrawButtons ()
       AddCheatCode (text, cheat_code[6]);
     if (m_pDecor->GetSuper ())
       AddCheatCode (text, cheat_code[7]);
-    pos.x       = 2;
-    pos.y       = 2;
-    rect.left   = pos.x;
-    rect.right  = pos.x + 300;
-    rect.top    = pos.y;
-    rect.bottom = pos.y + DIMLITTLEY;
-    m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1); // dessine le fond
-    DrawText (m_pPixmap, pos, text, FONTLITTLE);
+
+    if (text[0])
+    {
+      pos.x       = 2;
+      pos.y       = 2;
+      rect.left   = pos.x;
+      rect.right  = pos.x + 300;
+      rect.top    = pos.y;
+      rect.bottom = pos.y + DIMLITTLEY;
+      DrawText (m_pPixmap, pos, text, FONTLITTLE);
+    }
   }
 
   if (m_phase == EV_PHASE_INIT)
@@ -3188,7 +3188,6 @@ CEvent::ChangePhase (Uint32 phase)
     m_pDecor->NextPhase (0); // refait la carte tout de suite
     m_pDecor->StatisticInit ();
     m_pDecor->TerminatedInit ();
-    m_bChangeCheat = true; // affiche les cheat-codes
   }
 
   if (m_phase == EV_PHASE_BUILD)
@@ -5111,42 +5110,36 @@ CEvent::TreatEventBase (const SDL_Event & event)
             {
               m_bAllMissions = !m_bAllMissions;
               bEnable        = m_bAllMissions;
-              m_bChangeCheat = true;
               break;
             }
             case 4: // quick ?
             {
               m_bSpeed       = !m_bSpeed;
               bEnable        = m_bSpeed;
-              m_bChangeCheat = true;
               break;
             }
             case 5: // helpme ?
             {
               m_bHelp        = !m_bHelp;
               bEnable        = m_bHelp;
-              m_bChangeCheat = true;
               break;
             }
             case 6: // invincible ?
             {
               m_pDecor->SetInvincible (!m_pDecor->GetInvincible ());
               bEnable        = m_pDecor->GetInvincible ();
-              m_bChangeCheat = true;
               break;
             }
             case 7: // superblupi ?
             {
               m_pDecor->SetSuper (!m_pDecor->GetSuper ());
               bEnable        = m_pDecor->GetSuper ();
-              m_bChangeCheat = true;
               break;
             }
             case 8: // construire ?
             {
               m_bAccessBuild = !m_bAccessBuild;
               bEnable        = m_bAccessBuild;
-              m_bChangeCheat = true;
               break;
             }
             }

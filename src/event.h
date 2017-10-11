@@ -238,7 +238,6 @@ protected:
   bool                                     m_bSpeed;
   bool                                     m_bHelp;
   bool                                     m_bAllMissions;
-  bool                                     m_bChangeCheat;
   Sint32                                   m_scrollSpeed;
   bool                                     m_bPause;
   bool                                     m_bShift;
