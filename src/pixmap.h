@@ -85,7 +85,7 @@ public:
 
   void SetMouseSprite (MouseSprites sprite);
   void MouseShow (bool bShow);
-  void LoadCursors ();
+  void LoadCursors (Uint8 scale);
   void ChangeSprite (MouseSprites sprite);
 
 protected:

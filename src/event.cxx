@@ -1657,6 +1657,7 @@ CEvent::SetFullScreen (bool bFullScreen)
   SDL_SetWindowPosition (
     g_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
+  m_pPixmap->LoadCursors (m_WindowScale);
   m_pPixmap->ReloadTargetTextures ();
 
   /* Force this update before otherwise the coordinates retrieved with
@@ -1715,6 +1716,7 @@ CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
   SDL_SetWindowPosition (
     g_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
+  m_pPixmap->LoadCursors (newScale);
   m_pPixmap->ReloadTargetTextures ();
 
   /* Force this update before otherwise the coordinates retrieved with
