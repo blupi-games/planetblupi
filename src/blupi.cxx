@@ -875,7 +875,7 @@ DoInit (int argc, char * argv[], bool & exit)
   }
 
   // Load all cursors
-  g_pPixmap->LoadCursors ();
+  g_pPixmap->LoadCursors (g_windowScale);
   g_pPixmap->ChangeSprite (SPRITE_WAIT); // met le sablier maison
 
   // Create the sound manager.
