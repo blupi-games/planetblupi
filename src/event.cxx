@@ -5126,26 +5126,26 @@ CEvent::TreatEventBase (const SDL_Event & event)
             }
             case 4: // quick ?
             {
-              m_bSpeed       = !m_bSpeed;
-              bEnable        = m_bSpeed;
+              m_bSpeed = !m_bSpeed;
+              bEnable  = m_bSpeed;
               break;
             }
             case 5: // helpme ?
             {
-              m_bHelp        = !m_bHelp;
-              bEnable        = m_bHelp;
+              m_bHelp = !m_bHelp;
+              bEnable = m_bHelp;
               break;
             }
             case 6: // invincible ?
             {
               m_pDecor->SetInvincible (!m_pDecor->GetInvincible ());
-              bEnable        = m_pDecor->GetInvincible ();
+              bEnable = m_pDecor->GetInvincible ();
               break;
             }
             case 7: // superblupi ?
             {
               m_pDecor->SetSuper (!m_pDecor->GetSuper ());
-              bEnable        = m_pDecor->GetSuper ();
+              bEnable = m_pDecor->GetSuper ();
               break;
             }
             case 8: // construire ?
