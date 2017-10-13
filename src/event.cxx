@@ -1898,12 +1898,12 @@ CEvent::CreateButtons (Sint32 phase)
     {
       if (message == EV_PHASE_SKILL1)
       {
-        pos.x = 117;
+        pos.x = 117 + LXOFFSET;
         pos.y = 115;
       }
       if (message == EV_PHASE_SKILL2)
       {
-        pos.x = 117;
+        pos.x = 117 + LXOFFSET;
         pos.y = 115 + 42;
       }
     }
