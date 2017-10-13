@@ -963,7 +963,7 @@ CDecor::BuildGround (Rect clip)
 
   iPos = ConvCelToPos (iCel);
 
-  nbx = (width / DIMCELX) + 1;
+  nbx = (width / DIMCELX) + 2;
   nby = (height / (DIMCELY / 2)) + 0;
 
   if (GetInfoHeight () != 0)
@@ -1103,7 +1103,7 @@ CDecor::Build (Rect clip, Point posMouse)
 
   iPos = ConvCelToPos (iCel);
 
-  nbx = (width / DIMCELX) + 1;
+  nbx = (width / DIMCELX) + 2;
   nby = (height / (DIMCELY / 2)) + 0;
 
   if (GetInfoHeight () != 0)
