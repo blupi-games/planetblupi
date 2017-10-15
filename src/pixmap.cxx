@@ -881,13 +881,13 @@ on the endianness (byte order) of the machine */
 
   for (int i = SPRITE_BEGIN; i <= SPRITE_END; ++i)
   {
-    MouseSprites sprite  = static_cast<MouseSprites> (i);
+    MouseSprites sprite = static_cast<MouseSprites> (i);
 
     if (m_lpSDLCursors[sprite - 1])
       SDL_FreeCursor (m_lpSDLCursors[sprite - 1]);
 
-    SDL_Point    hotspot = this->GetCursorHotSpot (sprite);
-    SDL_Rect     rect    = this->GetCursorRect (sprite);
+    SDL_Point hotspot = this->GetCursorHotSpot (sprite);
+    SDL_Rect  rect    = this->GetCursorRect (sprite);
 
     SDL_Surface * surface = SDL_CreateRGBSurface (
       0, rect.w * scale, rect.h * scale, 32, rmask, gmask, bmask, amask);
