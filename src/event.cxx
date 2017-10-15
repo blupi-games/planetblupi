@@ -847,7 +847,7 @@ static Phase table[] =
     {
         EV_PHASE_BUILD,
         "image/build.png",
-        CPixmap::Mode::FIX,
+        CPixmap::Mode::EXPAND,
         true,
         {
             {
