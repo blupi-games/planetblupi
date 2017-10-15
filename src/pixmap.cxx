@@ -267,7 +267,8 @@ CPixmap::Cache (size_t channel, Point totalDim)
 
 bool
 CPixmap::Cache (
-  size_t channel, const std::string & pFilename, Point totalDim, Point iconDim)
+  size_t channel, const std::string & pFilename, Point totalDim, Point iconDim,
+  Mode mode)
 {
   std::string   file    = GetBaseDir () + pFilename;
   SDL_Surface * surface = IMG_Load (file.c_str ());
@@ -277,8 +278,19 @@ CPixmap::Cache (
 
   SDL_Texture * texture = SDL_CreateTextureFromSurface (g_renderer, surface);
   Uint32        format;
-  Sint32        access, w, h;
-  SDL_QueryTexture (texture, &format, &access, &w, &h);
+  Sint32        access, ow, w, oh, h;
+  SDL_QueryTexture (texture, &format, &access, &ow, &oh);
+
+  if (mode == EXPAND || channel == CHBACK)
+  {
+    w = LXIMAGE;
+    h = LYIMAGE;
+  }
+  else
+  {
+    w = ow;
+    h = oh;
+  }
 
   if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
   {
@@ -311,7 +323,43 @@ CPixmap::Cache (
   m_SDLTextureInfo[channel].file     = pFilename;
 
   SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
-  SDL_RenderCopy (g_renderer, texture, nullptr, nullptr);
+
+  switch (mode)
+  {
+  case FIX:
+  {
+    if (channel == CHBACK)
+    {
+      SDL_Rect dst;
+      dst.x = (LXIMAGE - ow) / 2;
+      dst.y = 0;
+      dst.w = ow;
+      dst.h = oh;
+      SDL_RenderCopy (g_renderer, texture, nullptr, &dst);
+    }
+    else
+      SDL_RenderCopy (g_renderer, texture, nullptr, nullptr);
+    break;
+  }
+
+  case EXPAND:
+  {
+    SDL_Rect src, dst;
+    src.x = 0;
+    src.y = 0;
+    src.w = POSDRAWX - 1;
+    src.h = LYIMAGE;
+    dst   = src;
+    SDL_RenderCopy (g_renderer, texture, &src, &dst);
+    src.x = ow - 15;
+    src.w = 15;
+    dst.x = LXIMAGE - 15;
+    dst.w = src.w;
+    SDL_RenderCopy (g_renderer, texture, &src, &dst);
+    break;
+  }
+  }
+
   SDL_SetRenderTarget (g_renderer, nullptr);
 
   if (!m_SDLTextureInfo[channel].texMask)
@@ -540,16 +588,8 @@ CPixmap::DrawImage (Sint32 chDst, size_t channel, Rect rect)
   if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
     return false;
 
-  if (channel == CHBACK)
-  {
-    dst.x = (LXIMAGE - LXLOGIC) / 2;
-    dst.y = (LYIMAGE - LYLOGIC) / 2;
-  }
-  else
-  {
-    dst.x = rect.left;
-    dst.y = rect.top;
-  }
+  dst.x = rect.left;
+  dst.y = rect.top;
 
   res = BltFast (chDst, channel, dst, rect);
 

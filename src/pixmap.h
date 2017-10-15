@@ -50,6 +50,11 @@ struct TextureInfo {
 class CPixmap
 {
 public:
+  enum Mode {
+    FIX = 0,
+    EXPAND,
+  };
+
   CPixmap ();
   ~CPixmap ();
 
@@ -59,7 +64,7 @@ public:
   bool Cache (size_t channel, Point totalDim);
   bool Cache (
     size_t channel, const std::string & pFilename, Point totalDim,
-    Point iconDim);
+    Point iconDim, Mode mode = FIX);
   bool Cache (size_t channel, const std::string & pFilename, Point totalDim);
   bool Cache (size_t channel, SDL_Surface * surface, Point totalDim);
   void SetClipping (Rect clip);

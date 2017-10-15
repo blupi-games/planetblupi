@@ -26,6 +26,7 @@
 
 #include "button.h"
 #include "menu.h"
+#include "pixmap.h"
 #include "progress.h"
 
 class CMovie;
@@ -41,10 +42,11 @@ typedef struct {
 } Button;
 
 typedef struct {
-  Uint32 phase;
-  char   backName[20];
-  Sint32 bCDrom;
-  Button buttons[MAXBUTTON];
+  Uint32        phase;
+  char          backName[20];
+  CPixmap::Mode mode;
+  Sint32        bCDrom;
+  Button        buttons[MAXBUTTON];
 } Phase;
 
 typedef struct {

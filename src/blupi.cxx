@@ -192,8 +192,8 @@ UpdateFrame (void)
 
   rcRect.left   = 0;
   rcRect.top    = 0;
-  rcRect.right  = LXLOGIC;
-  rcRect.bottom = LYLOGIC;
+  rcRect.right  = LXIMAGE;
+  rcRect.bottom = LYIMAGE;
   g_pPixmap->DrawImage (-1, CHBACK, rcRect); // draw the background
 
   if (phase == EV_PHASE_INTRO1)
