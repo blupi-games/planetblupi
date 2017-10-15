@@ -351,10 +351,15 @@ CPixmap::Cache (
     src.h = LYIMAGE;
     dst   = src;
     SDL_RenderCopy (g_renderer, texture, &src, &dst);
-    src.x = ow - 15;
-    src.w = 15;
-    dst.x = LXIMAGE - 15;
+    src.x = ow - 16;
+    src.w = 16;
+    dst.x = LXIMAGE - 16;
     dst.w = src.w;
+    SDL_RenderCopy (g_renderer, texture, &src, &dst);
+    src.x = POSDRAWX - 1;
+    src.w = ow - src.x - 16;
+    dst.x = src.x;
+    dst.w = DIMDRAWX + 1;
     SDL_RenderCopy (g_renderer, texture, &src, &dst);
     break;
   }
