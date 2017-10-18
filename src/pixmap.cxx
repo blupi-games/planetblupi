@@ -373,8 +373,7 @@ CPixmap::IsIconPixel (size_t channel, Sint32 rank, Point pos)
 // Les modes sont 0=transparent, 1=opaque.
 
 bool
-CPixmap::DrawIcon (
-  Sint32 chDst, size_t channel, Sint32 rank, Point pos, bool bMask)
+CPixmap::DrawIcon (Sint32 chDst, size_t channel, Sint32 rank, Point pos)
 {
   Sint32 nbx, nby;
   Rect   rect;
@@ -411,8 +410,7 @@ CPixmap::DrawIcon (
 //  33,48   35,49
 
 bool
-CPixmap::DrawIconDemi (
-  Sint32 chDst, size_t channel, Sint32 rank, Point pos, bool bMask)
+CPixmap::DrawIconDemi (Sint32 chDst, size_t channel, Sint32 rank, Point pos)
 {
   Sint32 nbx, nby;
   Rect   rect;
@@ -445,7 +443,7 @@ CPixmap::DrawIconDemi (
 bool
 CPixmap::DrawIconPart (
   Sint32 chDst, size_t channel, Sint32 rank, Point pos, Sint32 startY,
-  Sint32 endY, bool bMask)
+  Sint32 endY)
 {
   Sint32 nbx, nby;
   Rect   rect;
@@ -477,8 +475,7 @@ CPixmap::DrawIconPart (
 // Dessine une partie d'image n'importe oï¿½.
 
 bool
-CPixmap::DrawPart (
-  Sint32 chDst, size_t channel, Point dest, Rect rect, bool bMask)
+CPixmap::DrawPart (Sint32 chDst, size_t channel, Point dest, Rect rect)
 {
   if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
     return false;
