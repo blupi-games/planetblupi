@@ -5203,6 +5203,9 @@ CEvent::TreatEventBase (const SDL_Event & event)
         return true;
 
       case EV_PHASE_STOP:
+        ChangePhase (EV_PHASE_PLAY);
+        return true;
+
       case EV_PHASE_LOST:
       case EV_PHASE_BUILD:
         ChangePhase (EV_PHASE_INFO);
