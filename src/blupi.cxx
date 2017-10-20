@@ -31,8 +31,8 @@
 #include <SDL2/SDL_image.h>
 #include <argagg/argagg.hpp>
 #ifdef USE_CURL
-  #include <curl/curl.h>
-#endif
+#include <curl/curl.h>
+#endif /* USE_CURL */
 
 #include "json/json.hpp"
 
@@ -522,7 +522,7 @@ CheckForUpdates ()
     free (chunk.buffer);
 
   curl_easy_cleanup (curl);
-#endif
+#endif /* USE_CURL */
 }
 
 static int
