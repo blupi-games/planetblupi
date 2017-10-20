@@ -164,8 +164,7 @@ if ("${STATIC_BUILD}")
   )
 
   if (${PB_HTTP_VERSION_CHECK})
-    set (planetblupi_DEPS
-      ${planetblupi_DEPS}
+    list (APPEND planetblupi_DEPS
       ${CURL_STATIC_LIBRARIES}
     )
   endif ()
@@ -188,8 +187,7 @@ else ()
   )
 
   if (${PB_HTTP_VERSION_CHECK})
-    set (planetblupi_DEPS
-      ${planetblupi_DEPS}
+    list (APPEND planetblupi_DEPS
       ${CURL_LIBRARIES}
     )
   endif ()
