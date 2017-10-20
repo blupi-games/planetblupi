@@ -462,11 +462,11 @@ InitFail (const char * msg)
   FinishObjects ();
 }
 
+#ifdef USE_CURL
 static size_t
 updateCallback (void * ptr, size_t size, size_t nmemb, void * data)
 {
   size_t     realsize = size * nmemb;
-#ifdef USE_CURL
   url_data * mem      = static_cast<url_data *> (data);
 
   mem->buffer =
@@ -477,10 +477,10 @@ updateCallback (void * ptr, size_t size, size_t nmemb, void * data)
     mem->size += realsize;
     mem->buffer[mem->size] = 0;
   }
-#endif
 
   return realsize;
 }
+#endif /* USE_CURL */
 
 static void
 CheckForUpdates ()
