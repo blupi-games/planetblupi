@@ -18,6 +18,8 @@ set (PB_PRODUCT_NAME "Planet Blupi")
 set (PB_PACKAGE_NAME "planetblupi")
 set (PB_DESCRIPTION "Planet Blupi - A delerious spell-binding game")
 
+option(PLANETBLUPI_HTTP_VERSION_CHECK "Run a version check over HTTP (with CURL)" OFF)
+
 configure_file (
   "${PROJECT_SOURCE_DIR}/src/config.h.in"
   "${PROJECT_BINARY_DIR}/include/config.h"
@@ -115,7 +117,10 @@ find_package (PkgConfig REQUIRED)
 pkg_search_module (SDL2 REQUIRED sdl2)
 pkg_search_module (SDL2_MIXER REQUIRED SDL2_mixer)
 pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
-pkg_search_module (CURL REQUIRED libcurl)
+if(${PLANETBLUPI_HTTP_VERSION_CHECK})
+  pkg_search_module (CURL REQUIRED libcurl)
+  add_definitions(-DUSE_CURL)
+endif()
 
 if ("${STATIC_BUILD}")
   pkg_search_module (PNG REQUIRED libpng)
@@ -131,7 +136,9 @@ if ("${STATIC_BUILD}")
     pkg_search_module (PULSE REQUIRED libpulse)
   endif ()
 
-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCURL_STATICLIB")
+  if(${PLANETBLUPI_HTTP_VERSION_CHECK})
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCURL_STATICLIB")
+  endif ()
 endif ()
 
 ###########################
@@ -147,7 +154,6 @@ if ("${STATIC_BUILD}")
     ${SDL2_STATIC_LIBRARIES}
     ${SDL2_MIXER_STATIC_LIBRARIES}
     ${SDL2_IMAGE_STATIC_LIBRARIES}
-    ${CURL_STATIC_LIBRARIES}
     ${SDLKitchensink_STATIC_LIBRARIES}
     ${PNG_STATIC_LIBRARIES}
     ${AVCODEC_STATIC_LIBRARIES}
@@ -156,6 +162,13 @@ if ("${STATIC_BUILD}")
     ${SWSCALE_STATIC_LIBRARIES}
     ${SWRESAMPLE_STATIC_LIBRARIES}
   )
+
+  if(${PLANETBLUPI_HTTP_VERSION_CHECK})
+    set (planetblupi_DEPS
+      ${planetblupi_DEPS}
+      ${CURL_STATIC_LIBRARIES}
+    )
+  endif ()
 
   if (UNIX AND NOT APPLE)
     list (APPEND planetblupi_DEPS
@@ -173,6 +186,13 @@ else ()
     ${SDLKitchensink_LIBRARIES}
     pthread
   )
+
+  if(${PLANETBLUPI_HTTP_VERSION_CHECK})
+    set (planetblupi_DEPS
+      ${planetblupi_DEPS}
+      ${CURL_LIBRARIES}
+    )
+  endif ()
 endif ()
 
 target_link_libraries (planetblupi PUBLIC ${planetblupi_DEPS})
