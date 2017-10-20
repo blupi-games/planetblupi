@@ -30,7 +30,9 @@
 
 #include <SDL2/SDL_image.h>
 #include <argagg/argagg.hpp>
+#ifdef USE_CURL
 #include <curl/curl.h>
+#endif /* USE_CURL */
 
 #include "json/json.hpp"
 
@@ -81,11 +83,13 @@ bool        g_bTermInit = false; // initialisation en cours
 Uint32      g_lastPhase = 999;
 static bool g_pause;
 
+#ifdef USE_CURL
 struct url_data {
   CURLcode status;
   char *   buffer;
   size_t   size;
 };
+#endif
 
 template <typename Out>
 static void
@@ -458,6 +462,7 @@ InitFail (const char * msg)
   FinishObjects ();
 }
 
+#ifdef USE_CURL
 static size_t
 updateCallback (void * ptr, size_t size, size_t nmemb, void * data)
 {
@@ -475,10 +480,12 @@ updateCallback (void * ptr, size_t size, size_t nmemb, void * data)
 
   return realsize;
 }
+#endif /* USE_CURL */
 
 static void
 CheckForUpdates ()
 {
+#ifdef USE_CURL
   url_data chunk;
 
   chunk.buffer = nullptr; /* we expect realloc(NULL, size) to work */
@@ -515,6 +522,7 @@ CheckForUpdates ()
     free (chunk.buffer);
 
   curl_easy_cleanup (curl);
+#endif /* USE_CURL */
 }
 
 static int
