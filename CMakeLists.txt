@@ -18,7 +18,7 @@ set (PB_PRODUCT_NAME "Planet Blupi")
 set (PB_PACKAGE_NAME "planetblupi")
 set (PB_DESCRIPTION "Planet Blupi - A delerious spell-binding game")
 
-option(PLANETBLUPI_HTTP_VERSION_CHECK "Run a version check over HTTP (with CURL)" OFF)
+option (PB_HTTP_VERSION_CHECK "Run a version check over HTTP (with CURL)" OFF)
 
 configure_file (
   "${PROJECT_SOURCE_DIR}/src/config.h.in"
@@ -117,10 +117,10 @@ find_package (PkgConfig REQUIRED)
 pkg_search_module (SDL2 REQUIRED sdl2)
 pkg_search_module (SDL2_MIXER REQUIRED SDL2_mixer)
 pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
-if(${PLANETBLUPI_HTTP_VERSION_CHECK})
+if (${PB_HTTP_VERSION_CHECK})
   pkg_search_module (CURL REQUIRED libcurl)
-  add_definitions(-DUSE_CURL)
-endif()
+  add_definitions (-DUSE_CURL)
+endif ()
 
 if ("${STATIC_BUILD}")
   pkg_search_module (PNG REQUIRED libpng)
@@ -136,7 +136,7 @@ if ("${STATIC_BUILD}")
     pkg_search_module (PULSE REQUIRED libpulse)
   endif ()
 
-  if(${PLANETBLUPI_HTTP_VERSION_CHECK})
+  if (${PB_HTTP_VERSION_CHECK})
     set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCURL_STATICLIB")
   endif ()
 endif ()
@@ -163,7 +163,7 @@ if ("${STATIC_BUILD}")
     ${SWRESAMPLE_STATIC_LIBRARIES}
   )
 
-  if(${PLANETBLUPI_HTTP_VERSION_CHECK})
+  if (${PB_HTTP_VERSION_CHECK})
     set (planetblupi_DEPS
       ${planetblupi_DEPS}
       ${CURL_STATIC_LIBRARIES}
@@ -187,7 +187,7 @@ else ()
     pthread
   )
 
-  if(${PLANETBLUPI_HTTP_VERSION_CHECK})
+  if (${PB_HTTP_VERSION_CHECK})
     set (planetblupi_DEPS
       ${planetblupi_DEPS}
       ${CURL_LIBRARIES}
