@@ -16,7 +16,7 @@ set (PB_VERSION_PATCH 0)
 set (PB_VERSION_EXTRA "")
 set (PB_PRODUCT_NAME "Planet Blupi")
 set (PB_PACKAGE_NAME "planetblupi")
-set (PB_DESCRIPTION "Planet Blupi - A delerious spell-binding game")
+set (PB_DESCRIPTION "Planet Blupi - A delirious spell-binding game")
 
 option (PB_HTTP_VERSION_CHECK "Run a version check over HTTP (with CURL)" OFF)
 
