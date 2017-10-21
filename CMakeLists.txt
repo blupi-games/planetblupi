@@ -16,7 +16,11 @@ set (PB_VERSION_PATCH 0)
 set (PB_VERSION_EXTRA "")
 set (PB_PRODUCT_NAME "Planet Blupi")
 set (PB_PACKAGE_NAME "planetblupi")
-set (PB_DESCRIPTION "Planet Blupi - A delerious spell-binding game")
+set (PB_EXEC         "planetblupi")
+set (PB_ICON_REF     "blupi")
+set (PB_DESCRIPTION "Planet Blupi - A delirious spell-binding game")
+
+option (PB_HTTP_VERSION_CHECK "Run a version check over HTTP (with CURL)" OFF)
 
 configure_file (
   "${PROJECT_SOURCE_DIR}/src/config.h.in"
@@ -30,6 +34,14 @@ file (GLOB_RECURSE po      resources/po/*.po)
 
 if (APPIMAGE_APPRUN_PROGRAM AND APPIMAGE_ASSISTANT_PROGRAM)
   set (USE_APPIMAGE ON)
+endif ()
+
+if (NOT USE_APPIMAGE)
+  configure_file (
+    "${PROJECT_SOURCE_DIR}/resources/linux/application.desktop.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop"
+    @ONLY
+  )
 endif ()
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
@@ -115,7 +127,10 @@ find_package (PkgConfig REQUIRED)
 pkg_search_module (SDL2 REQUIRED sdl2)
 pkg_search_module (SDL2_MIXER REQUIRED SDL2_mixer)
 pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
-pkg_search_module (CURL REQUIRED libcurl)
+if (${PB_HTTP_VERSION_CHECK})
+  pkg_search_module (CURL REQUIRED libcurl)
+  add_definitions (-DUSE_CURL)
+endif ()
 
 if ("${STATIC_BUILD}")
   pkg_search_module (PNG REQUIRED libpng)
@@ -131,7 +146,9 @@ if ("${STATIC_BUILD}")
     pkg_search_module (PULSE REQUIRED libpulse)
   endif ()
 
-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCURL_STATICLIB")
+  if (${PB_HTTP_VERSION_CHECK})
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCURL_STATICLIB")
+  endif ()
 endif ()
 
 ###########################
@@ -147,7 +164,6 @@ if ("${STATIC_BUILD}")
     ${SDL2_STATIC_LIBRARIES}
     ${SDL2_MIXER_STATIC_LIBRARIES}
     ${SDL2_IMAGE_STATIC_LIBRARIES}
-    ${CURL_STATIC_LIBRARIES}
     ${SDLKitchensink_STATIC_LIBRARIES}
     ${PNG_STATIC_LIBRARIES}
     ${AVCODEC_STATIC_LIBRARIES}
@@ -156,6 +172,12 @@ if ("${STATIC_BUILD}")
     ${SWSCALE_STATIC_LIBRARIES}
     ${SWRESAMPLE_STATIC_LIBRARIES}
   )
+
+  if (${PB_HTTP_VERSION_CHECK})
+    list (APPEND planetblupi_DEPS
+      ${CURL_STATIC_LIBRARIES}
+    )
+  endif ()
 
   if (UNIX AND NOT APPLE)
     list (APPEND planetblupi_DEPS
@@ -173,6 +195,12 @@ else ()
     ${SDLKitchensink_LIBRARIES}
     pthread
   )
+
+  if (${PB_HTTP_VERSION_CHECK})
+    list (APPEND planetblupi_DEPS
+      ${CURL_LIBRARIES}
+    )
+  endif ()
 endif ()
 
 target_link_libraries (planetblupi PUBLIC ${planetblupi_DEPS})
@@ -243,6 +271,13 @@ if (UNIX AND NOT APPLE)
   install (DIRECTORY resources/icon/hicolor DESTINATION share/icons)
 endif ()
 
+if (NOT USE_APPIMAGE)
+  install (
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop
+    DESTINATION share/applications
+  )
+endif ()
+
 # Copy libwinpthread-1.dll which seems not be linkable statically
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows" AND MINGW)
   execute_process (COMMAND cygpath.exe --windows /mingw64 OUTPUT_VARIABLE MINGW64_PATH)
@@ -270,7 +305,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release" AND "${STATIC_BUILD}")
   if (USE_APPIMAGE)
     include (LinuxAppImageBuild)
     set (CMAKE_PACKAGED_OUTPUT_PREFIX ${CMAKE_INSTALL_PREFIX})
-    APPIMAGE_PACKAGE (planetblupi ${PB_PACKAGE_NAME} ${PB_PRODUCT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "${CMAKE_BINARY_DIR}/share" "" "" "blupi")
+    APPIMAGE_PACKAGE (planetblupi ${PB_PACKAGE_NAME} ${PB_PRODUCT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "${CMAKE_BINARY_DIR}/share" "" "" ${PB_ICON_REF})
   elseif (MINGW)
     set (INSTALLER_FILE_NAME "${PB_PACKAGE_NAME}-${PB_VERSION_MAJOR}.${PB_VERSION_MINOR}.${PB_VERSION_PATCH}${PB_VERSION_EXTRA}")
     set (CPACK_PACKAGE_FILE_NAME "${INSTALLER_FILE_NAME}")

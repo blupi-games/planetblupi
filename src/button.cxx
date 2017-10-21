@@ -155,7 +155,7 @@ CButton::Draw ()
     rect.right  = m_pos.x + m_dim.x;
     rect.top    = m_pos.y;
     rect.bottom = m_pos.y + m_dim.y;
-    m_pPixmap->DrawPart (-1, CHBACK, m_pos, rect, 1); // dessine le fond
+    m_pPixmap->DrawPart (-1, CHBACK, m_pos, rect); // dessine le fond
     return;
   }
 

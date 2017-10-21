@@ -2181,7 +2181,7 @@ CEvent::DrawButtons ()
     rect.right  = pos.x + 20;
     rect.top    = pos.y;
     rect.bottom = pos.y + 15;
-    m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1); // dessine le fond
+    m_pPixmap->DrawPart (-1, CHBACK, pos, rect); // dessine le fond
     if (m_speed > 1)
     {
       snprintf (res, sizeof (res), "x%d", m_speed);
@@ -2199,7 +2199,7 @@ CEvent::DrawButtons ()
       rect.right  = POSDRAWX + DIMDRAWX;
       rect.top    = 0;
       rect.bottom = lg;
-      m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1);
+      m_pPixmap->DrawPart (-1, CHBACK, pos, rect);
 
       pos.x       = POSDRAWX;
       pos.y       = lg;
@@ -2207,7 +2207,7 @@ CEvent::DrawButtons ()
       rect.right  = POSDRAWX + DIMDRAWX;
       rect.top    = 0;
       rect.bottom = POSDRAWY;
-      m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1);
+      m_pPixmap->DrawPart (-1, CHBACK, pos, rect);
 
       pos.x = POSDRAWX + 20;
       pos.y = POSDRAWY + 4;

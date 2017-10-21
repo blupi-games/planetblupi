@@ -684,7 +684,7 @@ CDecor::BuildMoveFloor (Sint32 x, Sint32 y, Point pos, Sint32 rank)
       m_move[rank].maskChannel, icon, m_move[rank].channel, m_move[rank].icon,
       0);
 
-    m_pPixmap->DrawIcon (-1, m_move[rank].channel, 0, pos, true);
+    m_pPixmap->DrawIcon (-1, m_move[rank].channel, 0, pos);
   }
   else
   {

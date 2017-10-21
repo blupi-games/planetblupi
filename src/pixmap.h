@@ -72,15 +72,12 @@ public:
 
   bool IsIconPixel (size_t channel, Sint32 rank, Point pos);
 
-  bool DrawIcon (
-    Sint32 chDst, size_t channel, Sint32 rank, Point pos, bool bMask = false);
-  bool DrawIconDemi (
-    Sint32 chDst, size_t channel, Sint32 rank, Point pos, bool bMask = false);
+  bool DrawIcon (Sint32 chDst, size_t channel, Sint32 rank, Point pos);
+  bool DrawIconDemi (Sint32 chDst, size_t channel, Sint32 rank, Point pos);
   bool DrawIconPart (
     Sint32 chDst, size_t channel, Sint32 rank, Point pos, Sint32 startY,
-    Sint32 endY, bool bMask = false);
-  bool DrawPart (
-    Sint32 chDst, size_t channel, Point dest, Rect rect, bool bMask = false);
+    Sint32 endY);
+  bool DrawPart (Sint32 chDst, size_t channel, Point dest, Rect rect);
   bool DrawImage (Sint32 chDst, size_t channel, Rect rect);
 
   bool BuildIconMask (

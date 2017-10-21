@@ -693,7 +693,7 @@ CDecor::StatisticDraw ()
     rect.top    = pos.y;
     rect.bottom = pos.y + DIMSTATY;
 
-    m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1); // dessine le fond
+    m_pPixmap->DrawPart (-1, CHBACK, pos, rect); // dessine le fond
 
     if (rank == 0 && m_bStatUp)
     {
@@ -768,7 +768,7 @@ CDecor::StatisticDraw ()
   rect.right  = pos.x + POSDRAWX;
   rect.top    = pos.y;
   rect.bottom = pos.y + 16;
-  m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1); // dessine le fond
+  m_pPixmap->DrawPart (-1, CHBACK, pos, rect); // dessine le fond
 
   if (strlen (textRes))
   {
