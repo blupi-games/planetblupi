@@ -333,7 +333,7 @@ CPixmap::Cache (
   {
   case FIX:
   {
-    if (channel == CHBACK)
+    if (channel == CHBACK && (ow < LXIMAGE || oh < LYIMAGE))
     {
       if (chBackWide > 0)
       {
