@@ -52,7 +52,6 @@ protected:
   bool initAVI ();
 
 protected:
-  Kit_PlayerInfo *  pinfo;
   Kit_Source *      m_movie;
   Kit_Player *      m_player;
   SDL_Texture *     m_videoTex;
