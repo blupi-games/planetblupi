@@ -34,6 +34,14 @@ if (APPIMAGE_APPRUN_PROGRAM AND APPIMAGE_ASSISTANT_PROGRAM)
   set (USE_APPIMAGE ON)
 endif ()
 
+if (NOT USE_APPIMAGE)
+  configure_file (
+    "${PROJECT_SOURCE_DIR}/resources/linux/application.desktop.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop"
+    @ONLY
+  )
+endif ()
+
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 -L${CMAKE_INSTALL_PREFIX}/lib")
 endif ()
@@ -259,6 +267,13 @@ install (FILES LICENSE.all DESTINATION share/doc/planetblupi RENAME copyright)
 
 if (UNIX AND NOT APPLE)
   install (DIRECTORY resources/icon/hicolor DESTINATION share/icons)
+endif ()
+
+if (NOT USE_APPIMAGE)
+  install (
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop
+    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications/
+  )
 endif ()
 
 # Copy libwinpthread-1.dll which seems not be linkable statically
