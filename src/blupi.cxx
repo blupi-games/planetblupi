@@ -180,13 +180,14 @@ ReadConfig ()
 /**
  * \brief Main frame update.
  */
-static void
+static bool
 UpdateFrame (void)
 {
   Rect   clip, rcRect;
   Uint32 phase;
   Point  posMouse;
   Sint32 i, term, speed;
+  bool   display = true;
 
   posMouse = g_pEvent->GetLastMousePos ();
 
@@ -259,7 +260,7 @@ UpdateFrame (void)
     phase == EV_PHASE_H2MOVIE || phase == EV_PHASE_PLAYMOVIE ||
     phase == EV_PHASE_WINMOVIE)
   {
-    g_pEvent->MovieToStart (); // start a movie if necessary
+    display = g_pEvent->MovieToStart (); // start a movie if necessary
   }
 
   if (phase == EV_PHASE_INSERT)
@@ -273,6 +274,8 @@ UpdateFrame (void)
     if (term == 2)
       g_pEvent->ChangePhase (EV_PHASE_WINMOVIE); // win
   }
+
+  return display;
 }
 
 /**
@@ -387,10 +390,12 @@ HandleEvent (const SDL_Event & event)
     case EV_UPDATE:
       if (!g_pEvent->IsMovie ()) // pas de film en cours ?
       {
-        if (!g_pause)
-          UpdateFrame ();
+        bool display = true;
 
-        if (!g_pEvent->IsMovie ())
+        if (!g_pause)
+          display = UpdateFrame ();
+
+        if (!g_pEvent->IsMovie () && display)
           g_pPixmap->Display ();
       }
       break;

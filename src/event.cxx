@@ -3380,15 +3380,16 @@ CEvent::TryInsert ()
 
 // Fait démarrer un film si nécessaire.
 
-void
+bool
 CEvent::MovieToStart ()
 {
+  bool movie = false;
+
   if (m_movieToStart[0] != 0) // y a-t-il un film à démarrer ?
   {
-    HideMouse (true); // cache la souris
-
     if (StartMovie (m_movieToStart))
     {
+      movie = true;
       m_phase = m_phaseAfterMovie; // prochaine phase normale
     }
     else
@@ -3396,6 +3397,8 @@ CEvent::MovieToStart ()
 
     m_movieToStart[0] = 0;
   }
+
+  return movie;
 }
 
 // Décale le décor.
@@ -4248,6 +4251,7 @@ CEvent::StartMovie (const std::string & pFilename)
   if (!m_pMovie->IsExist (pFilename))
     return false;
 
+  HideMouse (true);
   m_pSound->StopMusic ();
 
   if (!m_pMovie->Play (pFilename))
