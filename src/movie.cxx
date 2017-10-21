@@ -108,21 +108,22 @@ CMovie::fileOpenMovie (const std::string & pFilename)
     if (m_player == nullptr)
       return false;
 
-    pinfo = new Kit_PlayerInfo;
-    Kit_GetPlayerInfo (m_player, pinfo);
+    Kit_PlayerInfo info;
+    Kit_GetPlayerInfo (m_player, &info);
 
     SDL_AudioSpec wanted_spec, audio_spec;
 
     SDL_memset (&wanted_spec, 0, sizeof (wanted_spec));
-    wanted_spec.freq     = pinfo->audio.samplerate;
-    wanted_spec.format   = pinfo->audio.format;
-    wanted_spec.channels = pinfo->audio.channels;
+    wanted_spec.freq     = info.audio.samplerate;
+    wanted_spec.format   = info.audio.format;
+    wanted_spec.channels = info.audio.channels;
     m_audioDev = SDL_OpenAudioDevice (nullptr, 0, &wanted_spec, &audio_spec, 0);
     SDL_PauseAudioDevice (m_audioDev, 0);
 
     m_videoTex = SDL_CreateTexture (
-      g_renderer, pinfo->video.format, SDL_TEXTUREACCESS_STATIC,
-      pinfo->video.width, pinfo->video.height);
+      g_renderer, info.video.format, SDL_TEXTUREACCESS_STATIC, info.video.width,
+      info.video.height);
+
     if (m_videoTex == nullptr)
       return false;
 
@@ -159,7 +160,6 @@ CMovie::CMovie ()
   m_movie    = nullptr;
   m_player   = nullptr;
   m_videoTex = nullptr;
-  pinfo      = nullptr;
 
   memset (m_audiobuf, 0, sizeof (m_audiobuf));
 
