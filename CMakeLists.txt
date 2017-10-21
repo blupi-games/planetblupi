@@ -16,6 +16,8 @@ set (PB_VERSION_PATCH 0)
 set (PB_VERSION_EXTRA "")
 set (PB_PRODUCT_NAME "Planet Blupi")
 set (PB_PACKAGE_NAME "planetblupi")
+set (PB_EXEC         "planetblupi")
+set (PB_ICON_REF     "blupi")
 set (PB_DESCRIPTION "Planet Blupi - A delirious spell-binding game")
 
 option (PB_HTTP_VERSION_CHECK "Run a version check over HTTP (with CURL)" OFF)
@@ -272,7 +274,7 @@ endif ()
 if (NOT USE_APPIMAGE)
   install (
     FILES ${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications/
+    DESTINATION share/applications
   )
 endif ()
 
@@ -303,7 +305,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release" AND "${STATIC_BUILD}")
   if (USE_APPIMAGE)
     include (LinuxAppImageBuild)
     set (CMAKE_PACKAGED_OUTPUT_PREFIX ${CMAKE_INSTALL_PREFIX})
-    APPIMAGE_PACKAGE (planetblupi ${PB_PACKAGE_NAME} ${PB_PRODUCT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "${CMAKE_BINARY_DIR}/share" "" "" "blupi")
+    APPIMAGE_PACKAGE (planetblupi ${PB_PACKAGE_NAME} ${PB_PRODUCT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "${CMAKE_BINARY_DIR}/share" "" "" ${PB_ICON_REF})
   elseif (MINGW)
     set (INSTALLER_FILE_NAME "${PB_PACKAGE_NAME}-${PB_VERSION_MAJOR}.${PB_VERSION_MINOR}.${PB_VERSION_PATCH}${PB_VERSION_EXTRA}")
     set (CPACK_PACKAGE_FILE_NAME "${INSTALLER_FILE_NAME}")
