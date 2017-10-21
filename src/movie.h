@@ -60,6 +60,7 @@ protected:
 
   char m_audiobuf[AUDIOBUFFER_SIZE];
   bool m_bEnable;
+  bool starting;
   bool m_fPlaying;   // Play flag: true == playing, false == paused
   bool m_fMovieOpen; // Open flag: true == movie open, false = none
 };
