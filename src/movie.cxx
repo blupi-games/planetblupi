@@ -121,7 +121,7 @@ CMovie::fileOpenMovie (const std::string & pFilename)
     SDL_PauseAudioDevice (m_audioDev, 0);
 
     m_videoTex = SDL_CreateTexture (
-      g_renderer, info.video.format, SDL_TEXTUREACCESS_STATIC, info.video.width,
+      g_renderer, info.video.format, SDL_TEXTUREACCESS_TARGET, info.video.width,
       info.video.height);
 
     if (m_videoTex == nullptr)
@@ -146,7 +146,10 @@ CMovie::playMovie ()
 
   // play/pause the AVI movie
   if (m_fPlaying)
+  {
+    this->starting = true;
     Kit_PlayerPlay (m_player);
+  }
   else
     Kit_PlayerPause (m_player);
 }
@@ -289,6 +292,15 @@ CMovie::Render ()
   // Clear screen with black
   SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 255);
   SDL_RenderClear (g_renderer);
+
+  if (this->starting)
+  {
+    SDL_SetRenderTarget (g_renderer, m_videoTex);
+    SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 255);
+    SDL_RenderClear (g_renderer);
+    SDL_SetRenderTarget (g_renderer, nullptr);
+    this->starting = false;
+  }
 
   // Refresh videotexture and render it
   Kit_GetVideoData (m_player, m_videoTex);
