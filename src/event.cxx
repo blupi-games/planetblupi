@@ -97,6 +97,7 @@ static Phase table[] =
     {
         EV_PHASE_TESTCD,
         "image/init.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -109,6 +110,7 @@ static Phase table[] =
     {
         EV_PHASE_INTRO1,
         "image/intro1.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -121,6 +123,7 @@ static Phase table[] =
     {
         EV_PHASE_INIT,
         "image/init.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -169,6 +172,7 @@ static Phase table[] =
     {
         EV_PHASE_HISTORY0,
         "image/history0.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         true,
         {
@@ -193,6 +197,7 @@ static Phase table[] =
     {
         EV_PHASE_HISTORY1,
         "image/history1.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         true,
         {
@@ -217,6 +222,7 @@ static Phase table[] =
     {
         EV_PHASE_INFO,
         "image/info%.3d.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -283,6 +289,7 @@ static Phase table[] =
     {
         EV_PHASE_PLAY,
         "image/play.png",
+        CHNONE,
         CPixmap::Mode::EXPAND,
         false,
         {
@@ -313,6 +320,7 @@ static Phase table[] =
     {
         EV_PHASE_STOP,
         "image/stop%.3d.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -361,6 +369,7 @@ static Phase table[] =
     {
         EV_PHASE_HELP,
         "image/help.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         true,
         {
@@ -403,6 +412,7 @@ static Phase table[] =
     {
         EV_PHASE_SETUP,
         "image/setup01.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -481,6 +491,7 @@ static Phase table[] =
     {
         EV_PHASE_SETUPp,
         "image/setup01.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -559,6 +570,7 @@ static Phase table[] =
     {
         EV_PHASE_READ,
         "image/read.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -637,6 +649,7 @@ static Phase table[] =
     {
         EV_PHASE_WRITE,
         "image/write.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -715,6 +728,7 @@ static Phase table[] =
     {
         EV_PHASE_WRITEp,
         "image/write.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -793,6 +807,7 @@ static Phase table[] =
     {
         EV_PHASE_LOST,
         "image/lost.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         true,
         {
@@ -811,6 +826,7 @@ static Phase table[] =
     {
         EV_PHASE_WIN,
         "image/win.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         true,
         {
@@ -829,6 +845,7 @@ static Phase table[] =
     {
         EV_PHASE_LASTWIN,
         "image/last%.3d.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         true,
         {
@@ -847,6 +864,7 @@ static Phase table[] =
     {
         EV_PHASE_BUILD,
         "image/build.png",
+        CHNONE,
         CPixmap::Mode::EXPAND,
         true,
         {
@@ -963,6 +981,7 @@ static Phase table[] =
     {
         EV_PHASE_BUTTON,
         "image/button.png",
+        CHBACKBUILD,
         CPixmap::Mode::FIX,
         true,
         {
@@ -1184,6 +1203,7 @@ static Phase table[] =
     {
         EV_PHASE_TERM,
         "image/term.png",
+        CHBACKBUILD,
         CPixmap::Mode::FIX,
         true,
         {
@@ -1274,6 +1294,7 @@ static Phase table[] =
     {
         EV_PHASE_MUSIC,
         "image/music.png",
+        CHBACKBUILD,
         CPixmap::Mode::FIX,
         true,
         {
@@ -1358,6 +1379,7 @@ static Phase table[] =
     {
         EV_PHASE_REGION,
         "image/region.png",
+        CHBACKBUILD,
         CPixmap::Mode::FIX,
         true,
         {
@@ -1400,6 +1422,7 @@ static Phase table[] =
     {
         EV_PHASE_PLAYMOVIE,
         "image/movie.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -1412,6 +1435,7 @@ static Phase table[] =
     {
         EV_PHASE_WINMOVIE,
         "image/movie.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -1424,6 +1448,7 @@ static Phase table[] =
     {
         EV_PHASE_H0MOVIE,
         "image/movie.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -1436,6 +1461,7 @@ static Phase table[] =
     {
         EV_PHASE_H1MOVIE,
         "image/movie.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -1448,6 +1474,7 @@ static Phase table[] =
     {
         EV_PHASE_H2MOVIE,
         "image/movie.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -1460,6 +1487,7 @@ static Phase table[] =
     {
         EV_PHASE_BYE,
         "image/bye.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -1472,6 +1500,7 @@ static Phase table[] =
     {
         EV_PHASE_INSERT,
         "image/insert.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -1490,6 +1519,7 @@ static Phase table[] =
     {
         EV_PHASE_SETTINGS,
         "image/setup00.png",
+        CHNONE,
         CPixmap::Mode::FIX,
         false,
         {
@@ -3130,7 +3160,8 @@ CEvent::ChangePhase (Uint32 phase)
   iconDim.x  = 0;
   iconDim.y  = 0;
   if (!m_pPixmap->Cache (
-        CHBACK, filename, totalDim, iconDim, table[m_index].mode))
+        CHBACK, filename, totalDim, iconDim, table[m_index].mode,
+        table[m_index].chBackWide))
   {
     WaitMouse (false); // enlève le sablier
     m_tryInsertCount = 40;

@@ -64,7 +64,7 @@ public:
   bool Cache (size_t channel, Point totalDim);
   bool Cache (
     size_t channel, const std::string & pFilename, Point totalDim,
-    Point iconDim, Mode mode = FIX);
+    Point iconDim, Mode mode = FIX, size_t chBackWide = CHNONE);
   bool Cache (size_t channel, const std::string & pFilename, Point totalDim);
   bool Cache (size_t channel, SDL_Surface * surface, Point totalDim);
   void SetClipping (Rect clip);
@@ -92,6 +92,7 @@ public:
   void ChangeSprite (MouseSprites sprite);
 
 protected:
+  Sint32 BltFast (Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR);
   Sint32 BltFast (Sint32 chDst, size_t channel, Point dst, Rect rcRect);
   Sint32 BltFast (
     SDL_Texture * lpSDL, size_t channel, Point dst, Rect rcRect,

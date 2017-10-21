@@ -273,7 +273,7 @@ CPixmap::Cache (size_t channel, Point totalDim)
 bool
 CPixmap::Cache (
   size_t channel, const std::string & pFilename, Point totalDim, Point iconDim,
-  Mode mode)
+  Mode mode, size_t chBackWide)
 {
   std::string   file    = GetBaseDir () + pFilename;
   SDL_Surface * surface = IMG_Load (file.c_str ());
@@ -335,6 +335,16 @@ CPixmap::Cache (
   {
     if (channel == CHBACK)
     {
+      if (chBackWide > 0)
+      {
+        Rect srcRect;
+        srcRect.left   = 0;
+        srcRect.right  = LXIMAGE;
+        srcRect.top    = 0;
+        srcRect.bottom = LYIMAGE;
+        this->DrawImage (-1, chBackWide, srcRect);
+      }
+
       SDL_Rect dst;
       dst.x = (LXIMAGE - ow) / 2;
       dst.y = 0;

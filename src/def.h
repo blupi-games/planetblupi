@@ -72,6 +72,7 @@
 #define DIMLITTLEX      16      // max small char size
 #define DIMLITTLEY      12
 
+#define CHNONE          -1
 #define CHBACK          0
 #define CHFLOOR         1
 #define CHOBJECT        2
@@ -88,6 +89,7 @@
 #define CHTEXT          13
 #define CHBIGNUM        14
 #define CHMASK2         15
+#define CHBACKBUILD     16
 
 #define FOGHIDE         4
 // clang-format on
