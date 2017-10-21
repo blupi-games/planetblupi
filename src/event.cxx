@@ -4314,8 +4314,6 @@ CEvent::BuildMove (Point pos, Uint16 mod, const SDL_Event & event)
 bool
 CEvent::StartMovie (const std::string & pFilename)
 {
-  Rect rect;
-
   if (!m_pMovie->GetEnable ())
     return false;
   if (!m_bMovie)
@@ -4324,15 +4322,11 @@ CEvent::StartMovie (const std::string & pFilename)
   if (!m_pMovie->IsExist (pFilename))
     return false;
 
-  rect.left   = 1; // mystère: plante avec 0,0,LXIMAGE,LYIMAGE !!!
-  rect.top    = 1;
-  rect.right  = LXIMAGE - 2;
-  rect.bottom = LYIMAGE - 2;
-
   m_pSound->StopMusic ();
 
-  if (!m_pMovie->Play (rect, pFilename))
+  if (!m_pMovie->Play (pFilename))
     return false;
+
   m_bRunMovie = true;
   return true;
 }
