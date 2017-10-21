@@ -90,6 +90,7 @@
 #define CHBIGNUM        14
 #define CHMASK2         15
 #define CHBACKBUILD     16
+#define CHBACKBOOK      17
 
 #define FOGHIDE         4
 // clang-format on

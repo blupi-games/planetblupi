@@ -172,7 +172,7 @@ static Phase table[] =
     {
         EV_PHASE_HISTORY0,
         "image/history0.png",
-        CHNONE,
+        CHBACKBOOK,
         CPixmap::Mode::FIX,
         true,
         {
@@ -197,7 +197,7 @@ static Phase table[] =
     {
         EV_PHASE_HISTORY1,
         "image/history1.png",
-        CHNONE,
+        CHBACKBOOK,
         CPixmap::Mode::FIX,
         true,
         {
@@ -222,7 +222,7 @@ static Phase table[] =
     {
         EV_PHASE_INFO,
         "image/info%.3d.png",
-        CHNONE,
+        CHBACKBOOK,
         CPixmap::Mode::FIX,
         false,
         {
@@ -320,7 +320,7 @@ static Phase table[] =
     {
         EV_PHASE_STOP,
         "image/stop%.3d.png",
-        CHNONE,
+        CHBACKBOOK,
         CPixmap::Mode::FIX,
         false,
         {
@@ -369,7 +369,7 @@ static Phase table[] =
     {
         EV_PHASE_HELP,
         "image/help.png",
-        CHNONE,
+        CHBACKBOOK,
         CPixmap::Mode::FIX,
         true,
         {
