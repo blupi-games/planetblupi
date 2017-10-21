@@ -101,7 +101,7 @@ public:
   Sint32 GetImageWorld ();
   bool   IsHelpHide ();
   bool   ChangePhase (Uint32 phase);
-  void   MovieToStart ();
+  bool   MovieToStart ();
   Uint32 GetPhase ();
   void   TryInsert ();
 
