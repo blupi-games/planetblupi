@@ -38,7 +38,7 @@ public:
   bool Create ();
   bool GetEnable ();
   bool IsExist (const std::string & pFilename);
-  bool Play (Rect rect, const std::string & pFilename);
+  bool Play (const std::string & pFilename);
   void Stop ();
   void Pause ();
   void Resume ();
@@ -46,7 +46,7 @@ public:
 
 protected:
   void playMovie ();
-  bool fileOpenMovie (Rect rect, const std::string & pFilename);
+  bool fileOpenMovie (const std::string & pFilename);
   void fileCloseMovie ();
   void termAVI ();
   bool initAVI ();
