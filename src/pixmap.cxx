@@ -101,13 +101,44 @@ CPixmap::Create (Point dim)
   return true;
 }
 
+Sint32
+CPixmap::BltFast (Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR)
+{
+  Sint32 res;
+
+  SDL_Rect srcRect, dstRect;
+  srcRect.x = srcR.left;
+  srcRect.y = srcR.top;
+  srcRect.w = srcR.right - srcR.left;
+  srcRect.h = srcR.bottom - srcR.top;
+  dstRect.x = dstR.left;
+  dstRect.y = dstR.top;
+  dstRect.w = dstR.right - dstR.left;
+  dstRect.h = dstR.bottom - dstR.top;
+
+  if (dstCh < 0)
+  {
+    res = SDL_RenderCopy (
+      g_renderer, m_SDLTextureInfo[srcCh].texture, &srcRect, &dstRect);
+  }
+  else
+  {
+    SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[dstCh].texture);
+    res = SDL_RenderCopy (
+      g_renderer, m_SDLTextureInfo[srcCh].texture, &srcRect, &dstRect);
+    SDL_SetRenderTarget (g_renderer, nullptr);
+  }
+
+  return res;
+}
+
 // Effectue un appel BltFast.
 // Les modes sont 0=transparent, 1=opaque.
 
 Sint32
 CPixmap::BltFast (Sint32 chDst, size_t channel, Point dst, Rect rcRect)
 {
-  Sint32 res, limit;
+  Sint32 limit;
 
   // Effectue un peu de clipping.
   if (dst.x < m_clipRect.left)
@@ -130,38 +161,12 @@ CPixmap::BltFast (Sint32 chDst, size_t channel, Point dst, Rect rcRect)
   if (rcRect.left >= rcRect.right || rcRect.top >= rcRect.bottom)
     return 0;
 
-  if (chDst < 0)
-  {
-    SDL_Rect srcRect, dstRect;
-    srcRect.x = rcRect.left;
-    srcRect.y = rcRect.top;
-    srcRect.w = rcRect.right - rcRect.left;
-    srcRect.h = rcRect.bottom - rcRect.top;
-    dstRect   = srcRect;
-    dstRect.x = dst.x;
-    dstRect.y = dst.y;
-
-    res = SDL_RenderCopy (
-      g_renderer, m_SDLTextureInfo[channel].texture, &srcRect, &dstRect);
-  }
-  else
-  {
-    SDL_Rect srcRect, dstRect;
-    srcRect.x = rcRect.left;
-    srcRect.y = rcRect.top;
-    srcRect.w = rcRect.right - rcRect.left;
-    srcRect.h = rcRect.bottom - rcRect.top;
-    dstRect   = srcRect;
-    dstRect.x = dst.x;
-    dstRect.y = dst.y;
-
-    SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[chDst].texture);
-    res = SDL_RenderCopy (
-      g_renderer, m_SDLTextureInfo[channel].texture, &srcRect, &dstRect);
-    SDL_SetRenderTarget (g_renderer, nullptr);
-  }
-
-  return res;
+  Rect dstRect;
+  dstRect.left   = dst.x;
+  dstRect.top    = dst.y;
+  dstRect.right  = dstRect.left + rcRect.right - rcRect.left;
+  dstRect.bottom = dstRect.top + rcRect.bottom - rcRect.top;
+  return this->BltFast (chDst, channel, dstRect, rcRect);
 }
 
 // Effectue un appel BltFast.
