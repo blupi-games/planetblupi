@@ -23,50 +23,50 @@
 #include <SDL2/SDL_stdinc.h>
 
 // clang-format off
-#define _INTRO          true    // true si images d'introduction
+#define _INTRO          true    // true for init screen
 
-
-#define LXIMAGE         640     // dimensions de la fenêtre de jeu
+#define SCRFACTOR       4 / 3
+#define LXIMAGE         (480 * SCRFACTOR + (480 * SCRFACTOR) % 2) // window size
 #define LYIMAGE         480
 
-#define POSDRAWX        144     // surface de dessin
+#define POSDRAWX        144     // draw surface
 #define POSDRAWY        15
-#define DIMDRAWX        480
+#define DIMDRAWX        (LXIMAGE - (640 - 480))
 #define DIMDRAWY        450
 
-#define POSMAPX         8       // surface pour la carte
+#define POSMAPX         8       // map surface
 #define POSMAPY         15
 #define DIMMAPX         128
 #define DIMMAPY         128
 
-#define MAXCELX         200     // nb max de cellules d'un monde
+#define MAXCELX         200     // max cells for a world
 #define MAXCELY         200
 
-#define DIMCELX         60      // dimensions d'une cellule (décor)
+#define DIMCELX         60      // cell size (decor)
 #define DIMCELY         30
 
-#define DIMOBJX         120     // dimensions d'un objet
+#define DIMOBJX         120     // object size
 #define DIMOBJY         120
 
-#define DIMBLUPIX       60      // dimensions de blupi
+#define DIMBLUPIX       60      // Blupi size
 #define DIMBLUPIY       60
-#define SHIFTBLUPIY     5       // petit décalage vers le haut
+#define SHIFTBLUPIY     5       // shift on top
 
-#define DIMBUTTONX      40      // dimensions d'un button
+#define DIMBUTTONX      40      // button size
 #define DIMBUTTONY      40
 
-#define DIMJAUGEX       124     // dimensions de la jauge
+#define DIMJAUGEX       124     // progress size
 #define DIMJAUGEY       22
 
-#define POSSTATX        12      // statistiques
+#define POSSTATX        12      // statistics
 #define POSSTATY        220
 #define DIMSTATX        60
 #define DIMSTATY        30
 
-#define DIMTEXTX        16      // dimensions max d'un caractère
+#define DIMTEXTX        16      // max char size
 #define DIMTEXTY        16
 
-#define DIMLITTLEX      16      // dimensions max d'un petit caractère
+#define DIMLITTLEX      16      // max small char size
 #define DIMLITTLEY      12
 
 #define CHBACK          0
@@ -94,9 +94,9 @@ enum Directions {
   DIRECT_E  = (0 * 16), // east
   DIRECT_SE = (1 * 16), // south-east
   DIRECT_S  = (2 * 16), // south
-  DIRECT_SO = (3 * 16), // south-west
-  DIRECT_O  = (4 * 16), // west
-  DIRECT_NO = (5 * 16), // north-west
+  DIRECT_SW = (3 * 16), // south-west
+  DIRECT_W  = (4 * 16), // west
+  DIRECT_NW = (5 * 16), // north-west
   DIRECT_N  = (6 * 16), // north
   DIRECT_NE = (7 * 16), // north-east
 };

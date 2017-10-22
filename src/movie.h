@@ -38,7 +38,7 @@ public:
   bool Create ();
   bool GetEnable ();
   bool IsExist (const std::string & pFilename);
-  bool Play (Rect rect, const std::string & pFilename);
+  bool Play (const std::string & pFilename);
   void Stop ();
   void Pause ();
   void Resume ();
@@ -46,13 +46,12 @@ public:
 
 protected:
   void playMovie ();
-  bool fileOpenMovie (Rect rect, const std::string & pFilename);
+  bool fileOpenMovie (const std::string & pFilename);
   void fileCloseMovie ();
   void termAVI ();
   bool initAVI ();
 
 protected:
-  Kit_PlayerInfo *  pinfo;
   Kit_Source *      m_movie;
   Kit_Player *      m_player;
   SDL_Texture *     m_videoTex;
@@ -61,6 +60,7 @@ protected:
 
   char m_audiobuf[AUDIOBUFFER_SIZE];
   bool m_bEnable;
+  bool starting;
   bool m_fPlaying;   // Play flag: true == playing, false == paused
   bool m_fMovieOpen; // Open flag: true == movie open, false = none
 };

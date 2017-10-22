@@ -81,7 +81,9 @@ enum class Language {
   en_US = 1,
   fr    = 2,
   de    = 3,
-  pl    = 4,
+  it    = 4,
+  // Left some space for Korean and Hebrew as I think original translations should be first, see issue #23
+  pl    = 7,
 };
 
 class CEvent
@@ -99,7 +101,7 @@ public:
   Sint32 GetImageWorld ();
   bool   IsHelpHide ();
   bool   ChangePhase (Uint32 phase);
-  void   MovieToStart ();
+  bool   MovieToStart ();
   Uint32 GetPhase ();
   void   TryInsert ();
 
@@ -141,6 +143,7 @@ public:
   void IntroStep ();
 
   Uint8 GetWindowScale ();
+  void  SetWindowSize (Uint8 newScale);
   void  SetUpdateVersion (const std::string & version);
 
   static void PushUserEvent (Sint32 code, void * data = nullptr);
@@ -237,7 +240,6 @@ protected:
   bool                                     m_bSpeed;
   bool                                     m_bHelp;
   bool                                     m_bAllMissions;
-  bool                                     m_bChangeCheat;
   Sint32                                   m_scrollSpeed;
   bool                                     m_bPause;
   bool                                     m_bShift;

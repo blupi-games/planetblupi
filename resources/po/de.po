@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-09 09:13+0200\n"
-"PO-Revision-Date: 2017-09-09 09:13+0200\n"
+"POT-Creation-Date: 2017-09-15 18:34+0200\n"
+"PO-Revision-Date: 2017-10-04 23:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -548,6 +548,9 @@ msgstr "Auswahl der Musik"
 msgid "Music number 1"
 msgstr "Musik Nummer 1"
 
+msgid "Music number 10"
+msgstr "Musik Nummer 10"
+
 msgid "Music number 2"
 msgstr "Musik Nummer 2"
 
@@ -908,7 +911,7 @@ msgid "free slot"
 msgstr "frei"
 
 msgid "http://www.blupi.org            info@blupi.org"
-msgstr ""
+msgstr "http://www.blupi.org            info@blupi.org"
 
 #, c-format
 msgid "mission %d, time %d"

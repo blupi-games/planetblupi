@@ -2487,6 +2487,29 @@ CDecor::BlupiNextAction (Sint32 rank)
         return false;
       }
     }
+
+    /* Prevent Blupi to take a trap when an enemy is already captured. */
+    if (m_blupi[rank].perso == 0 && m_blupi[rank].action == ACTION_CARRY)
+    {
+      Sint32 ch, icon;
+
+      auto exists = this->GetObject (m_blupi[rank].goalHili, ch, icon);
+      if (exists && ch == CHOBJECT)
+      {
+        switch (icon)
+        {
+        case 96: // spider in trap
+        case 97: // track in trap
+        case 98: // robot in trap
+          BlupiInitAction (rank, ACTION_STOP);
+          GoalStop (rank, true);
+          return false;
+
+        default:
+          break;
+        }
+      }
+    }
   }
 
   if (m_blupi[rank].clicDelay > 0)
@@ -3991,7 +4014,7 @@ CDecor::BlupiGoal (Sint32 rank, Buttons button, Point cel, Point cMem)
 
     if (direct == DIRECT_S)
       action = EV_ACTION_BOATS;
-    if (direct == DIRECT_O)
+    if (direct == DIRECT_W)
       action = EV_ACTION_BOATO;
     if (direct == DIRECT_N)
       action = EV_ACTION_BOATN;

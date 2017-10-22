@@ -20,10 +20,12 @@
 
 #pragma once
 
-#include <SDL2/SDL_mixer.h>
+#include <set>
 #include <stdio.h>
 #include <string>
 #include <vector>
+
+#include <SDL2/SDL_mixer.h>
 
 #include "blupi.h"
 
@@ -63,7 +65,7 @@ public:
   bool IsStoppedOnDemand ();
   void AdaptVolumeMusic ();
   void SetSuspendSkip (Sint32 nb);
-  bool StopAllSounds (bool immediat);
+  bool StopAllSounds (bool immediat, const std::set<Sint32> * except = nullptr);
 
 protected:
   bool                     m_bState;
@@ -78,5 +80,3 @@ protected:
   Sint32                   m_lastMidiVolume;
   Sint32                   m_nbSuspendSkip;
 };
-
-/////////////////////////////////////////////////////////////////////////////

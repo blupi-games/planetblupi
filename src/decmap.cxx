@@ -533,6 +533,16 @@ CDecor::GenerateMap ()
     if (m_blupi[rank].bExist)
     {
       pos = ConvCelToMap (m_blupi[rank].cel);
+
+      if (this->GetSkill () >= 1 && !m_bBuild)
+      {
+        auto fogCel = m_blupi[rank].cel;
+        fogCel.x    = (fogCel.x / 4) * 4;
+        fogCel.y    = (fogCel.y / 4) * 4;
+        if (m_decor[fogCel.x / 2][fogCel.y / 2].fog == FOGHIDE) // hidden?
+          continue;
+      }
+
       if (
         pos.x >= 0 && pos.x < DIMMAPX - 1 && pos.y >= 0 && pos.y < DIMMAPY - 1)
       {

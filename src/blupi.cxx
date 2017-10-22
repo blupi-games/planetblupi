@@ -30,7 +30,9 @@
 
 #include <SDL2/SDL_image.h>
 #include <argagg/argagg.hpp>
+#ifdef USE_CURL
 #include <curl/curl.h>
+#endif /* USE_CURL */
 
 #include "json/json.hpp"
 
@@ -59,6 +61,7 @@ CDecor *      g_pDecor       = nullptr;
 std::thread * g_updateThread = nullptr;
 
 bool        g_bFullScreen    = false; // false si mode de test
+Uint8       g_windowScale    = 1;
 Sint32      g_speedRate      = 1;
 Sint32      g_timerInterval  = 50; // inverval = 50ms
 int         g_rendererType   = 0;
@@ -71,6 +74,7 @@ enum Settings {
   SETTING_SPEEDRATE     = 1 << 1,
   SETTING_TIMERINTERVAL = 1 << 2,
   SETTING_RENDERER      = 1 << 3,
+  SETTING_ZOOM          = 1 << 4,
 };
 
 static int g_settingsOverload = 0;
@@ -79,11 +83,13 @@ bool        g_bTermInit = false; // initialisation en cours
 Uint32      g_lastPhase = 999;
 static bool g_pause;
 
+#ifdef USE_CURL
 struct url_data {
   CURLcode status;
   char *   buffer;
   size_t   size;
 };
+#endif
 
 template <typename Out>
 static void
@@ -92,7 +98,7 @@ split (const std::string & s, char delim, Out result)
   std::stringstream ss;
   ss.str (s);
   std::string item;
-  while (std::getline (ss, item, delim).good ())
+  while (std::getline (ss, item, delim))
     *(result++) = item;
 }
 
@@ -114,7 +120,10 @@ ReadConfig ()
 {
   const auto config = GetBaseDir () + "data/config.json";
 
-  std::ifstream  file (config, std::ifstream::in);
+  std::ifstream file (config, std::ifstream::in);
+  if (!file)
+    return false;
+
   nlohmann::json j;
   file >> j;
 
@@ -149,6 +158,13 @@ ReadConfig ()
       g_bFullScreen = 1;
   }
 
+  if (!(g_settingsOverload & SETTING_ZOOM) && j.find ("zoom") != j.end ())
+  {
+    g_windowScale = j["zoom"].get<Uint8> ();
+    if (g_windowScale != 1 && g_windowScale != 2)
+      g_windowScale = 1;
+  }
+
   if (
     !(g_settingsOverload & SETTING_RENDERER) && j.find ("renderer") != j.end ())
   {
@@ -164,13 +180,14 @@ ReadConfig ()
 /**
  * \brief Main frame update.
  */
-static void
+static bool
 UpdateFrame (void)
 {
   Rect   clip, rcRect;
   Uint32 phase;
   Point  posMouse;
   Sint32 i, term, speed;
+  bool   display = true;
 
   posMouse = g_pEvent->GetLastMousePos ();
 
@@ -243,7 +260,7 @@ UpdateFrame (void)
     phase == EV_PHASE_H2MOVIE || phase == EV_PHASE_PLAYMOVIE ||
     phase == EV_PHASE_WINMOVIE)
   {
-    g_pEvent->MovieToStart (); // start a movie if necessary
+    display = g_pEvent->MovieToStart (); // start a movie if necessary
   }
 
   if (phase == EV_PHASE_INSERT)
@@ -257,6 +274,8 @@ UpdateFrame (void)
     if (term == 2)
       g_pEvent->ChangePhase (EV_PHASE_WINMOVIE); // win
   }
+
+  return display;
 }
 
 /**
@@ -371,10 +390,12 @@ HandleEvent (const SDL_Event & event)
     case EV_UPDATE:
       if (!g_pEvent->IsMovie ()) // pas de film en cours ?
       {
-        if (!g_pause)
-          UpdateFrame ();
+        bool display = true;
 
-        if (!g_pEvent->IsMovie ())
+        if (!g_pause)
+          display = UpdateFrame ();
+
+        if (!g_pEvent->IsMovie () && display)
           g_pPixmap->Display ();
       }
       break;
@@ -446,6 +467,7 @@ InitFail (const char * msg)
   FinishObjects ();
 }
 
+#ifdef USE_CURL
 static size_t
 updateCallback (void * ptr, size_t size, size_t nmemb, void * data)
 {
@@ -463,10 +485,12 @@ updateCallback (void * ptr, size_t size, size_t nmemb, void * data)
 
   return realsize;
 }
+#endif /* USE_CURL */
 
 static void
 CheckForUpdates ()
 {
+#ifdef USE_CURL
   url_data chunk;
 
   chunk.buffer = nullptr; /* we expect realloc(NULL, size) to work */
@@ -503,6 +527,7 @@ CheckForUpdates ()
     free (chunk.buffer);
 
   curl_easy_cleanup (curl);
+#endif /* USE_CURL */
 }
 
 static int
@@ -522,6 +547,10 @@ parseArgs (int argc, char * argv[], bool & exit)
      {"fullscreen",
       {"-f", "--fullscreen"},
       "load in fullscreen [on;off] (default: on)",
+      1},
+     {"zoom",
+      {"-z", "--zoom"},
+      "change the window scale (only if fullscreen is off) [1;2] (default: 1)",
       1},
      {"renderer",
       {"-r", "--renderer"},
@@ -584,6 +613,12 @@ parseArgs (int argc, char * argv[], bool & exit)
     g_settingsOverload |= SETTING_FULLSCREEN;
   }
 
+  if (args["zoom"])
+  {
+    g_windowScale = args["zoom"];
+    g_settingsOverload |= SETTING_ZOOM;
+  }
+
   if (args["renderer"])
   {
     if (args["renderer"].as<std::string> () == "auto")
@@ -622,19 +657,20 @@ DoInit (int argc, char * argv[], bool & exit)
 
   bOK = ReadConfig (); // lit le fichier config.json
 
+  if (!bOK) // Something wrong with config.json file?
+  {
+    InitFail ("Game not correctly installed");
+    return EXIT_FAILURE;
+  }
+
   auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
   if (res < 0)
     return EXIT_FAILURE;
 
   // Create a window.
-  if (g_bFullScreen)
-    g_window = SDL_CreateWindow (
-      gettext ("Planet Blupi"), 0, 0, LXIMAGE, LYIMAGE,
-      SDL_WINDOW_FULLSCREEN | SDL_WINDOW_BORDERLESS | SDL_WINDOW_INPUT_GRABBED);
-  else
-    g_window = SDL_CreateWindow (
-      gettext ("Planet Blupi"), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-      LXIMAGE, LYIMAGE, 0);
+  g_window = SDL_CreateWindow (
+    gettext ("Planet Blupi"), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    LXIMAGE, LYIMAGE, 0);
 
   if (!g_window)
   {
@@ -654,12 +690,6 @@ DoInit (int argc, char * argv[], bool & exit)
   {
     printf ("%s", SDL_GetError ());
     SDL_DestroyWindow (g_window);
-    return EXIT_FAILURE;
-  }
-
-  if (!bOK) // Something wrong with config.json file?
-  {
-    InitFail ("Game not correctly installed");
     return EXIT_FAILURE;
   }
 
@@ -830,26 +860,20 @@ DoInit (int argc, char * argv[], bool & exit)
   }
 
   totalDim.x = DIMTEXTX * 16;
-  totalDim.y = DIMTEXTY * 8 * 3;
+  totalDim.y = DIMTEXTY * 9 * 3;
   iconDim.x  = DIMTEXTX;
   iconDim.y  = DIMTEXTY;
-  std::string text_filename = "image/text.png";
-  if (GetLocale() == "pl")
-    text_filename = "image/text_pl.png"; // TODO: Merge into one texture, or use TTF fonts instead?
-  if (!g_pPixmap->Cache (CHTEXT, text_filename, totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHTEXT, "image/text.png", totalDim, iconDim))
   {
     InitFail ("Cache text.png");
     return EXIT_FAILURE;
   }
 
   totalDim.x = DIMLITTLEX * 16;
-  totalDim.y = DIMLITTLEY * 8;
+  totalDim.y = DIMLITTLEY * 9;
   iconDim.x  = DIMLITTLEX;
   iconDim.y  = DIMLITTLEY;
-  std::string little_filename = "image/little.png";
-  if (GetLocale() == "pl")
-    little_filename = "image/little_pl.png"; // TODO: Merge into one texture, or use TTF fonts instead?
-  if (!g_pPixmap->Cache (CHLITTLE, little_filename, totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHLITTLE, "image/little.png", totalDim, iconDim))
   {
     InitFail ("Cache little.png");
     return EXIT_FAILURE;
@@ -866,7 +890,7 @@ DoInit (int argc, char * argv[], bool & exit)
   }
 
   // Load all cursors
-  g_pPixmap->LoadCursors ();
+  g_pPixmap->LoadCursors (g_windowScale);
   g_pPixmap->ChangeSprite (SPRITE_WAIT); // met le sablier maison
 
   // Create the sound manager.
@@ -913,6 +937,8 @@ DoInit (int argc, char * argv[], bool & exit)
   g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
   g_updateThread = new std::thread (CheckForUpdates);
   g_pEvent->SetFullScreen (g_bFullScreen);
+  if (!g_bFullScreen)
+    g_pEvent->SetWindowSize (g_windowScale);
   g_pEvent->ChangePhase (EV_PHASE_INTRO1);
 
   g_bTermInit = true;
