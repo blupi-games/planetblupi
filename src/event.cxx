@@ -4638,6 +4638,8 @@ CEvent::ReadInfo ()
   if (file == nullptr)
     goto error;
 
+  SDL_memset (&info, 0, sizeof (info));
+
   nb = fread (&info, sizeof (DescInfo), 1, file);
   if (nb < 1)
     goto error;
@@ -4657,7 +4659,11 @@ CEvent::ReadInfo ()
   m_pSound->SetMidiVolume (info.midiVolume);
 
   if ((info.majRev == 1 && info.minRev >= 1) || info.majRev >= 2)
+  {
+    if (info.language >= static_cast<int> (Language::end))
+      info.language = 0;
     this->SetLanguage (static_cast<Language> (info.language));
+  }
 
   fclose (file);
   return true;
