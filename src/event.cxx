@@ -4564,6 +4564,8 @@ CEvent::ReadInfo ()
   if (file == nullptr)
     goto error;
 
+  SDL_memset (&info, 0, sizeof (info));
+
   nb = fread (&info, sizeof (DescInfo), 1, file);
   if (nb < 1)
     goto error;
