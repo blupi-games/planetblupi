@@ -24,13 +24,14 @@
 #include "blupi.h"
 #include "def.h"
 #include "event.h"
+#include "misc.h"
 #include "pixmap.h"
 #include "text.h"
 
 /**
  * \brief Return the character offset for the sprite.
  *
- * \param[in] c - The character (incremented if 0xC3 UTF-8).
+ * \param[in] c - The character (incremented if 0xC3 or 0xC4 or 0xC5 UTF-8).
  * \returns the offset.
  */
 static Sint32
@@ -45,17 +46,35 @@ GetOffset (const char *& c)
   };
 
   static const unsigned char table_extended[] = {
+  /* Italian */
   /*  ò     ì                                                */
     0xB2, 0xAC,                                     /* UTF-8 */
+  /* Polish */
+  /*              ń     ó     ę     ć     ź     ż            */
+                0x84, 0xB3, 0x99, 0x87, 0xBA, 0xBC, /* UTF-8 */
+  /*  ą     ł     ś                                          */
+    0x85, 0x82, 0x9B,                               /* UTF-8 */
   };
   /* clang-format on */
 
   if (static_cast<unsigned char> (*c) == 0xC3)
     c++;
+  if (static_cast<unsigned char> (*c) == 0xC4)
+    c++;
+  if (static_cast<unsigned char> (*c) == 0xC5)
+    c++;
 
-  for (unsigned int i = 0; i < countof (table_accents); ++i)
-    if ((unsigned char) *c == table_accents[i])
-      return 15 + i;
+  if (GetLocale () != "pl")
+  {
+    // Do not use the 'standard' accents table with Polish locale
+    // This is required because we check only last byte of UTF-8 and some
+    // characters overlap
+    // TODO: In the future, this ugly hack should be replaced with proper UTF-8
+    // parsing
+    for (unsigned int i = 0; i < countof (table_accents); ++i)
+      if ((unsigned char) *c == table_accents[i])
+        return 15 + i;
+  }
 
   for (unsigned int i = 0; i < countof (table_extended); ++i)
     if ((unsigned char) *c == table_extended[i])
@@ -88,7 +107,7 @@ GetCharWidth (const char *& c, Sint32 font)
      8,  9,  8,  9, 10,  8,  9, 11,  9,  8, 10,  7, 10,  7, 13, 13,
      9,  9,  8,  8,  8,  8,  6,  8,  8,  4,  6,  8,  4, 12,  8,  8,
      8,  8,  7,  6,  7,  8,  8, 10,  8,  8,  7,  6,  6,  6, 10,  8,
-     5,
+     5,  8,  8,  8,  8,  8,  7,  9,  6,  7
   };
 
   static const unsigned char table_width_little[] =
@@ -101,7 +120,7 @@ GetCharWidth (const char *& c, Sint32 font)
      6,  8,  7,  6,  6,  6,  8, 12,  7,  6,  6,  3,  5,  3,  6,  8,
      4,  6,  6,  6,  6,  6,  4,  6,  6,  2,  3,  5,  2, 10,  6,  6,
      6,  6,  3,  5,  3,  6,  6,  8,  6,  6,  5,  4,  6,  4,  7,  6,
-     3,
+     3,  5,  5,  5,  5,  4,  4,  6,  3,  4
   };
   // clang-format on
 

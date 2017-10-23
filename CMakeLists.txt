@@ -4,6 +4,7 @@ cmake_minimum_required (VERSION 3.2)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 set (CMAKE_CXX_STANDARD 11)
 
+include (GNUInstallDirs)
 include (${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 include_directories (${CMAKE_INSTALL_PREFIX}/include)
@@ -247,7 +248,7 @@ endforeach (file)
 ##############
 
 install (TARGETS planetblupi
-  RUNTIME DESTINATION bin
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install (

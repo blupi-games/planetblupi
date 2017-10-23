@@ -84,6 +84,9 @@ enum class Language {
   fr    = 2,
   de    = 3,
   it    = 4,
+  // Left some space for Korean and Hebrew as I think original translations
+  // should be first, see issue #23
+  pl = 7,
 };
 
 class CEvent

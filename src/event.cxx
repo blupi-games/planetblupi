@@ -1654,6 +1654,7 @@ CEvent::CEvent ()
   m_Languages.push_back (Language::fr);
   m_Languages.push_back (Language::de);
   m_Languages.push_back (Language::it);
+  m_Languages.push_back (Language::pl);
 
   this->m_LangStart = GetLocale ();
 
@@ -1665,6 +1666,8 @@ CEvent::CEvent ()
     m_Lang = m_Languages.begin () + 3;
   else if (this->m_LangStart == "it")
     m_Lang = m_Languages.begin () + 4;
+  else if (this->m_LangStart == "pl")
+    m_Lang = m_Languages.begin () + 5;
   else
     m_Lang = m_Languages.begin ();
 
@@ -2614,6 +2617,8 @@ CEvent::DrawButtons ()
       lang = "Deutsch";
     else if (locale == "it")
       lang = "Italiano";
+    else if (locale == "pl")
+      lang = "Polski";
 
     lg    = GetTextWidth (lang.c_str ());
     pos.x = (54 + 40) - lg / 2 + LXOFFSET;
@@ -3463,7 +3468,7 @@ CEvent::MovieToStart ()
   {
     if (StartMovie (m_movieToStart))
     {
-      movie = true;
+      movie   = true;
       m_phase = m_phaseAfterMovie; // prochaine phase normale
     }
     else
@@ -3767,6 +3772,8 @@ CEvent::GetStartLanguage ()
     return Language::de;
   if (this->m_LangStart == "it")
     return Language::it;
+  if (this->m_LangStart == "pl")
+    return Language::pl;
   return Language::en;
 }
 
@@ -3803,6 +3810,9 @@ CEvent::SetLanguage (Language lang)
     break;
   case Language::it:
     slang = "it";
+    break;
+  case Language::pl:
+    slang = "pl";
     break;
   }
 
