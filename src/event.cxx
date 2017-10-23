@@ -4585,7 +4585,11 @@ CEvent::ReadInfo ()
   m_pSound->SetMidiVolume (info.midiVolume);
 
   if ((info.majRev == 1 && info.minRev >= 1) || info.majRev >= 2)
+  {
+    if (info.language >= static_cast<int> (Language::end))
+      info.language = 0;
     this->SetLanguage (static_cast<Language> (info.language));
+  }
 
   fclose (file);
   return true;
