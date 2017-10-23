@@ -62,11 +62,13 @@ GetOffset (const char *& c)
   if (static_cast<unsigned char> (*c) == 0xC5)
     c++;
 
-  if (GetLocale() != "pl")
+  if (GetLocale () != "pl")
   {
     // Do not use the 'standard' accents table with Polish locale
-    // This is required because we check only last byte of UTF-8 and some characters overlap
-    // TODO: In the future, this ugly hack should be replaced with proper UTF-8 parsing
+    // This is required because we check only last byte of UTF-8 and some
+    // characters overlap
+    // TODO: In the future, this ugly hack should be replaced with proper UTF-8
+    // parsing
     for (unsigned int i = 0; i < countof (table_accents); ++i)
       if ((unsigned char) *c == table_accents[i])
         return 15 + i;
