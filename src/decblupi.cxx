@@ -728,13 +728,18 @@ CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
     if (m_blupi[rank].action == ACTION_STOP)
       m_blupi[rank].action = ACTION_D_STOP;
 
-    if (m_blupi[rank].action == ACTION_PICKAXE)
+    if (
+      m_blupi[rank].action == ACTION_PICKAXE ||
+      m_blupi[rank].action == ACTION_BUILDSEC)
       m_blupi[rank].action = ACTION_D_PICKAXE;
 
     if (m_blupi[rank].action == ACTION_BUILD)
       m_blupi[rank].action = ACTION_D_BUILD;
 
-    if (m_blupi[rank].action == ACTION_SAW)
+    if (
+      m_blupi[rank].action == ACTION_SAW ||
+      m_blupi[rank].action == ACTION_BUILDSOURD ||
+      m_blupi[rank].action == ACTION_PIOCHESOURD)
       m_blupi[rank].action = ACTION_D_SAW;
 
     if (m_blupi[rank].action == ACTION_TCHAO)
