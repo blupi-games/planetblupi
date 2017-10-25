@@ -87,7 +87,7 @@ GetFogIcon (char * pBits)
 // Table donnant la "vision" d'un blupi dans le
 // brouillard.
 // clang-format off
-static char table_fog[17 * 17] =
+static Sint8 table_fog[17 * 17] =
 {
   4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,  4,
   4,  4,  4,  4,  4,  4,  4,  2,  4,  4,  4,  4,  4,  4,  4,  4,  4,
