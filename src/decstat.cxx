@@ -475,7 +475,7 @@ CDecor::StatisticUpdate ()
 
       // Hide enemies from the stat when hidden by the fog
       bool hide = false;
-      if (this->GetSkill () >= 1)
+      if (this->GetSkill () >= 1 && this->m_bFog)
       {
         auto fogCel = m_blupi[rank].cel;
         fogCel.x    = (fogCel.x / 4) * 4;
