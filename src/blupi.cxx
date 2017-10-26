@@ -212,11 +212,7 @@ UpdateFrame (void)
     clip.bottom = POSDRAWY + DIMDRAWY;
 
     if (g_pEvent->IsShift ()) // screen shifting
-    {
       g_pEvent->DecorAutoShift ();
-      g_pDecor->Build (clip, posMouse); // build the environment
-    }
-    else
     {
       if (!g_pEvent->GetPause ())
       {
