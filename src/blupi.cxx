@@ -213,22 +213,21 @@ UpdateFrame (void)
 
     if (g_pEvent->IsShift ()) // screen shifting
       g_pEvent->DecorAutoShift ();
-    {
-      if (!g_pEvent->GetPause ())
-      {
-        speed = g_pEvent->GetSpeed () * g_speedRate;
-        for (i = 0; i < speed; i++)
-        {
-          g_pDecor->BlupiStep (i == 0); // move all blupi
-          g_pDecor->MoveStep (i == 0);  // move the environment
-          g_pEvent->DemoStep ();        // forward the recording or demo playing
-        }
-      }
 
-      g_pEvent->DecorAutoShift ();
-      g_pDecor->Build (clip, posMouse); // build the environment
-      g_pDecor->NextPhase (1);          // rebuild the map sometimes
+    if (!g_pEvent->GetPause ())
+    {
+      speed = g_pEvent->GetSpeed () * g_speedRate;
+      for (i = 0; i < speed; i++)
+      {
+        g_pDecor->BlupiStep (i == 0); // move all blupi
+        g_pDecor->MoveStep (i == 0);  // move the environment
+        g_pEvent->DemoStep ();        // forward the recording or demo playing
+      }
     }
+
+    g_pEvent->DecorAutoShift ();
+    g_pDecor->Build (clip, posMouse); // build the environment
+    g_pDecor->NextPhase (1);          // rebuild the map sometimes
   }
 
   if (phase == EV_PHASE_BUILD)
