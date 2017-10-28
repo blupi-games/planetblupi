@@ -46,7 +46,7 @@ protected:
   CDecor *  m_pDecor;
   CSound *  m_pSound;
   bool      m_bHide; // true si bouton caché
-  Point     m_pos;   // coin sup/gauche
+  Point     m_pos;   // up/left corner
   Point     m_dim;   // dimensions
   Sint32    m_type;
   Sint32    m_level;

@@ -2985,8 +2985,8 @@ CDecor::GetResHili (Point posMouse)
 {
   Sint32 icon;
 
-  // Les valeurs `corner == true` correspondent aux objets placés
-  // au coin inf/droit de la cellule.
+  // The `corner == true` values are corresponding to the objects
+  // positionned at the bottom/right corner of the cell.
   struct object_t {
     bool         corner;
     const char * text;
@@ -3261,24 +3261,24 @@ CDecor::HideTooltips (bool bHide)
 // Modifie l'origine supérieure/gauche du décor.
 
 void
-CDecor::SetCorner (Point coin, bool bCenter)
+CDecor::SetCorner (Point corner, bool bCenter)
 {
   if (bCenter)
   {
-    coin.x -= 10;
-    coin.y -= 2;
+    corner.x -= 10;
+    corner.y -= 2;
   }
 
-  if (coin.x < -8)
-    coin.x = -8;
-  if (coin.x > MAXCELX - 12)
-    coin.x = MAXCELX - 12;
-  if (coin.y < -2)
-    coin.y = -2;
-  if (coin.y > MAXCELY - 4)
-    coin.y = MAXCELY - 4;
+  if (corner.x < -8)
+    corner.x = -8;
+  if (corner.x > MAXCELX - 12)
+    corner.x = MAXCELX - 12;
+  if (corner.y < -2)
+    corner.y = -2;
+  if (corner.y > MAXCELY - 4)
+    corner.y = MAXCELY - 4;
 
-  m_celCorner       = coin;
+  m_celCorner     = corner;
   m_bGroundRedraw = true; // faudra redessiner les sols
   m_celHili.x     = -1;
   m_textLastPos.x = -1; // tooltips plus lavable !

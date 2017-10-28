@@ -406,7 +406,7 @@ public:
   bool GetObject (Point cel, Sint32 & channel, Sint32 & icon);
   bool SetFire (Point cel, bool bFire);
 
-  void  SetCorner (Point coin, bool bCenter = false);
+  void  SetCorner (Point corner, bool bCenter = false);
   Point GetCorner ();
   Point GetHome ();
   void  MemoPos (Sint32 rank, bool bRecord);
