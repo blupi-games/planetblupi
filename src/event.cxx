@@ -3463,17 +3463,17 @@ CEvent::MovieToStart ()
 void
 CEvent::DecorShift (Sint32 dx, Sint32 dy)
 {
-  Point coin;
+  Point corner;
 
   if (m_phase != EV_PHASE_PLAY && m_phase != EV_PHASE_BUILD)
     return;
 
-  coin = m_pDecor->GetCoin ();
+  corner = m_pDecor->GetCorner ();
 
-  coin.x += dx;
-  coin.y += dy;
+  corner.x += dx;
+  corner.y += dy;
 
-  m_pDecor->SetCoin (coin);
+  m_pDecor->SetCorner (corner);
 }
 
 /**
@@ -3649,7 +3649,7 @@ CEvent::PlayDown (Point pos, const SDL_Event & event)
 
   if (bMap)
   {
-    m_pDecor->SetCoin (cel, true);
+    m_pDecor->SetCorner (cel, true);
     m_pDecor->NextPhase (0); // faudra refaire la carte tout de suite
     return true;
   }
@@ -5368,7 +5368,7 @@ CEvent::TreatEventBase (const SDL_Event & event)
     }
     case SDLK_HOME:
       pos = m_pDecor->GetHome ();
-      m_pDecor->SetCoin (pos);
+      m_pDecor->SetCorner (pos);
       return true;
     case SDLK_SPACE:
       if (m_bRunMovie)

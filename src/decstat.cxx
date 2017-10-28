@@ -974,7 +974,7 @@ CDecor::StatisticDown (Point pos)
   return false;
 
 select:
-  SetCoin (cel, true);
+  SetCorner (cel, true);
   NextPhase (0); // faudra refaire la carte tout de suite
   return true;
 }

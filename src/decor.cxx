@@ -119,8 +119,8 @@ CDecor::CDecor ()
   m_pSound     = nullptr;
   m_pUndoDecor = nullptr;
 
-  m_celCoin.x = 90;
-  m_celCoin.y = 98;
+  m_celCorner.x = 90;
+  m_celCorner.y = 98;
 
   m_celHili.x     = -1;
   m_celOutline1.x = -1;
@@ -465,8 +465,8 @@ CDecor::ConvCelToPos (Point cel)
 {
   Point pos;
 
-  pos.x = ((cel.x - m_celCoin.x) - (cel.y - m_celCoin.y)) * (DIMCELX / 2);
-  pos.y = ((cel.x - m_celCoin.x) + (cel.y - m_celCoin.y)) * (DIMCELY / 2);
+  pos.x = ((cel.x - m_celCorner.x) - (cel.y - m_celCorner.y)) * (DIMCELX / 2);
+  pos.y = ((cel.x - m_celCorner.x) + (cel.y - m_celCorner.y)) * (DIMCELY / 2);
 
   pos.x += POSDRAWX + m_shiftOffset.x;
   pos.y += POSDRAWY + m_shiftOffset.y;
@@ -500,8 +500,8 @@ CDecor::ConvPosToCel (Point pos, bool bMap)
     cel.y -= (DIMCELX * DIMCELY);
   cel.y /= (DIMCELX * DIMCELY);
 
-  cel.x += m_celCoin.x;
-  cel.y += m_celCoin.y;
+  cel.x += m_celCorner.x;
+  cel.y += m_celCorner.y;
 
   return cel;
 }
@@ -516,19 +516,19 @@ CDecor::ConvPosToCel2 (Point pos)
   pos.x -= POSDRAWX + DIMCELX / 2;
   pos.y -= POSDRAWY;
 
-  if (m_celCoin.x % 2 != 0 && m_celCoin.y % 2 == 0)
+  if (m_celCorner.x % 2 != 0 && m_celCorner.y % 2 == 0)
   {
     pos.x += DIMCELX / 2;
     pos.y += DIMCELY / 2;
   }
 
-  if (m_celCoin.x % 2 == 0 && m_celCoin.y % 2 != 0)
+  if (m_celCorner.x % 2 == 0 && m_celCorner.y % 2 != 0)
   {
     pos.x -= DIMCELX / 2;
     pos.y += DIMCELY / 2;
   }
 
-  if (m_celCoin.x % 2 != 0 && m_celCoin.y % 2 != 0)
+  if (m_celCorner.x % 2 != 0 && m_celCorner.y % 2 != 0)
     pos.y += DIMCELY;
 
   cel.x =
@@ -539,8 +539,8 @@ CDecor::ConvPosToCel2 (Point pos)
     cel.y -= (DIMCELX * 2 * DIMCELY * 2);
   cel.y /= (DIMCELX * 2 * DIMCELY * 2);
 
-  cel.x = (cel.x * 2 + m_celCoin.x) / 2 * 2;
-  cel.y = (cel.y * 2 + m_celCoin.y) / 2 * 2;
+  cel.x = (cel.x * 2 + m_celCorner.x) / 2 * 2;
+  cel.y = (cel.y * 2 + m_celCorner.y) / 2 * 2;
 
   return cel;
 }
@@ -3261,7 +3261,7 @@ CDecor::HideTooltips (bool bHide)
 // Modifie l'origine supérieure/gauche du décor.
 
 void
-CDecor::SetCoin (Point coin, bool bCenter)
+CDecor::SetCorner (Point coin, bool bCenter)
 {
   if (bCenter)
   {
@@ -3278,16 +3278,16 @@ CDecor::SetCoin (Point coin, bool bCenter)
   if (coin.y > MAXCELY - 4)
     coin.y = MAXCELY - 4;
 
-  m_celCoin       = coin;
+  m_celCorner       = coin;
   m_bGroundRedraw = true; // faudra redessiner les sols
   m_celHili.x     = -1;
   m_textLastPos.x = -1; // tooltips plus lavable !
 }
 
 Point
-CDecor::GetCoin ()
+CDecor::GetCorner ()
 {
-  return m_celCoin;
+  return m_celCorner;
 }
 
 Point
@@ -3312,7 +3312,7 @@ CDecor::MemoPos (Sint32 rank, bool bRecord)
   if (bRecord)
   {
     m_pSound->PlayImage (SOUND_CLOSE, pos);
-    m_memoPos[rank] = m_celCoin;
+    m_memoPos[rank] = m_celCorner;
   }
   else
   {
@@ -3321,7 +3321,7 @@ CDecor::MemoPos (Sint32 rank, bool bRecord)
     else
     {
       m_pSound->PlayImage (SOUND_GOAL, pos);
-      SetCoin (m_memoPos[rank], false);
+      SetCorner (m_memoPos[rank], false);
     }
   }
 }

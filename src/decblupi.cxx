@@ -2013,7 +2013,7 @@ CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
     m_blupi[rank].cel = cel;
     BlupiPushFog (rank);
     if (m_blupi[rank].bHili)
-      SetCoin (cel, true);
+      SetCorner (cel, true);
     return true;
   }
 
