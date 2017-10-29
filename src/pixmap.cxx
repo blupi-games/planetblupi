@@ -373,8 +373,7 @@ CPixmap::IsIconPixel (size_t channel, Sint32 rank, Point pos)
 // Les modes sont 0=transparent, 1=opaque.
 
 bool
-CPixmap::DrawIcon (
-  Sint32 chDst, size_t channel, Sint32 rank, Point pos, bool bMask)
+CPixmap::DrawIcon (Sint32 chDst, size_t channel, Sint32 rank, Point pos)
 {
   Sint32 nbx, nby;
   Rect   rect;
@@ -411,8 +410,7 @@ CPixmap::DrawIcon (
 //  33,48   35,49
 
 bool
-CPixmap::DrawIconDemi (
-  Sint32 chDst, size_t channel, Sint32 rank, Point pos, bool bMask)
+CPixmap::DrawIconDemi (Sint32 chDst, size_t channel, Sint32 rank, Point pos)
 {
   Sint32 nbx, nby;
   Rect   rect;
@@ -445,7 +443,7 @@ CPixmap::DrawIconDemi (
 bool
 CPixmap::DrawIconPart (
   Sint32 chDst, size_t channel, Sint32 rank, Point pos, Sint32 startY,
-  Sint32 endY, bool bMask)
+  Sint32 endY)
 {
   Sint32 nbx, nby;
   Rect   rect;
@@ -477,8 +475,7 @@ CPixmap::DrawIconPart (
 // Dessine une partie d'image n'importe oï¿½.
 
 bool
-CPixmap::DrawPart (
-  Sint32 chDst, size_t channel, Point dest, Rect rect, bool bMask)
+CPixmap::DrawPart (Sint32 chDst, size_t channel, Point dest, Rect rect)
 {
   if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
     return false;
@@ -770,7 +767,7 @@ CPixmap::GetCursorRect (MouseSprites sprite)
 }
 
 void
-CPixmap::LoadCursors ()
+CPixmap::LoadCursors (Uint8 scale)
 {
   Uint32 rmask, gmask, bmask, amask;
 
@@ -791,16 +788,20 @@ on the endianness (byte order) of the machine */
   for (int i = SPRITE_BEGIN; i <= SPRITE_END; ++i)
   {
     MouseSprites sprite  = static_cast<MouseSprites> (i);
+
+    if (m_lpSDLCursors[sprite - 1])
+      SDL_FreeCursor (m_lpSDLCursors[sprite - 1]);
+
     SDL_Point    hotspot = this->GetCursorHotSpot (sprite);
     SDL_Rect     rect    = this->GetCursorRect (sprite);
 
-    SDL_Surface * surface =
-      SDL_CreateRGBSurface (0, rect.w, rect.h, 32, rmask, gmask, bmask, amask);
-    SDL_BlitSurface (m_lpSDLBlupi, &rect, surface, nullptr);
+    SDL_Surface * surface = SDL_CreateRGBSurface (
+      0, rect.w * scale, rect.h * scale, 32, rmask, gmask, bmask, amask);
+    SDL_BlitScaled (m_lpSDLBlupi, &rect, surface, nullptr);
 
     // FIXME: change cursor first value to 0
     m_lpSDLCursors[sprite - 1] =
-      SDL_CreateColorCursor (surface, hotspot.x, hotspot.y);
+      SDL_CreateColorCursor (surface, hotspot.x * scale, hotspot.y * scale);
     SDL_FreeSurface (surface);
   }
 }

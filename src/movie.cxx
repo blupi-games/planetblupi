@@ -90,7 +90,7 @@ CMovie::fileCloseMovie ()
 // Sets <m_fMovieOpen> on success.
 
 bool
-CMovie::fileOpenMovie (Rect rect, const std::string & pFilename)
+CMovie::fileOpenMovie (const std::string & pFilename)
 {
   const auto path = GetBaseDir () + pFilename;
 
@@ -108,21 +108,22 @@ CMovie::fileOpenMovie (Rect rect, const std::string & pFilename)
     if (m_player == nullptr)
       return false;
 
-    pinfo = new Kit_PlayerInfo;
-    Kit_GetPlayerInfo (m_player, pinfo);
+    Kit_PlayerInfo info;
+    Kit_GetPlayerInfo (m_player, &info);
 
     SDL_AudioSpec wanted_spec, audio_spec;
 
     SDL_memset (&wanted_spec, 0, sizeof (wanted_spec));
-    wanted_spec.freq     = pinfo->audio.samplerate;
-    wanted_spec.format   = pinfo->audio.format;
-    wanted_spec.channels = pinfo->audio.channels;
+    wanted_spec.freq     = info.audio.samplerate;
+    wanted_spec.format   = info.audio.format;
+    wanted_spec.channels = info.audio.channels;
     m_audioDev = SDL_OpenAudioDevice (nullptr, 0, &wanted_spec, &audio_spec, 0);
     SDL_PauseAudioDevice (m_audioDev, 0);
 
     m_videoTex = SDL_CreateTexture (
-      g_renderer, pinfo->video.format, SDL_TEXTUREACCESS_STATIC,
-      pinfo->video.width, pinfo->video.height);
+      g_renderer, info.video.format, SDL_TEXTUREACCESS_TARGET, info.video.width,
+      info.video.height);
+
     if (m_videoTex == nullptr)
       return false;
 
@@ -145,7 +146,10 @@ CMovie::playMovie ()
 
   // play/pause the AVI movie
   if (m_fPlaying)
+  {
+    this->starting = true;
     Kit_PlayerPlay (m_player);
+  }
   else
     Kit_PlayerPause (m_player);
 }
@@ -159,7 +163,6 @@ CMovie::CMovie ()
   m_movie    = nullptr;
   m_player   = nullptr;
   m_videoTex = nullptr;
-  pinfo      = nullptr;
 
   memset (m_audiobuf, 0, sizeof (m_audiobuf));
 
@@ -207,11 +210,12 @@ CMovie::IsExist (const std::string & pFilename)
 // Montre un film avi.
 
 bool
-CMovie::Play (Rect rect, const std::string & pFilename)
+CMovie::Play (const std::string & pFilename)
 {
   if (!m_bEnable)
     return false;
-  if (!fileOpenMovie (rect, pFilename))
+
+  if (!fileOpenMovie (pFilename))
     return false;
 
   playMovie ();
@@ -288,6 +292,15 @@ CMovie::Render ()
   // Clear screen with black
   SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 255);
   SDL_RenderClear (g_renderer);
+
+  if (this->starting)
+  {
+    SDL_SetRenderTarget (g_renderer, m_videoTex);
+    SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 255);
+    SDL_RenderClear (g_renderer);
+    SDL_SetRenderTarget (g_renderer, nullptr);
+    this->starting = false;
+  }
 
   // Refresh videotexture and render it
   Kit_GetVideoData (m_player, m_videoTex);

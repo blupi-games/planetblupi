@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-09 09:13+0200\n"
-"PO-Revision-Date: 2017-09-09 09:13+0200\n"
+"POT-Creation-Date: 2017-09-15 18:34+0200\n"
+"PO-Revision-Date: 2017-10-04 23:29+0200\n"
 "Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -543,6 +543,9 @@ msgstr "Choix de la musique"
 msgid "Music number 1"
 msgstr "Musique numéro 1"
 
+msgid "Music number 10"
+msgstr "Musique numéro 10"
+
 msgid "Music number 2"
 msgstr "Musique numéro 2"
 
@@ -900,7 +903,7 @@ msgid "free slot"
 msgstr "libre"
 
 msgid "http://www.blupi.org            info@blupi.org"
-msgstr ""
+msgstr "http://www.blupi.org            info@blupi.org"
 
 #, c-format
 msgid "mission %d, time %d"

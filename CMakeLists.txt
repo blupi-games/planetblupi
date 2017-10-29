@@ -4,6 +4,7 @@ cmake_minimum_required (VERSION 3.2)
 set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 set (CMAKE_CXX_STANDARD 11)
 
+include (GNUInstallDirs)
 include (${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 include_directories (${CMAKE_INSTALL_PREFIX}/include)
@@ -12,12 +13,16 @@ list(APPEND CMAKE_FIND_ROOT_PATH "${CMAKE_INSTALL_PREFIX}") # This is required w
 
 project (planetblupi)
 set (PB_VERSION_MAJOR 1)
-set (PB_VERSION_MINOR 9)
-set (PB_VERSION_PATCH 1)
+set (PB_VERSION_MINOR 11)
+set (PB_VERSION_PATCH 0)
 set (PB_VERSION_EXTRA "")
 set (PB_PRODUCT_NAME "Planet Blupi")
 set (PB_PACKAGE_NAME "planetblupi")
-set (PB_DESCRIPTION "Planet Blupi - A delerious spell-binding game")
+set (PB_EXEC         "planetblupi")
+set (PB_ICON_REF     "blupi")
+set (PB_DESCRIPTION "Planet Blupi - A delirious spell-binding game")
+
+option (PB_HTTP_VERSION_CHECK "Run a version check over HTTP (with CURL)" OFF)
 
 set(CMAKE_CXX_FLAGS "-Wno-error=c++11-narrowing ${CMAKE_CXX_FLAGS}") # TODO: FIXME in fog.cxx
 
@@ -37,16 +42,20 @@ if (APPIMAGE_APPRUN_PROGRAM AND APPIMAGE_ASSISTANT_PROGRAM)
   set (USE_APPIMAGE ON)
 endif ()
 
+if (NOT USE_APPIMAGE)
+  configure_file (
+    "${PROJECT_SOURCE_DIR}/resources/linux/application.desktop.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop"
+    @ONLY
+  )
+endif ()
+
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 -L${CMAKE_INSTALL_PREFIX}/lib")
 endif ()
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND "${STATIC_BUILD}")
   set (CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
-endif ()
-
-if (NOT "${STATIC_BUILD}")
-  set (CMAKE_EXE_LINKER_FLAGS "-lpthread")
 endif ()
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
@@ -124,7 +133,10 @@ find_package (PkgConfig REQUIRED)
 pkg_search_module (SDL2 REQUIRED sdl2)
 pkg_search_module (SDL2_MIXER REQUIRED SDL2_mixer)
 pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
-pkg_search_module (CURL REQUIRED libcurl)
+if (${PB_HTTP_VERSION_CHECK})
+  pkg_search_module (CURL REQUIRED libcurl)
+  add_definitions (-DUSE_CURL)
+endif ()
 
 if ("${STATIC_BUILD}")
   pkg_search_module (PNG REQUIRED libpng)
@@ -140,7 +152,9 @@ if ("${STATIC_BUILD}")
     pkg_search_module (PULSE REQUIRED libpulse)
   endif ()
 
-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCURL_STATICLIB")
+  if (${PB_HTTP_VERSION_CHECK})
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DCURL_STATICLIB")
+  endif ()
 endif ()
 
 ###########################
@@ -160,7 +174,6 @@ if ("${STATIC_BUILD}")
     ${SDL2_STATIC_LIBRARIES}
     ${SDL2_MIXER_STATIC_LIBRARIES}
     ${SDL2_IMAGE_STATIC_LIBRARIES}
-    ${CURL_STATIC_LIBRARIES}
     ${SDLKitchensink_STATIC_LIBRARIES}
     ${PNG_STATIC_LIBRARIES}
     ${AVCODEC_STATIC_LIBRARIES}
@@ -169,6 +182,12 @@ if ("${STATIC_BUILD}")
     ${SWSCALE_STATIC_LIBRARIES}
     ${SWRESAMPLE_STATIC_LIBRARIES}
   )
+
+  if (${PB_HTTP_VERSION_CHECK})
+    list (APPEND planetblupi_DEPS
+      ${CURL_STATIC_LIBRARIES}
+    )
+  endif ()
 
   if (UNIX AND NOT APPLE AND NOT ANDROID)
     list (APPEND planetblupi_DEPS
@@ -184,7 +203,14 @@ else ()
     ${SDL2_IMAGE_LIBRARIES}
     ${CURL_LIBRARIES}
     ${SDLKitchensink_LIBRARIES}
+    pthread
   )
+
+  if (${PB_HTTP_VERSION_CHECK})
+    list (APPEND planetblupi_DEPS
+      ${CURL_LIBRARIES}
+    )
+  endif ()
 endif ()
 
 target_link_libraries (planetblupi PUBLIC ${planetblupi_DEPS})
@@ -231,8 +257,10 @@ endforeach (file)
 ##############
 
 install (TARGETS planetblupi
-  RUNTIME DESTINATION bin
-  ARCHIVE DESTINATION lib
+  # TODO: merge conflict
+  #RUNTIME DESTINATION bin
+  #ARCHIVE DESTINATION lib
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
 install (
@@ -254,6 +282,13 @@ install (FILES LICENSE.all DESTINATION share/doc/planetblupi RENAME copyright)
 
 if (UNIX AND NOT APPLE)
   install (DIRECTORY resources/icon/hicolor DESTINATION share/icons)
+endif ()
+
+if (NOT USE_APPIMAGE)
+  install (
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop
+    DESTINATION share/applications
+  )
 endif ()
 
 # Copy libwinpthread-1.dll which seems not be linkable statically
@@ -283,7 +318,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release" AND "${STATIC_BUILD}")
   if (USE_APPIMAGE)
     include (LinuxAppImageBuild)
     set (CMAKE_PACKAGED_OUTPUT_PREFIX ${CMAKE_INSTALL_PREFIX})
-    APPIMAGE_PACKAGE (planetblupi ${PB_PACKAGE_NAME} ${PB_PRODUCT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "${CMAKE_BINARY_DIR}/share" "" "" "blupi")
+    APPIMAGE_PACKAGE (planetblupi ${PB_PACKAGE_NAME} ${PB_PRODUCT_NAME} "${CMAKE_CURRENT_SOURCE_DIR}/resources/linux" "${CMAKE_BINARY_DIR}/share" "" "" ${PB_ICON_REF})
   elseif (MINGW)
     set (INSTALLER_FILE_NAME "${PB_PACKAGE_NAME}-${PB_VERSION_MAJOR}.${PB_VERSION_MINOR}.${PB_VERSION_PATCH}${PB_VERSION_EXTRA}")
     set (CPACK_PACKAGE_FILE_NAME "${INSTALLER_FILE_NAME}")

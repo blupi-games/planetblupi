@@ -728,13 +728,18 @@ CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
     if (m_blupi[rank].action == ACTION_STOP)
       m_blupi[rank].action = ACTION_D_STOP;
 
-    if (m_blupi[rank].action == ACTION_PICKAXE)
+    if (
+      m_blupi[rank].action == ACTION_PICKAXE ||
+      m_blupi[rank].action == ACTION_BUILDSEC)
       m_blupi[rank].action = ACTION_D_PICKAXE;
 
     if (m_blupi[rank].action == ACTION_BUILD)
       m_blupi[rank].action = ACTION_D_BUILD;
 
-    if (m_blupi[rank].action == ACTION_SAW)
+    if (
+      m_blupi[rank].action == ACTION_SAW ||
+      m_blupi[rank].action == ACTION_BUILDSOURD ||
+      m_blupi[rank].action == ACTION_PIOCHESOURD)
       m_blupi[rank].action = ACTION_D_SAW;
 
     if (m_blupi[rank].action == ACTION_TCHAO)
@@ -2008,7 +2013,7 @@ CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
     m_blupi[rank].cel = cel;
     BlupiPushFog (rank);
     if (m_blupi[rank].bHili)
-      SetCoin (cel, true);
+      SetCorner (cel, true);
     return true;
   }
 
@@ -2485,6 +2490,29 @@ CDecor::BlupiNextAction (Sint32 rank)
         BlupiInitAction (i, ACTION_STOP);
         GoalStop (i, true);
         return false;
+      }
+    }
+
+    /* Prevent Blupi to take a trap when an enemy is already captured. */
+    if (m_blupi[rank].perso == 0 && m_blupi[rank].action == ACTION_CARRY)
+    {
+      Sint32 ch, icon;
+
+      auto exists = this->GetObject (m_blupi[rank].goalHili, ch, icon);
+      if (exists && ch == CHOBJECT)
+      {
+        switch (icon)
+        {
+        case 96: // spider in trap
+        case 97: // track in trap
+        case 98: // robot in trap
+          BlupiInitAction (rank, ACTION_STOP);
+          GoalStop (rank, true);
+          return false;
+
+        default:
+          break;
+        }
       }
     }
   }
@@ -3991,7 +4019,7 @@ CDecor::BlupiGoal (Sint32 rank, Buttons button, Point cel, Point cMem)
 
     if (direct == DIRECT_S)
       action = EV_ACTION_BOATS;
-    if (direct == DIRECT_O)
+    if (direct == DIRECT_W)
       action = EV_ACTION_BOATO;
     if (direct == DIRECT_N)
       action = EV_ACTION_BOATN;

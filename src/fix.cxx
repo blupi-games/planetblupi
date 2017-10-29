@@ -628,76 +628,77 @@ CDecor::ArrangeObject (Point cel)
     }
   }
 
-  // Arrange les rayons entre les tours.
   if (
-    m_decor[cel.x / 2][cel.y / 2].objectIcon == 27 || // tour ?
-    m_decor[cel.x / 2][cel.y / 2].objectIcon == -1)   // rien ?
+    g_restoreBugs &&
+    (m_decor[cel.x / 2][cel.y / 2].objectIcon != 27 && // not a tower?
+     m_decor[cel.x / 2][cel.y / 2].objectIcon != -1))
+    return;
+
+  // Arrange les rayons entre les tours.
+  for (i = 0; i < 4; i++)
   {
-    for (i = 0; i < 4; i++)
+    vector = GetVector (i * 2 * 16);
+    test   = cel;
+
+    bTour = false;
+    j     = 0;
+    while (true)
     {
-      vector = GetVector (i * 2 * 16);
-      test   = cel;
+      test.x += vector.x * 2;
+      test.y += vector.y * 2;
 
+      if (m_decor[test.x / 2][test.y / 2].objectIcon == 27) // tour ?
+      {
+        bTour = true;
+        break;
+      }
+
+      if (
+        m_decor[test.x / 2][test.y / 2].objectIcon != -1 &&
+        m_decor[test.x / 2][test.y / 2].objectIcon != 10001 - i % 2)
+        break;
+
+      j++;
+      if (j >= 2 + 1)
+        break;
+    }
+
+    if (m_decor[cel.x / 2][cel.y / 2].objectIcon != 27) // pas tour ?
       bTour = false;
-      j     = 0;
-      while (true)
-      {
-        test.x += vector.x * 2;
-        test.y += vector.y * 2;
 
-        if (m_decor[test.x / 2][test.y / 2].objectIcon == 27) // tour ?
+    test = cel;
+    for (k = 0; k < j; k++)
+    {
+      test.x += vector.x * 2;
+      test.y += vector.y * 2;
+
+      if (bTour)
+      {
+        channel = CHOBJECT;
+        icon    = 10001 - i % 2; // rayon e-o (10001) ou n-s (10000)
+      }
+      else
+      {
+        channel = -1;
+        icon    = -1;
+      }
+      m_decor[test.x / 2][test.y / 2].objectChannel = channel;
+      m_decor[test.x / 2][test.y / 2].objectIcon    = icon;
+
+      if (!m_bBuild && bTour)
+      {
+        if (MoveCreate (
+              test, -1, false, CHOBJECT, -1, -1, -1, 9999, 1, 0, true))
         {
-          bTour = true;
-          break;
+          MoveAddIcons (test, 5 - i % 2, true); // éclairs
         }
 
-        if (
-          m_decor[test.x / 2][test.y / 2].objectIcon != -1 &&
-          m_decor[test.x / 2][test.y / 2].objectIcon != 10001 - i % 2)
-          break;
-
-        j++;
-        if (j >= 2 + 1)
-          break;
+        pos = ConvCelToPos (test);
+        m_pSound->PlayImage (SOUND_RAYON1, pos);
       }
 
-      if (m_decor[cel.x / 2][cel.y / 2].objectIcon != 27) // pas tour ?
-        bTour = false;
-
-      test = cel;
-      for (k = 0; k < j; k++)
-      {
-        test.x += vector.x * 2;
-        test.y += vector.y * 2;
-
-        if (bTour)
-        {
-          channel = CHOBJECT;
-          icon    = 10001 - i % 2; // rayon e-o (10001) ou n-s (10000)
-        }
-        else
-        {
-          channel = -1;
-          icon    = -1;
-        }
-        m_decor[test.x / 2][test.y / 2].objectChannel = channel;
-        m_decor[test.x / 2][test.y / 2].objectIcon    = icon;
-
-        if (!m_bBuild && bTour)
-        {
-          if (MoveCreate (
-                test, -1, false, CHOBJECT, -1, -1, -1, 9999, 1, 0, true))
-          {
-            MoveAddIcons (test, 5 - i % 2, true); // éclairs
-          }
-
-          pos = ConvCelToPos (test);
-          m_pSound->PlayImage (SOUND_RAYON1, pos);
-        }
-
-        if (!m_bBuild && !bTour)
-          MoveFinish (test);
-      }
+      if (!m_bBuild && !bTour)
+        MoveFinish (test);
     }
   }
 }

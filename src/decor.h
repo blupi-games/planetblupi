@@ -406,8 +406,8 @@ public:
   bool GetObject (Point cel, Sint32 & channel, Sint32 & icon);
   bool SetFire (Point cel, bool bFire);
 
-  void  SetCoin (Point coin, bool bCenter = false);
-  Point GetCoin ();
+  void  SetCorner (Point corner, bool bCenter = false);
+  Point GetCorner ();
   Point GetHome ();
   void  MemoPos (Sint32 rank, bool bRecord);
 
@@ -467,7 +467,7 @@ protected:
   Sint16    m_rankBlupi[MAXCELX][MAXCELY];
   Blupi     m_blupi[MAXBLUPI];
   Move      m_move[MAXMOVE];
-  Point     m_celCoin; // cellule sup/gauche
+  Point     m_celCorner; // cellule sup/gauche
   Point     m_celHome; // pour touche Home
   Point     m_celHili;
   Point     m_celOutline1;

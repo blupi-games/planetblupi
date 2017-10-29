@@ -71,7 +71,7 @@ protected:
   bool   m_bEnable;      // true si bouton actif
   bool   m_bHide;        // true si bouton caché
   Uint32 m_message;      // message envoyé si bouton actionné
-  Point  m_pos;          // coin sup/gauche
+  Point  m_pos;          // up/left corner
   Point  m_dim;          // dimensions
   Sint32 m_state;        // 0=relâché, 1=pressé, +2=survollé
   Sint32 m_mouseState;   // 0=relâché, 1=pressé, +2=survollé

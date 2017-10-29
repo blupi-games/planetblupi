@@ -114,8 +114,8 @@ CDecor::ConvCelToMap (Point cel)
 {
   Point pos;
 
-  pos.x = (cel.x - m_celCoin.x) - (cel.y - m_celCoin.y);
-  pos.y = ((cel.x - m_celCoin.x) + (cel.y - m_celCoin.y)) / 2;
+  pos.x = (cel.x - m_celCorner.x) - (cel.y - m_celCorner.y);
+  pos.y = ((cel.x - m_celCorner.x) + (cel.y - m_celCorner.y)) / 2;
 
   pos.x += (DIMMAPX - MAPCADREX) / 2;
   pos.y += (DIMMAPY - MAPCADREY) / 2;
@@ -136,8 +136,8 @@ CDecor::ConvMapToCel (Point pos)
   cel.x = pos.y + pos.x / 2;
   cel.y = pos.y - pos.x / 2;
 
-  cel.x += m_celCoin.x;
-  cel.y += m_celCoin.y;
+  cel.x += m_celCorner.x;
+  cel.y += m_celCorner.y;
 
   return cel;
 }
@@ -158,7 +158,7 @@ CDecor::MapMove (Point pos)
     cel   = ConvMapToCel (pos);
     cel.x = cel.x - 10;
     cel.y = cel.y;
-    SetCoin (cel);
+    SetCorner (cel);
     NextPhase (0); // faudra refaire la carte tout de suite
     return true;
   }
@@ -533,6 +533,16 @@ CDecor::GenerateMap ()
     if (m_blupi[rank].bExist)
     {
       pos = ConvCelToMap (m_blupi[rank].cel);
+
+      if (this->GetSkill () >= 1 && !m_bBuild)
+      {
+        auto fogCel = m_blupi[rank].cel;
+        fogCel.x    = (fogCel.x / 4) * 4;
+        fogCel.y    = (fogCel.y / 4) * 4;
+        if (m_decor[fogCel.x / 2][fogCel.y / 2].fog == FOGHIDE) // hidden?
+          continue;
+      }
+
       if (
         pos.x >= 0 && pos.x < DIMMAPX - 1 && pos.y >= 0 && pos.y < DIMMAPY - 1)
       {
@@ -550,7 +560,7 @@ CDecor::GenerateMap ()
   }
 
   // Dessine le cadre.
-  cel = m_celCoin;
+  cel = m_celCorner;
   pos = ConvCelToMap (cel);
 
   for (i = pos.x; i < pos.x + MAPCADREX; i++)

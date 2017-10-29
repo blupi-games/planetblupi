@@ -1259,62 +1259,68 @@ static Phase table[] =
             {
                 EV_BUTTON1,
                 0, {1, 40},
-                170 + 42 * 0, 30 + 42 * 0,
+                170 + 42 * 1, 30 + 42 * 0,
                 { translate ("No music") },
             },
             {
                 EV_BUTTON2,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 1,
+                170 + 42 * 0, 30 + 42 * 0,
                 { translate ("Music number 1") },
             },
             {
                 EV_BUTTON3,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 2,
+                170 + 42 * 0, 30 + 42 * 1,
                 { translate ("Music number 2") },
             },
             {
                 EV_BUTTON4,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 3,
+                170 + 42 * 0, 30 + 42 * 2,
                 { translate ("Music number 3") },
             },
             {
                 EV_BUTTON5,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 4,
+                170 + 42 * 0, 30 + 42 * 3,
                 { translate ("Music number 4") },
             },
             {
                 EV_BUTTON6,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 5,
+                170 + 42 * 0, 30 + 42 * 4,
                 { translate ("Music number 5") },
             },
             {
                 EV_BUTTON7,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 6,
+                170 + 42 * 0, 30 + 42 * 5,
                 { translate ("Music number 6") },
             },
             {
                 EV_BUTTON8,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 7,
+                170 + 42 * 0, 30 + 42 * 6,
                 { translate ("Music number 7") },
             },
             {
                 EV_BUTTON9,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 8,
+                170 + 42 * 0, 30 + 42 * 7,
                 { translate ("Music number 8") },
             },
             {
                 EV_BUTTON10,
                 0, {1, 44},
-                170 + 42 * 0, 30 + 42 * 9,
+                170 + 42 * 0, 30 + 42 * 8,
                 { translate ("Music number 9") },
+            },
+            {
+                EV_BUTTON11,
+                0, {1, 44},
+                170 + 42 * 0, 30 + 42 * 9,
+                { translate ("Music number 10") },
             },
             {
                 EV_PHASE_BUILD,
@@ -1546,7 +1552,6 @@ CEvent::CEvent ()
   m_bSpeed          = false;
   m_bHelp           = false;
   m_bAllMissions    = false;
-  m_bChangeCheat    = false;
   m_scrollSpeed     = 1;
   m_bPause          = false;
   m_bShift          = false;
@@ -1588,6 +1593,8 @@ CEvent::CEvent ()
   m_Languages.push_back (Language::en_US);
   m_Languages.push_back (Language::fr);
   m_Languages.push_back (Language::de);
+  m_Languages.push_back (Language::it);
+  m_Languages.push_back (Language::pl);
 
   this->m_LangStart = GetLocale ();
 
@@ -1597,6 +1604,10 @@ CEvent::CEvent ()
     m_Lang = m_Languages.begin () + 2;
   else if (this->m_LangStart == "de")
     m_Lang = m_Languages.begin () + 3;
+  else if (this->m_LangStart == "it")
+    m_Lang = m_Languages.begin () + 4;
+  else if (this->m_LangStart == "pl")
+    m_Lang = m_Languages.begin () + 5;
   else
     m_Lang = m_Languages.begin ();
 
@@ -1648,6 +1659,7 @@ CEvent::SetFullScreen (bool bFullScreen)
   SDL_SetWindowPosition (
     g_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
+  m_pPixmap->LoadCursors (m_WindowScale);
   m_pPixmap->ReloadTargetTextures ();
 
   /* Force this update before otherwise the coordinates retrieved with
@@ -1659,6 +1671,33 @@ CEvent::SetFullScreen (bool bFullScreen)
   coord->x   = x;
   coord->y   = y;
   CEvent::PushUserEvent (EV_WARPMOUSE, coord);
+}
+
+/**
+ * \brief Change the size of the window.
+ *
+ * We use an integer scale to be sure that the pixels are always well formed.
+ *
+ * \param[in] newScale - The new scale.
+ */
+void
+CEvent::SetWindowSize (Uint8 newScale)
+{
+  if (newScale == m_WindowScale)
+    return;
+
+  auto scale    = m_WindowScale;
+  m_WindowScale = newScale;
+  switch (newScale)
+  {
+  case 1:
+  case 2:
+    SetWindowSize (scale, m_WindowScale);
+    break;
+
+  default:
+    return;
+  }
 }
 
 /**
@@ -1679,6 +1718,7 @@ CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
   SDL_SetWindowPosition (
     g_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
+  m_pPixmap->LoadCursors (newScale);
   m_pPixmap->ReloadTargetTextures ();
 
   /* Force this update before otherwise the coordinates retrieved with
@@ -1930,12 +1970,10 @@ CEvent::DrawButtons ()
   bool   bEnable;
 
   if (
-    (m_phase == EV_PHASE_PLAY && m_bChangeCheat) ||
+    (m_phase == EV_PHASE_PLAY) ||
     (m_phase != EV_PHASE_PLAY && m_phase != EV_PHASE_INSERT &&
      m_phase != EV_PHASE_INTRO1 && m_phase != EV_PHASE_BYE))
   {
-    m_bChangeCheat = false;
-
     text[0] = 0;
     if (m_bAllMissions)
       AddCheatCode (text, cheat_code[3]);
@@ -1947,14 +1985,17 @@ CEvent::DrawButtons ()
       AddCheatCode (text, cheat_code[6]);
     if (m_pDecor->GetSuper ())
       AddCheatCode (text, cheat_code[7]);
-    pos.x       = 2;
-    pos.y       = 2;
-    rect.left   = pos.x;
-    rect.right  = pos.x + 300;
-    rect.top    = pos.y;
-    rect.bottom = pos.y + DIMLITTLEY;
-    m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1); // dessine le fond
-    DrawText (m_pPixmap, pos, text, FONTLITTLE);
+
+    if (text[0])
+    {
+      pos.x       = 2;
+      pos.y       = 2;
+      rect.left   = pos.x;
+      rect.right  = pos.x + 300;
+      rect.top    = pos.y;
+      rect.bottom = pos.y + DIMLITTLEY;
+      DrawText (m_pPixmap, pos, text, FONTLITTLE);
+    }
   }
 
   if (m_phase == EV_PHASE_INIT)
@@ -2110,7 +2151,7 @@ CEvent::DrawButtons ()
     rect.right  = pos.x + 20;
     rect.top    = pos.y;
     rect.bottom = pos.y + 15;
-    m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1); // dessine le fond
+    m_pPixmap->DrawPart (-1, CHBACK, pos, rect); // dessine le fond
     if (m_speed > 1)
     {
       snprintf (res, sizeof (res), "x%d", m_speed);
@@ -2128,7 +2169,7 @@ CEvent::DrawButtons ()
       rect.right  = POSDRAWX + DIMDRAWX;
       rect.top    = 0;
       rect.bottom = lg;
-      m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1);
+      m_pPixmap->DrawPart (-1, CHBACK, pos, rect);
 
       pos.x       = POSDRAWX;
       pos.y       = lg;
@@ -2136,7 +2177,7 @@ CEvent::DrawButtons ()
       rect.right  = POSDRAWX + DIMDRAWX;
       rect.top    = 0;
       rect.bottom = POSDRAWY;
-      m_pPixmap->DrawPart (-1, CHBACK, pos, rect, 1);
+      m_pPixmap->DrawPart (-1, CHBACK, pos, rect);
 
       pos.x = POSDRAWX + 20;
       pos.y = POSDRAWY + 4;
@@ -2423,7 +2464,7 @@ CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, list[GetWorld () % 5]);
   }
 
-  // Affiche le texte lorsque c'est fini.
+  // Show the ending text when the game is finished.
   if (m_phase == EV_PHASE_LASTWIN)
   {
     char * text;
@@ -2440,7 +2481,7 @@ CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, text);
   }
 
-  // Dessine les réglages.
+  // Draw the game settings.
   if (m_phase == EV_PHASE_SETUP || m_phase == EV_PHASE_SETUPp)
   {
     DrawTextCenter (gettext ("Global game\nspeed"), 54 + 40, 80);
@@ -2502,6 +2543,10 @@ CEvent::DrawButtons ()
       lang = "Français";
     else if (locale == "de")
       lang = "Deutsch";
+    else if (locale == "it")
+      lang = "Italiano";
+    else if (locale == "pl")
+      lang = "Polski";
 
     lg    = GetTextWidth (lang.c_str ());
     pos.x = (54 + 40) - lg / 2;
@@ -2580,7 +2625,7 @@ CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, text);
   }
 
-  // Affiche le texte lorsqu'il faut insérer le CD-Rom.
+  // Show the text when the CD-Rom must be inserted (deprecated).
   if (m_phase == EV_PHASE_INSERT)
     DrawTextCenter (
       gettext ("Insert CD-Rom Planet Blupi and wait a few seconds..."),
@@ -2589,15 +2634,19 @@ CEvent::DrawButtons ()
   if (m_phase == EV_PHASE_BUILD)
     SetEnable (EV_PHASE_UNDO, m_pDecor->IsUndo ());
 
-  // Dessine les tool tips (info bulle).
+  // Draw the tooltips.
   if (m_textToolTips[0] != 0)
     DrawText (m_pPixmap, m_posToolTips, m_textToolTips);
 
   return true;
 }
 
-// Retourne le lutin à utiliser à une position donnée.
-
+/**
+ * \brief Return the mouse sprite to use for a position.
+ *
+ * \param[in] pos - The position.
+ * \return the sprite.
+ */
 MouseSprites
 CEvent::MousePosToSprite (Point pos)
 {
@@ -2668,8 +2717,11 @@ CEvent::MousePosToSprite (Point pos)
   return sprite;
 }
 
-// Gère le lutin de la souris.
-
+/**
+ * \brief Main mouse sprite handling.
+ *
+ * \param[in] pos - The position.
+ */
 void
 CEvent::MouseSprite (Point pos)
 {
@@ -2677,8 +2729,11 @@ CEvent::MouseSprite (Point pos)
   m_pPixmap->ChangeSprite (m_mouseSprite);
 }
 
-// Met ou enlève le sablier de la souris.
-
+/**
+ * \brief Set or remove the waiting mouse sprite.
+ *
+ * \param[in] bWait - If waiting.
+ */
 void
 CEvent::WaitMouse (bool bWait)
 {
@@ -2692,8 +2747,11 @@ CEvent::WaitMouse (bool bWait)
   m_pPixmap->ChangeSprite (m_mouseSprite);
 }
 
-// Cache ou montre la souris.
-
+/**
+ * \brief Hide or show the mouse.
+ *
+ * \param[in] bHide - If hide.
+ */
 void
 CEvent::HideMouse (bool bHide)
 {
@@ -2714,8 +2772,13 @@ CEvent::HideMouse (bool bHide)
   m_pPixmap->ChangeSprite (m_mouseSprite);
 }
 
-// Traite les événements pour tous les boutons.
-
+/**
+ * \brief Handle events for buttons.
+ *
+ * \param[in] event - The SDL event.
+ * \param[in] pos - The position.
+ * \return true if the event is handled.
+ */
 bool
 CEvent::EventButtons (const SDL_Event & event, Point pos)
 {
@@ -2805,7 +2868,7 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
         (event.button.button == SDL_BUTTON_LEFT ||
          event.button.button == SDL_BUTTON_RIGHT))
       {
-        // Montre ou cache les infos tout en haut.
+        // Show or hide the informations at the top.
         m_pDecor->SetInfoMode (!m_pDecor->GetInfoMode ());
       }
     }
@@ -2828,7 +2891,7 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
         (event.button.button == SDL_BUTTON_LEFT ||
          event.button.button == SDL_BUTTON_RIGHT))
       {
-        // Inverse le mode aide dans les infos.
+        // Reverse the help mode in the informations.
         m_bInfoHelp = !m_bInfoHelp;
 
         if (m_bInfoHelp)
@@ -2846,7 +2909,7 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
       (event.button.button == SDL_BUTTON_LEFT ||
        event.button.button == SDL_BUTTON_RIGHT))
     {
-      m_pDecor->HideTooltips (true); // plus de tooltips pour décor
+      m_pDecor->HideTooltips (true); // Remove tooltips for the decor.
     }
     if (
       event.type == SDL_MOUSEBUTTONUP &&
@@ -2875,8 +2938,12 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
   return false;
 }
 
-// Indique si la souris est sur un bouton.
-
+/**
+ * \brief Notify if the mouse is on a button.
+ *
+ * \param[in] pos - The mouse position.
+ * \return true if the mouse is on a button.
+ */
 bool
 CEvent::MouseOnButton (Point pos)
 {
@@ -2896,8 +2963,12 @@ CEvent::MouseOnButton (Point pos)
   return false;
 }
 
-// Retourne l'index dans table pour une phase donnée.
-
+/**
+ * \brief Return the table index for a specific phase.
+ *
+ * \param[in] phase - The phase.
+ * \return the index in `table`.
+ */
 Sint32
 CEvent::SearchPhase (Uint32 phase)
 {
@@ -2913,8 +2984,11 @@ CEvent::SearchPhase (Uint32 phase)
   return -1;
 }
 
-// Donne le numéro du monde.
-
+/**
+ * \brief Return the world number.
+ *
+ * \return the number.
+ */
 Sint32
 CEvent::GetWorld ()
 {
@@ -2926,8 +3000,13 @@ CEvent::GetWorld ()
     return m_mission;
 }
 
-// Donne le numéro physique du monde.
-
+/**
+ * \brief Return the physical world number.
+ *
+ * This number should be the same as the filename.
+ *
+ * \return the number.
+ */
 Sint32
 CEvent::GetPhysicalWorld ()
 {
@@ -2950,8 +3029,11 @@ CEvent::GetImageWorld ()
     return 1;
 }
 
-// Indique si l'aide est disponible.
-
+/**
+ * Notify if the help is available.
+ *
+ * \return true if available.
+ */
 bool
 CEvent::IsHelpHide ()
 {
@@ -2961,14 +3043,18 @@ CEvent::IsHelpHide ()
     bHide = false;
   if (m_bSchool || m_bPrivate)
   {
-    bHide = true; // pas d'aide pour les exercices
+    bHide = true; // No help for the exercises.
   }
 
   return bHide;
 }
 
-// Change de phase.
-
+/**
+ * \brief Change the phase.
+ *
+ * \param[in] phase - The new phase.
+ * \return true if the phase has changed.
+ */
 bool
 CEvent::ChangePhase (Uint32 phase)
 {
@@ -3037,11 +3123,11 @@ CEvent::ChangePhase (Uint32 phase)
     m_pSound->StopAllSounds (false, &except);
   }
 
-  m_phase = phase; // change de phase
+  m_phase = phase; // change phase
   m_index = index;
 
   filename = table[m_index].backName;
-  if (filename.find ("%.3d") != std::string::npos) // "%.3d" dans le nom ?
+  if (filename.find ("%.3d") != std::string::npos)
     filename = string_format (table[m_index].backName, GetImageWorld ());
   totalDim.x = LXIMAGE;
   totalDim.y = LYIMAGE;
@@ -3049,10 +3135,10 @@ CEvent::ChangePhase (Uint32 phase)
   iconDim.y  = 0;
   if (!m_pPixmap->Cache (CHBACK, filename, totalDim, iconDim))
   {
-    WaitMouse (false); // enlève le sablier
+    WaitMouse (false);
     m_tryInsertCount = 40;
     m_tryPhase       = m_phase;
-    return ChangePhase (EV_PHASE_INSERT); // insérez le CD-Rom ...
+    return ChangePhase (EV_PHASE_INSERT); // insert the CD-Rom ...
   }
 
   if (
@@ -3077,13 +3163,13 @@ CEvent::ChangePhase (Uint32 phase)
   {
     if (
       !m_pDecor->Read (
-        GetPhysicalWorld (), false, world, time, total) && // lit le monde
+        GetPhysicalWorld (), false, world, time, total) && // read the world
       !m_bAccessBuild &&
       !m_bPrivate)
     {
       m_tryInsertCount = 40;
       m_tryPhase       = m_phase;
-      return ChangePhase (EV_PHASE_INSERT); // insérez le CD-Rom ...
+      return ChangePhase (EV_PHASE_INSERT); // insert the CD-Rom ...
     }
     m_pDecor->SetTime (0);
     m_pDecor->SetTotalTime (0);
@@ -3119,7 +3205,7 @@ CEvent::ChangePhase (Uint32 phase)
 
   if (m_phase == EV_PHASE_TESTCD)
   {
-    if (m_pDecor->Read (0, false, world, time, total)) // lit un monde
+    if (m_pDecor->Read (0, false, world, time, total)) // read the world
     {
       return ChangePhase (EV_PHASE_INIT); // ok
     }
@@ -3127,44 +3213,43 @@ CEvent::ChangePhase (Uint32 phase)
     {
       m_tryInsertCount = 40;
       m_tryPhase       = m_phase;
-      return ChangePhase (EV_PHASE_INSERT); // insérez le CD-Rom ...
+      return ChangePhase (EV_PHASE_INSERT); // insert the CD-Rom ...
     }
   }
 
-  m_jauges[0].SetHide (true); // cache les jauges
+  m_jauges[0].SetHide (true);
   m_jauges[1].SetHide (true);
-  CreateButtons (); // crée les boutons selon la phase
+  CreateButtons (); // create the buttons accordingly to the phase
   m_bMenu = false;
   m_pDecor->HideTooltips (false);
   m_menu.Delete ();
-  m_pDecor->BlupiSetArrow (0, false); // enlève toutes les flèches
-  m_pDecor->ResetHili ();             // enlève les mises en évidence
+  m_pDecor->BlupiSetArrow (0, false); // remove all arrows
+  m_pDecor->ResetHili ();             // remove all highlights
 
   if (m_phase == EV_PHASE_PLAY)
   {
     m_pDecor->LoadImages ();
     m_pDecor->SetBuild (false);
     m_pDecor->EnableFog (true);
-    m_pDecor->NextPhase (0); // refait la carte tout de suite
+    m_pDecor->NextPhase (0); // rebuild the map immediatly
     m_pDecor->StatisticInit ();
     m_pDecor->TerminatedInit ();
-    m_bChangeCheat = true; // affiche les cheat-codes
   }
 
   if (m_phase == EV_PHASE_BUILD)
   {
     m_bBuildModify = true;
     SetState (EV_DECOR1, 1);
-    SetMenu (EV_DECOR1, 0); // herbe
-    SetMenu (EV_DECOR2, 2); // arbre
-    SetMenu (EV_DECOR3, 1); // maison
-    SetMenu (EV_DECOR4, 2); // blupi fort
-    SetMenu (EV_DECOR5, 1); // feu
+    SetMenu (EV_DECOR1, 0); // grass
+    SetMenu (EV_DECOR2, 2); // tree
+    SetMenu (EV_DECOR3, 1); // house
+    SetMenu (EV_DECOR4, 2); // strong blupi
+    SetMenu (EV_DECOR5, 1); // fire
     m_pDecor->LoadImages ();
     m_pDecor->SetBuild (true);
     m_pDecor->EnableFog (false);
     m_pDecor->BlupiDeselect ();
-    m_pDecor->NextPhase (0); // refait la carte tout de suite
+    m_pDecor->NextPhase (0); // rebuild the map immediatly
   }
 
   if (m_phase == EV_PHASE_INFO)
@@ -3250,7 +3335,7 @@ CEvent::ChangePhase (Uint32 phase)
   {
     music = m_pDecor->GetMusic ();
 
-    for (i = 0; i < 10; i++)
+    for (i = 0; i < 11; i++)
       SetState (EV_BUTTON1 + i, music == i ? 1 : 0);
   }
 
@@ -3266,7 +3351,7 @@ CEvent::ChangePhase (Uint32 phase)
   {
     if (m_pSound->IsPlayingMusic ())
     {
-      m_pSound->AdaptVolumeMusic (); // adapte le volume
+      m_pSound->AdaptVolumeMusic ();
     }
     else
     {
@@ -3316,20 +3401,24 @@ CEvent::ChangePhase (Uint32 phase)
       m_phaseAfterMovie = EV_PHASE_LASTWIN;
   }
 
-  WaitMouse (false); // enlève le sablier
+  WaitMouse (false);
   return true;
 }
 
-// Retourne la phase en cours.
-
+/**
+ * \brief Return the current phase.
+ *
+ * \return the phase number.
+ */
 Uint32
 CEvent::GetPhase ()
 {
   return m_phase;
 }
 
-// Essaye de lire le CD-Rom.
-
+/**
+ * \brief Try to read the CD-Rom.
+ */
 void
 CEvent::TryInsert ()
 {
@@ -3339,47 +3428,57 @@ CEvent::TryInsert ()
     m_tryInsertCount--;
 }
 
-// Fait démarrer un film si nécessaire.
-
-void
+/**
+ * \brief Start a movie if necessary.
+ *
+ * \return true if the movie has started.
+ */
+bool
 CEvent::MovieToStart ()
 {
-  if (m_movieToStart[0] != 0) // y a-t-il un film à démarrer ?
-  {
-    HideMouse (true); // cache la souris
+  bool movie = false;
 
+  if (m_movieToStart[0] != 0) // is movie available?
+  {
     if (StartMovie (m_movieToStart))
     {
-      m_phase = m_phaseAfterMovie; // prochaine phase normale
+      movie   = true;
+      m_phase = m_phaseAfterMovie; // the next normal phase
     }
     else
       ChangePhase (m_phaseAfterMovie);
 
     m_movieToStart[0] = 0;
   }
+
+  return movie;
 }
 
-// Décale le décor.
-
+/**
+ * \brief Shift the decor.
+ *
+ * \param[in] dx - Delta x.
+ * \param[in] dy - Delta y.
+ */
 void
 CEvent::DecorShift (Sint32 dx, Sint32 dy)
 {
-  Point coin;
+  Point corner;
 
   if (m_phase != EV_PHASE_PLAY && m_phase != EV_PHASE_BUILD)
     return;
 
-  coin = m_pDecor->GetCoin ();
+  corner = m_pDecor->GetCorner ();
 
-  coin.x += dx;
-  coin.y += dy;
+  corner.x += dx;
+  corner.y += dy;
 
-  m_pDecor->SetCoin (coin);
-  //? m_pDecor->NextPhase(0);  // faudra refaire la carte tout de suite
+  m_pDecor->SetCorner (corner);
 }
 
-// Décale le décor lorsque la souris touche un bord.
-
+/**
+ * \brief Shift the decor when the mouse is on the sides.
+ */
 void
 CEvent::DecorAutoShift ()
 {
@@ -3395,7 +3494,7 @@ CEvent::DecorAutoShift ()
 
   if (m_phase == EV_PHASE_PLAY || m_phase == EV_PHASE_BUILD)
   {
-    if (m_shiftPhase == 0) // début du shift ?
+    if (m_shiftPhase == 0) // start shift ?
     {
       switch (m_mouseSprite)
       {
@@ -3476,7 +3575,7 @@ CEvent::DecorAutoShift ()
       offset.y = m_shiftOffset.y * (max - m_shiftPhase) * (DIMCELY / 2 / max);
       m_pDecor->SetShiftOffset (offset);
 
-      if (m_shiftPhase == 0) // dernière phase ?
+      if (m_shiftPhase == 0) // last phase ?
       {
         offset.x = 0;
         offset.y = 0;
@@ -3487,8 +3586,11 @@ CEvent::DecorAutoShift ()
   }
 }
 
-// Indique su un shift est en cours.
-
+/**
+ * \brief Notify if a shift is doing.
+ *
+ * \return true of the shift is doing.
+ */
 bool
 CEvent::IsShift ()
 {
@@ -3547,7 +3649,7 @@ CEvent::PlayDown (Point pos, const SDL_Event & event)
 
   if (bMap)
   {
-    m_pDecor->SetCoin (cel, true);
+    m_pDecor->SetCorner (cel, true);
     m_pDecor->NextPhase (0); // faudra refaire la carte tout de suite
     return true;
   }
@@ -3649,6 +3751,10 @@ CEvent::GetStartLanguage ()
     return Language::fr;
   if (this->m_LangStart == "de")
     return Language::de;
+  if (this->m_LangStart == "it")
+    return Language::it;
+  if (this->m_LangStart == "pl")
+    return Language::pl;
   return Language::en;
 }
 
@@ -3682,6 +3788,12 @@ CEvent::SetLanguage (Language lang)
     break;
   case Language::de:
     slang = "de";
+    break;
+  case Language::it:
+    slang = "it";
+    break;
+  case Language::pl:
+    slang = "pl";
     break;
   }
 
@@ -4196,8 +4308,6 @@ CEvent::BuildMove (Point pos, Uint16 mod, const SDL_Event & event)
 bool
 CEvent::StartMovie (const std::string & pFilename)
 {
-  Rect rect;
-
   if (!m_pMovie->GetEnable ())
     return false;
   if (!m_bMovie)
@@ -4206,15 +4316,12 @@ CEvent::StartMovie (const std::string & pFilename)
   if (!m_pMovie->IsExist (pFilename))
     return false;
 
-  rect.left   = 1; // mystère: plante avec 0,0,LXIMAGE,LYIMAGE !!!
-  rect.top    = 1;
-  rect.right  = LXIMAGE - 2;
-  rect.bottom = LYIMAGE - 2;
-
+  HideMouse (true);
   m_pSound->StopMusic ();
 
-  if (!m_pMovie->Play (rect, pFilename))
+  if (!m_pMovie->Play (pFilename))
     return false;
+
   m_bRunMovie = true;
   return true;
 }
@@ -4512,6 +4619,8 @@ CEvent::ReadInfo ()
   if (file == nullptr)
     goto error;
 
+  SDL_memset (&info, 0, sizeof (info));
+
   nb = fread (&info, sizeof (DescInfo), 1, file);
   if (nb < 1)
     goto error;
@@ -4531,7 +4640,11 @@ CEvent::ReadInfo ()
   m_pSound->SetMidiVolume (info.midiVolume);
 
   if ((info.majRev == 1 && info.minRev >= 1) || info.majRev >= 2)
+  {
+    if (info.language >= static_cast<int> (Language::end))
+      info.language = 0;
     this->SetLanguage (static_cast<Language> (info.language));
+  }
 
   fclose (file);
   return true;
@@ -5066,42 +5179,36 @@ CEvent::TreatEventBase (const SDL_Event & event)
             {
               m_bAllMissions = !m_bAllMissions;
               bEnable        = m_bAllMissions;
-              m_bChangeCheat = true;
               break;
             }
             case 4: // quick ?
             {
-              m_bSpeed       = !m_bSpeed;
-              bEnable        = m_bSpeed;
-              m_bChangeCheat = true;
+              m_bSpeed = !m_bSpeed;
+              bEnable  = m_bSpeed;
               break;
             }
             case 5: // helpme ?
             {
-              m_bHelp        = !m_bHelp;
-              bEnable        = m_bHelp;
-              m_bChangeCheat = true;
+              m_bHelp = !m_bHelp;
+              bEnable = m_bHelp;
               break;
             }
             case 6: // invincible ?
             {
               m_pDecor->SetInvincible (!m_pDecor->GetInvincible ());
-              bEnable        = m_pDecor->GetInvincible ();
-              m_bChangeCheat = true;
+              bEnable = m_pDecor->GetInvincible ();
               break;
             }
             case 7: // superblupi ?
             {
               m_pDecor->SetSuper (!m_pDecor->GetSuper ());
-              bEnable        = m_pDecor->GetSuper ();
-              m_bChangeCheat = true;
+              bEnable = m_pDecor->GetSuper ();
               break;
             }
             case 8: // construire ?
             {
               m_bAccessBuild = !m_bAccessBuild;
               bEnable        = m_bAccessBuild;
-              m_bChangeCheat = true;
               break;
             }
             }
@@ -5165,6 +5272,9 @@ CEvent::TreatEventBase (const SDL_Event & event)
         return true;
 
       case EV_PHASE_STOP:
+        ChangePhase (EV_PHASE_PLAY);
+        return true;
+
       case EV_PHASE_LOST:
       case EV_PHASE_BUILD:
         ChangePhase (EV_PHASE_INFO);
@@ -5258,7 +5368,7 @@ CEvent::TreatEventBase (const SDL_Event & event)
     }
     case SDLK_HOME:
       pos = m_pDecor->GetHome ();
-      m_pDecor->SetCoin (pos);
+      m_pDecor->SetCorner (pos);
       return true;
     case SDLK_SPACE:
       if (m_bRunMovie)
@@ -5270,6 +5380,9 @@ CEvent::TreatEventBase (const SDL_Event & event)
       m_pDecor->FlipOutline ();
       return true;
     case SDLK_PAUSE:
+      if (this->m_pDecor->GetSkill () >= 1)
+        return true;
+
       m_bPause = !m_bPause;
       if (m_phase == EV_PHASE_PLAY)
       {
