@@ -8,6 +8,7 @@ include (${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 include_directories (${CMAKE_INSTALL_PREFIX}/include)
 link_directories (${CMAKE_INSTALL_PREFIX}/lib)
+list(APPEND CMAKE_FIND_ROOT_PATH "${CMAKE_INSTALL_PREFIX}") # This is required when cross-compiling
 
 project (planetblupi)
 set (PB_VERSION_MAJOR 1)
@@ -17,6 +18,10 @@ set (PB_VERSION_EXTRA "")
 set (PB_PRODUCT_NAME "Planet Blupi")
 set (PB_PACKAGE_NAME "planetblupi")
 set (PB_DESCRIPTION "Planet Blupi - A delerious spell-binding game")
+
+set(CMAKE_CXX_FLAGS "-Wno-error=c++11-narrowing ${CMAKE_CXX_FLAGS}") # TODO: FIXME in fog.cxx
+
+option (ANDROID "Enable when building for Android" OFF)
 
 configure_file (
   "${PROJECT_SOURCE_DIR}/src/config.h.in"
@@ -130,7 +135,7 @@ if ("${STATIC_BUILD}")
   pkg_search_module (SWSCALE REQUIRED libswscale)
   pkg_search_module (SWRESAMPLE REQUIRED libswresample)
 
-  if (UNIX AND NOT APPLE)
+  if (UNIX AND NOT APPLE AND NOT ANDROID)
     pkg_search_module (ALSA REQUIRED alsa)
     pkg_search_module (PULSE REQUIRED libpulse)
   endif ()
@@ -142,7 +147,11 @@ endif ()
 ## Main binary dependencies
 ###########################
 
-add_executable (planetblupi ${sources})
+if (ANDROID)
+  add_library (planetblupi STATIC ${sources})
+else ()
+  add_executable (planetblupi ${sources})
+endif ()
 
 if ("${STATIC_BUILD}")
   set (planetblupi_DEPS
@@ -161,7 +170,7 @@ if ("${STATIC_BUILD}")
     ${SWRESAMPLE_STATIC_LIBRARIES}
   )
 
-  if (UNIX AND NOT APPLE)
+  if (UNIX AND NOT APPLE AND NOT ANDROID)
     list (APPEND planetblupi_DEPS
       ${ALSA_STATIC_LIBRARIES}
       ${PULSE_STATIC_LIBRARIES}
@@ -223,6 +232,7 @@ endforeach (file)
 
 install (TARGETS planetblupi
   RUNTIME DESTINATION bin
+  ARCHIVE DESTINATION lib
 )
 
 install (
