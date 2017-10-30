@@ -54,7 +54,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND "${STATIC_BUILD}")
 endif ()
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g3")
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g3 -DDEBUG")
 endif ()
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
