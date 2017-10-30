@@ -315,8 +315,6 @@ FinishObjects (void)
 static void
 HandleEvent (const SDL_Event & event)
 {
-  Point totalDim, iconDim;
-
   if (!g_pause && g_pEvent != nullptr && g_pEvent->TreatEvent (event))
     return;
 
@@ -324,6 +322,9 @@ HandleEvent (const SDL_Event & event)
   {
   case SDL_WINDOWEVENT:
   {
+#ifndef DEBUG
+    Point totalDim, iconDim;
+
     switch (event.window.event)
     {
     case SDL_WINDOWEVENT_FOCUS_GAINED:
@@ -357,6 +358,7 @@ HandleEvent (const SDL_Event & event)
         g_pMovie->Pause ();
       return;
     }
+#endif /* !DEBUG */
     break;
   }
 
