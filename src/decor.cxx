@@ -455,7 +455,7 @@ CDecor::FixShifting (Sint32 & nbx, Sint32 & nby, Point & iCel, Point & iPos)
   if (m_shiftOffset.x < 0) // décalage à droite ?
     nbx += 2;
   if (m_shiftOffset.y < 0) // décalage en bas ?
-    nby += 2;
+    nby += 3;
   if (m_shiftOffset.x > 0) // décalage à gauche ?
   {
     nbx += 2;
@@ -995,6 +995,8 @@ CDecor::BuildGround (Rect clip)
     nby += 2;
   }
 
+  this->FixShifting (nbx, nby, iCel, iPos);
+
   // Construit les sols.
   mCel = iCel;
   mPos = iPos;
@@ -1135,6 +1137,8 @@ CDecor::Build (Rect clip, Point posMouse)
     nby += 2;
   }
 
+  this->FixShifting (nbx, nby, iCel, iPos);
+
   // Construit les sols.
   mCel = iCel;
   mPos = iPos;
@@ -1251,6 +1255,8 @@ CDecor::Build (Rect clip, Point posMouse)
 
   // Construit les objets et les blupi.
   BuildPutBlupi (); // m_rankBlupi[x][y] <- rangs des blupi
+
+  this->FixShifting (nbx, nby, iCel, iPos);
 
   mCel = iCel;
   mPos = iPos;

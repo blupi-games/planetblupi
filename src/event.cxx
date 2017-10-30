@@ -1612,6 +1612,8 @@ CEvent::CEvent ()
     m_Lang = m_Languages.begin ();
 
   m_updateBlinking = 0;
+
+  this->shiftDirection = 0;
 }
 
 // Destructeur.
@@ -3482,85 +3484,161 @@ CEvent::DecorShift (Sint32 dx, Sint32 dy)
 void
 CEvent::DecorAutoShift ()
 {
-  Sint32 max;
+  Sint32 max, maxLimit = 4, xMoveFactor = 1, yMoveFactor = 1, vectorFactor = 1;
   Point  offset;
+  Uint32 dir;
+
+  bool byKeyboard = !!this->shiftDirection;
+
+  if (byKeyboard)
+  {
+    dir          = this->shiftDirection;
+    xMoveFactor  = 2;
+    yMoveFactor  = 3;
+    vectorFactor = 2;
+    if (m_scrollSpeed == 1)
+      maxLimit = 5; // 4..2..1
+  }
+  else
+  {
+    switch (m_mouseSprite)
+    {
+    case SPRITE_ARROWL:
+      dir = DIRECTION_LEFT;
+      break;
+
+    case SPRITE_ARROWR:
+      dir = DIRECTION_RIGHT;
+      break;
+
+    case SPRITE_ARROWU:
+      dir = DIRECTION_UP;
+      break;
+
+    case SPRITE_ARROWD:
+      dir = DIRECTION_DOWN;
+      break;
+
+    case SPRITE_ARROWUL:
+      dir = DIRECTION_UP | DIRECTION_LEFT;
+      break;
+
+    case SPRITE_ARROWUR:
+      dir = DIRECTION_UP | DIRECTION_RIGHT;
+      break;
+
+    case SPRITE_ARROWDL:
+      dir = DIRECTION_DOWN | DIRECTION_LEFT;
+      break;
+
+    case SPRITE_ARROWDR:
+      dir = DIRECTION_DOWN | DIRECTION_RIGHT;
+      break;
+
+    default:
+      break;
+    }
+  }
 
   m_bShift = false;
 
-  if (!m_bFullScreen || m_bDemoRec || m_bDemoPlay || m_scrollSpeed == 0)
+  if (m_bDemoRec || m_bDemoPlay)
     return;
 
-  max = 4 - m_scrollSpeed; // max <- 3..1
+  if (!byKeyboard && (!m_bFullScreen || m_scrollSpeed == 0))
+    return;
+
+  max = maxLimit - m_scrollSpeed; // max <- 3..1
 
   if (m_phase == EV_PHASE_PLAY || m_phase == EV_PHASE_BUILD)
   {
     if (m_shiftPhase == 0) // start shift ?
     {
-      switch (m_mouseSprite)
+      switch (dir)
       {
-      default:
-        m_shiftOffset.x = 0;
-        m_shiftOffset.y = 0;
-        m_shiftVector.x = 0;
-        m_shiftVector.y = 0;
-        break;
-
-      case SPRITE_ARROWL:
+      case DIRECTION_LEFT:
         m_shiftOffset.x = +2;
         m_shiftOffset.y = 0;
         m_shiftVector.x = -1;
         m_shiftVector.y = +1;
         break;
 
-      case SPRITE_ARROWR:
+      case DIRECTION_RIGHT:
         m_shiftOffset.x = -2;
         m_shiftOffset.y = 0;
         m_shiftVector.x = +1;
         m_shiftVector.y = -1;
         break;
 
-      case SPRITE_ARROWU:
+      case DIRECTION_UP:
         m_shiftOffset.x = 0;
         m_shiftOffset.y = +2;
         m_shiftVector.x = -1;
         m_shiftVector.y = -1;
+        if (vectorFactor > 1)
+          ++vectorFactor;
         break;
 
-      case SPRITE_ARROWD:
+      case DIRECTION_DOWN:
         m_shiftOffset.x = 0;
         m_shiftOffset.y = -2;
         m_shiftVector.x = +1;
         m_shiftVector.y = +1;
+        if (vectorFactor > 1)
+          ++vectorFactor;
         break;
 
-      case SPRITE_ARROWUL:
-        m_shiftOffset.x = +1;
-        m_shiftOffset.y = +1;
-        m_shiftVector.x = -1;
-        m_shiftVector.y = 0;
-        break;
-
-      case SPRITE_ARROWUR:
-        m_shiftOffset.x = -1;
-        m_shiftOffset.y = +1;
-        m_shiftVector.x = 0;
-        m_shiftVector.y = -1;
-        break;
-
-      case SPRITE_ARROWDL:
-        m_shiftOffset.x = +1;
-        m_shiftOffset.y = -1;
-        m_shiftVector.x = 0;
-        m_shiftVector.y = +1;
-        break;
-
-      case SPRITE_ARROWDR:
-        m_shiftOffset.x = -1;
-        m_shiftOffset.y = -1;
-        m_shiftVector.x = +1;
-        m_shiftVector.y = 0;
+      default:
+        if (dir == (DIRECTION_UP | DIRECTION_LEFT))
+        {
+          m_shiftOffset.x = +1;
+          m_shiftOffset.y = +1;
+          m_shiftVector.x = -1;
+          m_shiftVector.y = 0;
+          if (vectorFactor > 1)
+            ++vectorFactor;
+        }
+        else if (dir == (DIRECTION_UP | DIRECTION_RIGHT))
+        {
+          m_shiftOffset.x = -1;
+          m_shiftOffset.y = +1;
+          m_shiftVector.x = 0;
+          m_shiftVector.y = -1;
+          if (vectorFactor > 1)
+            ++vectorFactor;
+        }
+        else if (dir == (DIRECTION_DOWN | DIRECTION_LEFT))
+        {
+          m_shiftOffset.x = +1;
+          m_shiftOffset.y = -1;
+          m_shiftVector.x = 0;
+          m_shiftVector.y = +1;
+          if (vectorFactor > 1)
+            ++vectorFactor;
+        }
+        else if (dir == (DIRECTION_DOWN | DIRECTION_RIGHT))
+        {
+          m_shiftOffset.x = -1;
+          m_shiftOffset.y = -1;
+          m_shiftVector.x = +1;
+          m_shiftVector.y = 0;
+          if (vectorFactor > 1)
+            ++vectorFactor;
+        }
+        else
+        {
+          m_shiftOffset.x = 0;
+          m_shiftOffset.y = 0;
+          m_shiftVector.x = 0;
+          m_shiftVector.y = 0;
+        }
         break;
       }
+
+      m_shiftOffset.x *= xMoveFactor;
+      m_shiftOffset.y *= yMoveFactor;
+      m_shiftVector.x *= vectorFactor;
+      m_shiftVector.y *= vectorFactor;
 
       if (m_shiftVector.x != 0 || m_shiftVector.y != 0)
         m_shiftPhase = max;
@@ -3577,8 +3655,9 @@ CEvent::DecorAutoShift ()
 
       if (m_shiftPhase == 0) // last phase ?
       {
-        offset.x = 0;
-        offset.y = 0;
+        this->shiftDirection = 0;
+        offset.x             = 0;
+        offset.y             = 0;
         m_pDecor->SetShiftOffset (offset);
         DecorShift (m_shiftVector.x, m_shiftVector.y);
       }
@@ -5347,23 +5426,28 @@ CEvent::TreatEventBase (const SDL_Event & event)
     case SDLK_UP:
     case SDLK_DOWN:
     {
+      bool          left, right, up, down;
       const Uint8 * state = SDL_GetKeyboardState (nullptr);
-      if (
-        event.key.keysym.sym == SDLK_LEFT ||
-        (!m_bDemoRec && state[SDL_SCANCODE_LEFT]))
-        DecorShift (-2, 2);
-      if (
-        event.key.keysym.sym == SDLK_RIGHT ||
-        (!m_bDemoRec && state[SDL_SCANCODE_RIGHT]))
-        DecorShift (2, -2);
-      if (
-        event.key.keysym.sym == SDLK_UP ||
-        (!m_bDemoRec && state[SDL_SCANCODE_UP]))
-        DecorShift (-3, -3);
-      if (
-        event.key.keysym.sym == SDLK_DOWN ||
-        (!m_bDemoRec && state[SDL_SCANCODE_DOWN]))
-        DecorShift (3, 3);
+
+      this->shiftDirection = 0;
+
+      left = event.key.keysym.sym == SDLK_LEFT ||
+             (!m_bDemoRec && state[SDL_SCANCODE_LEFT]);
+      right = event.key.keysym.sym == SDLK_RIGHT ||
+              (!m_bDemoRec && state[SDL_SCANCODE_RIGHT]);
+      up = event.key.keysym.sym == SDLK_UP ||
+           (!m_bDemoRec && state[SDL_SCANCODE_UP]);
+      down = event.key.keysym.sym == SDLK_DOWN ||
+             (!m_bDemoRec && state[SDL_SCANCODE_DOWN]);
+
+      if (left)
+        this->shiftDirection |= DIRECTION_LEFT;
+      if (right)
+        this->shiftDirection |= DIRECTION_RIGHT;
+      if (up)
+        this->shiftDirection |= DIRECTION_UP;
+      if (down)
+        this->shiftDirection |= DIRECTION_DOWN;
       return true;
     }
     case SDLK_HOME:
