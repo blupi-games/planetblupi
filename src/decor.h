@@ -469,7 +469,7 @@ protected:
   Blupi     m_blupi[MAXBLUPI];
   Move      m_move[MAXMOVE];
   Point     m_celCorner; // cellule sup/gauche
-  Point     m_celHome; // pour touche Home
+  Point     m_celHome;   // pour touche Home
   Point     m_celHili;
   Point     m_celOutline1;
   Point     m_celOutline2;
