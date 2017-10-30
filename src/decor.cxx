@@ -449,6 +449,29 @@ CDecor::SetFire (Point cel, bool bFire)
   return true;
 }
 
+void
+CDecor::FixShifting (Sint32 & nbx, Sint32 & nby, Point & iCel, Point & iPos)
+{
+  if (m_shiftOffset.x < 0) // décalage à droite ?
+    nbx += 2;
+  if (m_shiftOffset.y < 0) // décalage en bas ?
+    nby += 2;
+  if (m_shiftOffset.x > 0) // décalage à gauche ?
+  {
+    nbx += 2;
+    iCel.x--;
+    iCel.y++;
+    iPos = ConvCelToPos (iCel);
+  }
+  if (m_shiftOffset.y > 0) // décalage en haut ?
+  {
+    nby += 2;
+    iCel.x--;
+    iCel.y--;
+    iPos = ConvCelToPos (iCel);
+  }
+}
+
 // Modifie l'offset pour le shift.
 
 void
@@ -1435,24 +1458,7 @@ CDecor::Build (Rect clip, Point posMouse)
   if (!m_bFog)
     goto term;
 
-  if (m_shiftOffset.x < 0) // décalage à droite ?
-    nbx += 2;
-  if (m_shiftOffset.y < 0) // décalage en bas ?
-    nby += 2;
-  if (m_shiftOffset.x > 0) // décalage à gauche ?
-  {
-    nbx += 2;
-    iCel.x--;
-    iCel.y++;
-    iPos = ConvCelToPos (iCel);
-  }
-  if (m_shiftOffset.y > 0) // décalage en haut ?
-  {
-    nby += 2;
-    iCel.x--;
-    iCel.y--;
-    iPos = ConvCelToPos (iCel);
-  }
+  this->FixShifting (nbx, nby, iCel, iPos);
 
   mCel = iCel;
   mPos = iPos;

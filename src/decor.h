@@ -381,6 +381,7 @@ public:
   bool IsCheminFree (Sint32 rank, Point dest, Sint32 button);
 
   // Decor.cpp
+  void  FixShifting (Sint32 & nbx, Sint32 & nby, Point & iCel, Point & iPos);
   void  SetShiftOffset (Point offset);
   Point ConvCelToPos (Point cel);
   Point ConvPosToCel (Point pos, bool bMap = false);
