@@ -3486,7 +3486,7 @@ CEvent::DecorAutoShift ()
 {
   Sint32 max, maxLimit = 4, xMoveFactor = 1, yMoveFactor = 1, vectorFactor = 1;
   Point  offset;
-  Uint32 dir;
+  Uint32 dir = 0;
 
   bool byKeyboard = !!this->shiftDirection;
 
