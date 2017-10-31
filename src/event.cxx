@@ -3501,6 +3501,9 @@ CEvent::DecorAutoShift ()
   }
   else
   {
+    if (m_bDemoRec || m_bDemoPlay)
+      return;
+
     switch (m_mouseSprite)
     {
     case SPRITE_ARROWL:
@@ -3541,9 +3544,6 @@ CEvent::DecorAutoShift ()
   }
 
   m_bShift = false;
-
-  if (m_bDemoRec || m_bDemoPlay)
-    return;
 
   if (!byKeyboard && (!m_bFullScreen || m_scrollSpeed == 0))
     return;
