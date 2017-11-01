@@ -18,6 +18,7 @@
  * along with this program. If not, see http://gnu.org/licenses
  */
 
+#include <atomic>
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -53,12 +54,13 @@
 SDL_Window *   g_window;
 SDL_Renderer * g_renderer;
 
-CEvent *      g_pEvent       = nullptr;
-CPixmap *     g_pPixmap      = nullptr; // pixmap principal
-CSound *      g_pSound       = nullptr; // sound principal
-CMovie *      g_pMovie       = nullptr; // movie principal
-CDecor *      g_pDecor       = nullptr;
-std::thread * g_updateThread = nullptr;
+CEvent *          g_pEvent       = nullptr;
+CPixmap *         g_pPixmap      = nullptr; // pixmap principal
+CSound *          g_pSound       = nullptr; // sound principal
+CMovie *          g_pMovie       = nullptr; // movie principal
+CDecor *          g_pDecor       = nullptr;
+std::thread *     g_updateThread = nullptr;
+std::atomic<bool> g_updateAbort (false);
 
 bool        g_bFullScreen    = false; // false si mode de test
 Uint8       g_windowScale    = 1;
@@ -482,6 +484,13 @@ updateCallback (void * ptr, size_t size, size_t nmemb, void * data)
 
   return realsize;
 }
+
+static int
+progressCallback (
+  void * userData, double dltotal, double dlnow, double ultotal, double ulnow)
+{
+  return g_updateAbort ? 1 : 0;
+}
 #endif /* USE_CURL */
 
 static void
@@ -506,6 +515,11 @@ CheckForUpdates ()
 
   curl_easy_setopt (curl, CURLOPT_URL, "http://blupi.org/update/planet.json");
   curl_easy_setopt (curl, CURLOPT_WRITEDATA, (void *) &chunk);
+
+  curl_easy_setopt (curl, CURLOPT_NOPROGRESS, 0);
+  curl_easy_setopt (curl, CURLOPT_PROGRESSDATA, nullptr);
+  curl_easy_setopt (curl, CURLOPT_PROGRESSFUNCTION, progressCallback);
+
   chunk.status = curl_easy_perform (curl);
 
   if (chunk.status)
@@ -986,6 +1000,7 @@ main (int argc, char * argv[])
 
   if (g_updateThread)
   {
+    g_updateAbort = true;
     g_updateThread->join ();
     delete (g_updateThread);
   }
