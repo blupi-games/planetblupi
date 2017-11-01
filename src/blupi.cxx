@@ -510,6 +510,8 @@ CheckForUpdates ()
   curl_easy_setopt (curl, CURLOPT_NOSIGNAL, 1);
   curl_easy_setopt (curl, CURLOPT_FAILONERROR, 1);
   curl_easy_setopt (curl, CURLOPT_FOLLOWLOCATION, 1);
+  curl_easy_setopt (curl, CURLOPT_TIMEOUT, 20);
+  curl_easy_setopt (curl, CURLOPT_CONNECTTIMEOUT, 5);
 
   curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, updateCallback);
 
