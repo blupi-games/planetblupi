@@ -730,7 +730,8 @@ CDecor::BlupiInitAction (Sint32 rank, Sint32 action, Sint32 direct)
 
     if (
       m_blupi[rank].action == ACTION_PICKAXE ||
-      m_blupi[rank].action == ACTION_BUILDSEC)
+      m_blupi[rank].action == ACTION_BUILDSEC ||
+      m_blupi[rank].action == ACTION_BUILDBREF)
       m_blupi[rank].action = ACTION_D_PICKAXE;
 
     if (m_blupi[rank].action == ACTION_BUILD)
