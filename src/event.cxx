@@ -1259,7 +1259,7 @@ static Phase table[] =
             {
                 EV_BUTTON1,
                 0, {1, 40},
-                170 + 42 * 1, 30 + 42 * 0,
+                11, 101,
                 { translate ("No music") },
             },
             {
