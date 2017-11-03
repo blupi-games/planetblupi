@@ -5426,6 +5426,9 @@ CEvent::TreatEventBase (const SDL_Event & event)
     case SDLK_UP:
     case SDLK_DOWN:
     {
+      if (m_phase != EV_PHASE_PLAY && m_phase != EV_PHASE_BUILD)
+        return true;
+
       bool          left, right, up, down;
       const Uint8 * state = SDL_GetKeyboardState (nullptr);
 
