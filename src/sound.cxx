@@ -84,6 +84,13 @@ CSound::~CSound ()
     Mix_FreeChunk (m_lpSDL[i]);
     m_lpSDL[i] = nullptr;
   }
+
+  if (m_pMusic)
+  {
+    Mix_HaltMusic ();
+    Mix_FreeMusic (m_pMusic);
+    m_pMusic = nullptr;
+  }
 }
 
 // Initialisation de DirectSound.
@@ -327,6 +334,12 @@ CSound::PlayMusic (const std::string & lpszMIDIFilename)
   m_lastMidiVolume = m_midiVolume;
 
   path += lpszMIDIFilename;
+
+  if (m_pMusic)
+  {
+    Mix_HaltMusic ();
+    Mix_FreeMusic (m_pMusic);
+  }
 
   m_pMusic = Mix_LoadMUS (path.c_str ());
   if (!m_pMusic)
