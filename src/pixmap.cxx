@@ -228,9 +228,13 @@ CPixmap::Cache (
 {
   std::string   file    = GetBaseDir () + pFilename;
   SDL_Surface * surface = IMG_Load (file.c_str ());
+  bool blupiChSet = false;
 
   if (channel == CHBLUPI && !m_lpSDLBlupi)
+  {
     m_lpSDLBlupi = surface;
+    blupiChSet = true;
+  }
 
   SDL_Texture * texture = SDL_CreateTextureFromSurface (g_renderer, surface);
   Uint32        format;
@@ -274,7 +278,7 @@ CPixmap::Cache (
   if (!m_SDLTextureInfo[channel].texMask)
     SDL_DestroyTexture (texture);
 
-  if (channel != CHBLUPI)
+  if (!blupiChSet)
     SDL_FreeSurface (surface);
 
   return true;
