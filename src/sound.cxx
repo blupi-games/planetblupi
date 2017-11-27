@@ -91,6 +91,8 @@ CSound::~CSound ()
     Mix_FreeMusic (m_pMusic);
     m_pMusic = nullptr;
   }
+
+  Mix_CloseAudio ();
 }
 
 // Initialisation de DirectSound.
