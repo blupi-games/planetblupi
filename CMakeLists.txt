@@ -316,7 +316,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release" AND "${STATIC_BUILD}")
     set (CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\planetblupi.exe")
     set (CPACK_NSIS_URL_INFO_ABOUT "http://www.blupi.org")
     set (CPACK_NSIS_MUI_FINISHPAGE_RUN "planetblupi")
-    if (SIGN_APP
+    if (SIGN_APP)
       set (CPACK_NSIS_SIGN_UNINSTALLER "sign -a -fd sha1 -t http://time.certum.pl -v")
     endif ()
 
