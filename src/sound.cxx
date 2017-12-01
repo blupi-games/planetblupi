@@ -87,7 +87,6 @@ CSound::~CSound ()
 
   if (m_pMusic)
   {
-    Mix_HaltMusic ();
     Mix_FreeMusic (m_pMusic);
     m_pMusic = nullptr;
   }
@@ -338,10 +337,7 @@ CSound::PlayMusic (const std::string & lpszMIDIFilename)
   path += lpszMIDIFilename;
 
   if (m_pMusic)
-  {
-    Mix_HaltMusic ();
     Mix_FreeMusic (m_pMusic);
-  }
 
   m_pMusic = Mix_LoadMUS (path.c_str ());
   if (!m_pMusic)
