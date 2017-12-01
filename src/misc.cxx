@@ -48,7 +48,7 @@ OutputDebug (const char * pMessage)
 // Conversion de la position de la souris.
 
 Point
-ConvLongToPos (LPARAM lParam)
+ConvLongToPos (LParam lParam)
 {
   Point pos;
 

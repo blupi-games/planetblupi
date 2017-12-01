@@ -4929,10 +4929,10 @@ CEvent::DemoPlayStop ()
 
 void
 CEvent::WinToSDLEvent (
-  Uint32 msg, WPARAM wParam, LPARAM lParam, SDL_Event & event)
+  Uint32 msg, WParam wParam, LParam lParam, SDL_Event & event)
 {
-#define GET_X_LPARAM(lp) ((Sint32) (Sint16) LOWORD (lp))
-#define GET_Y_LPARAM(lp) ((Sint32) (Sint16) HIWORD (lp))
+#define GET_X_LParam(lp) ((Sint32) (Sint16) LOWORD (lp))
+#define GET_Y_LParam(lp) ((Sint32) (Sint16) HIWORD (lp))
 
   // clang-format off
   static const std::unordered_map<Uint32, SDL_Keysym> keycodes = {
@@ -4997,8 +4997,8 @@ CEvent::WinToSDLEvent (
         msg == EV_LBUTTONDOWN ? SDL_MOUSEBUTTONDOWN : SDL_MOUSEBUTTONUP;
       event.button.button = SDL_BUTTON_LEFT;
       // TODO: wParam CTRL or SHIFT
-      event.button.x = GET_X_LPARAM (lParam);
-      event.button.y = GET_Y_LPARAM (lParam);
+      event.button.x = GET_X_LParam (lParam);
+      event.button.y = GET_Y_LParam (lParam);
       break;
 
     case EV_RBUTTONUP:
@@ -5007,15 +5007,15 @@ CEvent::WinToSDLEvent (
         msg == EV_RBUTTONDOWN ? SDL_MOUSEBUTTONDOWN : SDL_MOUSEBUTTONUP;
       event.button.button = SDL_BUTTON_RIGHT;
       // TODO: wParam CTRL or SHIFT
-      event.button.x = GET_X_LPARAM (lParam);
-      event.button.y = GET_Y_LPARAM (lParam);
+      event.button.x = GET_X_LParam (lParam);
+      event.button.y = GET_Y_LParam (lParam);
       break;
 
     case EV_MOUSEMOVE:
       event.type = SDL_MOUSEMOTION;
       // TODO: wParam CTRL or SHIFT
-      event.motion.x = GET_X_LPARAM (lParam);
-      event.motion.y = GET_Y_LPARAM (lParam);
+      event.motion.x = GET_X_LParam (lParam);
+      event.motion.y = GET_Y_LParam (lParam);
       break;
     }
   }
@@ -5032,8 +5032,8 @@ CEvent::DemoStep ()
 {
   Uint32 time    = 0;
   Uint32 message = 0;
-  WPARAM wParam  = 0;
-  LPARAM lParam  = 0;
+  WParam wParam  = 0;
+  LParam lParam  = 0;
 
   if (m_phase == EV_PHASE_INIT)
   {

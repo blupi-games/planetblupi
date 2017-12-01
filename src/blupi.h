@@ -48,11 +48,11 @@ struct Rect {
 typedef Uint32 ColorRef;
 
 #if defined(_WIN64)
-typedef unsigned __int64 WPARAM;
-typedef __int64          LPARAM;
+typedef unsigned __int64 WParam;
+typedef __int64          LParam;
 #else
-typedef Uint32 WPARAM;
-typedef Sint32 LPARAM;
+typedef Uint32 WParam;
+typedef Sint32 LParam;
 #endif
 
 #undef LOWORD

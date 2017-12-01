@@ -28,7 +28,7 @@
 
 extern void OutputDebug (const char * pMessage);
 
-extern Point ConvLongToPos (LPARAM lParam);
+extern Point ConvLongToPos (LParam lParam);
 
 extern void   InitRandom ();
 extern Sint32 Random (Sint32 min, Sint32 max);

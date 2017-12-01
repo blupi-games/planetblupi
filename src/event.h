@@ -61,8 +61,8 @@ typedef struct {
 typedef struct {
   Sint32 time;
   Uint32 message;
-  Uint32 wParam; // WPARAM
-  Uint32 lParam; // LPARAM
+  Uint32 wParam; // WParam
+  Uint32 lParam; // LParam
 } DemoEvent;
 
 struct DemoSDLEvent {
@@ -182,7 +182,7 @@ protected:
   bool DemoPlayStart (const std::string * demoFile = nullptr);
   void DemoPlayStop ();
   static void
-       WinToSDLEvent (Uint32 msg, WPARAM wParam, LPARAM lParam, SDL_Event & event);
+       WinToSDLEvent (Uint32 msg, WParam wParam, LParam lParam, SDL_Event & event);
   void DemoRecEvent (const SDL_Event & event);
 
 protected:
