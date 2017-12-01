@@ -281,10 +281,10 @@ endif ()
 
 # Copy libwinpthread-1.dll which seems not be linkable statically
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows" AND MINGW)
-  execute_process (COMMAND cygpath.exe --windows /mingw64 OUTPUT_VARIABLE MINGW64_PATH)
-  string (REGEX REPLACE "[ \t\n\r]+$" "" MINGW64_PATH "${MINGW64_PATH}")
-  string (REGEX REPLACE "[\\]" "\\\\\\\\" MINGW64_PATH "${MINGW64_PATH}")
-  install (FILES "${MINGW64_PATH}\\\\bin\\\\libwinpthread-1.dll" DESTINATION bin)
+  execute_process (COMMAND cygpath.exe --windows $ENV{MINGW_PREFIX} OUTPUT_VARIABLE MINGW_PATH)
+  string (REGEX REPLACE "[ \t\n\r]+$" "" MINGW_PATH "${MINGW_PATH}")
+  string (REGEX REPLACE "[\\]" "\\\\\\\\" MINGW_PATH "${MINGW_PATH}")
+  install (FILES "${MINGW_PATH}\\\\bin\\\\libwinpthread-1.dll" DESTINATION bin)
 endif ()
 
 #########
