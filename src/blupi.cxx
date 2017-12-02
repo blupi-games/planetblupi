@@ -678,7 +678,10 @@ DoInit (int argc, char * argv[], bool & exit)
 
   auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
   if (res < 0)
+  {
+    SDL_Log ("Unable to initialize SDL: %s", SDL_GetError ());
     return EXIT_FAILURE;
+  }
 
   // Create a window.
   g_window = SDL_CreateWindow (
