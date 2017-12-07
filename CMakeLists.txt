@@ -141,6 +141,8 @@ if ("${STATIC_BUILD}")
   pkg_search_module (AVUTIL REQUIRED libavutil)
   pkg_search_module (SWSCALE REQUIRED libswscale)
   pkg_search_module (SWRESAMPLE REQUIRED libswresample)
+  # Statis dependencies for SDL_mixer
+  pkg_search_module (VORBIS REQUIRED vorbisfile)
 
   if (UNIX AND NOT APPLE)
     pkg_search_module (ALSA REQUIRED alsa)
@@ -172,6 +174,7 @@ if ("${STATIC_BUILD}")
     ${AVUTIL_STATIC_LIBRARIES}
     ${SWSCALE_STATIC_LIBRARIES}
     ${SWRESAMPLE_STATIC_LIBRARIES}
+    ${VORBIS_STATIC_LIBRARIES}
   )
 
   if (${PB_HTTP_VERSION_CHECK})
