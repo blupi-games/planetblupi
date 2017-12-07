@@ -3360,7 +3360,7 @@ CEvent::ChangePhase (Uint32 phase)
       music = m_pDecor->GetMusic ();
       if (music > 0)
       {
-        filename = string_format ("music/music%.3d.mid", music - 1);
+        filename = string_format ("music/music%.3d.ogg", music - 1);
         m_pSound->StopMusic ();
         m_pSound->PlayMusic (filename);
       }
