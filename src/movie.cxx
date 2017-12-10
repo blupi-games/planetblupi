@@ -191,22 +191,6 @@ CMovie::GetEnable ()
   return m_bEnable;
 }
 
-// Indique si un film existe.
-
-bool
-CMovie::IsExist (const std::string & pFilename)
-{
-  const auto path = GetBaseDir () + pFilename;
-  FILE *     file;
-
-  file = fopen (path.c_str (), "rb");
-  if (file == nullptr)
-    return false;
-
-  fclose (file);
-  return true;
-}
-
 // Montre un film avi.
 
 bool

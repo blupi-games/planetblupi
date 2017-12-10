@@ -155,3 +155,17 @@ AddUserPath (std::string & pFilename)
   pFilename = path;
   SDL_free (temp);
 }
+
+bool
+FileExists (const std::string & filename)
+{
+  const auto path = GetBaseDir () + filename;
+  FILE *     file;
+
+  file = fopen (path.c_str (), "rb");
+  if (file == nullptr)
+    return false;
+
+  fclose (file);
+  return true;
+}

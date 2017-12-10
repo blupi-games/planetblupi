@@ -4394,7 +4394,7 @@ CEvent::StartMovie (const std::string & pFilename)
   if (!m_bMovie)
     return false;
 
-  if (!m_pMovie->IsExist (pFilename))
+  if (!FileExists (pFilename))
     return false;
 
   HideMouse (true);

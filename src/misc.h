@@ -37,6 +37,7 @@ std::string GetBaseDir ();
 std::string GetShareDir ();
 std::string GetLocale ();
 extern void AddUserPath (std::string & pFilename);
+bool        FileExists (const std::string & filename);
 
 template <typename... Args>
 std::string
