@@ -70,6 +70,7 @@ int         g_rendererType   = 0;
 bool        g_enableRecorder = false;
 std::string g_playRecord;
 bool        g_restoreBugs = false; // restore original < v1.9 bugs
+bool        g_restoreMidi = false; // restore music playback based on midi files
 
 enum Settings {
   SETTING_FULLSCREEN    = 1 << 0,
@@ -580,6 +581,10 @@ parseArgs (int argc, char * argv[], bool & exit)
      {"restorebugs",
       {"-b", "--restore-bugs"},
       "restore funny original bugs of older versions < v1.9",
+      0},
+     {"restoremidi",
+      {"-m", "--restore-midi"},
+      "restore playback based on MIDI music instead of OGG",
       0}}};
 
   argagg::parser_results args;
@@ -651,6 +656,9 @@ parseArgs (int argc, char * argv[], bool & exit)
 
   if (args["restorebugs"])
     g_restoreBugs = true;
+
+  if (args["restoremidi"])
+    g_restoreMidi = true;
 
   return EXIT_SUCCESS;
 }

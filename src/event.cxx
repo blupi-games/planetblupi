@@ -3362,7 +3362,16 @@ CEvent::ChangePhase (Uint32 phase)
       music = m_pDecor->GetMusic ();
       if (music > 0)
       {
-        filename = string_format ("music/music%.3d.ogg", music - 1);
+        const std::string exts[] = {"ogg", "mid"};
+
+        filename = string_format (
+          "music/music%.3d.%s", music - 1,
+          exts[g_restoreMidi ? 1 : 0].c_str ());
+        if (!FileExists (filename))
+          filename = string_format (
+            "music/music%.3d.%s", music - 1,
+            exts[g_restoreMidi ? 0 : 1].c_str ());
+
         m_pSound->StopMusic ();
         m_pSound->PlayMusic (filename);
       }
