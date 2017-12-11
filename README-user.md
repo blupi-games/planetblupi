@@ -61,6 +61,26 @@ useful operation on the selected spot.
 
 When you switch to an other application, the game is automatically paused.
 
+## Music
+
+The music is provided in OGG and MIDI formats. The OGG variant is prefered
+because the render is the same for all platforms. For purist fanboys, it's
+possible to enforce the MIDI variant by starting the game with the
+`--restore-midi` command line argument. Note that in this case, it's possible
+to lose some instruments, it depends of you system.
+
+If you want, you can overload all musics with yours by providing OGG or MIDI
+music files in your user directory.
+
+On Windows, type `%LOCALAPPDATA%\Epsitec SA\Planet Blupi` in the file browser,
+on macOS, look at `~/Library/Application Support/Epsitec SA/Planet Blupi`, and
+on Linux, look at `~/.local/share/Epsitec SA/Planet Blupi`.
+
+You can create a `music` sub-directory with your music. For example:
+`%LOCALAPPDATA%\Epsitec SA\Planet Blupi\music\music000.ogg`.
+
+Only 10 musics are supported: `music000` to `music009`.
+
 ## Epsitec SA
 
 _Planet Blupi_ is an original creation of [Epsitec SA][1].
