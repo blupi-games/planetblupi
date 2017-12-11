@@ -157,12 +157,28 @@ AddUserPath (std::string & pFilename)
 }
 
 bool
-FileExists (const std::string & filename)
+FileExists (
+  const std::string & filename, std::string & absolute, enum Location location)
 {
-  const auto path = GetBaseDir () + filename;
-  FILE *     file;
+  absolute = filename;
+  FILE * file;
 
-  file = fopen (path.c_str (), "rb");
+  switch (location)
+  {
+  case LOCATION_BASE:
+    absolute = GetBaseDir () + filename;
+    break;
+
+  case LOCATION_USER:
+    AddUserPath (absolute);
+    break;
+
+  default:
+  case LOCATION_ABSOLUTE:
+    break;
+  }
+
+  file = fopen (absolute.c_str (), "rb");
   if (file == nullptr)
     return false;
 

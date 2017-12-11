@@ -326,20 +326,19 @@ CSound::PlayImage (Sounds channel, Point pos, Sint32 rank)
 bool
 CSound::PlayMusic (const std::string & lpszMIDIFilename)
 {
-  std::string path = GetBaseDir ();
-
   if (m_midiVolume == 0)
     return true;
+
+  if (lpszMIDIFilename.empty ())
+    return false;
 
   Mix_VolumeMusic (MIX_MAX_VOLUME * 100 * m_midiVolume / 20 / 100);
   m_lastMidiVolume = m_midiVolume;
 
-  path += lpszMIDIFilename;
-
   if (m_pMusic)
     Mix_FreeMusic (m_pMusic);
 
-  m_pMusic = Mix_LoadMUS (path.c_str ());
+  m_pMusic = Mix_LoadMUS (lpszMIDIFilename.c_str ());
   if (!m_pMusic)
   {
     printf ("%s\n", Mix_GetError ());

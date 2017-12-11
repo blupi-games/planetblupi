@@ -37,7 +37,11 @@ std::string GetBaseDir ();
 std::string GetShareDir ();
 std::string GetLocale ();
 extern void AddUserPath (std::string & pFilename);
-bool        FileExists (const std::string & filename);
+
+enum Location { LOCATION_ABSOLUTE, LOCATION_BASE, LOCATION_USER };
+bool FileExists (
+  const std::string & filename, std::string & absolute,
+  Location location = LOCATION_BASE);
 
 template <typename... Args>
 std::string

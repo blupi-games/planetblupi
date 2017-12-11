@@ -3362,18 +3362,29 @@ CEvent::ChangePhase (Uint32 phase)
       music = m_pDecor->GetMusic ();
       if (music > 0)
       {
-        const std::string exts[] = {"ogg", "mid"};
+        static const std::string exts[] = {"ogg", "mid"};
+        static const Location    locs[] = {LOCATION_USER, LOCATION_BASE};
+        std::string              absolute;
 
-        filename = string_format (
-          "music/music%.3d.%s", music - 1,
-          exts[g_restoreMidi ? 1 : 0].c_str ());
-        if (!FileExists (filename))
+        // Look for music in the user directory, then in the game directory.
+        for (size_t i = 0; i < countof (locs); ++i)
+        {
           filename = string_format (
             "music/music%.3d.%s", music - 1,
-            exts[g_restoreMidi ? 0 : 1].c_str ());
+            exts[g_restoreMidi ? 1 : 0].c_str ());
+          if (!FileExists (filename, absolute, locs[i]))
+            filename = string_format (
+              "music/music%.3d.%s", music - 1,
+              exts[g_restoreMidi ? 0 : 1].c_str ());
+
+          if (FileExists (filename, absolute, locs[i]))
+            break;
+
+          absolute = "";
+        }
 
         m_pSound->StopMusic ();
-        m_pSound->PlayMusic (filename);
+        m_pSound->PlayMusic (absolute);
       }
     }
   }
@@ -4403,7 +4414,8 @@ CEvent::StartMovie (const std::string & pFilename)
   if (!m_bMovie)
     return false;
 
-  if (!FileExists (pFilename))
+  std::string absolute;
+  if (!FileExists (pFilename, absolute))
     return false;
 
   HideMouse (true);
