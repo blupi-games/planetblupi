@@ -71,18 +71,7 @@ bool        g_enableRecorder = false;
 std::string g_playRecord;
 bool        g_restoreBugs = false; // restore original < v1.9 bugs
 bool        g_restoreMidi = false; // restore music playback based on midi files
-
-enum Settings {
-  SETTING_FULLSCREEN    = 1 << 0,
-  SETTING_SPEEDRATE     = 1 << 1,
-  SETTING_TIMERINTERVAL = 1 << 2,
-  SETTING_RENDERER      = 1 << 3,
-  SETTING_ZOOM          = 1 << 4,
-  SETTING_DRIVER        = 1 << 5,
-  SETTING_MIDI          = 1 << 6,
-};
-
-static int g_settingsOverload = 0;
+int         g_settingsOverload = 0;
 
 bool        g_bTermInit = false; // initialisation en cours
 Uint32      g_lastPhase = 999;

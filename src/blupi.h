@@ -34,6 +34,18 @@ extern bool           g_restoreMidi;
 extern bool           g_enableRecorder;
 extern std::string    g_playRecord;
 
+enum Settings {
+  SETTING_FULLSCREEN    = 1 << 0,
+  SETTING_SPEEDRATE     = 1 << 1,
+  SETTING_TIMERINTERVAL = 1 << 2,
+  SETTING_RENDERER      = 1 << 3,
+  SETTING_ZOOM          = 1 << 4,
+  SETTING_DRIVER        = 1 << 5,
+  SETTING_MIDI          = 1 << 6,
+};
+
+extern int g_settingsOverload;
+
 struct Point {
   Sint32 x;
   Sint32 y;

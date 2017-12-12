@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-07 17:31+0100\n"
+"POT-Creation-Date: 2017-12-12 23:45+0100\n"
 "PO-Revision-Date: 2017-12-07 17:39+0100\n"
 "Last-Translator: tomangelo <tomangelo@wp.pl>\n"
 "Language-Team: TerranovaTeam <contact@colobot.info>\n"
@@ -283,6 +283,11 @@ msgstr "Wyłup skały"
 
 msgid ""
 "Change the\n"
+"music format"
+msgstr ""
+
+msgid ""
+"Change the\n"
 "window size"
 msgstr ""
 "Zmień rozmiar\n"
@@ -522,6 +527,9 @@ msgstr "Mistrz robotów"
 msgid "Medical potion"
 msgstr "Lekarstwo"
 
+msgid "Midi"
+msgstr ""
+
 msgid "Mine"
 msgstr "Kopalnia"
 
@@ -625,6 +633,9 @@ msgstr "Teraz spróbuj swoich sił w misjach"
 
 msgid "Occupied ground"
 msgstr "Teren zajęty"
+
+msgid "Ogg"
+msgstr ""
 
 msgid "Open another game"
 msgstr "Otwórz poprzednią grę"
@@ -835,6 +846,12 @@ msgstr "Drzewo"
 
 msgid "Tree trunks"
 msgstr "Pnie drzew"
+
+msgid "Use Midi music (original)"
+msgstr ""
+
+msgid "Use Ogg music"
+msgstr ""
 
 msgid "Version"
 msgstr "Wersja"

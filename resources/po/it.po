@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-07 17:31+0100\n"
+"POT-Creation-Date: 2017-12-12 23:45+0100\n"
 "PO-Revision-Date: 2017-12-07 17:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -282,6 +282,11 @@ msgstr "Spacca delle roccie"
 
 msgid ""
 "Change the\n"
+"music format"
+msgstr ""
+
+msgid ""
+"Change the\n"
 "window size"
 msgstr ""
 "Cambiare la\n"
@@ -524,6 +529,9 @@ msgstr "Robot-capo"
 msgid "Medical potion"
 msgstr "Pozione"
 
+msgid "Midi"
+msgstr ""
+
 msgid "Mine"
 msgstr "Miniera"
 
@@ -627,6 +635,9 @@ msgstr "Ora passa alle missioni."
 
 msgid "Occupied ground"
 msgstr "Terreno occupato"
+
+msgid "Ogg"
+msgstr ""
 
 msgid "Open another game"
 msgstr "Apri un'altra partita"
@@ -837,6 +848,12 @@ msgstr "Alberi"
 
 msgid "Tree trunks"
 msgstr "Tronchi"
+
+msgid "Use Midi music (original)"
+msgstr ""
+
+msgid "Use Ogg music"
+msgstr ""
 
 msgid "Version"
 msgstr "Versione"

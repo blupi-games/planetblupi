@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-07 17:31+0100\n"
+"POT-Creation-Date: 2017-12-12 23:45+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -551,6 +551,12 @@ msgstr ""
 msgid "Increase window size"
 msgstr ""
 
+msgid "Use Ogg music"
+msgstr ""
+
+msgid "Use Midi music (original)"
+msgstr ""
+
 msgid "Version"
 msgstr ""
 
@@ -703,6 +709,17 @@ msgstr ""
 msgid ""
 "Change the\n"
 "window size"
+msgstr ""
+
+msgid ""
+"Change the\n"
+"music format"
+msgstr ""
+
+msgid "Midi"
+msgstr ""
+
+msgid "Ogg"
 msgstr ""
 
 msgid "You have played Planet Blupi."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-07 17:31+0100\n"
+"POT-Creation-Date: 2017-12-12 23:45+0100\n"
 "PO-Revision-Date: 2017-12-07 17:37+0100\n"
 "Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
@@ -282,6 +282,11 @@ msgstr "Taille des rochers"
 
 msgid ""
 "Change the\n"
+"music format"
+msgstr ""
+
+msgid ""
+"Change the\n"
 "window size"
 msgstr ""
 "Modifie la taille\n"
@@ -521,6 +526,9 @@ msgstr "Robot-maître"
 msgid "Medical potion"
 msgstr "Potion"
 
+msgid "Midi"
+msgstr ""
+
 msgid "Mine"
 msgstr "Mine de fer"
 
@@ -624,6 +632,9 @@ msgstr "Passe maintenant aux missions."
 
 msgid "Occupied ground"
 msgstr "Terrain occupé"
+
+msgid "Ogg"
+msgstr ""
 
 msgid "Open another game"
 msgstr "Ouvrir une autre partie"
@@ -834,6 +845,12 @@ msgstr "Arbres"
 
 msgid "Tree trunks"
 msgstr "Troncs"
+
+msgid "Use Midi music (original)"
+msgstr ""
+
+msgid "Use Ogg music"
+msgstr ""
 
 msgid "Version"
 msgstr "Version"

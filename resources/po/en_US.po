@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-07 17:31+0100\n"
+"POT-Creation-Date: 2017-12-12 23:45+0100\n"
 "PO-Revision-Date: 2017-02-27 21:28+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -236,6 +236,11 @@ msgid "Carve a rock"
 msgstr ""
 
 msgid "Carve rocks"
+msgstr ""
+
+msgid ""
+"Change the\n"
+"music format"
 msgstr ""
 
 msgid ""
@@ -471,6 +476,9 @@ msgstr ""
 msgid "Medical potion"
 msgstr ""
 
+msgid "Midi"
+msgstr ""
+
 msgid "Mine"
 msgstr ""
 
@@ -571,6 +579,9 @@ msgid "Now go on mission."
 msgstr ""
 
 msgid "Occupied ground"
+msgstr ""
+
+msgid "Ogg"
 msgstr ""
 
 msgid "Open another game"
@@ -773,6 +784,12 @@ msgid "Tree"
 msgstr ""
 
 msgid "Tree trunks"
+msgstr ""
+
+msgid "Use Midi music (original)"
+msgstr ""
+
+msgid "Use Ogg music"
 msgstr ""
 
 msgid "Version"

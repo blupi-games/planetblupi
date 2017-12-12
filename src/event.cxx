@@ -70,8 +70,10 @@ typedef struct {
   Sint16 skill;
   // v1.1
   Sint16 language;
+  // v1.2
+  Sint16 musicMidi;
 
-  Sint16 reserve2[92];
+  Sint16 reserve2[91];
 } DescInfo;
 
 // Toutes les premières lettres doivent
@@ -1500,6 +1502,18 @@ static Phase table[] =
                 { translate ("Increase window size") },
             },
             {
+                EV_BUTTON7,
+                0, {1, 50},
+                399, 330,
+                { translate ("Use Ogg music") },
+            },
+            {
+                EV_BUTTON8,
+                0, {1, 51},
+                399 + 40, 330,
+                { translate ("Use Midi music (original)") },
+            },
+            {
                 EV_PHASE_INIT,
                 0, {1, 40},
                 42 + 42 * 0, 433,
@@ -2083,6 +2097,9 @@ CEvent::DrawButtons ()
 
     SetEnable (EV_BUTTON5, !m_bFullScreen && m_WindowScale > 1);
     SetEnable (EV_BUTTON6, !m_bFullScreen && m_WindowScale < 2);
+
+    SetEnable (EV_BUTTON7, g_restoreMidi);
+    SetEnable (EV_BUTTON8, !g_restoreMidi);
   }
 
   assert (m_index >= 0);
@@ -2534,6 +2551,7 @@ CEvent::DrawButtons ()
     DrawTextCenter (gettext ("Interface language\nand sounds"), 54 + 40, 80);
     DrawTextCenter (gettext ("Select the\nwindow mode"), 169 + 40, 80);
     DrawTextCenter (gettext ("Change the\nwindow size"), 284 + 40, 80);
+    DrawTextCenter (gettext ("Change the\nmusic format"), 399 + 40, 80);
 
     const auto  locale = GetLocale ();
     std::string lang;
@@ -2570,6 +2588,12 @@ CEvent::DrawButtons ()
       pos.y = 330 - 20;
       DrawText (m_pPixmap, pos, res);
     }
+
+    text  = g_restoreMidi ? gettext ("Midi") : gettext ("Ogg");
+    lg    = GetTextWidth (text);
+    pos.x = (399 + 40) - lg / 2;
+    pos.y = 330 - 20;
+    DrawText (m_pPixmap, pos, text);
   }
 
   // Show the ending text
@@ -4116,6 +4140,12 @@ CEvent::ChangeButtons (Sint32 message)
       SetWindowSize (scale, m_WindowScale);
       break;
     }
+    case EV_BUTTON7:
+      g_restoreMidi = false;
+      break;
+    case EV_BUTTON8:
+      g_restoreMidi = true;
+      break;
     }
   }
 }
@@ -4671,7 +4701,7 @@ CEvent::WriteInfo ()
     goto error;
 
   info.majRev       = 1;
-  info.minRev       = 1;
+  info.minRev       = 2;
   info.prive        = m_private;
   info.exercice     = m_exercice;
   info.mission      = m_mission;
@@ -4690,6 +4720,7 @@ CEvent::WriteInfo ()
   info.language = static_cast<Sint16> (
     this->GetLanguage () != this->GetStartLanguage () ? this->GetLanguage ()
                                                       : Language::undef);
+  info.musicMidi = g_restoreMidi;
 
   nb = fwrite (&info, sizeof (info), 1, file);
   if (nb < 1)
@@ -4747,6 +4778,11 @@ CEvent::ReadInfo ()
       info.language = 0;
     this->SetLanguage (static_cast<Language> (info.language));
   }
+
+  if (
+    ((info.majRev == 1 && info.minRev >= 2) || info.majRev >= 2) &&
+    !(g_settingsOverload & SETTING_MIDI))
+    g_restoreMidi = !!info.musicMidi;
 
   fclose (file);
   return true;
