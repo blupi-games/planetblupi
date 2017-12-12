@@ -79,6 +79,7 @@ enum Settings {
   SETTING_RENDERER      = 1 << 3,
   SETTING_ZOOM          = 1 << 4,
   SETTING_DRIVER        = 1 << 5,
+  SETTING_MIDI          = 1 << 6,
 };
 
 static int g_settingsOverload = 0;
@@ -187,6 +188,10 @@ ReadConfig ()
     else if (j["driver"] == "opengl")
       SDL_SetHint (SDL_HINT_RENDER_DRIVER, "opengl");
   }
+
+  if (
+    !(g_settingsOverload & SETTING_MIDI) && j.find ("restoremidi") != j.end ())
+    g_restoreMidi = j["restoremidi"].get<bool> ();
 
   return true;
 }
@@ -685,7 +690,10 @@ parseArgs (int argc, char * argv[], bool & exit)
     g_restoreBugs = true;
 
   if (args["restoremidi"])
+  {
     g_restoreMidi = true;
+    g_settingsOverload |= SETTING_MIDI;
+  }
 
   return EXIT_SUCCESS;
 }
