@@ -78,6 +78,7 @@ enum Settings {
   SETTING_TIMERINTERVAL = 1 << 2,
   SETTING_RENDERER      = 1 << 3,
   SETTING_ZOOM          = 1 << 4,
+  SETTING_DRIVER        = 1 << 5,
 };
 
 static int g_settingsOverload = 0;
@@ -175,6 +176,16 @@ ReadConfig ()
       g_rendererType = SDL_RENDERER_SOFTWARE;
     else if (j["renderer"] == "accelerated")
       g_rendererType = SDL_RENDERER_ACCELERATED;
+  }
+
+  if (
+    !(g_settingsOverload & SETTING_DRIVER) && j.find ("driver") != j.end () &&
+    (!g_rendererType || g_rendererType == SDL_RENDERER_ACCELERATED))
+  {
+    if (j["driver"] == "direct3d")
+      SDL_SetHint (SDL_HINT_RENDER_DRIVER, "direct3d");
+    else if (j["driver"] == "opengl")
+      SDL_SetHint (SDL_HINT_RENDER_DRIVER, "opengl");
   }
 
   return true;
@@ -570,6 +581,11 @@ parseArgs (int argc, char * argv[], bool & exit)
       {"-r", "--renderer"},
       "set a renderer [auto;software;accelerated] (default: auto)",
       1},
+     {"driver",
+      {"-d", "--driver"},
+      "set a driver [auto;direct3d;opengl] (default: auto, ignored with "
+      "software renderer)",
+      1},
      {"enablerecorder",
       {"-c", "--enable-recorder"},
       "enable the recorder feature (F3/F4)",
@@ -646,6 +662,17 @@ parseArgs (int argc, char * argv[], bool & exit)
     else if (args["renderer"].as<std::string> () == "accelerated")
       g_rendererType = SDL_RENDERER_ACCELERATED;
     g_settingsOverload |= SETTING_RENDERER;
+  }
+
+  if (
+    args["driver"] &&
+    (!g_rendererType || g_rendererType == SDL_RENDERER_ACCELERATED))
+  {
+    if (args["driver"].as<std::string> () == "direct3d")
+      SDL_SetHint (SDL_HINT_RENDER_DRIVER, "direct3d");
+    else if (args["driver"].as<std::string> () == "opengl")
+      SDL_SetHint (SDL_HINT_RENDER_DRIVER, "opengl");
+    g_settingsOverload |= SETTING_DRIVER;
   }
 
   if (args["enablerecorder"])
