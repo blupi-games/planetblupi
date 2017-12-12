@@ -87,7 +87,7 @@ to lose some instruments, it depends of your system.
 If you want, you can overload all musics with yours by providing OGG or MIDI
 music files in your user directory.
 
-On Windows, type `%LOCALAPPDATA%\Epsitec SA\Planet Blupi` in the file browser,
+On Windows, type `%APPDATA%\Epsitec SA\Planet Blupi` in the file browser,
 on macOS, look at `~/Library/Application Support/Epsitec SA/Planet Blupi`, and
 on Linux, look at `~/.local/share/Epsitec SA/Planet Blupi`.
 
