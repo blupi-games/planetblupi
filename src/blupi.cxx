@@ -157,11 +157,7 @@ ReadConfig ()
   if (
     !(g_settingsOverload & SETTING_FULLSCREEN) &&
     j.find ("fullscreen") != j.end ())
-  {
     g_bFullScreen = j["fullscreen"].get<bool> ();
-    if (g_bFullScreen != 0)
-      g_bFullScreen = 1;
-  }
 
   if (!(g_settingsOverload & SETTING_ZOOM) && j.find ("zoom") != j.end ())
   {
