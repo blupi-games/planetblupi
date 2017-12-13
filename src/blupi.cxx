@@ -641,6 +641,8 @@ parseArgs (int argc, char * argv[], bool & exit)
   if (args["zoom"])
   {
     g_windowScale = args["zoom"];
+    if (g_windowScale != 1 && g_windowScale != 2)
+      g_windowScale = 1;
     g_settingsOverload |= SETTING_ZOOM;
   }
 
