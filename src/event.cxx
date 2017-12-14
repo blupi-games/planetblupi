@@ -1659,10 +1659,10 @@ CEvent::SetFullScreen (bool bFullScreen)
 {
   int x, y;
   SDL_GetMouseState (&x, &y);
-  x /= g_windowScale;
-  y /= g_windowScale;
+  x /= g_zoom;
+  y /= g_zoom;
 
-  g_windowScale = 1;
+  g_zoom = 1;
   SDL_SetWindowSize (g_window, LXIMAGE, LYIMAGE);
 
   g_bFullScreen = bFullScreen;
@@ -1672,7 +1672,7 @@ CEvent::SetFullScreen (bool bFullScreen)
   SDL_SetWindowPosition (
     g_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
-  m_pPixmap->LoadCursors (g_windowScale);
+  m_pPixmap->LoadCursors (g_zoom);
   m_pPixmap->ReloadTargetTextures ();
 
   /* Force this update before otherwise the coordinates retrieved with
@@ -1696,13 +1696,13 @@ CEvent::SetFullScreen (bool bFullScreen)
 void
 CEvent::SetWindowSize (Uint8 newScale)
 {
-  auto scale    = g_windowScale;
-  g_windowScale = newScale;
+  auto scale = g_zoom;
+  g_zoom     = newScale;
   switch (newScale)
   {
   case 1:
   case 2:
-    SetWindowSize (scale, g_windowScale);
+    SetWindowSize (scale, g_zoom);
     break;
 
   default:
@@ -2083,8 +2083,8 @@ CEvent::DrawButtons ()
     SetEnable (EV_BUTTON3, !g_bFullScreen);
     SetEnable (EV_BUTTON4, g_bFullScreen);
 
-    SetEnable (EV_BUTTON5, !g_bFullScreen && g_windowScale > 1);
-    SetEnable (EV_BUTTON6, !g_bFullScreen && g_windowScale < 2);
+    SetEnable (EV_BUTTON5, !g_bFullScreen && g_zoom > 1);
+    SetEnable (EV_BUTTON6, !g_bFullScreen && g_zoom < 2);
 
     SetEnable (EV_BUTTON7, g_restoreMidi);
     SetEnable (EV_BUTTON8, !g_restoreMidi);
@@ -2570,7 +2570,7 @@ CEvent::DrawButtons ()
 
     if (!g_bFullScreen)
     {
-      snprintf (res, sizeof (res), "%dx", g_windowScale);
+      snprintf (res, sizeof (res), "%dx", g_zoom);
       lg    = GetTextWidth (res);
       pos.x = (284 + 40) - lg / 2;
       pos.y = 330 - 20;
@@ -4114,18 +4114,18 @@ CEvent::ChangeButtons (Sint32 message)
       break;
     case EV_BUTTON5:
     {
-      auto scale = g_windowScale;
-      if (g_windowScale > 1)
-        --g_windowScale;
-      SetWindowSize (scale, g_windowScale);
+      auto scale = g_zoom;
+      if (g_zoom > 1)
+        --g_zoom;
+      SetWindowSize (scale, g_zoom);
       break;
     }
     case EV_BUTTON6:
     {
-      auto scale = g_windowScale;
-      if (g_windowScale < 2)
-        ++g_windowScale;
-      SetWindowSize (scale, g_windowScale);
+      auto scale = g_zoom;
+      if (g_zoom < 2)
+        ++g_zoom;
+      SetWindowSize (scale, g_zoom);
       break;
     }
     case EV_BUTTON7:
@@ -4710,7 +4710,7 @@ CEvent::WriteInfo ()
                                                       : Language::undef);
   info.musicMidi  = g_restoreMidi;
   info.fullScreen = g_bFullScreen;
-  info.zoom       = g_windowScale;
+  info.zoom       = g_zoom;
 
   nb = fwrite (&info, sizeof (info), 1, file);
   if (nb < 1)
@@ -4776,7 +4776,7 @@ CEvent::ReadInfo ()
     if (!(g_settingsOverload & SETTING_FULLSCREEN))
       g_bFullScreen = !!info.fullScreen;
     if (!(g_settingsOverload & SETTING_ZOOM))
-      g_windowScale = info.zoom;
+      g_zoom = info.zoom;
   }
 
   fclose (file);
@@ -5154,8 +5154,7 @@ CEvent::DemoStep ()
           pos.y = event.motion.y;
         }
 
-        SDL_WarpMouseInWindow (
-          g_window, pos.x * g_windowScale, pos.y * g_windowScale);
+        SDL_WarpMouseInWindow (g_window, pos.x * g_zoom, pos.y * g_zoom);
       }
 
       if (m_pDemoBuffer)

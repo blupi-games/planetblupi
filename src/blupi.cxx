@@ -63,7 +63,7 @@ std::thread *     g_updateThread = nullptr;
 std::atomic<bool> g_updateAbort (false);
 
 bool        g_bFullScreen    = false; // false si mode de test
-Uint8       g_windowScale    = 1;
+Uint8       g_zoom           = 1;
 Sint32      g_speedRate      = 1;
 Sint32      g_timerInterval  = 50; // inverval = 50ms
 int         g_rendererType   = 0;
@@ -150,9 +150,9 @@ ReadConfig ()
 
   if (!(g_settingsOverload & SETTING_ZOOM) && j.find ("zoom") != j.end ())
   {
-    g_windowScale = j["zoom"].get<Uint8> ();
-    if (g_windowScale != 1 && g_windowScale != 2)
-      g_windowScale = 1;
+    g_zoom = j["zoom"].get<Uint8> ();
+    if (g_zoom != 1 && g_zoom != 2)
+      g_zoom = 1;
   }
 
   if (
@@ -640,9 +640,9 @@ parseArgs (int argc, char * argv[], bool & exit)
 
   if (args["zoom"])
   {
-    g_windowScale = args["zoom"];
-    if (g_windowScale != 1 && g_windowScale != 2)
-      g_windowScale = 1;
+    g_zoom = args["zoom"];
+    if (g_zoom != 1 && g_zoom != 2)
+      g_zoom = 1;
     g_settingsOverload |= SETTING_ZOOM;
   }
 
@@ -977,19 +977,19 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
-  const bool zoom = g_windowScale;
+  const bool zoom = g_zoom;
 
   g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
 
   // Load all cursors
-  g_pPixmap->LoadCursors (g_windowScale);
+  g_pPixmap->LoadCursors (g_zoom);
   g_pPixmap->ChangeSprite (SPRITE_WAIT);
 
   g_updateThread = new std::thread (CheckForUpdates);
   if (g_bFullScreen)
     g_pEvent->SetFullScreen (true);
-  if (!g_bFullScreen && zoom != g_windowScale)
-    g_pEvent->SetWindowSize (g_windowScale);
+  if (!g_bFullScreen && zoom != g_zoom)
+    g_pEvent->SetWindowSize (g_zoom);
   g_pEvent->ChangePhase (EV_PHASE_INTRO1);
 
   g_bTermInit = true;
