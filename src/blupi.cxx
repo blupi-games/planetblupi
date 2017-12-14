@@ -22,6 +22,7 @@
 #include <fstream>
 #include <iostream>
 #include <iterator>
+#include <regex>
 #include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -168,10 +169,10 @@ ReadConfig ()
     !(g_settingsOverload & SETTING_DRIVER) && j.find ("driver") != j.end () &&
     (!g_rendererType || g_rendererType == SDL_RENDERER_ACCELERATED))
   {
-    if (j["driver"] == "direct3d")
-      SDL_SetHint (SDL_HINT_RENDER_DRIVER, "direct3d");
-    else if (j["driver"] == "opengl")
-      SDL_SetHint (SDL_HINT_RENDER_DRIVER, "opengl");
+    std::string input = j["driver"];
+    if (std::regex_match (
+          input, std::regex ("direct3d|direct3d11|opengl|opengles2|opengles")))
+      SDL_SetHint (SDL_HINT_RENDER_DRIVER, input.c_str ());
   }
 
   if (
@@ -573,7 +574,8 @@ parseArgs (int argc, char * argv[], bool & exit)
       1},
      {"driver",
       {"-d", "--driver"},
-      "set a driver [auto;direct3d;opengl] (default: auto, ignored with "
+      "set a driver [auto;direct3d;direct3d11;opengl;opengles2;opengles] "
+      "(default: auto, ignored with "
       "software renderer)",
       1},
      {"enablerecorder",
@@ -661,10 +663,10 @@ parseArgs (int argc, char * argv[], bool & exit)
     args["driver"] &&
     (!g_rendererType || g_rendererType == SDL_RENDERER_ACCELERATED))
   {
-    if (args["driver"].as<std::string> () == "direct3d")
-      SDL_SetHint (SDL_HINT_RENDER_DRIVER, "direct3d");
-    else if (args["driver"].as<std::string> () == "opengl")
-      SDL_SetHint (SDL_HINT_RENDER_DRIVER, "opengl");
+    std::string input = args["driver"].as<std::string> ();
+    if (std::regex_match (
+          input, std::regex ("direct3d|direct3d11|opengl|opengles2|opengles")))
+      SDL_SetHint (SDL_HINT_RENDER_DRIVER, input.c_str ());
     g_settingsOverload |= SETTING_DRIVER;
   }
 
