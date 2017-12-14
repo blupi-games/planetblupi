@@ -2539,7 +2539,7 @@ CEvent::DrawButtons ()
     DrawTextCenter (gettext ("Interface language\nand sounds"), 54 + 40, 80);
     DrawTextCenter (gettext ("Select the\nwindow mode"), 169 + 40, 80);
     DrawTextCenter (gettext ("Change the\nwindow size"), 284 + 40, 80);
-    DrawTextCenter (gettext ("Change the\nmusic format"), 399 + 40, 80);
+    DrawTextCenter (gettext ("Choose the\nmusic format"), 399 + 40, 80);
 
     const auto  locale = GetLocale ();
     std::string lang;
