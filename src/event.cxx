@@ -72,8 +72,10 @@ typedef struct {
   Sint16 language;
   // v1.2
   Sint16 musicMidi;
+  Sint16 fullScreen;
+  Sint16 zoom;
 
-  Sint16 reserve2[91];
+  Sint16 reserve2[89];
 } DescInfo;
 
 // Toutes les premières lettres doivent
@@ -1539,8 +1541,6 @@ CEvent::CEvent ()
 {
   Sint32 i;
 
-  m_bFullScreen     = false;
-  m_WindowScale     = 1;
   m_exercice        = 0;
   m_mission         = 0;
   m_private         = 0;
@@ -1657,25 +1657,22 @@ CEvent::GetMousePos ()
 void
 CEvent::SetFullScreen (bool bFullScreen)
 {
-  if (bFullScreen == m_bFullScreen)
-    return;
-
   int x, y;
   SDL_GetMouseState (&x, &y);
-  x /= m_WindowScale;
-  y /= m_WindowScale;
+  x /= g_windowScale;
+  y /= g_windowScale;
 
-  m_WindowScale = 1;
+  g_windowScale = 1;
   SDL_SetWindowSize (g_window, LXIMAGE, LYIMAGE);
 
-  m_bFullScreen = bFullScreen;
+  g_bFullScreen = bFullScreen;
   SDL_SetWindowFullscreen (g_window, bFullScreen ? SDL_WINDOW_FULLSCREEN : 0);
   SDL_SetWindowBordered (g_window, bFullScreen ? SDL_FALSE : SDL_TRUE);
   SDL_SetWindowGrab (g_window, bFullScreen ? SDL_TRUE : SDL_FALSE);
   SDL_SetWindowPosition (
     g_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
-  m_pPixmap->LoadCursors (m_WindowScale);
+  m_pPixmap->LoadCursors (g_windowScale);
   m_pPixmap->ReloadTargetTextures ();
 
   /* Force this update before otherwise the coordinates retrieved with
@@ -1699,16 +1696,13 @@ CEvent::SetFullScreen (bool bFullScreen)
 void
 CEvent::SetWindowSize (Uint8 newScale)
 {
-  if (newScale == m_WindowScale)
-    return;
-
-  auto scale    = m_WindowScale;
-  m_WindowScale = newScale;
+  auto scale    = g_windowScale;
+  g_windowScale = newScale;
   switch (newScale)
   {
   case 1:
   case 2:
-    SetWindowSize (scale, m_WindowScale);
+    SetWindowSize (scale, g_windowScale);
     break;
 
   default:
@@ -1746,12 +1740,6 @@ CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
   coord->x   = newScale < prevScale ? x / prevScale : x * newScale;
   coord->y   = newScale < prevScale ? y / prevScale : x * newScale;
   CEvent::PushUserEvent (EV_WARPMOUSE, coord);
-}
-
-Uint8
-CEvent::GetWindowScale ()
-{
-  return m_WindowScale;
 }
 
 // Crée le gestionnaire d'événements.
@@ -2092,11 +2080,11 @@ CEvent::DrawButtons ()
     SetEnable (EV_BUTTON1, m_Lang != m_Languages.begin ());
     SetEnable (EV_BUTTON2, m_Lang != m_Languages.end () - 1);
 
-    SetEnable (EV_BUTTON3, !m_bFullScreen);
-    SetEnable (EV_BUTTON4, m_bFullScreen);
+    SetEnable (EV_BUTTON3, !g_bFullScreen);
+    SetEnable (EV_BUTTON4, g_bFullScreen);
 
-    SetEnable (EV_BUTTON5, !m_bFullScreen && m_WindowScale > 1);
-    SetEnable (EV_BUTTON6, !m_bFullScreen && m_WindowScale < 2);
+    SetEnable (EV_BUTTON5, !g_bFullScreen && g_windowScale > 1);
+    SetEnable (EV_BUTTON6, !g_bFullScreen && g_windowScale < 2);
 
     SetEnable (EV_BUTTON7, g_restoreMidi);
     SetEnable (EV_BUTTON8, !g_restoreMidi);
@@ -2574,15 +2562,15 @@ CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, lang.c_str ());
 
     const char * text =
-      m_bFullScreen ? gettext ("Fullscreen") : gettext ("Windowed");
+      g_bFullScreen ? gettext ("Fullscreen") : gettext ("Windowed");
     lg    = GetTextWidth (text);
     pos.x = (169 + 40) - lg / 2;
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
 
-    if (!m_bFullScreen)
+    if (!g_bFullScreen)
     {
-      snprintf (res, sizeof (res), "%dx", m_WindowScale);
+      snprintf (res, sizeof (res), "%dx", g_windowScale);
       lg    = GetTextWidth (res);
       pos.x = (284 + 40) - lg / 2;
       pos.y = 330 - 20;
@@ -2690,7 +2678,7 @@ CEvent::MousePosToSprite (Point pos)
       pos.y <= POSMAPY + DIMMAPY)
       sprite = SPRITE_MAP;
 
-    if (m_bFullScreen && !m_bDemoRec && !m_bDemoPlay && m_scrollSpeed != 0)
+    if (g_bFullScreen && !m_bDemoRec && !m_bDemoPlay && m_scrollSpeed != 0)
     {
       if (pos.x <= 5 && pos.x >= -2)
         bLeft = true;
@@ -3591,7 +3579,7 @@ CEvent::DecorAutoShift ()
 
   m_bShift = false;
 
-  if (!byKeyboard && (!m_bFullScreen || m_scrollSpeed == 0))
+  if (!byKeyboard && (!g_bFullScreen || m_scrollSpeed == 0))
     return;
 
   max = maxLimit - m_scrollSpeed; // max <- 3..1
@@ -4126,18 +4114,18 @@ CEvent::ChangeButtons (Sint32 message)
       break;
     case EV_BUTTON5:
     {
-      auto scale = m_WindowScale;
-      if (m_WindowScale > 1)
-        --m_WindowScale;
-      SetWindowSize (scale, m_WindowScale);
+      auto scale = g_windowScale;
+      if (g_windowScale > 1)
+        --g_windowScale;
+      SetWindowSize (scale, g_windowScale);
       break;
     }
     case EV_BUTTON6:
     {
-      auto scale = m_WindowScale;
-      if (m_WindowScale < 2)
-        ++m_WindowScale;
-      SetWindowSize (scale, m_WindowScale);
+      auto scale = g_windowScale;
+      if (g_windowScale < 2)
+        ++g_windowScale;
+      SetWindowSize (scale, g_windowScale);
       break;
     }
     case EV_BUTTON7:
@@ -4720,7 +4708,9 @@ CEvent::WriteInfo ()
   info.language = static_cast<Sint16> (
     this->GetLanguage () != this->GetStartLanguage () ? this->GetLanguage ()
                                                       : Language::undef);
-  info.musicMidi = g_restoreMidi;
+  info.musicMidi  = g_restoreMidi;
+  info.fullScreen = g_bFullScreen;
+  info.zoom       = g_windowScale;
 
   nb = fwrite (&info, sizeof (info), 1, file);
   if (nb < 1)
@@ -4779,10 +4769,15 @@ CEvent::ReadInfo ()
     this->SetLanguage (static_cast<Language> (info.language));
   }
 
-  if (
-    ((info.majRev == 1 && info.minRev >= 2) || info.majRev >= 2) &&
-    !(g_settingsOverload & SETTING_MIDI))
-    g_restoreMidi = !!info.musicMidi;
+  if (((info.majRev == 1 && info.minRev >= 2) || info.majRev >= 2))
+  {
+    if (!(g_settingsOverload & SETTING_MIDI))
+      g_restoreMidi = !!info.musicMidi;
+    if (!(g_settingsOverload & SETTING_FULLSCREEN))
+      g_bFullScreen = !!info.fullScreen;
+    if (!(g_settingsOverload & SETTING_ZOOM))
+      g_windowScale = info.zoom;
+  }
 
   fclose (file);
   return true;
@@ -5160,7 +5155,7 @@ CEvent::DemoStep ()
         }
 
         SDL_WarpMouseInWindow (
-          g_window, pos.x * m_WindowScale, pos.y * m_WindowScale);
+          g_window, pos.x * g_windowScale, pos.y * g_windowScale);
       }
 
       if (m_pDemoBuffer)

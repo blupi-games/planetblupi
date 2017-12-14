@@ -142,7 +142,6 @@ public:
 
   void IntroStep ();
 
-  Uint8 GetWindowScale ();
   void  SetWindowSize (Uint8 newScale);
   void  SetUpdateVersion (const std::string & version);
 
@@ -199,8 +198,6 @@ protected:
   bool                                     m_bSchool;
   bool                                     m_bPrivate;
   bool                                     m_bAccessBuild;
-  bool                                     m_bFullScreen;
-  Uint8                                    m_WindowScale;
   CPixmap *                                m_pPixmap;
   CDecor *                                 m_pDecor;
   CSound *                                 m_pSound;

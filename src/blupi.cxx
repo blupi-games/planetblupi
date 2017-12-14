@@ -936,10 +936,6 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
-  // Load all cursors
-  g_pPixmap->LoadCursors (g_windowScale);
-  g_pPixmap->ChangeSprite (SPRITE_WAIT); // met le sablier maison
-
   // Create the sound manager.
   g_pSound = new CSound;
   if (g_pSound == nullptr)
@@ -981,10 +977,18 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
+  const bool zoom = g_windowScale;
+
   g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
+
+  // Load all cursors
+  g_pPixmap->LoadCursors (g_windowScale);
+  g_pPixmap->ChangeSprite (SPRITE_WAIT); // met le sablier maison
+
   g_updateThread = new std::thread (CheckForUpdates);
-  g_pEvent->SetFullScreen (g_bFullScreen);
-  if (!g_bFullScreen)
+  if (g_bFullScreen)
+    g_pEvent->SetFullScreen (true);
+  if (!g_bFullScreen && zoom != g_windowScale)
     g_pEvent->SetWindowSize (g_windowScale);
   g_pEvent->ChangePhase (EV_PHASE_INTRO1);
 
