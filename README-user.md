@@ -82,7 +82,8 @@ possible to enforce the MIDI variant by starting the game with the
 to lose some instruments, it depends of your system.
 
 > You can edit the `share/planetblupi/data/config.json` file and add an entry
-> `"restoremidi": true` too.
+> `"restoremidi": true`, or simply use the new settings available in the global
+> settings screen in the game.
 
 If you want, you can overload all musics with yours by providing OGG or MIDI
 music files in your user directory.
