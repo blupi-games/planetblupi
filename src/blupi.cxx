@@ -709,6 +709,11 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
+#ifdef _WIN32
+  /* Fix laggy sounds on Windows by not using winmm driver. */
+  SDL_setenv ("SDL_AUDIODRIVER", "directsound", true);
+#endif /* _WIN32 */
+
   auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
   if (res < 0)
   {
