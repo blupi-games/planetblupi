@@ -3066,20 +3066,26 @@ CEvent::IsHelpHide ()
 }
 
 std::string
-CEvent::GetMusicLocation (Sint32 music)
+CEvent::GetMusicLocation (Sint32 music, std::string & format)
 {
   static const std::string exts[] = {"ogg", "mid"};
   static const Location    locs[] = {LOCATION_USER, LOCATION_BASE};
   std::string              absolute;
 
+  format = "";
+
   // Look for music in the user directory, then in the game directory.
   for (size_t i = 0; i < countof (locs); ++i)
   {
-    auto filename = string_format (
-      "music/music%.3d.%s", music - 1, exts[g_restoreMidi ? 1 : 0].c_str ());
+    format = exts[g_restoreMidi ? 1 : 0];
+    auto filename =
+      string_format ("music/music%.3d.%s", music - 1, format.c_str ());
     if (!FileExists (filename, absolute, locs[i]))
-      filename = string_format (
-        "music/music%.3d.%s", music - 1, exts[g_restoreMidi ? 0 : 1].c_str ());
+    {
+      format = exts[g_restoreMidi ? 0 : 1];
+      filename =
+        string_format ("music/music%.3d.%s", music - 1, format.c_str ());
+    }
 
     if (FileExists (filename, absolute, locs[i]))
       break;
@@ -3399,7 +3405,8 @@ CEvent::ChangePhase (Uint32 phase)
       music = m_pDecor->GetMusic ();
       if (music > 0)
       {
-        auto absolute = this->GetMusicLocation (music);
+        std::string format;
+        auto        absolute = this->GetMusicLocation (music, format);
 
         m_pSound->StopMusic ();
         m_pSound->PlayMusic (absolute);

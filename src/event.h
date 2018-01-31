@@ -100,7 +100,7 @@ public:
   Sint32      GetPhysicalWorld ();
   Sint32      GetImageWorld ();
   bool        IsHelpHide ();
-  std::string GetMusicLocation (Sint32 music);
+  std::string GetMusicLocation (Sint32 music, std::string & format);
   bool        ChangePhase (Uint32 phase);
   bool        MovieToStart ();
   Uint32      GetPhase ();
