@@ -3066,7 +3066,7 @@ CEvent::IsHelpHide ()
 }
 
 std::string
-CEvent::GetMusicLocation (Sint32 music, std::string & format, bool onlyBase)
+CEvent::GetMusicLocation (Sint32 music, std::string & format)
 {
   static const std::string exts[] = {"ogg", "mid"};
   static const Location    locs[] = {LOCATION_USER, LOCATION_BASE};
@@ -3077,9 +3077,6 @@ CEvent::GetMusicLocation (Sint32 music, std::string & format, bool onlyBase)
   // Look for music in the user directory, then in the game directory.
   for (size_t i = 0; i < countof (locs); ++i)
   {
-    if (onlyBase && locs[i] != LOCATION_BASE)
-      continue;
-
     format = exts[g_restoreMidi ? 1 : 0];
     auto filename =
       string_format ("music/music%.3d.%s", music - 1, format.c_str ());
