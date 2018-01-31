@@ -94,16 +94,17 @@ public:
 
   Point GetMousePos ();
   void
-         Create (CPixmap * pPixmap, CDecor * pDecor, CSound * pSound, CMovie * pMovie);
-  void   SetFullScreen (bool bFullScreen);
-  Sint32 GetWorld ();
-  Sint32 GetPhysicalWorld ();
-  Sint32 GetImageWorld ();
-  bool   IsHelpHide ();
-  bool   ChangePhase (Uint32 phase);
-  bool   MovieToStart ();
-  Uint32 GetPhase ();
-  void   TryInsert ();
+              Create (CPixmap * pPixmap, CDecor * pDecor, CSound * pSound, CMovie * pMovie);
+  void        SetFullScreen (bool bFullScreen);
+  Sint32      GetWorld ();
+  Sint32      GetPhysicalWorld ();
+  Sint32      GetImageWorld ();
+  bool        IsHelpHide ();
+  std::string GetMusicLocation (Sint32 music);
+  bool        ChangePhase (Uint32 phase);
+  bool        MovieToStart ();
+  Uint32      GetPhase ();
+  void        TryInsert ();
 
   Sint32 GetButtonIndex (Sint32 button);
   Sint32 GetState (Sint32 button);
