@@ -2075,6 +2075,10 @@ CEvent::DrawButtons ()
     SetEnable (EV_BUTTON10, bEnable);
   }
 
+  /* Check if both music formats are available */
+  auto ogg = this->IsBaseMusicAvailable (1, "ogg");
+  auto mid = this->IsBaseMusicAvailable (1, "mid");
+
   if (m_phase == EV_PHASE_SETTINGS)
   {
     SetEnable (EV_BUTTON1, m_Lang != m_Languages.begin ());
@@ -2086,8 +2090,8 @@ CEvent::DrawButtons ()
     SetEnable (EV_BUTTON5, !g_bFullScreen && g_zoom > 1);
     SetEnable (EV_BUTTON6, !g_bFullScreen && g_zoom < 2);
 
-    SetEnable (EV_BUTTON7, g_restoreMidi);
-    SetEnable (EV_BUTTON8, !g_restoreMidi);
+    SetEnable (EV_BUTTON7, g_restoreMidi && mid && ogg);
+    SetEnable (EV_BUTTON8, !g_restoreMidi && mid && ogg);
   }
 
   assert (m_index >= 0);
@@ -2577,7 +2581,7 @@ CEvent::DrawButtons ()
       DrawText (m_pPixmap, pos, res);
     }
 
-    text  = g_restoreMidi ? gettext ("Midi") : gettext ("Ogg");
+    text  = (g_restoreMidi && mid) || !ogg ? gettext ("Midi") : gettext ("Ogg");
     lg    = GetTextWidth (text);
     pos.x = (399 + 40) - lg / 2;
     pos.y = 330 - 20;
@@ -3063,6 +3067,15 @@ CEvent::IsHelpHide ()
   }
 
   return bHide;
+}
+
+bool
+CEvent::IsBaseMusicAvailable (Sint32 music, const std::string & format)
+{
+  std::string absolute;
+  auto        filename =
+    string_format ("music/music%.3d.%s", music - 1, format.c_str ());
+  return FileExists (filename, absolute, LOCATION_BASE);
 }
 
 std::string
