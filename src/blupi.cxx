@@ -1038,14 +1038,15 @@ main (int argc, char * argv[])
       break;
   }
 
+  SDL_RemoveTimer (updateTimer);
+  FinishObjects ();
+
   if (g_renderer)
     SDL_DestroyRenderer (g_renderer);
 
   if (g_window)
     SDL_DestroyWindow (g_window);
 
-  SDL_RemoveTimer (updateTimer);
-  FinishObjects ();
   SDL_Quit ();
 
   if (g_updateThread)
