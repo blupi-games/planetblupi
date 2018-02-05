@@ -257,13 +257,11 @@ CPixmap::Cache (
     SDL_SetTextureBlendMode (
       m_SDLTextureInfo[channel].texture, SDL_BLENDMODE_BLEND);
   }
-  else
-  {
-    SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
-    SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 0);
-    SDL_RenderClear (g_renderer);
-    SDL_SetRenderTarget (g_renderer, nullptr);
-  }
+
+  SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
+  SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 0);
+  SDL_RenderClear (g_renderer);
+  SDL_SetRenderTarget (g_renderer, nullptr);
 
   m_SDLTextureInfo[channel].texMask  = channel == CHMASK2 ? texture : nullptr;
   m_SDLTextureInfo[channel].target   = true;
