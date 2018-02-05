@@ -4623,7 +4623,7 @@ CDecor::IsTerminated ()
       m_pSound->PlayImage (SOUND_GOAL, pos);
     m_winLastHachBlupi = m_nbStatHachBlupi;
 
-    if (m_nbStatHachBlupi < m_nbStatHach * 4)
+    if (m_nbStatHachBlupi < m_nbStatHach * m_term.nbMinBlupi)
       return 0; // continue;
   }
 
