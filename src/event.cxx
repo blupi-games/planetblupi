@@ -3839,7 +3839,9 @@ bool
 CEvent::PlayUp (Point pos)
 {
   static Sounds table_sound_boing[] = {
-    SOUND_BOING1, SOUND_BOING2, SOUND_BOING3,
+    SOUND_BOING1,
+    SOUND_BOING2,
+    SOUND_BOING3,
   };
 
   m_pDecor->StatisticUp (pos);

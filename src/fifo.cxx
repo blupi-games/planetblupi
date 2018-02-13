@@ -39,7 +39,8 @@ CPileTriee::~CPileTriee ()
   free (m_data);
 }
 
-Sint32 CPileTriee::get ()
+Sint32
+CPileTriee::get ()
 {
   if (m_out == m_max)
     return -1;
@@ -50,7 +51,8 @@ Sint32 CPileTriee::get ()
   return val;
 }
 
-void CPileTriee::put (Sint32 pos, Sint32 dist)
+void
+CPileTriee::put (Sint32 pos, Sint32 dist)
 {
   Sint32 i = m_out;
   Sint32 p, d, m;

@@ -148,9 +148,7 @@ CMenu::CMenu ()
 
 // Destructeur.
 
-CMenu::~CMenu ()
-{
-}
+CMenu::~CMenu () {}
 
 // Crée un nouveau bouton.
 

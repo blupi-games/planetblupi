@@ -406,19 +406,31 @@ static char color_object[] =
 // clang-format on
 
 static char color_deffog[4] = {
-  MAP_FOG, MAP_FOG, MAP_FOG, MAP_FOG,
+  MAP_FOG,
+  MAP_FOG,
+  MAP_FOG,
+  MAP_FOG,
 };
 
 static char color_deftree[4] = {
-  MAP_TREE, MAP_TREE, MAP_TREE, MAP_TREE,
+  MAP_TREE,
+  MAP_TREE,
+  MAP_TREE,
+  MAP_TREE,
 };
 
 static char color_deffloor[4] = {
-  MAP_HERB1, MAP_HERB1, MAP_HERB1, MAP_HERB1,
+  MAP_HERB1,
+  MAP_HERB1,
+  MAP_HERB1,
+  MAP_HERB1,
 };
 
 static char color_fire[4] = {
-  MAP_FIRE, MAP_FIRE, MAP_FIRE, MAP_FIRE,
+  MAP_FIRE,
+  MAP_FIRE,
+  MAP_FIRE,
+  MAP_FIRE,
 };
 
 // Met le contenu d'une cellule dans le bitmap de la carte

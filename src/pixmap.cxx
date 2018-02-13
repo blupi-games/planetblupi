@@ -226,14 +226,14 @@ bool
 CPixmap::Cache (
   size_t channel, const std::string & pFilename, Point totalDim, Point iconDim)
 {
-  std::string   file    = GetBaseDir () + pFilename;
-  SDL_Surface * surface = IMG_Load (file.c_str ());
-  bool blupiChSet = false;
+  std::string   file       = GetBaseDir () + pFilename;
+  SDL_Surface * surface    = IMG_Load (file.c_str ());
+  bool          blupiChSet = false;
 
   if (channel == CHBLUPI && !m_lpSDLBlupi)
   {
     m_lpSDLBlupi = surface;
-    blupiChSet = true;
+    blupiChSet   = true;
   }
 
   SDL_Texture * texture = SDL_CreateTextureFromSurface (g_renderer, surface);
@@ -789,13 +789,13 @@ on the endianness (byte order) of the machine */
 
   for (int i = SPRITE_BEGIN; i <= SPRITE_END; ++i)
   {
-    MouseSprites sprite  = static_cast<MouseSprites> (i);
+    MouseSprites sprite = static_cast<MouseSprites> (i);
 
     if (m_lpSDLCursors[sprite - 1])
       SDL_FreeCursor (m_lpSDLCursors[sprite - 1]);
 
-    SDL_Point    hotspot = this->GetCursorHotSpot (sprite);
-    SDL_Rect     rect    = this->GetCursorRect (sprite);
+    SDL_Point hotspot = this->GetCursorHotSpot (sprite);
+    SDL_Rect  rect    = this->GetCursorRect (sprite);
 
     SDL_Surface * surface = SDL_CreateRGBSurface (
       0, rect.w * scale, rect.h * scale, 32, rmask, gmask, bmask, amask);
