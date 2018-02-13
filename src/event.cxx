@@ -2448,7 +2448,7 @@ CEvent::DrawButtons ()
   // Affiche le texte lorsque c'est raté.
   if (m_phase == EV_PHASE_LOST)
   {
-    static char * list[] = {
+    const char * list[] = {
       gettext ("You have failed, try again..."),
       gettext ("No, wrong way ..."),
       gettext ("Bang, failed again !"),
@@ -2464,7 +2464,7 @@ CEvent::DrawButtons ()
   // Affiche le texte lorsque c'est réussi.
   if (m_phase == EV_PHASE_WIN)
   {
-    static char * list[] = {
+    const char * list[] = {
       gettext ("Well done !"),     gettext ("Yes, great ..."),
       gettext ("Very good."),      gettext ("Excellent..."),
       gettext ("Mission over..."),
