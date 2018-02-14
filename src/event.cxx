@@ -4269,7 +4269,7 @@ static Sint32 tableHome[] = {
 // Modifie le décor lorsque le bouton de la souris est pressé.
 
 bool
-CEvent::BuildDown (Point pos, Uint16 mod, bool bMix)
+CEvent::BuildDown (Point pos, Uint16 mod, const SDL_Event * event, bool bMix)
 {
   Point  cel;
   Sint32 menu, channel, icon;
@@ -4282,12 +4282,14 @@ CEvent::BuildDown (Point pos, Uint16 mod, bool bMix)
     pos.y > POSDRAWY + DIMDRAWY)
     return false;
 
+  bool isRightClick = event ? event->button.button == SDL_BUTTON_RIGHT : false;
+
   if (bMix)
   {
     m_pDecor->UndoCopy (); // copie le décor pour undo év.
   }
 
-  if (GetState (EV_DECOR1) == 1) // pose d'un sol
+  if (GetState (EV_DECOR1) == 1 && !isRightClick) // pose d'un sol
   {
     cel  = m_pDecor->ConvPosToCel2 (pos);
     menu = GetMenu (EV_DECOR1);
@@ -4321,10 +4323,10 @@ CEvent::BuildDown (Point pos, Uint16 mod, bool bMix)
     }
   }
 
-  if (GetState (EV_DECOR2) == 1) // pose d'un objet
+  if (GetState (EV_DECOR2) == 1 || isRightClick) // pose d'un objet
   {
     cel  = m_pDecor->ConvPosToCel2 (pos);
-    menu = GetMenu (EV_DECOR2);
+    menu = isRightClick ? 0 : GetMenu (EV_DECOR2);
 
     if (!m_pDecor->GetObject (cel, channel, icon))
       return false;
@@ -4352,10 +4354,10 @@ CEvent::BuildDown (Point pos, Uint16 mod, bool bMix)
     }
   }
 
-  if (GetState (EV_DECOR3) == 1) // pose d'un batiment
+  if (GetState (EV_DECOR3) == 1 || isRightClick) // pose d'un batiment
   {
     cel  = m_pDecor->ConvPosToCel2 (pos);
-    menu = GetMenu (EV_DECOR3);
+    menu = isRightClick ? 0 : GetMenu (EV_DECOR3);
 
     if (!m_pDecor->GetObject (cel, channel, icon))
       return false;
@@ -4383,10 +4385,10 @@ CEvent::BuildDown (Point pos, Uint16 mod, bool bMix)
     }
   }
 
-  if (GetState (EV_DECOR4) == 1) // pose d'un blupi
+  if (GetState (EV_DECOR4) == 1 || isRightClick) // pose d'un blupi
   {
     cel  = m_pDecor->ConvPosToCel (pos);
-    menu = GetMenu (EV_DECOR4);
+    menu = isRightClick ? 0 : GetMenu (EV_DECOR4);
 
     if (menu == 0) // supprime ?
       m_pDecor->BlupiDelete (cel);
@@ -4410,10 +4412,10 @@ CEvent::BuildDown (Point pos, Uint16 mod, bool bMix)
       m_pDecor->BlupiCreate (cel, ACTION_STOP, DIRECT_S, 4, MAXENERGY);
   }
 
-  if (GetState (EV_DECOR5) == 1) // pose d'une cata
+  if (GetState (EV_DECOR5) == 1 || isRightClick) // pose d'une cata
   {
     cel  = m_pDecor->ConvPosToCel2 (pos);
-    menu = GetMenu (EV_DECOR5);
+    menu = isRightClick ? 0 : GetMenu (EV_DECOR5);
 
     if (menu == 0) // supprime ?
       m_pDecor->SetFire (cel, false);
@@ -4432,8 +4434,7 @@ bool
 CEvent::BuildMove (Point pos, Uint16 mod, const SDL_Event & event)
 {
   if (event.motion.state & SDL_BUTTON (SDL_BUTTON_LEFT)) // bouton souris pressé
-                                                         // ?
-    BuildDown (pos, mod, false);
+    BuildDown (pos, mod, nullptr, false);
 
   if (GetState (EV_DECOR4) == 1) // pose d'un blupi
     m_pDecor->CelHili (pos, 1);
@@ -5652,7 +5653,7 @@ CEvent::TreatEventBase (const SDL_Event & event)
       return true;
     if (m_phase == EV_PHASE_BUILD)
     {
-      if (BuildDown (pos, m_keymod))
+      if (BuildDown (pos, m_keymod, &event))
         return true;
     }
     if (m_phase == EV_PHASE_PLAY)

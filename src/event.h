@@ -170,7 +170,8 @@ protected:
 
   void BuildFloor (Point cel, Sint32 insIcon);
   void BuildWater (Point cel, Sint32 insIcon);
-  bool BuildDown (Point pos, Uint16 mod, bool bMix = true);
+  bool
+       BuildDown (Point pos, Uint16 mod, const SDL_Event * event, bool bMix = true);
   bool BuildMove (Point pos, Uint16 mod, const SDL_Event & event);
 
   void PrivateLibelle ();
