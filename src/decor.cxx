@@ -382,6 +382,11 @@ CDecor::PutFloor (Point cel, Sint32 channel, Sint32 icon)
   m_decor[cel.x / 2][cel.y / 2].floorChannel = channel;
   m_decor[cel.x / 2][cel.y / 2].floorIcon    = icon;
 
+  if (
+    !g_restoreBugs && m_decor[cel.x / 2][cel.y / 2].fire &&
+    !this->CanBurn (cel))
+    m_decor[cel.x / 2][cel.y / 2].fire = 0;
+
   m_bGroundRedraw = true;
 
   //? SubDrapeau(cel);  // on pourra de nouveau planter un drapeau
@@ -402,6 +407,11 @@ CDecor::PutObject (Point cel, Sint32 channel, Sint32 icon)
 
   m_decor[cel.x / 2][cel.y / 2].objectChannel = channel;
   m_decor[cel.x / 2][cel.y / 2].objectIcon    = icon;
+
+  if (
+    !g_restoreBugs && m_decor[cel.x / 2][cel.y / 2].fire &&
+    !this->CanBurn (cel))
+    m_decor[cel.x / 2][cel.y / 2].fire = 0;
 
   SubDrapeau (cel); // on pourra de nouveau planter un drapeau
 

@@ -4419,7 +4419,8 @@ CEvent::BuildDown (Point pos, Uint16 mod, const SDL_Event * event, bool bMix)
 
     if (menu == 0) // supprime ?
       m_pDecor->SetFire (cel, false);
-    if (menu == 1) // ajoute ?
+
+    if (menu == 1 && (g_restoreBugs || m_pDecor->CanBurn (cel))) // ajoute ?
       m_pDecor->SetFire (cel, true);
   }
 
