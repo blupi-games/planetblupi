@@ -1012,6 +1012,51 @@ CDecor::MoveAddIcons (Point cel, Sint32 rankIcons, bool bContinue)
 }
 
 /**
+ * \brief Test if something can burn at a specified cell.
+ *
+ * \param[in] cel - Position.
+ * \returns true if possible.
+ */
+bool
+CDecor::CanBurn (Point cel)
+{
+  Sint32 channel, icon;
+  bool   canBurn = false;
+
+  cel.x = (cel.x / 2) * 2;
+  cel.y = (cel.y / 2) * 2;
+
+  const auto cell = m_decor[cel.x / 2][cel.y / 2];
+
+  channel = cell.objectChannel;
+  icon    = cell.objectIcon;
+
+  canBurn = channel == CHOBJECT && ((icon >= 6 && icon <= 11)     // trees ?
+                                    || (icon >= 65 && icon <= 71) // palissade ?
+                                    || icon == 61                 // cabane ?
+                                    || icon == 36                 // planches ?
+                                    || icon == 60                 // tomatoes ?
+                                    || icon == 63                 // eggs ?
+                                    || icon == 113                // house ?
+                                    || icon == 121 // mine de fer ?
+                                    || icon == 122 // mine de fer ?
+                                   );
+  if (canBurn)
+    return true;
+
+  // If there is an other object, then no fire.
+  if (channel >= 0)
+    return false;
+
+  channel = cell.floorChannel;
+  icon    = cell.floorIcon;
+
+  canBurn = channel == CHFLOOR && (icon == 20 || // herbe foncée ?
+                                   (icon >= 59 && icon <= 64));
+  return canBurn;
+}
+
+/**
  * \brief Start the fire on a cell.
  *
  * \param[in] cel - Position.
@@ -1020,45 +1065,11 @@ CDecor::MoveAddIcons (Point cel, Sint32 rankIcons, bool bContinue)
 bool
 CDecor::MoveStartFire (Point cel)
 {
-  Sint32 channel, icon;
-
-  cel.x = (cel.x / 2) * 2;
-  cel.y = (cel.y / 2) * 2;
-
-  channel = m_decor[cel.x / 2][cel.y / 2].objectChannel;
-  icon    = m_decor[cel.x / 2][cel.y / 2].objectIcon;
-
-  if (
-    channel == CHOBJECT && ((icon >= 6 && icon <= 11)     // trees ?
-                            || (icon >= 65 && icon <= 71) // palissade ?
-                            || icon == 61                 // cabane ?
-                            || icon == 36                 // planches ?
-                            || icon == 60                 // tomatoes ?
-                            || icon == 63                 // eggs ?
-                            || icon == 113                // house ?
-                            || icon == 121                // mine de fer ?
-                            || icon == 122                // mine de fer ?
-                            ))
+  if (this->CanBurn (cel))
   {
-    if (!MoveCreate (cel, -1, false, CHOBJECT, -1, -1, -1, 9999, 1, 0, true))
-      return false;
+    cel.x = (cel.x / 2) * 2;
+    cel.y = (cel.y / 2) * 2;
 
-    MoveAddIcons (cel, 1, true); // small fire
-    m_decor[cel.x / 2][cel.y / 2].fire = 2;
-    return true;
-  }
-
-  // If there is an other object, then no fire.
-  if (channel >= 0)
-    return false;
-
-  channel = m_decor[cel.x / 2][cel.y / 2].floorChannel;
-  icon    = m_decor[cel.x / 2][cel.y / 2].floorIcon;
-
-  if (
-    channel == CHFLOOR && (icon == 20 ||                // herbe foncée ?
-                           (icon >= 59 && icon <= 64))) // bridge ?
-  {
     if (!MoveCreate (cel, -1, false, CHOBJECT, -1, -1, -1, 9999, 1, 0, true))
       return false;
 

@@ -322,6 +322,7 @@ public:
   Term * GetTerminated ();
 
   // DecMove.cpp
+  bool   CanBurn (Point cel);
   void   MoveFlush ();
   Sint32 MoveMaxFire ();
   void   MoveFixInit ();
