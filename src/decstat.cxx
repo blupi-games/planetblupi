@@ -448,7 +448,9 @@ CDecor::StatisticUpdate ()
   {
     if (m_blupi[rank].bExist)
     {
-      if (m_blupi[rank].perso == 0) // blupi ?
+      if (
+        m_blupi[rank].perso == 0 && m_blupi[rank].action != ACTION_TCHAO &&
+        m_blupi[rank].action != ACTION_BURN) // blupi ?
       {
         if (m_blupi[rank].bMalade)
           table_statistic[STATBLUPIm].nb++;
