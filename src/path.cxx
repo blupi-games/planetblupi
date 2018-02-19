@@ -170,27 +170,27 @@ CDecor::CheminFillTerrain (Sint32 rank)
     if (step < but)
       for (dir = 0; dir < 8; dir++)
       {
-        if (CheminTestDirection (rank, pos, dir, next, ampli, cout, action))
-        {
-          last = pos + ampli * next;
-          if (last < 0 || last >= MAXCELX * MAXCELY)
-            continue;
+        if (!CheminTestDirection (rank, pos, dir, next, ampli, cout, action))
+          continue;
 
-          if (m_cheminWork[last] == 0 || m_cheminWork[last] > step + cout)
-          {
-            // marque les cases sautées
-            for (Sint32 i = 1; i < ampli; i++)
-              m_cheminWork[pos + i * next] = step + cout - ampli + i;
+        last = pos + ampli * next;
+        if (last < 0 || last >= MAXCELX * MAXCELY)
+          continue;
 
-            m_cheminWork[last] = step + cout;
+        if (m_cheminWork[last] != 0 && m_cheminWork[last] <= step + cout)
+          continue;
 
-            dx = m_blupi[rank].goalCel.x - last % MAXCELX;
-            dy = m_blupi[rank].goalCel.y - last / MAXCELX;
+        // marque les cases sautées
+        for (Sint32 i = 1; i < ampli; i++)
+          m_cheminWork[pos + i * next] = step + cout - ampli + i;
 
-            dist = (Sint32) (dy * dy) + (Sint32) (dx * dx);
-            fifo.put (last, dist);
-          }
-        }
+        m_cheminWork[last] = step + cout;
+
+        dx = m_blupi[rank].goalCel.x - last % MAXCELX;
+        dy = m_blupi[rank].goalCel.y - last / MAXCELX;
+
+        dist = (Sint32) (dy * dy) + (Sint32) (dx * dx);
+        fifo.put (last, dist);
       }
   }
 }

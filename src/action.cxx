@@ -1764,7 +1764,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_D_PICKAXE,
+        ACTION_D_SAW,
         CHBLUPI,
         {
             {1, 290},       // e
@@ -1839,7 +1839,7 @@ static const DescAction action_table[] =
         {0},
     },
     {
-        ACTION_D_SAW,
+        ACTION_D_PICKAXE,
         CHBLUPI,
         {
             {8, 290, 290, 304, 304, 290, 290, 292, 292}, // e

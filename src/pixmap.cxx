@@ -275,11 +275,15 @@ CPixmap::Cache (
   size_t channel, const std::string & pFilename, Point totalDim, Point iconDim,
   Mode mode, size_t chBackWide)
 {
-  std::string   file    = GetBaseDir () + pFilename;
-  SDL_Surface * surface = IMG_Load (file.c_str ());
+  std::string   file       = GetBaseDir () + pFilename;
+  SDL_Surface * surface    = IMG_Load (file.c_str ());
+  bool          blupiChSet = false;
 
   if (channel == CHBLUPI && !m_lpSDLBlupi)
+  {
     m_lpSDLBlupi = surface;
+    blupiChSet   = true;
+  }
 
   SDL_Texture * texture = SDL_CreateTextureFromSurface (g_renderer, surface);
   Uint32        format;
@@ -313,13 +317,11 @@ CPixmap::Cache (
     SDL_SetTextureBlendMode (
       m_SDLTextureInfo[channel].texture, SDL_BLENDMODE_BLEND);
   }
-  else
-  {
-    SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
-    SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 0);
-    SDL_RenderClear (g_renderer);
-    SDL_SetRenderTarget (g_renderer, nullptr);
-  }
+
+  SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
+  SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 0);
+  SDL_RenderClear (g_renderer);
+  SDL_SetRenderTarget (g_renderer, nullptr);
 
   m_SDLTextureInfo[channel].texMask  = channel == CHMASK2 ? texture : nullptr;
   m_SDLTextureInfo[channel].target   = true;
@@ -385,7 +387,7 @@ CPixmap::Cache (
   if (!m_SDLTextureInfo[channel].texMask)
     SDL_DestroyTexture (texture);
 
-  if (channel != CHBLUPI)
+  if (!blupiChSet)
     SDL_FreeSurface (surface);
 
   return true;

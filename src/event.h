@@ -1,7 +1,7 @@
 /*
  * This file is part of the planetblupi source code
  * Copyright (C) 1997, Daniel Roux & EPSITEC SA
- * Copyright (C) 2017, Mathieu Schroeter
+ * Copyright (C) 2017-2018, Mathieu Schroeter
  * http://epsitec.ch; http://www.blupi.org; http://github.com/blupi-games
  *
  * This program is free software: you can redistribute it and/or modify
@@ -63,8 +63,8 @@ typedef struct {
 typedef struct {
   Sint32 time;
   Uint32 message;
-  Uint32 wParam; // WPARAM
-  Uint32 lParam; // LPARAM
+  Uint32 wParam; // WParam
+  Uint32 lParam; // LParam
 } DemoEvent;
 
 struct DemoSDLEvent {
@@ -96,16 +96,18 @@ public:
 
   Point GetMousePos ();
   void
-         Create (CPixmap * pPixmap, CDecor * pDecor, CSound * pSound, CMovie * pMovie);
-  void   SetFullScreen (bool bFullScreen);
-  Sint32 GetWorld ();
-  Sint32 GetPhysicalWorld ();
-  Sint32 GetImageWorld ();
-  bool   IsHelpHide ();
-  bool   ChangePhase (Uint32 phase);
-  bool   MovieToStart ();
-  Uint32 GetPhase ();
-  void   TryInsert ();
+              Create (CPixmap * pPixmap, CDecor * pDecor, CSound * pSound, CMovie * pMovie);
+  void        SetFullScreen (bool bFullScreen);
+  Sint32      GetWorld ();
+  Sint32      GetPhysicalWorld ();
+  Sint32      GetImageWorld ();
+  bool        IsHelpHide ();
+  bool        IsBaseMusicAvailable (Sint32 music, const std::string & format);
+  std::string GetMusicLocation (Sint32 music);
+  bool        ChangePhase (Uint32 phase);
+  bool        MovieToStart ();
+  Uint32      GetPhase ();
+  void        TryInsert ();
 
   Sint32 GetButtonIndex (Sint32 button);
   Sint32 GetState (Sint32 button);
@@ -144,9 +146,8 @@ public:
 
   void IntroStep ();
 
-  Uint8 GetWindowScale ();
-  void  SetWindowSize (Uint8 newScale);
-  void  SetUpdateVersion (const std::string & version);
+  void SetWindowSize (Uint8 newScale);
+  void SetUpdateVersion (const std::string & version);
 
   static void PushUserEvent (Sint32 code, void * data = nullptr);
 
@@ -171,7 +172,8 @@ protected:
 
   void BuildFloor (Point cel, Sint32 insIcon);
   void BuildWater (Point cel, Sint32 insIcon);
-  bool BuildDown (Point pos, Uint16 mod, bool bMix = true);
+  bool
+       BuildDown (Point pos, Uint16 mod, const SDL_Event * event, bool bMix = true);
   bool BuildMove (Point pos, Uint16 mod, const SDL_Event & event);
 
   void PrivateLibelle ();
@@ -184,7 +186,7 @@ protected:
   bool DemoPlayStart (const std::string * demoFile = nullptr);
   void DemoPlayStop ();
   static void
-       WinToSDLEvent (Uint32 msg, WPARAM wParam, LPARAM lParam, SDL_Event & event);
+       WinToSDLEvent (Uint32 msg, WParam wParam, LParam lParam, SDL_Event & event);
   void DemoRecEvent (const SDL_Event & event);
 
 protected:
@@ -201,8 +203,6 @@ protected:
   bool                                     m_bSchool;
   bool                                     m_bPrivate;
   bool                                     m_bAccessBuild;
-  bool                                     m_bFullScreen;
-  Uint8                                    m_WindowScale;
   CPixmap *                                m_pPixmap;
   CDecor *                                 m_pDecor;
   CSound *                                 m_pSound;
@@ -270,6 +270,7 @@ protected:
   Sint32                                   m_introTime;
   Sint32                                   m_updateBlinking;
   std::string                              m_updateVersion;
+  Uint32                                   shiftDirection;
 };
 
 /////////////////////////////////////////////////////////////////////////////

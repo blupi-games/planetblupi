@@ -18,9 +18,11 @@
  * along with this program. If not, see http://gnu.org/licenses
  */
 
+#include <atomic>
 #include <fstream>
 #include <iostream>
 #include <iterator>
+#include <regex>
 #include <sstream>
 #include <stdio.h>
 #include <stdlib.h>
@@ -53,31 +55,24 @@
 SDL_Window *   g_window;
 SDL_Renderer * g_renderer;
 
-CEvent *      g_pEvent       = nullptr;
-CPixmap *     g_pPixmap      = nullptr; // pixmap principal
-CSound *      g_pSound       = nullptr; // sound principal
-CMovie *      g_pMovie       = nullptr; // movie principal
-CDecor *      g_pDecor       = nullptr;
-std::thread * g_updateThread = nullptr;
+CEvent *          g_pEvent       = nullptr;
+CPixmap *         g_pPixmap      = nullptr; // pixmap principal
+CSound *          g_pSound       = nullptr; // sound principal
+CMovie *          g_pMovie       = nullptr; // movie principal
+CDecor *          g_pDecor       = nullptr;
+std::thread *     g_updateThread = nullptr;
+std::atomic<bool> g_updateAbort (false);
 
 bool        g_bFullScreen    = false; // false si mode de test
-Uint8       g_windowScale    = 1;
+Uint8       g_zoom           = 1;
 Sint32      g_speedRate      = 1;
 Sint32      g_timerInterval  = 50; // inverval = 50ms
 int         g_rendererType   = 0;
 bool        g_enableRecorder = false;
 std::string g_playRecord;
 bool        g_restoreBugs = false; // restore original < v1.9 bugs
-
-enum Settings {
-  SETTING_FULLSCREEN    = 1 << 0,
-  SETTING_SPEEDRATE     = 1 << 1,
-  SETTING_TIMERINTERVAL = 1 << 2,
-  SETTING_RENDERER      = 1 << 3,
-  SETTING_ZOOM          = 1 << 4,
-};
-
-static int g_settingsOverload = 0;
+bool        g_restoreMidi = false; // restore music playback based on midi files
+int         g_settingsOverload = 0;
 
 bool        g_bTermInit = false; // initialisation en cours
 Uint32      g_lastPhase = 999;
@@ -152,17 +147,13 @@ ReadConfig ()
   if (
     !(g_settingsOverload & SETTING_FULLSCREEN) &&
     j.find ("fullscreen") != j.end ())
-  {
     g_bFullScreen = j["fullscreen"].get<bool> ();
-    if (g_bFullScreen != 0)
-      g_bFullScreen = 1;
-  }
 
   if (!(g_settingsOverload & SETTING_ZOOM) && j.find ("zoom") != j.end ())
   {
-    g_windowScale = j["zoom"].get<Uint8> ();
-    if (g_windowScale != 1 && g_windowScale != 2)
-      g_windowScale = 1;
+    g_zoom = j["zoom"].get<Uint8> ();
+    if (g_zoom != 1 && g_zoom != 2)
+      g_zoom = 1;
   }
 
   if (
@@ -173,6 +164,20 @@ ReadConfig ()
     else if (j["renderer"] == "accelerated")
       g_rendererType = SDL_RENDERER_ACCELERATED;
   }
+
+  if (
+    !(g_settingsOverload & SETTING_DRIVER) && j.find ("driver") != j.end () &&
+    (!g_rendererType || g_rendererType == SDL_RENDERER_ACCELERATED))
+  {
+    std::string input = j["driver"];
+    if (std::regex_match (
+          input, std::regex ("direct3d|direct3d11|opengl|opengles2|opengles")))
+      SDL_SetHint (SDL_HINT_RENDER_DRIVER, input.c_str ());
+  }
+
+  if (
+    !(g_settingsOverload & SETTING_MIDI) && j.find ("restoremidi") != j.end ())
+    g_restoreMidi = j["restoremidi"].get<bool> ();
 
   return true;
 }
@@ -212,27 +217,22 @@ UpdateFrame (void)
     clip.bottom = POSDRAWY + DIMDRAWY;
 
     if (g_pEvent->IsShift ()) // screen shifting
-    {
       g_pEvent->DecorAutoShift ();
-      g_pDecor->Build (clip, posMouse); // build the environment
-    }
-    else
-    {
-      if (!g_pEvent->GetPause ())
-      {
-        speed = g_pEvent->GetSpeed () * g_speedRate;
-        for (i = 0; i < speed; i++)
-        {
-          g_pDecor->BlupiStep (i == 0); // move all blupi
-          g_pDecor->MoveStep (i == 0);  // move the environment
-          g_pEvent->DemoStep ();        // forward the recording or demo playing
-        }
-      }
 
-      g_pEvent->DecorAutoShift ();
-      g_pDecor->Build (clip, posMouse); // build the environment
-      g_pDecor->NextPhase (1);          // rebuild the map sometimes
+    if (!g_pEvent->GetPause ())
+    {
+      speed = g_pEvent->GetSpeed () * g_speedRate;
+      for (i = 0; i < speed; i++)
+      {
+        g_pDecor->BlupiStep (i == 0); // move all blupi
+        g_pDecor->MoveStep (i == 0);  // move the environment
+        g_pEvent->DemoStep ();        // forward the recording or demo playing
+      }
     }
+
+    g_pEvent->DecorAutoShift ();
+    g_pDecor->Build (clip, posMouse); // build the environment
+    g_pDecor->NextPhase (1);          // rebuild the map sometimes
   }
 
   if (phase == EV_PHASE_BUILD)
@@ -320,8 +320,6 @@ FinishObjects (void)
 static void
 HandleEvent (const SDL_Event & event)
 {
-  Point totalDim, iconDim;
-
   if (!g_pause && g_pEvent != nullptr && g_pEvent->TreatEvent (event))
     return;
 
@@ -329,6 +327,9 @@ HandleEvent (const SDL_Event & event)
   {
   case SDL_WINDOWEVENT:
   {
+#ifndef DEBUG
+    Point totalDim, iconDim;
+
     switch (event.window.event)
     {
     case SDL_WINDOWEVENT_FOCUS_GAINED:
@@ -362,6 +363,7 @@ HandleEvent (const SDL_Event & event)
         g_pMovie->Pause ();
       return;
     }
+#endif /* !DEBUG */
     break;
   }
 
@@ -485,6 +487,13 @@ updateCallback (void * ptr, size_t size, size_t nmemb, void * data)
 
   return realsize;
 }
+
+static int
+progressCallback (
+  void * userData, double dltotal, double dlnow, double ultotal, double ulnow)
+{
+  return g_updateAbort ? 1 : 0;
+}
 #endif /* USE_CURL */
 
 static void
@@ -504,11 +513,18 @@ CheckForUpdates ()
   curl_easy_setopt (curl, CURLOPT_NOSIGNAL, 1);
   curl_easy_setopt (curl, CURLOPT_FAILONERROR, 1);
   curl_easy_setopt (curl, CURLOPT_FOLLOWLOCATION, 1);
+  curl_easy_setopt (curl, CURLOPT_TIMEOUT, 20);
+  curl_easy_setopt (curl, CURLOPT_CONNECTTIMEOUT, 5);
 
   curl_easy_setopt (curl, CURLOPT_WRITEFUNCTION, updateCallback);
 
   curl_easy_setopt (curl, CURLOPT_URL, "http://blupi.org/update/planet.json");
   curl_easy_setopt (curl, CURLOPT_WRITEDATA, (void *) &chunk);
+
+  curl_easy_setopt (curl, CURLOPT_NOPROGRESS, 0);
+  curl_easy_setopt (curl, CURLOPT_PROGRESSDATA, nullptr);
+  curl_easy_setopt (curl, CURLOPT_PROGRESSFUNCTION, progressCallback);
+
   chunk.status = curl_easy_perform (curl);
 
   if (chunk.status)
@@ -556,6 +572,12 @@ parseArgs (int argc, char * argv[], bool & exit)
       {"-r", "--renderer"},
       "set a renderer [auto;software;accelerated] (default: auto)",
       1},
+     {"driver",
+      {"-d", "--driver"},
+      "set a driver [auto;direct3d;direct3d11;opengl;opengles2;opengles] "
+      "(default: auto, ignored with "
+      "software renderer)",
+      1},
      {"enablerecorder",
       {"-c", "--enable-recorder"},
       "enable the recorder feature (F3/F4)",
@@ -567,6 +589,10 @@ parseArgs (int argc, char * argv[], bool & exit)
      {"restorebugs",
       {"-b", "--restore-bugs"},
       "restore funny original bugs of older versions < v1.9",
+      0},
+     {"restoremidi",
+      {"-m", "--restore-midi"},
+      "restore playback based on MIDI music instead of OGG",
       0}}};
 
   argagg::parser_results args;
@@ -577,6 +603,7 @@ parseArgs (int argc, char * argv[], bool & exit)
   catch (const std::exception & e)
   {
     std::cerr << e.what () << std::endl;
+    exit = true;
     return EXIT_FAILURE;
   }
 
@@ -615,7 +642,9 @@ parseArgs (int argc, char * argv[], bool & exit)
 
   if (args["zoom"])
   {
-    g_windowScale = args["zoom"];
+    g_zoom = args["zoom"];
+    if (g_zoom != 1 && g_zoom != 2)
+      g_zoom = 1;
     g_settingsOverload |= SETTING_ZOOM;
   }
 
@@ -630,6 +659,17 @@ parseArgs (int argc, char * argv[], bool & exit)
     g_settingsOverload |= SETTING_RENDERER;
   }
 
+  if (
+    args["driver"] &&
+    (!g_rendererType || g_rendererType == SDL_RENDERER_ACCELERATED))
+  {
+    std::string input = args["driver"].as<std::string> ();
+    if (std::regex_match (
+          input, std::regex ("direct3d|direct3d11|opengl|opengles2|opengles")))
+      SDL_SetHint (SDL_HINT_RENDER_DRIVER, input.c_str ());
+    g_settingsOverload |= SETTING_DRIVER;
+  }
+
   if (args["enablerecorder"])
     g_enableRecorder = true;
 
@@ -638,6 +678,12 @@ parseArgs (int argc, char * argv[], bool & exit)
 
   if (args["restorebugs"])
     g_restoreBugs = true;
+
+  if (args["restoremidi"])
+  {
+    g_restoreMidi = true;
+    g_settingsOverload |= SETTING_MIDI;
+  }
 
   return EXIT_SUCCESS;
 }
@@ -663,9 +709,17 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
+#ifdef _WIN32
+  /* Fix laggy sounds on Windows by not using winmm driver. */
+  SDL_setenv ("SDL_AUDIODRIVER", "directsound", true);
+#endif /* _WIN32 */
+
   auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
   if (res < 0)
+  {
+    SDL_Log ("Unable to initialize SDL: %s", SDL_GetError ());
     return EXIT_FAILURE;
+  }
 
   // Create a window.
   g_window = SDL_CreateWindow (
@@ -902,10 +956,6 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
-  // Load all cursors
-  g_pPixmap->LoadCursors (g_windowScale);
-  g_pPixmap->ChangeSprite (SPRITE_WAIT); // met le sablier maison
-
   // Create the sound manager.
   g_pSound = new CSound;
   if (g_pSound == nullptr)
@@ -947,11 +997,19 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
+  const bool zoom = g_zoom;
+
   g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
+
+  // Load all cursors
+  g_pPixmap->LoadCursors (g_zoom);
+  g_pPixmap->ChangeSprite (SPRITE_WAIT);
+
   g_updateThread = new std::thread (CheckForUpdates);
-  g_pEvent->SetFullScreen (g_bFullScreen);
-  if (!g_bFullScreen)
-    g_pEvent->SetWindowSize (g_windowScale);
+  if (g_bFullScreen)
+    g_pEvent->SetFullScreen (true);
+  if (!g_bFullScreen && zoom != g_zoom)
+    g_pEvent->SetWindowSize (g_zoom);
   g_pEvent->ChangePhase (EV_PHASE_INTRO1);
 
   g_bTermInit = true;
@@ -993,15 +1051,20 @@ main (int argc, char * argv[])
       break;
   }
 
+  SDL_RemoveTimer (updateTimer);
+  FinishObjects ();
+
+  if (g_renderer)
+    SDL_DestroyRenderer (g_renderer);
+
   if (g_window)
     SDL_DestroyWindow (g_window);
 
-  SDL_RemoveTimer (updateTimer);
-  FinishObjects ();
   SDL_Quit ();
 
   if (g_updateThread)
   {
+    g_updateAbort = true;
     g_updateThread->join ();
     delete (g_updateThread);
   }

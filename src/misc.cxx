@@ -48,7 +48,7 @@ OutputDebug (const char * pMessage)
 // Conversion de la position de la souris.
 
 Point
-ConvLongToPos (LPARAM lParam)
+ConvLongToPos (LParam lParam)
 {
   Point pos;
 
@@ -154,4 +154,34 @@ AddUserPath (std::string & pFilename)
 
   pFilename = path;
   SDL_free (temp);
+}
+
+bool
+FileExists (
+  const std::string & filename, std::string & absolute, enum Location location)
+{
+  absolute = filename;
+  FILE * file;
+
+  switch (location)
+  {
+  case LOCATION_BASE:
+    absolute = GetBaseDir () + filename;
+    break;
+
+  case LOCATION_USER:
+    AddUserPath (absolute);
+    break;
+
+  default:
+  case LOCATION_ABSOLUTE:
+    break;
+  }
+
+  file = fopen (absolute.c_str (), "rb");
+  if (file == nullptr)
+    return false;
+
+  fclose (file);
+  return true;
 }

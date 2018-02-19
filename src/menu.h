@@ -60,7 +60,7 @@ protected:
   CDecor *                                 m_pDecor;
   CSound *                                 m_pSound;
   CEvent *                                 m_pEvent;
-  Point                                    m_pos; // coin sup/gauche
+  Point                                    m_pos; // up/left corner
   Point                                    m_dim; // dimensions
   Sint32                                   m_nbButtons;
   Point                                    m_nbCel;

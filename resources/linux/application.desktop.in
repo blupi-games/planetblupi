@@ -6,5 +6,5 @@ GenericName=Video Game
 Comment=@PB_DESCRIPTION@
 Exec=@PB_EXEC@
 StartupWMClass=@PB_EXEC@
-Icon=@APPIMAGE_ICON_REF@
+Icon=@PB_ICON_REF@
 Categories=Game;StrategyGame;

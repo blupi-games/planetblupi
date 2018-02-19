@@ -448,7 +448,9 @@ CDecor::StatisticUpdate ()
   {
     if (m_blupi[rank].bExist)
     {
-      if (m_blupi[rank].perso == 0) // blupi ?
+      if (
+        m_blupi[rank].perso == 0 && m_blupi[rank].action != ACTION_TCHAO &&
+        m_blupi[rank].action != ACTION_BURN) // blupi ?
       {
         if (m_blupi[rank].bMalade)
           table_statistic[STATBLUPIm].nb++;
@@ -475,7 +477,7 @@ CDecor::StatisticUpdate ()
 
       // Hide enemies from the stat when hidden by the fog
       bool hide = false;
-      if (this->GetSkill () >= 1)
+      if (this->GetSkill () >= 1 && this->m_bFog)
       {
         auto fogCel = m_blupi[rank].cel;
         fogCel.x    = (fogCel.x / 4) * 4;
@@ -974,7 +976,7 @@ CDecor::StatisticDown (Point pos)
   return false;
 
 select:
-  SetCoin (cel, true);
+  SetCorner (cel, true);
   NextPhase (0); // faudra refaire la carte tout de suite
   return true;
 }

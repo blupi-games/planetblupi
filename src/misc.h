@@ -28,7 +28,7 @@
 
 extern void OutputDebug (const char * pMessage);
 
-extern Point ConvLongToPos (LPARAM lParam);
+extern Point ConvLongToPos (LParam lParam);
 
 extern void   InitRandom ();
 extern Sint32 Random (Sint32 min, Sint32 max);
@@ -37,6 +37,11 @@ std::string GetBaseDir ();
 std::string GetShareDir ();
 std::string GetLocale ();
 extern void AddUserPath (std::string & pFilename);
+
+enum Location { LOCATION_ABSOLUTE, LOCATION_BASE, LOCATION_USER };
+bool FileExists (
+  const std::string & filename, std::string & absolute,
+  Location location = LOCATION_BASE);
 
 template <typename... Args>
 std::string

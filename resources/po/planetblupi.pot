@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-04 07:04+0200\n"
+"POT-Creation-Date: 2017-12-14 23:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -551,6 +551,12 @@ msgstr ""
 msgid "Increase window size"
 msgstr ""
 
+msgid "Use Ogg music"
+msgstr ""
+
+msgid "Use Midi music (original)"
+msgstr ""
+
 msgid "Version"
 msgstr ""
 
@@ -705,6 +711,17 @@ msgid ""
 "window size"
 msgstr ""
 
+msgid ""
+"Choose the\n"
+"music format"
+msgstr ""
+
+msgid "Midi"
+msgstr ""
+
+msgid "Ogg"
+msgstr ""
+
 msgid "You have played Planet Blupi."
 msgstr ""
 
@@ -729,10 +746,16 @@ msgstr ""
 msgid " - libcurl (MIT/X derivate)"
 msgstr ""
 
+msgid " - libogg and libvorbis (own license)"
+msgstr ""
+
 msgid " - libpng (own license)"
 msgstr ""
 
 msgid " - libpulse (LGPLv2.1)"
+msgstr ""
+
+msgid " - libsndfile (LGPLv3)"
 msgstr ""
 
 msgid " - SDL_kitchensink (MIT)"

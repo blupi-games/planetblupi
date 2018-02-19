@@ -1,7 +1,7 @@
 /*
  * This file is part of the planetblupi source code
  * Copyright (C) 1997, Daniel Roux & EPSITEC SA
- * Copyright (C) 2017, Mathieu Schroeter
+ * Copyright (C) 2017-2018, Mathieu Schroeter
  * http://epsitec.ch; http://www.blupi.org; http://github.com/blupi-games
  *
  * This program is free software: you can redistribute it and/or modify
@@ -70,8 +70,12 @@ typedef struct {
   Sint16 skill;
   // v1.1
   Sint16 language;
+  // v1.2
+  Sint16 musicMidi;
+  Sint16 fullScreen;
+  Sint16 zoom;
 
-  Sint16 reserve2[92];
+  Sint16 reserve2[89];
 } DescInfo;
 
 // Toutes les premières lettres doivent
@@ -1301,7 +1305,7 @@ static Phase table[] =
             {
                 EV_BUTTON1,
                 0, {1, 40},
-                170 + 42 * 1, 30 + 42 * 0,
+                11, 101,
                 { translate ("No music") },
             },
             {
@@ -1560,6 +1564,18 @@ static Phase table[] =
                 { translate ("Increase window size") },
             },
             {
+                EV_BUTTON7,
+                0, {1, 50},
+                399, 330,
+                { translate ("Use Ogg music") },
+            },
+            {
+                EV_BUTTON8,
+                0, {1, 51},
+                399 + 40, 330,
+                { translate ("Use Midi music (original)") },
+            },
+            {
                 EV_PHASE_INIT,
                 0, {1, 40},
                 42 + 42 * 0, 433,
@@ -1585,8 +1601,6 @@ CEvent::CEvent ()
 {
   Sint32 i;
 
-  m_bFullScreen     = false;
-  m_WindowScale     = 1;
   m_exercice        = 0;
   m_mission         = 0;
   m_private         = 0;
@@ -1672,6 +1686,8 @@ CEvent::CEvent ()
     m_Lang = m_Languages.begin ();
 
   m_updateBlinking = 0;
+
+  this->shiftDirection = 0;
 }
 
 // Destructeur.
@@ -1701,25 +1717,22 @@ CEvent::GetMousePos ()
 void
 CEvent::SetFullScreen (bool bFullScreen)
 {
-  if (bFullScreen == m_bFullScreen)
-    return;
-
   int x, y;
   SDL_GetMouseState (&x, &y);
-  x /= m_WindowScale;
-  y /= m_WindowScale;
+  x /= g_zoom;
+  y /= g_zoom;
 
-  m_WindowScale = 1;
+  g_zoom = 1;
   SDL_SetWindowSize (g_window, LXIMAGE, LYIMAGE);
 
-  m_bFullScreen = bFullScreen;
+  g_bFullScreen = bFullScreen;
   SDL_SetWindowFullscreen (g_window, bFullScreen ? SDL_WINDOW_FULLSCREEN : 0);
   SDL_SetWindowBordered (g_window, bFullScreen ? SDL_FALSE : SDL_TRUE);
   SDL_SetWindowGrab (g_window, bFullScreen ? SDL_TRUE : SDL_FALSE);
   SDL_SetWindowPosition (
     g_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
-  m_pPixmap->LoadCursors (m_WindowScale);
+  m_pPixmap->LoadCursors (g_zoom);
   m_pPixmap->ReloadTargetTextures ();
 
   /* Force this update before otherwise the coordinates retrieved with
@@ -1743,16 +1756,13 @@ CEvent::SetFullScreen (bool bFullScreen)
 void
 CEvent::SetWindowSize (Uint8 newScale)
 {
-  if (newScale == m_WindowScale)
-    return;
-
-  auto scale    = m_WindowScale;
-  m_WindowScale = newScale;
+  auto scale = g_zoom;
+  g_zoom     = newScale;
   switch (newScale)
   {
   case 1:
   case 2:
-    SetWindowSize (scale, m_WindowScale);
+    SetWindowSize (scale, g_zoom);
     break;
 
   default:
@@ -1790,12 +1800,6 @@ CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
   coord->x   = newScale < prevScale ? x / prevScale : x * newScale;
   coord->y   = newScale < prevScale ? y / prevScale : x * newScale;
   CEvent::PushUserEvent (EV_WARPMOUSE, coord);
-}
-
-Uint8
-CEvent::GetWindowScale ()
-{
-  return m_WindowScale;
 }
 
 // Crée le gestionnaire d'événements.
@@ -2134,16 +2138,23 @@ CEvent::DrawButtons ()
     SetEnable (EV_BUTTON10, bEnable);
   }
 
+  /* Check if both music formats are available */
+  auto ogg = this->IsBaseMusicAvailable (1, "ogg");
+  auto mid = this->IsBaseMusicAvailable (1, "mid");
+
   if (m_phase == EV_PHASE_SETTINGS)
   {
     SetEnable (EV_BUTTON1, m_Lang != m_Languages.begin ());
     SetEnable (EV_BUTTON2, m_Lang != m_Languages.end () - 1);
 
-    SetEnable (EV_BUTTON3, !m_bFullScreen);
-    SetEnable (EV_BUTTON4, m_bFullScreen);
+    SetEnable (EV_BUTTON3, !g_bFullScreen);
+    SetEnable (EV_BUTTON4, g_bFullScreen);
 
-    SetEnable (EV_BUTTON5, !m_bFullScreen && m_WindowScale > 1);
-    SetEnable (EV_BUTTON6, !m_bFullScreen && m_WindowScale < 2);
+    SetEnable (EV_BUTTON5, !g_bFullScreen && g_zoom > 1);
+    SetEnable (EV_BUTTON6, !g_bFullScreen && g_zoom < 2);
+
+    SetEnable (EV_BUTTON7, g_restoreMidi && mid && ogg);
+    SetEnable (EV_BUTTON8, !g_restoreMidi && mid && ogg);
   }
 
   assert (m_index >= 0);
@@ -2505,7 +2516,7 @@ CEvent::DrawButtons ()
   // Affiche le texte lorsque c'est raté.
   if (m_phase == EV_PHASE_LOST)
   {
-    static char * list[] = {
+    const char * list[] = {
       gettext ("You have failed, try again..."),
       gettext ("No, wrong way ..."),
       gettext ("Bang, failed again !"),
@@ -2521,7 +2532,7 @@ CEvent::DrawButtons ()
   // Affiche le texte lorsque c'est réussi.
   if (m_phase == EV_PHASE_WIN)
   {
-    static char * list[] = {
+    const char * list[] = {
       gettext ("Well done !"),     gettext ("Yes, great ..."),
       gettext ("Very good."),      gettext ("Excellent..."),
       gettext ("Mission over..."),
@@ -2532,7 +2543,7 @@ CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, list[GetWorld () % 5]);
   }
 
-  // Affiche le texte lorsque c'est fini.
+  // Show the ending text when the game is finished.
   if (m_phase == EV_PHASE_LASTWIN)
   {
     char * text;
@@ -2549,7 +2560,7 @@ CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, text);
   }
 
-  // Dessine les réglages.
+  // Draw the game settings.
   if (m_phase == EV_PHASE_SETUP || m_phase == EV_PHASE_SETUPp)
   {
     DrawTextCenter (gettext ("Global game\nspeed"), 54 + 40 + LXOFFSET, 80);
@@ -2604,6 +2615,8 @@ CEvent::DrawButtons ()
       gettext ("Select the\nwindow mode"), 169 + 40 + LXOFFSET, 80);
     DrawTextCenter (
       gettext ("Change the\nwindow size"), 284 + 40 + LXOFFSET, 80);
+    DrawTextCenter (
+      gettext ("Choose the\nmusic format"), 399 + 40 + LXOFFSET, 80);
 
     const auto  locale = GetLocale ();
     std::string lang;
@@ -2626,20 +2639,26 @@ CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, lang.c_str ());
 
     const char * text =
-      m_bFullScreen ? gettext ("Fullscreen") : gettext ("Windowed");
+      g_bFullScreen ? gettext ("Fullscreen") : gettext ("Windowed");
     lg    = GetTextWidth (text);
     pos.x = (169 + 40) - lg / 2 + LXOFFSET;
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
 
-    if (!m_bFullScreen)
+    if (!g_bFullScreen)
     {
-      snprintf (res, sizeof (res), "%dx", m_WindowScale);
+      snprintf (res, sizeof (res), "%dx", g_zoom);
       lg    = GetTextWidth (res);
       pos.x = (284 + 40) - lg / 2 + LXOFFSET;
       pos.y = 330 - 20;
       DrawText (m_pPixmap, pos, res);
     }
+
+    text  = (g_restoreMidi && mid) || !ogg ? gettext ("Midi") : gettext ("Ogg");
+    lg    = GetTextWidth (text);
+    pos.x = (399 + 40) - lg / 2;
+    pos.y = 330 - 20;
+    DrawText (m_pPixmap, pos, text);
   }
 
   // Show the ending text
@@ -2668,8 +2687,10 @@ CEvent::DrawButtons ()
       gettext (" - GNU/gettext and GNU/libiconv (GPLv3)"),
       gettext (" - libasound (LGPLv2.1)"),
       gettext (" - libcurl (MIT/X derivate)"),
+      gettext (" - libogg and libvorbis (own license)"),
       gettext (" - libpng (own license)"),
       gettext (" - libpulse (LGPLv2.1)"),
+      gettext (" - libsndfile (LGPLv3)"),
       gettext (" - SDL_kitchensink (MIT)"),
       gettext (" - SDL2, SDL2_image and SDL2_mixer (zlib license)"),
       gettext (" - zlib (own license)"),
@@ -2697,7 +2718,7 @@ CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, text);
   }
 
-  // Affiche le texte lorsqu'il faut insérer le CD-Rom.
+  // Show the text when the CD-Rom must be inserted (deprecated).
   if (m_phase == EV_PHASE_INSERT)
     DrawTextCenter (
       gettext ("Insert CD-Rom Planet Blupi and wait a few seconds..."),
@@ -2706,15 +2727,19 @@ CEvent::DrawButtons ()
   if (m_phase == EV_PHASE_BUILD)
     SetEnable (EV_PHASE_UNDO, m_pDecor->IsUndo ());
 
-  // Dessine les tool tips (info bulle).
+  // Draw the tooltips.
   if (m_textToolTips[0] != 0)
     DrawText (m_pPixmap, m_posToolTips, m_textToolTips);
 
   return true;
 }
 
-// Retourne le lutin à utiliser à une position donnée.
-
+/**
+ * \brief Return the mouse sprite to use for a position.
+ *
+ * \param[in] pos - The position.
+ * \return the sprite.
+ */
 MouseSprites
 CEvent::MousePosToSprite (Point pos)
 {
@@ -2730,7 +2755,7 @@ CEvent::MousePosToSprite (Point pos)
       pos.y <= POSMAPY + DIMMAPY)
       sprite = SPRITE_MAP;
 
-    if (m_bFullScreen && !m_bDemoRec && !m_bDemoPlay && m_scrollSpeed != 0)
+    if (g_bFullScreen && !m_bDemoRec && !m_bDemoPlay && m_scrollSpeed != 0)
     {
       if (pos.x <= 5 && pos.x >= -2)
         bLeft = true;
@@ -2785,8 +2810,11 @@ CEvent::MousePosToSprite (Point pos)
   return sprite;
 }
 
-// Gère le lutin de la souris.
-
+/**
+ * \brief Main mouse sprite handling.
+ *
+ * \param[in] pos - The position.
+ */
 void
 CEvent::MouseSprite (Point pos)
 {
@@ -2794,8 +2822,11 @@ CEvent::MouseSprite (Point pos)
   m_pPixmap->ChangeSprite (m_mouseSprite);
 }
 
-// Met ou enlève le sablier de la souris.
-
+/**
+ * \brief Set or remove the waiting mouse sprite.
+ *
+ * \param[in] bWait - If waiting.
+ */
 void
 CEvent::WaitMouse (bool bWait)
 {
@@ -2809,8 +2840,11 @@ CEvent::WaitMouse (bool bWait)
   m_pPixmap->ChangeSprite (m_mouseSprite);
 }
 
-// Cache ou montre la souris.
-
+/**
+ * \brief Hide or show the mouse.
+ *
+ * \param[in] bHide - If hide.
+ */
 void
 CEvent::HideMouse (bool bHide)
 {
@@ -2831,8 +2865,13 @@ CEvent::HideMouse (bool bHide)
   m_pPixmap->ChangeSprite (m_mouseSprite);
 }
 
-// Traite les événements pour tous les boutons.
-
+/**
+ * \brief Handle events for buttons.
+ *
+ * \param[in] event - The SDL event.
+ * \param[in] pos - The position.
+ * \return true if the event is handled.
+ */
 bool
 CEvent::EventButtons (const SDL_Event & event, Point pos)
 {
@@ -2922,7 +2961,7 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
         (event.button.button == SDL_BUTTON_LEFT ||
          event.button.button == SDL_BUTTON_RIGHT))
       {
-        // Montre ou cache les infos tout en haut.
+        // Show or hide the informations at the top.
         m_pDecor->SetInfoMode (!m_pDecor->GetInfoMode ());
       }
     }
@@ -2945,7 +2984,7 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
         (event.button.button == SDL_BUTTON_LEFT ||
          event.button.button == SDL_BUTTON_RIGHT))
       {
-        // Inverse le mode aide dans les infos.
+        // Reverse the help mode in the informations.
         m_bInfoHelp = !m_bInfoHelp;
 
         if (m_bInfoHelp)
@@ -2963,7 +3002,7 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
       (event.button.button == SDL_BUTTON_LEFT ||
        event.button.button == SDL_BUTTON_RIGHT))
     {
-      m_pDecor->HideTooltips (true); // plus de tooltips pour décor
+      m_pDecor->HideTooltips (true); // Remove tooltips for the decor.
     }
     if (
       event.type == SDL_MOUSEBUTTONUP &&
@@ -2992,8 +3031,12 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
   return false;
 }
 
-// Indique si la souris est sur un bouton.
-
+/**
+ * \brief Notify if the mouse is on a button.
+ *
+ * \param[in] pos - The mouse position.
+ * \return true if the mouse is on a button.
+ */
 bool
 CEvent::MouseOnButton (Point pos)
 {
@@ -3013,8 +3056,12 @@ CEvent::MouseOnButton (Point pos)
   return false;
 }
 
-// Retourne l'index dans table pour une phase donnée.
-
+/**
+ * \brief Return the table index for a specific phase.
+ *
+ * \param[in] phase - The phase.
+ * \return the index in `table`.
+ */
 Sint32
 CEvent::SearchPhase (Uint32 phase)
 {
@@ -3030,8 +3077,11 @@ CEvent::SearchPhase (Uint32 phase)
   return -1;
 }
 
-// Donne le numéro du monde.
-
+/**
+ * \brief Return the world number.
+ *
+ * \return the number.
+ */
 Sint32
 CEvent::GetWorld ()
 {
@@ -3043,8 +3093,13 @@ CEvent::GetWorld ()
     return m_mission;
 }
 
-// Donne le numéro physique du monde.
-
+/**
+ * \brief Return the physical world number.
+ *
+ * This number should be the same as the filename.
+ *
+ * \return the number.
+ */
 Sint32
 CEvent::GetPhysicalWorld ()
 {
@@ -3067,8 +3122,11 @@ CEvent::GetImageWorld ()
     return 1;
 }
 
-// Indique si l'aide est disponible.
-
+/**
+ * Notify if the help is available.
+ *
+ * \return true if available.
+ */
 bool
 CEvent::IsHelpHide ()
 {
@@ -3078,14 +3136,52 @@ CEvent::IsHelpHide ()
     bHide = false;
   if (m_bSchool || m_bPrivate)
   {
-    bHide = true; // pas d'aide pour les exercices
+    bHide = true; // No help for the exercises.
   }
 
   return bHide;
 }
 
-// Change de phase.
+bool
+CEvent::IsBaseMusicAvailable (Sint32 music, const std::string & format)
+{
+  std::string absolute;
+  auto        filename =
+    string_format ("music/music%.3d.%s", music - 1, format.c_str ());
+  return FileExists (filename, absolute, LOCATION_BASE);
+}
 
+std::string
+CEvent::GetMusicLocation (Sint32 music)
+{
+  static const std::string exts[] = {"ogg", "mid"};
+  static const Location    locs[] = {LOCATION_USER, LOCATION_BASE};
+  std::string              absolute;
+
+  // Look for music in the user directory, then in the game directory.
+  for (size_t i = 0; i < countof (locs); ++i)
+  {
+    auto filename = string_format (
+      "music/music%.3d.%s", music - 1, exts[g_restoreMidi ? 1 : 0].c_str ());
+    if (!FileExists (filename, absolute, locs[i]))
+      filename = string_format (
+        "music/music%.3d.%s", music - 1, exts[g_restoreMidi ? 0 : 1].c_str ());
+
+    if (FileExists (filename, absolute, locs[i]))
+      break;
+
+    absolute = "";
+  }
+
+  return absolute;
+}
+
+/**
+ * \brief Change the phase.
+ *
+ * \param[in] phase - The new phase.
+ * \return true if the phase has changed.
+ */
 bool
 CEvent::ChangePhase (Uint32 phase)
 {
@@ -3154,11 +3250,11 @@ CEvent::ChangePhase (Uint32 phase)
     m_pSound->StopAllSounds (false, &except);
   }
 
-  m_phase = phase; // change de phase
+  m_phase = phase; // change phase
   m_index = index;
 
   filename = table[m_index].backName;
-  if (filename.find ("%.3d") != std::string::npos) // "%.3d" dans le nom ?
+  if (filename.find ("%.3d") != std::string::npos)
     filename = string_format (table[m_index].backName, GetImageWorld ());
   totalDim.x = LXLOGIC;
   totalDim.y = LYLOGIC;
@@ -3168,10 +3264,10 @@ CEvent::ChangePhase (Uint32 phase)
         CHBACK, filename, totalDim, iconDim, table[m_index].mode,
         table[m_index].chBackWide))
   {
-    WaitMouse (false); // enlève le sablier
+    WaitMouse (false);
     m_tryInsertCount = 40;
     m_tryPhase       = m_phase;
-    return ChangePhase (EV_PHASE_INSERT); // insérez le CD-Rom ...
+    return ChangePhase (EV_PHASE_INSERT); // insert the CD-Rom ...
   }
 
   if (
@@ -3196,13 +3292,13 @@ CEvent::ChangePhase (Uint32 phase)
   {
     if (
       !m_pDecor->Read (
-        GetPhysicalWorld (), false, world, time, total) && // lit le monde
+        GetPhysicalWorld (), false, world, time, total) && // read the world
       !m_bAccessBuild &&
       !m_bPrivate)
     {
       m_tryInsertCount = 40;
       m_tryPhase       = m_phase;
-      return ChangePhase (EV_PHASE_INSERT); // insérez le CD-Rom ...
+      return ChangePhase (EV_PHASE_INSERT); // insert the CD-Rom ...
     }
     m_pDecor->SetTime (0);
     m_pDecor->SetTotalTime (0);
@@ -3238,7 +3334,7 @@ CEvent::ChangePhase (Uint32 phase)
 
   if (m_phase == EV_PHASE_TESTCD)
   {
-    if (m_pDecor->Read (0, false, world, time, total)) // lit un monde
+    if (m_pDecor->Read (0, false, world, time, total)) // read the world
     {
       return ChangePhase (EV_PHASE_INIT); // ok
     }
@@ -3246,25 +3342,25 @@ CEvent::ChangePhase (Uint32 phase)
     {
       m_tryInsertCount = 40;
       m_tryPhase       = m_phase;
-      return ChangePhase (EV_PHASE_INSERT); // insérez le CD-Rom ...
+      return ChangePhase (EV_PHASE_INSERT); // insert the CD-Rom ...
     }
   }
 
-  m_jauges[0].SetHide (true); // cache les jauges
+  m_jauges[0].SetHide (true);
   m_jauges[1].SetHide (true);
-  CreateButtons (phase); // crée les boutons selon la phase
+  CreateButtons (phase); // create the buttons accordingly to the phase
   m_bMenu = false;
   m_pDecor->HideTooltips (false);
   m_menu.Delete ();
-  m_pDecor->BlupiSetArrow (0, false); // enlève toutes les flèches
-  m_pDecor->ResetHili ();             // enlève les mises en évidence
+  m_pDecor->BlupiSetArrow (0, false); // remove all arrows
+  m_pDecor->ResetHili ();             // remove all highlights
 
   if (m_phase == EV_PHASE_PLAY)
   {
     m_pDecor->LoadImages ();
     m_pDecor->SetBuild (false);
     m_pDecor->EnableFog (true);
-    m_pDecor->NextPhase (0); // refait la carte tout de suite
+    m_pDecor->NextPhase (0); // rebuild the map immediatly
     m_pDecor->StatisticInit ();
     m_pDecor->TerminatedInit ();
   }
@@ -3273,16 +3369,16 @@ CEvent::ChangePhase (Uint32 phase)
   {
     m_bBuildModify = true;
     SetState (EV_DECOR1, 1);
-    SetMenu (EV_DECOR1, 0); // herbe
-    SetMenu (EV_DECOR2, 2); // arbre
-    SetMenu (EV_DECOR3, 1); // maison
-    SetMenu (EV_DECOR4, 2); // blupi fort
-    SetMenu (EV_DECOR5, 1); // feu
+    SetMenu (EV_DECOR1, 0); // grass
+    SetMenu (EV_DECOR2, 2); // tree
+    SetMenu (EV_DECOR3, 1); // house
+    SetMenu (EV_DECOR4, 2); // strong blupi
+    SetMenu (EV_DECOR5, 1); // fire
     m_pDecor->LoadImages ();
     m_pDecor->SetBuild (true);
     m_pDecor->EnableFog (false);
     m_pDecor->BlupiDeselect ();
-    m_pDecor->NextPhase (0); // refait la carte tout de suite
+    m_pDecor->NextPhase (0); // rebuild the map immediatly
   }
 
   if (m_phase == EV_PHASE_INFO)
@@ -3384,16 +3480,17 @@ CEvent::ChangePhase (Uint32 phase)
   {
     if (m_pSound->IsPlayingMusic ())
     {
-      m_pSound->AdaptVolumeMusic (); // adapte le volume
+      m_pSound->AdaptVolumeMusic ();
     }
     else
     {
       music = m_pDecor->GetMusic ();
       if (music > 0)
       {
-        filename = string_format ("music/music%.3d.mid", music - 1);
+        auto absolute = this->GetMusicLocation (music);
+
         m_pSound->StopMusic ();
-        m_pSound->PlayMusic (filename);
+        m_pSound->PlayMusic (absolute);
       }
     }
   }
@@ -3434,20 +3531,24 @@ CEvent::ChangePhase (Uint32 phase)
       m_phaseAfterMovie = EV_PHASE_LASTWIN;
   }
 
-  WaitMouse (false); // enlève le sablier
+  WaitMouse (false);
   return true;
 }
 
-// Retourne la phase en cours.
-
+/**
+ * \brief Return the current phase.
+ *
+ * \return the phase number.
+ */
 Uint32
 CEvent::GetPhase ()
 {
   return m_phase;
 }
 
-// Essaye de lire le CD-Rom.
-
+/**
+ * \brief Try to read the CD-Rom.
+ */
 void
 CEvent::TryInsert ()
 {
@@ -3457,19 +3558,22 @@ CEvent::TryInsert ()
     m_tryInsertCount--;
 }
 
-// Fait démarrer un film si nécessaire.
-
+/**
+ * \brief Start a movie if necessary.
+ *
+ * \return true if the movie has started.
+ */
 bool
 CEvent::MovieToStart ()
 {
   bool movie = false;
 
-  if (m_movieToStart[0] != 0) // y a-t-il un film à démarrer ?
+  if (m_movieToStart[0] != 0) // is movie available?
   {
     if (StartMovie (m_movieToStart))
     {
       movie   = true;
-      m_phase = m_phaseAfterMovie; // prochaine phase normale
+      m_phase = m_phaseAfterMovie; // the next normal phase
     }
     else
       ChangePhase (m_phaseAfterMovie);
@@ -3480,109 +3584,189 @@ CEvent::MovieToStart ()
   return movie;
 }
 
-// Décale le décor.
-
+/**
+ * \brief Shift the decor.
+ *
+ * \param[in] dx - Delta x.
+ * \param[in] dy - Delta y.
+ */
 void
 CEvent::DecorShift (Sint32 dx, Sint32 dy)
 {
-  Point coin;
+  Point corner;
 
   if (m_phase != EV_PHASE_PLAY && m_phase != EV_PHASE_BUILD)
     return;
 
-  coin = m_pDecor->GetCoin ();
+  corner = m_pDecor->GetCorner ();
 
-  coin.x += dx;
-  coin.y += dy;
+  corner.x += dx;
+  corner.y += dy;
 
-  m_pDecor->SetCoin (coin);
-  //? m_pDecor->NextPhase(0);  // faudra refaire la carte tout de suite
+  m_pDecor->SetCorner (corner);
 }
 
-// Décale le décor lorsque la souris touche un bord.
-
+/**
+ * \brief Shift the decor when the mouse is on the sides.
+ */
 void
 CEvent::DecorAutoShift ()
 {
-  Sint32 max;
+  Sint32 max, maxLimit = 4, xMoveFactor = 1, yMoveFactor = 1, vectorFactor = 1;
   Point  offset;
+  Uint32 dir = 0;
+
+  bool byKeyboard = !!this->shiftDirection;
+
+  if (byKeyboard)
+  {
+    dir          = this->shiftDirection;
+    xMoveFactor  = 2;
+    yMoveFactor  = 3;
+    vectorFactor = 2;
+    if (m_scrollSpeed == 1)
+      maxLimit = 5; // 4..2..1
+  }
+  else
+  {
+    if (m_bDemoRec || m_bDemoPlay)
+      return;
+
+    switch (m_mouseSprite)
+    {
+    case SPRITE_ARROWL:
+      dir = DIRECTION_LEFT;
+      break;
+
+    case SPRITE_ARROWR:
+      dir = DIRECTION_RIGHT;
+      break;
+
+    case SPRITE_ARROWU:
+      dir = DIRECTION_UP;
+      break;
+
+    case SPRITE_ARROWD:
+      dir = DIRECTION_DOWN;
+      break;
+
+    case SPRITE_ARROWUL:
+      dir = DIRECTION_UP | DIRECTION_LEFT;
+      break;
+
+    case SPRITE_ARROWUR:
+      dir = DIRECTION_UP | DIRECTION_RIGHT;
+      break;
+
+    case SPRITE_ARROWDL:
+      dir = DIRECTION_DOWN | DIRECTION_LEFT;
+      break;
+
+    case SPRITE_ARROWDR:
+      dir = DIRECTION_DOWN | DIRECTION_RIGHT;
+      break;
+
+    default:
+      break;
+    }
+  }
 
   m_bShift = false;
 
-  if (!m_bFullScreen || m_bDemoRec || m_bDemoPlay || m_scrollSpeed == 0)
+  if (!byKeyboard && (!g_bFullScreen || m_scrollSpeed == 0))
     return;
 
-  max = 4 - m_scrollSpeed; // max <- 3..1
+  max = maxLimit - m_scrollSpeed; // max <- 3..1
 
   if (m_phase == EV_PHASE_PLAY || m_phase == EV_PHASE_BUILD)
   {
-    if (m_shiftPhase == 0) // début du shift ?
+    if (m_shiftPhase == 0) // start shift ?
     {
-      switch (m_mouseSprite)
+      switch (dir)
       {
-      default:
-        m_shiftOffset.x = 0;
-        m_shiftOffset.y = 0;
-        m_shiftVector.x = 0;
-        m_shiftVector.y = 0;
-        break;
-
-      case SPRITE_ARROWL:
+      case DIRECTION_LEFT:
         m_shiftOffset.x = +2;
         m_shiftOffset.y = 0;
         m_shiftVector.x = -1;
         m_shiftVector.y = +1;
         break;
 
-      case SPRITE_ARROWR:
+      case DIRECTION_RIGHT:
         m_shiftOffset.x = -2;
         m_shiftOffset.y = 0;
         m_shiftVector.x = +1;
         m_shiftVector.y = -1;
         break;
 
-      case SPRITE_ARROWU:
+      case DIRECTION_UP:
         m_shiftOffset.x = 0;
         m_shiftOffset.y = +2;
         m_shiftVector.x = -1;
         m_shiftVector.y = -1;
+        if (vectorFactor > 1)
+          ++vectorFactor;
         break;
 
-      case SPRITE_ARROWD:
+      case DIRECTION_DOWN:
         m_shiftOffset.x = 0;
         m_shiftOffset.y = -2;
         m_shiftVector.x = +1;
         m_shiftVector.y = +1;
+        if (vectorFactor > 1)
+          ++vectorFactor;
         break;
 
-      case SPRITE_ARROWUL:
-        m_shiftOffset.x = +1;
-        m_shiftOffset.y = +1;
-        m_shiftVector.x = -1;
-        m_shiftVector.y = 0;
-        break;
-
-      case SPRITE_ARROWUR:
-        m_shiftOffset.x = -1;
-        m_shiftOffset.y = +1;
-        m_shiftVector.x = 0;
-        m_shiftVector.y = -1;
-        break;
-
-      case SPRITE_ARROWDL:
-        m_shiftOffset.x = +1;
-        m_shiftOffset.y = -1;
-        m_shiftVector.x = 0;
-        m_shiftVector.y = +1;
-        break;
-
-      case SPRITE_ARROWDR:
-        m_shiftOffset.x = -1;
-        m_shiftOffset.y = -1;
-        m_shiftVector.x = +1;
-        m_shiftVector.y = 0;
+      default:
+        if (dir == (DIRECTION_UP | DIRECTION_LEFT))
+        {
+          m_shiftOffset.x = +1;
+          m_shiftOffset.y = +1;
+          m_shiftVector.x = -1;
+          m_shiftVector.y = 0;
+          if (vectorFactor > 1)
+            ++vectorFactor;
+        }
+        else if (dir == (DIRECTION_UP | DIRECTION_RIGHT))
+        {
+          m_shiftOffset.x = -1;
+          m_shiftOffset.y = +1;
+          m_shiftVector.x = 0;
+          m_shiftVector.y = -1;
+          if (vectorFactor > 1)
+            ++vectorFactor;
+        }
+        else if (dir == (DIRECTION_DOWN | DIRECTION_LEFT))
+        {
+          m_shiftOffset.x = +1;
+          m_shiftOffset.y = -1;
+          m_shiftVector.x = 0;
+          m_shiftVector.y = +1;
+          if (vectorFactor > 1)
+            ++vectorFactor;
+        }
+        else if (dir == (DIRECTION_DOWN | DIRECTION_RIGHT))
+        {
+          m_shiftOffset.x = -1;
+          m_shiftOffset.y = -1;
+          m_shiftVector.x = +1;
+          m_shiftVector.y = 0;
+          if (vectorFactor > 1)
+            ++vectorFactor;
+        }
+        else
+        {
+          m_shiftOffset.x = 0;
+          m_shiftOffset.y = 0;
+          m_shiftVector.x = 0;
+          m_shiftVector.y = 0;
+        }
         break;
       }
+
+      m_shiftOffset.x *= xMoveFactor;
+      m_shiftOffset.y *= yMoveFactor;
+      m_shiftVector.x *= vectorFactor;
+      m_shiftVector.y *= vectorFactor;
 
       if (m_shiftVector.x != 0 || m_shiftVector.y != 0)
         m_shiftPhase = max;
@@ -3597,10 +3781,11 @@ CEvent::DecorAutoShift ()
       offset.y = m_shiftOffset.y * (max - m_shiftPhase) * (DIMCELY / 2 / max);
       m_pDecor->SetShiftOffset (offset);
 
-      if (m_shiftPhase == 0) // dernière phase ?
+      if (m_shiftPhase == 0) // last phase ?
       {
-        offset.x = 0;
-        offset.y = 0;
+        this->shiftDirection = 0;
+        offset.x             = 0;
+        offset.y             = 0;
         m_pDecor->SetShiftOffset (offset);
         DecorShift (m_shiftVector.x, m_shiftVector.y);
       }
@@ -3608,8 +3793,11 @@ CEvent::DecorAutoShift ()
   }
 }
 
-// Indique su un shift est en cours.
-
+/**
+ * \brief Notify if a shift is doing.
+ *
+ * \return true of the shift is doing.
+ */
 bool
 CEvent::IsShift ()
 {
@@ -3668,7 +3856,7 @@ CEvent::PlayDown (Point pos, const SDL_Event & event)
 
   if (bMap)
   {
-    m_pDecor->SetCoin (cel, true);
+    m_pDecor->SetCorner (cel, true);
     m_pDecor->NextPhase (0); // faudra refaire la carte tout de suite
     return true;
   }
@@ -3726,7 +3914,9 @@ bool
 CEvent::PlayUp (Point pos)
 {
   static Sounds table_sound_boing[] = {
-    SOUND_BOING1, SOUND_BOING2, SOUND_BOING3,
+    SOUND_BOING1,
+    SOUND_BOING2,
+    SOUND_BOING3,
   };
 
   m_pDecor->StatisticUp (pos);
@@ -4020,20 +4210,26 @@ CEvent::ChangeButtons (Sint32 message)
       break;
     case EV_BUTTON5:
     {
-      auto scale = m_WindowScale;
-      if (m_WindowScale > 1)
-        --m_WindowScale;
-      SetWindowSize (scale, m_WindowScale);
+      auto scale = g_zoom;
+      if (g_zoom > 1)
+        --g_zoom;
+      SetWindowSize (scale, g_zoom);
       break;
     }
     case EV_BUTTON6:
     {
-      auto scale = m_WindowScale;
-      if (m_WindowScale < 2)
-        ++m_WindowScale;
-      SetWindowSize (scale, m_WindowScale);
+      auto scale = g_zoom;
+      if (g_zoom < 2)
+        ++g_zoom;
+      SetWindowSize (scale, g_zoom);
       break;
     }
+    case EV_BUTTON7:
+      g_restoreMidi = false;
+      break;
+    case EV_BUTTON8:
+      g_restoreMidi = true;
+      break;
     }
   }
 }
@@ -4148,7 +4344,7 @@ static Sint32 tableHome[] = {
 // Modifie le décor lorsque le bouton de la souris est pressé.
 
 bool
-CEvent::BuildDown (Point pos, Uint16 mod, bool bMix)
+CEvent::BuildDown (Point pos, Uint16 mod, const SDL_Event * event, bool bMix)
 {
   Point  cel;
   Sint32 menu, channel, icon;
@@ -4161,12 +4357,14 @@ CEvent::BuildDown (Point pos, Uint16 mod, bool bMix)
     pos.y > POSDRAWY + DIMDRAWY)
     return false;
 
+  bool isRightClick = event ? event->button.button == SDL_BUTTON_RIGHT : false;
+
   if (bMix)
   {
     m_pDecor->UndoCopy (); // copie le décor pour undo év.
   }
 
-  if (GetState (EV_DECOR1) == 1) // pose d'un sol
+  if (GetState (EV_DECOR1) == 1 && !isRightClick) // pose d'un sol
   {
     cel  = m_pDecor->ConvPosToCel2 (pos);
     menu = GetMenu (EV_DECOR1);
@@ -4200,10 +4398,10 @@ CEvent::BuildDown (Point pos, Uint16 mod, bool bMix)
     }
   }
 
-  if (GetState (EV_DECOR2) == 1) // pose d'un objet
+  if (GetState (EV_DECOR2) == 1 || isRightClick) // pose d'un objet
   {
     cel  = m_pDecor->ConvPosToCel2 (pos);
-    menu = GetMenu (EV_DECOR2);
+    menu = isRightClick ? 0 : GetMenu (EV_DECOR2);
 
     if (!m_pDecor->GetObject (cel, channel, icon))
       return false;
@@ -4231,10 +4429,10 @@ CEvent::BuildDown (Point pos, Uint16 mod, bool bMix)
     }
   }
 
-  if (GetState (EV_DECOR3) == 1) // pose d'un batiment
+  if (GetState (EV_DECOR3) == 1 || isRightClick) // pose d'un batiment
   {
     cel  = m_pDecor->ConvPosToCel2 (pos);
-    menu = GetMenu (EV_DECOR3);
+    menu = isRightClick ? 0 : GetMenu (EV_DECOR3);
 
     if (!m_pDecor->GetObject (cel, channel, icon))
       return false;
@@ -4262,10 +4460,10 @@ CEvent::BuildDown (Point pos, Uint16 mod, bool bMix)
     }
   }
 
-  if (GetState (EV_DECOR4) == 1) // pose d'un blupi
+  if (GetState (EV_DECOR4) == 1 || isRightClick) // pose d'un blupi
   {
     cel  = m_pDecor->ConvPosToCel (pos);
-    menu = GetMenu (EV_DECOR4);
+    menu = isRightClick ? 0 : GetMenu (EV_DECOR4);
 
     if (menu == 0) // supprime ?
       m_pDecor->BlupiDelete (cel);
@@ -4289,14 +4487,15 @@ CEvent::BuildDown (Point pos, Uint16 mod, bool bMix)
       m_pDecor->BlupiCreate (cel, ACTION_STOP, DIRECT_S, 4, MAXENERGY);
   }
 
-  if (GetState (EV_DECOR5) == 1) // pose d'une cata
+  if (GetState (EV_DECOR5) == 1 || isRightClick) // pose d'une cata
   {
     cel  = m_pDecor->ConvPosToCel2 (pos);
-    menu = GetMenu (EV_DECOR5);
+    menu = isRightClick ? 0 : GetMenu (EV_DECOR5);
 
     if (menu == 0) // supprime ?
       m_pDecor->SetFire (cel, false);
-    if (menu == 1) // ajoute ?
+
+    if (menu == 1 && (g_restoreBugs || m_pDecor->CanBurn (cel))) // ajoute ?
       m_pDecor->SetFire (cel, true);
   }
 
@@ -4311,8 +4510,7 @@ bool
 CEvent::BuildMove (Point pos, Uint16 mod, const SDL_Event & event)
 {
   if (event.motion.state & SDL_BUTTON (SDL_BUTTON_LEFT)) // bouton souris pressé
-                                                         // ?
-    BuildDown (pos, mod, false);
+    BuildDown (pos, mod, nullptr, false);
 
   if (GetState (EV_DECOR4) == 1) // pose d'un blupi
     m_pDecor->CelHili (pos, 1);
@@ -4332,7 +4530,8 @@ CEvent::StartMovie (const std::string & pFilename)
   if (!m_bMovie)
     return false;
 
-  if (!m_pMovie->IsExist (pFilename))
+  std::string absolute;
+  if (!FileExists (pFilename, absolute))
     return false;
 
   HideMouse (true);
@@ -4588,7 +4787,7 @@ CEvent::WriteInfo ()
     goto error;
 
   info.majRev       = 1;
-  info.minRev       = 1;
+  info.minRev       = 2;
   info.prive        = m_private;
   info.exercice     = m_exercice;
   info.mission      = m_mission;
@@ -4607,6 +4806,9 @@ CEvent::WriteInfo ()
   info.language = static_cast<Sint16> (
     this->GetLanguage () != this->GetStartLanguage () ? this->GetLanguage ()
                                                       : Language::undef);
+  info.musicMidi  = g_restoreMidi;
+  info.fullScreen = g_bFullScreen;
+  info.zoom       = g_zoom;
 
   nb = fwrite (&info, sizeof (info), 1, file);
   if (nb < 1)
@@ -4663,6 +4865,16 @@ CEvent::ReadInfo ()
     if (info.language >= static_cast<int> (Language::end))
       info.language = 0;
     this->SetLanguage (static_cast<Language> (info.language));
+  }
+
+  if (((info.majRev == 1 && info.minRev >= 2) || info.majRev >= 2))
+  {
+    if (!(g_settingsOverload & SETTING_MIDI))
+      g_restoreMidi = !!info.musicMidi;
+    if (!(g_settingsOverload & SETTING_FULLSCREEN))
+      g_bFullScreen = !!info.fullScreen;
+    if (!(g_settingsOverload & SETTING_ZOOM))
+      g_zoom = info.zoom;
   }
 
   fclose (file);
@@ -4869,10 +5081,10 @@ CEvent::DemoPlayStop ()
 
 void
 CEvent::WinToSDLEvent (
-  Uint32 msg, WPARAM wParam, LPARAM lParam, SDL_Event & event)
+  Uint32 msg, WParam wParam, LParam lParam, SDL_Event & event)
 {
-#define GET_X_LPARAM(lp) ((Sint32) (Sint16) LOWORD (lp))
-#define GET_Y_LPARAM(lp) ((Sint32) (Sint16) HIWORD (lp))
+#define GET_X_LParam(lp) ((Sint32) (Sint16) LOWORD (lp))
+#define GET_Y_LParam(lp) ((Sint32) (Sint16) HIWORD (lp))
 
   // clang-format off
   static const std::unordered_map<Uint32, SDL_Keysym> keycodes = {
@@ -4937,8 +5149,8 @@ CEvent::WinToSDLEvent (
         msg == EV_LBUTTONDOWN ? SDL_MOUSEBUTTONDOWN : SDL_MOUSEBUTTONUP;
       event.button.button = SDL_BUTTON_LEFT;
       // TODO: wParam CTRL or SHIFT
-      event.button.x = GET_X_LPARAM (lParam);
-      event.button.y = GET_Y_LPARAM (lParam);
+      event.button.x = GET_X_LParam (lParam);
+      event.button.y = GET_Y_LParam (lParam);
       break;
 
     case EV_RBUTTONUP:
@@ -4947,15 +5159,15 @@ CEvent::WinToSDLEvent (
         msg == EV_RBUTTONDOWN ? SDL_MOUSEBUTTONDOWN : SDL_MOUSEBUTTONUP;
       event.button.button = SDL_BUTTON_RIGHT;
       // TODO: wParam CTRL or SHIFT
-      event.button.x = GET_X_LPARAM (lParam);
-      event.button.y = GET_Y_LPARAM (lParam);
+      event.button.x = GET_X_LParam (lParam);
+      event.button.y = GET_Y_LParam (lParam);
       break;
 
     case EV_MOUSEMOVE:
       event.type = SDL_MOUSEMOTION;
       // TODO: wParam CTRL or SHIFT
-      event.motion.x = GET_X_LPARAM (lParam);
-      event.motion.y = GET_Y_LPARAM (lParam);
+      event.motion.x = GET_X_LParam (lParam);
+      event.motion.y = GET_Y_LParam (lParam);
       break;
     }
   }
@@ -4972,8 +5184,8 @@ CEvent::DemoStep ()
 {
   Uint32 time    = 0;
   Uint32 message = 0;
-  WPARAM wParam  = 0;
-  LPARAM lParam  = 0;
+  WParam wParam  = 0;
+  LParam lParam  = 0;
 
   if (m_phase == EV_PHASE_INIT)
   {
@@ -5040,8 +5252,7 @@ CEvent::DemoStep ()
           pos.y = event.motion.y;
         }
 
-        SDL_WarpMouseInWindow (
-          g_window, pos.x * m_WindowScale, pos.y * m_WindowScale);
+        SDL_WarpMouseInWindow (g_window, pos.x * g_zoom, pos.y * g_zoom);
       }
 
       if (m_pDemoBuffer)
@@ -5366,28 +5577,36 @@ CEvent::TreatEventBase (const SDL_Event & event)
     case SDLK_UP:
     case SDLK_DOWN:
     {
+      if (m_phase != EV_PHASE_PLAY && m_phase != EV_PHASE_BUILD)
+        return true;
+
+      bool          left, right, up, down;
       const Uint8 * state = SDL_GetKeyboardState (nullptr);
-      if (
-        event.key.keysym.sym == SDLK_LEFT ||
-        (!m_bDemoRec && state[SDL_SCANCODE_LEFT]))
-        DecorShift (-2, 2);
-      if (
-        event.key.keysym.sym == SDLK_RIGHT ||
-        (!m_bDemoRec && state[SDL_SCANCODE_RIGHT]))
-        DecorShift (2, -2);
-      if (
-        event.key.keysym.sym == SDLK_UP ||
-        (!m_bDemoRec && state[SDL_SCANCODE_UP]))
-        DecorShift (-3, -3);
-      if (
-        event.key.keysym.sym == SDLK_DOWN ||
-        (!m_bDemoRec && state[SDL_SCANCODE_DOWN]))
-        DecorShift (3, 3);
+
+      this->shiftDirection = 0;
+
+      left = event.key.keysym.sym == SDLK_LEFT ||
+             (!m_bDemoRec && state[SDL_SCANCODE_LEFT]);
+      right = event.key.keysym.sym == SDLK_RIGHT ||
+              (!m_bDemoRec && state[SDL_SCANCODE_RIGHT]);
+      up = event.key.keysym.sym == SDLK_UP ||
+           (!m_bDemoRec && state[SDL_SCANCODE_UP]);
+      down = event.key.keysym.sym == SDLK_DOWN ||
+             (!m_bDemoRec && state[SDL_SCANCODE_DOWN]);
+
+      if (left)
+        this->shiftDirection |= DIRECTION_LEFT;
+      if (right)
+        this->shiftDirection |= DIRECTION_RIGHT;
+      if (up)
+        this->shiftDirection |= DIRECTION_UP;
+      if (down)
+        this->shiftDirection |= DIRECTION_DOWN;
       return true;
     }
     case SDLK_HOME:
       pos = m_pDecor->GetHome ();
-      m_pDecor->SetCoin (pos);
+      m_pDecor->SetCorner (pos);
       return true;
     case SDLK_SPACE:
       if (m_bRunMovie)
@@ -5510,7 +5729,7 @@ CEvent::TreatEventBase (const SDL_Event & event)
       return true;
     if (m_phase == EV_PHASE_BUILD)
     {
-      if (BuildDown (pos, m_keymod))
+      if (BuildDown (pos, m_keymod, &event))
         return true;
     }
     if (m_phase == EV_PHASE_PLAY)

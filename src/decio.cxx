@@ -136,7 +136,7 @@ CDecor::Write (Sint32 rank, bool bUser, Sint32 world, Sint32 time, Sint32 total)
 
   pBuffer->majRev    = 1;
   pBuffer->minRev    = 5;
-  pBuffer->celCoin   = m_celCoin;
+  pBuffer->celCoin   = m_celCorner;
   pBuffer->world     = world;
   pBuffer->time      = time;
   pBuffer->totalTime = total;
@@ -255,7 +255,7 @@ CDecor::Read (
       goto error;
   }
 
-  SetCoin (pBuffer->celCoin);
+  SetCorner (pBuffer->celCoin);
   if (bUser)
   {
     world = pBuffer->world;
@@ -511,7 +511,7 @@ CDecor::Flush ()
 
   m_celHome.x = 90;
   m_celHome.y = 98;
-  SetCoin (m_celHome);
+  SetCorner (m_celHome);
   InitAfterBuild ();
   LoadImages ();
 }

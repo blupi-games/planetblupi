@@ -48,9 +48,7 @@ CButton::CButton ()
   m_toolTips   = nullptr;
 }
 
-CButton::~CButton ()
-{
-}
+CButton::~CButton () {}
 
 // Crée un nouveau bouton.
 

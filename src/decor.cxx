@@ -119,8 +119,8 @@ CDecor::CDecor ()
   m_pSound     = nullptr;
   m_pUndoDecor = nullptr;
 
-  m_celCoin.x = 90;
-  m_celCoin.y = 98;
+  m_celCorner.x = 90;
+  m_celCorner.y = 98;
 
   m_celHili.x     = -1;
   m_celOutline1.x = -1;
@@ -382,6 +382,11 @@ CDecor::PutFloor (Point cel, Sint32 channel, Sint32 icon)
   m_decor[cel.x / 2][cel.y / 2].floorChannel = channel;
   m_decor[cel.x / 2][cel.y / 2].floorIcon    = icon;
 
+  if (
+    !g_restoreBugs && m_decor[cel.x / 2][cel.y / 2].fire &&
+    !this->CanBurn (cel))
+    m_decor[cel.x / 2][cel.y / 2].fire = 0;
+
   m_bGroundRedraw = true;
 
   //? SubDrapeau(cel);  // on pourra de nouveau planter un drapeau
@@ -402,6 +407,11 @@ CDecor::PutObject (Point cel, Sint32 channel, Sint32 icon)
 
   m_decor[cel.x / 2][cel.y / 2].objectChannel = channel;
   m_decor[cel.x / 2][cel.y / 2].objectIcon    = icon;
+
+  if (
+    !g_restoreBugs && m_decor[cel.x / 2][cel.y / 2].fire &&
+    !this->CanBurn (cel))
+    m_decor[cel.x / 2][cel.y / 2].fire = 0;
 
   SubDrapeau (cel); // on pourra de nouveau planter un drapeau
 
@@ -449,6 +459,29 @@ CDecor::SetFire (Point cel, bool bFire)
   return true;
 }
 
+void
+CDecor::FixShifting (Sint32 & nbx, Sint32 & nby, Point & iCel, Point & iPos)
+{
+  if (m_shiftOffset.x < 0) // décalage à droite ?
+    nbx += 2;
+  if (m_shiftOffset.y < 0) // décalage en bas ?
+    nby += 3;
+  if (m_shiftOffset.x > 0) // décalage à gauche ?
+  {
+    nbx += 2;
+    iCel.x--;
+    iCel.y++;
+    iPos = ConvCelToPos (iCel);
+  }
+  if (m_shiftOffset.y > 0) // décalage en haut ?
+  {
+    nby += 2;
+    iCel.x--;
+    iCel.y--;
+    iPos = ConvCelToPos (iCel);
+  }
+}
+
 // Modifie l'offset pour le shift.
 
 void
@@ -465,8 +498,8 @@ CDecor::ConvCelToPos (Point cel)
 {
   Point pos;
 
-  pos.x = ((cel.x - m_celCoin.x) - (cel.y - m_celCoin.y)) * (DIMCELX / 2);
-  pos.y = ((cel.x - m_celCoin.x) + (cel.y - m_celCoin.y)) * (DIMCELY / 2);
+  pos.x = ((cel.x - m_celCorner.x) - (cel.y - m_celCorner.y)) * (DIMCELX / 2);
+  pos.y = ((cel.x - m_celCorner.x) + (cel.y - m_celCorner.y)) * (DIMCELY / 2);
 
   pos.x += POSDRAWX + m_shiftOffset.x;
   pos.y += POSDRAWY + m_shiftOffset.y;
@@ -500,8 +533,8 @@ CDecor::ConvPosToCel (Point pos, bool bMap)
     cel.y -= (DIMCELX * DIMCELY);
   cel.y /= (DIMCELX * DIMCELY);
 
-  cel.x += m_celCoin.x;
-  cel.y += m_celCoin.y;
+  cel.x += m_celCorner.x;
+  cel.y += m_celCorner.y;
 
   return cel;
 }
@@ -516,19 +549,19 @@ CDecor::ConvPosToCel2 (Point pos)
   pos.x -= POSDRAWX + DIMCELX / 2;
   pos.y -= POSDRAWY;
 
-  if (m_celCoin.x % 2 != 0 && m_celCoin.y % 2 == 0)
+  if (m_celCorner.x % 2 != 0 && m_celCorner.y % 2 == 0)
   {
     pos.x += DIMCELX / 2;
     pos.y += DIMCELY / 2;
   }
 
-  if (m_celCoin.x % 2 == 0 && m_celCoin.y % 2 != 0)
+  if (m_celCorner.x % 2 == 0 && m_celCorner.y % 2 != 0)
   {
     pos.x -= DIMCELX / 2;
     pos.y += DIMCELY / 2;
   }
 
-  if (m_celCoin.x % 2 != 0 && m_celCoin.y % 2 != 0)
+  if (m_celCorner.x % 2 != 0 && m_celCorner.y % 2 != 0)
     pos.y += DIMCELY;
 
   cel.x =
@@ -539,8 +572,8 @@ CDecor::ConvPosToCel2 (Point pos)
     cel.y -= (DIMCELX * 2 * DIMCELY * 2);
   cel.y /= (DIMCELX * 2 * DIMCELY * 2);
 
-  cel.x = (cel.x * 2 + m_celCoin.x) / 2 * 2;
-  cel.y = (cel.y * 2 + m_celCoin.y) / 2 * 2;
+  cel.x = (cel.x * 2 + m_celCorner.x) / 2 * 2;
+  cel.y = (cel.y * 2 + m_celCorner.y) / 2 * 2;
 
   return cel;
 }
@@ -972,6 +1005,8 @@ CDecor::BuildGround (Rect clip)
     nby += 2;
   }
 
+  this->FixShifting (nbx, nby, iCel, iPos);
+
   // Construit les sols.
   mCel = iCel;
   mPos = iPos;
@@ -1112,6 +1147,8 @@ CDecor::Build (Rect clip, Point posMouse)
     nby += 2;
   }
 
+  this->FixShifting (nbx, nby, iCel, iPos);
+
   // Construit les sols.
   mCel = iCel;
   mPos = iPos;
@@ -1228,6 +1265,8 @@ CDecor::Build (Rect clip, Point posMouse)
 
   // Construit les objets et les blupi.
   BuildPutBlupi (); // m_rankBlupi[x][y] <- rangs des blupi
+
+  this->FixShifting (nbx, nby, iCel, iPos);
 
   mCel = iCel;
   mPos = iPos;
@@ -1435,24 +1474,7 @@ CDecor::Build (Rect clip, Point posMouse)
   if (!m_bFog)
     goto term;
 
-  if (m_shiftOffset.x < 0) // décalage à droite ?
-    nbx += 2;
-  if (m_shiftOffset.y < 0) // décalage en bas ?
-    nby += 2;
-  if (m_shiftOffset.x > 0) // décalage à gauche ?
-  {
-    nbx += 2;
-    iCel.x--;
-    iCel.y++;
-    iPos = ConvCelToPos (iCel);
-  }
-  if (m_shiftOffset.y > 0) // décalage en haut ?
-  {
-    nby += 2;
-    iCel.x--;
-    iCel.y--;
-    iPos = ConvCelToPos (iCel);
-  }
+  this->FixShifting (nbx, nby, iCel, iPos);
 
   mCel = iCel;
   mPos = iPos;
@@ -2985,8 +3007,8 @@ CDecor::GetResHili (Point posMouse)
 {
   Sint32 icon;
 
-  // Les valeurs `corner == true` correspondent aux objets placés
-  // au coin inf/droit de la cellule.
+  // The `corner == true` values are corresponding to the objects
+  // positionned at the bottom/right corner of the cell.
   struct object_t {
     bool         corner;
     const char * text;
@@ -3261,33 +3283,33 @@ CDecor::HideTooltips (bool bHide)
 // Modifie l'origine supérieure/gauche du décor.
 
 void
-CDecor::SetCoin (Point coin, bool bCenter)
+CDecor::SetCorner (Point corner, bool bCenter)
 {
   if (bCenter)
   {
-    coin.x -= 10;
-    coin.y -= 2;
+    corner.x -= 10;
+    corner.y -= 2;
   }
 
-  if (coin.x < -8)
-    coin.x = -8;
-  if (coin.x > MAXCELX - 12)
-    coin.x = MAXCELX - 12;
-  if (coin.y < -2)
-    coin.y = -2;
-  if (coin.y > MAXCELY - 4)
-    coin.y = MAXCELY - 4;
+  if (corner.x < -8)
+    corner.x = -8;
+  if (corner.x > MAXCELX - 12)
+    corner.x = MAXCELX - 12;
+  if (corner.y < -2)
+    corner.y = -2;
+  if (corner.y > MAXCELY - 4)
+    corner.y = MAXCELY - 4;
 
-  m_celCoin       = coin;
+  m_celCorner     = corner;
   m_bGroundRedraw = true; // faudra redessiner les sols
   m_celHili.x     = -1;
   m_textLastPos.x = -1; // tooltips plus lavable !
 }
 
 Point
-CDecor::GetCoin ()
+CDecor::GetCorner ()
 {
-  return m_celCoin;
+  return m_celCorner;
 }
 
 Point
@@ -3312,7 +3334,7 @@ CDecor::MemoPos (Sint32 rank, bool bRecord)
   if (bRecord)
   {
     m_pSound->PlayImage (SOUND_CLOSE, pos);
-    m_memoPos[rank] = m_celCoin;
+    m_memoPos[rank] = m_celCorner;
   }
   else
   {
@@ -3321,7 +3343,7 @@ CDecor::MemoPos (Sint32 rank, bool bRecord)
     else
     {
       m_pSound->PlayImage (SOUND_GOAL, pos);
-      SetCoin (m_memoPos[rank], false);
+      SetCorner (m_memoPos[rank], false);
     }
   }
 }

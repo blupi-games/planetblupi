@@ -6,15 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-15 18:34+0200\n"
-"PO-Revision-Date: 2017-10-04 23:29+0200\n"
+"POT-Creation-Date: 2017-12-14 23:13+0100\n"
+"PO-Revision-Date: 2017-12-14 23:14+0100\n"
 "Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.5\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid " - FFmpeg (LGPLv2.1)"
@@ -38,11 +38,17 @@ msgstr " - libasound (LGPLv2.1)"
 msgid " - libcurl (MIT/X derivate)"
 msgstr " - libcurl (dérivée de MIT/X)"
 
+msgid " - libogg and libvorbis (own license)"
+msgstr " - libogg and libvorbis (propre licence)"
+
 msgid " - libpng (own license)"
 msgstr " - libpng (propre licence)"
 
 msgid " - libpulse (LGPLv2.1)"
 msgstr " - libpulse (LGPLv2.1)"
+
+msgid " - libsndfile (LGPLv3)"
+msgstr " - libsndfile (LGPLv3)"
 
 msgid " - zlib (own license)"
 msgstr " - zlib (propre licence)"
@@ -281,6 +287,14 @@ msgstr ""
 "Modifie la taille\n"
 "de la fenêtre"
 
+msgid ""
+"Choose the\n"
+"music format"
+msgstr ""
+"Choisi le\n"
+"format de\n"
+"la musique"
+
 msgid "Construct this game"
 msgstr "Construire cette partie"
 
@@ -515,6 +529,9 @@ msgstr "Robot-maître"
 msgid "Medical potion"
 msgstr "Potion"
 
+msgid "Midi"
+msgstr "Midi"
+
 msgid "Mine"
 msgstr "Mine de fer"
 
@@ -618,6 +635,9 @@ msgstr "Passe maintenant aux missions."
 
 msgid "Occupied ground"
 msgstr "Terrain occupé"
+
+msgid "Ogg"
+msgstr "Ogg"
 
 msgid "Open another game"
 msgstr "Ouvrir une autre partie"
@@ -828,6 +848,12 @@ msgstr "Arbres"
 
 msgid "Tree trunks"
 msgstr "Troncs"
+
+msgid "Use Midi music (original)"
+msgstr "Utilise la musique Midi (originale)"
+
+msgid "Use Ogg music"
+msgstr "Utilise la musique Ogg"
 
 msgid "Version"
 msgstr "Version"

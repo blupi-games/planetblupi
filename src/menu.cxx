@@ -148,9 +148,7 @@ CMenu::CMenu ()
 
 // Destructeur.
 
-CMenu::~CMenu ()
-{
-}
+CMenu::~CMenu () {}
 
 // Crée un nouveau bouton.
 
@@ -187,9 +185,7 @@ CMenu::Create (
     pos = m_pos;
     pos.x += DIMBUTTONX / 2;
     pos.y += DIMBUTTONY / 2;
-    SDL_WarpMouseInWindow (
-      g_window, pos.x * m_pEvent->GetWindowScale (),
-      pos.y * m_pEvent->GetWindowScale ());
+    SDL_WarpMouseInWindow (g_window, pos.x * g_zoom, pos.y * g_zoom);
   }
 
   m_selRank = Detect (pos);

@@ -389,6 +389,13 @@ enum MouseSprites {
   SPRITE_END     = 14,
 };
 
+enum ShiftDirection {
+  DIRECTION_UP    = (1 << 0),
+  DIRECTION_DOWN  = (1 << 1),
+  DIRECTION_LEFT  = (1 << 2),
+  DIRECTION_RIGHT = (1 << 3),
+};
+
 // clang-format off
 #define EV_OFFSET                 0x0400
 

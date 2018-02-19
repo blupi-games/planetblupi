@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-15 18:34+0200\n"
+"POT-Creation-Date: 2017-12-14 23:13+0100\n"
 "PO-Revision-Date: 2017-02-27 21:28+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -39,10 +39,16 @@ msgstr ""
 msgid " - libcurl (MIT/X derivate)"
 msgstr ""
 
+msgid " - libogg and libvorbis (own license)"
+msgstr ""
+
 msgid " - libpng (own license)"
 msgstr ""
 
 msgid " - libpulse (LGPLv2.1)"
+msgstr ""
+
+msgid " - libsndfile (LGPLv3)"
 msgstr ""
 
 msgid " - zlib (own license)"
@@ -235,6 +241,11 @@ msgstr ""
 msgid ""
 "Change the\n"
 "window size"
+msgstr ""
+
+msgid ""
+"Choose the\n"
+"music format"
 msgstr ""
 
 msgid "Construct this game"
@@ -465,6 +476,9 @@ msgstr ""
 msgid "Medical potion"
 msgstr ""
 
+msgid "Midi"
+msgstr ""
+
 msgid "Mine"
 msgstr ""
 
@@ -565,6 +579,9 @@ msgid "Now go on mission."
 msgstr ""
 
 msgid "Occupied ground"
+msgstr ""
+
+msgid "Ogg"
 msgstr ""
 
 msgid "Open another game"
@@ -767,6 +784,12 @@ msgid "Tree"
 msgstr ""
 
 msgid "Tree trunks"
+msgstr ""
+
+msgid "Use Midi music (original)"
+msgstr ""
+
+msgid "Use Ogg music"
 msgstr ""
 
 msgid "Version"

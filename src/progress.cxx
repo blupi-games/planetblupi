@@ -37,9 +37,7 @@ CJauge::CJauge ()
   m_pSound  = nullptr;
 }
 
-CJauge::~CJauge ()
-{
-}
+CJauge::~CJauge () {}
 
 // Crée un nouveau bouton.
 

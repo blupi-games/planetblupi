@@ -31,10 +31,24 @@ class CEvent;
 extern SDL_Window *   g_window;
 extern SDL_Renderer * g_renderer;
 extern bool           g_bFullScreen;
+extern Uint8          g_zoom;
 extern bool           g_restoreBugs;
+extern bool           g_restoreMidi;
 extern bool           g_enableRecorder;
 extern std::string    g_playRecord;
 extern CEvent *       g_pEvent;
+
+enum Settings {
+  SETTING_FULLSCREEN    = 1 << 0,
+  SETTING_SPEEDRATE     = 1 << 1,
+  SETTING_TIMERINTERVAL = 1 << 2,
+  SETTING_RENDERER      = 1 << 3,
+  SETTING_ZOOM          = 1 << 4,
+  SETTING_DRIVER        = 1 << 5,
+  SETTING_MIDI          = 1 << 6,
+};
+
+extern int g_settingsOverload;
 
 struct Point {
   Sint32 x;
@@ -51,11 +65,11 @@ struct Rect {
 typedef Uint32 ColorRef;
 
 #if defined(_WIN64)
-typedef unsigned __int64 WPARAM;
-typedef __int64          LPARAM;
+typedef unsigned __int64 WParam;
+typedef __int64          LParam;
 #else
-typedef Uint32 WPARAM;
-typedef Sint32 LPARAM;
+typedef Uint32 WParam;
+typedef Sint32 LParam;
 #endif
 
 #undef LOWORD

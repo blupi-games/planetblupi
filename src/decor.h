@@ -322,6 +322,7 @@ public:
   Term * GetTerminated ();
 
   // DecMove.cpp
+  bool   CanBurn (Point cel);
   void   MoveFlush ();
   Sint32 MoveMaxFire ();
   void   MoveFixInit ();
@@ -381,6 +382,7 @@ public:
   bool IsCheminFree (Sint32 rank, Point dest, Sint32 button);
 
   // Decor.cpp
+  void  FixShifting (Sint32 & nbx, Sint32 & nby, Point & iCel, Point & iPos);
   void  SetShiftOffset (Point offset);
   Point ConvCelToPos (Point cel);
   Point ConvPosToCel (Point pos, bool bMap = false);
@@ -406,8 +408,8 @@ public:
   bool GetObject (Point cel, Sint32 & channel, Sint32 & icon);
   bool SetFire (Point cel, bool bFire);
 
-  void  SetCoin (Point coin, bool bCenter = false);
-  Point GetCoin ();
+  void  SetCorner (Point corner, bool bCenter = false);
+  Point GetCorner ();
   Point GetHome ();
   void  MemoPos (Sint32 rank, bool bRecord);
 
@@ -467,8 +469,8 @@ protected:
   Sint16    m_rankBlupi[MAXCELX][MAXCELY];
   Blupi     m_blupi[MAXBLUPI];
   Move      m_move[MAXMOVE];
-  Point     m_celCoin; // cellule sup/gauche
-  Point     m_celHome; // pour touche Home
+  Point     m_celCorner; // cellule sup/gauche
+  Point     m_celHome;   // pour touche Home
   Point     m_celHili;
   Point     m_celOutline1;
   Point     m_celOutline2;

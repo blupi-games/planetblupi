@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-15 18:34+0200\n"
-"PO-Revision-Date: 2017-10-04 23:30+0200\n"
+"POT-Creation-Date: 2017-12-14 23:13+0100\n"
+"PO-Revision-Date: 2017-12-14 23:15+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.0.5\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid " - FFmpeg (LGPLv2.1)"
@@ -39,11 +39,17 @@ msgstr " - libasound (LGPLv2.1)"
 msgid " - libcurl (MIT/X derivate)"
 msgstr " - libcurl (MIT/X Derivatlizenz)"
 
+msgid " - libogg and libvorbis (own license)"
+msgstr " - libogg and libvorbis (Eigene Lizenz)"
+
 msgid " - libpng (own license)"
 msgstr " - libpng (Eigene Lizenz)"
 
 msgid " - libpulse (LGPLv2.1)"
 msgstr " - libpulse (LGPLv2.1)"
+
+msgid " - libsndfile (LGPLv3)"
+msgstr " - libsndfile (LGPLv3)"
 
 msgid " - zlib (own license)"
 msgstr " - zlib (Eigene Lizenz)"
@@ -283,6 +289,11 @@ msgstr ""
 "Fentergrösse\n"
 "anpassen"
 
+msgid ""
+"Choose the\n"
+"music format"
+msgstr ""
+
 msgid "Construct this game"
 msgstr "Diese Mission konstruieren"
 
@@ -520,6 +531,9 @@ msgstr "Roboterchef"
 msgid "Medical potion"
 msgstr "Medikament"
 
+msgid "Midi"
+msgstr "Midi"
+
 msgid "Mine"
 msgstr "Bergwerk"
 
@@ -623,6 +637,9 @@ msgstr "Du kannst jetzt mit den Missionen beginnen."
 
 msgid "Occupied ground"
 msgstr "Untergrund schon besetzt"
+
+msgid "Ogg"
+msgstr "Ogg"
 
 msgid "Open another game"
 msgstr "Gespeicherte Mission öffnen"
@@ -838,6 +855,12 @@ msgstr "Bäume"
 
 msgid "Tree trunks"
 msgstr "Baumstämme"
+
+msgid "Use Midi music (original)"
+msgstr ""
+
+msgid "Use Ogg music"
+msgstr ""
 
 msgid "Version"
 msgstr "Version"

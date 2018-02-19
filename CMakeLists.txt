@@ -12,8 +12,8 @@ link_directories (${CMAKE_INSTALL_PREFIX}/lib)
 
 project (planetblupi)
 set (PB_VERSION_MAJOR 1)
-set (PB_VERSION_MINOR 11)
-set (PB_VERSION_PATCH 0)
+set (PB_VERSION_MINOR 12)
+set (PB_VERSION_PATCH 3)
 set (PB_VERSION_EXTRA "")
 set (PB_PRODUCT_NAME "Planet Blupi")
 set (PB_PACKAGE_NAME "planetblupi")
@@ -54,7 +54,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND "${STATIC_BUILD}")
 endif ()
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g3")
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g3 -DDEBUG")
 endif ()
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
@@ -141,6 +141,8 @@ if ("${STATIC_BUILD}")
   pkg_search_module (AVUTIL REQUIRED libavutil)
   pkg_search_module (SWSCALE REQUIRED libswscale)
   pkg_search_module (SWRESAMPLE REQUIRED libswresample)
+  # Statis dependencies for SDL_mixer
+  pkg_search_module (VORBIS REQUIRED vorbisfile)
 
   if (UNIX AND NOT APPLE)
     pkg_search_module (ALSA REQUIRED alsa)
@@ -172,6 +174,7 @@ if ("${STATIC_BUILD}")
     ${AVUTIL_STATIC_LIBRARIES}
     ${SWSCALE_STATIC_LIBRARIES}
     ${SWRESAMPLE_STATIC_LIBRARIES}
+    ${VORBIS_STATIC_LIBRARIES}
   )
 
   if (${PB_HTTP_VERSION_CHECK})
@@ -281,10 +284,10 @@ endif ()
 
 # Copy libwinpthread-1.dll which seems not be linkable statically
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows" AND MINGW)
-  execute_process (COMMAND cygpath.exe --windows /mingw64 OUTPUT_VARIABLE MINGW64_PATH)
-  string (REGEX REPLACE "[ \t\n\r]+$" "" MINGW64_PATH "${MINGW64_PATH}")
-  string (REGEX REPLACE "[\\]" "\\\\\\\\" MINGW64_PATH "${MINGW64_PATH}")
-  install (FILES "${MINGW64_PATH}\\\\bin\\\\libwinpthread-1.dll" DESTINATION bin)
+  execute_process (COMMAND cygpath.exe --windows $ENV{MINGW_PREFIX} OUTPUT_VARIABLE MINGW_PATH)
+  string (REGEX REPLACE "[ \t\n\r]+$" "" MINGW_PATH "${MINGW_PATH}")
+  string (REGEX REPLACE "[\\]" "\\\\\\\\" MINGW_PATH "${MINGW_PATH}")
+  install (FILES "${MINGW_PATH}\\\\bin\\\\libwinpthread-1.dll" DESTINATION bin)
 endif ()
 
 #########
@@ -316,6 +319,10 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release" AND "${STATIC_BUILD}")
     set (CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\planetblupi.exe")
     set (CPACK_NSIS_URL_INFO_ABOUT "http://www.blupi.org")
     set (CPACK_NSIS_MUI_FINISHPAGE_RUN "planetblupi")
+    if (SIGN_APP)
+      set (CPACK_NSIS_SIGN_UNINSTALLER "sign -a -fd sha1 -t http://time.certum.pl -v")
+    endif ()
+
     include (CPack)
 
     find_program (SIGNTOOL_EXECUTABLE signtool)
