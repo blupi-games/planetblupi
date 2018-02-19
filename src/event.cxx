@@ -2656,7 +2656,7 @@ CEvent::DrawButtons ()
 
     text  = (g_restoreMidi && mid) || !ogg ? gettext ("Midi") : gettext ("Ogg");
     lg    = GetTextWidth (text);
-    pos.x = (399 + 40) - lg / 2;
+    pos.x = (399 + 40) - lg / 2 + LXOFFSET;
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
   }
