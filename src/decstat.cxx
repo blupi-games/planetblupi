@@ -644,8 +644,15 @@ CDecor::StatisticUpdate ()
 Sint32
 CDecor::StatisticGetBlupi ()
 {
+  size_t rm = 0;
+  for (size_t i = 0; i < countof (m_blupi); ++i)
+    rm += (m_blupi[i].bExist && (m_blupi[i].action == ACTION_TCHAO ||
+                                 m_blupi[i].action == ACTION_BURN))
+            ? 1
+            : 0;
+
   return table_statistic[STATBLUPIf].nb + table_statistic[STATBLUPIm].nb +
-         table_statistic[STATBLUPI].nb;
+         table_statistic[STATBLUPI].nb + rm;
 }
 
 // Retourne le nombre de cellules en feu.
