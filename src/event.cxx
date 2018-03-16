@@ -5818,7 +5818,7 @@ CEvent::TreatEventBase (const SDL_Event & event)
       m_pDecor->SetSuper (false);
       if (m_bPrivate)
       {
-        if (m_private < 20 - 1)
+        if (m_private < MAX_PRIVATE_MISSIONS - 1)
         {
           m_private++;
           if (ChangePhase (EV_PHASE_INFO))
