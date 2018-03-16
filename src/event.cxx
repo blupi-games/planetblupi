@@ -3450,9 +3450,10 @@ CEvent::ChangePhase (Uint32 phase)
     m_phaseAfterMovie = EV_PHASE_WIN;
 
     if (
-      !m_bPrivate &&
-      m_pDecor->FileExist (GetPhysicalWorld (), false, world, time, total) &&
-      !m_pDecor->FileExist (GetPhysicalWorld () + 1, false, world, time, total))
+      (m_bPrivate && GetPhysicalWorld () - 200 == MAX_PRIVATE_MISSIONS - 1) ||
+      (m_pDecor->FileExist (GetPhysicalWorld (), false, world, time, total) &&
+       !m_pDecor->FileExist (
+         GetPhysicalWorld () + 1, false, world, time, total)))
       m_phaseAfterMovie = EV_PHASE_LASTWIN;
   }
 
