@@ -1669,8 +1669,6 @@ CEvent::SetFullScreen (bool bFullScreen)
   SDL_SetWindowFullscreen (g_window, bFullScreen ? SDL_WINDOW_FULLSCREEN : 0);
   SDL_SetWindowBordered (g_window, bFullScreen ? SDL_FALSE : SDL_TRUE);
   SDL_SetWindowGrab (g_window, bFullScreen ? SDL_TRUE : SDL_FALSE);
-  SDL_SetWindowPosition (
-    g_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
 
   m_pPixmap->LoadCursors (g_zoom);
   m_pPixmap->ReloadTargetTextures ();
