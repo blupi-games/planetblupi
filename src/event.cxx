@@ -1666,9 +1666,35 @@ CEvent::SetFullScreen (bool bFullScreen)
   SDL_SetWindowSize (g_window, LXIMAGE, LYIMAGE);
 
   g_bFullScreen = bFullScreen;
+
+  int displayIndex = SDL_GetWindowDisplayIndex (g_window);
+
+  if (g_bFullScreen)
+  {
+    int displays = SDL_GetNumVideoDisplays ();
+
+    std::vector<SDL_Rect> displayBounds;
+    for (int i = 0; i < displays; i++)
+    {
+      displayBounds.push_back (SDL_Rect ());
+      SDL_GetDisplayBounds (i, &displayBounds.back ());
+    }
+
+    /* It seems that the fullscreen switching works better when the window
+     * is at the top left corner of the current display.
+     */
+    SDL_SetWindowPosition (
+      g_window, displayBounds[displayIndex].x, displayBounds[displayIndex].y);
+  }
+
   SDL_SetWindowFullscreen (g_window, bFullScreen ? SDL_WINDOW_FULLSCREEN : 0);
   SDL_SetWindowBordered (g_window, bFullScreen ? SDL_FALSE : SDL_TRUE);
   SDL_SetWindowGrab (g_window, bFullScreen ? SDL_TRUE : SDL_FALSE);
+
+  if (!g_bFullScreen)
+    SDL_SetWindowPosition (
+      g_window, SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex),
+      SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex));
 
   m_pPixmap->LoadCursors (g_zoom);
   m_pPixmap->ReloadTargetTextures ();
