@@ -1725,8 +1725,11 @@ CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
   SDL_GetMouseState (&x, &y);
 
   SDL_SetWindowSize (g_window, LXIMAGE * newScale, LYIMAGE * newScale);
+
+  int displayIndex = SDL_GetWindowDisplayIndex (g_window);
   SDL_SetWindowPosition (
-    g_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+    g_window, SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex),
+    SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex));
 
   m_pPixmap->LoadCursors (newScale);
   m_pPixmap->ReloadTargetTextures ();
