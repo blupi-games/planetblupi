@@ -1726,11 +1726,35 @@ CEvent::SetFullScreen (bool bFullScreen)
   SDL_SetWindowSize (g_window, LXIMAGE, LYIMAGE);
 
   g_bFullScreen = bFullScreen;
+
+  int displayIndex = SDL_GetWindowDisplayIndex (g_window);
+
+  if (g_bFullScreen)
+  {
+    int displays = SDL_GetNumVideoDisplays ();
+
+    std::vector<SDL_Rect> displayBounds;
+    for (int i = 0; i < displays; i++)
+    {
+      displayBounds.push_back (SDL_Rect ());
+      SDL_GetDisplayBounds (i, &displayBounds.back ());
+    }
+
+    /* It seems that the fullscreen switching works better when the window
+     * is at the top left corner of the current display.
+     */
+    SDL_SetWindowPosition (
+      g_window, displayBounds[displayIndex].x, displayBounds[displayIndex].y);
+  }
+
   SDL_SetWindowFullscreen (g_window, bFullScreen ? SDL_WINDOW_FULLSCREEN : 0);
   SDL_SetWindowBordered (g_window, bFullScreen ? SDL_FALSE : SDL_TRUE);
   SDL_SetWindowGrab (g_window, bFullScreen ? SDL_TRUE : SDL_FALSE);
-  SDL_SetWindowPosition (
-    g_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+
+  if (!g_bFullScreen)
+    SDL_SetWindowPosition (
+      g_window, SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex),
+      SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex));
 
   m_pPixmap->LoadCursors (g_zoom);
   m_pPixmap->ReloadTargetTextures ();
@@ -1785,8 +1809,11 @@ CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
   SDL_GetMouseState (&x, &y);
 
   SDL_SetWindowSize (g_window, LXIMAGE * newScale, LYIMAGE * newScale);
+
+  int displayIndex = SDL_GetWindowDisplayIndex (g_window);
   SDL_SetWindowPosition (
-    g_window, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED);
+    g_window, SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex),
+    SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex));
 
   m_pPixmap->LoadCursors (newScale);
   m_pPixmap->ReloadTargetTextures ();
@@ -3525,9 +3552,11 @@ CEvent::ChangePhase (Uint32 phase)
     m_phaseAfterMovie = EV_PHASE_WIN;
 
     if (
-      !m_bPrivate &&
-      m_pDecor->FileExist (GetPhysicalWorld (), false, world, time, total) &&
-      !m_pDecor->FileExist (GetPhysicalWorld () + 1, false, world, time, total))
+      (m_bPrivate && GetPhysicalWorld () - 200 == MAX_PRIVATE_MISSIONS - 1) ||
+      (!m_bPrivate &&
+       m_pDecor->FileExist (GetPhysicalWorld (), false, world, time, total) &&
+       !m_pDecor->FileExist (
+         GetPhysicalWorld () + 1, false, world, time, total)))
       m_phaseAfterMovie = EV_PHASE_LASTWIN;
   }
 
@@ -5893,7 +5922,7 @@ CEvent::TreatEventBase (const SDL_Event & event)
       m_pDecor->SetSuper (false);
       if (m_bPrivate)
       {
-        if (m_private < 20 - 1)
+        if (m_private < MAX_PRIVATE_MISSIONS - 1)
         {
           m_private++;
           if (ChangePhase (EV_PHASE_INFO))

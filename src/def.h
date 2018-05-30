@@ -92,6 +92,8 @@
 #define CHBACKBUILD     16
 #define CHBACKBOOK      17
 
+#define MAX_PRIVATE_MISSIONS 20
+
 #define FOGHIDE         4
 // clang-format on
 

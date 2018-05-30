@@ -723,7 +723,7 @@ DoInit (int argc, char * argv[], bool & exit)
 
   // Create a window.
   g_window = SDL_CreateWindow (
-    gettext ("Planet Blupi"), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+    gettext ("Planet Blupi"), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
     LXIMAGE, LYIMAGE, 0);
 
   if (!g_window)

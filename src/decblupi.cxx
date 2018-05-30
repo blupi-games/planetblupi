@@ -3750,7 +3750,7 @@ CDecor::GetDefButton (Point cel)
 
   if (channel == CHOBJECT)
   {
-    if (icon >= 7 && icon <= 11)
+    if (icon >= 6 && icon <= 11)
       button = BUTTON_ABAT;
     if (icon >= 37 && icon <= 43)
       button = BUTTON_ROC;
