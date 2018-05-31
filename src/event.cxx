@@ -1691,7 +1691,9 @@ CEvent::SetFullScreen (bool bFullScreen)
   }
 
   SDL_SetWindowFullscreen (g_window, bFullScreen ? SDL_WINDOW_FULLSCREEN : 0);
+#ifndef _WIN32
   SDL_SetWindowBordered (g_window, bFullScreen ? SDL_FALSE : SDL_TRUE);
+#endif /* _WIN32 */
   SDL_SetWindowGrab (g_window, bFullScreen ? SDL_TRUE : SDL_FALSE);
 
   if (!g_bFullScreen)
