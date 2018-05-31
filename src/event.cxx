@@ -1667,7 +1667,10 @@ CEvent::SetFullScreen (bool bFullScreen)
 
   g_bFullScreen = bFullScreen;
 
-  int displayIndex = SDL_GetWindowDisplayIndex (g_window);
+  int displayIndex = 0;
+#ifndef _WIN32
+  displayIndex = SDL_GetWindowDisplayIndex (g_window);
+#endif /* _WIN32 */
 
   if (g_bFullScreen)
   {
