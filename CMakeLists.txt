@@ -23,9 +23,6 @@ set (PB_ICON_REF     "blupi")
 set (PB_DESCRIPTION "Planet Blupi - A delirious spell-binding game")
 
 option (PB_HTTP_VERSION_CHECK "Run a version check over HTTP (with CURL)" OFF)
-
-set(CMAKE_CXX_FLAGS "-Wno-error=c++11-narrowing ${CMAKE_CXX_FLAGS}") # TODO: FIXME in fog.cxx
-
 option (ANDROID "Enable when building for Android" OFF)
 
 configure_file (
