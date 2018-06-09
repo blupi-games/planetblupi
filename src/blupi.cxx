@@ -122,7 +122,7 @@ ReadConfig ()
   Sint64 size   = SDL_RWsize (file);
   char * buffer = (char *) calloc (sizeof (char), size + 1);
   SDL_RWread (file, buffer, size, 1);
-  nlohmann::json j = buffer;
+  nlohmann::json j = nlohmann::json::parse (buffer);
   SDL_RWclose (file);
   free (buffer);
 
