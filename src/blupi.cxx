@@ -115,12 +115,16 @@ ReadConfig ()
 {
   const auto config = GetBaseDir () + "data/config.json";
 
-  std::ifstream file (config, std::ifstream::in);
+  SDL_RWops * file = SDL_RWFromFile (config.c_str (), "rb");
   if (!file)
     return false;
 
-  nlohmann::json j;
-  file >> j;
+  Sint64 size   = SDL_RWsize (file);
+  char * buffer = (char *) calloc (sizeof (char), size + 1);
+  SDL_RWread (file, buffer, size, 1);
+  nlohmann::json j = buffer;
+  SDL_RWclose (file);
+  free (buffer);
 
   if (
     !(g_settingsOverload & SETTING_SPEEDRATE) &&
