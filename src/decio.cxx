@@ -109,7 +109,7 @@ bool
 CDecor::Write (Sint32 rank, bool bUser, Sint32 world, Sint32 time, Sint32 total)
 {
   std::string filename;
-  FILE *      file    = nullptr;
+  SDL_RWops * file    = nullptr;
   DescFile *  pBuffer = nullptr;
   Sint32      i;
   size_t      nb;
@@ -125,7 +125,7 @@ CDecor::Write (Sint32 rank, bool bUser, Sint32 world, Sint32 time, Sint32 total)
     AddUserPath (filename);
   }
 
-  file = fopen (filename.c_str (), "wb");
+  file = SDL_RWFromFile (filename.c_str (), "wb");
   if (file == nullptr)
     goto error;
 
@@ -157,35 +157,35 @@ CDecor::Write (Sint32 rank, bool bUser, Sint32 world, Sint32 time, Sint32 total)
   for (i = 0; i < 4; i++)
     pBuffer->memoPos[i] = m_memoPos[i];
 
-  nb = fwrite (pBuffer, sizeof (DescFile), 1, file);
+  nb = SDL_RWwrite (file, pBuffer, sizeof (DescFile), 1);
   if (nb < 1)
     goto error;
 
-  nb = fwrite (m_decor, sizeof (Cellule), MAXCELX * MAXCELY / 4, file);
+  nb = SDL_RWwrite (file, m_decor, sizeof (Cellule), MAXCELX * MAXCELY / 4);
   if (nb < MAXCELX * MAXCELY / 4)
     goto error;
 
-  nb = fwrite (m_blupi, sizeof (Blupi), MAXBLUPI, file);
+  nb = SDL_RWwrite (file, m_blupi, sizeof (Blupi), MAXBLUPI);
   if (nb < MAXBLUPI)
     goto error;
 
-  nb = fwrite (m_move, sizeof (Move), MAXMOVE, file);
+  nb = SDL_RWwrite (file, m_move, sizeof (Move), MAXMOVE);
   if (nb < MAXMOVE)
     goto error;
 
-  nb = fwrite (m_lastDrapeau, sizeof (Point), MAXLASTDRAPEAU, file);
+  nb = SDL_RWwrite (file, m_lastDrapeau, sizeof (Point), MAXLASTDRAPEAU);
   if (nb < MAXLASTDRAPEAU)
     goto error;
 
   free (pBuffer);
-  fclose (file);
+  SDL_RWclose (file);
   return true;
 
 error:
   if (pBuffer != nullptr)
     free (pBuffer);
   if (file != nullptr)
-    fclose (file);
+    SDL_RWclose (file);
   return false;
 }
 
@@ -196,7 +196,7 @@ CDecor::Read (
   Sint32 rank, bool bUser, Sint32 & world, Sint32 & time, Sint32 & total)
 {
   std::string filename;
-  FILE *      file    = nullptr;
+  SDL_RWops * file    = nullptr;
   DescFile *  pBuffer = nullptr;
   Sint32      majRev, minRev;
   Sint32      i, x, y;
@@ -218,7 +218,7 @@ CDecor::Read (
   else
     filename = string_format (GetBaseDir () + "data/world%.3d.blp", rank);
 
-  file = fopen (filename.c_str (), "rb");
+  file = SDL_RWFromFile (filename.c_str (), "rb");
   if (file == nullptr)
     goto error;
 
@@ -226,7 +226,7 @@ CDecor::Read (
   if (pBuffer == nullptr)
     goto error;
 
-  nb = fread (pBuffer, sizeof (DescFile), 1, file);
+  nb = SDL_RWread (file, pBuffer, sizeof (DescFile), 1);
   if (nb < 1)
     goto error;
 
@@ -276,7 +276,7 @@ CDecor::Read (
   for (i = 0; i < 4; i++)
     m_memoPos[i] = pBuffer->memoPos[i];
 
-  nb = fread (m_decor, sizeof (Cellule), MAXCELX * MAXCELY / 4, file);
+  nb = SDL_RWread (file, m_decor, sizeof (Cellule), MAXCELX * MAXCELY / 4);
   if (nb < MAXCELX * MAXCELY / 4)
     goto error;
   if (majRev == 1 && minRev < 5)
@@ -296,7 +296,7 @@ CDecor::Read (
     memset (m_blupi, 0, sizeof (Blupi) * MAXBLUPI);
     for (i = 0; i < MAXBLUPI; i++)
     {
-      nb = fread (&oldBlupi, sizeof (OldBlupi), 1, file);
+      nb = SDL_RWread (file, &oldBlupi, sizeof (OldBlupi), 1);
       if (nb != 1)
         goto error;
       memcpy (m_blupi + i, &oldBlupi, sizeof (OldBlupi));
@@ -305,30 +305,30 @@ CDecor::Read (
   }
   else
   {
-    nb = fread (m_blupi, sizeof (Blupi), MAXBLUPI, file);
+    nb = SDL_RWread (file, m_blupi, sizeof (Blupi), MAXBLUPI);
     if (nb < MAXBLUPI)
       goto error;
   }
 
-  nb = fread (m_move, sizeof (Move), MAXMOVE, file);
+  nb = SDL_RWread (file, m_move, sizeof (Move), MAXMOVE);
   if (nb < MAXMOVE)
     goto error;
 
-  nb = fread (m_lastDrapeau, sizeof (Point), MAXLASTDRAPEAU, file);
+  nb = SDL_RWread (file, m_lastDrapeau, sizeof (Point), MAXLASTDRAPEAU);
   if (nb < MAXLASTDRAPEAU)
     InitDrapeau ();
 
   BlupiDeselect (); // désélectionne tous les blupi
 
   free (pBuffer);
-  fclose (file);
+  SDL_RWclose (file);
   return true;
 
 error:
   if (pBuffer != nullptr)
     free (pBuffer);
   if (file != nullptr)
-    fclose (file);
+    SDL_RWclose (file);
 
   Flush (); // initialise un décor neutre
   return false;
@@ -341,7 +341,7 @@ CDecor::FileExist (
   Sint32 rank, bool bUser, Sint32 & world, Sint32 & time, Sint32 & total)
 {
   std::string filename;
-  FILE *      file    = nullptr;
+  SDL_RWops * file    = nullptr;
   DescFile *  pBuffer = nullptr;
   Sint32      majRev, minRev;
   size_t      nb;
@@ -359,7 +359,7 @@ CDecor::FileExist (
   else
     filename = string_format (GetBaseDir () + "data/world%.3d.blp", rank);
 
-  file = fopen (filename.c_str (), "rb");
+  file = SDL_RWFromFile (filename.c_str (), "rb");
   if (file == nullptr)
     goto error;
 
@@ -367,7 +367,7 @@ CDecor::FileExist (
   if (pBuffer == nullptr)
     goto error;
 
-  nb = fread (pBuffer, sizeof (DescFile), 1, file);
+  nb = SDL_RWread (file, pBuffer, sizeof (DescFile), 1);
   if (nb < 1)
     goto error;
 
@@ -401,14 +401,14 @@ CDecor::FileExist (
   total = pBuffer->totalTime;
 
   free (pBuffer);
-  fclose (file);
+  SDL_RWclose (file);
   return true;
 
 error:
   if (pBuffer != nullptr)
     free (pBuffer);
   if (file != nullptr)
-    fclose (file);
+    SDL_RWclose (file);
   return false;
 }
 

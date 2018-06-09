@@ -164,7 +164,7 @@ FileExists (
   const std::string & filename, std::string & absolute, enum Location location)
 {
   absolute = filename;
-  FILE * file;
+  SDL_RWops * file;
 
   switch (location)
   {
@@ -181,10 +181,10 @@ FileExists (
     break;
   }
 
-  file = fopen (absolute.c_str (), "rb");
+  file = SDL_RWFromFile (absolute.c_str (), "rb");
   if (file == nullptr)
     return false;
 
-  fclose (file);
+  SDL_RWclose (file);
   return true;
 }

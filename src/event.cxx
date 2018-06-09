@@ -4651,13 +4651,13 @@ CEvent::PrivateLibelle ()
 bool
 CEvent::ReadLibelle (Sint32 world, bool bSchool, bool bHelp)
 {
-  FILE * file    = nullptr;
-  char * pBuffer = nullptr;
-  char * pText;
-  char * pDest;
-  char   indic;
-  Sint32 h1, h2;
-  size_t nb;
+  SDL_RWops * file    = nullptr;
+  char *      pBuffer = nullptr;
+  char *      pText;
+  char *      pDest;
+  char        indic;
+  Sint32      h1, h2;
+  size_t      nb;
 
   if (bSchool)
     indic = '$';
@@ -4674,17 +4674,17 @@ CEvent::ReadLibelle (Sint32 world, bool bSchool, bool bHelp)
 
   memset (pBuffer, 0, sizeof (char) * 50000);
 
-  file = fopen (stories.c_str (), "rb");
+  file = SDL_RWFromFile (stories.c_str (), "rb");
   if (file == nullptr)
   {
     /* Try with the fallback locale */
     stories = GetBaseDir () + "data/en/stories.blp";
-    file    = fopen (stories.c_str (), "rb");
+    file    = SDL_RWFromFile (stories.c_str (), "rb");
     if (!file)
       goto error;
   }
 
-  nb          = fread (pBuffer, sizeof (char), 50000 - 1, file);
+  nb          = SDL_RWread (file, pBuffer, sizeof (char), 50000 - 1);
   pBuffer[nb] = 0;
 
   pText = pBuffer;
@@ -4713,14 +4713,14 @@ CEvent::ReadLibelle (Sint32 world, bool bSchool, bool bHelp)
   m_pDecor->SetInfoHeight (POSDRAWY + h1 + 10);
 
   free (pBuffer);
-  fclose (file);
+  SDL_RWclose (file);
   return true;
 
 error:
   if (pBuffer != nullptr)
     free (pBuffer);
   if (file != nullptr)
-    fclose (file);
+    SDL_RWclose (file);
   return false;
 }
 
@@ -4730,14 +4730,14 @@ bool
 CEvent::WriteInfo ()
 {
   std::string filename;
-  FILE *      file = nullptr;
+  SDL_RWops * file = nullptr;
   DescInfo    info = {0};
   size_t      nb;
 
   filename = "data/info.blp";
   AddUserPath (filename);
 
-  file = fopen (filename.c_str (), "wb");
+  file = SDL_RWFromFile (filename.c_str (), "wb");
   if (file == nullptr)
     goto error;
 
@@ -4765,16 +4765,16 @@ CEvent::WriteInfo ()
   info.fullScreen = g_bFullScreen;
   info.zoom       = g_zoom;
 
-  nb = fwrite (&info, sizeof (info), 1, file);
+  nb = SDL_RWwrite (file, &info, sizeof (info), 1);
   if (nb < 1)
     goto error;
 
-  fclose (file);
+  SDL_RWclose (file);
   return true;
 
 error:
   if (file != nullptr)
-    fclose (file);
+    SDL_RWclose (file);
   return false;
 }
 
@@ -4784,20 +4784,20 @@ bool
 CEvent::ReadInfo ()
 {
   std::string filename;
-  FILE *      file = nullptr;
+  SDL_RWops * file = nullptr;
   DescInfo    info;
   size_t      nb;
 
   filename = "data/info.blp";
   AddUserPath (filename);
 
-  file = fopen (filename.c_str (), "rb");
+  file = SDL_RWFromFile (filename.c_str (), "rb");
   if (file == nullptr)
     goto error;
 
   SDL_memset (&info, 0, sizeof (info));
 
-  nb = fread (&info, sizeof (DescInfo), 1, file);
+  nb = SDL_RWread (file, &info, sizeof (DescInfo), 1);
   if (nb < 1)
     goto error;
 
@@ -4832,12 +4832,12 @@ CEvent::ReadInfo ()
       g_zoom = info.zoom;
   }
 
-  fclose (file);
+  SDL_RWclose (file);
   return true;
 
 error:
   if (file != nullptr)
-    fclose (file);
+    SDL_RWclose (file);
   return false;
 }
 
@@ -4895,8 +4895,8 @@ CEvent::DemoRecStart ()
 void
 CEvent::DemoRecStop ()
 {
-  FILE *     file = nullptr;
-  DemoHeader header;
+  SDL_RWops * file = nullptr;
+  DemoHeader  header;
 
   if (m_bDemoPlay || !m_bDemoRec)
     return;
@@ -4907,7 +4907,7 @@ CEvent::DemoRecStop ()
   AddUserPath (demoPath);
 
   unlink (demoPath.c_str ());
-  file = fopen (demoPath.c_str (), "wb");
+  file = SDL_RWFromFile (demoPath.c_str (), "wb");
   if (file)
   {
     memset (&header, 0, sizeof (DemoHeader));
@@ -4918,10 +4918,10 @@ CEvent::DemoRecStop ()
     header.world    = GetPhysicalWorld ();
     header.skill    = m_pDecor->GetSkill ();
 
-    fwrite (&header, sizeof (DemoHeader), 1, file);
+    SDL_RWwrite (file, &header, sizeof (DemoHeader), 1);
     for (const auto buffer : m_pDemoSDLBuffer)
-      fwrite (&buffer, sizeof (DemoSDLEvent), 1, file);
-    fclose (file);
+      SDL_RWwrite (file, &buffer, sizeof (DemoSDLEvent), 1);
+    SDL_RWclose (file);
   }
 
   m_pDemoSDLBuffer.clear ();
@@ -4937,7 +4937,7 @@ bool
 CEvent::DemoPlayStart (const std::string * demoFile)
 {
   std::string filename;
-  FILE *      file = nullptr;
+  SDL_RWops * file = nullptr;
   DemoHeader  header;
   Sint32      world, time, total;
   size_t      nb;
@@ -4946,17 +4946,17 @@ CEvent::DemoPlayStart (const std::string * demoFile)
     demoFile
       ? *demoFile
       : string_format (GetBaseDir () + "data/demo%.3d.blp", m_demoNumber);
-  file = fopen (filename.c_str (), "rb");
+  file = SDL_RWFromFile (filename.c_str (), "rb");
   if (file == nullptr)
   {
     DemoPlayStop ();
     return false;
   }
 
-  nb = fread (&header, sizeof (DemoHeader), 1, file);
+  nb = SDL_RWread (file, &header, sizeof (DemoHeader), 1);
   if (nb < 1)
   {
-    fclose (file);
+    SDL_RWclose (file);
     DemoPlayStop ();
     return false;
   }
@@ -4966,7 +4966,7 @@ CEvent::DemoPlayStart (const std::string * demoFile)
     m_pDemoBuffer = (DemoEvent *) malloc (MAXDEMO * sizeof (DemoEvent));
     if (m_pDemoBuffer == nullptr)
     {
-      fclose (file);
+      SDL_RWclose (file);
       DemoPlayStop ();
       return false;
     }
@@ -4978,14 +4978,14 @@ CEvent::DemoPlayStart (const std::string * demoFile)
   m_pDecor->SetSkill (header.skill);
 
   if (header.majRev == 1)
-    m_demoEnd = fread (m_pDemoBuffer, sizeof (DemoEvent), MAXDEMO, file);
+    m_demoEnd = SDL_RWread (file, m_pDemoBuffer, sizeof (DemoEvent), MAXDEMO);
   else if (header.majRev == 2)
   {
     DemoSDLEvent demoEvent;
 
     for (;;)
     {
-      auto res = fread (&demoEvent, sizeof (DemoSDLEvent), 1, file);
+      auto res = SDL_RWread (file, &demoEvent, sizeof (DemoSDLEvent), 1);
       if (res != 1)
         break;
 
@@ -4994,7 +4994,7 @@ CEvent::DemoPlayStart (const std::string * demoFile)
 
     m_demoEnd = m_pDemoSDLBuffer.size ();
   }
-  fclose (file);
+  SDL_RWclose (file);
 
   m_demoTime  = 0;
   m_demoIndex = 0;
