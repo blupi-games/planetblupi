@@ -109,8 +109,9 @@ std::string
 GetShareDir ()
 {
   static std::string basePath;
+  static bool inited = false;
 
-  if (!basePath.size ())
+  if (!inited)
   {
     auto sdlBasePath = SDL_GetBasePath ();
     if (!sdlBasePath)
@@ -123,6 +124,7 @@ GetShareDir ()
     std::replace (basePath.begin (), basePath.end (), '\\', '/');
     basePath = basePath.substr (0, basePath.find_last_of ("//") + 1);
     SDL_free (sdlBasePath);
+    inited = true;
   }
 
   return basePath + "share/";
