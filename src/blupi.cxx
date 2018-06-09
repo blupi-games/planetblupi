@@ -179,6 +179,9 @@ ReadConfig ()
       SDL_SetHint (SDL_HINT_RENDER_DRIVER, input.c_str ());
   }
 
+  /* HACK: all backgrounds are black with opengles2 ?!? */
+  SDL_SetHint (SDL_HINT_RENDER_DRIVER, "opengles");
+
   if (
     !(g_settingsOverload & SETTING_MIDI) && j.find ("restoremidi") != j.end ())
     g_restoreMidi = j["restoremidi"].get<bool> ();
