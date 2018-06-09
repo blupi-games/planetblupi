@@ -113,9 +113,8 @@ GetShareDir ()
   if (!basePath.size ())
   {
     auto sdlBasePath = SDL_GetBasePath ();
-    auto platform    = SDL_GetPlatform ();
-    if (platform && !strcmp (platform, "Android"))
-      sdlBasePath = SDL_strdup (SDL_AndroidGetInternalStoragePath ());
+    if (!sdlBasePath)
+      sdlBasePath = SDL_strdup ("");
 
     sdlBasePath[strlen (sdlBasePath) - 1] = '\0';
 
