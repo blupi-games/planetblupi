@@ -257,9 +257,7 @@ endforeach (file)
 ##############
 
 install (TARGETS planetblupi
-  # TODO: merge conflict
-  #RUNTIME DESTINATION bin
-  #ARCHIVE DESTINATION lib
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
