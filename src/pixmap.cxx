@@ -314,8 +314,9 @@ CPixmap::Cache (
       return false;
     }
 
-    SDL_SetTextureBlendMode (
-      m_SDLTextureInfo[channel].texture, SDL_BLENDMODE_BLEND);
+    if (channel != CHBACK)
+      SDL_SetTextureBlendMode (
+        m_SDLTextureInfo[channel].texture, SDL_BLENDMODE_BLEND);
   }
 
   SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);

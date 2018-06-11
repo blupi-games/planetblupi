@@ -385,6 +385,11 @@ HandleEvent (const SDL_Event & event)
     }
     break;
 
+  case SDL_RENDER_DEVICE_RESET:
+  case SDL_RENDER_TARGETS_RESET:
+    g_pPixmap->ReloadTargetTextures ();
+    break;
+
   case SDL_USEREVENT:
   {
     switch (event.user.code)

@@ -1727,7 +1727,10 @@ CEvent::SetFullScreen (bool bFullScreen)
 
   g_bFullScreen = bFullScreen;
 
-  int displayIndex = SDL_GetWindowDisplayIndex (g_window);
+  int displayIndex = 0;
+#ifndef _WIN32
+  displayIndex = SDL_GetWindowDisplayIndex (g_window);
+#endif /* _WIN32 */
 
   if (g_bFullScreen)
   {
@@ -1757,7 +1760,6 @@ CEvent::SetFullScreen (bool bFullScreen)
       SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex));
 
   m_pPixmap->LoadCursors (g_zoom);
-  m_pPixmap->ReloadTargetTextures ();
 
   /* Force this update before otherwise the coordinates retrieved with
    * the Warp SDL function are corresponding to the previous size.
@@ -1816,7 +1818,6 @@ CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
     SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex));
 
   m_pPixmap->LoadCursors (newScale);
-  m_pPixmap->ReloadTargetTextures ();
 
   /* Force this update before otherwise the coordinates retrieved with
    * the Warp SDL function are corresponding to the previous size.
