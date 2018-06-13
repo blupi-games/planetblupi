@@ -84,8 +84,13 @@ public:
 
   void SetMouseSprite (MouseSprites sprite);
   void MouseShow (bool bShow);
-  void LoadCursors (Uint8 scale);
+  void LoadCursors ();
   void ChangeSprite (MouseSprites sprite);
+
+public:
+  double GetDisplayScale ();
+  void  FromDisplayToGame (Sint32 & x, Sint32 & y);
+  void  FromGameToDisplay (Sint32 & x, Sint32 & y);
 
 protected:
   Sint32 BltFast (Sint32 chDst, size_t channel, Point dst, Rect rcRect);

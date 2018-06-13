@@ -25,7 +25,9 @@
 // clang-format off
 #define _INTRO          true    // true for init screen
 
-#define SCRFACTOR       4 / 3
+#define SCRNUM          4
+#define SCRDEN          3
+#define SCRFACTOR       SCRNUM / SCRDEN
 #define LXIMAGE         (480 * SCRFACTOR + (480 * SCRFACTOR) % 2) // window size
 #define LYIMAGE         480
 

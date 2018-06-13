@@ -796,7 +796,7 @@ CPixmap::GetCursorRect (MouseSprites sprite)
 }
 
 void
-CPixmap::LoadCursors (Uint8 scale)
+CPixmap::LoadCursors ()
 {
   Uint32 rmask, gmask, bmask, amask;
 
@@ -813,6 +813,8 @@ on the endianness (byte order) of the machine */
   bmask = 0x00ff0000;
   amask = 0xff000000;
 #endif
+
+  auto scale = this->GetDisplayScale ();
 
   for (int i = SPRITE_BEGIN; i <= SPRITE_END; ++i)
   {
@@ -843,4 +845,59 @@ CPixmap::ChangeSprite (MouseSprites sprite)
 
   SDL_SetCursor (m_lpSDLCursors[sprite - 1]);
   m_lpCurrentCursor = m_lpSDLCursors[sprite - 1];
+}
+
+double
+CPixmap::GetDisplayScale ()
+{
+  // SDL_DisplayMode displayMode;
+  // SDL_GetWindowDisplayMode (g_window, &displayMode);
+  Sint32 w, h;
+  SDL_GetWindowSize (g_window, &w, &h);
+  return static_cast<double> (h / LYIMAGE);
+}
+
+void
+CPixmap::FromDisplayToGame (Sint32 & x, Sint32 & y)
+{
+  if (this->event->IsDemoPlaying ())
+    return;
+
+  SDL_DisplayMode displayMode;
+  SDL_GetWindowDisplayMode (g_window, &displayMode);
+
+  if (
+    static_cast<double> (displayMode.w) / displayMode.h ==
+    static_cast<double> (SCRNUM) / SCRDEN)
+    return;
+
+  double w = displayMode.w, h = displayMode.h;
+  double ratio = w * SCRDEN / SCRNUM;
+
+  x = (x - (w - ratio) / 2) / (ratio / LXIMAGE);
+  y = y / (h / LYIMAGE);
+}
+
+void
+CPixmap::FromGameToDisplay (Sint32 & x, Sint32 & y)
+{
+  Sint32 w, h;
+  SDL_GetWindowSize (g_window, &w, &h);
+
+  double factor = 1;
+
+  if (!g_bFullScreen)
+    factor = g_zoom;
+
+  x *= factor;
+  y *= factor;
+
+  if (static_cast<double> (w) / h == static_cast<double> (SCRNUM) / SCRDEN)
+    return;
+
+  double _w = w, _h = h;
+  double ratio = w * SCRDEN / SCRNUM;
+
+  x = x * ratio / LXIMAGE + (_w - ratio) / 2;
+  y = y * _h / LYIMAGE;
 }

@@ -1663,14 +1663,6 @@ CEvent::GetMousePos ()
 void
 CEvent::SetFullScreen (bool bFullScreen)
 {
-  int x, y;
-  SDL_GetMouseState (&x, &y);
-  x /= g_zoom;
-  y /= g_zoom;
-
-  g_zoom = 1;
-  SDL_SetWindowSize (g_window, LXIMAGE, LYIMAGE);
-
   g_bFullScreen = bFullScreen;
 
   int displayIndex = 0;
@@ -1678,7 +1670,7 @@ CEvent::SetFullScreen (bool bFullScreen)
   displayIndex = SDL_GetWindowDisplayIndex (g_window);
 #endif /* _WIN32 */
 
-  if (g_bFullScreen)
+  if (g_bFullScreen && g_zoom == 2)
   {
     int displays = SDL_GetNumVideoDisplays ();
 
@@ -1696,7 +1688,10 @@ CEvent::SetFullScreen (bool bFullScreen)
       g_window, displayBounds[displayIndex].x, displayBounds[displayIndex].y);
   }
 
-  SDL_SetWindowFullscreen (g_window, bFullScreen ? SDL_WINDOW_FULLSCREEN : 0);
+  SDL_SetWindowFullscreen (
+    g_window, bFullScreen ? (g_zoom == 1 ? SDL_WINDOW_FULLSCREEN_DESKTOP
+                                         : SDL_WINDOW_FULLSCREEN)
+                          : 0);
   SDL_SetWindowBordered (g_window, bFullScreen ? SDL_FALSE : SDL_TRUE);
   SDL_SetWindowGrab (g_window, bFullScreen ? SDL_TRUE : SDL_FALSE);
 
@@ -1705,17 +1700,14 @@ CEvent::SetFullScreen (bool bFullScreen)
       g_window, SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex),
       SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex));
 
-  m_pPixmap->LoadCursors (g_zoom);
+  m_pPixmap->LoadCursors ();
 
-  /* Force this update before otherwise the coordinates retrieved with
-   * the Warp SDL function are corresponding to the previous size.
-   */
-  CEvent::PushUserEvent (EV_UPDATE);
-
-  auto coord = new SDL_Point; // Released by the event handler.
-  coord->x   = x;
-  coord->y   = y;
-  CEvent::PushUserEvent (EV_WARPMOUSE, coord);
+  if (g_bFullScreen)
+  {
+    Sint32 w, h;
+    SDL_GetWindowSize (g_window, &w, &h);
+    SDL_WarpMouseGlobal (w / 2, h / 2);
+  }
 }
 
 /**
@@ -1756,6 +1748,9 @@ CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
   int x, y;
   SDL_GetMouseState (&x, &y);
 
+  if (g_bFullScreen && newScale == 2)
+    newScale = 1;
+
   SDL_SetWindowSize (g_window, LXIMAGE * newScale, LYIMAGE * newScale);
 
   int displayIndex = SDL_GetWindowDisplayIndex (g_window);
@@ -1763,7 +1758,10 @@ CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
     g_window, SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex),
     SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex));
 
-  m_pPixmap->LoadCursors (newScale);
+  m_pPixmap->LoadCursors ();
+
+  if (prevScale == newScale)
+    return;
 
   /* Force this update before otherwise the coordinates retrieved with
    * the Warp SDL function are corresponding to the previous size.
@@ -2121,8 +2119,8 @@ CEvent::DrawButtons ()
     SetEnable (EV_BUTTON3, !g_bFullScreen);
     SetEnable (EV_BUTTON4, g_bFullScreen);
 
-    SetEnable (EV_BUTTON5, !g_bFullScreen && g_zoom > 1);
-    SetEnable (EV_BUTTON6, !g_bFullScreen && g_zoom < 2);
+    SetEnable (EV_BUTTON5, g_zoom > 1);
+    SetEnable (EV_BUTTON6, g_zoom < 2);
 
     SetEnable (EV_BUTTON7, g_restoreMidi && mid && ogg);
     SetEnable (EV_BUTTON8, !g_restoreMidi && mid && ogg);
@@ -4164,10 +4162,16 @@ CEvent::ChangeButtons (Sint32 message)
       SetLanguage ();
       break;
     case EV_BUTTON3:
+    {
+      auto zoom = g_zoom;
+      g_zoom    = 1;
       SetFullScreen (true);
+      SetWindowSize (zoom, 1);
       break;
+    }
     case EV_BUTTON4:
       SetFullScreen (false);
+      SetWindowSize (g_zoom, g_zoom);
       break;
     case EV_BUTTON5:
     {
@@ -4175,6 +4179,7 @@ CEvent::ChangeButtons (Sint32 message)
       if (g_zoom > 1)
         --g_zoom;
       SetWindowSize (scale, g_zoom);
+      SetFullScreen (g_bFullScreen);
       break;
     }
     case EV_BUTTON6:
@@ -4183,6 +4188,7 @@ CEvent::ChangeButtons (Sint32 message)
       if (g_zoom < 2)
         ++g_zoom;
       SetWindowSize (scale, g_zoom);
+      SetFullScreen (g_bFullScreen);
       break;
     }
     case EV_BUTTON7:
@@ -5213,7 +5219,8 @@ CEvent::DemoStep ()
           pos.y = event.motion.y;
         }
 
-        SDL_WarpMouseInWindow (g_window, pos.x * g_zoom, pos.y * g_zoom);
+        this->m_pPixmap->FromGameToDisplay (pos.x, pos.y);
+        SDL_WarpMouseInWindow (g_window, pos.x, pos.y);
       }
 
       if (m_pDemoBuffer)
@@ -5265,6 +5272,7 @@ CEvent::DemoRecEvent (const SDL_Event & event)
     demoEvent.button = event.button.button;
     demoEvent.x      = event.button.x;
     demoEvent.y      = event.button.y;
+    this->m_pPixmap->FromDisplayToGame (demoEvent.x, demoEvent.y);
     break;
 
   case SDL_MOUSEMOTION:
@@ -5272,6 +5280,7 @@ CEvent::DemoRecEvent (const SDL_Event & event)
     demoEvent.time = m_demoTime;
     demoEvent.x    = event.motion.x;
     demoEvent.y    = event.motion.y;
+    this->m_pPixmap->FromDisplayToGame (demoEvent.x, demoEvent.y);
     break;
 
   default:
