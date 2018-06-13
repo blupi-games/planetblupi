@@ -92,6 +92,7 @@ public:
   CEvent ();
   ~CEvent ();
 
+  bool  IsDemoPlaying ();
   Point GetMousePos ();
   void
               Create (CPixmap * pPixmap, CDecor * pDecor, CSound * pSound, CMovie * pMovie);

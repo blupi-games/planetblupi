@@ -1637,6 +1637,12 @@ CEvent::~CEvent ()
   WriteInfo (); // lit le fichier "info.blp"
 }
 
+bool
+CEvent::IsDemoPlaying ()
+{
+  return this->m_bDemoPlay;
+}
+
 // Retourne la position de la souris.
 
 Point
