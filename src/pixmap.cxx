@@ -57,6 +57,7 @@ CPixmap::CPixmap (CEvent * event)
     m_lpSDLCursors[i] = nullptr;
 
   m_lpCurrentCursor = nullptr;
+  this->mainTexture = nullptr;
   this->event       = event;
 }
 
@@ -85,6 +86,9 @@ CPixmap::~CPixmap ()
 
   if (m_lpSDLBlupi)
     SDL_FreeSurface (m_lpSDLBlupi);
+
+  if (this->mainTexture)
+    SDL_DestroyTexture (this->mainTexture);
 }
 
 // Crï¿½e l'objet DirectDraw principal.
@@ -143,8 +147,24 @@ CPixmap::BltFast (Sint32 chDst, size_t channel, Point dst, Rect rcRect)
     dstRect.x = dst.x;
     dstRect.y = dst.y;
 
+    if (!this->mainTexture && g_bFullScreen && g_zoom == 1)
+    {
+      SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "best");
+      this->mainTexture = SDL_CreateTexture (
+        g_renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, LXIMAGE,
+        LYIMAGE);
+      SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
+    }
+    else if (this->mainTexture && !(g_bFullScreen && g_zoom == 1))
+    {
+      SDL_DestroyTexture (this->mainTexture);
+      this->mainTexture = nullptr;
+    }
+
+    SDL_SetRenderTarget (g_renderer, this->mainTexture);
     res = SDL_RenderCopy (
       g_renderer, m_SDLTextureInfo[channel].texture, &srcRect, &dstRect);
+    SDL_SetRenderTarget (g_renderer, nullptr);
   }
   else
   {
@@ -602,6 +622,10 @@ bool
 CPixmap::Display ()
 {
   m_bBackDisplayed = true;
+
+  if (this->mainTexture)
+    SDL_RenderCopy (g_renderer, this->mainTexture, nullptr, nullptr);
+
   SDL_RenderPresent (g_renderer);
   return true;
 }

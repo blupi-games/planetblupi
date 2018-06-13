@@ -111,5 +111,6 @@ protected:
   SDL_Cursor *                            m_lpCurrentCursor;
   SDL_Cursor *                            m_lpSDLCursors[MAXCURSORS];
   SDL_Surface *                           m_lpSDLBlupi;
+  SDL_Texture *                           mainTexture;
   std::unordered_map<size_t, TextureInfo> m_SDLTextureInfo;
 };
