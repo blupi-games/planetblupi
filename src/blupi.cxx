@@ -779,8 +779,16 @@ DoInit (int argc, char * argv[], bool & exit)
       info.max_texture_height);
   }
 
+  // Create the event manager.
+  g_pEvent = new CEvent;
+  if (g_pEvent == nullptr)
+  {
+    InitFail ("New event");
+    return EXIT_FAILURE;
+  }
+
   // Create the main pixmap.
-  g_pPixmap = new CPixmap;
+  g_pPixmap = new CPixmap (g_pEvent);
   if (g_pPixmap == nullptr)
   {
     InitFail ("New pixmap");
@@ -980,14 +988,6 @@ DoInit (int argc, char * argv[], bool & exit)
 
   g_pDecor->Create (g_pSound, g_pPixmap);
   g_pDecor->MapInitColors ();
-
-  // Create the event manager.
-  g_pEvent = new CEvent;
-  if (g_pEvent == nullptr)
-  {
-    InitFail ("New event");
-    return EXIT_FAILURE;
-  }
 
   const bool zoom = g_zoom;
 

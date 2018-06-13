@@ -47,10 +47,12 @@ struct TextureInfo {
   }
 };
 
+class CEvent;
+
 class CPixmap
 {
 public:
-  CPixmap ();
+  CPixmap (CEvent * event);
   ~CPixmap ();
 
   bool Create (Point dim);
@@ -103,6 +105,8 @@ protected:
 
   MouseSprites m_mouseSprite;
   bool         m_bBackDisplayed;
+
+  CEvent * event;
 
   SDL_Cursor *                            m_lpCurrentCursor;
   SDL_Cursor *                            m_lpSDLCursors[MAXCURSORS];

@@ -33,6 +33,7 @@
 
 #include "blupi.h"
 #include "def.h"
+#include "event.h"
 #include "misc.h"
 #include "pixmap.h"
 
@@ -40,7 +41,7 @@
 
 // Constructeur.
 
-CPixmap::CPixmap ()
+CPixmap::CPixmap (CEvent * event)
 {
   Sint32 i;
 
@@ -56,6 +57,7 @@ CPixmap::CPixmap ()
     m_lpSDLCursors[i] = nullptr;
 
   m_lpCurrentCursor = nullptr;
+  this->event       = event;
 }
 
 // Destructeur.
