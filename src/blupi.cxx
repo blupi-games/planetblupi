@@ -779,8 +779,16 @@ DoInit (int argc, char * argv[], bool & exit)
       info.max_texture_height);
   }
 
+  // Create the event manager.
+  g_pEvent = new CEvent;
+  if (g_pEvent == nullptr)
+  {
+    InitFail ("New event");
+    return EXIT_FAILURE;
+  }
+
   // Create the main pixmap.
-  g_pPixmap = new CPixmap;
+  g_pPixmap = new CPixmap (g_pEvent);
   if (g_pPixmap == nullptr)
   {
     InitFail ("New pixmap");
@@ -994,27 +1002,18 @@ DoInit (int argc, char * argv[], bool & exit)
   g_pDecor->Create (g_pSound, g_pPixmap);
   g_pDecor->MapInitColors ();
 
-  // Create the event manager.
-  g_pEvent = new CEvent;
-  if (g_pEvent == nullptr)
-  {
-    InitFail ("New event");
-    return EXIT_FAILURE;
-  }
-
   const bool zoom = g_zoom;
 
   g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
 
   // Load all cursors
-  g_pPixmap->LoadCursors (g_zoom);
+  g_pPixmap->LoadCursors ();
   g_pPixmap->ChangeSprite (SPRITE_WAIT);
 
   g_updateThread = new std::thread (CheckForUpdates);
-  if (g_bFullScreen)
-    g_pEvent->SetFullScreen (true);
-  if (!g_bFullScreen && zoom != g_zoom)
+  if (zoom != g_zoom)
     g_pEvent->SetWindowSize (g_zoom);
+  g_pEvent->SetFullScreen (g_bFullScreen);
   g_pEvent->ChangePhase (EV_PHASE_INTRO1);
 
   g_bTermInit = true;

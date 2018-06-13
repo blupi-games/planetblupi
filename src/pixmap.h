@@ -47,6 +47,8 @@ struct TextureInfo {
   }
 };
 
+class CEvent;
+
 class CPixmap
 {
 public:
@@ -55,7 +57,7 @@ public:
     EXPAND,
   };
 
-  CPixmap ();
+  CPixmap (CEvent * event);
   ~CPixmap ();
 
   bool Create (Point dim);
@@ -88,8 +90,13 @@ public:
 
   void SetMouseSprite (MouseSprites sprite);
   void MouseShow (bool bShow);
-  void LoadCursors (Uint8 scale);
+  void LoadCursors ();
   void ChangeSprite (MouseSprites sprite);
+
+public:
+  double GetDisplayScale ();
+  void   FromDisplayToGame (Sint32 & x, Sint32 & y);
+  void   FromGameToDisplay (Sint32 & x, Sint32 & y);
 
 protected:
   Sint32 BltFast (Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR);
@@ -111,8 +118,11 @@ protected:
   MouseSprites m_mouseSprite;
   bool         m_bBackDisplayed;
 
+  CEvent * event;
+
   SDL_Cursor *                            m_lpCurrentCursor;
   SDL_Cursor *                            m_lpSDLCursors[MAXCURSORS];
   SDL_Surface *                           m_lpSDLBlupi;
+  SDL_Texture *                           mainTexture;
   std::unordered_map<size_t, TextureInfo> m_SDLTextureInfo;
 };

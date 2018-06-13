@@ -185,7 +185,9 @@ CMenu::Create (
     pos = m_pos;
     pos.x += DIMBUTTONX / 2;
     pos.y += DIMBUTTONY / 2;
-    SDL_WarpMouseInWindow (g_window, pos.x * g_zoom, pos.y * g_zoom);
+
+    this->m_pPixmap->FromGameToDisplay (pos.x, pos.y);
+    SDL_WarpMouseInWindow (g_window, pos.x, pos.y);
   }
 
   m_selRank = Detect (pos);
