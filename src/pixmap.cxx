@@ -122,9 +122,10 @@ CPixmap::BltFast (Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR)
   dstRect.w = dstR.right - dstR.left;
   dstRect.h = dstR.bottom - dstR.top;
 
+  auto target = SDL_GetRenderTarget (g_renderer);
+
   if (dstCh < 0)
   {
-
     if (!this->mainTexture && g_bFullScreen && g_zoom == 1)
     {
       SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "best");
@@ -139,17 +140,19 @@ CPixmap::BltFast (Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR)
       this->mainTexture = nullptr;
     }
 
-    SDL_SetRenderTarget (g_renderer, this->mainTexture);
+    if (this->mainTexture)
+      SDL_SetRenderTarget (g_renderer, target ? target : this->mainTexture);
     res = SDL_RenderCopy (
       g_renderer, m_SDLTextureInfo[srcCh].texture, &srcRect, &dstRect);
-    SDL_SetRenderTarget (g_renderer, nullptr);
+    if (this->mainTexture)
+      SDL_SetRenderTarget (g_renderer, target);
   }
   else
   {
     SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[dstCh].texture);
     res = SDL_RenderCopy (
       g_renderer, m_SDLTextureInfo[srcCh].texture, &srcRect, &dstRect);
-    SDL_SetRenderTarget (g_renderer, nullptr);
+    SDL_SetRenderTarget (g_renderer, target);
   }
 
   return res;
