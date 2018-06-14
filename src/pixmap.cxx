@@ -238,6 +238,12 @@ CPixmap::BltFast (
 bool
 CPixmap::ReloadTargetTextures ()
 {
+  if (this->mainTexture)
+  {
+    SDL_DestroyTexture (this->mainTexture);
+    this->mainTexture = nullptr;
+  }
+
   for (auto & tex : m_SDLTextureInfo)
   {
     if (!tex.second.target)
