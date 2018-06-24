@@ -1272,7 +1272,7 @@ CDecor::Build (Rect clip, Point posMouse)
         rank = m_rankBlupi[x][y];
         if (
           rank != -1 && // un blupi sur cette cellule ?
-          !m_blupi[rank].bCache)
+          !m_blupi[rank].bCache && m_blupi[rank].bExist)
         {
           cel.x = m_blupi[rank].cel.x;
           cel.y = m_blupi[rank].cel.y;
