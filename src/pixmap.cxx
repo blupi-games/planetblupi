@@ -1013,12 +1013,11 @@ CPixmap::FromGameToDisplay (Sint32 & x, Sint32 & y)
   x *= factor;
   y *= factor;
 
-  if (static_cast<double> (w) / h == static_cast<double> (SCRNUM) / SCRDEN)
+  if (!g_bFullScreen)
     return;
 
   double _w = w, _h = h;
-  double ratio = w * SCRDEN / SCRNUM;
 
-  x = x * ratio / LXIMAGE + (_w - ratio) / 2;
+  x = x * _w / LXIMAGE;
   y = y * _h / LYIMAGE;
 }
