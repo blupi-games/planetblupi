@@ -95,7 +95,7 @@ public:
 
 public:
   double GetDisplayScale ();
-  void   FromDisplayToGame (Sint32 & x, Sint32 & y);
+  void   FromDisplayToGame (Sint32 & x, Sint32 & y, double prevScale = 1);
   void   FromGameToDisplay (Sint32 & x, Sint32 & y);
 
 protected:

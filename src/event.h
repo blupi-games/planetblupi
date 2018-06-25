@@ -167,7 +167,7 @@ protected:
   Language GetStartLanguage ();
   Language GetLanguage ();
   void     SetLanguage (Language lang = Language::undef);
-  void     SetWindowSize (Uint8 prevScale, Uint8 newScale);
+  void     SetWindowSize (double prevScale, double newScale);
 
   void ChangeButtons (Sint32 message);
 

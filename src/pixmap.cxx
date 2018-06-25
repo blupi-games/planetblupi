@@ -979,24 +979,24 @@ CPixmap::GetDisplayScale ()
 }
 
 void
-CPixmap::FromDisplayToGame (Sint32 & x, Sint32 & y)
+CPixmap::FromDisplayToGame (Sint32 & x, Sint32 & y, double prevScale)
 {
   if (this->event->IsDemoPlaying ())
     return;
 
-  SDL_DisplayMode displayMode;
-  SDL_GetWindowDisplayMode (g_window, &displayMode);
+  Sint32 w, h;
+  SDL_GetWindowSize (g_window, &w, &h);
 
-  if (
-    static_cast<double> (displayMode.w) / displayMode.h ==
-    static_cast<double> (SCRNUM) / SCRDEN)
+  double factor = 1;
+
+  if (!g_bFullScreen)
+    factor = prevScale;
+
+  x /= factor;
+  y /= factor;
+
+  if (!g_bFullScreen)
     return;
-
-  double w = displayMode.w, h = displayMode.h;
-  double ratio = w * SCRDEN / SCRNUM;
-
-  x = (x - (w - ratio) / 2) / (ratio / LXIMAGE);
-  y = y / (h / LYIMAGE);
 }
 
 void

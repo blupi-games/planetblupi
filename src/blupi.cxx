@@ -410,7 +410,10 @@ HandleEvent (const SDL_Event & event)
     case EV_WARPMOUSE:
     {
       const SDL_Point * coord = static_cast<SDL_Point *> (event.user.data1);
-      SDL_WarpMouseInWindow (g_window, coord->x, coord->y);
+
+      Sint32 x = coord->x, y = coord->y;
+      g_pPixmap->FromGameToDisplay (x, y);
+      SDL_WarpMouseInWindow (g_window, x, y);
       delete coord;
       break;
     }

@@ -1723,6 +1723,10 @@ CEvent::GetMousePos ()
 void
 CEvent::SetFullScreen (bool bFullScreen)
 {
+  int x, y;
+  SDL_GetMouseState (&x, &y);
+  this->m_pPixmap->FromDisplayToGame (x, y);
+
   g_bFullScreen = bFullScreen;
 
   int displayIndex = 0;
@@ -1762,12 +1766,15 @@ CEvent::SetFullScreen (bool bFullScreen)
 
   m_pPixmap->LoadCursors ();
 
-  if (g_bFullScreen)
-  {
-    Sint32 w, h;
-    SDL_GetWindowSize (g_window, &w, &h);
-    SDL_WarpMouseGlobal (w / 2, h / 2);
-  }
+  /* Force this update before otherwise the coordinates retrieved with
+   * the Warp SDL function are corresponding to the previous size.
+   */
+  CEvent::PushUserEvent (EV_UPDATE);
+
+  auto coord = new SDL_Point; // Released by the event handler.
+  coord->x   = x;
+  coord->y   = y;
+  CEvent::PushUserEvent (EV_WARPMOUSE, coord);
 }
 
 /**
@@ -1803,10 +1810,11 @@ CEvent::SetWindowSize (Uint8 newScale)
  * \param[in] newScale - The new scale.
  */
 void
-CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
+CEvent::SetWindowSize (double prevScale, double newScale)
 {
   int x, y;
   SDL_GetMouseState (&x, &y);
+  this->m_pPixmap->FromDisplayToGame (x, y, prevScale);
 
   if (g_bFullScreen && newScale == 2)
     newScale = 1;
@@ -1829,8 +1837,8 @@ CEvent::SetWindowSize (Uint8 prevScale, Uint8 newScale)
   CEvent::PushUserEvent (EV_UPDATE);
 
   auto coord = new SDL_Point; // Released by the event handler.
-  coord->x   = newScale < prevScale ? x / prevScale : x * newScale;
-  coord->y   = newScale < prevScale ? y / prevScale : x * newScale;
+  coord->x   = x;
+  coord->y   = y;
   CEvent::PushUserEvent (EV_WARPMOUSE, coord);
 }
 
@@ -4245,16 +4253,21 @@ CEvent::ChangeButtons (Sint32 message)
       break;
     }
     case EV_BUTTON4:
+    {
+      Sint32 w1;
+      SDL_GetWindowSize (g_window, &w1, nullptr);
       SetFullScreen (false);
-      SetWindowSize (g_zoom, g_zoom);
+      SetWindowSize (g_zoom * static_cast<double> (w1) / LXIMAGE, g_zoom);
       break;
+    }
     case EV_BUTTON5:
     {
       auto scale = g_zoom;
       if (g_zoom > 1)
         --g_zoom;
       SetWindowSize (scale, g_zoom);
-      SetFullScreen (g_bFullScreen);
+      if (g_bFullScreen)
+        SetFullScreen (g_bFullScreen);
       break;
     }
     case EV_BUTTON6:
@@ -4263,7 +4276,8 @@ CEvent::ChangeButtons (Sint32 message)
       if (g_zoom < 2)
         ++g_zoom;
       SetWindowSize (scale, g_zoom);
-      SetFullScreen (g_bFullScreen);
+      if (g_bFullScreen)
+        SetFullScreen (g_bFullScreen);
       break;
     }
     case EV_BUTTON7:
