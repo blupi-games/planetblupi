@@ -98,7 +98,7 @@ public:
   Point GetMousePos ();
   void
               Create (CPixmap * pPixmap, CDecor * pDecor, CSound * pSound, CMovie * pMovie);
-  void        SetFullScreen (bool bFullScreen);
+  void        SetFullScreen (bool bFullScreen, double prevScale = 1);
   Sint32      GetWorld ();
   Sint32      GetPhysicalWorld ();
   Sint32      GetImageWorld ();

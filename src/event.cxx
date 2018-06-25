@@ -1721,11 +1721,11 @@ CEvent::GetMousePos ()
 // Initialise le mode full screen ou non.
 
 void
-CEvent::SetFullScreen (bool bFullScreen)
+CEvent::SetFullScreen (bool bFullScreen, double prevScale)
 {
   int x, y;
   SDL_GetMouseState (&x, &y);
-  this->m_pPixmap->FromDisplayToGame (x, y);
+  this->m_pPixmap->FromDisplayToGame (x, y, prevScale);
 
   g_bFullScreen = bFullScreen;
 
@@ -4248,8 +4248,7 @@ CEvent::ChangeButtons (Sint32 message)
     {
       auto zoom = g_zoom;
       g_zoom    = 1;
-      SetFullScreen (true);
-      SetWindowSize (zoom, 1);
+      SetFullScreen (true, zoom);
       break;
     }
     case EV_BUTTON4:
