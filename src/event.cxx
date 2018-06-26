@@ -4985,7 +4985,9 @@ CEvent::DemoRecStart ()
 
   InitRandom ();
   m_pDecor->SetTime (0);
-  m_speed = 1;
+  m_speed                 = 1;
+  this->m_scrollSpeedPrev = this->m_scrollSpeed;
+  this->m_scrollSpeed     = 3;
 
   m_bStartRecording = true;
 }
@@ -5026,9 +5028,10 @@ CEvent::DemoRecStop ()
   }
 
   m_pDemoSDLBuffer.clear ();
-  m_bDemoRec        = false;
-  m_demoTime        = 0;
-  m_bStartRecording = false;
+  m_bDemoRec          = false;
+  m_demoTime          = 0;
+  m_bStartRecording   = false;
+  this->m_scrollSpeed = this->m_scrollSpeedPrev;
 }
 
 // Début de la reproduction d'une démo.
