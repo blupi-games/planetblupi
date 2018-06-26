@@ -84,7 +84,7 @@ struct url_data {
   char *   buffer;
   size_t   size;
 };
-#endif
+#endif /* USE_CURL */
 
 template <typename Out>
 static void
