@@ -1735,6 +1735,9 @@ CEvent::SetFullScreen (bool bFullScreen, double prevScale)
     displayIndex = 0;
 #endif /* _WIN32 */
 
+  SDL_RenderClear (g_renderer);
+  SDL_RenderPresent (g_renderer);
+
   if (g_bFullScreen && g_zoom == 2)
   {
     int displays = SDL_GetNumVideoDisplays ();
@@ -1759,11 +1762,6 @@ CEvent::SetFullScreen (bool bFullScreen, double prevScale)
                           : 0);
   SDL_SetWindowBordered (g_window, bFullScreen ? SDL_FALSE : SDL_TRUE);
   SDL_SetWindowGrab (g_window, bFullScreen ? SDL_TRUE : SDL_FALSE);
-
-  if (!g_bFullScreen)
-    SDL_SetWindowPosition (
-      g_window, SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex),
-      SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex));
 
   m_pPixmap->LoadCursors ();
 
@@ -1821,11 +1819,14 @@ CEvent::SetWindowSize (double prevScale, double newScale)
     newScale = 1;
 
   SDL_SetWindowSize (g_window, LXIMAGE * newScale, LYIMAGE * newScale);
+  SDL_RenderClear (g_renderer);
+  SDL_RenderPresent (g_renderer);
 
   int displayIndex = SDL_GetWindowDisplayIndex (g_window);
   SDL_SetWindowPosition (
     g_window, SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex),
     SDL_WINDOWPOS_CENTERED_DISPLAY (displayIndex));
+  SDL_Delay (100);
 
   m_pPixmap->LoadCursors ();
 
