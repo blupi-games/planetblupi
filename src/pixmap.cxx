@@ -322,16 +322,9 @@ CPixmap::Cache (
   Sint32        access, ow, w, oh, h;
   SDL_QueryTexture (texture, &format, &access, &ow, &oh);
 
-  if (mode == EXPAND || channel == CHBACK)
-  {
-    w = LXIMAGE;
-    h = LYIMAGE;
-  }
-  else
-  {
-    w = ow;
-    h = oh;
-  }
+  auto m = mode == EXPAND || channel == CHBACK;
+  w      = m ? LXIMAGE : ow;
+  h      = m ? LYIMAGE : oh;
 
   if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
   {
