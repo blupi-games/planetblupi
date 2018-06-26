@@ -5005,6 +5005,10 @@ CEvent::DemoPlayStart (const std::string * demoFile)
     DemoPlayStop ();
     return false;
   }
+
+  this->m_scrollSpeedPrev = m_scrollSpeed;
+  this->m_scrollSpeed     = 3;
+
   ChangePhase (EV_PHASE_PLAY);
   InitRandom ();
   m_pDecor->SetTime (0);
@@ -5026,9 +5030,10 @@ CEvent::DemoPlayStop ()
 
   m_pDemoSDLBuffer.clear ();
 
-  m_bDemoPlay = false;
-  m_bDemoRec  = false;
-  m_demoTime  = 0;
+  m_bDemoPlay         = false;
+  m_bDemoRec          = false;
+  m_demoTime          = 0;
+  this->m_scrollSpeed = this->m_scrollSpeedPrev;
 
   ChangePhase (EV_PHASE_INIT);
 }

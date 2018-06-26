@@ -241,6 +241,7 @@ protected:
   bool                                     m_bHelp;
   bool                                     m_bAllMissions;
   Sint32                                   m_scrollSpeed;
+  Sint32                                   m_scrollSpeedPrev;
   bool                                     m_bPause;
   bool                                     m_bShift;
   Sint32                                   m_shiftPhase;
