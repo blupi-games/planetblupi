@@ -2915,7 +2915,6 @@ CEvent::HideMouse (bool bHide)
 bool
 CEvent::EventButtons (const SDL_Event & event, Point pos)
 {
-  Point  test;
   Sint32 lg;
   Sounds sound;
 
@@ -2923,27 +2922,27 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
   m_textToolTips[0] = 0;
   m_posToolTips.x   = -1;
 
-  const auto progress = [&](CJauge & prog, const char * text) -> bool {
-    if (prog.GetHide ())
-      return false;
-
-    test = prog.GetPos ();
-    if (
-      pos.x >= test.x && pos.x <= test.x + DIMJAUGEX && pos.y >= test.y &&
-      pos.y <= test.y + DIMJAUGEY)
-    {
-      snprintf (m_textToolTips, sizeof (m_textToolTips), "%s", text);
-      lg = GetTextWidth (m_textToolTips);
-      test.x += (DIMJAUGEX - lg) / 2;
-      test.y += 4;
-      m_posToolTips = test;
-      return true;
-    }
-    return false;
-  };
-
   if (m_phase == EV_PHASE_PLAY)
   {
+    const static auto progress = [&](CJauge & prog, const char * text) -> bool {
+      if (prog.GetHide ())
+        return false;
+
+      Point test = prog.GetPos ();
+      if (
+        pos.x >= test.x && pos.x <= test.x + DIMJAUGEX && pos.y >= test.y &&
+        pos.y <= test.y + DIMJAUGEY)
+      {
+        snprintf (m_textToolTips, sizeof (m_textToolTips), "%s", text);
+        lg = GetTextWidth (m_textToolTips);
+        test.x += (DIMJAUGEX - lg) / 2;
+        test.y += 4;
+        m_posToolTips = test;
+        return true;
+      }
+      return false;
+    };
+
     const auto spotted = progress (m_jauges[0], gettext ("Blupi's energy"));
     if (!spotted)
       progress (m_jauges[1], gettext ("Work done"));
