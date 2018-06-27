@@ -290,10 +290,10 @@ CMovie::Render ()
   Kit_GetVideoData (m_player, m_videoTex);
 
   SDL_Rect dstRect;
-  dstRect.x = (LXIMAGE - LXLOGIC) / 2;
+  dstRect.x = (LXIMAGE () - LXLOGIC ()) / 2;
   dstRect.y = 0;
-  dstRect.w = LXLOGIC;
-  dstRect.h = LYLOGIC;
+  dstRect.w = LXLOGIC ();
+  dstRect.h = LYLOGIC ();
   SDL_RenderCopy (g_renderer, m_videoTex, nullptr, &dstRect);
 
   SDL_RenderPresent (g_renderer);

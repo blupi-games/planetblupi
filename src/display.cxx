@@ -4,52 +4,43 @@
 #include "blupi.h"
 #include "display.h"
 
-#define SCRNUM 16
-#define SCRDEN 9
-#define SCRFACTOR SCRNUM / SCRDEN
-
 Display::Display ()
 {
-  this->width  = 0;
-  this->height = 0;
+  this->width  = this->getLogicWidth ();
+  this->height = this->getLogicHeight ();
+}
+
+Display &
+Display::getDisplay ()
+{
+  static Display display;
+  return display;
 }
 
 void
 Display::readDisplaySize ()
 {
   SDL_DisplayMode displayMode;
-  SDL_GetWindowDisplayMode (g_window, &displayMode);
+  int             res;
+
+  if (g_window)
+    res = SDL_GetWindowDisplayMode (g_window, &displayMode);
+  else
+    res = SDL_GetCurrentDisplayMode (0, &displayMode);
+
+  if (res < 0)
+    return;
+
   this->width  = displayMode.w;
   this->height = displayMode.h;
-}
-
-Display &
-Display::getDisplay ()
-{
-  static bool    init = false;
-  static Display display;
-
-  if (!init)
-  {
-    display.readDisplaySize ();
-    init = true;
-  }
-
-  return display;
-}
-
-double
-Display::getRatio ()
-{
-  return this->width / this->height;
 }
 
 Sint32
 Display::getWidth ()
 {
   return (
-    this->getLogicHeight () * SCRFACTOR +
-    (this->getLogicHeight () * SCRFACTOR) % 2);
+    this->getLogicHeight () * this->width / this->height +
+    (this->getLogicHeight () * this->width / this->height) % 2);
 }
 
 Sint32

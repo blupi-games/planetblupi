@@ -130,8 +130,8 @@ CPixmap::BltFast (Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR)
     {
       SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "best");
       this->mainTexture = SDL_CreateTexture (
-        g_renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, LXIMAGE,
-        LYIMAGE);
+        g_renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET,
+        LXIMAGE (), LYIMAGE ());
       SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
     }
     else if (this->mainTexture && !(g_bFullScreen && g_zoom == 1))
@@ -323,8 +323,8 @@ CPixmap::Cache (
   SDL_QueryTexture (texture, &format, &access, &ow, &oh);
 
   auto m = mode == EXPAND || channel == CHBACK;
-  w      = m ? LXIMAGE : ow;
-  h      = m ? LYIMAGE : oh;
+  w      = m ? LXIMAGE () : ow;
+  h      = m ? LYIMAGE () : oh;
 
   if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
   {
@@ -361,20 +361,20 @@ CPixmap::Cache (
   {
   case FIX:
   {
-    if (channel == CHBACK && (ow < LXIMAGE || oh < LYIMAGE))
+    if (channel == CHBACK && (ow < LXIMAGE () || oh < LYIMAGE ()))
     {
       if (chBackWide > 0)
       {
         Rect srcRect;
         srcRect.left   = 0;
-        srcRect.right  = LXIMAGE;
+        srcRect.right  = LXIMAGE ();
         srcRect.top    = 0;
-        srcRect.bottom = LYIMAGE;
+        srcRect.bottom = LYIMAGE ();
         this->DrawImage (-1, chBackWide, srcRect);
       }
 
       SDL_Rect dst;
-      dst.x = (LXIMAGE - ow) / 2;
+      dst.x = (LXIMAGE () - ow) / 2;
       dst.y = 0;
       dst.w = ow;
       dst.h = oh;
@@ -391,12 +391,12 @@ CPixmap::Cache (
     src.x = 0;
     src.y = 0;
     src.w = POSDRAWX - 1;
-    src.h = LYIMAGE;
+    src.h = LYIMAGE ();
     dst   = src;
     SDL_RenderCopy (g_renderer, texture, &src, &dst);
     src.x = ow - 16;
     src.w = 16;
-    dst.x = LXIMAGE - 16;
+    dst.x = LXIMAGE () - 16;
     dst.w = src.w;
     SDL_RenderCopy (g_renderer, texture, &src, &dst);
     src.x = POSDRAWX - 1;
@@ -969,7 +969,7 @@ CPixmap::GetDisplayScale ()
   // SDL_GetWindowDisplayMode (g_window, &displayMode);
   Sint32 w, h;
   SDL_GetWindowSize (g_window, &w, &h);
-  return static_cast<double> (h / LYIMAGE);
+  return static_cast<double> (h / LYIMAGE ());
 }
 
 void
@@ -1012,6 +1012,6 @@ CPixmap::FromGameToDisplay (Sint32 & x, Sint32 & y)
 
   double _w = w, _h = h;
 
-  x = x * _w / LXIMAGE;
-  y = y * _h / LYIMAGE;
+  x = x * _w / LXIMAGE ();
+  y = y * _h / LYIMAGE ();
 }

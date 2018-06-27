@@ -3315,8 +3315,8 @@ CDecor::MemoPos (Sint32 rank, bool bRecord)
 {
   Point pos;
 
-  pos.x = LXIMAGE / 2;
-  pos.y = LYIMAGE / 2;
+  pos.x = LXIMAGE () / 2;
+  pos.y = LYIMAGE () / 2;
 
   if (rank < 0 || rank >= 4)
     return;

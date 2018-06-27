@@ -817,8 +817,8 @@ CDecor::StatisticDown (Point pos)
     if (m_statFirst < STATNB - 1)
       m_statFirst = 0;
     StatisticUpdate ();
-    pos.x = LXIMAGE / 2;
-    pos.y = LYIMAGE / 2;
+    pos.x = LXIMAGE () / 2;
+    pos.y = LYIMAGE () / 2;
     m_pSound->PlayImage (SOUND_OPEN, pos);
     return true;
   }
@@ -830,8 +830,8 @@ CDecor::StatisticDown (Point pos)
     else
       m_statFirst += STATNB - 2;
     StatisticUpdate ();
-    pos.x = LXIMAGE / 2;
-    pos.y = LYIMAGE / 2;
+    pos.x = LXIMAGE () / 2;
+    pos.y = LYIMAGE () / 2;
     m_pSound->PlayImage (SOUND_OPEN, pos);
     return true;
   }

@@ -2220,8 +2220,8 @@ CDecor::GoalStop (Sint32 rank, bool bError, bool bSound)
   {
     if (bError)
     {
-      pos.x = LXIMAGE / 2;
-      pos.y = LYIMAGE / 2;
+      pos.x = LXIMAGE () / 2;
+      pos.y = LYIMAGE () / 2;
       BlupiSound (
         rank, table_sound_boing[Random (0, countof (table_sound_boing) - 1)],
         pos, true);
@@ -4145,9 +4145,9 @@ CDecor::BlupiGoal (Point cel, Buttons button)
   }
   if (avg.x < 0)
     avg.x = 0;
-  if (avg.x > LXIMAGE)
-    avg.x = LXIMAGE;
-  avg.y = LYIMAGE / 2;
+  if (avg.x > LXIMAGE ())
+    avg.x = LXIMAGE ();
+  avg.y = LYIMAGE () / 2;
 
   if (nb == 0 && nbHili > 0)
   {
@@ -4588,8 +4588,8 @@ CDecor::IsTerminated ()
   Sint32 nb, count, out;
   Point  pos;
 
-  pos.x = LXIMAGE / 2;
-  pos.y = LYIMAGE / 2;
+  pos.x = LXIMAGE () / 2;
+  pos.y = LYIMAGE () / 2;
 
   count      = m_winCount;
   m_winCount = 50;

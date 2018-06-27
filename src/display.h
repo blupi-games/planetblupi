@@ -12,20 +12,42 @@ private:
 private:
   Display ();
 
-  void readDisplaySize ();
-
 public:
   static Display & getDisplay ();
 
-  double getRatio ();
+  void   readDisplaySize ();
   Sint32 getWidth ();
   Sint32 getHeight ();
   Sint32 getLogicWidth ();
   Sint32 getLogicHeight ();
 };
 
-#define LXLOGIC (Display::getDisplay ().getLogicWidth ())
-#define LYLOGIC (Display::getDisplay ().getLogicHeight ())
-#define LXIMAGE (Display::getDisplay ().getWidth ())
-#define LYIMAGE (Display::getDisplay ().getHeight ())
-#define LXOFFSET ((LXIMAGE - LXLOGIC) / 2)
+inline Sint32
+LXLOGIC ()
+{
+  return Display::getDisplay ().getLogicWidth ();
+}
+
+inline Sint32
+LYLOGIC ()
+{
+  return Display::getDisplay ().getLogicHeight ();
+}
+
+inline Sint32
+LXIMAGE ()
+{
+  return Display::getDisplay ().getWidth ();
+}
+
+inline Sint32
+LYIMAGE ()
+{
+  return Display::getDisplay ().getHeight ();
+}
+
+inline Sint32
+LXOFFSET ()
+{
+  return ((LXIMAGE () - LXLOGIC ()) / 2);
+}

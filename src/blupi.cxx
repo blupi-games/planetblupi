@@ -202,8 +202,8 @@ UpdateFrame (void)
 
   rcRect.left   = 0;
   rcRect.top    = 0;
-  rcRect.right  = LXIMAGE;
-  rcRect.bottom = LYIMAGE;
+  rcRect.right  = LXIMAGE ();
+  rcRect.bottom = LYIMAGE ();
   g_pPixmap->DrawImage (-1, CHBACK, rcRect); // draw the background
 
   if (phase == EV_PHASE_INTRO1)
@@ -729,10 +729,12 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
+  Display::getDisplay ().readDisplaySize ();
+
   // Create a window.
   g_window = SDL_CreateWindow (
     gettext ("Planet Blupi"), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-    LXIMAGE, LYIMAGE, 0);
+    LXIMAGE (), LYIMAGE (), 0);
 
   if (!g_window)
   {
@@ -755,7 +757,7 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
-  SDL_RenderSetLogicalSize (g_renderer, LXIMAGE, LYIMAGE);
+  SDL_RenderSetLogicalSize (g_renderer, LXIMAGE (), LYIMAGE ());
 
   const auto renders = SDL_GetNumRenderDrivers ();
   for (int i = 0; i < renders; ++i)
@@ -798,8 +800,8 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
-  totalDim.x = LXIMAGE;
-  totalDim.y = LYIMAGE;
+  totalDim.x = LXIMAGE ();
+  totalDim.y = LYIMAGE ();
   if (!g_pPixmap->Create (totalDim))
   {
     InitFail ("Create pixmap");
@@ -807,8 +809,8 @@ DoInit (int argc, char * argv[], bool & exit)
   }
 
   OutputDebug ("Image: init\n");
-  totalDim.x = LXLOGIC;
-  totalDim.y = LYLOGIC;
+  totalDim.x = LXLOGIC ();
+  totalDim.y = LYLOGIC ();
   iconDim.x  = 0;
   iconDim.y  = 0;
 #if _INTRO
@@ -819,28 +821,28 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
 
   OutputDebug ("Image: init\n");
-  totalDim.x = LXIMAGE;
-  totalDim.y = LYIMAGE;
+  totalDim.x = LXIMAGE ();
+  totalDim.y = LYIMAGE ();
   if (!g_pPixmap->Cache (CHGROUND, totalDim))
     return EXIT_FAILURE;
 
   rcRect.left   = 0;
   rcRect.top    = 0;
-  rcRect.right  = LXLOGIC;
-  rcRect.bottom = LYLOGIC;
+  rcRect.right  = LXLOGIC ();
+  rcRect.bottom = LYLOGIC ();
   g_pPixmap->DrawImage (-1, CHBACK, rcRect); // dessine le fond
   g_pPixmap->Display ();
 
-  totalDim.x = LXLOGIC;
-  totalDim.y = LYLOGIC;
+  totalDim.x = LXLOGIC ();
+  totalDim.y = LYLOGIC ();
   iconDim.x  = 0;
   iconDim.y  = 0;
   if (!g_pPixmap->Cache (
         CHBACKBUILD, "image/back-build.png", totalDim, iconDim))
     return EXIT_FAILURE;
 
-  totalDim.x = LXLOGIC;
-  totalDim.y = LYLOGIC;
+  totalDim.x = LXLOGIC ();
+  totalDim.y = LYLOGIC ();
   iconDim.x  = 0;
   iconDim.y  = 0;
   if (!g_pPixmap->Cache (CHBACKBOOK, "image/back-book.png", totalDim, iconDim))

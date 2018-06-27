@@ -288,17 +288,17 @@ CSound::PlayImage (Sounds channel, Point pos, Sint32 rank)
     if (volumex < 0)
       volumex = 0;
   }
-  else if (pos.x > LXIMAGE)
+  else if (pos.x > LXIMAGE ())
   {
     panRight = 255;
     panLeft  = 0;
-    volumex -= pos.x - LXIMAGE;
+    volumex -= pos.x - LXIMAGE ();
     if (volumex < 0)
       volumex = 0;
   }
   else
   {
-    panRight = 255 * static_cast<Uint16> (pos.x) / LXIMAGE;
+    panRight = 255 * static_cast<Uint16> (pos.x) / LXIMAGE ();
     panLeft  = 255 - panRight;
   }
 
@@ -308,9 +308,9 @@ CSound::PlayImage (Sounds channel, Point pos, Sint32 rank)
     if (volumey < 0)
       volumey = 0;
   }
-  else if (pos.y > LYIMAGE)
+  else if (pos.y > LYIMAGE ())
   {
-    volumey -= pos.y - LYIMAGE;
+    volumey -= pos.y - LYIMAGE ();
     if (volumey < 0)
       volumey = 0;
   }

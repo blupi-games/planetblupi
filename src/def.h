@@ -29,7 +29,7 @@
 
 #define POSDRAWX        144     // draw surface
 #define POSDRAWY        15
-#define DIMDRAWX        (LXIMAGE - (LXLOGIC - LYLOGIC))
+#define DIMDRAWX        (LXIMAGE () - (LXLOGIC () - LYLOGIC ()))
 #define DIMDRAWY        450
 
 #define POSMAPX         8       // map surface

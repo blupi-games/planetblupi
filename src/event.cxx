@@ -1818,7 +1818,7 @@ CEvent::SetWindowSize (double prevScale, double newScale)
   if (g_bFullScreen && newScale == 2)
     newScale = 1;
 
-  SDL_SetWindowSize (g_window, LXIMAGE * newScale, LYIMAGE * newScale);
+  SDL_SetWindowSize (g_window, LXIMAGE () * newScale, LYIMAGE () * newScale);
   SDL_RenderClear (g_renderer);
   SDL_RenderPresent (g_renderer);
 
@@ -2001,18 +2001,18 @@ CEvent::CreateButtons (Sint32 phase)
     message = table[m_index].buttons[i].message;
 
     if (phase != EV_PHASE_PLAY && phase != EV_PHASE_BUILD)
-      pos.x += LXOFFSET;
+      pos.x += LXOFFSET ();
 
     if (m_bPrivate)
     {
       if (message == EV_PHASE_SKILL1)
       {
-        pos.x = 117 + LXOFFSET;
+        pos.x = 117 + LXOFFSET ();
         pos.y = 115;
       }
       if (message == EV_PHASE_SKILL2)
       {
-        pos.x = 117 + LXOFFSET;
+        pos.x = 117 + LXOFFSET ();
         pos.y = 115 + 42;
       }
     }
@@ -2112,13 +2112,13 @@ CEvent::DrawButtons ()
     snprintf (
       res, sizeof (res), "%s %u.%u.%u%s", gettext ("Version"), PB_VERSION_MAJOR,
       PB_VERSION_MINOR, PB_VERSION_PATCH, PB_VERSION_EXTRA);
-    pos.x = LXIMAGE - GetTextWidth (res, FONTLITTLE) - 4;
+    pos.x = LXIMAGE () - GetTextWidth (res, FONTLITTLE) - 4;
     pos.y = 465;
     DrawText (m_pPixmap, pos, res, FONTLITTLE);
 
     if (!this->m_updateVersion.empty () && this->m_updateBlinking++ % 80 < 40)
     {
-      pos.x = 70 + LXOFFSET;
+      pos.x = 70 + LXOFFSET ();
       pos.y = 465;
       snprintf (
         res, sizeof (res),
@@ -2262,7 +2262,7 @@ CEvent::DrawButtons ()
 
     // Dessine la vitesse.
     pos.x       = 64;
-    pos.y       = LYIMAGE - 15;
+    pos.y       = LYIMAGE () - 15;
     rect.left   = pos.x;
     rect.right  = pos.x + 20;
     rect.top    = pos.y;
@@ -2339,7 +2339,7 @@ CEvent::DrawButtons ()
     else
       snprintf (res, sizeof (res), "%s", gettext ("Save this game"));
 
-    pos.x = 420 + LXOFFSET;
+    pos.x = 420 + LXOFFSET ();
     pos.y = 8;
     DrawText (m_pPixmap, pos, res);
 
@@ -2350,11 +2350,11 @@ CEvent::DrawButtons ()
 
       snprintf (text, sizeof (text), "%d", i + 1);
       lg    = GetTextWidth (text);
-      pos.x = (420 + 460) / 2 - lg / 2 + LXOFFSET;
+      pos.x = (420 + 460) / 2 - lg / 2 + LXOFFSET ();
       pos.y = 30 + 12 + 42 * i;
       DrawText (m_pPixmap, pos, text, FONTSLIM);
 
-      pos.x = 420 + 50 + LXOFFSET;
+      pos.x = 420 + 50 + LXOFFSET ();
 
       if (world >= 0)
       {
@@ -2384,16 +2384,16 @@ CEvent::DrawButtons ()
     Term * pTerm = m_pDecor->GetTerminated ();
 
     DrawTextCenter (
-      gettext ("Ending conditions"), (10 + 134) / 2 + LXOFFSET, 20);
+      gettext ("Ending conditions"), (10 + 134) / 2 + LXOFFSET (), 20);
 
-    pos.x = 170 + 42 * 2 + 4 + LXOFFSET;
+    pos.x = 170 + 42 * 2 + 4 + LXOFFSET ();
     pos.y = 30 + 12 + 42 * 4;
     snprintf (
       text, sizeof (text), gettext ("Lost if less than %d Blupi"),
       pTerm->nbMinBlupi);
     DrawText (m_pPixmap, pos, text);
 
-    pos.x = 170 + 42 * 2 + 4 + LXOFFSET;
+    pos.x = 170 + 42 * 2 + 4 + LXOFFSET ();
     pos.y = 30 + 12 + 42 * 5;
     snprintf (
       text, sizeof (text), gettext ("Impossible to win if less than %d Blupi"),
@@ -2404,15 +2404,16 @@ CEvent::DrawButtons ()
   // Dessine les textes pour les choix des boutons.
   if (m_phase == EV_PHASE_BUTTON)
     DrawTextCenter (
-      gettext ("Available buttons"), (10 + 134) / 2 + LXOFFSET, 20);
+      gettext ("Available buttons"), (10 + 134) / 2 + LXOFFSET (), 20);
 
   // Dessine les textes pour le choix des musiques.
   if (m_phase == EV_PHASE_MUSIC)
-    DrawTextCenter (gettext ("Music choice"), (10 + 134) / 2 + LXOFFSET, 20);
+    DrawTextCenter (gettext ("Music choice"), (10 + 134) / 2 + LXOFFSET (), 20);
 
   // Dessine les textes pour le choix de la région.
   if (m_phase == EV_PHASE_REGION)
-    DrawTextCenter (gettext ("Scenery choice"), (10 + 134) / 2 + LXOFFSET, 20);
+    DrawTextCenter (
+      gettext ("Scenery choice"), (10 + 134) / 2 + LXOFFSET (), 20);
 
   // Ajoute "Mission numéro".
   if (m_phase == EV_PHASE_INFO)
@@ -2426,7 +2427,7 @@ CEvent::DrawButtons ()
       snprintf (res, sizeof (res), "%s", gettext ("Construction number"));
 
     lg    = GetTextWidth (res);
-    pos.x = (140 + 270) / 2 - lg / 2 + LXOFFSET;
+    pos.x = (140 + 270) / 2 - lg / 2 + LXOFFSET ();
     pos.y = 70;
     if (m_bSchool)
       pos.x -= 40;
@@ -2442,7 +2443,7 @@ CEvent::DrawButtons ()
   {
     char * text = gettext ("Game paused");
     lg          = GetTextWidth (text);
-    pos.x       = (140 + 270) / 2 - lg / 2 + LXOFFSET;
+    pos.x       = (140 + 270) / 2 - lg / 2 + LXOFFSET ();
     pos.y       = 70;
     if (m_bSchool)
       pos.x -= 40;
@@ -2458,7 +2459,7 @@ CEvent::DrawButtons ()
   {
     char * text = gettext ("Help number");
     lg          = GetTextWidth (text);
-    pos.x       = (140 + 270) / 2 - lg / 2 + LXOFFSET;
+    pos.x       = (140 + 270) / 2 - lg / 2 + LXOFFSET ();
     pos.y       = 70;
     if (m_bSchool)
       pos.x -= 40;
@@ -2482,7 +2483,7 @@ CEvent::DrawButtons ()
       world = m_private;
 
     lg    = GetBignumWidth (world + 1);
-    pos.x = (140 + 270) / 2 - lg / 2 + LXOFFSET;
+    pos.x = (140 + 270) / 2 - lg / 2 + LXOFFSET ();
     pos.y = 100;
     if (m_bSchool)
       pos.x -= 40;
@@ -2510,7 +2511,7 @@ CEvent::DrawButtons ()
           pos.x = 150 + 50;
           pos.y = 230 + 13;
         }
-        pos.x += LXOFFSET;
+        pos.x += LXOFFSET ();
         DrawText (m_pPixmap, pos, gettext ("Easy"), FONTSLIM);
       }
 
@@ -2526,7 +2527,7 @@ CEvent::DrawButtons ()
           pos.x = 150 + 50;
           pos.y = 230 + 42 + 13;
         }
-        pos.x += LXOFFSET;
+        pos.x += LXOFFSET ();
         DrawText (m_pPixmap, pos, gettext ("Difficult"), FONTSLIM);
       }
     }
@@ -2551,7 +2552,7 @@ CEvent::DrawButtons ()
       pente = 0;
     else
       pente = 19;
-    pos.x += LXOFFSET;
+    pos.x += LXOFFSET ();
     DrawTextRect (m_pPixmap, pos, m_libelle, pente, FONTSLIM);
   }
 
@@ -2566,7 +2567,7 @@ CEvent::DrawButtons ()
       gettext ("No, not that way !"),
     };
 
-    pos.x = 60 + LXOFFSET;
+    pos.x = 60 + LXOFFSET ();
     pos.y = 443;
     DrawText (m_pPixmap, pos, list[GetWorld () % 5]);
   }
@@ -2580,7 +2581,7 @@ CEvent::DrawButtons ()
       gettext ("Mission over..."),
     };
 
-    pos.x = 60 + LXOFFSET;
+    pos.x = 60 + LXOFFSET ();
     pos.y = 443;
     DrawText (m_pPixmap, pos, list[GetWorld () % 5]);
   }
@@ -2597,7 +2598,7 @@ CEvent::DrawButtons ()
     if (m_bPrivate)
       text = gettext ("Last construction resolved !");
 
-    pos.x = 60 + LXOFFSET;
+    pos.x = 60 + LXOFFSET ();
     pos.y = 443;
     DrawText (m_pPixmap, pos, text);
   }
@@ -2605,28 +2606,29 @@ CEvent::DrawButtons ()
   // Draw the game settings.
   if (m_phase == EV_PHASE_SETUP || m_phase == EV_PHASE_SETUPp)
   {
-    DrawTextCenter (gettext ("Global game\nspeed"), 54 + 40 + LXOFFSET, 80);
+    DrawTextCenter (gettext ("Global game\nspeed"), 54 + 40 + LXOFFSET (), 80);
     DrawTextCenter (
-      gettext ("Scroll speed\nwith mouse"), 169 + 40 + LXOFFSET, 80);
-    DrawTextCenter (gettext ("Sound effect\nvolume"), 284 + 40 + LXOFFSET, 80);
-    DrawTextCenter (gettext ("Music\nvolume"), 399 + 40 + LXOFFSET, 80);
-    DrawTextCenter (gettext ("Video\nsequences"), 514 + 40 + LXOFFSET, 80);
+      gettext ("Scroll speed\nwith mouse"), 169 + 40 + LXOFFSET (), 80);
+    DrawTextCenter (
+      gettext ("Sound effect\nvolume"), 284 + 40 + LXOFFSET (), 80);
+    DrawTextCenter (gettext ("Music\nvolume"), 399 + 40 + LXOFFSET (), 80);
+    DrawTextCenter (gettext ("Video\nsequences"), 514 + 40 + LXOFFSET (), 80);
 
     snprintf (res, sizeof (res), "x%d", m_speed);
     lg    = GetTextWidth (res);
-    pos.x = (54 + 40) - lg / 2 + LXOFFSET;
+    pos.x = (54 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
 
     snprintf (res, sizeof (res), "%d", m_pSound->GetAudioVolume ());
     lg    = GetTextWidth (res);
-    pos.x = (284 + 40) - lg / 2 + LXOFFSET;
+    pos.x = (284 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
 
     snprintf (res, sizeof (res), "%d", m_pSound->GetMidiVolume ());
     lg    = GetTextWidth (res);
-    pos.x = (399 + 40) - lg / 2 + LXOFFSET;
+    pos.x = (399 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
 
@@ -2634,7 +2636,7 @@ CEvent::DrawButtons ()
     if (m_pMovie->GetEnable () && m_bMovie)
       text = gettext ("Yes");
     lg    = GetTextWidth (text);
-    pos.x = (514 + 40) - lg / 2 + LXOFFSET;
+    pos.x = (514 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
 
@@ -2643,7 +2645,7 @@ CEvent::DrawButtons ()
     else
       snprintf (res, sizeof (res), "%d", m_scrollSpeed);
     lg    = GetTextWidth (res);
-    pos.x = (169 + 40) - lg / 2 + LXOFFSET;
+    pos.x = (169 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
   }
@@ -2652,13 +2654,13 @@ CEvent::DrawButtons ()
   if (m_phase == EV_PHASE_SETTINGS)
   {
     DrawTextCenter (
-      gettext ("Interface language\nand sounds"), 54 + 40 + LXOFFSET, 80);
+      gettext ("Interface language\nand sounds"), 54 + 40 + LXOFFSET (), 80);
     DrawTextCenter (
-      gettext ("Select the\nwindow mode"), 169 + 40 + LXOFFSET, 80);
+      gettext ("Select the\nwindow mode"), 169 + 40 + LXOFFSET (), 80);
     DrawTextCenter (
-      gettext ("Change the\nwindow size"), 284 + 40 + LXOFFSET, 80);
+      gettext ("Change the\nwindow size"), 284 + 40 + LXOFFSET (), 80);
     DrawTextCenter (
-      gettext ("Choose the\nmusic format"), 399 + 40 + LXOFFSET, 80);
+      gettext ("Choose the\nmusic format"), 399 + 40 + LXOFFSET (), 80);
 
     const auto  locale = GetLocale ();
     std::string lang;
@@ -2676,14 +2678,14 @@ CEvent::DrawButtons ()
       lang = "Polski";
 
     lg    = GetTextWidth (lang.c_str ());
-    pos.x = (54 + 40) - lg / 2 + LXOFFSET;
+    pos.x = (54 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, lang.c_str ());
 
     const char * text =
       g_bFullScreen ? gettext ("Fullscreen") : gettext ("Windowed");
     lg    = GetTextWidth (text);
-    pos.x = (169 + 40) - lg / 2 + LXOFFSET;
+    pos.x = (169 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
 
@@ -2691,14 +2693,14 @@ CEvent::DrawButtons ()
     {
       snprintf (res, sizeof (res), "%dx", g_zoom);
       lg    = GetTextWidth (res);
-      pos.x = (284 + 40) - lg / 2 + LXOFFSET;
+      pos.x = (284 + 40) - lg / 2 + LXOFFSET ();
       pos.y = 330 - 20;
       DrawText (m_pPixmap, pos, res);
     }
 
     text  = (g_restoreMidi && mid) || !ogg ? gettext ("Midi") : gettext ("Ogg");
     lg    = GetTextWidth (text);
-    pos.x = (399 + 40) - lg / 2 + LXOFFSET;
+    pos.x = (399 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
   }
@@ -2710,14 +2712,14 @@ CEvent::DrawButtons ()
 
     text  = gettext ("You have played Planet Blupi.");
     lg    = GetTextWidth (text);
-    pos.x = LXIMAGE / 2 - lg / 2;
+    pos.x = LXIMAGE () / 2 - lg / 2;
     pos.y = 20;
     DrawText (m_pPixmap, pos, text);
 
     text  = gettext ("We hope you have had as much fun playing the game as we "
                     "had making it !");
     lg    = GetTextWidth (text);
-    pos.x = LXIMAGE / 2 - lg / 2;
+    pos.x = LXIMAGE () / 2 - lg / 2;
     pos.y = 40;
     DrawText (m_pPixmap, pos, text);
 
@@ -2741,7 +2743,7 @@ CEvent::DrawButtons ()
 
     for (size_t i = 0; i < countof (libs); ++i)
     {
-      pos.x = 30 + LXOFFSET;
+      pos.x = 30 + LXOFFSET ();
       pos.y = 120 + i * 20;
       DrawText (m_pPixmap, pos, libs[i].c_str ());
     }
@@ -2749,13 +2751,13 @@ CEvent::DrawButtons ()
     text  = gettext ("This game is an original creation of Epsitec SA, CH-1400 "
                     "Yverdon-les-Bains");
     lg    = GetTextWidth (text);
-    pos.x = LXIMAGE / 2 - lg / 2;
+    pos.x = LXIMAGE () / 2 - lg / 2;
     pos.y = 430;
     DrawText (m_pPixmap, pos, text);
 
     text  = gettext ("http://www.blupi.org            info@blupi.org");
     lg    = GetTextWidth (text);
-    pos.x = LXIMAGE / 2 - lg / 2;
+    pos.x = LXIMAGE () / 2 - lg / 2;
     pos.y = 450;
     DrawText (m_pPixmap, pos, text);
   }
@@ -2764,7 +2766,7 @@ CEvent::DrawButtons ()
   if (m_phase == EV_PHASE_INSERT)
     DrawTextCenter (
       gettext ("Insert CD-Rom Planet Blupi and wait a few seconds..."),
-      LXIMAGE / 2, 20);
+      LXIMAGE () / 2, 20);
 
   if (m_phase == EV_PHASE_BUILD)
     SetEnable (EV_PHASE_UNDO, m_pDecor->IsUndo ());
@@ -2802,13 +2804,13 @@ CEvent::MousePosToSprite (Point pos)
       if (pos.x <= 5 && pos.x >= -2)
         bLeft = true;
 
-      if (pos.x >= LXIMAGE - 5 && pos.x <= LXIMAGE + 2)
+      if (pos.x >= LXIMAGE () - 5 && pos.x <= LXIMAGE () + 2)
         bRight = true;
 
       if (pos.y <= 5 && pos.y >= -2)
         bUp = true;
 
-      if (pos.y >= LYIMAGE - 5 && pos.y <= LYIMAGE + 2)
+      if (pos.y >= LYIMAGE () - 5 && pos.y <= LYIMAGE () + 2)
         bDown = true;
 
       if (bLeft)
@@ -2964,10 +2966,10 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
         lg = GetTextWidth (m_textToolTips);
         pos.x += 10;
         pos.y += 20;
-        if (pos.x > LXIMAGE - lg)
-          pos.x = LXIMAGE - lg;
-        if (pos.y > LYIMAGE - 14)
-          pos.y = LYIMAGE - 14;
+        if (pos.x > LXIMAGE () - lg)
+          pos.x = LXIMAGE () - lg;
+        if (pos.y > LYIMAGE () - 14)
+          pos.y = LYIMAGE () - 14;
         m_posToolTips = pos;
         break;
       }
@@ -3297,8 +3299,8 @@ CEvent::ChangePhase (Uint32 phase)
   filename = table[m_index].backName;
   if (filename.find ("%.3d") != std::string::npos)
     filename = string_format (table[m_index].backName, GetImageWorld ());
-  totalDim.x = LXLOGIC;
-  totalDim.y = LYLOGIC;
+  totalDim.x = LXLOGIC ();
+  totalDim.y = LYLOGIC ();
   iconDim.x  = 0;
   iconDim.y  = 0;
   if (!m_pPixmap->Cache (
@@ -4257,7 +4259,7 @@ CEvent::ChangeButtons (Sint32 message)
       Sint32 w1;
       SDL_GetWindowSize (g_window, &w1, nullptr);
       SetFullScreen (false);
-      SetWindowSize (g_zoom * static_cast<double> (w1) / LXIMAGE, g_zoom);
+      SetWindowSize (g_zoom * static_cast<double> (w1) / LXIMAGE (), g_zoom);
       break;
     }
     case EV_BUTTON5:
@@ -5513,8 +5515,8 @@ CEvent::TreatEventBase (const SDL_Event & event)
             if (m_phase != EV_PHASE_PLAY)
               ChangePhase (m_phase);
 
-            pos.x = LXIMAGE / 2;
-            pos.y = LYIMAGE / 2;
+            pos.x = LXIMAGE () / 2;
+            pos.y = LYIMAGE () / 2;
             if (bEnable)
               m_pSound->PlayImage (SOUND_GOAL, pos);
             else
@@ -5722,8 +5724,8 @@ CEvent::TreatEventBase (const SDL_Event & event)
           sound = SOUND_CLOSE;
         else
           sound = SOUND_OPEN;
-        pos.x = LXIMAGE / 2;
-        pos.y = LYIMAGE / 2;
+        pos.x = LXIMAGE () / 2;
+        pos.y = LYIMAGE () / 2;
         m_pSound->PlayImage (sound, pos);
         m_pDecor->SetInfoMode (!m_pDecor->GetInfoMode ());
       }
