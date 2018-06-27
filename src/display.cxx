@@ -33,6 +33,11 @@ Display::readDisplaySize ()
 
   this->width  = displayMode.w;
   this->height = displayMode.h;
+
+  if (this->width < this->getLogicWidth ())
+    this->width = this->getLogicWidth ();
+  if (this->height < this->getLogicHeight ())
+    this->height = this->getLogicHeight ();
 }
 
 Sint32
