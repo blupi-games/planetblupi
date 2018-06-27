@@ -978,9 +978,6 @@ CPixmap::FromDisplayToGame (Sint32 & x, Sint32 & y, double prevScale)
   if (this->event->IsDemoPlaying ())
     return;
 
-  Sint32 w, h;
-  SDL_GetWindowSize (g_window, &w, &h);
-
   double factor = 1;
 
   if (!g_bFullScreen)
@@ -988,9 +985,6 @@ CPixmap::FromDisplayToGame (Sint32 & x, Sint32 & y, double prevScale)
 
   x /= factor;
   y /= factor;
-
-  if (!g_bFullScreen)
-    return;
 }
 
 void
