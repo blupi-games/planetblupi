@@ -6,8 +6,8 @@
 class Display
 {
 private:
-	Sint32 width;
-	Sint32 height;
+  Sint32 width;
+  Sint32 height;
 
 private:
   Display ();
