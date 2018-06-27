@@ -16,6 +16,7 @@ public:
   static Display & getDisplay ();
 
   void   readDisplaySize ();
+  void   setDisplaySize (Sint32 width, Sint32 height);
   Sint32 getWidth ();
   Sint32 getHeight ();
   Sint32 getLogicWidth ();

@@ -86,6 +86,9 @@ struct url_data {
 };
 #endif /* USE_CURL */
 
+static int  Create ();
+static void Release ();
+
 template <typename Out>
 static void
 split (const std::string & s, char delim, Out result)
@@ -394,6 +397,18 @@ HandleEvent (const SDL_Event & event)
   {
     switch (event.user.code)
     {
+    case EV_REINIT:
+      Release ();
+
+      Display::getDisplay ().setDisplaySize (
+        Display::getDisplay ().getLogicWidth (),
+        Display::getDisplay ().getLogicHeight ());
+      g_zoom = 2;
+      g_bFullScreen = true;
+      g_settingsOverload |= SETTING_ZOOM | SETTING_FULLSCREEN;
+      Create ();
+      break;
+
     case EV_UPDATE:
       if (!g_pEvent->IsMovie ()) // pas de film en cours ?
       {
@@ -696,40 +711,11 @@ parseArgs (int argc, char * argv[], bool & exit)
   return EXIT_SUCCESS;
 }
 
-// Main initialization function.
-
 static int
-DoInit (int argc, char * argv[], bool & exit)
+Create ()
 {
-  int rc = parseArgs (argc, argv, exit);
-  if (exit)
-    return rc;
-
   Point totalDim, iconDim;
   Rect  rcRect;
-  bool  bOK;
-
-  bOK = ReadConfig (); // lit le fichier config.json
-
-  if (!bOK) // Something wrong with config.json file?
-  {
-    InitFail ("Game not correctly installed");
-    return EXIT_FAILURE;
-  }
-
-#ifdef _WIN32
-  /* Fix laggy sounds on Windows by not using winmm driver. */
-  SDL_setenv ("SDL_AUDIODRIVER", "directsound", true);
-#endif /* _WIN32 */
-
-  auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
-  if (res < 0)
-  {
-    SDL_Log ("Unable to initialize SDL: %s", SDL_GetError ());
-    return EXIT_FAILURE;
-  }
-
-  Display::getDisplay ().readDisplaySize ();
 
   // Create a window.
   g_window = SDL_CreateWindow (
@@ -1015,13 +1001,64 @@ DoInit (int argc, char * argv[], bool & exit)
   g_pPixmap->LoadCursors ();
   g_pPixmap->ChangeSprite (SPRITE_WAIT);
 
-  g_updateThread = new std::thread (CheckForUpdates);
   if (zoom != g_zoom)
     g_pEvent->SetWindowSize (g_zoom);
   g_pEvent->SetFullScreen (g_bFullScreen);
   g_pEvent->ChangePhase (EV_PHASE_INTRO1);
 
-  g_bTermInit = true;
+  return EXIT_SUCCESS;
+}
+
+static void
+Release ()
+{
+  FinishObjects ();
+
+  if (g_renderer)
+    SDL_DestroyRenderer (g_renderer);
+
+  if (g_window)
+    SDL_DestroyWindow (g_window);
+}
+
+// Main initialization function.
+
+static int
+DoInit (int argc, char * argv[], bool & exit)
+{
+  int rc = parseArgs (argc, argv, exit);
+  if (exit)
+    return rc;
+
+  bool bOK;
+
+  bOK = ReadConfig (); // lit le fichier config.json
+
+  if (!bOK) // Something wrong with config.json file?
+  {
+    InitFail ("Game not correctly installed");
+    return EXIT_FAILURE;
+  }
+
+#ifdef _WIN32
+  /* Fix laggy sounds on Windows by not using winmm driver. */
+  SDL_setenv ("SDL_AUDIODRIVER", "directsound", true);
+#endif /* _WIN32 */
+
+  auto res = SDL_Init (SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER);
+  if (res < 0)
+  {
+    SDL_Log ("Unable to initialize SDL: %s", SDL_GetError ());
+    return EXIT_FAILURE;
+  }
+
+  Display::getDisplay ().readDisplaySize ();
+
+  Create ();
+
+  g_updateThread = new std::thread (CheckForUpdates);
+  g_bTermInit    = true;
+
   return EXIT_SUCCESS;
 }
 
@@ -1061,13 +1098,7 @@ main (int argc, char * argv[])
   }
 
   SDL_RemoveTimer (updateTimer);
-  FinishObjects ();
-
-  if (g_renderer)
-    SDL_DestroyRenderer (g_renderer);
-
-  if (g_window)
-    SDL_DestroyWindow (g_window);
+  Release ();
 
   SDL_Quit ();
 

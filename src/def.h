@@ -399,6 +399,7 @@ enum ShiftDirection {
 #define EV_UPDATE               (EV_OFFSET+1)
 #define EV_WARPMOUSE            (EV_OFFSET+2)
 #define EV_CHECKUPDATE          (EV_OFFSET+3)
+#define EV_REINIT               (EV_OFFSET+4)
 
 #define EV_DECOR1               (EV_OFFSET+20)
 #define EV_DECOR2               (EV_OFFSET+21)

@@ -1752,8 +1752,16 @@ CEvent::SetFullScreen (bool bFullScreen, double prevScale)
     /* It seems that the fullscreen switching works better when the window
      * is at the top left corner of the current display.
      */
-    SDL_SetWindowPosition (
-      g_window, displayBounds[displayIndex].x, displayBounds[displayIndex].y);
+    //SDL_SetWindowPosition (
+    //  g_window, displayBounds[displayIndex].x, displayBounds[displayIndex].y);
+
+    int w, h;
+    SDL_GetWindowSize (g_window, &w, &h);
+    if (w != Display::getDisplay ().getWidth ())
+    {
+      CEvent::PushUserEvent (EV_REINIT);
+      return;
+    }
   }
 
   SDL_SetWindowFullscreen (
@@ -1761,7 +1769,9 @@ CEvent::SetFullScreen (bool bFullScreen, double prevScale)
                                          : SDL_WINDOW_FULLSCREEN)
                           : 0);
   SDL_SetWindowBordered (g_window, bFullScreen ? SDL_FALSE : SDL_TRUE);
+#ifndef DEBUG
   SDL_SetWindowGrab (g_window, bFullScreen ? SDL_TRUE : SDL_FALSE);
+#endif /* !DEBUG */
 
   m_pPixmap->LoadCursors ();
 
