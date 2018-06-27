@@ -22,17 +22,10 @@
 
 #include <SDL2/SDL_stdinc.h>
 
+#include "display.h"
+
 // clang-format off
 #define _INTRO          true    // true for init screen
-
-#define SCRNUM          16
-#define SCRDEN          9
-#define SCRFACTOR       SCRNUM / SCRDEN
-#define LXLOGIC         640
-#define LYLOGIC         480
-#define LXIMAGE         (LYLOGIC * SCRFACTOR + (LYLOGIC * SCRFACTOR) % 2) // window size
-#define LYIMAGE         LYLOGIC
-#define LXOFFSET        ((LXIMAGE - LXLOGIC) / 2)
 
 #define POSDRAWX        144     // draw surface
 #define POSDRAWY        15
