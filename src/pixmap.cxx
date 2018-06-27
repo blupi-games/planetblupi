@@ -990,9 +990,6 @@ CPixmap::FromDisplayToGame (Sint32 & x, Sint32 & y, double prevScale)
 void
 CPixmap::FromGameToDisplay (Sint32 & x, Sint32 & y)
 {
-  Sint32 w, h;
-  SDL_GetWindowSize (g_window, &w, &h);
-
   double factor = 1;
 
   if (!g_bFullScreen)
@@ -1003,6 +1000,9 @@ CPixmap::FromGameToDisplay (Sint32 & x, Sint32 & y)
 
   if (!g_bFullScreen)
     return;
+
+  Sint32 w, h;
+  SDL_GetWindowSize (g_window, &w, &h);
 
   double _w = w, _h = h;
 
