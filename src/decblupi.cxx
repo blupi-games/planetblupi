@@ -2184,7 +2184,9 @@ CDecor::GoalStop (Sint32 rank, bool bError, bool bSound)
   };
 
   static Sounds table_sound_boing[] = {
-    SOUND_BOING1, SOUND_BOING2, SOUND_BOING3,
+    SOUND_BOING1,
+    SOUND_BOING2,
+    SOUND_BOING3,
   };
 
   if (bError && bSound)
@@ -3463,12 +3465,16 @@ CDecor::BlupiHiliUp (Point pos)
 
   static Sounds table_sound_okf[] = // si fatigué
     {
-      SOUND_OK1f, SOUND_OK2f, SOUND_OK3f,
+      SOUND_OK1f,
+      SOUND_OK2f,
+      SOUND_OK3f,
     };
 
   static Sounds table_sound_oke[] = // si énervé
     {
-      SOUND_OK1e, SOUND_OK2e, SOUND_OK3e,
+      SOUND_OK1e,
+      SOUND_OK2e,
+      SOUND_OK3e,
     };
 
   if (m_bHiliRect) // rectangle de sélection existe ?
@@ -4102,11 +4108,15 @@ CDecor::BlupiGoal (Point cel, Buttons button)
   };
 
   static Sounds table_sound_gom[] = {
-    SOUND_GO4, SOUND_GO5, SOUND_GO6,
+    SOUND_GO4,
+    SOUND_GO5,
+    SOUND_GO6,
   };
 
   static Sounds table_sound_boing[] = {
-    SOUND_BOING1, SOUND_BOING2, SOUND_BOING3,
+    SOUND_BOING1,
+    SOUND_BOING2,
+    SOUND_BOING3,
   };
 
   if (button == -1)

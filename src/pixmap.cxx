@@ -782,7 +782,7 @@ CPixmap::LoadCursors (Uint8 scale)
   gmask = 0x00ff0000;
   bmask = 0x0000ff00;
   amask = 0x000000ff;
-#else /* SDL_BYTEORDER == SDL_BIG_ENDIAN */
+#else  /* SDL_BYTEORDER == SDL_BIG_ENDIAN */
   rmask = 0x000000ff;
   gmask = 0x0000ff00;
   bmask = 0x00ff0000;
