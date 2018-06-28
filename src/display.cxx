@@ -31,8 +31,14 @@ Display::readDisplaySize ()
   if (res < 0)
     return;
 
-  this->width  = displayMode.w;
-  this->height = displayMode.h;
+  this->setDisplaySize (displayMode.w, displayMode.h);
+}
+
+void
+Display::setDisplaySize (Sint32 w, Sint32 h)
+{
+  this->width  = w;
+  this->height = h;
 
   if (this->width < this->getLogicWidth ())
     this->width = this->getLogicWidth ();

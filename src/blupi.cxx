@@ -576,6 +576,10 @@ parseArgs (int argc, char * argv[], bool & exit)
       {"-z", "--zoom"},
       "change the window scale (only if fullscreen is off) [1;2] (default: 1)",
       1},
+     {"legacy",
+      {"-l", "--legacy"},
+      "start the game in legacy display mode (640x480)",
+      0},
      {"renderer",
       {"-r", "--renderer"},
       "set a renderer [auto;software;accelerated] (default: auto)",
@@ -656,6 +660,12 @@ parseArgs (int argc, char * argv[], bool & exit)
     g_settingsOverload |= SETTING_ZOOM;
   }
 
+  if (args["legacy"])
+  {
+    Display::getDisplay ().setDisplaySize (LXLOGIC (), LYLOGIC ());
+    g_settingsOverload |= SETTING_LEGACY;
+  }
+
   if (args["renderer"])
   {
     if (args["renderer"].as<std::string> () == "auto")
@@ -729,7 +739,8 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
-  Display::getDisplay ().readDisplaySize ();
+  if (!(g_settingsOverload & SETTING_LEGACY))
+    Display::getDisplay ().readDisplaySize ();
 
   // Create a window.
   g_window = SDL_CreateWindow (

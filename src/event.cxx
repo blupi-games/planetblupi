@@ -4933,6 +4933,10 @@ CEvent::ReadInfo ()
       g_bFullScreen = !!info.fullScreen;
     if (!(g_settingsOverload & SETTING_ZOOM))
       g_zoom = info.zoom;
+
+    /* Prefer the desktop fullscreen mode by default. */
+    if (!(g_settingsOverload & SETTING_LEGACY) && g_bFullScreen && g_zoom == 2)
+      g_zoom = 1;
   }
 
   fclose (file);

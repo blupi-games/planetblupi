@@ -46,6 +46,7 @@ enum Settings {
   SETTING_ZOOM          = 1 << 4,
   SETTING_DRIVER        = 1 << 5,
   SETTING_MIDI          = 1 << 6,
+  SETTING_LEGACY        = 1 << 7,
 };
 
 extern int g_settingsOverload;
