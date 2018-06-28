@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-14 23:13+0100\n"
+"POT-Creation-Date: 2018-06-29 00:27+0200\n"
 "PO-Revision-Date: 2017-12-14 23:15+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -282,6 +282,20 @@ msgstr "Stein bearbeiten"
 msgid "Carve rocks"
 msgstr "Steine bearbeiten"
 
+msgid "Change for desktop mode"
+msgstr ""
+
+msgid "Change for legacy mode (640x480)"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Change the\n"
+"display mode"
+msgstr ""
+"Fentergrösse\n"
+"anpassen"
+
 msgid ""
 "Change the\n"
 "window size"
@@ -329,6 +343,9 @@ msgstr "Demo"
 
 msgid "Desert"
 msgstr "Wüste"
+
+msgid "Desktop"
+msgstr ""
 
 msgid "Difficult"
 msgstr "Schwer"
@@ -502,6 +519,9 @@ msgstr "Letzte konstruierte Mission beendet."
 
 msgid "Leave Jeep"
 msgstr "Aussteigen"
+
+msgid "Legacy"
+msgstr ""
 
 #, c-format
 msgid "Lost if less than %d Blupi"

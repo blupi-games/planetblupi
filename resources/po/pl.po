@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-14 23:13+0100\n"
+"POT-Creation-Date: 2018-06-29 00:27+0200\n"
 "PO-Revision-Date: 2017-12-14 23:15+0100\n"
 "Last-Translator: tomangelo <tomangelo@wp.pl>\n"
 "Language-Team: TerranovaTeam <contact@colobot.info>\n"
@@ -281,6 +281,20 @@ msgstr "Wyłup skałę"
 msgid "Carve rocks"
 msgstr "Wyłup skały"
 
+msgid "Change for desktop mode"
+msgstr ""
+
+msgid "Change for legacy mode (640x480)"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Change the\n"
+"display mode"
+msgstr ""
+"Zmień rozmiar\n"
+"okna"
+
 msgid ""
 "Change the\n"
 "window size"
@@ -328,6 +342,9 @@ msgstr "Demonstracja"
 
 msgid "Desert"
 msgstr "Pustynia"
+
+msgid "Desktop"
+msgstr ""
 
 msgid "Difficult"
 msgstr "Trudny"
@@ -498,6 +515,9 @@ msgstr "Ostatnia łamigłówka rozwiązana!"
 
 msgid "Leave Jeep"
 msgstr "Opuść Jeepa"
+
+msgid "Legacy"
+msgstr ""
 
 #, c-format
 msgid "Lost if less than %d Blupi"

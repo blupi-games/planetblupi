@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-14 23:13+0100\n"
+"POT-Creation-Date: 2018-06-29 00:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -545,12 +545,6 @@ msgstr ""
 msgid "Windowed"
 msgstr ""
 
-msgid "Reduce window size"
-msgstr ""
-
-msgid "Increase window size"
-msgstr ""
-
 msgid "Use Ogg music"
 msgstr ""
 
@@ -562,6 +556,18 @@ msgstr ""
 
 #, c-format
 msgid "New version available for download on www.blupi.org (v%s)"
+msgstr ""
+
+msgid "Change for desktop mode"
+msgstr ""
+
+msgid "Reduce window size"
+msgstr ""
+
+msgid "Change for legacy mode (640x480)"
+msgstr ""
+
+msgid "Increase window size"
 msgstr ""
 
 msgid "N"
@@ -708,12 +714,23 @@ msgstr ""
 
 msgid ""
 "Change the\n"
+"display mode"
+msgstr ""
+
+msgid ""
+"Change the\n"
 "window size"
 msgstr ""
 
 msgid ""
 "Choose the\n"
 "music format"
+msgstr ""
+
+msgid "Legacy"
+msgstr ""
+
+msgid "Desktop"
 msgstr ""
 
 msgid "Midi"
