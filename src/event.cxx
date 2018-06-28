@@ -4300,8 +4300,7 @@ CEvent::ChangeButtons (Sint32 message)
       if (g_zoom < 2)
         ++g_zoom;
 
-      if (
-        g_bFullScreen && g_zoom == 2)
+      if (g_bFullScreen && g_zoom == 2)
       {
         SDL_Event ev;
         ev.type = SDL_QUIT;
