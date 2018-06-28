@@ -4250,7 +4250,7 @@ CEvent::ChangeButtons (Sint32 message)
     case EV_BUTTON3:
     {
       auto zoom = g_zoom;
-      g_zoom    = 1;
+      g_zoom = g_settingsOverload & SETTING_LEGACY ? g_zoom = 2 : 1;
       SetFullScreen (true, zoom);
       break;
     }
@@ -4267,6 +4267,16 @@ CEvent::ChangeButtons (Sint32 message)
       auto scale = g_zoom;
       if (g_zoom > 1)
         --g_zoom;
+
+      if (g_bFullScreen && scale == 2)
+      {
+        SDL_Event ev;
+        ev.type = SDL_QUIT;
+        SDL_PushEvent (&ev);
+        g_restart = RestartMode::DESKTOP;
+        break;
+      }
+
       SetWindowSize (scale, g_zoom);
       if (g_bFullScreen)
         SetFullScreen (g_bFullScreen);
@@ -4277,6 +4287,17 @@ CEvent::ChangeButtons (Sint32 message)
       auto scale = g_zoom;
       if (g_zoom < 2)
         ++g_zoom;
+
+      if (
+        g_bFullScreen && g_zoom == 2)
+      {
+        SDL_Event ev;
+        ev.type = SDL_QUIT;
+        SDL_PushEvent (&ev);
+        g_restart = RestartMode::LEGACY;
+        break;
+      }
+
       SetWindowSize (scale, g_zoom);
       if (g_bFullScreen)
         SetFullScreen (g_bFullScreen);

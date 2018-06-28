@@ -76,6 +76,7 @@ int         g_settingsOverload = 0;
 
 bool        g_bTermInit = false; // initialisation en cours
 Uint32      g_lastPhase = 999;
+RestartMode g_restart   = RestartMode::NO;
 static bool g_pause;
 
 #ifdef USE_CURL
@@ -1087,6 +1088,19 @@ main (int argc, char * argv[])
     g_updateAbort = true;
     g_updateThread->join ();
     delete (g_updateThread);
+  }
+
+  /* Restart the game when the fullscreen mode (ratio) has changed. */
+  if (g_restart != RestartMode::NO)
+  {
+    std::vector<const char *> _argv;
+
+    _argv.push_back (argv[0]);
+    if (g_restart == RestartMode::LEGACY)
+      _argv.push_back ("--legacy");
+    _argv.push_back (nullptr);
+
+    execv (argv[0], const_cast<char **> (&_argv[0]));
   }
 
   return 0;
