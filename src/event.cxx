@@ -4262,7 +4262,7 @@ CEvent::ChangeButtons (Sint32 message)
     case EV_BUTTON3:
     {
       auto zoom = g_zoom;
-      g_zoom = g_settingsOverload & SETTING_LEGACY ? g_zoom = 2 : 1;
+      g_zoom    = g_settingsOverload & SETTING_LEGACY ? 2 : 1;
       SetFullScreen (true, zoom);
       break;
     }
