@@ -1555,13 +1555,13 @@ static Phase table[] =
                 EV_BUTTON5,
                 0, {1, 50},
                 284, 330,
-                { translate ("Reduce window size") },
+                { "" /* dynamic */ },
             },
             {
                 EV_BUTTON6,
                 0, {1, 51},
                 284 + 40, 330,
-                { translate ("Increase window size") },
+                { "" /* dynamic */ },
             },
             {
                 EV_BUTTON7,
@@ -2197,6 +2197,13 @@ CEvent::DrawButtons ()
 
     SetEnable (EV_BUTTON7, g_restoreMidi && mid && ogg);
     SetEnable (EV_BUTTON8, !g_restoreMidi && mid && ogg);
+
+    table[m_index].buttons[4].toolTips[0] =
+      g_bFullScreen ? gettext ("Change for desktop mode")
+                    : gettext ("Reduce window size");
+    table[m_index].buttons[5].toolTips[0] =
+      g_bFullScreen ? gettext ("Change for legacy mode (640x480)")
+                    : gettext ("Increase window size");
   }
 
   assert (m_index >= 0);
@@ -2658,7 +2665,9 @@ CEvent::DrawButtons ()
     DrawTextCenter (
       gettext ("Select the\nwindow mode"), 169 + 40 + LXOFFSET (), 80);
     DrawTextCenter (
-      gettext ("Change the\nwindow size"), 284 + 40 + LXOFFSET (), 80);
+      g_bFullScreen ? gettext ("Change the\ndisplay mode")
+                    : gettext ("Change the\nwindow size"),
+      284 + 40 + LXOFFSET (), 80);
     DrawTextCenter (
       gettext ("Choose the\nmusic format"), 399 + 40 + LXOFFSET (), 80);
 
@@ -2690,13 +2699,16 @@ CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, text);
 
     if (!g_bFullScreen)
-    {
       snprintf (res, sizeof (res), "%dx", g_zoom);
-      lg    = GetTextWidth (res);
-      pos.x = (284 + 40) - lg / 2 + LXOFFSET ();
-      pos.y = 330 - 20;
-      DrawText (m_pPixmap, pos, res);
-    }
+    else
+      snprintf (
+        res, sizeof (res), "%s",
+        g_zoom == 2 ? gettext ("Legacy") : gettext ("Desktop"));
+
+    lg    = GetTextWidth (res);
+    pos.x = (284 + 40) - lg / 2 + LXOFFSET ();
+    pos.y = 330 - 20;
+    DrawText (m_pPixmap, pos, res);
 
     text  = (g_restoreMidi && mid) || !ogg ? gettext ("Midi") : gettext ("Ogg");
     lg    = GetTextWidth (text);
