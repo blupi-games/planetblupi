@@ -3763,6 +3763,8 @@ CDecor::GetDefButton (Point cel)
 
     if (icon == 61)
       button = BUTTON_CULTIVE; // cabane
+    if (icon == 81 || icon == 83 || icon == 94)
+      button = BUTTON_FLOWER;
     if (icon == 122)
       button = BUTTON_EXTRAIT; // extrait
 
