@@ -2199,10 +2199,10 @@ CEvent::DrawButtons ()
     SetEnable (EV_BUTTON8, !g_restoreMidi && mid && ogg);
 
     table[m_index].buttons[4].toolTips[0] =
-      g_bFullScreen ? gettext ("Change for desktop mode")
+      g_bFullScreen ? gettext ("Desktop mode")
                     : gettext ("Reduce window size");
     table[m_index].buttons[5].toolTips[0] =
-      g_bFullScreen ? gettext ("Change for legacy mode (640x480)")
+      g_bFullScreen ? gettext ("Legacy mode (640x480)")
                     : gettext ("Increase window size");
   }
 

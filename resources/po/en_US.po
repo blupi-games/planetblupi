@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-29 00:27+0200\n"
+"POT-Creation-Date: 2018-06-30 15:35+0200\n"
 "PO-Revision-Date: 2017-02-27 21:28+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -238,12 +238,6 @@ msgstr ""
 msgid "Carve rocks"
 msgstr ""
 
-msgid "Change for desktop mode"
-msgstr ""
-
-msgid "Change for legacy mode (640x480)"
-msgstr ""
-
 msgid ""
 "Change the\n"
 "display mode"
@@ -296,6 +290,9 @@ msgid "Desert"
 msgstr ""
 
 msgid "Desktop"
+msgstr ""
+
+msgid "Desktop mode"
 msgstr ""
 
 msgid "Difficult"
@@ -463,6 +460,9 @@ msgid "Leave Jeep"
 msgstr ""
 
 msgid "Legacy"
+msgstr ""
+
+msgid "Legacy mode (640x480)"
 msgstr ""
 
 #, c-format

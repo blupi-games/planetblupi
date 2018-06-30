@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-29 00:27+0200\n"
-"PO-Revision-Date: 2018-06-29 00:32+0200\n"
+"POT-Creation-Date: 2018-06-30 15:35+0200\n"
+"PO-Revision-Date: 2018-06-30 15:36+0200\n"
 "Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -280,12 +280,6 @@ msgstr "Taille un rocher"
 msgid "Carve rocks"
 msgstr "Taille des rochers"
 
-msgid "Change for desktop mode"
-msgstr "Change pour le mode bureau"
-
-msgid "Change for legacy mode (640x480)"
-msgstr "Change pour l'ancien mode (640x480)"
-
 msgid ""
 "Change the\n"
 "display mode"
@@ -346,6 +340,9 @@ msgstr "Désert"
 
 msgid "Desktop"
 msgstr "Bureau"
+
+msgid "Desktop mode"
+msgstr "Mode bureau"
 
 msgid "Difficult"
 msgstr "Difficile"
@@ -519,6 +516,9 @@ msgstr "Descend"
 
 msgid "Legacy"
 msgstr "Ancien"
+
+msgid "Legacy mode (640x480)"
+msgstr "Ancien mode (640x480)"
 
 #, c-format
 msgid "Lost if less than %d Blupi"
@@ -965,6 +965,9 @@ msgstr "entraînement %d, temps %d"
 #~ msgctxt "Flower|3|"
 #~ msgid "Bunch of flowers"
 #~ msgstr "Bouquet de fleurs"
+
+#~ msgid "Change for desktop mode"
+#~ msgstr "Change pour le mode bureau"
 
 #~ msgctxt "Flower|2|"
 #~ msgid "Flowers"
