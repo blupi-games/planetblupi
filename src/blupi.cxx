@@ -1097,7 +1097,13 @@ main (int argc, char * argv[])
 
     _argv.push_back (argv[0]);
     if (g_restart == RestartMode::LEGACY)
+    {
       _argv.push_back ("--legacy");
+      _argv.push_back ("--fullscreen");
+      _argv.push_back ("on");
+      _argv.push_back ("--zoom");
+      _argv.push_back ("2");
+    }
     _argv.push_back (nullptr);
 
     execv (argv[0], const_cast<char **> (&_argv[0]));
