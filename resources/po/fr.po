@@ -932,7 +932,7 @@ msgid "Yes, great ..."
 msgstr "Oui, super ..."
 
 msgid "You have failed, try again..."
-msgstr "C'est raté, essaie encore une fois"
+msgstr "C'est raté, essaie encore une fois..."
 
 msgid "You have played Planet Blupi."
 msgstr "Vous avez joué à Planète Blupi."
