@@ -29,6 +29,7 @@
 #include <string>
 #include <thread>
 #include <vector>
+#include <unistd.h>
 
 #include <SDL2/SDL_image.h>
 #include <argagg/argagg.hpp>
