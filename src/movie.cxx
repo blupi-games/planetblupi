@@ -36,7 +36,7 @@ bool
 CMovie::initAVI ()
 {
   // Initialize Kitchensink with network support and all formats.
-  Sint32 err = Kit_Init (KIT_INIT_FORMATS);
+  Sint32 err = Kit_Init (0);
   if (err != 0)
   {
     fprintf (stderr, "Unable to initialize Kitchensink: %s", Kit_GetError ());
@@ -104,7 +104,11 @@ CMovie::fileOpenMovie (const std::string & pFilename)
   if (m_movie)
   {
     // Create the player
-    m_player = Kit_CreatePlayer (m_movie);
+    m_player = Kit_CreatePlayer (
+      m_movie, Kit_GetBestSourceStream (m_movie, KIT_STREAMTYPE_VIDEO),
+      Kit_GetBestSourceStream (m_movie, KIT_STREAMTYPE_AUDIO),
+      Kit_GetBestSourceStream (m_movie, KIT_STREAMTYPE_SUBTITLE), LXIMAGE,
+      LYIMAGE);
     if (m_player == nullptr)
       return false;
 
@@ -114,15 +118,15 @@ CMovie::fileOpenMovie (const std::string & pFilename)
     SDL_AudioSpec wanted_spec, audio_spec;
 
     SDL_memset (&wanted_spec, 0, sizeof (wanted_spec));
-    wanted_spec.freq     = info.audio.samplerate;
-    wanted_spec.format   = info.audio.format;
-    wanted_spec.channels = info.audio.channels;
+    wanted_spec.freq     = info.audio.output.samplerate;
+    wanted_spec.format   = info.audio.output.format;
+    wanted_spec.channels = info.audio.output.channels;
     m_audioDev = SDL_OpenAudioDevice (nullptr, 0, &wanted_spec, &audio_spec, 0);
     SDL_PauseAudioDevice (m_audioDev, 0);
 
     m_videoTex = SDL_CreateTexture (
-      g_renderer, info.video.format, SDL_TEXTUREACCESS_TARGET, info.video.width,
-      info.video.height);
+      g_renderer, info.video.output.format, SDL_TEXTUREACCESS_TARGET,
+      info.video.output.width, info.video.output.height);
 
     if (m_videoTex == nullptr)
       return false;
@@ -260,9 +264,9 @@ CMovie::Render ()
     SDL_LockAudio ();
     while (need > 0)
     {
-      m_ret = Kit_GetAudioData (
-        m_player, (unsigned char *) m_audiobuf, AUDIOBUFFER_SIZE,
-        (size_t) SDL_GetQueuedAudioSize (m_audioDev));
+      m_ret = Kit_GetPlayerAudioData (
+        m_player, (unsigned char *) m_audiobuf,
+        AUDIOBUFFER_SIZE - (size_t) SDL_GetQueuedAudioSize (m_audioDev));
       need -= m_ret;
       if (m_ret > 0)
         SDL_QueueAudio (m_audioDev, m_audiobuf, m_ret);
@@ -287,7 +291,7 @@ CMovie::Render ()
   }
 
   // Refresh videotexture and render it
-  Kit_GetVideoData (m_player, m_videoTex);
+  Kit_GetPlayerVideoData (m_player, m_videoTex);
   SDL_RenderCopy (g_renderer, m_videoTex, nullptr, nullptr);
 
   SDL_RenderPresent (g_renderer);
