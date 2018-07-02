@@ -8,6 +8,7 @@ include (GNUInstallDirs)
 include (${CMAKE_ROOT}/Modules/ExternalProject.cmake)
 
 include_directories (${CMAKE_INSTALL_PREFIX}/include)
+include_directories (${CMAKE_INSTALL_PREFIX}/include/SDL2)
 link_directories (${CMAKE_INSTALL_PREFIX}/lib)
 
 project (planetblupi)
