@@ -104,6 +104,7 @@ if (MINGW)
 
   # Remove cmd window when executing planetblupi
   set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -mwindows")
+  set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-Bstatic,--whole-archive -lwinpthread -Wl,--no-whole-archive")
 endif (MINGW)
 
 # Dependencies
@@ -281,14 +282,6 @@ if (NOT USE_APPIMAGE)
     FILES ${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop
     DESTINATION share/applications
   )
-endif ()
-
-# Copy libwinpthread-1.dll which seems not be linkable statically
-if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows" AND MINGW)
-  execute_process (COMMAND cygpath.exe --windows $ENV{MINGW_PREFIX} OUTPUT_VARIABLE MINGW_PATH)
-  string (REGEX REPLACE "[ \t\n\r]+$" "" MINGW_PATH "${MINGW_PATH}")
-  string (REGEX REPLACE "[\\]" "\\\\\\\\" MINGW_PATH "${MINGW_PATH}")
-  install (FILES "${MINGW_PATH}\\\\bin\\\\libwinpthread-1.dll" DESTINATION bin)
 endif ()
 
 #########
