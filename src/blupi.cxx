@@ -31,7 +31,7 @@
 #include <vector>
 #include <unistd.h>
 
-#include <SDL2/SDL_image.h>
+#include <SDL_image.h>
 #include <argagg/argagg.hpp>
 #ifdef USE_CURL
 #include <curl/curl.h>

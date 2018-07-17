@@ -29,7 +29,7 @@
 #include <unistd.h>
 #endif /* !_WIN32 */
 
-#include <SDL2/SDL_image.h>
+#include <SDL_image.h>
 
 #include "blupi.h"
 #include "def.h"

@@ -30,8 +30,8 @@
 #include <sys/stat.h>
 #endif /*! _WIN32 */
 
-#include <SDL2/SDL_log.h>
-#include <SDL2/SDL_mouse.h>
+#include <SDL_log.h>
+#include <SDL_mouse.h>
 
 #include "blupi.h"
 #include "def.h"

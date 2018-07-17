@@ -18,7 +18,7 @@
  * along with this program. If not, see http://gnu.org/licenses
  */
 
-#include <SDL2/SDL_stdinc.h>
+#include <SDL_stdinc.h>
 #include <stdlib.h>
 
 #include "fifo.h"
