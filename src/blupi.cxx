@@ -841,8 +841,8 @@ DoInit (int argc, char * argv[], bool & exit)
 
   rcRect.left   = 0;
   rcRect.top    = 0;
-  rcRect.right  = LXLOGIC ();
-  rcRect.bottom = LYLOGIC ();
+  rcRect.right  = LXIMAGE ();
+  rcRect.bottom = LYIMAGE ();
   g_pPixmap->DrawImage (-1, CHBACK, rcRect); // dessine le fond
   g_pPixmap->Display ();
 
