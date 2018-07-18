@@ -31,8 +31,13 @@ configure_file (
 
 include_directories ("${PROJECT_BINARY_DIR}/include")
 
-file (GLOB_RECURSE sources src/*.cxx src/*.h)
-file (GLOB_RECURSE po      resources/po/*.po)
+if (BUILD_JS)
+  file (GLOB sources src/*.cxx src/*.h src/json/* src/platform/*_js.*)
+else ()
+  file (GLOB sources src/*.cxx src/*.h src/json/* src/platform/*_sdl.*)
+endif ()
+
+file (GLOB_RECURSE po resources/po/*.po)
 
 if (APPIMAGE_APPRUN_PROGRAM AND APPIMAGE_ASSISTANT_PROGRAM)
   set (USE_APPIMAGE ON)
@@ -46,12 +51,24 @@ if (NOT USE_APPIMAGE)
   )
 endif ()
 
+set (planetblupi_OUTPUT planetblupi)
+
+if (NOT DEFINED BUILD_LINUX)
+  set (BUILD_LINUX UNIX AND NOT APPLE)
+endif ()
+
+if (BUILD_JS)
+  set (CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} ${EMSCRIPTEN_FLAGS})
+  set (CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} "--preload-file share")
+  set (planetblupi_OUTPUT planetblupi.html)
+endif ()
+
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11 -L${CMAKE_INSTALL_PREFIX}/lib")
 endif ()
 
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND "${STATIC_BUILD}")
-  set (CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
+  set (CMAKE_EXE_LINKER_FLAGS ${CMAKE_EXE_LINKER_FLAGS} "-static-libgcc -static-libstdc++")
 endif ()
 
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
@@ -126,28 +143,45 @@ find_package (SDLKitchensink REQUIRED)
 include_directories (${SDLKitchensink_INCLUDE_DIRS})
 
 find_package (PkgConfig REQUIRED)
-pkg_search_module (SDL2 REQUIRED sdl2)
-pkg_search_module (SDL2_MIXER REQUIRED SDL2_mixer)
-pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
+if (NOT BUILD_JS)
+  pkg_search_module (SDL2 REQUIRED sdl2)
+  set (planetblupi_DEPS ${planetblupi_DEPS} ${SDL2_STATIC_LIBRARIES})
+  pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
+  set (planetblupi_DEPS ${planetblupi_DEPS} ${SDL2_IMAGE_STATIC_LIBRARIES})
+  pkg_search_module (SDL2_MIXER REQUIRED SDL2_mixer)
+  set (planetblupi_DEPS ${planetblupi_DEPS} ${SDL2_MIXER_STATIC_LIBRARIES})
+endif ()
+
 if (${PB_HTTP_VERSION_CHECK})
   pkg_search_module (CURL REQUIRED libcurl)
   add_definitions (-DUSE_CURL)
 endif ()
 
 if ("${STATIC_BUILD}")
-  pkg_search_module (PNG REQUIRED libpng)
   # Static dependencies for SDL_kitchensink
   pkg_search_module (AVCODEC REQUIRED libavcodec)
   pkg_search_module (AVFORMAT REQUIRED libavformat)
   pkg_search_module (AVUTIL REQUIRED libavutil)
   pkg_search_module (SWSCALE REQUIRED libswscale)
   pkg_search_module (SWRESAMPLE REQUIRED libswresample)
-  # Statis dependencies for SDL_mixer
-  pkg_search_module (VORBIS REQUIRED vorbisfile)
 
-  if (UNIX AND NOT APPLE)
-    pkg_search_module (ALSA REQUIRED alsa)
-    pkg_search_module (PULSE REQUIRED libpulse)
+  if (NOT BUILD_JS)
+    pkg_search_module (PNG REQUIRED libpng)
+    set (planetblupi_DEPS ${planetblupi_DEPS} ${PNG_STATIC_LIBRARIES})
+
+    # Static dependencies for SDL_mixer
+    pkg_search_module (VORBIS REQUIRED vorbisfile)
+    set (planetblupi_DEPS ${planetblupi_DEPS} ${VORBIS_STATIC_LIBRARIES})
+
+    if (BUILD_LINUX)
+      pkg_search_module (ALSA REQUIRED alsa)
+      pkg_search_module (PULSE REQUIRED libpulse)
+    endif ()
+
+    set (planetblupi_DEPS ${planetblupi_DEPS}
+      ${Intl_LIBRARIES}
+      ${Iconv_LIBRARIES}
+    )
   endif ()
 
   if (${PB_HTTP_VERSION_CHECK})
@@ -159,23 +193,16 @@ endif ()
 ## Main binary dependencies
 ###########################
 
-add_executable (planetblupi ${sources})
+add_executable (${planetblupi_OUTPUT} ${sources})
 
 if ("${STATIC_BUILD}")
-  set (planetblupi_DEPS
-    ${Intl_LIBRARIES}
-    ${Iconv_LIBRARIES}
-    ${SDL2_STATIC_LIBRARIES}
-    ${SDL2_MIXER_STATIC_LIBRARIES}
-    ${SDL2_IMAGE_STATIC_LIBRARIES}
+  set (planetblupi_DEPS ${planetblupi_DEPS}
     ${SDLKitchensink_STATIC_LIBRARIES}
-    ${PNG_STATIC_LIBRARIES}
     ${AVCODEC_STATIC_LIBRARIES}
     ${AVFORMAT_STATIC_LIBRARIES}
     ${AVUTIL_STATIC_LIBRARIES}
     ${SWSCALE_STATIC_LIBRARIES}
     ${SWRESAMPLE_STATIC_LIBRARIES}
-    ${VORBIS_STATIC_LIBRARIES}
   )
 
   if (${PB_HTTP_VERSION_CHECK})
@@ -184,7 +211,7 @@ if ("${STATIC_BUILD}")
     )
   endif ()
 
-  if (UNIX AND NOT APPLE)
+  if (BUILD_LINUX)
     list (APPEND planetblupi_DEPS
       ${ALSA_STATIC_LIBRARIES}
       ${PULSE_STATIC_LIBRARIES}
@@ -208,7 +235,7 @@ else ()
   endif ()
 endif ()
 
-target_link_libraries (planetblupi PUBLIC ${planetblupi_DEPS})
+target_link_libraries (${planetblupi_OUTPUT} PUBLIC ${planetblupi_DEPS})
 
 ##########
 ## GetText
@@ -244,51 +271,52 @@ foreach (file ${_gmoFiles})
     DEPENDS ${_out}/planetblupi.mo
   )
 
-  add_dependencies (planetblupi "po-${_lang}")
+  add_dependencies (${planetblupi_OUTPUT} "po-${_lang}")
 endforeach (file)
 
 ##############
 # Installation
 ##############
 
-install (TARGETS planetblupi
-  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
-
-install (
-  DIRECTORY resources/data DESTINATION share/planetblupi
-  PATTERN "world2*.blp" EXCLUDE
-  PATTERN "world*.dev.blp" EXCLUDE
-)
-install (
-  DIRECTORY resources/data DESTINATION share/planetblupi
-  CONFIGURATIONS Debug
-  PATTERN "world2*.blp"
-  PATTERN "world*.dev.blp"
-)
-install (DIRECTORY resources/image DESTINATION share/planetblupi)
-install (DIRECTORY resources/movie DESTINATION share/planetblupi)
-install (DIRECTORY resources/sound DESTINATION share/planetblupi)
-install (DIRECTORY resources/music DESTINATION share/planetblupi)
-install (FILES LICENSE.all DESTINATION share/doc/planetblupi RENAME copyright)
-
-if (UNIX AND NOT APPLE)
-  install (DIRECTORY resources/icon/hicolor DESTINATION share/icons)
-endif ()
-
-if (NOT USE_APPIMAGE)
-  install (
-    FILES ${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop
-    DESTINATION share/applications
+if (NOT BUILD_JS)
+  install (TARGETS ${planetblupi_OUTPUT}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   )
-endif ()
+  install (
+    DIRECTORY resources/data DESTINATION share/planetblupi
+    PATTERN "world2*.blp" EXCLUDE
+    PATTERN "world*.dev.blp" EXCLUDE
+  )
+  install (
+    DIRECTORY resources/data DESTINATION share/planetblupi
+    CONFIGURATIONS Debug
+    PATTERN "world2*.blp"
+    PATTERN "world*.dev.blp"
+  )
+  install (DIRECTORY resources/image DESTINATION share/planetblupi)
+  install (DIRECTORY resources/movie DESTINATION share/planetblupi)
+  install (DIRECTORY resources/sound DESTINATION share/planetblupi)
+  install (DIRECTORY resources/music DESTINATION share/planetblupi)
+  install (FILES LICENSE.all DESTINATION share/doc/planetblupi RENAME copyright)
 
-# Copy libwinpthread-1.dll which seems not be linkable statically
-if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows" AND MINGW)
-  execute_process (COMMAND cygpath.exe --windows $ENV{MINGW_PREFIX} OUTPUT_VARIABLE MINGW_PATH)
-  string (REGEX REPLACE "[ \t\n\r]+$" "" MINGW_PATH "${MINGW_PATH}")
-  string (REGEX REPLACE "[\\]" "\\\\\\\\" MINGW_PATH "${MINGW_PATH}")
-  install (FILES "${MINGW_PATH}\\\\bin\\\\libwinpthread-1.dll" DESTINATION bin)
+  if (UNIX AND NOT APPLE)
+    install (DIRECTORY resources/icon/hicolor DESTINATION share/icons)
+  endif ()
+
+  if (NOT USE_APPIMAGE)
+    install (
+      FILES ${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop
+      DESTINATION share/applications
+    )
+  endif ()
+
+  # Copy libwinpthread-1.dll which seems not be linkable statically
+  if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows" AND MINGW)
+    execute_process (COMMAND cygpath.exe --windows $ENV{MINGW_PREFIX} OUTPUT_VARIABLE MINGW_PATH)
+    string (REGEX REPLACE "[ \t\n\r]+$" "" MINGW_PATH "${MINGW_PATH}")
+    string (REGEX REPLACE "[\\]" "\\\\\\\\" MINGW_PATH "${MINGW_PATH}")
+    install (FILES "${MINGW_PATH}\\\\bin\\\\libwinpthread-1.dll" DESTINATION bin)
+  endif ()
 endif ()
 
 #########

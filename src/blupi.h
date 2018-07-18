@@ -40,6 +40,7 @@ extern bool           g_enableRecorder;
 extern std::string    g_playRecord;
 extern CEvent *       g_pEvent;
 extern RestartMode    g_restart;
+extern Sint32         g_timerInterval;
 
 enum Settings {
   SETTING_FULLSCREEN    = 1 << 0,

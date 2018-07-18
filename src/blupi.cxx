@@ -48,6 +48,7 @@
 #include "misc.h"
 #include "movie.h"
 #include "pixmap.h"
+#include "platform.h"
 #include "progress.h"
 #include "sound.h"
 
@@ -1057,23 +1058,8 @@ main (int argc, char * argv[])
   if ((res = DoInit (argc, argv, exit)) || exit)
     return res;
 
-  SDL_TimerID updateTimer = SDL_AddTimer (
-    g_timerInterval,
-    [](Uint32 interval, void * param) -> Uint32 {
-      CEvent::PushUserEvent (EV_UPDATE);
-      return interval;
-    },
-    nullptr);
+  Platform::run (HandleEvent);
 
-  SDL_Event event;
-  while (SDL_WaitEvent (&event))
-  {
-    HandleEvent (event);
-    if (event.type == SDL_QUIT)
-      break;
-  }
-
-  SDL_RemoveTimer (updateTimer);
   FinishObjects ();
 
   if (g_renderer)
