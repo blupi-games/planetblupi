@@ -28,8 +28,8 @@
 #include <stdlib.h>
 #include <string>
 #include <thread>
-#include <vector>
 #include <unistd.h>
+#include <vector>
 
 #include <SDL_image.h>
 #include <argagg/argagg.hpp>
@@ -663,7 +663,7 @@ parseArgs (int argc, char * argv[], bool & exit)
     g_settingsOverload |= SETTING_ZOOM;
   }
 
-  if (args["legacy"])
+  // if (args["legacy"])
   {
     Display::getDisplay ().setDisplaySize (LXLOGIC (), LYLOGIC ());
     g_settingsOverload |= SETTING_LEGACY;
@@ -1029,10 +1029,10 @@ DoInit (int argc, char * argv[], bool & exit)
   g_pPixmap->LoadCursors ();
   g_pPixmap->ChangeSprite (SPRITE_WAIT);
 
-  g_updateThread = new std::thread (CheckForUpdates);
-  if (zoom != g_zoom)
-    g_pEvent->SetWindowSize (g_zoom);
-  g_pEvent->SetFullScreen (g_bFullScreen);
+  // g_updateThread = new std::thread (CheckForUpdates);
+  // if (zoom != g_zoom)
+  //  g_pEvent->SetWindowSize (g_zoom);
+  // g_pEvent->SetFullScreen (g_bFullScreen);
   g_pEvent->ChangePhase (EV_PHASE_INTRO1);
 
   g_bTermInit = true;
@@ -1043,9 +1043,9 @@ static void
 initGettext ()
 {
   setlocale (LC_ALL, "");
-  textdomain ("planetblupi");
-  bindtextdomain ("planetblupi", (GetShareDir () + "locale").c_str ());
-  bind_textdomain_codeset ("planetblupi", "UTF-8");
+  //  textdomain ("planetblupi");
+  //  bindtextdomain ("planetblupi", (GetShareDir () + "locale").c_str ());
+  //  bind_textdomain_codeset ("planetblupi", "UTF-8");
 }
 
 int

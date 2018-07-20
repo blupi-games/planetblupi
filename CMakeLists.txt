@@ -99,7 +99,7 @@ file (COPY LICENSE.all DESTINATION share/doc/planetblupi)
 file (RENAME "${CMAKE_BINARY_DIR}/share/doc/planetblupi/LICENSE.all"
              "${CMAKE_BINARY_DIR}/share/doc/planetblupi/copyright")
 
-if (UNIX AND NOT APPLE)
+if (BUILD_LINUX)
   file (COPY resources/icon/hicolor DESTINATION share/icons)
 endif ()
 

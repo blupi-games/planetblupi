@@ -4067,8 +4067,6 @@ CEvent::SetLanguage (Language lang)
 
   {
     putenv (env);
-    extern int _nl_msg_cat_cntr;
-    ++_nl_msg_cat_cntr;
   }
 
   SDL_SetWindowTitle (g_window, gettext ("Planet Blupi"));

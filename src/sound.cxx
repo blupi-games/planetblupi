@@ -40,10 +40,10 @@ CSound::StopAllSounds (bool immediat, const std::set<Sint32> * except)
 
     if (Mix_Playing (i + 1) == SDL_TRUE)
     {
-      if (immediat)
+      //if (immediat)
         Mix_HaltChannel (i + 1);
-      else
-        Mix_FadeOutChannel (i + 1, 500);
+      //else
+      //  Mix_FadeOutChannel (i + 1, 500);
     }
   }
 
@@ -176,7 +176,12 @@ CSound::Cache (Sint32 channel, const std::string & pFilename)
   if (m_lpSDL[channel] && m_sndFiles[channel] == sound)
     return true;
 
-  Mix_Chunk * chunk = Mix_LoadWAV (file.c_str ());
+  Mix_Chunk * chunk = nullptr;
+  std::string absolute;
+
+  if (FileExists (file, absolute, Location::LOCATION_ABSOLUTE))
+    chunk = Mix_LoadWAV (file.c_str ());
+
   if (!chunk)
   {
     if (GetLocale () != "en")
@@ -271,7 +276,7 @@ CSound::PlayImage (Sounds channel, Point pos, Sint32 rank)
   {
     stopCh = m_channelBlupi[rank];
     if (stopCh >= 0 && m_lpSDL[stopCh] != nullptr)
-      Mix_FadeOutChannel (stopCh + 1, 500);
+      Mix_HaltChannel (stopCh + 1);
 
     m_channelBlupi[rank] = channel;
   }
@@ -337,8 +342,11 @@ CSound::PlayMusic (const std::string & lpszMIDIFilename)
 
   if (m_pMusic)
     Mix_FreeMusic (m_pMusic);
+SDL_Log(lpszMIDIFilename.c_str());
+  std::string absolute;
+  if (FileExists (lpszMIDIFilename, absolute, Location::LOCATION_ABSOLUTE))
+    m_pMusic = Mix_LoadMUS (lpszMIDIFilename.c_str ());
 
-  m_pMusic = Mix_LoadMUS (lpszMIDIFilename.c_str ());
   if (!m_pMusic)
   {
     printf ("%s\n", Mix_GetError ());
