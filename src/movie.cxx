@@ -79,6 +79,7 @@ CMovie::fileCloseMovie ()
   if (m_movie)
   {
     Kit_CloseSource (m_movie);
+    SDL_RWclose (this->rw_ops);
     m_movie = nullptr;
   }
 }
@@ -98,9 +99,13 @@ CMovie::fileOpenMovie (const std::string & pFilename)
   if (m_fMovieOpen)
     fileCloseMovie ();
 
+  this->rw_ops = SDL_RWFromFile (path.c_str (), "rb");
+  if (!this->rw_ops)
+    return false;
+
   // Open up the sourcefile.
   // This can be a local file, network url, ...
-  m_movie = Kit_CreateSourceFromUrl (path.c_str ());
+  m_movie = Kit_CreateSourceFromRW (rw_ops);
   if (m_movie)
   {
     // Create the player
