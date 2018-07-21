@@ -507,10 +507,10 @@ progressCallback (
 }
 #endif /* USE_CURL */
 
+#ifdef USE_CURL
 static void
 CheckForUpdates ()
 {
-#ifdef USE_CURL
   url_data chunk;
 
   chunk.buffer = nullptr; /* we expect realloc(NULL, size) to work */
@@ -554,8 +554,8 @@ CheckForUpdates ()
     free (chunk.buffer);
 
   curl_easy_cleanup (curl);
-#endif /* USE_CURL */
 }
+#endif /* USE_CURL */
 
 static int
 parseArgs (int argc, char * argv[], bool & exit)
@@ -1029,7 +1029,10 @@ DoInit (int argc, char * argv[], bool & exit)
   g_pPixmap->LoadCursors ();
   g_pPixmap->ChangeSprite (SPRITE_WAIT);
 
-  // g_updateThread = new std::thread (CheckForUpdates);
+#ifdef USE_CURL
+  g_updateThread = new std::thread (CheckForUpdates);
+#endif /* USE_CURL */
+
   if (zoom != g_zoom)
     g_pEvent->SetWindowSize (g_zoom);
   g_pEvent->SetFullScreen (g_bFullScreen);
