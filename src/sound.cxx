@@ -278,7 +278,12 @@ CSound::PlayImage (Sounds channel, Point pos, Sint32 rank)
   {
     stopCh = m_channelBlupi[rank];
     if (stopCh >= 0 && m_lpSDL[stopCh] != nullptr)
-      Mix_HaltChannel (stopCh + 1);
+    {
+      if (Platform::getType () == Platform::Type::SDL)
+        Mix_FadeOutChannel (stopCh + 1, 500);
+      else /* FIXME: fade broken with emscripten */
+        Mix_HaltChannel (stopCh + 1);
+    }
 
     m_channelBlupi[rank] = channel;
   }
