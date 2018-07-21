@@ -1046,9 +1046,9 @@ static void
 initGettext ()
 {
   setlocale (LC_ALL, "");
-  //  textdomain ("planetblupi");
-  //  bindtextdomain ("planetblupi", (GetShareDir () + "locale").c_str ());
-  //  bind_textdomain_codeset ("planetblupi", "UTF-8");
+  textdomain ("planetblupi");
+  bindtextdomain ("planetblupi", (GetShareDir () + "locale").c_str ());
+  bind_textdomain_codeset ("planetblupi", "UTF-8");
 }
 
 int
