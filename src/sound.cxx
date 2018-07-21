@@ -23,6 +23,7 @@
 #include "def.h"
 #include "event.h"
 #include "misc.h"
+#include "platform.h"
 #include "sound.h"
 
 // Stops all sounds.
@@ -40,10 +41,11 @@ CSound::StopAllSounds (bool immediat, const std::set<Sint32> * except)
 
     if (Mix_Playing (i + 1) == SDL_TRUE)
     {
-      //if (immediat)
+      /* FIXME: add support of fade out with emscripten */
+      if (immediat && Platform::getType () == Platform::Type::SDL)
         Mix_HaltChannel (i + 1);
-      //else
-      //  Mix_FadeOutChannel (i + 1, 500);
+      else
+        Mix_FadeOutChannel (i + 1, 500);
     }
   }
 
