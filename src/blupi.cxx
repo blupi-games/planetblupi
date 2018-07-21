@@ -663,7 +663,7 @@ parseArgs (int argc, char * argv[], bool & exit)
     g_settingsOverload |= SETTING_ZOOM;
   }
 
-  // if (args["legacy"])
+  if (args["legacy"])
   {
     Display::getDisplay ().setDisplaySize (LXLOGIC (), LYLOGIC ());
     g_settingsOverload |= SETTING_LEGACY;
