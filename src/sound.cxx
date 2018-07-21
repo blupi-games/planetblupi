@@ -349,7 +349,7 @@ CSound::PlayMusic (const std::string & lpszMIDIFilename)
 
   if (m_pMusic)
     Mix_FreeMusic (m_pMusic);
-SDL_Log(lpszMIDIFilename.c_str());
+
   std::string absolute;
   if (FileExists (lpszMIDIFilename, absolute, Location::LOCATION_ABSOLUTE))
     m_pMusic = Mix_LoadMUS (lpszMIDIFilename.c_str ());
