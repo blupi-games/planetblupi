@@ -1030,9 +1030,9 @@ DoInit (int argc, char * argv[], bool & exit)
   g_pPixmap->ChangeSprite (SPRITE_WAIT);
 
   // g_updateThread = new std::thread (CheckForUpdates);
-  // if (zoom != g_zoom)
-  //  g_pEvent->SetWindowSize (g_zoom);
-  // g_pEvent->SetFullScreen (g_bFullScreen);
+  if (zoom != g_zoom)
+    g_pEvent->SetWindowSize (g_zoom);
+  g_pEvent->SetFullScreen (g_bFullScreen);
   g_pEvent->ChangePhase (EV_PHASE_INTRO1);
 
   g_bTermInit = true;

@@ -37,6 +37,7 @@
 #include "misc.h"
 #include "movie.h"
 #include "pixmap.h"
+#include "platform.h"
 #include "progress.h"
 #include "sound.h"
 #include "text.h"
@@ -1723,11 +1724,14 @@ CEvent::GetMousePos ()
 void
 CEvent::SetFullScreen (bool bFullScreen, double prevScale)
 {
+  g_bFullScreen = bFullScreen;
+
+  if (Platform::getType () == Platform::Type::JS)
+    return;
+
   int x, y;
   SDL_GetMouseState (&x, &y);
   this->m_pPixmap->FromDisplayToGame (x, y, prevScale);
-
-  g_bFullScreen = bFullScreen;
 
   int displayIndex = SDL_GetWindowDisplayIndex (g_window);
 #ifdef _WIN32
