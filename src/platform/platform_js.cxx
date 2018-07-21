@@ -8,6 +8,12 @@
 
 std::function<void(const SDL_Event &)> Platform::handleEvent;
 
+Platform::Type
+Platform::getType ()
+{
+  return JS;
+}
+
 void
 Platform::run (std::function<void(const SDL_Event &)> handleEvent)
 {

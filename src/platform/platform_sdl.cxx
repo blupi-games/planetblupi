@@ -7,6 +7,12 @@
 
 std::function<void(const SDL_Event &)> Platform::handleEvent;
 
+Platform::Type
+Platform::getType ()
+{
+  return SDL;
+}
+
 void
 Platform::run (std::function<void(const SDL_Event &)> handleEvent)
 {
