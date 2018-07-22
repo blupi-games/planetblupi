@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <functional>
+
 class Platform
 {
 private:

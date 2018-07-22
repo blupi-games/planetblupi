@@ -1,6 +1,4 @@
 
-#include <functional>
-
 #include "../blupi.h"
 #include "../event.h"
 #include "../platform.h"
