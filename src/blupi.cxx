@@ -862,6 +862,14 @@ DoInit (int argc, char * argv[], bool & exit)
   if (!g_pPixmap->Cache (CHBACKBOOK, "image/back-book.png", totalDim, iconDim))
     return EXIT_FAILURE;
 
+  totalDim.x = LXLOGIC ();
+  totalDim.y = LYLOGIC ();
+  iconDim.x  = 0;
+  iconDim.y  = 0;
+  if (!g_pPixmap->Cache (
+        CHBACKCHESTW, "image/back-chest-w.png", totalDim, iconDim))
+    return EXIT_FAILURE;
+
   totalDim.x = DIMCELX * 2 * 16;
   totalDim.y = DIMCELY * 2 * 6;
   iconDim.x  = DIMCELX * 2;

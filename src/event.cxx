@@ -654,7 +654,7 @@ static Phase table[] =
     {
         EV_PHASE_WRITE,
         "image/write.png",
-        CHNONE,
+        CHBACKCHESTW,
         CPixmap::Mode::FIX,
         false,
         {
@@ -733,7 +733,7 @@ static Phase table[] =
     {
         EV_PHASE_WRITEp,
         "image/write.png",
-        CHNONE,
+        CHBACKCHESTW,
         CPixmap::Mode::FIX,
         false,
         {
