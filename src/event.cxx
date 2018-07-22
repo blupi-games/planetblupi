@@ -575,7 +575,7 @@ static Phase table[] =
     {
         EV_PHASE_READ,
         "image/read.png",
-        CHNONE,
+        CHBACKCHESTR,
         CPixmap::Mode::FIX,
         false,
         {

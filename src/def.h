@@ -86,7 +86,8 @@
 #define CHMASK2         15
 #define CHBACKBUILD     16
 #define CHBACKBOOK      17
-#define CHBACKCHESTW    18
+#define CHBACKCHESTR    18
+#define CHBACKCHESTW    19
 
 #define MAX_PRIVATE_MISSIONS 20
 
