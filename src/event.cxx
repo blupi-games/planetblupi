@@ -417,7 +417,7 @@ static Phase table[] =
     {
         EV_PHASE_SETUP,
         "image/setup01.png",
-        CHNONE,
+        CHBACKSETUP,
         CPixmap::Mode::FIX,
         false,
         {
@@ -496,7 +496,7 @@ static Phase table[] =
     {
         EV_PHASE_SETUPp,
         "image/setup01.png",
-        CHNONE,
+        CHBACKSETUP,
         CPixmap::Mode::FIX,
         false,
         {
@@ -1524,7 +1524,7 @@ static Phase table[] =
     {
         EV_PHASE_SETTINGS,
         "image/setup00.png",
-        CHNONE,
+        CHBACKSETUP,
         CPixmap::Mode::FIX,
         false,
         {

@@ -88,6 +88,7 @@
 #define CHBACKBOOK      17
 #define CHBACKCHESTR    18
 #define CHBACKCHESTW    19
+#define CHBACKSETUP     20
 
 #define MAX_PRIVATE_MISSIONS 20
 
