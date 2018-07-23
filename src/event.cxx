@@ -812,7 +812,7 @@ static Phase table[] =
     {
         EV_PHASE_LOST,
         "image/lost.png",
-        CHNONE,
+        CHBACKLOST,
         CPixmap::Mode::FIX,
         true,
         {
@@ -831,7 +831,7 @@ static Phase table[] =
     {
         EV_PHASE_WIN,
         "image/win.png",
-        CHNONE,
+        CHBACKWIN,
         CPixmap::Mode::FIX,
         true,
         {

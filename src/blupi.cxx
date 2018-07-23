@@ -890,6 +890,20 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = LYLOGIC ();
   iconDim.x  = 0;
   iconDim.y  = 0;
+  if (!g_pPixmap->Cache (CHBACKWIN, "image/back-win.png", totalDim, iconDim))
+    return EXIT_FAILURE;
+
+  totalDim.x = LXLOGIC ();
+  totalDim.y = LYLOGIC ();
+  iconDim.x  = 0;
+  iconDim.y  = 0;
+  if (!g_pPixmap->Cache (CHBACKLOST, "image/back-lost.png", totalDim, iconDim))
+    return EXIT_FAILURE;
+
+  totalDim.x = LXLOGIC ();
+  totalDim.y = LYLOGIC ();
+  iconDim.x  = 0;
+  iconDim.y  = 0;
   if (!g_pPixmap->Cache (CHBACKBYE, "image/back-bye.png", totalDim, iconDim))
     return EXIT_FAILURE;
 
