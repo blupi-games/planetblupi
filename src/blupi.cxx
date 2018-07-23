@@ -905,6 +905,13 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = LYLOGIC ();
   iconDim.x  = 0;
   iconDim.y  = 0;
+  if (!g_pPixmap->Cache (CHBACKWIN0, "image/back-disco.png", totalDim, iconDim))
+    return EXIT_FAILURE;
+
+  totalDim.x = LXLOGIC ();
+  totalDim.y = LYLOGIC ();
+  iconDim.x  = 0;
+  iconDim.y  = 0;
   if (!g_pPixmap->Cache (CHBACKLOST, "image/back-lost.png", totalDim, iconDim))
     return EXIT_FAILURE;
 

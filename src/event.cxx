@@ -3312,16 +3312,36 @@ CEvent::ChangePhase (Uint32 phase)
   m_phase = phase; // change phase
   m_index = index;
 
+  auto backWide = table[m_index].chBackWide;
+
   filename = table[m_index].backName;
   if (filename.find ("%.3d") != std::string::npos)
-    filename = string_format (table[m_index].backName, GetImageWorld ());
+  {
+    auto id  = GetImageWorld ();
+    filename = string_format (table[m_index].backName, id);
+
+    if (table[m_index].phase == EV_PHASE_LASTWIN)
+    {
+      switch (id)
+      {
+      case 0:
+        backWide = CHBACKWIN0;
+        break;
+      case 1:
+        // backWide = CHBACKWIN1;
+        break;
+      case 2:
+        backWide = CHBACKWIN;
+        break;
+      }
+    }
+  }
   totalDim.x = LXLOGIC ();
   totalDim.y = LYLOGIC ();
   iconDim.x  = 0;
   iconDim.y  = 0;
   if (!m_pPixmap->Cache (
-        CHBACK, filename, totalDim, iconDim, table[m_index].mode,
-        table[m_index].chBackWide))
+        CHBACK, filename, totalDim, iconDim, table[m_index].mode, backWide))
   {
     WaitMouse (false);
     m_tryInsertCount = 40;
