@@ -1492,7 +1492,7 @@ static Phase table[] =
     {
         EV_PHASE_BYE,
         "image/bye.png",
-        CHNONE,
+        CHBACKBYE,
         CPixmap::Mode::FIX,
         false,
         {
