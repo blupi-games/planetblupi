@@ -92,6 +92,7 @@
 #define CHBACKBYE       21
 #define CHBACKWIN       22
 #define CHBACKLOST      23
+#define CHBACKTITLE     24
 
 #define MAX_PRIVATE_MISSIONS 20
 
