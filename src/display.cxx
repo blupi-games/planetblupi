@@ -17,6 +17,12 @@ Display::getDisplay ()
   return display;
 }
 
+bool
+Display::isWide ()
+{
+  return this->getWidth () > this->getLogicWidth ();
+}
+
 void
 Display::readDisplaySize ()
 {
