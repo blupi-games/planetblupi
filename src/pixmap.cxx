@@ -455,6 +455,16 @@ CPixmap::Cache (size_t channel, SDL_Surface * surface, Point totalDim)
   return true;
 }
 
+SDL_Texture *
+CPixmap::getTexture (size_t channel)
+{
+  auto it = this->m_SDLTextureInfo.find (channel);
+  if (it == this->m_SDLTextureInfo.end ())
+    return nullptr;
+
+  return it->second.texture;
+}
+
 // Modifie la rï¿½gion de clipping.
 
 void

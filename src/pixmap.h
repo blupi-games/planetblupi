@@ -69,8 +69,9 @@ public:
     Point iconDim, Mode mode = FIX, size_t chBackWide = CHNONE);
   bool Cache (size_t channel, const std::string & pFilename, Point totalDim);
   bool Cache (size_t channel, SDL_Surface * surface, Point totalDim);
-  void SetClipping (Rect clip);
-  Rect GetClipping ();
+  SDL_Texture * getTexture (size_t channel);
+  void          SetClipping (Rect clip);
+  Rect          GetClipping ();
 
   bool IsIconPixel (size_t channel, Sint32 rank, Point pos);
 
