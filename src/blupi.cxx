@@ -1061,7 +1061,7 @@ DoInit (int argc, char * argv[], bool & exit)
   g_pSound->SetState (true);
 
   // Create the movie manager.
-  g_pMovie = new CMovie;
+  g_pMovie = new CMovie (g_pPixmap);
   if (g_pMovie == nullptr)
   {
     InitFail ("New movie");

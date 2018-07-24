@@ -26,13 +26,14 @@ struct Kit_Source;
 struct Kit_Player;
 struct Kit_PlayerInfo;
 struct SDL_Texture;
+class CPixmap;
 
 #define AUDIOBUFFER_SIZE (32768)
 
 class CMovie
 {
 public:
-  CMovie ();
+  CMovie (CPixmap * pixmap);
   ~CMovie ();
 
   bool Create ();
@@ -52,6 +53,7 @@ protected:
   bool initAVI ();
 
 protected:
+  CPixmap *         pixmap;
   Kit_Source *      m_movie;
   Kit_Player *      m_player;
   SDL_Texture *     m_videoTex;

@@ -163,8 +163,10 @@ CMovie::playMovie ()
     Kit_PlayerPause (m_player);
 }
 
-CMovie::CMovie ()
+CMovie::CMovie (CPixmap * pixmap)
 {
+  this->pixmap = pixmap;
+
   m_bEnable    = false;
   m_fPlaying   = false;
   m_fMovieOpen = false;
