@@ -60,6 +60,7 @@ protected:
   Sint32            m_ret;
   SDL_AudioDeviceID m_audioDev;
   SDL_RWops *       rw_ops;
+  int               chBackWide;
 
   char m_audiobuf[AUDIOBUFFER_SIZE];
   bool m_bEnable;

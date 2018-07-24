@@ -26,6 +26,7 @@
 
 #include "blupi.h"
 #include "def.h"
+#include "display.h"
 #include "event.h"
 #include "misc.h"
 #include "movie.h"
@@ -129,12 +130,22 @@ CMovie::fileOpenMovie (const std::string & pFilename)
     m_audioDev = SDL_OpenAudioDevice (nullptr, 0, &wanted_spec, &audio_spec, 0);
     SDL_PauseAudioDevice (m_audioDev, 0);
 
+    if (g_bFullScreen && g_zoom == 1)
+      SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "best");
     m_videoTex = SDL_CreateTexture (
       g_renderer, info.video.output.format, SDL_TEXTUREACCESS_TARGET,
       info.video.output.width, info.video.output.height);
+    if (g_bFullScreen && g_zoom == 1)
+      SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "nearset");
 
     if (m_videoTex == nullptr)
       return false;
+
+    if (Display::getDisplay ().isWide ())
+    {
+      if (path.rfind ("win005.mkv") != std::string::npos)
+        this->chBackWide = CHBACKWIN0;
+    }
 
     return true;
   }
@@ -176,6 +187,9 @@ CMovie::CMovie (CPixmap * pixmap)
   m_videoTex = nullptr;
 
   memset (m_audiobuf, 0, sizeof (m_audiobuf));
+
+  this->chBackWide = CHNONE;
+  this->rw_ops     = nullptr;
 
   m_ret = 0;
 }
@@ -284,16 +298,29 @@ CMovie::Render ()
     SDL_PauseAudioDevice (m_audioDev, 0);
   }
 
-  // Clear screen with black
-  SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 255);
-  SDL_RenderClear (g_renderer);
-
   if (this->starting)
   {
-    SDL_SetRenderTarget (g_renderer, m_videoTex);
+    // Clear screen with black
     SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 255);
     SDL_RenderClear (g_renderer);
-    SDL_SetRenderTarget (g_renderer, nullptr);
+
+    if (this->chBackWide == CHNONE)
+    {
+      SDL_SetRenderTarget (g_renderer, m_videoTex);
+      SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 255);
+      SDL_RenderClear (g_renderer);
+      SDL_SetRenderTarget (g_renderer, nullptr);
+    }
+    else
+    {
+      SDL_Rect rect;
+      rect.x       = 0;
+      rect.y       = 0;
+      rect.w       = LXIMAGE ();
+      rect.h       = LYIMAGE ();
+      auto texture = this->pixmap->getTexture (chBackWide);
+      SDL_RenderCopy (g_renderer, texture, &rect, nullptr);
+    }
     this->starting = false;
   }
 
