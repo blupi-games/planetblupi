@@ -300,28 +300,28 @@ CMovie::Render ()
 
   if (this->starting)
   {
+    SDL_SetRenderTarget (g_renderer, m_videoTex);
+    SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 255);
+    SDL_RenderClear (g_renderer);
+    SDL_SetRenderTarget (g_renderer, nullptr);
+    this->starting = false;
+  }
+
+  if (this->chBackWide == CHNONE)
+  {
     // Clear screen with black
     SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 255);
     SDL_RenderClear (g_renderer);
-
-    if (this->chBackWide == CHNONE)
-    {
-      SDL_SetRenderTarget (g_renderer, m_videoTex);
-      SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 255);
-      SDL_RenderClear (g_renderer);
-      SDL_SetRenderTarget (g_renderer, nullptr);
-    }
-    else
-    {
-      SDL_Rect rect;
-      rect.x       = 0;
-      rect.y       = 0;
-      rect.w       = LXIMAGE ();
-      rect.h       = LYIMAGE ();
-      auto texture = this->pixmap->getTexture (chBackWide);
-      SDL_RenderCopy (g_renderer, texture, &rect, nullptr);
-    }
-    this->starting = false;
+  }
+  else
+  {
+    SDL_Rect rect;
+    rect.x       = 0;
+    rect.y       = 0;
+    rect.w       = LXIMAGE ();
+    rect.h       = LYIMAGE ();
+    auto texture = this->pixmap->getTexture (chBackWide);
+    SDL_RenderCopy (g_renderer, texture, &rect, nullptr);
   }
 
   // Refresh videotexture and render it
