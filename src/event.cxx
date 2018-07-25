@@ -102,7 +102,7 @@ static Phase table[] =
     {
         EV_PHASE_TESTCD,
         "image/init.png",
-        CHBACKTITLE,
+        CHBACKSTARS,
         CPixmap::Mode::FIX,
         false,
         {
@@ -128,7 +128,7 @@ static Phase table[] =
     {
         EV_PHASE_INIT,
         "image/init.png",
-        CHBACKTITLE,
+        CHBACKSTARS,
         CPixmap::Mode::FIX,
         false,
         {
