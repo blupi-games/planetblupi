@@ -48,6 +48,7 @@ typedef struct {
   Sint16 rankMove;  // rang dans m_move
   Sint16 workBlupi; // rang du blupi travaillant ici
   Sint16 fire;
+  Sint8  flagged;
 } Cellule;
 // Cette structure doit être la plus petite possible, car
 // il en existe un tableau de 100x100 = 10'000 cellules !
