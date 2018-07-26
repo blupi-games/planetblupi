@@ -145,6 +145,8 @@ CMovie::fileOpenMovie (const std::string & pFilename)
     {
       if (path.rfind ("win005.mkv") != std::string::npos)
         this->chBackWide = CHBACKWIN0;
+      else if (path.rfind ("win129.mkv") != std::string::npos)
+        this->chBackWide = CHBACKSTARS;
     }
 
     return true;

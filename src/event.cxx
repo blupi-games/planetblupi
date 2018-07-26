@@ -3328,7 +3328,7 @@ CEvent::ChangePhase (Uint32 phase)
         backWide = CHBACKWIN0;
         break;
       case 1:
-        // backWide = CHBACKWIN1;
+        backWide = CHBACKSTARS;
         break;
       case 2:
         backWide = CHBACKWIN;
