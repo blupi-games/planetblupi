@@ -53,7 +53,7 @@ typedef struct {
 // il en existe un tableau de 100x100 = 10'000 cellules !
 
 typedef struct : Cellule {
-  Sint8 flagged;
+  bool flagged;
 } CellMem;
 
 // Descripteur d'un blupi animé.
