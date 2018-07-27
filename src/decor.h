@@ -48,10 +48,13 @@ typedef struct {
   Sint16 rankMove;  // rang dans m_move
   Sint16 workBlupi; // rang du blupi travaillant ici
   Sint16 fire;
-  Sint8  flagged;
 } Cellule;
 // Cette structure doit être la plus petite possible, car
 // il en existe un tableau de 100x100 = 10'000 cellules !
+
+typedef struct : Cellule {
+  Sint8 flagged;
+} CellMem;
 
 // Descripteur d'un blupi animé.
 #define MAXBLUPI 100
@@ -467,6 +470,7 @@ protected:
   CPixmap * m_pPixmap;
   Cellule * m_pUndoDecor;
   Cellule   m_decor[MAXCELX / 2][MAXCELY / 2];
+  CellMem   m_decorMem[MAXCELX / 2][MAXCELY / 2];
   Sint16    m_rankBlupi[MAXCELX][MAXCELY];
   Blupi     m_blupi[MAXBLUPI];
   Move      m_move[MAXMOVE];

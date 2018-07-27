@@ -193,11 +193,11 @@ CDecor::Init (Sint32 channel, Sint32 icon)
       m_decor[x][y].objectChannel = -1;
       m_decor[x][y].objectIcon    = -1;
 
-      m_decor[x][y].fog       = FOGHIDE; // caché
-      m_decor[x][y].rankMove  = -1;
-      m_decor[x][y].workBlupi = -1;
-      m_decor[x][y].fire      = 0;
-      m_decor[x][y].flagged   = false;
+      m_decor[x][y].fog        = FOGHIDE; // caché
+      m_decor[x][y].rankMove   = -1;
+      m_decor[x][y].workBlupi  = -1;
+      m_decor[x][y].fire       = 0;
+      m_decorMem[x][y].flagged = false;
     }
   }
 
@@ -406,7 +406,7 @@ CDecor::PutObject (Point cel, Sint32 channel, Sint32 icon)
 
   /* When flagged, it's possible to build a mine for iron */
   if (icon == 124)
-    m_decor[cel.x / 2][cel.y / 2].flagged = true;
+    m_decorMem[cel.x / 2][cel.y / 2].flagged = true;
 
   SubDrapeau (cel); // on pourra de nouveau planter un drapeau
 
@@ -1843,7 +1843,7 @@ CDecor::CelOkForAction (
       GetFloor (cel, channel, icon);
       if ( // mine ?
         action == EV_ACTION_BUILD4 &&
-        ((!g_restoreBugs && !m_decor[cel.x / 2][cel.y / 2].flagged) || // fixed
+        ((!g_restoreBugs && !m_decorMem[cel.x / 2][cel.y / 2].flagged) || // fixed
          (g_restoreBugs && (channel != CHFLOOR || icon != 71)))) // funny bug
       {
         error = Errors::GROUND; // sol pas adéquat
