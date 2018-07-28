@@ -141,6 +141,7 @@ CMovie::fileOpenMovie (const std::string & pFilename)
     if (m_videoTex == nullptr)
       return false;
 
+    this->chBackWide = CHNONE;
     if (Display::getDisplay ().isWide ())
     {
       if (path.rfind ("win005.mkv") != std::string::npos)
