@@ -66,7 +66,7 @@ public:
   bool Cache (size_t channel, Point totalDim);
   bool Cache (
     size_t channel, const std::string & pFilename, Point totalDim,
-    Point iconDim, Mode mode = FIX, size_t chBackWide = CHNONE);
+    Point iconDim, Mode mode = FIX, std::string wideName = "");
   bool Cache (size_t channel, const std::string & pFilename, Point totalDim);
   bool Cache (size_t channel, SDL_Surface * surface, Point totalDim);
   SDL_Texture * getTexture (size_t channel);

@@ -22,6 +22,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <SDL_image.h>
+
 #include "kitchensink/kitchensink.h"
 
 #include "blupi.h"
@@ -68,6 +70,12 @@ CMovie::fileCloseMovie ()
   {
     SDL_DestroyTexture (m_videoTex);
     m_videoTex = nullptr;
+  }
+
+  if (this->backTexture)
+  {
+    SDL_DestroyTexture (this->backTexture);
+    this->backTexture = nullptr;
   }
 
   if (m_player)
@@ -141,14 +149,19 @@ CMovie::fileOpenMovie (const std::string & pFilename)
     if (m_videoTex == nullptr)
       return false;
 
-    this->chBackWide = CHNONE;
+    std::string backWideName = "";
     if (Display::getDisplay ().isWide ())
     {
       if (path.rfind ("win005.mkv") != std::string::npos)
-        this->chBackWide = CHBACKWIN0;
+        backWideName = "image/back-disco.png";
       else if (path.rfind ("win129.mkv") != std::string::npos)
-        this->chBackWide = CHBACKSTARS;
+        backWideName = "image/back-stars.png";
     }
+
+    std::string   file    = GetBaseDir () + backWideName;
+    SDL_Surface * surface = IMG_Load (file.c_str ());
+    this->backTexture     = SDL_CreateTextureFromSurface (g_renderer, surface);
+    SDL_FreeSurface (surface);
 
     return true;
   }
@@ -191,8 +204,7 @@ CMovie::CMovie (CPixmap * pixmap)
 
   memset (m_audiobuf, 0, sizeof (m_audiobuf));
 
-  this->chBackWide = CHNONE;
-  this->rw_ops     = nullptr;
+  this->rw_ops = nullptr;
 
   m_ret = 0;
 }
@@ -310,22 +322,14 @@ CMovie::Render ()
     this->starting = false;
   }
 
-  if (this->chBackWide == CHNONE)
+  if (!this->backTexture)
   {
     // Clear screen with black
     SDL_SetRenderDrawColor (g_renderer, 0, 0, 0, 255);
     SDL_RenderClear (g_renderer);
   }
   else
-  {
-    SDL_Rect rect;
-    rect.x       = 0;
-    rect.y       = 0;
-    rect.w       = LXIMAGE ();
-    rect.h       = LYIMAGE ();
-    auto texture = this->pixmap->getTexture (chBackWide);
-    SDL_RenderCopy (g_renderer, texture, &rect, nullptr);
-  }
+    SDL_RenderCopy (g_renderer, this->backTexture, nullptr, nullptr);
 
   // Refresh videotexture and render it
   Kit_GetPlayerVideoData (m_player, m_videoTex);

@@ -305,7 +305,7 @@ CPixmap::Cache (size_t channel, Point totalDim)
 bool
 CPixmap::Cache (
   size_t channel, const std::string & pFilename, Point totalDim, Point iconDim,
-  Mode mode, size_t chBackWide)
+  Mode mode, std::string wideName)
 {
   std::string   file       = GetBaseDir () + pFilename;
   SDL_Surface * surface    = IMG_Load (file.c_str ());
@@ -363,14 +363,15 @@ CPixmap::Cache (
   {
     if (channel == CHBACK && (ow < LXIMAGE () || oh < LYIMAGE ()))
     {
-      if (chBackWide > 0)
+      if (!wideName.empty ())
       {
-        Rect srcRect;
-        srcRect.left   = 0;
-        srcRect.right  = LXIMAGE ();
-        srcRect.top    = 0;
-        srcRect.bottom = LYIMAGE ();
-        this->DrawImage (-1, chBackWide, srcRect);
+        std::string   file    = GetBaseDir () + wideName;
+        SDL_Surface * surface = IMG_Load (file.c_str ());
+        SDL_Texture * texture =
+          SDL_CreateTextureFromSurface (g_renderer, surface);
+        SDL_FreeSurface (surface);
+        SDL_RenderCopy (g_renderer, texture, nullptr, nullptr);
+        SDL_DestroyTexture (texture);
       }
 
       SDL_Rect dst;

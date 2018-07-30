@@ -44,7 +44,7 @@ typedef struct {
 typedef struct {
   Uint32        phase;
   char          backName[20];
-  Sint32        chBackWide;
+  std::string   backWideName;
   CPixmap::Mode mode;
   Sint32        bCDrom;
   Button        buttons[MAXBUTTON];

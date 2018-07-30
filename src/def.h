@@ -67,7 +67,6 @@
 #define DIMLITTLEX      16      // max small char size
 #define DIMLITTLEY      12
 
-#define CHNONE          -1
 #define CHBACK          0
 #define CHFLOOR         1
 #define CHOBJECT        2
@@ -84,16 +83,6 @@
 #define CHTEXT          13
 #define CHBIGNUM        14
 #define CHMASK2         15
-#define CHBACKBUILD     16
-#define CHBACKBOOK      17
-#define CHBACKCHESTR    18
-#define CHBACKCHESTW    19
-#define CHBACKSETUP     20
-#define CHBACKBYE       21
-#define CHBACKWIN       22
-#define CHBACKLOST      23
-#define CHBACKSTARS     24
-#define CHBACKWIN0      25
 
 #define MAX_PRIVATE_MISSIONS 20
 

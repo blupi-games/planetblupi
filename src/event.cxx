@@ -102,7 +102,7 @@ static Phase table[] =
     {
         EV_PHASE_TESTCD,
         "image/init.png",
-        CHBACKSTARS,
+        "image/back-stars.png",
         CPixmap::Mode::FIX,
         false,
         {
@@ -115,7 +115,7 @@ static Phase table[] =
     {
         EV_PHASE_INTRO1,
         "image/intro1.png",
-        CHNONE,
+        "",
         CPixmap::Mode::FIX,
         false,
         {
@@ -128,7 +128,7 @@ static Phase table[] =
     {
         EV_PHASE_INIT,
         "image/init.png",
-        CHBACKSTARS,
+        "image/back-stars.png",
         CPixmap::Mode::FIX,
         false,
         {
@@ -177,7 +177,7 @@ static Phase table[] =
     {
         EV_PHASE_HISTORY0,
         "image/history0.png",
-        CHBACKBOOK,
+        "image/back-book.png",
         CPixmap::Mode::FIX,
         true,
         {
@@ -202,7 +202,7 @@ static Phase table[] =
     {
         EV_PHASE_HISTORY1,
         "image/history1.png",
-        CHBACKBOOK,
+        "image/back-book.png",
         CPixmap::Mode::FIX,
         true,
         {
@@ -227,7 +227,7 @@ static Phase table[] =
     {
         EV_PHASE_INFO,
         "image/info%.3d.png",
-        CHBACKBOOK,
+        "image/back-book.png",
         CPixmap::Mode::FIX,
         false,
         {
@@ -294,7 +294,7 @@ static Phase table[] =
     {
         EV_PHASE_PLAY,
         "image/play.png",
-        CHNONE,
+        "",
         CPixmap::Mode::EXPAND,
         false,
         {
@@ -325,7 +325,7 @@ static Phase table[] =
     {
         EV_PHASE_STOP,
         "image/stop%.3d.png",
-        CHBACKBOOK,
+        "image/back-book.png",
         CPixmap::Mode::FIX,
         false,
         {
@@ -374,7 +374,7 @@ static Phase table[] =
     {
         EV_PHASE_HELP,
         "image/help.png",
-        CHBACKBOOK,
+        "image/back-book.png",
         CPixmap::Mode::FIX,
         true,
         {
@@ -417,7 +417,7 @@ static Phase table[] =
     {
         EV_PHASE_SETUP,
         "image/setup01.png",
-        CHBACKSETUP,
+        "image/back-setup.png",
         CPixmap::Mode::FIX,
         false,
         {
@@ -496,7 +496,7 @@ static Phase table[] =
     {
         EV_PHASE_SETUPp,
         "image/setup01.png",
-        CHBACKSETUP,
+        "image/back-setup.png",
         CPixmap::Mode::FIX,
         false,
         {
@@ -575,7 +575,7 @@ static Phase table[] =
     {
         EV_PHASE_READ,
         "image/read.png",
-        CHBACKCHESTR,
+        "image/back-chest-r.png",
         CPixmap::Mode::FIX,
         false,
         {
@@ -654,7 +654,7 @@ static Phase table[] =
     {
         EV_PHASE_WRITE,
         "image/write.png",
-        CHBACKCHESTW,
+        "image/back-chest-w.png",
         CPixmap::Mode::FIX,
         false,
         {
@@ -733,7 +733,7 @@ static Phase table[] =
     {
         EV_PHASE_WRITEp,
         "image/write.png",
-        CHBACKCHESTW,
+        "image/back-chest-w.png",
         CPixmap::Mode::FIX,
         false,
         {
@@ -812,7 +812,7 @@ static Phase table[] =
     {
         EV_PHASE_LOST,
         "image/lost.png",
-        CHBACKLOST,
+        "image/back-lost.png",
         CPixmap::Mode::FIX,
         true,
         {
@@ -831,7 +831,7 @@ static Phase table[] =
     {
         EV_PHASE_WIN,
         "image/win.png",
-        CHBACKWIN,
+        "image/back-win.png",
         CPixmap::Mode::FIX,
         true,
         {
@@ -850,7 +850,7 @@ static Phase table[] =
     {
         EV_PHASE_LASTWIN,
         "image/last%.3d.png",
-        CHNONE,
+        "",
         CPixmap::Mode::FIX,
         true,
         {
@@ -869,7 +869,7 @@ static Phase table[] =
     {
         EV_PHASE_BUILD,
         "image/build.png",
-        CHNONE,
+        "",
         CPixmap::Mode::EXPAND,
         true,
         {
@@ -986,7 +986,7 @@ static Phase table[] =
     {
         EV_PHASE_BUTTON,
         "image/button.png",
-        CHBACKBUILD,
+        "image/back-build.png",
         CPixmap::Mode::FIX,
         true,
         {
@@ -1208,7 +1208,7 @@ static Phase table[] =
     {
         EV_PHASE_TERM,
         "image/term.png",
-        CHBACKBUILD,
+        "image/back-build.png",
         CPixmap::Mode::FIX,
         true,
         {
@@ -1299,7 +1299,7 @@ static Phase table[] =
     {
         EV_PHASE_MUSIC,
         "image/music.png",
-        CHBACKBUILD,
+        "image/back-build.png",
         CPixmap::Mode::FIX,
         true,
         {
@@ -1384,7 +1384,7 @@ static Phase table[] =
     {
         EV_PHASE_REGION,
         "image/region.png",
-        CHBACKBUILD,
+        "image/back-build.png",
         CPixmap::Mode::FIX,
         true,
         {
@@ -1427,7 +1427,7 @@ static Phase table[] =
     {
         EV_PHASE_PLAYMOVIE,
         "image/movie.png",
-        CHNONE,
+        "",
         CPixmap::Mode::FIX,
         false,
         {
@@ -1440,7 +1440,7 @@ static Phase table[] =
     {
         EV_PHASE_WINMOVIE,
         "image/movie.png",
-        CHNONE,
+        "",
         CPixmap::Mode::FIX,
         false,
         {
@@ -1453,7 +1453,7 @@ static Phase table[] =
     {
         EV_PHASE_H0MOVIE,
         "image/movie.png",
-        CHNONE,
+        "",
         CPixmap::Mode::FIX,
         false,
         {
@@ -1466,7 +1466,7 @@ static Phase table[] =
     {
         EV_PHASE_H1MOVIE,
         "image/movie.png",
-        CHNONE,
+        "",
         CPixmap::Mode::FIX,
         false,
         {
@@ -1479,7 +1479,7 @@ static Phase table[] =
     {
         EV_PHASE_H2MOVIE,
         "image/movie.png",
-        CHNONE,
+        "",
         CPixmap::Mode::FIX,
         false,
         {
@@ -1492,7 +1492,7 @@ static Phase table[] =
     {
         EV_PHASE_BYE,
         "image/bye.png",
-        CHBACKBYE,
+        "image/back-bye.png",
         CPixmap::Mode::FIX,
         false,
         {
@@ -1505,7 +1505,7 @@ static Phase table[] =
     {
         EV_PHASE_INSERT,
         "image/insert.png",
-        CHNONE,
+        "",
         CPixmap::Mode::FIX,
         false,
         {
@@ -1524,7 +1524,7 @@ static Phase table[] =
     {
         EV_PHASE_SETTINGS,
         "image/setup00.png",
-        CHBACKSETUP,
+        "image/back-setup.png",
         CPixmap::Mode::FIX,
         false,
         {
@@ -2203,8 +2203,7 @@ CEvent::DrawButtons ()
     SetEnable (EV_BUTTON8, !g_restoreMidi && mid && ogg);
 
     table[m_index].buttons[4].toolTips[0] =
-      g_bFullScreen ? gettext ("Desktop mode")
-                    : gettext ("Reduce window size");
+      g_bFullScreen ? gettext ("Desktop mode") : gettext ("Reduce window size");
     table[m_index].buttons[5].toolTips[0] =
       g_bFullScreen ? gettext ("Legacy mode (640x480)")
                     : gettext ("Increase window size");
@@ -3312,7 +3311,7 @@ CEvent::ChangePhase (Uint32 phase)
   m_phase = phase; // change phase
   m_index = index;
 
-  auto backWide = table[m_index].chBackWide;
+  auto backWideName = table[m_index].backWideName;
 
   filename = table[m_index].backName;
   if (filename.find ("%.3d") != std::string::npos)
@@ -3325,23 +3324,24 @@ CEvent::ChangePhase (Uint32 phase)
       switch (id)
       {
       case 0:
-        backWide = CHBACKWIN0;
+        backWideName = "image/back-disco.png";
         break;
       case 1:
-        backWide = CHBACKSTARS;
+        backWideName = "image/back-stars.png";
         break;
       case 2:
-        backWide = CHBACKWIN;
+        backWideName = "image/back-win.png";
         break;
       }
     }
   }
+
   totalDim.x = LXLOGIC ();
   totalDim.y = LYLOGIC ();
   iconDim.x  = 0;
   iconDim.y  = 0;
   if (!m_pPixmap->Cache (
-        CHBACK, filename, totalDim, iconDim, table[m_index].mode, backWide))
+        CHBACK, filename, totalDim, iconDim, table[m_index].mode, backWideName))
   {
     WaitMouse (false);
     m_tryInsertCount = 40;

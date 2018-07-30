@@ -57,10 +57,10 @@ protected:
   Kit_Source *      m_movie;
   Kit_Player *      m_player;
   SDL_Texture *     m_videoTex;
+  SDL_Texture *     backTexture;
   Sint32            m_ret;
   SDL_AudioDeviceID m_audioDev;
   SDL_RWops *       rw_ops;
-  int               chBackWide;
 
   char m_audiobuf[AUDIOBUFFER_SIZE];
   bool m_bEnable;
