@@ -34,6 +34,7 @@ struct TextureInfo {
   SDL_Texture * texture;
   bool          target; // can be used as a render target
   std::string   file;
+  std::string   wideName;
   Point         dimTotal;
   Point         dimIcon;
 
