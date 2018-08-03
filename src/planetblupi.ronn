@@ -32,14 +32,15 @@ DirectSound should be fine.
 
 The left button is always used in three steps:
 
-  1. Select a Blupi
-  2. Click where you want him to act
-  3. Click the button corresponding to the required operation
+  1. Select a Blupi.
+  2. Click where you want him to act.
+  3. Click the button corresponding to the required operation.
 
 If the chosen Blupi is already selected (blue or red circle around him), step 1)
 is not necessary.
 
-You may select several Blupis by maintaining the **Shift** button pressed.
+You may select several Blupis by maintaining the <kbd>Shift</kbd> button
+pressed.
 
 The right button is a shortcut. It orders the selected Blupi to do the most
 useful operation on the selected spot.
@@ -90,9 +91,9 @@ settings screen in the game.
 If you want, you can overload all musics with yours by providing OGG or MIDI
 music files in your user directory.
 
-On Windows, type `%APPDATA%\Epsitec SA\Planet Blupi` in the file browser,
-on macOS, look at `~/Library/Application Support/Epsitec SA/Planet Blupi`, and
-on Linux, look at `~/.local/share/Epsitec SA/Planet Blupi`.
+On Windows, type `%APPDATA%\Epsitec SA\Planet Blupi` in the file browser.
+On macOS, look at `~/Library/Application Support/Epsitec SA/Planet Blupi`.
+On Linux, look at `~/.local/share/Epsitec SA/Planet Blupi`.
 
 You can create a `music` sub-directory with your music. For example:
 `%LOCALAPPDATA%\Epsitec SA\Planet Blupi\music\music000.ogg`.
