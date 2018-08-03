@@ -8,15 +8,98 @@ planetblupi(1) -- a delirious spell-binding game
 
 ## DESCRIPTION
 
-**planetblupi** is a strategy and adventure game. It subtly blends action with
+**Planet Blupi** is a strategy and adventure game. It subtly blends action with
 thought-provoking challenges. Behind the quiet and gentle facade, you'll enjoy
 a fascinating diversion full of surprises. Planet Blupi is ideal for ages
 12 to 99..
 
-## OPTIONS
+This version contains over 30 missions and a built in editor, which enables you
+to construct your own missions.
 
-These options control whether output is written to file(s), standard output, or
-directly to a man pager.
+## CONFIGURATION
+
+**Planet Blupi** supports at least *GNU/Linux 2.6.32*, *macOS 10.9* and
+*Microsoft Windows Vista*. If your OS is not listed, maybe it's possible to
+build yourself the game. Most Unix and Unix-like OS should be supported.
+
+For the video ourput, a 3D accelerated video card is highly recommended. It's
+still possible to use pure software rendering in all other cases.
+
+For the sound card, any cards supported by ALSA, PulseAudio, macOS or
+DirectSound should be fine.
+
+## MOUSE
+
+The left button is always used in three steps:
+
+  1. Select a Blupi
+  2. Click where you want him to act
+  3. Click the button corresponding to the required operation
+
+If the chosen Blupi is already selected (blue or red circle around him), step 1)
+is not necessary.
+
+You may select several Blupis by maintaining the **Shift** button pressed.
+
+The right button is a shortcut. It orders the selected Blupi to do the most
+useful operation on the selected spot.
+
+## KEYBOARD
+
+  * <kbd>Arrows</kbd>:
+    Scrolls the visible part of the scene.
+
+  * <kbd>Spacebar</kbd>:
+    Shows or hides items.
+
+  * <kbd>F1</kbd>:
+    Describes the goal without interrupting the game.
+
+  * <kbd>F5</kbd>:
+    Normal speed (x1).
+
+  * <kbd>F6</kbd>:
+    Double speed (x2).
+
+  * <kbd>Home</kbd>:
+    Returns to place of mission departure
+
+  * <kbd>Ctrl</kbd>+<kbd>F9</kbd>..<kbd>F12</kbd>:
+    Bookmarks a spot.
+
+  * <kbd>F9</kbd>..<kbd>F12</kbd>:
+    Returns to the corresponding bookmarked spot.
+
+  * <kbd>Pause</kbd>:
+    Temporarily suspends the game (excepted with the hard difficulty).
+
+When you switch to an other application, the game is automatically paused.
+
+## MUSIC
+
+The music is provided in OGG and MIDI formats. The OGG variant is prefered
+because the render is the same for all platforms. For purist fanboys, it's
+possible to enforce the MIDI variant by starting the game with the
+`--restore-midi` command line argument. Note that in this case, it's possible
+to lose some instruments, it depends of your system.
+
+You can edit the `share/planetblupi/data/config.json` file and add an entry
+`"restoremidi": true`, or simply use the new settings available in the global
+settings screen in the game.
+
+If you want, you can overload all musics with yours by providing OGG or MIDI
+music files in your user directory.
+
+On Windows, type `%APPDATA%\Epsitec SA\Planet Blupi` in the file browser,
+on macOS, look at `~/Library/Application Support/Epsitec SA/Planet Blupi`, and
+on Linux, look at `~/.local/share/Epsitec SA/Planet Blupi`.
+
+You can create a `music` sub-directory with your music. For example:
+`%LOCALAPPDATA%\Epsitec SA\Planet Blupi\music\music000.ogg`.
+
+Only 10 musics are supported: `music000` to `music009`.
+
+## OPTIONS
 
   * `-h`, `--help`:
     Print this help message and exit.
@@ -57,6 +140,13 @@ directly to a man pager.
 
   * `-m`, `--restore-midi`:
     Restore playback based on MIDI music instead of OGG.
+
+## AUTHOR
+
+**Planet Blupi** is an original creation of Epsitec SA.
+
+http://www.blupi.org
+info@blupi.org
 
 ## COPYRIGHT
 
