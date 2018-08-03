@@ -256,7 +256,7 @@ CPixmap::ReloadTargetTextures ()
     }
     else if (!Cache (
                tex.first, tex.second.file, tex.second.dimTotal,
-               tex.second.dimIcon))
+               tex.second.dimIcon, Mode::FIX, tex.second.wideName))
       return false;
   }
 
@@ -296,6 +296,7 @@ CPixmap::Cache (size_t channel, Point totalDim)
   m_SDLTextureInfo[channel].dimIcon  = Point{0, 0};
   m_SDLTextureInfo[channel].dimTotal = totalDim;
   m_SDLTextureInfo[channel].file     = "";
+  m_SDLTextureInfo[channel].wideName = "";
 
   return true;
 }
@@ -354,6 +355,7 @@ CPixmap::Cache (
   m_SDLTextureInfo[channel].dimIcon  = iconDim;
   m_SDLTextureInfo[channel].dimTotal = totalDim;
   m_SDLTextureInfo[channel].file     = pFilename;
+  m_SDLTextureInfo[channel].wideName = wideName;
 
   SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
 
@@ -365,7 +367,7 @@ CPixmap::Cache (
     {
       if (!wideName.empty ())
       {
-        std::string   file    = GetBaseDir () + wideName;
+        std::string   file = GetBaseDir () + m_SDLTextureInfo[channel].wideName;
         SDL_Surface * surface = IMG_Load (file.c_str ());
         SDL_Texture * texture =
           SDL_CreateTextureFromSurface (g_renderer, surface);
