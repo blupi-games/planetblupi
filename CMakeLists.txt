@@ -6,6 +6,7 @@ set (CMAKE_CXX_STANDARD 11)
 
 include (GNUInstallDirs)
 include (${CMAKE_ROOT}/Modules/ExternalProject.cmake)
+include ("${CMAKE_SOURCE_DIR}/cmake/Ronn2Man.cmake")
 
 include_directories (${CMAKE_INSTALL_PREFIX}/include)
 include_directories (${CMAKE_INSTALL_PREFIX}/include/SDL2)
@@ -273,6 +274,13 @@ foreach (file ${_gmoFiles})
 
   add_dependencies (${planetblupi_OUTPUT} "po-${_lang}")
 endforeach (file)
+
+#########
+# manpage
+#########
+
+add_manpage_target ()
+manpage(${PROJECT_NAME} 1)
 
 ##############
 # Installation
