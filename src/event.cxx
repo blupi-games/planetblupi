@@ -2216,8 +2216,8 @@ CEvent::DrawButtons ()
     SetEnable (EV_BUTTON7, g_restoreMidi && mid && ogg);
     SetEnable (EV_BUTTON8, !g_restoreMidi && mid && ogg);
 
-    SetEnable (EV_BUTTON9, g_bFullScreen && g_renderQuality);
-    SetEnable (EV_BUTTON10, g_bFullScreen && !g_renderQuality);
+    SetEnable (EV_BUTTON9, g_bFullScreen && g_zoom == 1 && g_renderQuality);
+    SetEnable (EV_BUTTON10, g_bFullScreen && g_zoom == 1 && !g_renderQuality);
 
     table[m_index].buttons[4].toolTips[0] =
       g_bFullScreen ? gettext ("Desktop mode") : gettext ("Reduce window size");
