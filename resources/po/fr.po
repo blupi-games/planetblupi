@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-06 17:58+0200\n"
-"PO-Revision-Date: 2018-08-06 17:58+0200\n"
+"POT-Creation-Date: 2018-08-06 23:57+0200\n"
+"PO-Revision-Date: 2018-08-06 23:57+0200\n"
 "Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -207,6 +207,9 @@ msgstr ""
 "1|Le robot doit atteindre\n"
 "1|les dalles hachurées."
 
+msgid "Aliasing"
+msgstr "Crénelage"
+
 msgid "All licenses are available under share/doc/planetblupi/copyright"
 msgstr ""
 "Toutes les licences sont disponibles sous share/doc/planetblupi/copyright"
@@ -216,6 +219,9 @@ msgstr "Déjà 2 téléporteurs"
 
 msgid "Another mistake..."
 msgstr "Caramba, encore raté ..."
+
+msgid "Anti-aliasing"
+msgstr "Anticrénelage"
 
 msgid "Armour"
 msgstr "Armure"
@@ -228,9 +234,6 @@ msgstr "Paf, c'est raté !"
 
 msgid "Bank"
 msgstr "Rive"
-
-msgid "Best"
-msgstr "Meilleure"
 
 msgid "Blow up"
 msgstr "Explose"
@@ -357,6 +360,9 @@ msgstr "Mode bureau"
 msgid "Difficult"
 msgstr "Difficile"
 
+msgid "Disable the anti-aliasing"
+msgstr "Désactive l'anticrénelage"
+
 msgid "Drink"
 msgstr "Boit"
 
@@ -380,6 +386,9 @@ msgstr "Oeufs"
 
 msgid "Electrocutor"
 msgstr "Electrocuteur"
+
+msgid "Enable the anti-aliasing"
+msgstr "Active l'anticrénelage"
 
 msgid "Ending conditions"
 msgstr "Conditions de fin"
@@ -618,9 +627,6 @@ msgstr "Musique numéro 9"
 
 msgid "N"
 msgstr "N"
-
-msgid "Nearest"
-msgstr "Au plus proche"
 
 #, c-format
 msgid "New version available for download on www.blupi.org (v%s)"
@@ -890,12 +896,6 @@ msgstr "Utilise la musique Midi (originale)"
 msgid "Use Ogg music"
 msgstr "Utilise la musique Ogg"
 
-msgid "Use the best render quality"
-msgstr "Utilise la meilleure qualité de rendu"
-
-msgid "Use the nearest render quality"
-msgstr "Utilise la qualité de rendu au plus proche"
-
 msgid "Version"
 msgstr "Version"
 
@@ -980,6 +980,9 @@ msgstr "mission %d, temps %d"
 msgid "training %d, time %d"
 msgstr "entraînement %d, temps %d"
 
+#~ msgid "Best"
+#~ msgstr "Meilleure"
+
 #~ msgctxt "Flower|2|"
 #~ msgid "Bunch of flowers"
 #~ msgstr "Bouquet de fleurs"
@@ -999,5 +1002,17 @@ msgstr "entraînement %d, temps %d"
 #~ msgid "Flowers"
 #~ msgstr "Fleurs"
 
+#~ msgid "N/A"
+#~ msgstr "ND"
+
+#~ msgid "Nearest"
+#~ msgstr "Au plus proche"
+
 #~ msgid "Quit BLUPI"
 #~ msgstr "Quitter BLUPI"
+
+#~ msgid "Use the best render quality"
+#~ msgstr "Utilise la meilleure qualité de rendu"
+
+#~ msgid "Use the nearest render quality"
+#~ msgstr "Utilise la qualité de rendu au plus proche"

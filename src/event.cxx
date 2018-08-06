@@ -1582,13 +1582,13 @@ static Phase table[] =
                 EV_BUTTON9,
                 0, {1, 50},
                 514, 330,
-                { translate ("Use the nearest render quality") },
+                { translate ("Disable the anti-aliasing") },
             },
             {
                 EV_BUTTON10,
                 0, {1, 51},
                 514 + 40, 330,
-                { translate ("Use the best render quality") },
+                { translate ("Enable the anti-aliasing") },
             },
             {
                 EV_PHASE_INIT,
@@ -2738,9 +2738,10 @@ CEvent::DrawButtons ()
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
 
-    text = g_bFullScreen && g_zoom == 1
-             ? (g_renderQuality ? gettext ("Best") : gettext ("Nearest"))
-             : gettext ("Not available");
+    text =
+      g_bFullScreen && g_zoom == 1
+        ? (g_renderQuality ? gettext ("Anti-aliasing") : gettext ("Aliasing"))
+        : gettext ("Not available");
     lg    = GetTextWidth (text);
     pos.x = (514 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-06 17:58+0200\n"
+"POT-Creation-Date: 2018-08-06 23:57+0200\n"
 "PO-Revision-Date: 2017-12-14 23:15+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -208,6 +208,9 @@ msgstr ""
 "1|Der Roboter muss die\n"
 "1|gestreiften Quadrate erreichen."
 
+msgid "Aliasing"
+msgstr ""
+
 msgid "All licenses are available under share/doc/planetblupi/copyright"
 msgstr "Alle Lizenzen sind unter share/doc/planetblupi/copyright"
 
@@ -216,6 +219,9 @@ msgstr "Es gibt schon 2 Beammaschinen"
 
 msgid "Another mistake..."
 msgstr "Das war leider nicht die richtige Lösung !"
+
+msgid "Anti-aliasing"
+msgstr ""
 
 msgid "Armour"
 msgstr "Rüstung"
@@ -230,9 +236,6 @@ msgstr "Das war mal wieder nichts !"
 
 msgid "Bank"
 msgstr "Ufer"
-
-msgid "Best"
-msgstr ""
 
 msgid "Blow up"
 msgstr "Zünden"
@@ -358,6 +361,9 @@ msgstr ""
 msgid "Difficult"
 msgstr "Schwer"
 
+msgid "Disable the anti-aliasing"
+msgstr ""
+
 msgid "Drink"
 msgstr "Trinken"
 
@@ -381,6 +387,9 @@ msgstr "Eier"
 
 msgid "Electrocutor"
 msgstr "Elektrisiermaschine"
+
+msgid "Enable the anti-aliasing"
+msgstr ""
 
 msgid "Ending conditions"
 msgstr ""
@@ -622,10 +631,6 @@ msgstr "Musik Nummer 9"
 
 msgid "N"
 msgstr "N"
-
-#, fuzzy
-msgid "Nearest"
-msgstr "Wald"
 
 #, c-format
 msgid "New version available for download on www.blupi.org (v%s)"
@@ -900,12 +905,6 @@ msgstr ""
 msgid "Use Ogg music"
 msgstr ""
 
-msgid "Use the best render quality"
-msgstr ""
-
-msgid "Use the nearest render quality"
-msgstr ""
-
 msgid "Version"
 msgstr "Version"
 
@@ -987,6 +986,10 @@ msgstr "Mission %d, Zeit %d"
 #, c-format
 msgid "training %d, time %d"
 msgstr "Training %d, Zeit %d"
+
+#, fuzzy
+#~ msgid "Nearest"
+#~ msgstr "Wald"
 
 #~ msgid "Quit BLUPI"
 #~ msgstr "BLUPI beenden"

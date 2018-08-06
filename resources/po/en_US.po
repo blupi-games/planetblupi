@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-06 17:58+0200\n"
+"POT-Creation-Date: 2018-08-06 23:57+0200\n"
 "PO-Revision-Date: 2017-02-27 21:28+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -166,6 +166,9 @@ msgid ""
 "1|the striped paving stones."
 msgstr ""
 
+msgid "Aliasing"
+msgstr ""
+
 msgid "All licenses are available under share/doc/planetblupi/copyright"
 msgstr ""
 
@@ -173,6 +176,9 @@ msgid "Already two teleporters"
 msgstr ""
 
 msgid "Another mistake..."
+msgstr ""
+
+msgid "Anti-aliasing"
 msgstr ""
 
 msgid "Armour"
@@ -185,9 +191,6 @@ msgid "Bang, failed again !"
 msgstr ""
 
 msgid "Bank"
-msgstr ""
-
-msgid "Best"
 msgstr ""
 
 msgid "Blow up"
@@ -306,6 +309,9 @@ msgstr ""
 msgid "Difficult"
 msgstr ""
 
+msgid "Disable the anti-aliasing"
+msgstr ""
+
 msgid "Drink"
 msgstr ""
 
@@ -328,6 +334,9 @@ msgid "Eggs"
 msgstr ""
 
 msgid "Electrocutor"
+msgstr ""
+
+msgid "Enable the anti-aliasing"
 msgstr ""
 
 msgid "Ending conditions"
@@ -558,9 +567,6 @@ msgid "Music number 9"
 msgstr ""
 
 msgid "N"
-msgstr ""
-
-msgid "Nearest"
 msgstr ""
 
 #, c-format
@@ -821,12 +827,6 @@ msgid "Use Midi music (original)"
 msgstr ""
 
 msgid "Use Ogg music"
-msgstr ""
-
-msgid "Use the best render quality"
-msgstr ""
-
-msgid "Use the nearest render quality"
 msgstr ""
 
 msgid "Version"
