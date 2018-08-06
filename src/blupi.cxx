@@ -1026,7 +1026,10 @@ DoInit (int argc, char * argv[], bool & exit)
 
   const bool zoom = g_zoom;
 
+  const bool renderQuality = g_renderQuality;
   g_pEvent->Create (g_pPixmap, g_pDecor, g_pSound, g_pMovie);
+  if (renderQuality != g_renderQuality)
+    g_pPixmap->CreateMainTexture ();
 
   // Load all cursors
   g_pPixmap->LoadCursors ();
