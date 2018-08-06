@@ -63,6 +63,7 @@ public:
 
   bool Create (Point dim);
 
+  void CreateMainTexture ();
   bool ReloadTargetTextures ();
   bool Cache (size_t channel, Point totalDim);
   bool Cache (

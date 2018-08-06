@@ -74,6 +74,7 @@ bool        g_enableRecorder = false;
 std::string g_playRecord;
 bool        g_restoreBugs = false; // restore original < v1.9 bugs
 bool        g_restoreMidi = false; // restore music playback based on midi files
+bool        g_renderQuality = true; // use the best render quality with scaling
 int         g_settingsOverload = 0;
 
 bool        g_bTermInit = false; // initialisation en cours
@@ -181,6 +182,11 @@ ReadConfig ()
   if (
     !(g_settingsOverload & SETTING_MIDI) && j.find ("restoremidi") != j.end ())
     g_restoreMidi = j["restoremidi"].get<bool> ();
+
+  if (
+    !(g_settingsOverload & SETTING_RENDERQUALITY) &&
+    j.find ("renderquality") != j.end ())
+    g_renderQuality = j["renderqiality"].get<bool> ();
 
   return true;
 }
@@ -608,7 +614,12 @@ parseArgs (int argc, char * argv[], bool & exit)
      {"restoremidi",
       {"-m", "--restore-midi"},
       "restore playback based on MIDI music instead of OGG",
-      0}}};
+      0},
+     {"renderquality",
+      {"-q", "--render-quality"},
+      "enable the best render quality [on;off] (default: on, ignored if "
+      "windowed)",
+      1}}};
 
   argagg::parser_results args;
   try
@@ -704,6 +715,13 @@ parseArgs (int argc, char * argv[], bool & exit)
   {
     g_restoreMidi = true;
     g_settingsOverload |= SETTING_MIDI;
+  }
+
+  if (args["renderquality"])
+  {
+    g_renderQuality =
+      args["renderquality"].as<std::string> () != std::string ("off");
+    g_settingsOverload |= SETTING_RENDERQUALITY;
   }
 
   return EXIT_SUCCESS;

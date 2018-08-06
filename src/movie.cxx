@@ -139,7 +139,8 @@ CMovie::fileOpenMovie (const std::string & pFilename)
     SDL_PauseAudioDevice (m_audioDev, 0);
 
     if (g_bFullScreen && g_zoom == 1)
-      SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "best");
+      SDL_SetHint (
+        SDL_HINT_RENDER_SCALE_QUALITY, g_renderQuality ? "best" : "nearest");
     m_videoTex = SDL_CreateTexture (
       g_renderer, info.video.output.format, SDL_TEXTUREACCESS_TARGET,
       info.video.output.width, info.video.output.height);

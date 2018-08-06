@@ -36,6 +36,7 @@ extern bool           g_bFullScreen;
 extern Uint8          g_zoom;
 extern bool           g_restoreBugs;
 extern bool           g_restoreMidi;
+extern bool           g_renderQuality;
 extern bool           g_enableRecorder;
 extern std::string    g_playRecord;
 extern CEvent *       g_pEvent;
@@ -51,6 +52,7 @@ enum Settings {
   SETTING_DRIVER        = 1 << 5,
   SETTING_MIDI          = 1 << 6,
   SETTING_LEGACY        = 1 << 7,
+  SETTING_RENDERQUALITY = 1 << 8,
 };
 
 extern int g_settingsOverload;

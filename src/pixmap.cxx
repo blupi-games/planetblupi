@@ -107,6 +107,22 @@ CPixmap::Create (Point dim)
   return true;
 }
 
+void
+CPixmap::CreateMainTexture ()
+{
+  if (!this->mainTexture)
+    return;
+
+  SDL_DestroyTexture (this->mainTexture);
+  SDL_SetHint (
+    SDL_HINT_RENDER_SCALE_QUALITY,
+    g_bFullScreen && g_renderQuality ? "best" : "nearest");
+  this->mainTexture = SDL_CreateTexture (
+    g_renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET, LXIMAGE (),
+    LYIMAGE ());
+  SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
+}
+
 Sint32
 CPixmap::BltFast (Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR)
 {
@@ -128,7 +144,8 @@ CPixmap::BltFast (Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR)
   {
     if (!this->mainTexture && g_bFullScreen && g_zoom == 1)
     {
-      SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "best");
+      SDL_SetHint (
+        SDL_HINT_RENDER_SCALE_QUALITY, g_renderQuality ? "best" : "nearest");
       this->mainTexture = SDL_CreateTexture (
         g_renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET,
         LXIMAGE (), LYIMAGE ());

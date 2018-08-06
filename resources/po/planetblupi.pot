@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-30 15:35+0200\n"
+"POT-Creation-Date: 2018-08-06 07:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -551,6 +551,12 @@ msgstr ""
 msgid "Use Midi music (original)"
 msgstr ""
 
+msgid "Use the nearest render quality"
+msgstr ""
+
+msgid "Use the best render quality"
+msgstr ""
+
 msgid "Version"
 msgstr ""
 
@@ -727,6 +733,11 @@ msgid ""
 "music format"
 msgstr ""
 
+msgid ""
+"Change the\n"
+"render quality"
+msgstr ""
+
 msgid "Legacy"
 msgstr ""
 
@@ -737,6 +748,12 @@ msgid "Midi"
 msgstr ""
 
 msgid "Ogg"
+msgstr ""
+
+msgid "Best"
+msgstr ""
+
+msgid "Nearest"
 msgstr ""
 
 msgid "You have played Planet Blupi."

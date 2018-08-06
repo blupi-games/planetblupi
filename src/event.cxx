@@ -75,8 +75,10 @@ typedef struct {
   Sint16 musicMidi;
   Sint16 fullScreen;
   Sint16 zoom;
+  // v1.3
+  Sint16 renderQuality;
 
-  Sint16 reserve2[89];
+  Sint16 reserve2[88];
 } DescInfo;
 
 // Toutes les premières lettres doivent
@@ -1577,6 +1579,18 @@ static Phase table[] =
                 { translate ("Use Midi music (original)") },
             },
             {
+                EV_BUTTON9,
+                0, {1, 50},
+                514, 330,
+                { translate ("Use the nearest render quality") },
+            },
+            {
+                EV_BUTTON10,
+                0, {1, 51},
+                514 + 40, 330,
+                { translate ("Use the best render quality") },
+            },
+            {
                 EV_PHASE_INIT,
                 0, {1, 40},
                 42 + 42 * 0, 433,
@@ -2202,6 +2216,9 @@ CEvent::DrawButtons ()
     SetEnable (EV_BUTTON7, g_restoreMidi && mid && ogg);
     SetEnable (EV_BUTTON8, !g_restoreMidi && mid && ogg);
 
+    SetEnable (EV_BUTTON9, g_bFullScreen && g_renderQuality);
+    SetEnable (EV_BUTTON10, g_bFullScreen && !g_renderQuality);
+
     table[m_index].buttons[4].toolTips[0] =
       g_bFullScreen ? gettext ("Desktop mode") : gettext ("Reduce window size");
     table[m_index].buttons[5].toolTips[0] =
@@ -2673,6 +2690,8 @@ CEvent::DrawButtons ()
       284 + 40 + LXOFFSET (), 80);
     DrawTextCenter (
       gettext ("Choose the\nmusic format"), 399 + 40 + LXOFFSET (), 80);
+    DrawTextCenter (
+      gettext ("Change the\nrender quality"), 514 + 40 + LXOFFSET (), 80);
 
     const auto  locale = GetLocale ();
     std::string lang;
@@ -2716,6 +2735,12 @@ CEvent::DrawButtons ()
     text  = (g_restoreMidi && mid) || !ogg ? gettext ("Midi") : gettext ("Ogg");
     lg    = GetTextWidth (text);
     pos.x = (399 + 40) - lg / 2 + LXOFFSET ();
+    pos.y = 330 - 20;
+    DrawText (m_pPixmap, pos, text);
+
+    text  = g_renderQuality ? gettext ("Best") : gettext ("Nearest");
+    lg    = GetTextWidth (text);
+    pos.x = (514 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
   }
@@ -4346,6 +4371,14 @@ CEvent::ChangeButtons (Sint32 message)
     case EV_BUTTON8:
       g_restoreMidi = true;
       break;
+    case EV_BUTTON9:
+      g_renderQuality = false;
+      this->m_pPixmap->CreateMainTexture ();
+      break;
+    case EV_BUTTON10:
+      g_renderQuality = true;
+      this->m_pPixmap->CreateMainTexture ();
+      break;
     }
   }
 }
@@ -4903,7 +4936,7 @@ CEvent::WriteInfo ()
     goto error;
 
   info.majRev       = 1;
-  info.minRev       = 2;
+  info.minRev       = 3;
   info.prive        = m_private;
   info.exercice     = m_exercice;
   info.mission      = m_mission;
@@ -4922,9 +4955,10 @@ CEvent::WriteInfo ()
   info.language = static_cast<Sint16> (
     this->GetLanguage () != this->GetStartLanguage () ? this->GetLanguage ()
                                                       : Language::undef);
-  info.musicMidi  = g_restoreMidi;
-  info.fullScreen = g_bFullScreen;
-  info.zoom       = g_zoom;
+  info.musicMidi     = g_restoreMidi;
+  info.fullScreen    = g_bFullScreen;
+  info.zoom          = g_zoom;
+  info.renderQuality = g_renderQuality;
 
   nb = fwrite (&info, sizeof (info), 1, file);
   if (nb < 1)
@@ -4995,6 +5029,12 @@ CEvent::ReadInfo ()
     /* Prefer the desktop fullscreen mode by default. */
     if (!(g_settingsOverload & SETTING_LEGACY) && g_bFullScreen && g_zoom == 2)
       g_zoom = 1;
+  }
+
+  if (((info.majRev == 1 && info.minRev >= 3) || info.majRev >= 2))
+  {
+    if (!(g_settingsOverload & SETTING_RENDERQUALITY))
+      g_renderQuality = !!info.renderQuality;
   }
 
   fclose (file);
