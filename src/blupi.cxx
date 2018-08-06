@@ -186,7 +186,7 @@ ReadConfig ()
   if (
     !(g_settingsOverload & SETTING_RENDERQUALITY) &&
     j.find ("renderquality") != j.end ())
-    g_renderQuality = j["renderqiality"].get<bool> ();
+    g_renderQuality = j["renderquality"].get<bool> ();
 
   return true;
 }
