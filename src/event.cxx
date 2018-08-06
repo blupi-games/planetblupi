@@ -2738,7 +2738,9 @@ CEvent::DrawButtons ()
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
 
-    text  = g_renderQuality ? gettext ("Best") : gettext ("Nearest");
+    text = g_bFullScreen && g_zoom == 1
+             ? (g_renderQuality ? gettext ("Best") : gettext ("Nearest"))
+             : gettext ("Not available");
     lg    = GetTextWidth (text);
     pos.x = (514 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
