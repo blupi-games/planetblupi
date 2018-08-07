@@ -15,10 +15,10 @@ FIND_PROGRAM(GZIP gzip)
 
 IF (NOT RONN OR NOT GZIP)
   IF (NOT RONN)
-    BUILD_WARNING ("ronn not found, manpages won't be generated")
+    message(WARNING "ronn not found, manpages won't be generated")
   ENDIF(NOT RONN)
   IF (NOT GZIP)
-    BUILD_WARNING ("gzip not found, manpages won't be generated")
+    message(WARNING "gzip not found, manpages won't be generated")
   ENDIF(NOT GZIP)
   # empty macro
   MACRO(manpage MANFILE)
