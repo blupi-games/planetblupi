@@ -241,7 +241,8 @@ Update (void)
 
     g_pEvent->DecorAutoShift ();
     g_pDecor->Build (clip, posMouse); // build the environment
-    g_pDecor->NextPhase (1);          // rebuild the map sometimes
+    g_pEvent->PlayMove (posMouse);
+    g_pDecor->NextPhase (1); // rebuild the map sometimes
   }
 
   if (phase == EV_PHASE_BUILD)
@@ -259,6 +260,13 @@ Update (void)
   {
     g_pEvent->DemoStep (); // start automatically (eventually) the demo
   }
+
+  SDL_Event event = {0};
+  event.type      = SDL_MOUSEMOTION;
+  event.motion.x  = posMouse.x;
+  event.motion.y  = posMouse.y;
+  g_pEvent->EventButtons (event, posMouse);
+  g_pEvent->MouseSprite (posMouse);
 
   g_pEvent->DrawButtons ();
 

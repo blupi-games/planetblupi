@@ -5824,10 +5824,7 @@ CEvent::TreatEventBase (const SDL_Event & event)
     case SDLK_RCTRL:
       m_keymod |= KMOD_CTRL;
       if (m_phase == EV_PHASE_BUILD)
-      {
         m_bFillMouse = true;
-        MouseSprite (GetMousePos ());
-      }
       else
         m_bFillMouse = false;
       return true;
@@ -5893,7 +5890,6 @@ CEvent::TreatEventBase (const SDL_Event & event)
     case SDLK_RCTRL:
       m_keymod &= ~KMOD_CTRL;
       m_bFillMouse = false;
-      MouseSprite (GetMousePos ());
       return true;
     }
     break;
@@ -5907,8 +5903,6 @@ CEvent::TreatEventBase (const SDL_Event & event)
     pos.x = event.button.x;
     pos.y = event.button.y;
 
-    MouseSprite (pos);
-    //?         DecorAutoShift(pos);
     if (EventButtons (event, pos))
       return true;
     if (m_phase == EV_PHASE_BUILD)
@@ -5929,7 +5923,6 @@ CEvent::TreatEventBase (const SDL_Event & event)
 
     m_oldMousePos = pos;
 
-    MouseSprite (pos);
     if (EventButtons (event, pos))
       return true;
     if (m_phase == EV_PHASE_BUILD)
@@ -5938,10 +5931,7 @@ CEvent::TreatEventBase (const SDL_Event & event)
         return true;
     }
     if (m_phase == EV_PHASE_PLAY)
-    {
-      if (PlayMove (pos))
-        return true;
-    }
+      return true;
     break;
 
   case SDL_MOUSEBUTTONUP:

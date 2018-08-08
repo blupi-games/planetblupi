@@ -150,18 +150,19 @@ public:
   void SetWindowSize (Uint8 newScale);
   void SetUpdateVersion (const std::string & version);
 
+  bool EventButtons (const SDL_Event & event, Point pos);
+  bool PlayMove (Point pos);
+
   static void PushUserEvent (Sint32 code, void * data = nullptr);
 
 protected:
   void DrawTextCenter (const char * text, Sint32 x, Sint32 y, Sint32 font = 0);
   bool CreateButtons (Sint32 phase);
-  bool EventButtons (const SDL_Event & event, Point pos);
   bool MouseOnButton (Point pos);
   Sint32 SearchPhase (Uint32 phase);
   void   DecorShift (Sint32 dx, Sint32 dy);
 
   bool PlayDown (Point pos, const SDL_Event & event);
-  bool PlayMove (Point pos);
   bool PlayUp (Point pos);
 
   Language GetStartLanguage ();

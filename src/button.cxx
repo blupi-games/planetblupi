@@ -274,16 +274,8 @@ CButton::TreatEvent (const SDL_Event & event)
 
     pos.x = event.button.x;
     pos.y = event.button.y;
-    if (MouseUp (pos))
-    {
-      /* Simulate a mouse move in order to restore the mouse hover state.  */
-      SDL_Event ev = {0};
-      ev.type      = SDL_MOUSEMOTION;
-      ev.motion.x  = pos.x;
-      ev.motion.y  = pos.y;
-      SDL_PushEvent (&ev);
+    if (MouseUp (pos)) // (*)
       return false;
-    } // (*)
     break;
   }
 
