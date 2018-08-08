@@ -995,8 +995,6 @@ CPixmap::ChangeSprite (MouseSprites sprite)
 double
 CPixmap::GetDisplayScale ()
 {
-  // SDL_DisplayMode displayMode;
-  // SDL_GetWindowDisplayMode (g_window, &displayMode);
   Sint32 w, h;
   SDL_GetWindowSize (g_window, &w, &h);
   return static_cast<double> (h / LYIMAGE ());
