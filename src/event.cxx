@@ -2018,7 +2018,9 @@ CEvent::CreateButtons (Sint32 phase)
     pos.y   = table[m_index].buttons[i].y;
     message = table[m_index].buttons[i].message;
 
-    if (phase != EV_PHASE_PLAY && phase != EV_PHASE_BUILD)
+    if (
+      phase != EV_PHASE_PLAY && phase != EV_PHASE_BUILD &&
+      phase != EV_PHASE_INIT)
       pos.x += LXOFFSET ();
 
     if (m_bPrivate)
