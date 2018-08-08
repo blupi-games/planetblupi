@@ -611,6 +611,8 @@ enum ShiftDirection {
 
 #define EV_MUSIC_STOP           (EV_OFFSET+550)
 
+#define EV_SETUP_EXIT           (EV_OFFSET+560)
+
 #define EV_PREV                 (EV_OFFSET+600)
 #define EV_NEXT                 (EV_OFFSET+601)
 #define EV_MOVIE                (EV_OFFSET+602)
