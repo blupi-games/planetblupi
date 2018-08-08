@@ -642,7 +642,7 @@ static Phase table[] =
                 {},
             },
             {
-                EV_PHASE_STOP,
+                EV_READ10,
                 0, {1, 40},
                 16, 424,
                 { translate ("Finish") },
@@ -5670,11 +5670,15 @@ CEvent::TreatEventBase (const SDL_Event & event)
       case EV_PHASE_PLAY:
       case EV_PHASE_SETUP:
       case EV_PHASE_SETUPp:
-      case EV_PHASE_READ:
       case EV_PHASE_WRITE:
       case EV_PHASE_WRITEp:
       case EV_PHASE_HELP:
         ChangePhase (EV_PHASE_STOP);
+        return true;
+
+      case EV_PHASE_READ:
+        ChangePhase (
+          this->m_pDecor->GetTime () ? EV_PHASE_STOP : EV_PHASE_INFO);
         return true;
 
       case EV_PHASE_STOP:
@@ -5719,10 +5723,14 @@ CEvent::TreatEventBase (const SDL_Event & event)
         return true;
 
       case EV_PHASE_PLAY:
-      case EV_PHASE_READ:
       case EV_PHASE_WRITE:
       case EV_PHASE_SETUP:
         ChangePhase (EV_PHASE_STOP);
+        return true;
+
+      case EV_PHASE_READ:
+        ChangePhase (
+          this->m_pDecor->GetTime () ? EV_PHASE_STOP : EV_PHASE_INFO);
         return true;
 
       case EV_PHASE_INIT:
@@ -6204,6 +6212,10 @@ CEvent::TreatEventBase (const SDL_Event & event)
     case EV_READ9:
       Read (event.user.code);
       ChangePhase (EV_PHASE_PLAY); // joue
+      break;
+
+    case EV_READ10:
+      ChangePhase (this->m_pDecor->GetTime () ? EV_PHASE_STOP : EV_PHASE_INFO);
       break;
 
     case EV_WRITE0:

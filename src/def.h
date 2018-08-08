@@ -556,6 +556,7 @@ enum ShiftDirection {
 #define EV_READ7                (EV_OFFSET+307)
 #define EV_READ8                (EV_OFFSET+308)
 #define EV_READ9                (EV_OFFSET+309)
+#define EV_READ10               (EV_OFFSET+320)
 
 #define EV_WRITE0               (EV_OFFSET+310)
 #define EV_WRITE1               (EV_OFFSET+311)
