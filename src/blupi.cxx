@@ -195,7 +195,7 @@ ReadConfig ()
  * \brief Main frame update.
  */
 static bool
-UpdateFrame (void)
+Update (void)
 {
   Rect   clip, rcRect;
   Uint32 phase;
@@ -409,7 +409,7 @@ HandleEvent (const SDL_Event & event)
         bool display = true;
 
         if (!g_pause)
-          display = UpdateFrame ();
+          display = Update ();
 
         if (!g_pEvent->IsMovie () && display)
           g_pPixmap->Display ();
