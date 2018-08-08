@@ -2973,7 +2973,7 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
 
   if (m_phase == EV_PHASE_PLAY)
   {
-    const static auto progress = [&](CJauge & prog, const char * text) -> bool {
+    auto progress = [&](CJauge & prog, const char * text) -> bool {
       if (prog.GetHide ())
         return false;
 
