@@ -642,7 +642,7 @@ static Phase table[] =
                 {},
             },
             {
-                EV_READ10,
+                EV_READ_EXIT,
                 0, {1, 40},
                 16, 424,
                 { translate ("Finish") },
@@ -6214,7 +6214,7 @@ CEvent::TreatEventBase (const SDL_Event & event)
       ChangePhase (EV_PHASE_PLAY); // joue
       break;
 
-    case EV_READ10:
+    case EV_READ_EXIT:
       ChangePhase (this->m_pDecor->GetTime () ? EV_PHASE_STOP : EV_PHASE_INFO);
       break;
 
