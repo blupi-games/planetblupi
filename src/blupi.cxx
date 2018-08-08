@@ -617,7 +617,7 @@ parseArgs (int argc, char * argv[], bool & exit)
       0},
      {"renderquality",
       {"-q", "--render-quality"},
-      "enable the best render quality [on;off] (default: on, ignored if "
+      "enable anti-aliasing [on;off] (default: on, ignored if "
       "windowed)",
       1}}};
 

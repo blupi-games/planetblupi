@@ -1582,13 +1582,13 @@ static Phase table[] =
                 EV_BUTTON9,
                 0, {1, 50},
                 514, 330,
-                { translate ("Disable the anti-aliasing") },
+                { translate ("Disable anti-aliasing") },
             },
             {
                 EV_BUTTON10,
                 0, {1, 51},
                 514 + 40, 330,
-                { translate ("Enable the anti-aliasing") },
+                { translate ("Enable anti-aliasing") },
             },
             {
                 EV_PHASE_INIT,
