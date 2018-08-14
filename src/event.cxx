@@ -2965,7 +2965,6 @@ bool
 CEvent::EventButtons (const SDL_Event & event, Point pos)
 {
   Sint32 lg;
-  Sounds sound;
 
   // Cherche le tool tips à utiliser pour la souris.
   m_textToolTips[0] = 0;
@@ -3034,21 +3033,13 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
       m_bHiliInfoButton = true;
 
       if (
-        event.type == SDL_MOUSEBUTTONDOWN &&
-        (event.button.button == SDL_BUTTON_LEFT ||
-         event.button.button == SDL_BUTTON_RIGHT))
-      {
-        if (m_pDecor->GetInfoMode ())
-          sound = SOUND_CLOSE;
-        else
-          sound = SOUND_OPEN;
-        m_pSound->PlayImage (sound, pos);
-      }
-      if (
         event.type == SDL_MOUSEBUTTONUP &&
         (event.button.button == SDL_BUTTON_LEFT ||
          event.button.button == SDL_BUTTON_RIGHT))
       {
+        m_pSound->PlayImage (
+          m_pDecor->GetInfoMode () ? SOUND_CLOSE : SOUND_OPEN, pos);
+
         // Show or hide the informations at the top.
         m_pDecor->SetInfoMode (!m_pDecor->GetInfoMode ());
       }
