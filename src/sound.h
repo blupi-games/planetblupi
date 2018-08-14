@@ -56,7 +56,8 @@ public:
   bool Play (
     Sint32 channel, Sint32 volume = 0, Uint8 panLeft = 255,
     Uint8 panRight = 255);
-  bool PlayImage (Sounds channel, Point pos, Sint32 rank = -1);
+  bool
+       PlayImage (Sounds channel, Point pos, Sint32 rank = -1, bool stop = false);
   bool PlayMusic (const std::string & lpszMIDIFilename);
   bool RestartMusic ();
   void SuspendMusic ();
@@ -65,6 +66,7 @@ public:
   bool IsStoppedOnDemand ();
   void AdaptVolumeMusic ();
   void SetSuspendSkip (Sint32 nb);
+  void StopSound (bool immediat, Sint32 rank);
   bool StopAllSounds (bool immediat, const std::set<Sint32> * except = nullptr);
 
 protected:

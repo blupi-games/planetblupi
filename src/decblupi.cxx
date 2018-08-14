@@ -200,6 +200,7 @@ void
 CDecor::BlupiDelete (Sint32 rank)
 {
   m_blupi[rank].bExist = false;
+  this->m_pSound->StopSound(true, rank);
 
   if (
     !m_bBuild && // phase de jeu ?
@@ -236,6 +237,7 @@ CDecor::BlupiKill (Sint32 exRank, Point cel, Sint32 type)
       if (type == 0) // explosion ?
       {
         m_blupi[rank].bExist = false; // mort instantannée
+        this->m_pSound->StopSound(true, rank);
       }
 
       if (type == 1) // électro ?
@@ -467,9 +469,9 @@ CDecor::BlupiSound (Sint32 rank, Sounds sound, Point pos, bool bStop)
   }
 
   if (bStop)
-    m_pSound->PlayImage (sound, pos, rank);
+    m_pSound->PlayImage (sound, pos, rank, bStop);
   else
-    m_pSound->PlayImage (sound, pos);
+    m_pSound->PlayImage (sound, pos, rank);
 }
 
 // Sons associés à des actions.

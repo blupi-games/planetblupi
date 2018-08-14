@@ -26,6 +26,27 @@
 #include "platform.h"
 #include "sound.h"
 
+void
+CSound::StopSound (bool immediat, Sint32 rank)
+{
+  Sounds stopCh;
+
+  if (rank >= 0 && rank < MAXBLUPI)
+  {
+    stopCh = m_channelBlupi[rank];
+    if (stopCh >= 0 && m_lpSDL[stopCh] != nullptr)
+    {
+      /* FIXME: add support of fade out with emscripten */
+      if (immediat || Platform::getType () == Platform::Type::JS)
+        Mix_HaltChannel (stopCh + 1);
+      else
+        Mix_FadeOutChannel (stopCh + 1, 500);
+    }
+
+    m_channelBlupi[rank] = SOUND_NONE;
+  }
+}
+
 // Stops all sounds.
 
 bool
@@ -269,23 +290,18 @@ CSound::Play (Sint32 channel, Sint32 volume, Uint8 panLeft, Uint8 panRight)
 // ï¿½ventuellement stopper le dernier son en cours !
 
 bool
-CSound::PlayImage (Sounds channel, Point pos, Sint32 rank)
+CSound::PlayImage (Sounds channel, Point pos, Sint32 rank, bool stop)
 {
   Sint32 volumex, volumey, volume;
-  Sounds stopCh;
 
   if (rank >= 0 && rank < MAXBLUPI)
   {
-    stopCh = m_channelBlupi[rank];
-    if (stopCh >= 0 && m_lpSDL[stopCh] != nullptr)
-    {
-      if (Platform::getType () == Platform::Type::SDL)
-        Mix_FadeOutChannel (stopCh + 1, 500);
-      else /* FIXME: fade broken with emscripten */
-        Mix_HaltChannel (stopCh + 1);
-    }
+    bool immediat = channel == SOUND_DYNAMITE;
 
-    m_channelBlupi[rank] = channel;
+    if (stop || immediat)
+      this->StopSound (immediat, rank);
+    else
+      m_channelBlupi[rank] = channel;
   }
 
   Uint8 panRight, panLeft;
