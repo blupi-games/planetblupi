@@ -759,7 +759,7 @@ DoInit (int argc, char * argv[], bool & exit)
 #ifdef __LINUX__
   if (!getenv ("ALSA_CONFIG_DIR"))
   {
-    char env[256];
+    static char env[256];
     snprintf (env, sizeof (env), "ALSA_CONFIG_DIR=/usr/share/alsa");
     putenv (env);
   }
