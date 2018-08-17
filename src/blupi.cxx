@@ -1119,7 +1119,8 @@ main (int argc, char * argv[])
     }
     _argv.push_back (nullptr);
 
-    execv (argv[0], const_cast<char **> (&_argv[0]));
+    std::string argv0 = getenv ("APPIMAGE") ? getenv ("APPIMAGE") : argv[0];
+    execv (argv0.c_str (), const_cast<char **> (&_argv[0]));
   }
 
   return 0;
