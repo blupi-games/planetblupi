@@ -291,6 +291,14 @@ CDecor::Read (
     }
   }
 
+  /* Restore the flagged state where flagged ground */
+  for (int i = 0; i < countof (m_decor); ++i)
+    for (int j = 0; j < countof (m_decor[i]); ++j)
+    {
+      if (m_decor[i][j].objectIcon == 124)
+        m_decorMem[i][j].flagged = true;
+    }
+
   if (majRev == 1 && minRev == 3)
   {
     memset (m_blupi, 0, sizeof (Blupi) * MAXBLUPI);
