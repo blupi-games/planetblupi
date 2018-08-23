@@ -34,6 +34,7 @@
 #include <SDL_mouse.h>
 
 #include "blupi.h"
+#include "config.h"
 #include "def.h"
 #include "misc.h"
 
@@ -105,8 +106,8 @@ GetBaseDir ()
   return GetShareDir () + "planetblupi/";
 }
 
-std::string
-GetShareDir ()
+static std::string
+GetDataDir ()
 {
   static std::string basePath;
 
@@ -123,7 +124,21 @@ GetShareDir ()
     SDL_free (sdlBasePath);
   }
 
-  return basePath + "share/";
+  return basePath;
+}
+
+std::string
+GetShareDir ()
+{
+  return GetDataDir () + "share/";
+}
+
+std::string
+GetBinDir ()
+{
+  std::string abs;
+  std::string bin = GetDataDir () + PB_BINDIR + "/";
+  return bin;
 }
 
 // Ajoute le chemin permettant de lire un fichier

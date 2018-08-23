@@ -1119,7 +1119,13 @@ main (int argc, char * argv[])
     }
     _argv.push_back (nullptr);
 
-    std::string argv0 = getenv ("APPIMAGE") ? getenv ("APPIMAGE") : argv[0];
+    std::string argv0;
+
+    if (getenv ("APPIMAGE"))
+      argv0 = getenv ("APPIMAGE");
+    else
+      argv0 = GetBinDir () + basename (argv[0]);
+
     execv (argv0.c_str (), const_cast<char **> (&_argv[0]));
   }
 

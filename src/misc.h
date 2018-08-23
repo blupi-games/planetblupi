@@ -35,6 +35,7 @@ extern Sint32 Random (Sint32 min, Sint32 max);
 
 std::string GetBaseDir ();
 std::string GetShareDir ();
+std::string GetBinDir ();
 std::string GetLocale ();
 extern void AddUserPath (std::string & pFilename);
 
