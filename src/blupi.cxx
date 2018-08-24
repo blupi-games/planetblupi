@@ -1126,7 +1126,7 @@ main (int argc, char * argv[])
     }
     _argv.push_back (nullptr);
 
-    SDL_Log (("Reload the game from " + argv0).c_str ());
+    SDL_Log ("Reload the game from %s",  argv0.c_str ());
     execv (argv0.c_str (), const_cast<char **> (&_argv[0]));
   }
 
