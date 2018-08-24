@@ -346,15 +346,9 @@ HandleEvent (const SDL_Event & event)
   {
 #ifndef DEBUG
     Point totalDim, iconDim;
-#endif /* !DEBUG */
 
     switch (event.window.event)
     {
-    case SDL_WINDOWEVENT_EXPOSED:
-      g_pPixmap->ReloadTargetTextures ();
-      break;
-
-#ifndef DEBUG
     case SDL_WINDOWEVENT_FOCUS_GAINED:
       g_pause = false;
 
@@ -385,8 +379,8 @@ HandleEvent (const SDL_Event & event)
       if (g_pMovie)
         g_pMovie->Pause ();
       return;
-#endif /* !DEBUG */
     }
+#endif /* !DEBUG */
     break;
   }
 
