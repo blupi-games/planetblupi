@@ -53,3 +53,16 @@ string_format (const std::string & format, Args... args)
   snprintf (buf.get (), size, format.c_str (), args...);
   return std::string (buf.get (), buf.get () + size - 1);
 }
+
+#ifdef _WIN32
+static inline char *
+basename (char * path)
+{
+  static char basename[_MAX_FNAME + _MAX_EXT];
+  char        fname[_MAX_FNAME];
+  char        ext[_MAX_EXT];
+  _splitpath (path, nullptr, nullptr, fname, ext);
+  snprintf (basename, sizeof (basename), "%s%s", fname, ext);
+  return basename;
+}
+#endif /* _WIN32 */
