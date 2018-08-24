@@ -1107,8 +1107,15 @@ main (int argc, char * argv[])
   if (g_restart != RestartMode::NO)
   {
     std::vector<const char *> _argv;
+    std::string               argv0;
+    std::string               bin = basename (argv[0]);
 
-    _argv.push_back (argv[0]);
+    if (getenv ("APPIMAGE"))
+      argv0 = getenv ("APPIMAGE");
+    else
+      argv0 = GetBinDir () + bin;
+
+    _argv.push_back (bin.c_str ());
     if (g_restart == RestartMode::LEGACY)
     {
       _argv.push_back ("--legacy");
@@ -1119,13 +1126,7 @@ main (int argc, char * argv[])
     }
     _argv.push_back (nullptr);
 
-    std::string argv0;
-
-    if (getenv ("APPIMAGE"))
-      argv0 = getenv ("APPIMAGE");
-    else
-      argv0 = GetBinDir () + basename (argv[0]);
-
+    SDL_Log (("Reload the game from " + argv0).c_str ());
     execv (argv0.c_str (), const_cast<char **> (&_argv[0]));
   }
 
