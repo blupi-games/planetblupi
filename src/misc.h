@@ -23,6 +23,9 @@
 #include <cstdio>
 #include <memory>
 #include <string>
+#ifdef __APPLE__
+#include <libgen.h>
+#endif /* __APPLE__ */
 
 #include "blupi.h"
 
