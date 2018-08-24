@@ -274,6 +274,7 @@ protected:
   Sint32                                   m_updateBlinking;
   std::string                              m_updateVersion;
   Uint32                                   shiftDirection;
+  bool                                     statDisabled;
 };
 
 /////////////////////////////////////////////////////////////////////////////

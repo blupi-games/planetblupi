@@ -807,8 +807,9 @@ CDecor::StatisticDown (Point pos)
 
   StatisticUpdate ();
 
-  hili = StatisticDetect (pos);
-  if (hili < 0)
+  bool disable;
+  hili = StatisticDetect (pos, disable);
+  if (hili < 0 || disable)
     return false;
 
   if (m_bStatUp && hili == 0) // flèche up ?
@@ -984,11 +985,11 @@ select:
 // Souris déplacée dans les statistiques.
 
 bool
-CDecor::StatisticMove (Point pos)
+CDecor::StatisticMove (Point pos, bool & disable)
 {
   Sint32 rank;
 
-  rank = StatisticDetect (pos);
+  rank = StatisticDetect (pos, disable);
 
   if (rank != m_statHili) // autre mise en évidence ?
     m_statHili = rank;
@@ -1007,9 +1008,11 @@ CDecor::StatisticUp (Point pos)
 // Détecte dans quelle statistique est la souris.
 
 Sint32
-CDecor::StatisticDetect (Point pos)
+CDecor::StatisticDetect (Point pos, bool & disable)
 {
   Sint32 rank;
+
+  disable = false;
 
   // Dans un bouton stop/setup/write ?
   if (pos.x >= 10 && pos.x <= 10 + 42 * 3 && pos.y >= 422 && pos.y <= 422 + 40)
@@ -1029,12 +1032,18 @@ CDecor::StatisticDetect (Point pos)
     if (rank >= STATNB)
       return -1;
 
-    auto pStatistic = StatisticGet (rank);
+    if (rank == 11 && this->m_bStatDown)
+      return rank;
+
+    if (rank == 0 && this->m_bStatUp)
+      return rank;
+
+    auto pStatistic = StatisticGet (m_statFirst + rank - !!m_bStatUp);
     if (
       this->GetSkill () >= 1 && pStatistic->perso >= 0 &&
       (pStatistic->perso != 0 && pStatistic->perso != 8))
     {
-      return -1;
+      disable = true;
     }
 
     return rank;

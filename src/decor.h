@@ -370,9 +370,9 @@ public:
   void   StatisticDraw ();
   void   GenerateStatictic ();
   bool   StatisticDown (Point pos);
-  bool   StatisticMove (Point pos);
+  bool   StatisticMove (Point pos, bool & disable);
   bool   StatisticUp (Point pos);
-  Sint32 StatisticDetect (Point pos);
+  Sint32 StatisticDetect (Point pos, bool & disable);
 
   // Chemin.cpp
   void   CheminMemPos (Sint32 exRank);

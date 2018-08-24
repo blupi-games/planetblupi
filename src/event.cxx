@@ -1703,6 +1703,7 @@ CEvent::CEvent ()
   m_updateBlinking = 0;
 
   this->shiftDirection = 0;
+  this->statDisabled   = false;
 }
 
 // Destructeur.
@@ -2875,6 +2876,9 @@ CEvent::MousePosToSprite (Point pos)
       if (bRight && bDown)
         sprite = SPRITE_ARROWDR;
     }
+
+    if (this->statDisabled)
+      sprite = SPRITE_ARROW;
   }
   else if (m_phase == EV_PHASE_INTRO1)
     sprite = SPRITE_POINTER;
@@ -3995,7 +3999,7 @@ CEvent::PlayMove (Point pos)
     return true;
   }
 
-  m_pDecor->StatisticMove (pos);
+  m_pDecor->StatisticMove (pos, this->statDisabled);
 
   if (m_bMouseDown) // bouton souris pressé ?
   {
