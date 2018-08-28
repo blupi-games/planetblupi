@@ -461,6 +461,8 @@ public:
   void UndoBack ();
   bool IsUndo ();
 
+  void InvalidateGrounds ();
+
 protected:
   bool   GetSeeBits (Point cel, char * pBits, Sint32 index);
   Sint32 GetSeeIcon (char * pBits, Sint32 index);

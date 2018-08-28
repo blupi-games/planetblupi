@@ -3259,6 +3259,44 @@ CEvent::GetMusicLocation (Sint32 music)
   return absolute;
 }
 
+bool
+CEvent::LoadBackground ()
+{
+  Point       totalDim, iconDim;
+  std::string filename;
+  auto        backWideName = table[m_index].backWideName;
+
+  filename = table[m_index].backName;
+  if (filename.find ("%.3d") != std::string::npos)
+  {
+    auto id  = GetImageWorld ();
+    filename = string_format (table[m_index].backName, id);
+
+    if (table[m_index].phase == EV_PHASE_LASTWIN)
+    {
+      switch (id)
+      {
+      case 0:
+        backWideName = "image/back-disco.png";
+        break;
+      case 1:
+        backWideName = "image/back-stars.png";
+        break;
+      case 2:
+        backWideName = "image/back-win.png";
+        break;
+      }
+    }
+  }
+
+  totalDim.x = LXLOGIC ();
+  totalDim.y = LYLOGIC ();
+  iconDim.x  = 0;
+  iconDim.y  = 0;
+  return m_pPixmap->Cache (
+    CHBACK, filename, totalDim, iconDim, table[m_index].mode, backWideName);
+}
+
 /**
  * \brief Change the phase.
  *
@@ -3268,12 +3306,10 @@ CEvent::GetMusicLocation (Sint32 music)
 bool
 CEvent::ChangePhase (Uint32 phase)
 {
-  Sint32      index, world, time, total, music, i, max;
-  Point       totalDim, iconDim;
-  std::string filename;
-  char *      pButtonExist;
-  bool        bEnable, bHide;
-  Term *      pTerm;
+  Sint32 index, world, time, total, music, i, max;
+  char * pButtonExist;
+  bool   bEnable, bHide;
+  Term * pTerm;
 
   if (
     phase != EV_PHASE_SETUPp && phase != EV_PHASE_WRITEp &&
@@ -3336,37 +3372,7 @@ CEvent::ChangePhase (Uint32 phase)
   m_phase = phase; // change phase
   m_index = index;
 
-  auto backWideName = table[m_index].backWideName;
-
-  filename = table[m_index].backName;
-  if (filename.find ("%.3d") != std::string::npos)
-  {
-    auto id  = GetImageWorld ();
-    filename = string_format (table[m_index].backName, id);
-
-    if (table[m_index].phase == EV_PHASE_LASTWIN)
-    {
-      switch (id)
-      {
-      case 0:
-        backWideName = "image/back-disco.png";
-        break;
-      case 1:
-        backWideName = "image/back-stars.png";
-        break;
-      case 2:
-        backWideName = "image/back-win.png";
-        break;
-      }
-    }
-  }
-
-  totalDim.x = LXLOGIC ();
-  totalDim.y = LYLOGIC ();
-  iconDim.x  = 0;
-  iconDim.y  = 0;
-  if (!m_pPixmap->Cache (
-        CHBACK, filename, totalDim, iconDim, table[m_index].mode, backWideName))
+  if (!this->LoadBackground ())
   {
     WaitMouse (false);
     m_tryInsertCount = 40;

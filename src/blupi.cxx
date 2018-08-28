@@ -404,7 +404,9 @@ HandleEvent (const SDL_Event & event)
 
   case SDL_RENDER_DEVICE_RESET:
   case SDL_RENDER_TARGETS_RESET:
+    g_pDecor->InvalidateGrounds ();
     g_pPixmap->ReloadTargetTextures ();
+    g_pEvent->LoadBackground ();
     break;
 
   case SDL_USEREVENT:

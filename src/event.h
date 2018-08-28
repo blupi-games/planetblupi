@@ -105,6 +105,7 @@ public:
   bool        IsHelpHide ();
   bool        IsBaseMusicAvailable (Sint32 music, const std::string & format);
   std::string GetMusicLocation (Sint32 music);
+  bool        LoadBackground ();
   bool        ChangePhase (Uint32 phase);
   bool        MovieToStart ();
   Uint32      GetPhase ();

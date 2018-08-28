@@ -3499,3 +3499,9 @@ CDecor::IsUndo ()
 {
   return (m_pUndoDecor != nullptr);
 }
+
+void
+CDecor::InvalidateGrounds ()
+{
+  m_bGroundRedraw = true;
+}
