@@ -1,5 +1,5 @@
 
-planetblupi(1) -- a delirious spell-binding game
+planetblupi(6) -- a delirious spell-binding game
 ================================================
 
 ## SYNOPSIS
