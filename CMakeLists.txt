@@ -280,7 +280,7 @@ endforeach (file)
 #########
 
 add_manpage_target ()
-manpage(${PROJECT_NAME} 1)
+manpage(${PROJECT_NAME} 6)
 
 ##############
 # Installation
