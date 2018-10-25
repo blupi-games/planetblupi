@@ -45,7 +45,7 @@ borders. Use the keyboard arrows instead.
 It's possible to start the game with `--fullscreen off` instead of editing
 the `config.json` file.
 
-An other way is to start the game in legacy mode. With this mode, the game
+Another way is to start the game in legacy mode. With this mode, the game
 runs with the original 640x480 resolution. Use `--legacy` on the command
 line.
 
@@ -53,7 +53,7 @@ If the problem persists, maybe you should try to start the game with the
 software renderer. Edit the `config.json` file and add `"renderer": "software"`
 or start the game with `--renderer software`.
 
-An other possibility exists. You can try to change the driver used by the
+Another possibility exists. You can try to change the driver used by the
 accelerated renderer. By default it uses `"direct3d"`, you can change by
 `"opengl"` with `"driver": "opengl"` with the `config.json` file or
 `--driver opengl` by command line argument.
@@ -104,11 +104,11 @@ useful operation on the selected spot.
   * <kbd>Pause</kbd>:
     Temporarily suspends the game (excepted with the hard difficulty).
 
-When you switch to an other application, the game is automatically paused.
+When you switch to another application, the game is automatically paused.
 
 ## MUSIC
 
-The music is provided in *OGG* and *MIDI* formats. The *OGG* variant is prefered
+The music is provided in *OGG* and *MIDI* formats. The *OGG* variant is preferred
 because the render is the same for all platforms. For purist fanboys, it's
 possible to enforce the *MIDI* variant by starting the game with the
 `--restore-midi` command line argument. Note that in this case, it's possible
