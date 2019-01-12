@@ -25,7 +25,11 @@
 #include <string>
 #include <vector>
 
+#ifdef EMSCRIPTEN
+#include <SDL2/SDL_mixer.h>
+#else /* EMSCRIPTEN */
 #include <SDL_mixer.h>
+#endif /* !EMSCRIPTEN */
 
 #include "blupi.h"
 
