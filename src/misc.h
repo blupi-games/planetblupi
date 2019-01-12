@@ -69,3 +69,11 @@ basename (char * path)
   return basename;
 }
 #endif /* _WIN32 */
+#ifdef EMSCRIPTEN
+static inline char *
+basename (char * filename)
+{
+  char * p = strrchr (filename, '/');
+  return p ? p + 1 : filename;
+}
+#endif /* EMSCRIPTEN */
