@@ -1,0 +1,971 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: tr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-08-08 07:29+0200\n"
+"PO-Revision-Date: 2019-01-23 18:09+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: tr_TR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid " - FFmpeg (LGPLv2.1)"
+msgstr " - FFmpeg (LGPLv2.1)"
+
+msgid " - GNU/gettext and GNU/libiconv (GPLv3)"
+msgstr " - GNU/gettext ve GNU/libiconv (GPLv3)"
+
+msgid " - SDL2, SDL2_image and SDL2_mixer (zlib license)"
+msgstr " - SDL2, SDL2_image ve  SDL2_mixer (zlib lisansı)"
+
+msgid " - SDL_kitchensink (MIT)"
+msgstr " - SDL_kitchensink (MIT)"
+
+msgid " - argagg (MIT)"
+msgstr " - argagg (MIT)"
+
+msgid " - libasound (LGPLv2.1)"
+msgstr " - libasound (LGPLv2.1)"
+
+msgid " - libcurl (MIT/X derivate)"
+msgstr " - libcurl (MIT/X türevi)"
+
+msgid " - libogg and libvorbis (own license)"
+msgstr " - libogg and libvorbis (kendi lisansı)"
+
+msgid " - libpng (own license)"
+msgstr " - libpng (kendi lisansı)"
+
+msgid " - libpulse (LGPLv2.1)"
+msgstr " - libpulse (LGPLv2.1)"
+
+msgid " - libsndfile (LGPLv3)"
+msgstr " - libsndfile (LGPLv3)"
+
+msgid " - zlib (own license)"
+msgstr " - zlib (kendi lisansı)"
+
+msgid "(isolated tower)"
+msgstr "(ayrık kule)"
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Build a bridge"
+msgstr ""
+"1: Bir ağaç kes \n"
+"2: Bir köprü inşa et"
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Make a boat"
+msgstr ""
+"1: Bir ağaç kes \n"
+"2: Bir kayık yap"
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Make a palisade"
+msgstr ""
+"1: Bir ağaç kes \n"
+"2: Kazıklı bir çit yap"
+
+msgid ""
+"1: Extract iron\n"
+"2: Make a Jeep"
+msgstr ""
+"1: Demir çıkar \n"
+"2: Bir jip yap"
+
+msgid ""
+"1: Extract iron\n"
+"2: Make a bomb"
+msgstr ""
+"1: Demir çıkar \n"
+"2: Bir bomba yap"
+
+msgid ""
+"1: Extract iron\n"
+"2: Make an armour"
+msgstr ""
+"1: Demir çıkar \n"
+"2: Bir zırh yap"
+
+msgid ""
+"1: Grow tomatoes\n"
+"2: Eat"
+msgstr ""
+"1: Domates yetiştir \n"
+"2: Ye"
+
+msgid ""
+"1: Make a bunch\n"
+"2: Transform"
+msgstr ""
+"1: Bir demet çiçek topla\n"
+"2: Dönüştür"
+
+msgid ""
+"1: Take\n"
+"2: Build a bridge"
+msgstr ""
+"1: Al\n"
+"2: Bir köprü inşa et"
+
+msgid ""
+"1: Take\n"
+"2: Build palisade"
+msgstr ""
+"1: Al\n"
+"2: Kazıklı bir çit yap"
+
+msgid ""
+"1: Take\n"
+"2: Make a boat"
+msgstr ""
+"1: Al\n"
+"2: Bir kayık yap"
+
+msgid ""
+"1: Take\n"
+"2: Transform"
+msgstr ""
+"1: Al\n"
+"2: Dönüştür"
+
+msgid ""
+"1|Drop planks on striped \n"
+"1|paving stones."
+msgstr ""
+"1|Kalasları çizgili parke \n"
+"1|taşına bırak."
+
+msgid ""
+"1|Drop platinium on striped \n"
+"1|paving stones."
+msgstr ""
+"1|Platini çizgili parke \n"
+"1|taşına bırak."
+
+msgid ""
+"1|Drop tomatoes on striped \n"
+"1|paving stones."
+msgstr ""
+"1|Domatesleri çizgili parke \n"
+"1|taşına bırak."
+
+msgid ""
+"1|Each Blupi in\n"
+"1|his house."
+msgstr ""
+"1|Her Blupi kendi\n"
+"1|evinde olmalı."
+
+msgid ""
+"1|Go on striped\n"
+"1|paving stones."
+msgstr ""
+"1|Çizgili parke taşı\n"
+"1| üzerinde dur."
+
+msgid "1|Goal :"
+msgstr "1|Hedef :"
+
+msgid ""
+"1|Kill all\n"
+"1|enemies !"
+msgstr ""
+"1|Bütün düşmanları\n"
+"1|öldür !"
+
+msgid ""
+"1|Resist until\n"
+"1|fire extinction ..."
+msgstr ""
+"1|Yangın sönene\n"
+"1|kadar diren."
+
+#, c-format
+msgid ""
+"1|The Blupi population must\n"
+"1|be of at least %d Blupi."
+msgstr ""
+"1|Blupi nüfusu\n"
+"1|en az %d olmalı."
+
+msgid ""
+"1|The robot must reach\n"
+"1|the striped paving stones."
+msgstr ""
+"1|Robot çizgili parke\n"
+"1|taşına ulaşmalı."
+
+msgid "Aliasing"
+msgstr "Örtüşme"
+
+msgid "All licenses are available under share/doc/planetblupi/copyright"
+msgstr "Bütün lisanslar share/doc/planetblupi/copyright yolu altında mevcut"
+
+msgid "Already two teleporters"
+msgstr "Zaten iki ışınlayıcı var"
+
+msgid "Another mistake..."
+msgstr "Yine olmadı.."
+
+msgid "Anti-aliasing"
+msgstr "Örtüşme önleme"
+
+msgid "Armour"
+msgstr "Zırh"
+
+msgid "Available buttons"
+msgstr "Mevcut butonlar"
+
+msgid "Bang, failed again !"
+msgstr "Güm, yine başaramadık !"
+
+msgid "Bank"
+msgstr "Kıyı"
+
+msgid "Blow up"
+msgstr "Patlat"
+
+msgid "Blupi"
+msgstr "Blupi"
+
+msgid "Blupi in house"
+msgstr "Blupi evde olsun"
+
+msgid "Blupi on striped paving stones"
+msgstr "Blupi çizgili parke taşı üzerinde olsun"
+
+msgid "Blupi's energy"
+msgstr "Blupi'nin enerjisi"
+
+msgid "Blupi's house"
+msgstr "Blupi'nin evi"
+
+msgid "Boat"
+msgstr "Kayık"
+
+msgid "Bouncing bomb"
+msgstr "Zıplayan bomba"
+
+msgid "Bridge"
+msgstr "Köprü"
+
+msgid "Bridge finished"
+msgstr "Köprü tamamlandı"
+
+msgid "Buildings"
+msgstr "Binalar"
+
+msgid "Bulldozer"
+msgstr "Buldozer"
+
+msgid "Bunch of flowers"
+msgstr "Bir demet çiçek"
+
+msgid "Burnt ground"
+msgstr "Yanmış zemin"
+
+msgid "Cancel last operation"
+msgstr "Son işlemi iptal et"
+
+msgid "Carve a rock"
+msgstr "Kayayı kes"
+
+msgid "Carve rocks"
+msgstr "Kayaları kes"
+
+msgid ""
+"Change the\n"
+"display mode"
+msgstr ""
+"Görüntü modunu\n"
+"değiştir"
+
+msgid ""
+"Change the\n"
+"render quality"
+msgstr ""
+"Görüntü kalitesini\n"
+"değiştir"
+
+msgid ""
+"Change the\n"
+"window size"
+msgstr ""
+"Pencere büyüklüğünü\n"
+"değiştir"
+
+msgid ""
+"Choose the\n"
+"music format"
+msgstr ""
+"Müzik formatını\n"
+"değiştir"
+
+msgid "Construct this game"
+msgstr "Bu oyunu tasarla"
+
+msgid "Construction"
+msgstr "Oyun tasarlama"
+
+msgid "Construction number"
+msgstr "Oyun no"
+
+msgid "Continue this game"
+msgstr "Bu oyuna devam et"
+
+msgid "Cut down a tree"
+msgstr "Ağacı kes"
+
+msgid "Cut down trees"
+msgstr "Ağaçları kes"
+
+msgid "Decorative plants"
+msgstr "Süs bitkiler"
+
+msgid "Delete figure"
+msgstr "Karakteri sil"
+
+msgid "Delete fire"
+msgstr "Yangını sil"
+
+msgid "Delete item"
+msgstr "Öğeyi sil"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "Desert"
+msgstr "Çöl"
+
+msgid "Desktop"
+msgstr "Masaüstü"
+
+msgid "Desktop mode"
+msgstr "Masaüstü modu"
+
+msgid "Difficult"
+msgstr "Zor"
+
+msgid "Disable anti-aliasing"
+msgstr "Örtüşme önlemeyi devre dışı bırak"
+
+msgid "Drink"
+msgstr "İç"
+
+msgid "Drop"
+msgstr "Bırak"
+
+msgid "Dynamite"
+msgstr "Dinamit"
+
+msgid "E"
+msgstr "D"
+
+msgid "Easy"
+msgstr "Kolay"
+
+msgid "Eat"
+msgstr "Ye"
+
+msgid "Eggs"
+msgstr "Yumurtalar"
+
+msgid "Electrocutor"
+msgstr "Elektrikçarpar"
+
+msgid "Enable anti-aliasing"
+msgstr "Örtüşme önlemeyi etkinleştir"
+
+msgid "Ending conditions"
+msgstr "Bitirme koşulları"
+
+msgid "Enemy barrier"
+msgstr "Düşman barikatı"
+
+msgid "Enemy buildings"
+msgstr "Düşman binaları"
+
+msgid "Enemy construction"
+msgstr "Düşman binası"
+
+msgid "Enemy ground"
+msgstr "Düşman arazisi"
+
+msgid "Enemy rocket"
+msgstr "Düşman roketi"
+
+msgid "Excellent..."
+msgstr "Mükemmel."
+
+msgid "Extract iron"
+msgstr "Demir çıkar"
+
+msgid "Faster"
+msgstr "Daha hızlı"
+
+msgid "Finish"
+msgstr "Bitir"
+
+msgid "Fire"
+msgstr "Yangın"
+
+msgid "Fire out"
+msgstr "Yangın sönsün"
+
+msgid "Flag"
+msgstr "Bayrak"
+
+msgid "Flowers"
+msgstr "Çiçekler"
+
+msgid "Forest"
+msgstr "Orman"
+
+msgid "Forest under snow"
+msgstr "Kar altında orman"
+
+msgid "Fullscreen"
+msgstr "Tam ekran"
+
+msgid "Game paused"
+msgstr "Oyun durduruldu"
+
+msgid "Garden shed"
+msgstr "Bahçe kulübesi"
+
+msgid ""
+"Global game\n"
+"speed"
+msgstr ""
+"Genel oyun\n"
+"hızı"
+
+msgid "Global settings"
+msgstr "Genel ayarlar"
+
+msgid "Go"
+msgstr "Git"
+
+msgid "Grow tomatoes"
+msgstr "Domates yetiştir"
+
+msgid "Help"
+msgstr "Yardım"
+
+msgid "Help number"
+msgstr "Yardım no"
+
+msgid "Helper robot"
+msgstr "Yardımcı robot"
+
+msgid "Ice"
+msgstr "Buz"
+
+msgid "Impossible"
+msgstr "İmkansız"
+
+#, c-format
+msgid "Impossible to win if less than %d Blupi"
+msgstr "Eğer nüfus %d Blupi'den azsa kazanmak imkansız"
+
+msgid "Inadequate ground"
+msgstr "Arazi uygun edğil"
+
+msgid "Increase volume"
+msgstr "Ses seviyesini arttır"
+
+msgid "Increase window size"
+msgstr "Pencere büyüklüğünü arttır"
+
+msgid "Incubator"
+msgstr "İnkübatör"
+
+msgid "Incubator or teleporter"
+msgstr "İnkübatör veya ışınlayıcı"
+
+msgid "Inflammable ground"
+msgstr "Alev alabilen zemin"
+
+msgid "Insert CD-Rom Planet Blupi and wait a few seconds..."
+msgstr "Planet Blupi CD-Rom'unu takın ve birkaç saniye bekleyin..."
+
+msgid ""
+"Interface language\n"
+"and sounds"
+msgstr ""
+"Arayüz dili\n"
+"ve sesleri"
+
+msgid "Interrupt"
+msgstr "Oyunu yarıda kes"
+
+msgid "Iron"
+msgstr "Demir"
+
+msgid "Items"
+msgstr "Öğeler"
+
+msgid "Jeep"
+msgstr "Jip"
+
+msgid "Laboratory"
+msgstr "Laboratuvar"
+
+msgid "Last construction resolved !"
+msgstr "Son oyun çözüldü !"
+
+msgid "Leave Jeep"
+msgstr "Jipten ayrıl"
+
+msgid "Legacy"
+msgstr "Eski"
+
+msgid "Legacy mode (640x480)"
+msgstr "Eski mod (640x480)"
+
+#, c-format
+msgid "Lost if less than %d Blupi"
+msgstr "Nüfus %d Blupi'den azsa kaybedilir"
+
+msgid "Make a Jeep"
+msgstr "Bir jip yap"
+
+msgid "Make a helper robot"
+msgstr "Yardımcı bir robot yap"
+
+msgid "Make a time bomb"
+msgstr "Saatli bir bomba yap"
+
+msgid "Make armour"
+msgstr "Zırh yap"
+
+msgid "Make bunch of flowers"
+msgstr "Bir demet çiçek topla"
+
+msgid "Make bunches of flowers"
+msgstr "Demetlerce çiçek topla"
+
+msgid "Master robot"
+msgstr "Baş robot"
+
+msgid "Medical potion"
+msgstr "Tıbbi ilaç"
+
+msgid "Midi"
+msgstr "Midi"
+
+msgid "Mine"
+msgstr "Maden"
+
+msgid "Miscellaneous ground"
+msgstr "Karışık zemin"
+
+msgid "Mission number"
+msgstr "Görev no"
+
+msgid "Mission over..."
+msgstr "Görev tamamlandı."
+
+msgid "Missions"
+msgstr "Görevler"
+
+msgid ""
+"Music\n"
+"volume"
+msgstr "Müzik seviyesi"
+
+msgid "Music choice"
+msgstr "Müzik seçimi"
+
+msgid "Music number 1"
+msgstr "Müzik no 1"
+
+msgid "Music number 10"
+msgstr "Müzik no 10"
+
+msgid "Music number 2"
+msgstr "Müzik no 2"
+
+msgid "Music number 3"
+msgstr "Müzik no 3"
+
+msgid "Music number 4"
+msgstr "Müzik no 4"
+
+msgid "Music number 5"
+msgstr "Müzik no 5"
+
+msgid "Music number 6"
+msgstr "Müzik no 6"
+
+msgid "Music number 7"
+msgstr "Müzik no 7"
+
+msgid "Music number 8"
+msgstr "Müzik no 8"
+
+msgid "Music number 9"
+msgstr "Müzik no 9"
+
+msgid "N"
+msgstr "K"
+
+#, c-format
+msgid "New version available for download on www.blupi.org (v%s)"
+msgstr "Oyunun yeni bir versiyonu mevcut www.blupi.org (v%s)"
+
+msgid "Next game"
+msgstr "Sonraki oyun"
+
+msgid "Next language"
+msgstr "Sonraki dil"
+
+msgid "Next page"
+msgstr "Sonraki sayfa"
+
+msgid "No"
+msgstr "Hayır"
+
+msgid "No more enemies"
+msgstr "Düşman kalmasın"
+
+msgid "No music"
+msgstr "Müzik yok"
+
+msgid "No video"
+msgstr "Video yok"
+
+msgid "No, not that way !"
+msgstr "Hayır, olamaz !"
+
+msgid "No, wrong way ..."
+msgstr "Bu şekilde değil..."
+
+msgid "None"
+msgstr "Yok"
+
+msgid "Normal ground"
+msgstr "Normal zemin"
+
+msgid "Not available"
+msgstr "Mevcut değil"
+
+msgid "Not enough energy"
+msgstr "Yetersiz enerji"
+
+msgid "Now go on mission."
+msgstr "Şimdi göreve devam et."
+
+msgid "Occupied ground"
+msgstr "Dolu alan"
+
+msgid "Ogg"
+msgstr "Ogg"
+
+msgid "Open another game"
+msgstr "Başka bir oyun aç"
+
+msgid "Opposite bank no good"
+msgstr "Karşı kıyı uygun değil"
+
+msgid "Palisade"
+msgstr "Kazıklı çit"
+
+msgid "Paving stones"
+msgstr "Parke taşı"
+
+msgid "Planet Blupi"
+msgstr "Blupi Gezegeni"
+
+msgid "Planet Blupi -- stop"
+msgstr "Blupi Gezegeni -- dur"
+
+msgid "Planks"
+msgstr "Kalaslar"
+
+msgid "Planks on striped paving stones"
+msgstr "Kalaslar çizgili parke taşı üzerinde olsun"
+
+msgid "Platinium"
+msgstr "Platin"
+
+msgid "Platinium on striped paving stones"
+msgstr "Platin çizgili parke taşı üzerinde olsun"
+
+msgid "Play this game"
+msgstr "Bu oyunu oyna"
+
+msgid "Poison"
+msgstr "Zehir"
+
+msgid "Prairie"
+msgstr "Bozkır"
+
+msgid "Previous game"
+msgstr "Önceki oyun"
+
+msgid "Previous language"
+msgstr "Önceki dil"
+
+msgid "Previous page"
+msgstr "Önceki sayfa"
+
+msgid "Prospect for iron"
+msgstr "Demir ara"
+
+msgid "Protection tower"
+msgstr "Koruma kulesi"
+
+msgid "Quit"
+msgstr "Çık"
+
+msgid "Quit Planet Blupi"
+msgstr "Blupi Gezegeni'nden çık"
+
+msgid "Quit construction"
+msgstr "Oyundan çık"
+
+msgid "Quit this game"
+msgstr "Bu oyundan çık"
+
+msgid "REC"
+msgstr "REC"
+
+msgid "Reduce volume"
+msgstr "Ses seviyesini azalt"
+
+msgid "Reduce window size"
+msgstr "Pencere büyüklüğünü azalt"
+
+msgid "Repeat"
+msgstr "Tekrar et"
+
+msgid "Restart this game"
+msgstr "Bu oyunu tekrar başlat"
+
+msgid "Robot on striped paving stones"
+msgstr "Robot çizgili parke taşı üzerinde olsun"
+
+msgid "Rocks"
+msgstr "Kayalar"
+
+msgid "S"
+msgstr "G"
+
+msgid "Save"
+msgstr "Kaydet"
+
+msgid "Save this game"
+msgstr "Bu oyunu kaydet"
+
+msgid "Scenery choice"
+msgstr "Manzara seçimi"
+
+msgid ""
+"Scroll speed\n"
+"with mouse"
+msgstr ""
+"Fare kaydırma\n"
+"hızı"
+
+msgid ""
+"Select the\n"
+"window mode"
+msgstr ""
+"Pencere modu\n"
+"seç"
+
+msgid "Settings"
+msgstr "Ayarlar"
+
+msgid "Show videos"
+msgstr "Videoları göster"
+
+msgid "Sick Blupi"
+msgstr "Hasta Blupi"
+
+msgid "Skill level"
+msgstr "Beceri düzeyi"
+
+msgid "Slower"
+msgstr "Daha yavaş"
+
+msgid ""
+"Sound effect\n"
+"volume"
+msgstr ""
+"Ses efekti\n"
+"seviyesi"
+
+msgid "Special pavings"
+msgstr "Özel kaplamalar"
+
+msgid "Spider"
+msgstr "Örümcek"
+
+msgid "Starting fire"
+msgstr "Yangın başlatma"
+
+msgid "Sterile ground"
+msgstr "Verimsiz toprak"
+
+msgid "Sticky trap"
+msgstr "Yapışkan tuzak"
+
+msgid "Stones"
+msgstr "Taşlar"
+
+msgid "Stop"
+msgstr "Dur"
+
+msgid "Striped paving stones"
+msgstr "Çizgili parke taşı"
+
+msgid "Take"
+msgstr "Al"
+
+msgid "Teleporter"
+msgstr "Işınlayıcı"
+
+msgid "This game is an original creation of Epsitec SA, CH-1400 Yverdon-les-Bains"
+msgstr "Bu oyun Epsitec SA, CH-1400 Yverdon-les-Bains'in orijinal ürünüdür"
+
+msgid "This game uses statically linked free and open-source libraries:"
+msgstr "Bu oyun ücretsiz ve açık kaynak kodlu kütüphaneler kullanmaktadır:"
+
+msgid "Time bomb"
+msgstr "Saatli bomba"
+
+msgid "Tired Blupi"
+msgstr "Bitkin Blupi"
+
+msgid "Tomatoes"
+msgstr "Domatesler"
+
+msgid "Tomatoes on striped paving stones"
+msgstr "Domatesler çizgili parke taşı üzerinde olsun"
+
+msgid "Too close to water"
+msgstr "Suya çok yakın"
+
+msgid "Training"
+msgstr "Eğitim"
+
+msgid "Training number"
+msgstr "Eğitim no"
+
+msgid "Transform"
+msgstr "Dönüştür"
+
+msgid "Transport"
+msgstr "Ulaşım"
+
+msgid "Trapped enemy"
+msgstr "Tuzağa düşmüş düşman"
+
+msgid "Tree"
+msgstr "Ağaç"
+
+msgid "Tree trunks"
+msgstr "Ağaç gövdeleri"
+
+msgid "Use Midi music (original)"
+msgstr "Midi müzik kullan (orijinal)"
+
+msgid "Use Ogg music"
+msgstr "Ogg müzik kullan"
+
+msgid "Version"
+msgstr "Versiyon"
+
+msgid "Very good, success on all missions !"
+msgstr "Bütün görevler başarılı !"
+
+msgid "Very good."
+msgstr "Çok iyi."
+
+msgid ""
+"Video\n"
+"sequences"
+msgstr ""
+"Video\n"
+"kesitleri"
+
+msgid "Virus"
+msgstr "Virüs"
+
+msgid "W"
+msgstr "B"
+
+msgid "Wall"
+msgstr "Duvar"
+
+msgid "Wall or palisade"
+msgstr "Duvar veya çit"
+
+msgid "Water"
+msgstr "Su"
+
+msgid "We hope you have had as much fun playing the game as we had making it !"
+msgstr "Umarız ki oyunu oynamaktan, bizim oyunu yaptığımız kadar, eğlenmişsinizdir !"
+
+msgid "Weapons"
+msgstr "Silahlar"
+
+msgid "Well done !"
+msgstr "Aferin !"
+
+msgid "Windowed"
+msgstr "Pencere görünümü"
+
+msgid "Work done"
+msgstr "Yapılan iş"
+
+msgid "Workshop"
+msgstr "Atölye"
+
+msgid "Yes"
+msgstr "Evet"
+
+msgid "Yes, great ..."
+msgstr "Evet, harika."
+
+msgid "You have failed, try again..."
+msgstr "Kaybettin, tekrar dene..."
+
+msgid "You have played Planet Blupi."
+msgstr "Blupi Gezegeni'ni oynadınız."
+
+#, c-format
+msgid "construction %d, time %d"
+msgstr "oyun %d, zaman %d"
+
+msgid "en"
+msgstr "tr"
+
+msgid "free slot"
+msgstr "boş yer"
+
+msgid "http://www.blupi.org            info@blupi.org"
+msgstr "http://www.blupi.org            info@blupi.org"
+
+#, c-format
+msgid "mission %d, time %d"
+msgstr "görev %d, zaman %d"
+
+#, c-format
+msgid "training %d, time %d"
+msgstr "eğitim %d, zaman %d"
