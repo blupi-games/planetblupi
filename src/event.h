@@ -85,6 +85,7 @@ enum class Language {
   de    = 3,
   it    = 4,
   pl    = 5,
+  tr    = 6,
   end,
 };
 
