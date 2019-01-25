@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-08 07:29+0200\n"
-"PO-Revision-Date: 2017-12-14 23:15+0100\n"
+"PO-Revision-Date: 2019-01-25 22:37+0100\n"
 "Last-Translator: tomangelo <tomangelo@wp.pl>\n"
 "Language-Team: TerranovaTeam <contact@colobot.info>\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 2.0.5\n"
+"X-Generator: Poedit 2.2\n"
 
 msgid " - FFmpeg (LGPLv2.1)"
 msgstr " - FFmpeg (LGPLv2.1)"
@@ -210,7 +210,7 @@ msgstr ""
 "1|nawierzchni docelowej."
 
 msgid "Aliasing"
-msgstr ""
+msgstr "Pikselizacja"
 
 msgid "All licenses are available under share/doc/planetblupi/copyright"
 msgstr "Wszystkie licencje dostępne są w share/doc/planetblupi/copyright"
@@ -222,7 +222,7 @@ msgid "Another mistake..."
 msgstr "Znowu pomyłka..."
 
 msgid "Anti-aliasing"
-msgstr ""
+msgstr "Wygładzanie"
 
 msgid "Armour"
 msgstr "Zbroja"
@@ -287,21 +287,19 @@ msgstr "Wyłup skałę"
 msgid "Carve rocks"
 msgstr "Wyłup skały"
 
-#, fuzzy
 msgid ""
 "Change the\n"
 "display mode"
 msgstr ""
-"Zmień rozmiar\n"
-"okna"
+"Zmień tryb\n"
+"wyświetlania"
 
-#, fuzzy
 msgid ""
 "Change the\n"
 "render quality"
 msgstr ""
-"Zmień rozmiar\n"
-"okna"
+"Zmień jakość\n"
+"renderowania"
 
 msgid ""
 "Change the\n"
@@ -314,6 +312,8 @@ msgid ""
 "Choose the\n"
 "music format"
 msgstr ""
+"Wybierz format\n"
+"muzyki"
 
 msgid "Construct this game"
 msgstr "Edytuj poziom"
@@ -352,16 +352,16 @@ msgid "Desert"
 msgstr "Pustynia"
 
 msgid "Desktop"
-msgstr ""
+msgstr "Pulpit"
 
 msgid "Desktop mode"
-msgstr ""
+msgstr "Tryb pulpitu"
 
 msgid "Difficult"
 msgstr "Trudny"
 
 msgid "Disable anti-aliasing"
-msgstr ""
+msgstr "Wyłącz wygładzanie"
 
 msgid "Drink"
 msgstr "Wypij"
@@ -388,7 +388,7 @@ msgid "Electrocutor"
 msgstr "Paralizator"
 
 msgid "Enable anti-aliasing"
-msgstr ""
+msgstr "Włącz wygładzanie"
 
 msgid "Ending conditions"
 msgstr "Warunki zwycięstwa"
@@ -534,10 +534,10 @@ msgid "Leave Jeep"
 msgstr "Opuść Jeepa"
 
 msgid "Legacy"
-msgstr ""
+msgstr "Zgodność"
 
 msgid "Legacy mode (640x480)"
-msgstr ""
+msgstr "Tryb zgodności (640x480)"
 
 #, c-format
 msgid "Lost if less than %d Blupi"
@@ -666,7 +666,7 @@ msgid "Normal ground"
 msgstr "Zwykła ziemia"
 
 msgid "Not available"
-msgstr ""
+msgstr "Niedostępne"
 
 msgid "Not enough energy"
 msgstr "Za mało siły"
@@ -891,10 +891,10 @@ msgid "Tree trunks"
 msgstr "Pnie drzew"
 
 msgid "Use Midi music (original)"
-msgstr ""
+msgstr "Muzyka Midi (oryginalna)"
 
 msgid "Use Ogg music"
-msgstr ""
+msgstr "Muzyka Ogg"
 
 msgid "Version"
 msgstr "Wersja"
