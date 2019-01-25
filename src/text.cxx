@@ -34,56 +34,65 @@
  * \param[in] c - The character (incremented if 0xC3 or 0xC4 or 0xC5 UTF-8).
  * \returns the offset.
  */
-static Sint32
+static Uint8
 GetOffset (const char *& c)
 {
   /* clang-format off */
-  static const unsigned char table_accents[] = {
-  /*  ü     à     â     é     è     ë     ê     ï            */
-    0xBC, 0xA0, 0xA2, 0xA9, 0xA8, 0xAB, 0xAA, 0xAF, /* UTF-8 */
-  /*  î     ô     ù     û     ä     ö     ç                  */
-    0xAE, 0xB4, 0xB9, 0xBB, 0xA4, 0xB6, 0xA7,       /* UTF-8 */
+  static const unsigned char table_c3[] = {
+  /*  ü     à     â     é     è     ë     ê     ï   */
+    0xBC, 0xA0, 0xA2, 0xA9, 0xA8, 0xAB, 0xAA, 0xAF,
+  /*  î     ô     ù     û     ä     ö     ç     ò   */
+    0xAE, 0xB4, 0xB9, 0xBB, 0xA4, 0xB6, 0xA7, 0xB2,
+  /*  ì     ó     Ç     Ö     Ü                     */
+    0xAC, 0xB3, 0x87, 0x96, 0x9C,
   };
 
-  static const unsigned char table_extended[] = {
-  /* Italian */
-  /*  ò     ì                                                */
-    0xB2, 0xAC,                                     /* UTF-8 */
-  /* Polish */
-  /*              ń     ó     ę     ć     ź     ż            */
-                0x84, 0xB3, 0x99, 0x87, 0xBA, 0xBC, /* UTF-8 */
-  /*  ą     ł     ś                                          */
-    0x85, 0x82, 0x9B,                               /* UTF-8 */
+  static const unsigned char table_c4[] = {
+  /*  ę     ć     ą     Ğ     ğ     İ     ı         */
+    0x99, 0x87, 0x85, 0x9E, 0x9F, 0xB0, 0xB1,
+  };
+
+  static const unsigned char table_c5[] = {
+  /*  ń     ź     ż     ł     ś     Ş     ş         */
+    0x84, 0xBA, 0xBC, 0x82, 0x9B, 0x9E, 0x9F,
   };
   /* clang-format on */
 
-  if (static_cast<unsigned char> (*c) == 0xC3)
-    c++;
-  if (static_cast<unsigned char> (*c) == 0xC4)
-    c++;
-  if (static_cast<unsigned char> (*c) == 0xC5)
-    c++;
+  int                   offset = 0;
+  int                   inc    = 0;
+  size_t                size   = 0;
+  const unsigned char * table  = nullptr;
 
-  if (GetLocale () != "pl")
+  switch (static_cast<unsigned char> (*c))
   {
-    // Do not use the 'standard' accents table with Polish locale
-    // This is required because we check only last byte of UTF-8 and some
-    // characters overlap
-    // TODO: In the future, this ugly hack should be replaced with proper UTF-8
-    // parsing
-    for (unsigned int i = 0; i < countof (table_accents); ++i)
-      if ((unsigned char) *c == table_accents[i])
-        return 15 + i;
+  case 0xC3:
+    offset = 128;
+    table  = table_c3;
+    size   = countof (table_c3);
+    inc    = 1;
+    break;
+  case 0xC4:
+    offset = 128 + 32;
+    table  = table_c4;
+    size   = countof (table_c4);
+    inc    = 1;
+    break;
+  case 0xC5:
+    offset = 128 + 64;
+    table  = table_c5;
+    size   = countof (table_c5);
+    inc    = 1;
+    break;
   }
 
-  for (unsigned int i = 0; i < countof (table_extended); ++i)
-    if ((unsigned char) *c == table_extended[i])
-      return 127 + i;
+  for (size_t i = 0; i < size; ++i)
+    if (static_cast<unsigned char> (*(c + inc)) == table[i])
+      return offset + i;
 
-  if (*c < 0)
+  if (*(c + inc) < 0)
     return 1; // square
 
-  return *c;
+  return *(c + inc);
 }
 
 /**
@@ -93,41 +102,50 @@ GetOffset (const char *& c)
  * \param[in] font - The font used (little or normal).
  * \returns the length.
  */
-Sint32
+Uint8
 GetCharWidth (const char *& c, Sint32 font)
 {
   // clang-format off
-  static const unsigned char table_width[] =
+  static const Uint8 table_width[] =
   {
-     9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,  8,
-     9,  9,  8,  8,  8,  8,  5,  5,  8,  8,  8,  9,  8,  8, 10, 10,
+     9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,  0,
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 10,
      5,  6,  9, 13, 11, 12, 12,  6,  6,  6, 12, 12,  5,  9,  6,  9,
      8,  8,  9,  9,  8,  9,  8,  8,  9,  9,  6,  6,  8,  9, 10, 11,
     12,  8,  9,  9,  9,  8,  8,  8,  9,  4,  8,  9,  8, 10,  9,  9,
      8,  9,  8,  9, 10,  8,  9, 11,  9,  8, 10,  7, 10,  7, 13, 13,
      9,  9,  8,  8,  8,  8,  6,  8,  8,  4,  6,  8,  4, 12,  8,  8,
-     8,  8,  7,  6,  7,  8,  8, 10,  8,  8,  7,  6,  6,  6, 10,  8,
-     5,  8,  8,  8,  8,  8,  7,  9,  6,  7
+     8,  8,  7,  6,  7,  8,  8, 10,  8,  8,  7,  6,  6,  6, 10,  0,
+     8,  9,  9,  8,  8,  8,  8,  5,  5,  8,  8,  8,  9,  8,  8,  8,
+     5,  8,  9,  9,  8,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     8,  8,  9,  8,  8,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     8,  8,  7,  6,  7,  9,  6,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
   };
 
-  static const unsigned char table_width_little[] =
+  static const Uint8 table_width_little[] =
   {
-     6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  5,  6,  6,  7,
-     6,  6,  6,  6,  6,  6,  3,  3,  6,  6,  6,  6,  6,  6,  5,  5,
+     6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  5,  6,  6,  0,
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  5,  5,
      3,  3,  5,  8,  5, 11,  9,  3,  4,  4,  6,  6,  3,  4,  3,  6,
      5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  3,  3,  7,  6,  7,  6,
      9,  8,  6,  7,  7,  5,  5,  8,  7,  2,  4,  7,  5, 10,  7,  8,
      6,  8,  7,  6,  6,  6,  8, 12,  7,  6,  6,  3,  5,  3,  6,  8,
      4,  6,  6,  6,  6,  6,  4,  6,  6,  2,  3,  5,  2, 10,  6,  6,
-     6,  6,  3,  5,  3,  6,  6,  8,  6,  6,  5,  4,  6,  4,  7,  6,
-     3,  6,  6,  6,  5,  5,  5,  7,  4,  5
+     6,  6,  3,  5,  3,  6,  6,  8,  6,  6,  5,  4,  6,  4,  7,  0,
+     7,  6,  6,  6,  6,  6,  6,  3,  3,  6,  6,  6,  6,  6,  6,  6,
+     3,  6,  7,  8,  6,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     6,  5,  7,  8,  6,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     6,  5,  5,  4,  5,  6,  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
   };
   // clang-format on
 
   if (font == FONTLITTLE)
     return table_width_little[GetOffset (c)];
-  else
-    return table_width[GetOffset (c)] - 1;
+  return table_width[GetOffset (c)] - 1;
 }
 
 /**
@@ -145,17 +163,21 @@ DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
 
   while (*pText != '\0')
   {
-    rank = GetOffset (pText);
+    rank     = GetOffset (pText);
+    auto inc = rank > 127;
 
     if (font != FONTLITTLE)
     {
-      rank += (128 + 16) * font;
+      rank += 224 * font;
       pPixmap->DrawIcon (-1, CHTEXT, rank, pos);
     }
     else
       pPixmap->DrawIcon (-1, CHLITTLE, rank, pos);
 
     pos.x += GetCharWidth (pText, font);
+
+    if (inc)
+      pText++;
     pText++;
   }
 }
@@ -172,11 +194,16 @@ DrawTextPente (
   rel   = 0;
   while (*pText != 0)
   {
-    rank = GetOffset (pText);
-    rank += (128 + 16) * font;
+    rank     = GetOffset (pText);
+    auto inc = rank > 127;
+
+    rank += 224 * font;
     pPixmap->DrawIcon (-1, CHTEXT, rank, pos);
 
     lg = GetCharWidth (pText, font);
+
+    if (inc)
+      pText++;
     pText++;
     rel += lg;
     pos.x += lg;
@@ -347,7 +374,13 @@ GetTextWidth (const char * pText, Sint32 font)
 
   while (*pText != 0)
   {
+    auto rank = GetOffset (pText);
+    auto inc  = rank > 127;
+
     width += GetCharWidth (pText, font);
+
+    if (inc)
+      pText++;
     pText++;
   }
 

@@ -981,7 +981,7 @@ DoInit (int argc, char * argv[], bool & exit)
   }
 
   totalDim.x = DIMTEXTX * 16;
-  totalDim.y = DIMTEXTY * 9 * 3;
+  totalDim.y = DIMTEXTY * 14 * 3;
   iconDim.x  = DIMTEXTX;
   iconDim.y  = DIMTEXTY;
   if (!g_pPixmap->Cache (CHTEXT, "image/text.png", totalDim, iconDim))
@@ -991,7 +991,7 @@ DoInit (int argc, char * argv[], bool & exit)
   }
 
   totalDim.x = DIMLITTLEX * 16;
-  totalDim.y = DIMLITTLEY * 9;
+  totalDim.y = DIMLITTLEY * 14;
   iconDim.x  = DIMLITTLEX;
   iconDim.y  = DIMLITTLEY;
   if (!g_pPixmap->Cache (CHLITTLE, "image/little.png", totalDim, iconDim))
