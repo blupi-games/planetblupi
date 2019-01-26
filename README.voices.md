@@ -31,8 +31,8 @@
 | sound073 | "                                  | I've finished         | I've finished           | J'ai fini               | Ich bin fertig      | Skończyłem            |
 | sound014 | Blupi takes his momentum to jump   | Hop!                  | Ha!                     | Hop!                    | Hop!                | Hop!                  |
 | sound017 | Blupi is burning                   | Aaaouch!              | AAAAaaaaahh!            | Aaaaaaaahhhh...         | Aouaah-aouahh       | Ałłłć!                |
-| sound018 | Blupi dies of exhaustion           | Chiuu...[pssst...]    | Haaa...[pssst...]       | Pffff... [hennnn...]    | Pffouuuu...         | Fiu...[pssst...]      |
+| sound018 | Blupi dies of exhaustion           | Chiuu...[pssst...]    | Haaa...[pssst...]       | Pffff...[hennnn...]     | Pffouuuu...         | Fiu...[pssst...]      |
 | sound019 | Blupi eats tomatoes                | Yummy-yummy           | Yumm-yumm               | Miam-miam               | Miam-miam           | Mniam-mniam           |
-| sound027 | Blupi catches a virus              | A-tissue!             | A-chu!                  | A-tchou                 | A-tchi              | A-psik!               |
+| sound027 | Blupi catches a virus              | A-tissue!             | A-chu!                  | A-tchou!                | A-tchi!             | A-psik!               |
 | sound033 | Blupi picks flowers                | La-la-lalalala... ♪♫  | Laa-lalala... ♪♫        | Lalalalala... ♪♫        | Laa-lalalalaa... ♪♫ | TROLOLOLOLO... ♪♫     |
 | sound037 | Blupi is crushed by a bulldozer    | Au-aaa...!            | AAAAa!                  | Aie                     | Aouuuu...!          | Ajjj!                 |
