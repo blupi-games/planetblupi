@@ -2717,7 +2717,7 @@ CEvent::DrawButtons ()
     else if (locale == "pl")
       lang = "Polski";
     else if (locale == "tr")
-      lang = "Türk";
+      lang = "Türkçe";
     else if (locale == "pt")
       lang = "Portuguese";
 
