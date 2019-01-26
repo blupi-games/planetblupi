@@ -30,11 +30,11 @@
 | sound065      | I'm fed up            | I'm fed up              | Ca suffit maint'nant.   | Mam już dosyć         |
 | sound066      | Leave me alone        | Leave me alone          | Laissez-moi tranquille. | Zostaw mnie w spokoju |
 | sound067      | You're driving me mad | You're driving me crazy | J'vais m'fâcher !       | Denerwujesz mnie      |
-| [sound068](1) | You're the boss       | You're the boss         | C'est vous l'patron     | Ty jesteś tu szefem   |
-| [sound069](1) | Why not?              | Why not?                | C'est d'accord          | Czemu nie?            |
-| [sound070](1) | Right!                | Alright!                | Entendu                 | Jasne!                |
+| sound068 [^1] | You're the boss       | You're the boss         | C'est vous l'patron     | Ty jesteś tu szefem   |
+| sound069 [^1] | Why not?              | Why not?                | C'est d'accord          | Czemu nie?            |
+| sound070 [^1] | Right!                | Alright!                | Entendu                 | Jasne!                |
 | sound071      | It's done             | It's done               | C'est fait              | Zrobione              |
 | sound072      | It's finished         | It's finished           | C'est fini              | Skończone             |
 | sound073      | I've finished         | I've finished           | J'ai fini               | Skończyłem            |
 
-[1]: if multiple selection
+[^1]: if multiple selection
