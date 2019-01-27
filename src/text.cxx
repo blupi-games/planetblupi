@@ -56,6 +56,17 @@ GetOffset (const char *& c)
   /*  ń     ź     ż     ł     ś     Ş     ş         */
     0x84, 0xBA, 0xBC, 0x82, 0x9B, 0x9E, 0x9F,
   };
+
+  static const unsigned char table_d7[] = {
+  /*a ז     ו     ה     ד    ג     ב     א        */
+    0x90, 0x91, 0x92, 0x93, 0x94, 0x95, 0x96,
+  /*a מ     ל     ך     כ    י     ט     ח        */
+    0x97, 0x98, 0x99, 0x9B, 0x9A, 0x9C, 0x9E,
+  /*a ף     פ     ע     ס    ן     נ     ם        */
+    0x9D, 0xA0, 0x9F, 0xA1, 0xA2, 0xA4, 0xA3,
+  /*a ת     ש    ר     ק     ץ     צ              */
+    0xA6, 0xA5, 0xA7, 0xA8, 0xA9, 0xAA,
+  };
   /* clang-format on */
 
   int                   offset = 0;
@@ -81,6 +92,12 @@ GetOffset (const char *& c)
     offset = 128 + 64;
     table  = table_c5;
     size   = countof (table_c5);
+    inc    = 1;
+    break;
+  case 0xD7:
+    offset = 128 + 96;
+    table  = table_d7;
+    size   = countof (table_d7);
     inc    = 1;
     break;
   }
@@ -122,6 +139,8 @@ GetCharWidth (const char *& c, Sint32 font)
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      8,  8,  7,  6,  7,  9,  6,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+    10, 10,  9,  9, 10,  6,  8, 10, 11,  7,  9,  9, 11, 11, 10,  7,
+     7, 10, 10,  9, 10, 10, 11,  9,  9, 13, 11,  0,  0,  0,  0,  0,
   };
 
   static const Uint8 table_width_little[] =
@@ -140,6 +159,8 @@ GetCharWidth (const char *& c, Sint32 font)
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      6,  5,  5,  4,  5,  6,  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     8,  8,  7,  7,  8,  4,  6,  8,  9,  5,  7,  7,  9,  9,  8,  5,
+     5,  8,  8,  7,  8,  8,  9,  7,  7, 11,  9,  0,  0,  0,  0,  0,
   };
   // clang-format on
 
@@ -168,7 +189,7 @@ DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
 
     if (font != FONTLITTLE)
     {
-      rank += 224 * font;
+      rank += 256 * font;
       pPixmap->DrawIcon (-1, CHTEXT, rank, pos);
     }
     else
@@ -197,7 +218,7 @@ DrawTextPente (
     rank     = GetOffset (pText);
     auto inc = rank > 127;
 
-    rank += 224 * font;
+    rank += 256 * font;
     pPixmap->DrawIcon (-1, CHTEXT, rank, pos);
 
     lg = GetCharWidth (pText, font);
