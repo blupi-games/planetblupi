@@ -1,0 +1,963 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-27 15:19+0100\n"
+"PO-Revision-Date: 2019-01-27 14:52+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: he\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n==2 ? 1 : n>10 && n%10==0 ? "
+"2 : 3);\n"
+
+msgid " - FFmpeg (LGPLv2.1)"
+msgstr " - FFmpeg (LGPLv2.1)"
+
+msgid " - GNU/gettext and GNU/libiconv (GPLv3)"
+msgstr ""
+
+msgid " - SDL2, SDL2_image and SDL2_mixer (zlib license)"
+msgstr ""
+
+msgid " - SDL_kitchensink (MIT)"
+msgstr " - SDL_kitchensink (MIT)"
+
+msgid " - argagg (MIT)"
+msgstr " - argagg (MIT)"
+
+msgid " - libasound (LGPLv2.1)"
+msgstr " - libasound (LGPLv2.1)"
+
+msgid " - libcurl (MIT/X derivate)"
+msgstr ""
+
+msgid " - libogg and libvorbis (own license)"
+msgstr ""
+
+msgid " - libpng (own license)"
+msgstr ""
+
+msgid " - libpulse (LGPLv2.1)"
+msgstr " - libpulse (LGPLv2.1)"
+
+msgid " - libsndfile (LGPLv3)"
+msgstr " - libsndfile (LGPLv3)"
+
+msgid " - zlib (own license)"
+msgstr ""
+
+msgid "(isolated tower)"
+msgstr "(מגדל מבודד)"
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Build a bridge"
+msgstr ""
+"1: לכרות עץ\n"
+"2: לבנות גשר"
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Make a boat"
+msgstr ""
+"1: לכרות עץ\n"
+"2: לבנות סירה"
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Make a palisade"
+msgstr ""
+"1: לכרות עץ\n"
+"2: לבנות גדר"
+
+msgid ""
+"1: Extract iron\n"
+"2: Make a Jeep"
+msgstr ""
+"1: להפיק ברזל\n"
+"2: לבנות ג'יפ"
+
+msgid ""
+"1: Extract iron\n"
+"2: Make a bomb"
+msgstr ""
+"1: להפיק ברזל\n"
+"2: לבנות פצצה"
+
+msgid ""
+"1: Extract iron\n"
+"2: Make an armour"
+msgstr ""
+"1: להפיק ברזל\n"
+"2: לבנות מגן"
+
+msgid ""
+"1: Grow tomatoes\n"
+"2: Eat"
+msgstr ""
+"1: לגדל עגבניות\n"
+"2: לאכול"
+
+msgid ""
+"1: Make a bunch\n"
+"2: Transform"
+msgstr ""
+"1: לאסוף\n"
+"2: להפוך"
+
+msgid ""
+"1: Take\n"
+"2: Build a bridge"
+msgstr ""
+"1: לקחת\n"
+"2: לבנות גשר"
+
+msgid ""
+"1: Take\n"
+"2: Build palisade"
+msgstr ""
+"1: לקחת\n"
+"2: לבנות גדר"
+
+msgid ""
+"1: Take\n"
+"2: Make a boat"
+msgstr ""
+"1: לקחת\n"
+"2: לבנות סירה"
+
+msgid ""
+"1: Take\n"
+"2: Transform"
+msgstr ""
+"1: לקחת\n"
+"2: להפוך"
+
+msgid ""
+"1|Drop planks on striped \n"
+"1|paving stones."
+msgstr ""
+"1|הורידו את הקרשים על\n"
+"1|המרצפות המפוספסות"
+
+msgid ""
+"1|Drop platinium on striped \n"
+"1|paving stones."
+msgstr ""
+"1|הורידו את הפלטינה על\n"
+"1|המרצפות המפוספסות"
+
+msgid ""
+"1|Drop tomatoes on striped \n"
+"1|paving stones."
+msgstr ""
+"1|הורידו את העגבניות על\n"
+"1|המרצפות המפוספסות"
+
+msgid ""
+"1|Each Blupi in\n"
+"1|his house."
+msgstr ""
+"1|כל בלופי\n"
+"1|לביתו"
+
+msgid ""
+"1|Go on striped\n"
+"1|paving stones."
+msgstr ""
+"1|הגיעו אל המרצפות\n"
+"1|המפוספסות"
+
+msgid "1|Goal :"
+msgstr "1|מטרה:"
+
+msgid ""
+"1|Kill all\n"
+"1|enemies !"
+msgstr ""
+"1|הרגו את כל\n"
+"1|האוייבים"
+
+msgid ""
+"1|Resist until\n"
+"1|fire extinction ..."
+msgstr ""
+"1|התנגדו לאש עד\n"
+"1|שתכבה"
+
+#, c-format
+msgid ""
+"1|The Blupi population must\n"
+"1|be of at least %d Blupi."
+msgstr ""
+"1|אוכלוסיית הבלופים חייבת  \n"
+"1|להיות לפחות  %d בלופים"
+
+msgid ""
+"1|The robot must reach\n"
+"1|the striped paving stones."
+msgstr ""
+"1|הרובוט חייב להגיע אל\n"
+"1|המרצפות המפוספסות"
+
+msgid "Aliasing"
+msgstr ""
+
+msgid "All licenses are available under share/doc/planetblupi/copyright"
+msgstr ""
+
+msgid "Already two teleporters"
+msgstr "יש כבר שני משגרים"
+
+msgid "Another mistake..."
+msgstr "עוד טעות!"
+
+msgid "Anti-aliasing"
+msgstr ""
+
+msgid "Armour"
+msgstr "מגן"
+
+msgid "Available buttons"
+msgstr "כפתורים זמינים"
+
+msgid "Bang, failed again !"
+msgstr "בום! שוב נכשלתם!"
+
+msgid "Bank"
+msgstr "גדה"
+
+msgid "Blow up"
+msgstr "לפוצץ"
+
+msgid "Blupi"
+msgstr "בלופי"
+
+msgid "Blupi in house"
+msgstr "בלופי בתוך הבית"
+
+msgid "Blupi on striped paving stones"
+msgstr "בלופי על המרצפות המפוספסות"
+
+msgid "Blupi's energy"
+msgstr "האנרגיה של בלופי"
+
+msgid "Blupi's house"
+msgstr "הבית של בלופי"
+
+msgid "Boat"
+msgstr "סירה"
+
+msgid "Bouncing bomb"
+msgstr "להקפיץ פצצה"
+
+msgid "Bridge"
+msgstr "גשר"
+
+msgid "Bridge finished"
+msgstr "גשר גמור"
+
+msgid "Buildings"
+msgstr "בניינים"
+
+msgid "Bulldozer"
+msgstr "דחפור"
+
+msgid "Bunch of flowers"
+msgstr "זר פרחים"
+
+msgid "Burnt ground"
+msgstr "אדמה שרופה"
+
+msgid "Cancel last operation"
+msgstr "בטל פעולה אחרונה"
+
+msgid "Carve a rock"
+msgstr "לחצוב בסלע"
+
+msgid "Carve rocks"
+msgstr "לחצוב סלעים"
+
+msgid ""
+"Change the\n"
+"display mode"
+msgstr ""
+
+msgid ""
+"Change the\n"
+"render quality"
+msgstr ""
+
+msgid ""
+"Change the\n"
+"window size"
+msgstr ""
+
+msgid ""
+"Choose the\n"
+"music format"
+msgstr ""
+
+msgid "Construct this game"
+msgstr "הרכב את המשחק"
+
+msgid "Construction"
+msgstr "בנייה"
+
+msgid "Construction number"
+msgstr "בנייה מספר"
+
+msgid "Continue this game"
+msgstr "המשך משחק נוכחי"
+
+msgid "Cut down a tree"
+msgstr "לכרות עץ"
+
+msgid "Cut down trees"
+msgstr "לכרות עצים"
+
+msgid "Decorative plants"
+msgstr "צמחי נוי"
+
+msgid "Delete figure"
+msgstr "בטל דמות"
+
+msgid "Delete fire"
+msgstr "בטל אש"
+
+msgid "Delete item"
+msgstr "בטל פריט"
+
+msgid "Demo"
+msgstr "הדגמה"
+
+msgid "Desert"
+msgstr "מדבר"
+
+msgid "Desktop"
+msgstr ""
+
+msgid "Desktop mode"
+msgstr ""
+
+msgid "Difficult"
+msgstr "קשה"
+
+msgid "Disable anti-aliasing"
+msgstr ""
+
+msgid "Drink"
+msgstr "לשתות"
+
+msgid "Drop"
+msgstr "להוריד"
+
+msgid "Dynamite"
+msgstr "חומר נפץ"
+
+msgid "E"
+msgstr "מז"
+
+msgid "Easy"
+msgstr "קל"
+
+msgid "Eat"
+msgstr "לאכול"
+
+msgid "Eggs"
+msgstr "ביצים"
+
+msgid "Electrocutor"
+msgstr "מחשמל"
+
+msgid "Enable anti-aliasing"
+msgstr ""
+
+msgid "Ending conditions"
+msgstr "תנאים לסיום"
+
+msgid "Enemy barrier"
+msgstr "מחסום האויב"
+
+msgid "Enemy buildings"
+msgstr "בנייני האויב"
+
+msgid "Enemy construction"
+msgstr "מבנה האויב"
+
+msgid "Enemy ground"
+msgstr "אדמת אויב"
+
+msgid "Enemy rocket"
+msgstr "טיל האויב"
+
+msgid "Excellent..."
+msgstr "שיגעון"
+
+msgid "Extract iron"
+msgstr "להפיק ברזל"
+
+msgid "Faster"
+msgstr "מהיר"
+
+msgid "Finish"
+msgstr "סיום"
+
+msgid "Fire"
+msgstr "אש"
+
+msgid "Fire out"
+msgstr "אש רחוקה"
+
+msgid "Flag"
+msgstr "דגל"
+
+msgid "Flowers"
+msgstr "פרחים"
+
+msgid "Forest"
+msgstr "יער"
+
+msgid "Forest under snow"
+msgstr "יער מתחת לשלג"
+
+msgid "Fullscreen"
+msgstr ""
+
+msgid "Game paused"
+msgstr "המשחק נעצר"
+
+msgid "Garden shed"
+msgstr "צריף"
+
+msgid ""
+"Global game\n"
+"speed"
+msgstr ""
+"המשחק\n"
+"כולומהירות"
+
+msgid "Global settings"
+msgstr ""
+
+msgid "Go"
+msgstr "המשך"
+
+msgid "Grow tomatoes"
+msgstr "לגדל עגבניות"
+
+msgid "Help"
+msgstr "עזרה"
+
+msgid "Help number"
+msgstr "עזרה מספר"
+
+msgid "Helper robot"
+msgstr "רובוט עוזר"
+
+msgid "Ice"
+msgstr "קרח"
+
+msgid "Impossible"
+msgstr "בלתי אפשרי"
+
+#, c-format
+msgid "Impossible to win if less than %d Blupi"
+msgstr "בלתי אפשרי לנצח אם פחות מ %d בלופים"
+
+msgid "Inadequate ground"
+msgstr "קרקע לא מתאימה"
+
+msgid "Increase volume"
+msgstr "הוספת עוצמה"
+
+msgid "Increase window size"
+msgstr ""
+
+msgid "Incubator"
+msgstr "מדגרה"
+
+msgid "Incubator or teleporter"
+msgstr "מדגרה או משגר"
+
+msgid "Inflammable ground"
+msgstr "קרקע דליקה"
+
+msgid "Insert CD-Rom Planet Blupi and wait a few seconds..."
+msgstr "אנא הכנס את תקליטור המשחק וחכה מספר שניות"
+
+msgid ""
+"Interface language\n"
+"and sounds"
+msgstr ""
+
+msgid "Interrupt"
+msgstr "להפסיק"
+
+msgid "Iron"
+msgstr "ברזל"
+
+msgid "Items"
+msgstr "פריטים"
+
+msgid "Jeep"
+msgstr "ג'יפ"
+
+msgid "Laboratory"
+msgstr "מעבדה"
+
+msgid "Last construction resolved !"
+msgstr "הבנייה האחרונה נפתרה!"
+
+msgid "Leave Jeep"
+msgstr "לעזוב את הג'יפ"
+
+msgid "Legacy"
+msgstr ""
+
+msgid "Legacy mode (640x480)"
+msgstr ""
+
+#, c-format
+msgid "Lost if less than %d Blupi"
+msgstr "אבוד אם פחות מ %d בלופים"
+
+msgid "Make a Jeep"
+msgstr "לבנות ג'יפ"
+
+msgid "Make a helper robot"
+msgstr "הרכיבו רובוט לעזרתכם"
+
+msgid "Make a time bomb"
+msgstr "לבנות פצצת זמן"
+
+msgid "Make armour"
+msgstr "בנו מגן"
+
+msgid "Make bunch of flowers"
+msgstr "לאסוף זר פרחים"
+
+msgid "Make bunches of flowers"
+msgstr "לאסוף זרי פרחים"
+
+msgid "Master robot"
+msgstr "הרובוט השליט"
+
+msgid "Medical potion"
+msgstr "שיקוי רפואי"
+
+msgid "Midi"
+msgstr ""
+
+msgid "Mine"
+msgstr "מכרה"
+
+msgid "Miscellaneous ground"
+msgstr "קרקע מגוונת"
+
+msgid "Mission number"
+msgstr "פעולה מספר"
+
+msgid "Mission over..."
+msgstr "הפעולה הסתיימה..."
+
+msgid "Missions"
+msgstr "משימות"
+
+msgid ""
+"Music\n"
+"volume"
+msgstr ""
+"מוסיקה\n"
+"עוצמה"
+
+msgid "Music choice"
+msgstr "בחירת מוסיקה"
+
+msgid "Music number 1"
+msgstr "מוסיקה מספר 1"
+
+msgid "Music number 10"
+msgstr "מוסיקה מספר 01"
+
+msgid "Music number 2"
+msgstr "מוסיקה מספר 2"
+
+msgid "Music number 3"
+msgstr "מוסיקה מספר 3"
+
+msgid "Music number 4"
+msgstr "מוסיקה מספר 4"
+
+msgid "Music number 5"
+msgstr "מוסיקה מספר 5"
+
+msgid "Music number 6"
+msgstr "מוסיקה מספר 6"
+
+msgid "Music number 7"
+msgstr "מוסיקה מספר 7"
+
+msgid "Music number 8"
+msgstr "מוסיקה מספר 8"
+
+msgid "Music number 9"
+msgstr "מוסיקה מספר 9"
+
+msgid "N"
+msgstr "צ"
+
+#, c-format
+msgid "New version available for download on www.blupi.org (v%s)"
+msgstr ""
+
+msgid "Next game"
+msgstr "משחק הבא"
+
+msgid "Next language"
+msgstr ""
+
+msgid "Next page"
+msgstr "הדף הבא"
+
+msgid "No"
+msgstr "לא"
+
+msgid "No more enemies"
+msgstr "אין יותר אוייבים"
+
+msgid "No music"
+msgstr "ללא מוסיקה"
+
+msgid "No video"
+msgstr "בלי ווידאו"
+
+msgid "No, not that way !"
+msgstr "לא! לא בדרך הזאת."
+
+msgid "No, wrong way ..."
+msgstr "לא זאת הדרך הלא נכונה."
+
+msgid "None"
+msgstr "ללא גלילה"
+
+msgid "Normal ground"
+msgstr "קרקע רגילה"
+
+msgid "Not available"
+msgstr ""
+
+msgid "Not enough energy"
+msgstr ""
+
+msgid "Now go on mission."
+msgstr "עכשיו התחילו בפעולה"
+
+msgid "Occupied ground"
+msgstr "קרקע מאוכלסת"
+
+msgid "Ogg"
+msgstr ""
+
+msgid "Open another game"
+msgstr "טען משחק אחר"
+
+msgid "Opposite bank no good"
+msgstr "הגדה ממול לא מתאימה"
+
+msgid "Palisade"
+msgstr "גדר"
+
+msgid "Paving stones"
+msgstr "מרצפות"
+
+msgid "Planet Blupi"
+msgstr "בבלופי"
+
+msgid "Planet Blupi -- stop"
+msgstr "בבלופי -- עצור"
+
+msgid "Planks"
+msgstr "קרשים"
+
+msgid "Planks on striped paving stones"
+msgstr "קרשים על האבנים המפוספסות"
+
+msgid "Platinium"
+msgstr "פלטינה"
+
+msgid "Platinium on striped paving stones"
+msgstr "פלטינה על המרצפות המפוספסות"
+
+msgid "Play this game"
+msgstr "שחק משחק נוכחי"
+
+msgid "Poison"
+msgstr "עגבניות מורעלות"
+
+msgid "Prairie"
+msgstr "ערבה"
+
+msgid "Previous game"
+msgstr "משחק קודם"
+
+msgid "Previous language"
+msgstr ""
+
+msgid "Previous page"
+msgstr "דף קודם"
+
+msgid "Prospect for iron"
+msgstr "לחפש ברזל"
+
+msgid "Protection tower"
+msgstr "מגדל שמירה"
+
+msgid "Quit"
+msgstr "צא"
+
+msgid "Quit Planet Blupi"
+msgstr ""
+
+msgid "Quit construction"
+msgstr "יציאה מבנייה"
+
+msgid "Quit this game"
+msgstr "צא ממשחק נוכחי"
+
+msgid "REC"
+msgstr "הקלטה"
+
+msgid "Reduce volume"
+msgstr "הפחתת עוצמה"
+
+msgid "Reduce window size"
+msgstr ""
+
+msgid "Repeat"
+msgstr "חזור"
+
+msgid "Restart this game"
+msgstr "התחל מחדש משחק נוכחי"
+
+msgid "Robot on striped paving stones"
+msgstr "רובוט על המרצפות המפוספסות"
+
+msgid "Rocks"
+msgstr "סלעים"
+
+msgid "S"
+msgstr "ד"
+
+msgid "Save"
+msgstr "שמור"
+
+msgid "Save this game"
+msgstr "שמור משחק נוכחי"
+
+msgid "Scenery choice"
+msgstr "בחירת נוף"
+
+msgid ""
+"Scroll speed\n"
+"with mouse"
+msgstr ""
+"מהירות גלילה\n"
+"בעזרת עכבר"
+
+msgid ""
+"Select the\n"
+"window mode"
+msgstr ""
+
+msgid "Settings"
+msgstr "הגדרות"
+
+msgid "Show videos"
+msgstr "הצג ווידאו"
+
+msgid "Sick Blupi"
+msgstr "בלופי חולה"
+
+msgid "Skill level"
+msgstr "דרגת מיומנות"
+
+msgid "Slower"
+msgstr "איטי"
+
+msgid ""
+"Sound effect\n"
+"volume"
+msgstr ""
+"אפקטים\n"
+"קוליים עוצמה"
+
+msgid "Special pavings"
+msgstr "ריצוף מיוחד"
+
+msgid "Spider"
+msgstr "עכביש"
+
+msgid "Starting fire"
+msgstr "הצת אש"
+
+msgid "Sterile ground"
+msgstr "קרקע מחוטאת"
+
+msgid "Sticky trap"
+msgstr "מלכודת דביקה"
+
+msgid "Stones"
+msgstr "אבנים"
+
+msgid "Stop"
+msgstr "עצור"
+
+msgid "Striped paving stones"
+msgstr "מרצפות מפוספסות"
+
+msgid "Take"
+msgstr "לקחת"
+
+msgid "Teleporter"
+msgstr "משגר"
+
+msgid ""
+"This game is an original creation of Epsitec SA, CH-1400 Yverdon-les-Bains"
+msgstr ""
+
+msgid "This game uses statically linked free and open-source libraries:"
+msgstr ""
+
+msgid "Time bomb"
+msgstr "פצצת זמן"
+
+msgid "Tired Blupi"
+msgstr "בלופי עייף"
+
+msgid "Tomatoes"
+msgstr "עגבניות"
+
+msgid "Tomatoes on striped paving stones"
+msgstr "עגבניות על המרצפות המפוספסות"
+
+msgid "Too close to water"
+msgstr "קרוב מדי למים"
+
+msgid "Training"
+msgstr "אימון"
+
+msgid "Training number"
+msgstr "אימון מספר"
+
+msgid "Transform"
+msgstr "להפוך"
+
+msgid "Transport"
+msgstr "להוביל"
+
+msgid "Trapped enemy"
+msgstr "אויב לכוד"
+
+msgid "Tree"
+msgstr "עץ"
+
+msgid "Tree trunks"
+msgstr "גזע עץ"
+
+msgid "Use Midi music (original)"
+msgstr ""
+
+msgid "Use Ogg music"
+msgstr ""
+
+msgid "Version"
+msgstr ""
+
+msgid "Very good, success on all missions !"
+msgstr "יפה מאוד! הצלחתם בכל הפעולות!"
+
+msgid "Very good."
+msgstr "ממש מעולה"
+
+msgid ""
+"Video\n"
+"sequences"
+msgstr ""
+"וידאו\n"
+"רצף"
+
+msgid "Virus"
+msgstr "וירוס"
+
+msgid "W"
+msgstr "מע"
+
+msgid "Wall"
+msgstr "חומה"
+
+msgid "Wall or palisade"
+msgstr "חומה או גדר"
+
+msgid "Water"
+msgstr "מים"
+
+msgid "We hope you have had as much fun playing the game as we had making it !"
+msgstr "אנחנו מקווים שנהנתם לשחק במשחק לפחות כמו שנהננו ליצור אתו"
+
+msgid "Weapons"
+msgstr "כלי נשק"
+
+msgid "Well done !"
+msgstr "כל הכבוד!"
+
+msgid "Windowed"
+msgstr ""
+
+msgid "Work done"
+msgstr "העבודה הושלמה"
+
+msgid "Workshop"
+msgstr "בית מלאכה"
+
+msgid "Yes"
+msgstr "כן"
+
+msgid "Yes, great ..."
+msgstr "כן מצוין"
+
+msgid "You have failed, try again..."
+msgstr "נכשלתם נסו שוב..."
+
+msgid "You have played Planet Blupi."
+msgstr "שיחקתם בבלופי."
+
+#, c-format
+msgid "construction %d, time %d"
+msgstr "בנייה %d זמן %d"
+
+msgid "en"
+msgstr "he"
+
+msgid "free slot"
+msgstr "מקום פנוי"
+
+msgid "http://www.blupi.org            info@blupi.org"
+msgstr "http://www.blupi.org            info@blupi.org"
+
+#, c-format
+msgid "mission %d, time %d"
+msgstr "פעולה %d זמן %d"
+
+#, c-format
+msgid "training %d, time %d"
+msgstr "אימון %d זמן %d"

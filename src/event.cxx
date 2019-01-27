@@ -1686,6 +1686,7 @@ CEvent::CEvent ()
   m_Languages.push_back (Language::pl);
   m_Languages.push_back (Language::tr);
   m_Languages.push_back (Language::pt);
+  m_Languages.push_back (Language::he);
 
   this->m_LangStart = GetLocale ();
 
@@ -1703,6 +1704,8 @@ CEvent::CEvent ()
     m_Lang = m_Languages.begin () + 6;
   else if (this->m_LangStart == "pt")
     m_Lang = m_Languages.begin () + 7;
+  else if (this->m_LangStart == "he")
+    m_Lang = m_Languages.begin () + 8;
   else
     m_Lang = m_Languages.begin ();
 
@@ -2720,6 +2723,8 @@ CEvent::DrawButtons ()
       lang = "Türkçe";
     else if (locale == "pt")
       lang = "Portuguese";
+    else if (locale == "he")
+      lang = "עברי";
 
     lg    = GetTextWidth (lang.c_str ());
     pos.x = (54 + 40) - lg / 2 + LXOFFSET ();
@@ -4090,6 +4095,8 @@ CEvent::GetStartLanguage ()
     return Language::tr;
   if (this->m_LangStart == "pt")
     return Language::pt;
+  if (this->m_LangStart == "he")
+    return Language::he;
   return Language::en;
 }
 
@@ -4135,6 +4142,9 @@ CEvent::SetLanguage (Language lang)
     break;
   case Language::pt:
     slang = "pt";
+    break;
+  case Language::he:
+    slang = "he";
     break;
   }
 
