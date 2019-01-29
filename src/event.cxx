@@ -2145,7 +2145,8 @@ CEvent::DrawButtons ()
     snprintf (
       res, sizeof (res), "%s %u.%u.%u%s", gettext ("Version"), PB_VERSION_MAJOR,
       PB_VERSION_MINOR, PB_VERSION_PATCH, PB_VERSION_EXTRA);
-    pos.x = LXIMAGE () - GetTextWidth (res, FONTLITTLE) - 4;
+    pos.x = IsRightReading () ? 4 + GetTextWidth (res, FONTLITTLE)
+                              : LXIMAGE () - GetTextWidth (res, FONTLITTLE) - 4;
     pos.y = 465;
     DrawText (m_pPixmap, pos, res, FONTLITTLE);
 
@@ -3038,7 +3039,7 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
         lg = GetTextWidth (m_textToolTips);
         pos.x += IsRightReading () ? -10 : 10;
         pos.y += 20;
-        if (pos.x > LXIMAGE () + (IsRightReading () ? 0 : - lg))
+        if (pos.x > LXIMAGE () + (IsRightReading () ? 0 : -lg))
           pos.x = LXIMAGE () - lg;
         if (pos.x < 0)
           pos.x = 0;

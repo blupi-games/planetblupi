@@ -327,8 +327,10 @@ DrawTextCenter (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
     if (*pText == '\n')
       pText++; // saute '\n'
 
-    pDest   = text;
-    start.x = pos.x - GetTextWidth (pDest) / 2;
+    pDest = text;
+    start.x =
+      pos.x +
+      (IsRightReading () ? GetTextWidth (pDest) : -GetTextWidth (pDest)) / 2;
     start.y = pos.y;
     DrawText (pPixmap, start, pDest, font);
 
