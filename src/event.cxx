@@ -4164,10 +4164,10 @@ CEvent::SetLanguage (Language lang)
 
   {
     putenv (env);
-#ifndef EMSCRIPTEN
+#ifdef __GLIBC__
     extern int _nl_msg_cat_cntr;
     ++_nl_msg_cat_cntr;
-#endif /* EMSCRIPTEN */
+#endif /* __GLIBC__ */
   }
 
   SDL_SetWindowTitle (g_window, gettext ("Planet Blupi"));
