@@ -23,19 +23,21 @@
 #include <SDL_stdinc.h>
 
 #include "display.h"
+#include "misc.h"
 
 // clang-format off
 #define _INTRO          true    // true for init screen
 
-#define POSDRAWX        144     // draw surface
-#define POSDRAWY        15
 #define DIMDRAWX        (LXIMAGE () - (LXLOGIC () - LYLOGIC ()))
 #define DIMDRAWY        450
+#define POSDRAWX_		144
+#define POSDRAWX        (IsRightReading () ? LXIMAGE () - POSDRAWX_ - DIMDRAWX : POSDRAWX_)     // draw surface
+#define POSDRAWY        15
 
-#define POSMAPX         8       // map surface
-#define POSMAPY         15
 #define DIMMAPX         128
 #define DIMMAPY         128
+#define POSMAPX         (IsRightReading () ? LXIMAGE () - 8 - DIMMAPX : 8)       // map surface
+#define POSMAPY         15
 
 #define MAXCELX         200     // max cells for a world
 #define MAXCELY         200
@@ -56,10 +58,10 @@
 #define DIMJAUGEX       124     // progress size
 #define DIMJAUGEY       22
 
-#define POSSTATX        12      // statistics
-#define POSSTATY        220
 #define DIMSTATX        60
 #define DIMSTATY        30
+#define POSSTATX        (IsRightReading () ? LXIMAGE () - 12 - DIMSTATX * 2 : 12)      // statistics
+#define POSSTATY        220
 
 #define DIMTEXTX        16      // max char size
 #define DIMTEXTY        16

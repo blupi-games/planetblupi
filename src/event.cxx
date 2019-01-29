@@ -180,7 +180,7 @@ static Phase table[] =
         EV_PHASE_HISTORY0,
         "image/history0.png",
         "image/back-book.png",
-        CPixmap::Mode::FIX,
+        CPixmap::Mode::FIX_REVERSABLE,
         true,
         {
             {
@@ -205,7 +205,7 @@ static Phase table[] =
         EV_PHASE_HISTORY1,
         "image/history1.png",
         "image/back-book.png",
-        CPixmap::Mode::FIX,
+        CPixmap::Mode::FIX_REVERSABLE,
         true,
         {
             {
@@ -230,7 +230,7 @@ static Phase table[] =
         EV_PHASE_INFO,
         "image/info%.3d.png",
         "image/back-book.png",
-        CPixmap::Mode::FIX,
+        CPixmap::Mode::FIX_REVERSABLE,
         false,
         {
             {
@@ -297,7 +297,7 @@ static Phase table[] =
         EV_PHASE_PLAY,
         "image/play.png",
         "",
-        CPixmap::Mode::EXPAND,
+        CPixmap::Mode::EXPAND_REVERSABLE,
         false,
         {
             {
@@ -328,7 +328,7 @@ static Phase table[] =
         EV_PHASE_STOP,
         "image/stop%.3d.png",
         "image/back-book.png",
-        CPixmap::Mode::FIX,
+        CPixmap::Mode::FIX_REVERSABLE,
         false,
         {
             {
@@ -377,7 +377,7 @@ static Phase table[] =
         EV_PHASE_HELP,
         "image/help.png",
         "image/back-book.png",
-        CPixmap::Mode::FIX,
+        CPixmap::Mode::FIX_REVERSABLE,
         true,
         {
             {
@@ -578,7 +578,7 @@ static Phase table[] =
         EV_PHASE_READ,
         "image/read.png",
         "image/back-chest-r.png",
-        CPixmap::Mode::FIX,
+        CPixmap::Mode::FIX_REVERSABLE,
         false,
         {
             {
@@ -657,7 +657,7 @@ static Phase table[] =
         EV_PHASE_WRITE,
         "image/write.png",
         "image/back-chest-w.png",
-        CPixmap::Mode::FIX,
+        CPixmap::Mode::FIX_REVERSABLE,
         false,
         {
             {
@@ -736,7 +736,7 @@ static Phase table[] =
         EV_PHASE_WRITEp,
         "image/write.png",
         "image/back-chest-w.png",
-        CPixmap::Mode::FIX,
+        CPixmap::Mode::FIX_REVERSABLE,
         false,
         {
             {
@@ -872,7 +872,7 @@ static Phase table[] =
         EV_PHASE_BUILD,
         "image/build.png",
         "",
-        CPixmap::Mode::EXPAND,
+        CPixmap::Mode::EXPAND_REVERSABLE,
         true,
         {
             {
@@ -989,7 +989,7 @@ static Phase table[] =
         EV_PHASE_BUTTON,
         "image/button.png",
         "image/back-build.png",
-        CPixmap::Mode::FIX,
+        CPixmap::Mode::FIX_REVERSABLE,
         true,
         {
             {
@@ -1211,7 +1211,7 @@ static Phase table[] =
         EV_PHASE_TERM,
         "image/term.png",
         "image/back-build.png",
-        CPixmap::Mode::FIX,
+        CPixmap::Mode::FIX_REVERSABLE,
         true,
         {
             {
@@ -1302,7 +1302,7 @@ static Phase table[] =
         EV_PHASE_MUSIC,
         "image/music.png",
         "image/back-build.png",
-        CPixmap::Mode::FIX,
+        CPixmap::Mode::FIX_REVERSABLE,
         true,
         {
             {
@@ -1387,7 +1387,7 @@ static Phase table[] =
         EV_PHASE_REGION,
         "image/region.png",
         "image/back-build.png",
-        CPixmap::Mode::FIX,
+        CPixmap::Mode::FIX_REVERSABLE,
         true,
         {
             {

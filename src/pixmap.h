@@ -55,7 +55,9 @@ class CPixmap
 public:
   enum Mode {
     FIX = 0,
+    FIX_REVERSABLE,
     EXPAND,
+    EXPAND_REVERSABLE,
   };
 
   CPixmap (CEvent * event);
@@ -82,7 +84,9 @@ public:
   bool DrawIconPart (
     Sint32 chDst, size_t channel, Sint32 rank, Point pos, Sint32 startY,
     Sint32 endY);
-  bool DrawPart (Sint32 chDst, size_t channel, Point dest, Rect rect);
+  bool DrawPart (
+    Sint32 chDst, size_t channel, Point dest, Rect rect,
+    SDL_RendererFlip flip = SDL_FLIP_NONE);
   bool DrawImage (Sint32 chDst, size_t channel, Rect rect);
 
   bool BuildIconMask (
@@ -102,8 +106,12 @@ public:
   void   FromGameToDisplay (Sint32 & x, Sint32 & y);
 
 protected:
-  Sint32 BltFast (Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR);
-  Sint32 BltFast (Sint32 chDst, size_t channel, Point dst, Rect rcRect);
+  Sint32 BltFast (
+    Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR,
+    SDL_RendererFlip flip = SDL_FLIP_NONE);
+  Sint32 BltFast (
+    Sint32 chDst, size_t channel, Point dst, Rect rcRect,
+    SDL_RendererFlip flip = SDL_FLIP_NONE);
   Sint32 BltFast (
     SDL_Texture * lpSDL, size_t channel, Point dst, Rect rcRect,
     SDL_BlendMode = SDL_BLENDMODE_BLEND);

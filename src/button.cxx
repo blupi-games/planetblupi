@@ -144,28 +144,30 @@ void
 CButton::Draw ()
 {
   Sint32 i;
-  Point  pos;
+  Point  pos = this->m_pos;
   Rect   rect;
+
+  if (IsRightReading ())
+    pos.x = LXIMAGE () - pos.x - m_dim.x;
 
   if (m_bHide) // bouton caché ?
   {
-    rect.left   = m_pos.x;
-    rect.right  = m_pos.x + m_dim.x;
-    rect.top    = m_pos.y;
-    rect.bottom = m_pos.y + m_dim.y;
-    m_pPixmap->DrawPart (-1, CHBACK, m_pos, rect); // dessine le fond
+    rect.left   = pos.x;
+    rect.right  = pos.x + m_dim.x;
+    rect.top    = pos.y;
+    rect.bottom = pos.y + m_dim.y;
+    m_pPixmap->DrawPart (-1, CHBACK, pos, rect); // dessine le fond
     return;
   }
 
   if (m_bEnable) // bouton actif ?
-    m_pPixmap->DrawIcon (-1, CHBUTTON + m_type, m_mouseState, m_pos);
+    m_pPixmap->DrawIcon (-1, CHBUTTON + m_type, m_mouseState, pos);
   else
-    m_pPixmap->DrawIcon (-1, CHBUTTON + m_type, 4, m_pos);
+    m_pPixmap->DrawIcon (-1, CHBUTTON + m_type, 4, pos);
 
   if (m_nbMenu == 0)
     return;
 
-  pos = m_pos;
   if (m_nbMenu > 0)
   {
     m_pPixmap->DrawIcon (-1, CHBUTTON + m_type, m_iconMenu[m_selMenu] + 6, pos);
@@ -174,7 +176,6 @@ CButton::Draw ()
   if (m_nbMenu == 1 || !m_bEnable || !m_bMouseDown)
     return;
 
-  pos = m_pos;
   pos.x += m_dim.x + 2;
   for (i = 0; i < m_nbMenu; i++)
   {

@@ -211,6 +211,9 @@ DrawTextPente (
 {
   Sint32 rank, lg, rel, start;
 
+  if (IsRightReading ())
+    pos.x = LXIMAGE () - pos.x;
+
   start = pos.y;
   rel   = 0;
   while (*pText != 0)
@@ -227,7 +230,7 @@ DrawTextPente (
       pText++;
     pText++;
     rel += lg;
-    pos.x += lg;
+    pos.x += IsRightReading () ? -lg : lg;
     pos.y = start + rel / pente;
   }
 }

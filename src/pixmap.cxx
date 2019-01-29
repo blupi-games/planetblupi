@@ -124,7 +124,8 @@ CPixmap::CreateMainTexture ()
 }
 
 Sint32
-CPixmap::BltFast (Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR)
+CPixmap::BltFast (
+  Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR, SDL_RendererFlip flip)
 {
   Sint32 res;
 
@@ -159,16 +160,18 @@ CPixmap::BltFast (Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR)
 
     if (this->mainTexture)
       SDL_SetRenderTarget (g_renderer, target ? target : this->mainTexture);
-    res = SDL_RenderCopy (
-      g_renderer, m_SDLTextureInfo[srcCh].texture, &srcRect, &dstRect);
+    res = SDL_RenderCopyEx (
+      g_renderer, m_SDLTextureInfo[srcCh].texture, &srcRect, &dstRect, 0,
+      nullptr, flip);
     if (this->mainTexture)
       SDL_SetRenderTarget (g_renderer, target);
   }
   else
   {
     SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[dstCh].texture);
-    res = SDL_RenderCopy (
-      g_renderer, m_SDLTextureInfo[srcCh].texture, &srcRect, &dstRect);
+    res = SDL_RenderCopyEx (
+      g_renderer, m_SDLTextureInfo[srcCh].texture, &srcRect, &dstRect, 0,
+      nullptr, flip);
     SDL_SetRenderTarget (g_renderer, target);
   }
 
@@ -179,7 +182,8 @@ CPixmap::BltFast (Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR)
 // Les modes sont 0=transparent, 1=opaque.
 
 Sint32
-CPixmap::BltFast (Sint32 chDst, size_t channel, Point dst, Rect rcRect)
+CPixmap::BltFast (
+  Sint32 chDst, size_t channel, Point dst, Rect rcRect, SDL_RendererFlip flip)
 {
   Sint32 limit;
 
@@ -209,7 +213,7 @@ CPixmap::BltFast (Sint32 chDst, size_t channel, Point dst, Rect rcRect)
   dstRect.top    = dst.y;
   dstRect.right  = dstRect.left + rcRect.right - rcRect.left;
   dstRect.bottom = dstRect.top + rcRect.bottom - rcRect.top;
-  return this->BltFast (chDst, channel, dstRect, rcRect);
+  return this->BltFast (chDst, channel, dstRect, rcRect, flip);
 }
 
 // Effectue un appel BltFast.
@@ -376,9 +380,15 @@ CPixmap::Cache (
 
   SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[channel].texture);
 
+  SDL_RendererFlip flip =
+    (mode == FIX_REVERSABLE || mode == EXPAND_REVERSABLE) && IsRightReading ()
+      ? SDL_FLIP_HORIZONTAL
+      : SDL_FLIP_NONE;
+
   switch (mode)
   {
   case FIX:
+  case FIX_REVERSABLE:
   {
     if (channel == CHBACK && (ow < LXIMAGE () || oh < LYIMAGE ()))
     {
@@ -389,7 +399,8 @@ CPixmap::Cache (
         SDL_Texture * texture =
           SDL_CreateTextureFromSurface (g_renderer, surface);
         SDL_FreeSurface (surface);
-        SDL_RenderCopy (g_renderer, texture, nullptr, nullptr);
+        SDL_RenderCopyEx (
+          g_renderer, texture, nullptr, nullptr, 0, nullptr, flip);
         SDL_DestroyTexture (texture);
       }
 
@@ -398,32 +409,37 @@ CPixmap::Cache (
       dst.y = 0;
       dst.w = ow;
       dst.h = oh;
-      SDL_RenderCopy (g_renderer, texture, nullptr, &dst);
+      SDL_RenderCopyEx (g_renderer, texture, nullptr, &dst, 0, nullptr, flip);
     }
     else
-      SDL_RenderCopy (g_renderer, texture, nullptr, nullptr);
+      SDL_RenderCopyEx (
+        g_renderer, texture, nullptr, nullptr, 0, nullptr, flip);
     break;
   }
 
   case EXPAND:
+  case EXPAND_REVERSABLE:
   {
+    auto isFlipped = flip == SDL_FLIP_HORIZONTAL;
+
     SDL_Rect src, dst;
     src.x = 0;
     src.y = 0;
-    src.w = POSDRAWX - 1;
+    src.w = POSDRAWX_ - 1;
     src.h = LYIMAGE ();
     dst   = src;
-    SDL_RenderCopy (g_renderer, texture, &src, &dst);
+    dst.x = isFlipped ? LXIMAGE () - src.w : src.x;
+    SDL_RenderCopyEx (g_renderer, texture, &src, &dst, 0, nullptr, flip);
     src.x = ow - 16;
     src.w = 16;
-    dst.x = LXIMAGE () - 16;
+    dst.x = isFlipped ? 0 : LXIMAGE () - 16;
     dst.w = src.w;
-    SDL_RenderCopy (g_renderer, texture, &src, &dst);
-    src.x = POSDRAWX - 1;
+    SDL_RenderCopyEx (g_renderer, texture, &src, &dst, 0, nullptr, flip);
+    src.x = POSDRAWX_ - 1;
     src.w = ow - src.x - 16;
-    dst.x = src.x;
+    dst.x = isFlipped ? 16 : src.x;
     dst.w = DIMDRAWX + 1;
-    SDL_RenderCopy (g_renderer, texture, &src, &dst);
+    SDL_RenderCopyEx (g_renderer, texture, &src, &dst, 0, nullptr, flip);
     break;
   }
   }
@@ -644,12 +660,13 @@ CPixmap::DrawIconPart (
 // Dessine une partie d'image n'importe oï¿½.
 
 bool
-CPixmap::DrawPart (Sint32 chDst, size_t channel, Point dest, Rect rect)
+CPixmap::DrawPart (
+  Sint32 chDst, size_t channel, Point dest, Rect rect, SDL_RendererFlip flip)
 {
   if (m_SDLTextureInfo.find (channel) == m_SDLTextureInfo.end ())
     return false;
 
-  return !BltFast (chDst, channel, dest, rect);
+  return !BltFast (chDst, channel, dest, rect, flip);
 }
 
 // Dessine une partie d'image rectangulaire.

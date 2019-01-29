@@ -98,6 +98,12 @@ GetLocale ()
   return gettext ("en");
 }
 
+bool
+IsRightReading ()
+{
+  return GetLocale () == "he";
+}
+
 // Retourne le nom de dossier en cours.
 
 std::string

@@ -63,16 +63,24 @@ CJauge::Draw ()
 {
   Sint32 part;
   Rect   rect;
+  Point  pos = this->m_pos;
+
+  if (IsRightReading ())
+    pos.x = LXIMAGE () - pos.x - m_dim.x;
 
   if (m_bHide) // bouton caché ?
   {
-    rect.left   = m_pos.x;
-    rect.right  = m_pos.x + m_dim.x;
-    rect.top    = m_pos.y;
-    rect.bottom = m_pos.y + m_dim.y;
-    m_pPixmap->DrawPart (-1, CHBACK, m_pos, rect); // dessine le fond
+    rect.left   = pos.x;
+    rect.right  = pos.x + m_dim.x;
+    rect.top    = pos.y;
+    rect.bottom = pos.y + m_dim.y;
+    m_pPixmap->DrawPart (-1, CHBACK, pos, rect); // dessine le fond
     return;
   }
+
+  SDL_RendererFlip flip = SDL_FLIP_NONE;
+  if (IsRightReading ())
+    flip = SDL_FLIP_HORIZONTAL;
 
   part = (m_level * (DIMJAUGEX - 6 - 4)) / 100;
 
@@ -80,15 +88,17 @@ CJauge::Draw ()
   rect.right  = DIMJAUGEX;
   rect.top    = DIMJAUGEY * 0;
   rect.bottom = DIMJAUGEY * 1;
-  m_pPixmap->DrawPart (-1, CHJAUGE, m_pos, rect); // partie noire
+  m_pPixmap->DrawPart (-1, CHJAUGE, pos, rect, flip); // partie noire
 
   if (part > 0)
   {
+    if (IsRightReading ())
+      pos.x += DIMJAUGEX - part - 6;
     rect.left   = 0;
     rect.right  = 6 + part;
     rect.top    = DIMJAUGEY * m_type;
     rect.bottom = DIMJAUGEY * (m_type + 1);
-    m_pPixmap->DrawPart (-1, CHJAUGE, m_pos, rect); // partie colorée
+    m_pPixmap->DrawPart (-1, CHJAUGE, pos, rect, flip); // partie colorée
   }
 }
 
