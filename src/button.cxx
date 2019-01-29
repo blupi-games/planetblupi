@@ -147,9 +147,6 @@ CButton::Draw ()
   Point  pos = this->m_pos;
   Rect   rect;
 
-  if (IsRightReading ())
-    pos.x = LXIMAGE () - pos.x - m_dim.x;
-
   if (m_bHide) // bouton caché ?
   {
     rect.left   = pos.x;
@@ -339,9 +336,6 @@ CButton::Detect (Point pos)
 
   if (m_bHide || !m_bEnable)
     return false;
-
-  if (IsRightReading ())
-    pos.x = LXIMAGE () - pos.x;
 
   if (m_nbMenu > 1 && m_bMouseDown) // sous-menu déroulé ?
     width += 2 + (m_dim.x - 1) * m_nbMenu;

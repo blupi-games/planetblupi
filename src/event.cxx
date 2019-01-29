@@ -2028,10 +2028,13 @@ CEvent::CreateButtons (Sint32 phase)
     pos.y   = table[m_index].buttons[i].y;
     message = table[m_index].buttons[i].message;
 
+    if (IsRightReading ())
+      pos.x = LXIMAGE () - pos.x - DIMBUTTONX;
+
     if (
       phase != EV_PHASE_PLAY && phase != EV_PHASE_BUILD &&
       phase != EV_PHASE_INIT)
-      pos.x += LXOFFSET ();
+      pos.x = IsRightReading () ? pos.x - LXOFFSET () : pos.x + LXOFFSET ();
 
     if (m_bPrivate)
     {
@@ -2984,13 +2987,14 @@ bool
 CEvent::EventButtons (const SDL_Event & event, Point pos)
 {
   Sint32 lg;
+  Point  _pos = pos;
 
   // Cherche le tool tips à utiliser pour la souris.
   m_textToolTips[0] = 0;
   m_posToolTips.x   = -1;
 
   if (IsRightReading ())
-    pos.x = LXIMAGE () - pos.x;
+    _pos.x = LXIMAGE () - _pos.x;
 
   if (m_phase == EV_PHASE_PLAY)
   {
@@ -3030,10 +3034,12 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
       {
         snprintf (m_textToolTips, sizeof (m_textToolTips), "%s", text);
         lg = GetTextWidth (m_textToolTips);
-        pos.x += 10;
+        pos.x += IsRightReading () ? -lg : 10;
         pos.y += 20;
         if (pos.x > LXIMAGE () - lg)
           pos.x = LXIMAGE () - lg;
+        if (pos.x < 0)
+          pos.x = 0;
         if (pos.y > LYIMAGE () - 14)
           pos.y = LYIMAGE () - 14;
         m_posToolTips = pos;

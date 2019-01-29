@@ -138,5 +138,8 @@ CJauge::SetHide (bool bHide)
 Point
 CJauge::GetPos ()
 {
-  return m_pos;
+  Point pos = m_pos;
+  if (IsRightReading ())
+    pos.x = LXIMAGE () - pos.x - m_dim.x;
+  return pos;
 }
