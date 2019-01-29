@@ -195,11 +195,20 @@ DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
     else
       pPixmap->DrawIcon (-1, CHLITTLE, rank, pos);
 
-    pos.x += GetCharWidth (pText, font);
-
-    if (inc)
+    if (IsRightReading ())
+    {
+      if (inc)
+        pText++;
       pText++;
-    pText++;
+      pos.x += -GetCharWidth (pText, font);
+    }
+    else
+    {
+      pos.x += GetCharWidth (pText, font);
+      if (inc)
+        pText++;
+      pText++;
+    }
   }
 }
 
@@ -210,9 +219,6 @@ DrawTextPente (
   CPixmap * pPixmap, Point pos, const char * pText, Sint32 pente, Sint32 font)
 {
   Sint32 rank, lg, rel, start;
-
-  if (IsRightReading ())
-    pos.x = LXIMAGE () - pos.x;
 
   start = pos.y;
   rel   = 0;

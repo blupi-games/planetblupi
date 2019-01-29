@@ -2595,6 +2595,8 @@ CEvent::DrawButtons ()
     else
       pente = 19;
     pos.x += LXOFFSET ();
+    if (IsRightReading ())
+      pos.x = LXIMAGE () - pos.x;
     DrawTextRect (m_pPixmap, pos, m_libelle, pente, FONTSLIM);
   }
 
@@ -3034,9 +3036,9 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
       {
         snprintf (m_textToolTips, sizeof (m_textToolTips), "%s", text);
         lg = GetTextWidth (m_textToolTips);
-        pos.x += IsRightReading () ? -lg : 10;
+        pos.x += IsRightReading () ? -10 : 10;
         pos.y += 20;
-        if (pos.x > LXIMAGE () - lg)
+        if (pos.x > LXIMAGE () + (IsRightReading () ? 0 : - lg))
           pos.x = LXIMAGE () - lg;
         if (pos.x < 0)
           pos.x = 0;
