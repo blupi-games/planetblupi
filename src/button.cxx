@@ -340,6 +340,9 @@ CButton::Detect (Point pos)
   if (m_bHide || !m_bEnable)
     return false;
 
+  if (IsRightReading ())
+    pos.x = LXIMAGE () - pos.x;
+
   if (m_nbMenu > 1 && m_bMouseDown) // sous-menu déroulé ?
     width += 2 + (m_dim.x - 1) * m_nbMenu;
 

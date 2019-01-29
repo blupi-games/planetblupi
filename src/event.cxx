@@ -2989,6 +2989,9 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
   m_textToolTips[0] = 0;
   m_posToolTips.x   = -1;
 
+  if (IsRightReading ())
+    pos.x = LXIMAGE () - pos.x;
+
   if (m_phase == EV_PHASE_PLAY)
   {
     auto progress = [&](CJauge & prog, const char * text) -> bool {
