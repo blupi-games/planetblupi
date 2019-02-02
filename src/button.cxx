@@ -173,12 +173,12 @@ CButton::Draw ()
   if (m_nbMenu == 1 || !m_bEnable || !m_bMouseDown)
     return;
 
-  pos.x += m_dim.x + 2;
+  pos.x += IsRightReading () ? -m_dim.x - 2 : m_dim.x + 2;
   for (i = 0; i < m_nbMenu; i++)
   {
     m_pPixmap->DrawIcon (-1, CHBUTTON + m_type, i == m_selMenu ? 1 : 0, pos);
     m_pPixmap->DrawIcon (-1, CHBUTTON + m_type, m_iconMenu[i] + 6, pos);
-    pos.x += m_dim.x - 1;
+    pos.x += IsRightReading () ? -m_dim.x - 1 : m_dim.x - 1;
   }
 }
 
