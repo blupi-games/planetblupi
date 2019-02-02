@@ -2028,13 +2028,20 @@ CEvent::CreateButtons (Sint32 phase)
     pos.y   = table[m_index].buttons[i].y;
     message = table[m_index].buttons[i].message;
 
-    if (IsRightReading ())
+    auto isRightReading =
+      ((message == EV_PHASE_INIT || message == EV_PHASE_PLAY ||
+        message == EV_SETUP_EXIT) ||
+       (phase != EV_PHASE_SETTINGS && phase != EV_PHASE_SETUP &&
+        phase != EV_PHASE_SETUPp)) &&
+      IsRightReading ();
+
+    if (isRightReading)
       pos.x = LXIMAGE () - pos.x - DIMBUTTONX;
 
     if (
       phase != EV_PHASE_PLAY && phase != EV_PHASE_BUILD &&
       phase != EV_PHASE_INIT)
-      pos.x = IsRightReading () ? pos.x - LXOFFSET () : pos.x + LXOFFSET ();
+      pos.x = isRightReading ? pos.x - LXOFFSET () : pos.x + LXOFFSET ();
 
     if (m_bPrivate)
     {
@@ -2136,6 +2143,8 @@ CEvent::DrawButtons ()
       rect.right  = pos.x + 300;
       rect.top    = pos.y;
       rect.bottom = pos.y + DIMLITTLEY;
+      if (IsRightReading ())
+        pos.x = LXIMAGE () - pos.x;
       DrawText (m_pPixmap, pos, text, FONTLITTLE);
     }
   }
@@ -2158,6 +2167,8 @@ CEvent::DrawButtons ()
         res, sizeof (res),
         gettext ("New version available for download on www.blupi.org (v%s)"),
         this->m_updateVersion.c_str ());
+      if (IsRightReading ())
+        pos.x = LXIMAGE () - pos.x;
       DrawText (m_pPixmap, pos, res, FONTLITTLE);
     }
   }
