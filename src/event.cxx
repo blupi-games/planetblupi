@@ -2426,14 +2426,18 @@ CEvent::DrawButtons ()
   {
     Term * pTerm = m_pDecor->GetTerminated ();
 
-    DrawTextCenter (
-      gettext ("Ending conditions"), (10 + 134) / 2 + LXOFFSET (), 20);
+    auto x = (10 + 134) / 2 + LXOFFSET ();
+    if (IsRightReading ())
+      x = LXIMAGE () - x;
+    DrawTextCenter (gettext ("Ending conditions"), x, 20);
 
     pos.x = 170 + 42 * 2 + 4 + LXOFFSET ();
     pos.y = 30 + 12 + 42 * 4;
     snprintf (
       text, sizeof (text), gettext ("Lost if less than %d Blupi"),
       pTerm->nbMinBlupi);
+    if (IsRightReading ())
+      pos.x = LXIMAGE () - pos.x;
     DrawText (m_pPixmap, pos, text);
 
     pos.x = 170 + 42 * 2 + 4 + LXOFFSET ();
@@ -2441,22 +2445,37 @@ CEvent::DrawButtons ()
     snprintf (
       text, sizeof (text), gettext ("Impossible to win if less than %d Blupi"),
       pTerm->nbMaxBlupi);
+    if (IsRightReading ())
+      pos.x = LXIMAGE () - pos.x;
     DrawText (m_pPixmap, pos, text);
   }
 
   // Dessine les textes pour les choix des boutons.
   if (m_phase == EV_PHASE_BUTTON)
-    DrawTextCenter (
-      gettext ("Available buttons"), (10 + 134) / 2 + LXOFFSET (), 20);
+  {
+    auto x = (10 + 134) / 2 + LXOFFSET ();
+    if (IsRightReading ())
+      x = LXIMAGE () - x;
+    DrawTextCenter (gettext ("Available buttons"), x, 20);
+  }
 
   // Dessine les textes pour le choix des musiques.
   if (m_phase == EV_PHASE_MUSIC)
-    DrawTextCenter (gettext ("Music choice"), (10 + 134) / 2 + LXOFFSET (), 20);
+  {
+    auto x = (10 + 134) / 2 + LXOFFSET ();
+    if (IsRightReading ())
+      x = LXIMAGE () - x;
+    DrawTextCenter (gettext ("Music choice"), x, 20);
+  }
 
   // Dessine les textes pour le choix de la région.
   if (m_phase == EV_PHASE_REGION)
-    DrawTextCenter (
-      gettext ("Scenery choice"), (10 + 134) / 2 + LXOFFSET (), 20);
+  {
+    auto x = (10 + 134) / 2 + LXOFFSET ();
+    if (IsRightReading ())
+      x = LXIMAGE () - x;
+    DrawTextCenter (gettext ("Scenery choice"), x, 20);
+  }
 
   // Ajoute "Mission numéro".
   if (m_phase == EV_PHASE_INFO)
@@ -2478,6 +2497,8 @@ CEvent::DrawButtons ()
       pos.x -= 100;
     if (m_bPrivate)
       pos.y += 14;
+    if (IsRightReading ())
+      pos.x = LXIMAGE () - pos.x;
     DrawText (m_pPixmap, pos, res, FONTSLIM);
   }
 
@@ -2494,6 +2515,8 @@ CEvent::DrawButtons ()
       pos.x -= 100;
     if (m_bPrivate)
       pos.y += 14;
+    if (IsRightReading ())
+      pos.x = LXIMAGE () - pos.x;
     DrawText (m_pPixmap, pos, text, FONTRED);
   }
 
@@ -2510,6 +2533,8 @@ CEvent::DrawButtons ()
       pos.x -= 100;
     if (m_bPrivate)
       pos.y += 14;
+    if (IsRightReading ())
+      pos.x = LXIMAGE () - pos.x;
     DrawText (m_pPixmap, pos, text, FONTRED);
   }
 
@@ -2526,6 +2551,7 @@ CEvent::DrawButtons ()
       world = m_private;
 
     lg    = GetBignumWidth (world + 1);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = (140 + 270) / 2 - lg / 2 + LXOFFSET ();
     pos.y = 100;
     if (m_bSchool)
@@ -2534,6 +2560,8 @@ CEvent::DrawButtons ()
       pos.x -= 135;
     if (m_bPrivate)
       pos.y = 115;
+    if (IsRightReading ())
+      pos.x = LXIMAGE () - pos.x;
     DrawBignum (m_pPixmap, pos, world + 1);
   }
 
@@ -2542,6 +2570,7 @@ CEvent::DrawButtons ()
   {
     if (!m_bSchool)
     {
+      std::string text;
       if (m_pDecor->GetSkill () == 0)
       {
         if (m_bPrivate)
@@ -2555,10 +2584,9 @@ CEvent::DrawButtons ()
           pos.y = 230 + 13;
         }
         pos.x += LXOFFSET ();
-        DrawText (m_pPixmap, pos, gettext ("Easy"), FONTSLIM);
+        text = gettext ("Easy");
       }
-
-      if (m_pDecor->GetSkill () == 1)
+      else if (m_pDecor->GetSkill () == 1)
       {
         if (m_bPrivate)
         {
@@ -2571,8 +2599,12 @@ CEvent::DrawButtons ()
           pos.y = 230 + 42 + 13;
         }
         pos.x += LXOFFSET ();
-        DrawText (m_pPixmap, pos, gettext ("Difficult"), FONTSLIM);
+        text = gettext ("Difficult");
       }
+
+      if (IsRightReading ())
+        pos.x = LXIMAGE () - pos.x;
+      DrawText (m_pPixmap, pos, text.c_str (), FONTSLIM);
     }
   }
 
@@ -2614,6 +2646,8 @@ CEvent::DrawButtons ()
 
     pos.x = 60 + LXOFFSET ();
     pos.y = 443;
+    if (IsRightReading ())
+      pos.x = LXIMAGE () - pos.x;
     DrawText (m_pPixmap, pos, list[GetWorld () % 5]);
   }
 
@@ -2628,6 +2662,8 @@ CEvent::DrawButtons ()
 
     pos.x = 60 + LXOFFSET ();
     pos.y = 443;
+    if (IsRightReading ())
+      pos.x = LXIMAGE () - pos.x;
     DrawText (m_pPixmap, pos, list[GetWorld () % 5]);
   }
 
@@ -2645,6 +2681,8 @@ CEvent::DrawButtons ()
 
     pos.x = 60 + LXOFFSET ();
     pos.y = 443;
+    if (IsRightReading ())
+      pos.x = LXIMAGE () - pos.x;
     DrawText (m_pPixmap, pos, text);
   }
 
@@ -2661,18 +2699,21 @@ CEvent::DrawButtons ()
 
     snprintf (res, sizeof (res), "x%d", m_speed);
     lg    = GetTextWidth (res);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = (54 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
 
     snprintf (res, sizeof (res), "%d", m_pSound->GetAudioVolume ());
     lg    = GetTextWidth (res);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = (284 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
 
     snprintf (res, sizeof (res), "%d", m_pSound->GetMidiVolume ());
     lg    = GetTextWidth (res);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = (399 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
@@ -2681,6 +2722,7 @@ CEvent::DrawButtons ()
     if (m_pMovie->GetEnable () && m_bMovie)
       text = gettext ("Yes");
     lg    = GetTextWidth (text);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = (514 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
@@ -2690,6 +2732,7 @@ CEvent::DrawButtons ()
     else
       snprintf (res, sizeof (res), "%d", m_scrollSpeed);
     lg    = GetTextWidth (res);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = (169 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
@@ -2733,6 +2776,7 @@ CEvent::DrawButtons ()
       lang = "עברי";
 
     lg    = GetTextWidth (lang.c_str ());
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = (54 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, lang.c_str ());
@@ -2740,6 +2784,7 @@ CEvent::DrawButtons ()
     const char * text =
       g_bFullScreen ? gettext ("Fullscreen") : gettext ("Windowed");
     lg    = GetTextWidth (text);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = (169 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
@@ -2752,12 +2797,14 @@ CEvent::DrawButtons ()
         g_zoom == 2 ? gettext ("Legacy") : gettext ("Desktop"));
 
     lg    = GetTextWidth (res);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = (284 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, res);
 
     text  = (g_restoreMidi && mid) || !ogg ? gettext ("Midi") : gettext ("Ogg");
     lg    = GetTextWidth (text);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = (399 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
@@ -2767,6 +2814,7 @@ CEvent::DrawButtons ()
         ? (g_renderQuality ? gettext ("Anti-aliasing") : gettext ("Aliasing"))
         : gettext ("Not available");
     lg    = GetTextWidth (text);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = (514 + 40) - lg / 2 + LXOFFSET ();
     pos.y = 330 - 20;
     DrawText (m_pPixmap, pos, text);
@@ -2779,6 +2827,7 @@ CEvent::DrawButtons ()
 
     text  = gettext ("You have played Planet Blupi.");
     lg    = GetTextWidth (text);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = LXIMAGE () / 2 - lg / 2;
     pos.y = 20;
     DrawText (m_pPixmap, pos, text);
@@ -2786,6 +2835,7 @@ CEvent::DrawButtons ()
     text  = gettext ("We hope you have had as much fun playing the game as we "
                     "had making it !");
     lg    = GetTextWidth (text);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = LXIMAGE () / 2 - lg / 2;
     pos.y = 40;
     DrawText (m_pPixmap, pos, text);
@@ -2811,6 +2861,8 @@ CEvent::DrawButtons ()
     for (size_t i = 0; i < countof (libs); ++i)
     {
       pos.x = 30 + LXOFFSET ();
+      if (IsRightReading ())
+        pos.x = LXIMAGE () - pos.x;
       pos.y = 120 + i * 20;
       DrawText (m_pPixmap, pos, libs[i].c_str ());
     }
@@ -2818,12 +2870,14 @@ CEvent::DrawButtons ()
     text  = gettext ("This game is an original creation of Epsitec SA, CH-1400 "
                     "Yverdon-les-Bains");
     lg    = GetTextWidth (text);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = LXIMAGE () / 2 - lg / 2;
     pos.y = 430;
     DrawText (m_pPixmap, pos, text);
 
     text  = gettext ("http://www.blupi.org            info@blupi.org");
     lg    = GetTextWidth (text);
+    lg    = IsRightReading () ? -lg : lg;
     pos.x = LXIMAGE () / 2 - lg / 2;
     pos.y = 450;
     DrawText (m_pPixmap, pos, text);

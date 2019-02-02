@@ -187,6 +187,9 @@ DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
     rank     = GetOffset (pText);
     auto inc = rank > 127;
 
+    if (IsRightReading ())
+      pos.x += -GetCharWidth (pText, font);
+
     if (font != FONTLITTLE)
     {
       rank += 256 * font;
@@ -195,20 +198,12 @@ DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
     else
       pPixmap->DrawIcon (-1, CHLITTLE, rank, pos);
 
-    if (IsRightReading ())
-    {
-      if (inc)
-        pText++;
-      pText++;
-      pos.x += -GetCharWidth (pText, font);
-    }
-    else
-    {
+    if (!IsRightReading ())
       pos.x += GetCharWidth (pText, font);
-      if (inc)
-        pText++;
+
+    if (inc)
       pText++;
-    }
+    pText++;
   }
 }
 
