@@ -305,13 +305,16 @@ CMenu::Draw ()
       snprintf (text, sizeof (text), "%s", tr);
     }
 
-    if (m_nbCel.x > 1 && i < m_nbCel.y)
+    if (
+      (m_nbCel.x > 1 && i < m_nbCel.y) || (IsRightReading () && m_nbCel.x == 1))
     {
-      pos.x = m_pos.x - 4 - GetTextWidth (text); // texte à gauche
+      pos.x = m_pos.x - 4 -
+              (IsRightReading () ? 0 : GetTextWidth (text)); // texte à gauche
     }
     else
     {
-      pos.x = m_pos.x + m_dim.x + 4;
+      pos.x =
+        m_pos.x + m_dim.x + 4 + (IsRightReading () ? GetTextWidth (text) : 0);
     }
 
     DrawText (m_pPixmap, pos, text, FONTWHITE);
@@ -331,13 +334,16 @@ CMenu::Draw ()
         snprintf (text, sizeof (text), "%s", tr);
       }
 
-      if (m_nbCel.x > 1 && i < m_nbCel.y)
+      if (
+        (m_nbCel.x > 1 && i < m_nbCel.y) ||
+        (IsRightReading () && m_nbCel.x == 1))
       {
-        pos.x = m_pos.x - 4 - GetTextWidth (text);
+        pos.x = m_pos.x - 4 - (IsRightReading () ? 0 : GetTextWidth (text));
       }
       else
       {
-        pos.x = m_pos.x + m_dim.x + 4;
+        pos.x =
+          m_pos.x + m_dim.x + 4 + (IsRightReading () ? GetTextWidth (text) : 0);
       }
 
       pos.y += DIMTEXTY;
