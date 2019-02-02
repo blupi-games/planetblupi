@@ -775,7 +775,9 @@ CDecor::StatisticDraw ()
   if (strlen (textRes))
   {
     nb = GetTextWidth (textRes);
-    pos.x += (POSDRAWX - nb) / 2;
+    pos.x += (POSDRAWX_ - nb) / 2;
+    if (IsRightReading ())
+      pos.x = LXIMAGE () - pos.x;
     DrawText (m_pPixmap, pos, textRes);
   }
 }
@@ -1011,16 +1013,22 @@ Sint32
 CDecor::StatisticDetect (Point pos, bool & disable)
 {
   Sint32 rank;
+  Point  _pos = pos;
 
   disable = false;
 
+  if (IsRightReading ())
+    _pos.x = LXIMAGE () - _pos.x;
+
   // Dans un bouton stop/setup/write ?
-  if (pos.x >= 10 && pos.x <= 10 + 42 * 3 && pos.y >= 422 && pos.y <= 422 + 40)
+  if (
+    _pos.x >= 10 && _pos.x <= 10 + 42 * 3 && _pos.y >= 422 &&
+    _pos.y <= 422 + 40)
   {
-    pos.x -= 10;
-    if (pos.x % 42 > 40)
+    _pos.x -= 10;
+    if (_pos.x % 42 > 40)
       return -1;
-    return 100 + pos.x / 42;
+    return 100 + _pos.x / 42;
   }
 
   if (
