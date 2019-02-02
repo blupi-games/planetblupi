@@ -2349,10 +2349,14 @@ CEvent::DrawButtons ()
       rect.bottom = POSDRAWY;
       m_pPixmap->DrawPart (-1, CHBACK, pos, rect);
 
-      pos.x = POSDRAWX + 20;
+      pos.x = POSDRAWX_ + 20;
       pos.y = POSDRAWY + 4;
+      if (IsRightReading ())
+        pos.x = LXIMAGE () - pos.x;
       DrawTextRect (m_pPixmap, pos, m_libelle, 0, FONTLITTLE, 1);
-      pos.x = POSDRAWX + DIMDRAWX / 2 + 20;
+      pos.x = POSDRAWX_ + DIMDRAWX / 2 + 20;
+      if (IsRightReading ())
+        pos.x = LXIMAGE () - pos.x;
       DrawTextRect (m_pPixmap, pos, m_libelle, 0, FONTLITTLE, 2);
 
       pos.x = POSDRAWX + DIMDRAWX / 2 - DIMBUTTONX / 2;
@@ -2365,6 +2369,8 @@ CEvent::DrawButtons ()
       {
         m_posHelpButton.x = POSDRAWX + DIMDRAWX - DIMBUTTONX - 2;
         m_posHelpButton.y = lg - DIMBUTTONY - 2;
+        if (IsRightReading ())
+          m_posHelpButton.x = POSDRAWX + 2;
         m_pPixmap->DrawIcon (
           -1, CHBUTTON, m_bHiliHelpButton ? 2 : 0, m_posHelpButton);
         if (m_bInfoHelp)
@@ -2378,6 +2384,8 @@ CEvent::DrawButtons ()
     {
       pos.x = POSDRAWX + DIMDRAWX / 2 - DIMBUTTONX / 2;
       pos.y = -12;
+      if (IsRightReading ())
+        m_posHelpButton.x = POSDRAWX + 2;
       m_pPixmap->DrawIcon (-1, CHBUTTON, m_bHiliInfoButton ? 75 : 74, pos);
     }
     m_posInfoButton = pos;
@@ -2395,6 +2403,8 @@ CEvent::DrawButtons ()
 
     pos.x = 420 + LXOFFSET ();
     pos.y = 8;
+    if (IsRightReading ())
+      pos.x = LXIMAGE () - pos.x;
     DrawText (m_pPixmap, pos, res);
 
     for (i = 0; i < 10; i++)
@@ -2406,9 +2416,13 @@ CEvent::DrawButtons ()
       lg    = GetTextWidth (text);
       pos.x = (420 + 460) / 2 - lg / 2 + LXOFFSET ();
       pos.y = 30 + 12 + 42 * i;
+      if (IsRightReading ())
+        pos.x = LXIMAGE () - pos.x;
       DrawText (m_pPixmap, pos, text, FONTSLIM);
 
       pos.x = 420 + 50 + LXOFFSET ();
+      if (IsRightReading ())
+        pos.x = LXIMAGE () - pos.x;
 
       if (world >= 0)
       {
@@ -3077,6 +3091,7 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
       {
         snprintf (m_textToolTips, sizeof (m_textToolTips), "%s", text);
         lg = GetTextWidth (m_textToolTips);
+        lg = IsRightReading () ? -lg : lg;
         test.x += (DIMJAUGEX - lg) / 2;
         test.y += 4;
         m_posToolTips = test;
