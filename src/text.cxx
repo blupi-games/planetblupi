@@ -180,10 +180,34 @@ GetCharWidth (const char *& c, Sint32 font)
 void
 DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
 {
-  Sint32 rank;
+  Sint32       rank;
+  bool         isNumber   = false;
+  int          numberSize = 0;
+  const char * it         = nullptr;
+  int          skip       = 0;
 
-  while (*pText != '\0')
+  while (*pText != '\0' || skip)
   {
+    if (IsRightReading () && numberSize == 0)
+    {
+      it       = pText;
+      isNumber = *pText >= '0' && *pText <= '9';
+      if (isNumber)
+      {
+        while (*pText >= '0' && *pText <= '9')
+          ++pText;
+
+        numberSize = pText - it;
+        skip       = numberSize - 1;
+      }
+    }
+
+    if (numberSize)
+    {
+      pText = it + numberSize - 1;
+      numberSize--;
+    }
+
     rank     = GetOffset (pText);
     auto inc = rank > 127;
 
@@ -200,6 +224,12 @@ DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
 
     if (!IsRightReading ())
       pos.x += GetCharWidth (pText, font);
+
+    if (!numberSize && skip > 0)
+    {
+      pText += skip;
+      skip = 0;
+    }
 
     if (inc)
       pText++;

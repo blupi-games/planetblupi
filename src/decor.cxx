@@ -1538,7 +1538,7 @@ term:
       const auto text = GetResHili (posMouse);
       if (text)
       {
-        posMouse.x += 10;
+        posMouse.x += IsRightReading () ? 0 : 10;
         posMouse.y += 20;
         DrawText (m_pPixmap, posMouse, text);
       }
@@ -1843,7 +1843,8 @@ CDecor::CelOkForAction (
       GetFloor (cel, channel, icon);
       if ( // mine ?
         action == EV_ACTION_BUILD4 &&
-        ((!g_restoreBugs && !m_decorMem[cel.x / 2][cel.y / 2].flagged) || // fixed
+        ((!g_restoreBugs &&
+          !m_decorMem[cel.x / 2][cel.y / 2].flagged) ||          // fixed
          (g_restoreBugs && (channel != CHFLOOR || icon != 71)))) // funny bug
       {
         error = Errors::GROUND; // sol pas adéquat

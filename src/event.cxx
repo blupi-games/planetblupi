@@ -2294,28 +2294,30 @@ CEvent::DrawButtons ()
     }
     m_menu.Draw ();
 
+    auto offset = IsRightReading () ? POSDRAWX + DIMDRAWX : 0;
+
     // Dessine la rose des vents.
     if (!m_bPause && !m_bDemoPlay)
     {
-      DrawTextCenter (gettext ("N"), (10 + 134) / 2, 17);
-      DrawTextCenter (gettext ("S"), (10 + 134) / 2, 126);
-      DrawTextCenter (gettext ("W"), 14, 70);
-      DrawTextCenter (gettext ("E"), 129, 70);
+      DrawTextCenter (gettext ("N"), (10 + 134) / 2 + offset, 17);
+      DrawTextCenter (gettext ("S"), (10 + 134) / 2 + offset, 126);
+      DrawTextCenter (gettext ("W"), 14 + offset, 70);
+      DrawTextCenter (gettext ("E"), 129 + offset, 70);
     }
 
     // Dessine la pause.
     if (m_bPause)
-      DrawTextCenter (gettext ("Game paused"), (10 + 134) / 2, 20);
+      DrawTextCenter (gettext ("Game paused"), (10 + 134) / 2 + offset, 20);
     else
     {
       if (m_bDemoRec) // recording demo ?
-        DrawTextCenter (gettext ("REC"), (10 + 38) / 2, 20, FONTRED);
+        DrawTextCenter (gettext ("REC"), (10 + 38) / 2 + offset, 20, FONTRED);
       if (m_bDemoPlay) // playing demo ?
-        DrawTextCenter (gettext ("Demo"), (10 + 134) / 2, 20, FONTRED);
+        DrawTextCenter (gettext ("Demo"), (10 + 134) / 2 + offset, 20, FONTRED);
     }
 
     // Dessine la vitesse.
-    pos.x       = 64;
+    pos.x       = IsRightReading () ? LXIMAGE () - 64 : 64;
     pos.y       = LYIMAGE () - 15;
     rect.left   = pos.x;
     rect.right  = pos.x + 20;
@@ -3117,7 +3119,7 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
       {
         snprintf (m_textToolTips, sizeof (m_textToolTips), "%s", text);
         lg = GetTextWidth (m_textToolTips);
-        pos.x += IsRightReading () ? -10 : 10;
+        pos.x += IsRightReading () ? 0 : 10;
         pos.y += 20;
         if (pos.x > LXIMAGE () + (IsRightReading () ? 0 : -lg))
           pos.x = LXIMAGE () - lg;
