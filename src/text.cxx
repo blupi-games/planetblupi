@@ -176,15 +176,19 @@ GetCharWidth (const char *& c, Sint32 font)
  * \param[in] pos - The coordinates for the text.
  * \param[in] pText - The text.
  * \param[in] font - The font style (little or normal).
+ * \param[in] slope - Text slope.
  */
 void
-DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
+DrawText (
+  CPixmap * pPixmap, Point pos, const char * pText, Sint32 font, Sint32 slope)
 {
   Sint32       rank;
   bool         isNumber   = false;
   int          numberSize = 0;
   const char * it         = nullptr;
   int          skip       = 0;
+  Sint32       start      = pos.y;
+  Sint32       rel        = 0;
 
   while (*pText != '\0' || skip)
   {
@@ -210,9 +214,14 @@ DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
 
     rank     = GetOffset (pText);
     auto inc = rank > 127;
+    auto lg  = GetCharWidth (pText, font);
 
     if (IsRightReading ())
-      pos.x += -GetCharWidth (pText, font);
+      pos.x += -lg;
+
+    rel += lg;
+    if (slope)
+      pos.y = start + rel / slope;
 
     if (font != FONTLITTLE)
     {
@@ -223,7 +232,7 @@ DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
       pPixmap->DrawIcon (-1, CHLITTLE, rank, pos);
 
     if (!IsRightReading ())
-      pos.x += GetCharWidth (pText, font);
+      pos.x += lg;
 
     if (!numberSize && skip > 0)
     {
@@ -234,35 +243,6 @@ DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
     if (inc)
       pText++;
     pText++;
-  }
-}
-
-// Affiche un texte penché.
-
-void
-DrawTextPente (
-  CPixmap * pPixmap, Point pos, const char * pText, Sint32 pente, Sint32 font)
-{
-  Sint32 rank, lg, rel, start;
-
-  start = pos.y;
-  rel   = 0;
-  while (*pText != 0)
-  {
-    rank     = GetOffset (pText);
-    auto inc = rank > 127;
-
-    rank += 256 * font;
-    pPixmap->DrawIcon (-1, CHTEXT, rank, pos);
-
-    lg = GetCharWidth (pText, font);
-
-    if (inc)
-      pText++;
-    pText++;
-    rel += lg;
-    pos.x += IsRightReading () ? -lg : lg;
-    pos.y = start + rel / pente;
   }
 }
 
@@ -309,10 +289,7 @@ DrawTextRect (
         continue;
     }
 
-    if (pente == 0)
-      DrawText (pPixmap, pos, pDest, font);
-    else
-      DrawTextPente (pPixmap, pos, pDest, pente, font);
+    DrawText (pPixmap, pos, pDest, font, pente);
 
     if (pDest[0] == 0) // ligne vide ?
     {

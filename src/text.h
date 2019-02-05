@@ -27,12 +27,9 @@
 #define FONTLITTLE 10
 // clang-format on
 
-void
-DrawText (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font = 0);
-
-void DrawTextPente (
-  CPixmap * pPixmap, Point pos, const char * pText, Sint32 pente,
-  Sint32 font = 0);
+void DrawText (
+  CPixmap * pPixmap, Point pos, const char * pText, Sint32 font = 0,
+  Sint32 slope = 0);
 
 void DrawTextRect (
   CPixmap * pPixmap, Point pos, char * pText, Sint32 pente, Sint32 font = 0,
