@@ -734,13 +734,13 @@ CDecor::StatisticDraw ()
 
     if (pStatistic->nb > 0)
     {
-      pos.x -= 3;
+      pos.x -= IsRightReading () ? -21 : 3;
       pos.y -= 5;
       m_pPixmap->DrawIcon (-1, CHBUTTON, icon, pos);
 
       nb = pStatistic->nb;
       snprintf (text, sizeof (text), "%d", nb);
-      pos.x += 3 + 34;
+      pos.x += IsRightReading () ? -21 + 22 : 3 + 34;
       pos.y += 5 + 7;
       DrawText (m_pPixmap, pos, text);
     }
