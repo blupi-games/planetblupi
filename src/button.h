@@ -36,7 +36,8 @@ public:
 
   bool Create (
     CPixmap * pPixmap, CSound * pSound, Point pos, Sint32 type, Sint32 * pMenu,
-    Sint32 nbMenu, const char ** pToolTips, Sint32 region, Uint32 message);
+    Sint32 nbMenu, const char ** pToolTips, Sint32 region, Uint32 message,
+    bool isRightReading);
   void Draw ();
 
   Sint32 GetState ();

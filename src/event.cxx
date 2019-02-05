@@ -2065,7 +2065,7 @@ CEvent::CreateButtons (Sint32 phase)
       m_pPixmap, m_pSound, pos, table[m_index].buttons[i].type,
       table[m_index].buttons[i].iconMenu + 1,
       table[m_index].buttons[i].iconMenu[0], table[m_index].buttons[i].toolTips,
-      m_pDecor->GetRegion (), message);
+      m_pDecor->GetRegion (), message, isRightReading);
     i++;
   }
 

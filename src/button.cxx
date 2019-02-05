@@ -55,7 +55,8 @@ CButton::~CButton () {}
 bool
 CButton::Create (
   CPixmap * pPixmap, CSound * pSound, Point pos, Sint32 type, Sint32 * pMenu,
-  Sint32 nbMenu, const char ** pToolTips, Sint32 region, Uint32 message)
+  Sint32 nbMenu, const char ** pToolTips, Sint32 region, Uint32 message,
+  bool isRightReading)
 {
   Point  iconDim;
   Sint32 i, icon;
@@ -91,6 +92,14 @@ CButton::Create (
   for (i = 0; i < nbMenu; i++)
   {
     icon = pMenu[i];
+
+    if (isRightReading)
+    {
+      if (icon == 51) // right arrow
+        icon = 50;
+      else if (icon == 50) // left arrow
+        icon = 51;
+    }
 
     if (region == 1) // palmiers ?
     {
