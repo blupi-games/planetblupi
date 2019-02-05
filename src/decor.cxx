@@ -248,7 +248,7 @@ CDecor::LoadImages ()
   totalDim.y = DIMCELY * 2 * 6;
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
-  snprintf (filename, sizeof (filename), "image/floor%.3d.png", m_region);
+  snprintf (filename, sizeof (filename), "floor%.3d.png", m_region);
   if (!m_pPixmap->Cache (CHFLOOR, filename, totalDim, iconDim))
     return false;
 
@@ -256,11 +256,11 @@ CDecor::LoadImages ()
   totalDim.y = DIMOBJY * 8;
   iconDim.x  = DIMOBJX;
   iconDim.y  = DIMOBJY;
-  snprintf (filename, sizeof (filename), "image/obj%.3d.png", m_region);
+  snprintf (filename, sizeof (filename), "obj%.3d.png", m_region);
   if (!m_pPixmap->Cache (CHOBJECT, filename, totalDim, iconDim))
     return false;
 
-  snprintf (filename, sizeof (filename), "image/obj-o%.3d.png", m_region);
+  snprintf (filename, sizeof (filename), "obj-o%.3d.png", m_region);
   if (!m_pPixmap->Cache (CHOBJECTo, filename, totalDim, iconDim))
     return false;
 

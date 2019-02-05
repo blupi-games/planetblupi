@@ -329,7 +329,11 @@ CPixmap::Cache (
   size_t channel, const std::string & pFilename, Point totalDim, Point iconDim,
   Mode mode, std::string wideName)
 {
-  std::string   file       = GetBaseDir () + pFilename;
+  std::string absolute;
+  std::string file = GetBaseDir () + "image/" + GetLocale () + "/" + pFilename;
+  if (!FileExists (file, file, LOCATION_ABSOLUTE))
+    file = GetBaseDir () + "image/" + pFilename;
+
   SDL_Surface * surface    = IMG_Load (file.c_str ());
   bool          blupiChSet = false;
 
@@ -394,7 +398,8 @@ CPixmap::Cache (
     {
       if (!wideName.empty ())
       {
-        std::string   file = GetBaseDir () + m_SDLTextureInfo[channel].wideName;
+        std::string file =
+          GetBaseDir () + "image/" + m_SDLTextureInfo[channel].wideName;
         SDL_Surface * surface = IMG_Load (file.c_str ());
         SDL_Texture * texture =
           SDL_CreateTextureFromSurface (g_renderer, surface);

@@ -361,7 +361,7 @@ HandleEvent (const SDL_Event & event)
         totalDim.y = 66;
         iconDim.x  = 64;
         iconDim.y  = 66 / 2;
-        g_pPixmap->Cache (CHHILI, "image/hili.png", totalDim, iconDim);
+        g_pPixmap->Cache (CHHILI, "hili.png", totalDim, iconDim);
       }
       SDL_SetWindowTitle (g_window, gettext ("Planet Blupi"));
       if (g_pSound != nullptr)
@@ -865,9 +865,9 @@ DoInit (int argc, char * argv[], bool & exit)
   iconDim.x  = 0;
   iconDim.y  = 0;
 #if _INTRO
-  if (!g_pPixmap->Cache (CHBACK, "image/intro1.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHBACK, "intro1.png", totalDim, iconDim))
 #else
-  if (!g_pPixmap->Cache (CHBACK, "image/init.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHBACK, "init.png", totalDim, iconDim))
 #endif
     return EXIT_FAILURE;
 
@@ -888,7 +888,7 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = DIMCELY * 2 * 6;
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
-  if (!g_pPixmap->Cache (CHFLOOR, "image/floor000.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHFLOOR, "floor000.png", totalDim, iconDim))
   {
     InitFail ("Cache floor000.png");
     return EXIT_FAILURE;
@@ -898,13 +898,13 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = DIMOBJY * 8;
   iconDim.x  = DIMOBJX;
   iconDim.y  = DIMOBJY;
-  if (!g_pPixmap->Cache (CHOBJECT, "image/obj000.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHOBJECT, "obj000.png", totalDim, iconDim))
   {
     InitFail ("Cache obj000.png");
     return EXIT_FAILURE;
   }
 
-  if (!g_pPixmap->Cache (CHOBJECTo, "image/obj-o000.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHOBJECTo, "obj-o000.png", totalDim, iconDim))
   {
     InitFail ("Cache obj-o000.png");
     return EXIT_FAILURE;
@@ -914,7 +914,7 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = DIMBLUPIY * 23;
   iconDim.x  = DIMBLUPIX;
   iconDim.y  = DIMBLUPIY;
-  if (!g_pPixmap->Cache (CHBLUPI, "image/blupi.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHBLUPI, "blupi.png", totalDim, iconDim))
   {
     InitFail ("Cache blupi.png");
     return EXIT_FAILURE;
@@ -924,7 +924,7 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = 66;
   iconDim.x  = 64;
   iconDim.y  = 66 / 2;
-  if (!g_pPixmap->Cache (CHHILI, "image/hili.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHHILI, "hili.png", totalDim, iconDim))
   {
     InitFail ("Cache hili.png");
     return EXIT_FAILURE;
@@ -934,7 +934,7 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = DIMCELY * 2 * 5;
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
-  if (!g_pPixmap->Cache (CHFOG, "image/fog.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHFOG, "fog.png", totalDim, iconDim))
   {
     InitFail ("Cache fog.png");
     return EXIT_FAILURE;
@@ -944,7 +944,7 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = DIMCELY * 2 * 1;
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
-  if (!g_pPixmap->Cache (CHMASK1, "image/mask1.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHMASK1, "mask1.png", totalDim, iconDim))
   {
     InitFail ("Cache mask1.png");
     return EXIT_FAILURE;
@@ -954,7 +954,7 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = DIMCELY * 2 * 1;
   iconDim.x  = DIMCELX * 2;
   iconDim.y  = DIMCELY * 2;
-  if (!g_pPixmap->Cache (CHMASK2, "image/mask2.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHMASK2, "mask2.png", totalDim, iconDim))
   {
     InitFail ("Cache mask2.png");
     return EXIT_FAILURE;
@@ -964,7 +964,7 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = DIMBUTTONY * 21;
   iconDim.x  = DIMBUTTONX;
   iconDim.y  = DIMBUTTONY;
-  if (!g_pPixmap->Cache (CHBUTTON, "image/button00.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHBUTTON, "button00.png", totalDim, iconDim))
   {
     InitFail ("Cache button00.png");
     return EXIT_FAILURE;
@@ -974,7 +974,7 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = DIMJAUGEY * 4;
   iconDim.x  = DIMJAUGEX;
   iconDim.y  = DIMJAUGEY;
-  if (!g_pPixmap->Cache (CHJAUGE, "image/jauge.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHJAUGE, "jauge.png", totalDim, iconDim))
   {
     InitFail ("Cache jauge.png");
     return EXIT_FAILURE;
@@ -984,7 +984,7 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = DIMTEXTY * 16 * 3;
   iconDim.x  = DIMTEXTX;
   iconDim.y  = DIMTEXTY;
-  if (!g_pPixmap->Cache (CHTEXT, "image/text.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHTEXT, "text.png", totalDim, iconDim))
   {
     InitFail ("Cache text.png");
     return EXIT_FAILURE;
@@ -994,7 +994,7 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = DIMLITTLEY * 16;
   iconDim.x  = DIMLITTLEX;
   iconDim.y  = DIMLITTLEY;
-  if (!g_pPixmap->Cache (CHLITTLE, "image/little.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHLITTLE, "little.png", totalDim, iconDim))
   {
     InitFail ("Cache little.png");
     return EXIT_FAILURE;
@@ -1004,7 +1004,7 @@ DoInit (int argc, char * argv[], bool & exit)
   totalDim.y = 52;
   iconDim.x  = 426;
   iconDim.y  = 52;
-  if (!g_pPixmap->Cache (CHBIGNUM, "image/bignum.png", totalDim, iconDim))
+  if (!g_pPixmap->Cache (CHBIGNUM, "bignum.png", totalDim, iconDim))
   {
     InitFail ("Cache bignum.png");
     return EXIT_FAILURE;
