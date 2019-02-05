@@ -290,24 +290,43 @@ CButton::MouseOnButton (Point pos)
   return Detect (pos);
 }
 
+bool
+CButton::IsInMenu (const Point & pos)
+{
+  Sint32 width = m_dim.x;
+
+  if (m_nbMenu > 1 && m_bMouseDown) // submenu expanded ?
+    width += 2 + (m_dim.x + (IsRightReading () ? 1 : -1)) * m_nbMenu;
+
+  if (IsRightReading () && m_nbMenu > 1 && m_bMouseDown)
+  {
+    if (pos.x > m_pos.x + m_dim.x || pos.x < m_pos.x - width + m_dim.x)
+      return false;
+  }
+  else
+  {
+    if (pos.x < m_pos.x || pos.x > m_pos.x + width)
+      return false;
+  }
+
+  if (pos.y < m_pos.y || pos.y > m_pos.y + m_dim.y)
+    return false;
+
+  return true;
+}
+
 // Retourne le tooltips pour un bouton, en fonction
 // de la position de la souris.
 
 const char *
 CButton::GetToolTips (Point pos)
 {
-  Sint32 width = m_dim.x;
   Sint32 rank;
 
   if (m_bHide || !m_bEnable)
     return nullptr;
 
-  if (m_nbMenu > 1 && m_bMouseDown) // sous-menu déroulé ?
-    width += 2 + (m_dim.x - 1) * m_nbMenu;
-
-  if (
-    pos.x < m_pos.x || pos.x > m_pos.x + width || pos.y < m_pos.y ||
-    pos.y > m_pos.y + m_dim.y)
+  if (!this->IsInMenu (pos))
     return nullptr;
 
   rank = (pos.x - (m_pos.x + 2 + 1)) / (m_dim.x - 1);
@@ -332,20 +351,10 @@ CButton::GetToolTips (Point pos)
 bool
 CButton::Detect (Point pos)
 {
-  Sint32 width = m_dim.x;
-
   if (m_bHide || !m_bEnable)
     return false;
 
-  if (m_nbMenu > 1 && m_bMouseDown) // sous-menu déroulé ?
-    width += 2 + (m_dim.x - 1) * m_nbMenu;
-
-  if (
-    pos.x < m_pos.x || pos.x > m_pos.x + width || pos.y < m_pos.y ||
-    pos.y > m_pos.y + m_dim.y)
-    return false;
-
-  return true;
+  return this->IsInMenu (pos);
 }
 
 // Bouton de la souris pressé.
@@ -395,9 +404,12 @@ CButton::MouseMove (Point pos)
 
   if (
     m_nbMenu > 1 && m_bMouseDown &&
-    pos.x > m_pos.x + m_dim.x + 2) // dans sous-menu ?
+    (IsRightReading () ? pos.x < m_pos.x
+                       : pos.x > m_pos.x + m_dim.x + 2)) // in sub-menu ?
   {
-    m_selMenu = (pos.x - (m_pos.x + m_dim.x + 2)) / (m_dim.x - 1);
+    m_selMenu = IsRightReading ()
+                  ? (m_pos.x - 2 - pos.x) / (m_dim.x + 1)
+                  : (pos.x - (m_pos.x + m_dim.x + 2)) / (m_dim.x - 1);
     if (m_selMenu >= m_nbMenu)
       m_selMenu = m_nbMenu - 1;
   }

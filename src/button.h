@@ -58,6 +58,7 @@ public:
 
 protected:
   bool Detect (Point pos);
+  bool IsInMenu (const Point & pos);
   bool MouseDown (Point pos);
   bool MouseMove (Point pos);
   bool MouseUp (Point pos);
