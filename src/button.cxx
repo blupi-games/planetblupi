@@ -99,6 +99,8 @@ CButton::Create (
         icon = 50;
       else if (icon == 50) // left arrow
         icon = 51;
+      else if (icon == 40) // stop
+        icon = 109;
     }
 
     if (region == 1) // palmiers ?
