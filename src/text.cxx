@@ -212,7 +212,16 @@ DrawText (
       numberSize--;
     }
 
-    rank     = GetOffset (pText);
+    rank = GetOffset (pText);
+
+    if (IsRightReading ())
+    {
+      if (rank == '(')
+        rank = ')';
+      else if (rank == ')')
+        rank = '(';
+    }
+
     auto inc = rank > 127;
     auto lg  = GetCharWidth (pText, font);
 
