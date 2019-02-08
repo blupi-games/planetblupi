@@ -2477,26 +2477,26 @@ CDecor::BlupiNextAction (Sint32 rank)
      * direction and a second from the other direction. Without this check, the
      * object is duplicated.
      */
-    for (int i = 0; i < MAXBLUPI; ++i)
-    {
-      if (rank == i || !m_blupi[i].bExist)
-        continue;
-
-      if (
-        (m_blupi[rank].goalAction == EV_ACTION_CARRY ||
+    if ((m_blupi[rank].goalAction == EV_ACTION_CARRY ||
          m_blupi[rank].goalAction == EV_ACTION_EAT ||
-         m_blupi[rank].goalAction == EV_ACTION_DRINK) &&
-        (m_blupi[i].goalAction == EV_ACTION_CARRY2 ||
-         m_blupi[i].goalAction == EV_ACTION_EAT2 ||
-         m_blupi[i].goalAction == EV_ACTION_DRINK2) &&
-        m_blupi[rank].goalHili.x == m_blupi[i].goalHili.x &&
-        m_blupi[rank].goalHili.y == m_blupi[i].goalHili.y)
+         m_blupi[rank].goalAction == EV_ACTION_DRINK))
+      for (int i = 0; i < MAXBLUPI; ++i)
       {
-        BlupiInitAction (i, ACTION_STOP);
-        GoalStop (i, true);
-        return false;
+        if (rank == i || !m_blupi[i].bExist)
+          continue;
+
+        if (
+          (m_blupi[i].goalAction == EV_ACTION_CARRY2 ||
+           m_blupi[i].goalAction == EV_ACTION_EAT2 ||
+           m_blupi[i].goalAction == EV_ACTION_DRINK2) &&
+          m_blupi[rank].goalHili.x == m_blupi[i].goalHili.x &&
+          m_blupi[rank].goalHili.y == m_blupi[i].goalHili.y)
+        {
+          BlupiInitAction (i, ACTION_STOP);
+          GoalStop (i, true);
+          return false;
+        }
       }
-    }
 
     /* Prevent Blupi to take a trap when an enemy is already captured. */
     if (m_blupi[rank].perso == 0 && m_blupi[rank].action == ACTION_CARRY)
