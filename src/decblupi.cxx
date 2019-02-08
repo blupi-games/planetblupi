@@ -200,7 +200,7 @@ void
 CDecor::BlupiDelete (Sint32 rank)
 {
   m_blupi[rank].bExist = false;
-  this->m_pSound->StopSound(true, rank);
+  this->m_pSound->StopSound (true, rank);
 
   if (
     !m_bBuild && // phase de jeu ?
@@ -237,7 +237,7 @@ CDecor::BlupiKill (Sint32 exRank, Point cel, Sint32 type)
       if (type == 0) // explosion ?
       {
         m_blupi[rank].bExist = false; // mort instantannée
-        this->m_pSound->StopSound(true, rank);
+        this->m_pSound->StopSound (true, rank);
       }
 
       if (type == 1) // électro ?
