@@ -5516,6 +5516,10 @@ CEvent::DemoStep ()
         message = m_pDemoBuffer[m_demoIndex].message;
         wParam  = m_pDemoBuffer[m_demoIndex].wParam;
         lParam  = m_pDemoBuffer[m_demoIndex].lParam;
+
+        if (IsRightReading ())
+          lParam =
+            (lParam & 0xFFFF0000) | ((lParam & 0xFFFF) - POSDRAWX_ + POSDRAWX);
       }
       else // New SDL events format
       {
@@ -5528,12 +5532,18 @@ CEvent::DemoStep ()
         {
           event.motion.x = m_pDemoSDLBuffer[m_demoIndex].x;
           event.motion.y = m_pDemoSDLBuffer[m_demoIndex].y;
+
+          if (IsRightReading ())
+            event.motion.x -= POSDRAWX_ + POSDRAWX;
         }
         else if (event.type != SDL_KEYUP && event.type != SDL_KEYDOWN)
         {
           event.button.button = m_pDemoSDLBuffer[m_demoIndex].button;
           event.button.x      = m_pDemoSDLBuffer[m_demoIndex].x;
           event.button.y      = m_pDemoSDLBuffer[m_demoIndex].y;
+
+          if (IsRightReading ())
+            event.button.x -= POSDRAWX_ + POSDRAWX;
         }
       }
 
