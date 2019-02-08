@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-27 15:19+0100\n"
-"PO-Revision-Date: 2019-02-05 22:49+0100\n"
+"PO-Revision-Date: 2019-02-08 23:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he\n"
@@ -681,10 +681,10 @@ msgid "Paving stones"
 msgstr "מרצפות"
 
 msgid "Planet Blupi"
-msgstr "בבלופי"
+msgstr "בלופי"
 
 msgid "Planet Blupi -- stop"
-msgstr "בבלופי -- עצור"
+msgstr "בלופי -- עצור"
 
 msgid "Planks"
 msgstr "קרשים"
@@ -939,7 +939,7 @@ msgid "You have failed, try again..."
 msgstr "נכשלתם נסו שוב..."
 
 msgid "You have played Planet Blupi."
-msgstr "שיחקתם בבלופי."
+msgstr "שיחקתם בלופי."
 
 #, c-format
 msgid "construction %d, time %d"
