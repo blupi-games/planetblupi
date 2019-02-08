@@ -271,6 +271,8 @@ CMenu::Draw ()
     m_pPixmap->DrawIcon (-1, CHBUTTON, state, pos);
 
     icon = table_button_icon[m_buttons[i]];
+    if (IsRightReading () && icon == 40)
+      icon = 109;
     if (m_perso == 8) // disciple ?
     {
       if (icon == 30)

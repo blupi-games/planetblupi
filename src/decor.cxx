@@ -1346,7 +1346,8 @@ CDecor::Build (Rect clip, Point posMouse)
             tPos = pos;
             tPos.x += 9;
             tPos.y -= 24;
-            m_pPixmap->DrawIcon (-1, CHBUTTON, 46, tPos);
+            m_pPixmap->DrawIcon (
+              -1, CHBUTTON, IsRightReading () ? 115 : 46, tPos);
           }
 
           // Dessine blupi
