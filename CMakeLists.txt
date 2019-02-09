@@ -311,6 +311,10 @@ if (NOT BUILD_JS)
 
   if (UNIX AND NOT APPLE)
     install (DIRECTORY resources/icon/hicolor DESTINATION share/icons)
+    install (
+      FILES resources/linux/${PB_PACKAGE_NAME}.appdata.xml
+      DESTINATION share/metainfo
+    )
   endif ()
 
   if (NOT USE_APPIMAGE)
