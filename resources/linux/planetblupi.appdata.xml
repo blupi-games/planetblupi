@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
 	<id>planetblupi</id>
-	<metadata_license>GPL-3.0</metadata_license>
+	<metadata_license>MIT</metadata_license>
 	<project_license>GPL-3.0+</project_license>
 	<name>Planet Blupi</name>
 	<summary>Planet Blupi - A delirious spell-binding game</summary>
