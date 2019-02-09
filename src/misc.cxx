@@ -99,9 +99,14 @@ GetLocale ()
 }
 
 bool
-IsRightReading ()
+IsRightReading (const char * text)
 {
-  return GetLocale () == "he";
+  auto isRight = false;
+  if (text)
+    isRight = strchr (text, 0xD7) != nullptr;
+  else
+    isRight = GetLocale () == "he";
+  return isRight;
 }
 
 // Retourne le nom de dossier en cours.
