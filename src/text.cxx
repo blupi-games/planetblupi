@@ -190,9 +190,16 @@ DrawText (
   Sint32       start      = pos.y;
   Sint32       rel        = 0;
 
+  auto useD7          = strchr (pText, 0xD7) != nullptr;
+  auto isRightReading = useD7 && IsRightReading ();
+  auto length         = strlen (pText);
+
+  if (length >= 1 && !useD7 && IsRightReading ())
+    pos.x -= GetTextWidth (pText, font);
+
   while (*pText != '\0' || skip)
   {
-    if (IsRightReading () && numberSize == 0)
+    if (isRightReading && numberSize == 0)
     {
       it       = pText;
       isNumber = *pText >= '0' && *pText <= '9';
@@ -214,7 +221,7 @@ DrawText (
 
     rank = GetOffset (pText);
 
-    if (IsRightReading ())
+    if (isRightReading)
     {
       if (rank == '(')
         rank = ')';
@@ -225,7 +232,7 @@ DrawText (
     auto inc = rank > 127;
     auto lg  = GetCharWidth (pText, font);
 
-    if (IsRightReading ())
+    if (isRightReading)
       pos.x += -lg;
 
     rel += lg;
@@ -240,7 +247,7 @@ DrawText (
     else
       pPixmap->DrawIcon (-1, CHLITTLE, rank, pos);
 
-    if (!IsRightReading ())
+    if (!isRightReading)
       pos.x += lg;
 
     if (!numberSize && skip > 0)
@@ -321,6 +328,7 @@ DrawTextCenter (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
   char * pDest;
   Sint32 itl;
   Point  start;
+  auto   isRightReading = IsRightReading ();
 
   if (font == FONTLITTLE)
     itl = DIMLITTLEY;
@@ -341,7 +349,7 @@ DrawTextCenter (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
     pDest = text;
     start.x =
       pos.x +
-      (IsRightReading () ? GetTextWidth (pDest) : -GetTextWidth (pDest)) / 2;
+      (isRightReading ? GetTextWidth (pDest) : -GetTextWidth (pDest)) / 2;
     start.y = pos.y;
     DrawText (pPixmap, start, pDest, font);
 
