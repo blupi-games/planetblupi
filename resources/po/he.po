@@ -691,10 +691,10 @@ msgid "Paving stones"
 msgstr "מרצפות"
 
 msgid "Planet Blupi"
-msgstr "בלופי"
+msgstr "הכוכב בלופי"
 
 msgid "Planet Blupi -- stop"
-msgstr "בלופי -- עצור"
+msgstr "הכוכב בלופי -- עצור"
 
 msgid "Planks"
 msgstr "קרשים"
