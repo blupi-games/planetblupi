@@ -183,7 +183,7 @@ DrawText (
   CPixmap * pPixmap, Point pos, const char * pText, Sint32 font, Sint32 slope)
 {
   Sint32       rank;
-  bool         isNumber   = false;
+  bool         isLatin   = false;
   int          numberSize = 0;
   const char * it         = nullptr;
   int          skip       = 0;
@@ -201,11 +201,14 @@ DrawText (
   {
     if (isRightReading && numberSize == 0)
     {
+      const auto test = [](const char * text) -> bool {
+        return *text >= ' ' && *text <= '~';
+      };
       it       = pText;
-      isNumber = *pText >= '0' && *pText <= '9';
-      if (isNumber)
+      isLatin = test (pText);
+      if (isLatin)
       {
-        while (*pText >= '0' && *pText <= '9')
+        while (test (pText))
           ++pText;
 
         numberSize = pText - it;
