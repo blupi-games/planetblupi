@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-27 15:19+0100\n"
-"PO-Revision-Date: 2019-02-08 23:20+0100\n"
+"PO-Revision-Date: 2019-02-14 19:54-0500\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he\n"
@@ -23,10 +23,10 @@ msgid " - FFmpeg (LGPLv2.1)"
 msgstr " - FFmpeg (LGPLv2.1)"
 
 msgid " - GNU/gettext and GNU/libiconv (GPLv3)"
-msgstr ""
+msgstr " - GNU/gettext and GNU/libiconv (GPLv3)"
 
 msgid " - SDL2, SDL2_image and SDL2_mixer (zlib license)"
-msgstr ""
+msgstr " - SDL2, SDL2_image and SDL2_mixer (zlib license)"
 
 msgid " - SDL_kitchensink (MIT)"
 msgstr " - SDL_kitchensink (MIT)"
@@ -38,13 +38,13 @@ msgid " - libasound (LGPLv2.1)"
 msgstr " - libasound (LGPLv2.1)"
 
 msgid " - libcurl (MIT/X derivate)"
-msgstr ""
+msgstr " - libcurl (MIT/X derivate)"
 
 msgid " - libogg and libvorbis (own license)"
-msgstr ""
+msgstr " - libogg and libvorbis (own license)"
 
 msgid " - libpng (own license)"
-msgstr ""
+msgstr " - libpng (own license)"
 
 msgid " - libpulse (LGPLv2.1)"
 msgstr " - libpulse (LGPLv2.1)"
@@ -53,7 +53,7 @@ msgid " - libsndfile (LGPLv3)"
 msgstr " - libsndfile (LGPLv3)"
 
 msgid " - zlib (own license)"
-msgstr ""
+msgstr " - zlib (own license)"
 
 msgid "(isolated tower)"
 msgstr "(מגדל מבודד)"
@@ -91,7 +91,7 @@ msgid ""
 "2: Make a bomb"
 msgstr ""
 "1: להפיק ברזל\n"
-"2: לבנות פצצה"
+"2: להכין פצצה"
 
 msgid ""
 "1: Extract iron\n"
@@ -112,7 +112,7 @@ msgid ""
 "2: Transform"
 msgstr ""
 "1: לאסוף\n"
-"2: להפוך"
+"2: לשנות"
 
 msgid ""
 "1: Take\n"
@@ -140,7 +140,7 @@ msgid ""
 "2: Transform"
 msgstr ""
 "1: לקחת\n"
-"2: להפוך"
+"2: לשנות"
 
 msgid ""
 "1|Drop planks on striped \n"
@@ -174,7 +174,7 @@ msgid ""
 "1|Go on striped\n"
 "1|paving stones."
 msgstr ""
-"1|הגיעו אל המרצפות\n"
+"1|לכו אל המרצפות\n"
 "1|המפוספסות"
 
 msgid "1|Goal :"
@@ -210,10 +210,10 @@ msgstr ""
 "1|המרצפות המפוספסות"
 
 msgid "Aliasing"
-msgstr ""
+msgstr "מצב חלק"
 
 msgid "All licenses are available under share/doc/planetblupi/copyright"
-msgstr ""
+msgstr "כל הרישיונות זמינים תחת share/doc/planetblupi/copyright "
 
 msgid "Already two teleporters"
 msgstr "יש כבר שני משגרים"
@@ -222,10 +222,10 @@ msgid "Another mistake..."
 msgstr "עוד טעות!"
 
 msgid "Anti-aliasing"
-msgstr ""
+msgstr "מצב אנטי-חלק"
 
 msgid "Armour"
-msgstr "מגן"
+msgstr "שיריון"
 
 msgid "Available buttons"
 msgstr "כפתורים זמינים"
@@ -291,21 +291,29 @@ msgid ""
 "Change the\n"
 "display mode"
 msgstr ""
+"לשנות את\n"
+"מצב התצוגה"
 
 msgid ""
 "Change the\n"
 "render quality"
 msgstr ""
+"לשנות את איכות\n"
+"העיבוד הגרפי"
 
 msgid ""
 "Change the\n"
 "window size"
 msgstr ""
+"לשנות את\n"
+"גודל החלון"
 
 msgid ""
 "Choose the\n"
 "music format"
 msgstr ""
+"לבחור את\n"
+"פורמט המוזיקה"
 
 msgid "Construct this game"
 msgstr "הרכב את המשחק"
@@ -329,13 +337,13 @@ msgid "Decorative plants"
 msgstr "צמחי נוי"
 
 msgid "Delete figure"
-msgstr "בטל דמות"
+msgstr "מחק דמות"
 
 msgid "Delete fire"
-msgstr "בטל אש"
+msgstr "מחק אש"
 
 msgid "Delete item"
-msgstr "בטל פריט"
+msgstr "מחק פריט"
 
 msgid "Demo"
 msgstr "הדגמה"
@@ -344,22 +352,22 @@ msgid "Desert"
 msgstr "מדבר"
 
 msgid "Desktop"
-msgstr ""
+msgstr "שולחן עבודה"
 
 msgid "Desktop mode"
-msgstr ""
+msgstr "מצב שולחן העבודה"
 
 msgid "Difficult"
 msgstr "קשה"
 
 msgid "Disable anti-aliasing"
-msgstr ""
+msgstr "כבה אנטי-חלק"
 
 msgid "Drink"
 msgstr "לשתות"
 
 msgid "Drop"
-msgstr "להוריד"
+msgstr "להפיל"
 
 msgid "Dynamite"
 msgstr "חומר נפץ"
@@ -380,7 +388,7 @@ msgid "Electrocutor"
 msgstr "מחשמל"
 
 msgid "Enable anti-aliasing"
-msgstr ""
+msgstr "הפעל אנטי-חלק"
 
 msgid "Ending conditions"
 msgstr "תנאים לסיום"
@@ -401,13 +409,13 @@ msgid "Enemy rocket"
 msgstr "טיל האויב"
 
 msgid "Excellent..."
-msgstr "שיגעון"
+msgstr "נהדר"
 
 msgid "Extract iron"
 msgstr "להפיק ברזל"
 
 msgid "Faster"
-msgstr "מהיר"
+msgstr "מהיר יותר"
 
 msgid "Finish"
 msgstr "סיום"
@@ -416,7 +424,7 @@ msgid "Fire"
 msgstr "אש"
 
 msgid "Fire out"
-msgstr "אש רחוקה"
+msgstr "אש כובתה"
 
 msgid "Flag"
 msgstr "דגל"
@@ -431,23 +439,23 @@ msgid "Forest under snow"
 msgstr "יער מתחת לשלג"
 
 msgid "Fullscreen"
-msgstr ""
+msgstr "מסך מלא"
 
 msgid "Game paused"
 msgstr "המשחק נעצר"
 
 msgid "Garden shed"
-msgstr "צריף"
+msgstr "חלקת גינה"
 
 msgid ""
 "Global game\n"
 "speed"
 msgstr ""
-"המשחק\n"
-"כולומהירות"
+"מהירות\n"
+"המשחק כולו"
 
 msgid "Global settings"
-msgstr ""
+msgstr "הגדרות גלובליות "
 
 msgid "Go"
 msgstr "המשך"
@@ -478,10 +486,10 @@ msgid "Inadequate ground"
 msgstr "קרקע לא מתאימה"
 
 msgid "Increase volume"
-msgstr "הוספת עוצמה"
+msgstr "הוספת נפח"
 
 msgid "Increase window size"
-msgstr ""
+msgstr "להגדיל את גודל החלון"
 
 msgid "Incubator"
 msgstr "מדגרה"
@@ -499,6 +507,8 @@ msgid ""
 "Interface language\n"
 "and sounds"
 msgstr ""
+"שפת הממשק\n"
+"וצלילים"
 
 msgid "Interrupt"
 msgstr "להפסיק"
@@ -522,10 +532,10 @@ msgid "Leave Jeep"
 msgstr "לעזוב את הג'יפ"
 
 msgid "Legacy"
-msgstr ""
+msgstr "גרסה ישנה"
 
 msgid "Legacy mode (640x480)"
-msgstr ""
+msgstr "מצב גרסה ישנה(640x480)"
 
 #, c-format
 msgid "Lost if less than %d Blupi"
@@ -535,13 +545,13 @@ msgid "Make a Jeep"
 msgstr "לבנות ג'יפ"
 
 msgid "Make a helper robot"
-msgstr "הרכיבו רובוט לעזרתכם"
+msgstr "לבנות רובוט עוזר"
 
 msgid "Make a time bomb"
 msgstr "לבנות פצצת זמן"
 
 msgid "Make armour"
-msgstr "בנו מגן"
+msgstr "לבנות שריון"
 
 msgid "Make bunch of flowers"
 msgstr "לאסוף זר פרחים"
@@ -550,13 +560,13 @@ msgid "Make bunches of flowers"
 msgstr "לאסוף זרי פרחים"
 
 msgid "Master robot"
-msgstr "הרובוט השליט"
+msgstr "הרובוט העליון"
 
 msgid "Medical potion"
 msgstr "שיקוי רפואי"
 
 msgid "Midi"
-msgstr ""
+msgstr "מידי"
 
 msgid "Mine"
 msgstr "מכרה"
@@ -565,10 +575,10 @@ msgid "Miscellaneous ground"
 msgstr "קרקע מגוונת"
 
 msgid "Mission number"
-msgstr "פעולה מספר"
+msgstr "משימה מספר"
 
 msgid "Mission over..."
-msgstr "הפעולה הסתיימה..."
+msgstr "המשימה הסתיימה..."
 
 msgid "Missions"
 msgstr "משימות"
@@ -577,8 +587,8 @@ msgid ""
 "Music\n"
 "volume"
 msgstr ""
-"מוסיקה\n"
-"עוצמה"
+"עוצמת\n"
+"המוזיקה"
 
 msgid "Music choice"
 msgstr "בחירת מוסיקה"
@@ -618,13 +628,13 @@ msgstr "צ"
 
 #, c-format
 msgid "New version available for download on www.blupi.org (v%s)"
-msgstr ""
+msgstr "גרסה חדשה זמינה להורדה בכתובת www.blupi.org (v%s)"
 
 msgid "Next game"
 msgstr "משחק הבא"
 
 msgid "Next language"
-msgstr ""
+msgstr "שפה הבאה"
 
 msgid "Next page"
 msgstr "הדף הבא"
@@ -633,7 +643,7 @@ msgid "No"
 msgstr "לא"
 
 msgid "No more enemies"
-msgstr "אין יותר אוייבים"
+msgstr "אין יותר אויבים"
 
 msgid "No music"
 msgstr "ללא מוסיקה"
@@ -645,7 +655,7 @@ msgid "No, not that way !"
 msgstr "לא! לא בדרך הזאת."
 
 msgid "No, wrong way ..."
-msgstr "לא זאת הדרך הלא נכונה."
+msgstr "לא, זאת הדרך הלא נכונה."
 
 msgid "None"
 msgstr "ללא גלילה"
@@ -654,10 +664,10 @@ msgid "Normal ground"
 msgstr "קרקע רגילה"
 
 msgid "Not available"
-msgstr ""
+msgstr "לא זמין"
 
 msgid "Not enough energy"
-msgstr ""
+msgstr "אין מספיק אנרגיה"
 
 msgid "Now go on mission."
 msgstr "עכשיו התחילו בפעולה"
@@ -666,7 +676,7 @@ msgid "Occupied ground"
 msgstr "קרקע מאוכלסת"
 
 msgid "Ogg"
-msgstr ""
+msgstr "קובץ אוג"
 
 msgid "Open another game"
 msgstr "טען משחק אחר"
@@ -699,7 +709,7 @@ msgid "Platinium on striped paving stones"
 msgstr "פלטינה על המרצפות המפוספסות"
 
 msgid "Play this game"
-msgstr "שחק משחק נוכחי"
+msgstr "שחק במשחק הנוכחי"
 
 msgid "Poison"
 msgstr "עגבניות מורעלות"
@@ -711,7 +721,7 @@ msgid "Previous game"
 msgstr "משחק קודם"
 
 msgid "Previous language"
-msgstr ""
+msgstr "שפה קודמת"
 
 msgid "Previous page"
 msgstr "דף קודם"
@@ -726,7 +736,7 @@ msgid "Quit"
 msgstr "צא"
 
 msgid "Quit Planet Blupi"
-msgstr ""
+msgstr "צא מבלופי"
 
 msgid "Quit construction"
 msgstr "יציאה מבנייה"
@@ -741,7 +751,7 @@ msgid "Reduce volume"
 msgstr "הפחתת עוצמה"
 
 msgid "Reduce window size"
-msgstr ""
+msgstr "הפחתת גודל החלון"
 
 msgid "Repeat"
 msgstr "חזור"
@@ -778,6 +788,8 @@ msgid ""
 "Select the\n"
 "window mode"
 msgstr ""
+"בחירת מצב\n"
+"החלון"
 
 msgid "Settings"
 msgstr "הגדרות"
@@ -798,8 +810,8 @@ msgid ""
 "Sound effect\n"
 "volume"
 msgstr ""
-"אפקטים\n"
-"קוליים עוצמה"
+"עוצמת האפקטים\n"
+"הקוליים"
 
 msgid "Special pavings"
 msgstr "ריצוף מיוחד"
@@ -833,10 +845,10 @@ msgstr "משגר"
 
 msgid ""
 "This game is an original creation of Epsitec SA, CH-1400 Yverdon-les-Bains"
-msgstr ""
+msgstr "זהו משחק מקורי מאת Epsitec SA, CH-1400 Yverdon-les-Bains "
 
 msgid "This game uses statically linked free and open-source libraries:"
-msgstr ""
+msgstr "המשחק משתמש בספריות קוד מקור חינמיות פתוחות"
 
 msgid "Time bomb"
 msgstr "פצצת זמן"
@@ -860,7 +872,7 @@ msgid "Training number"
 msgstr "אימון מספר"
 
 msgid "Transform"
-msgstr "להפוך"
+msgstr "לשנות"
 
 msgid "Transport"
 msgstr "להוביל"
@@ -875,16 +887,16 @@ msgid "Tree trunks"
 msgstr "גזע עץ"
 
 msgid "Use Midi music (original)"
-msgstr ""
+msgstr "להשתמש במוזיקת מידי (מקור)"
 
 msgid "Use Ogg music"
-msgstr ""
+msgstr "להשתמש במוזיקת אוג"
 
 msgid "Version"
-msgstr ""
+msgstr "גרסה"
 
 msgid "Very good, success on all missions !"
-msgstr "יפה מאוד! הצלחתם בכל הפעולות!"
+msgstr "יפה מאוד! הצלחתם בכל המשימות!"
 
 msgid "Very good."
 msgstr "ממש מעולה"
@@ -921,7 +933,7 @@ msgid "Well done !"
 msgstr "כל הכבוד!"
 
 msgid "Windowed"
-msgstr ""
+msgstr "מצב חלון"
 
 msgid "Work done"
 msgstr "העבודה הושלמה"
@@ -933,13 +945,13 @@ msgid "Yes"
 msgstr "כן"
 
 msgid "Yes, great ..."
-msgstr "כן מצוין"
+msgstr "כן, מצוין..."
 
 msgid "You have failed, try again..."
-msgstr "נכשלתם נסו שוב..."
+msgstr "נכשלתם, נסו שוב..."
 
 msgid "You have played Planet Blupi."
-msgstr "שיחקתם בלופי."
+msgstr "שיחקתם בבלופי."
 
 #, c-format
 msgid "construction %d, time %d"
