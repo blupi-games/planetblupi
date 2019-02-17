@@ -213,7 +213,7 @@ msgid "Aliasing"
 msgstr "מצב חלק"
 
 msgid "All licenses are available under share/doc/planetblupi/copyright"
-msgstr "כל הרישיונות זמינים תחת share/doc/planetblupi/copyright "
+msgstr "כל הרישיונות זמינים תחת share/doc/planetblupi/copyright"
 
 msgid "Already two teleporters"
 msgstr "יש כבר שני משגרים"
@@ -845,7 +845,7 @@ msgstr "משגר"
 
 msgid ""
 "This game is an original creation of Epsitec SA, CH-1400 Yverdon-les-Bains"
-msgstr "זהו משחק מקורי מאת Epsitec SA, CH-1400 Yverdon-les-Bains "
+msgstr "זהו משחק מקורי מאת Epsitec SA, CH-1400 Yverdon-les-Bains"
 
 msgid "This game uses statically linked free and open-source libraries:"
 msgstr "המשחק משתמש בספריות קוד מקור חינמיות פתוחות"
