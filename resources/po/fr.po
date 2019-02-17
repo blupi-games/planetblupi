@@ -7,14 +7,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-08 07:29+0200\n"
-"PO-Revision-Date: 2018-08-08 07:29+0200\n"
+"PO-Revision-Date: 2019-02-17 23:21+0100\n"
 "Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.9\n"
+"X-Generator: Poedit 2.2.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid " - FFmpeg (LGPLv2.1)"
@@ -502,7 +502,7 @@ msgstr "Sol inflammable"
 
 msgid "Insert CD-Rom Planet Blupi and wait a few seconds..."
 msgstr ""
-"Veuillez insérer le CD-Rom Planète Blupi, puis attendre quelques secondes ..."
+"Veuillez insérer le CD-Rom Planet Blupi, puis attendre quelques secondes ..."
 
 msgid ""
 "Interface language\n"
@@ -693,10 +693,10 @@ msgid "Paving stones"
 msgstr "Dalles"
 
 msgid "Planet Blupi"
-msgstr "Planète Blupi"
+msgstr "Planet Blupi"
 
 msgid "Planet Blupi -- stop"
-msgstr "Planète Blupi -- arrêt"
+msgstr "Planet Blupi -- arrêt"
 
 msgid "Planks"
 msgstr "Planches"
@@ -738,7 +738,7 @@ msgid "Quit"
 msgstr "Quitte"
 
 msgid "Quit Planet Blupi"
-msgstr "Quitter Planète Blupi"
+msgstr "Quitter Planet Blupi"
 
 msgid "Quit construction"
 msgstr "Terminer la construction"
@@ -957,7 +957,7 @@ msgid "You have failed, try again..."
 msgstr "C'est raté, essaie encore une fois..."
 
 msgid "You have played Planet Blupi."
-msgstr "Vous avez joué à Planète Blupi."
+msgstr "Vous avez joué à Planet Blupi."
 
 #, c-format
 msgid "construction %d, time %d"

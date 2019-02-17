@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-01-25 23:40+0100\n"
-"PO-Revision-Date: 2019-01-27 23:43+0100\n"
+"PO-Revision-Date: 2019-02-17 23:23+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.2.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid " - FFmpeg (LGPLv2.1)"
@@ -491,7 +491,7 @@ msgid "Inflammable ground"
 msgstr "Terreno inflamavel"
 
 msgid "Insert CD-Rom Planet Blupi and wait a few seconds..."
-msgstr "Insira o CD-Rom Planeta Blupi e aguarde alguns segundos..."
+msgstr "Insira o CD-Rom Planet Blupi e aguarde alguns segundos..."
 
 msgid ""
 "Interface language\n"
@@ -679,10 +679,10 @@ msgid "Paving stones"
 msgstr "Pavimento de pedra"
 
 msgid "Planet Blupi"
-msgstr "Planeta Blupi"
+msgstr "Planet Blupi"
 
 msgid "Planet Blupi -- stop"
-msgstr "Planeta Blupi -- parar"
+msgstr "Planet Blupi -- parar"
 
 msgid "Planks"
 msgstr "Madeiras"
@@ -724,7 +724,7 @@ msgid "Quit"
 msgstr "Sair"
 
 msgid "Quit Planet Blupi"
-msgstr "Sair do Planeta Blupi"
+msgstr "Sair do Planet Blupi"
 
 msgid "Quit construction"
 msgstr "Encerrar projeto"
@@ -936,7 +936,7 @@ msgid "You have failed, try again..."
 msgstr "Você falhou, tente novamente..."
 
 msgid "You have played Planet Blupi."
-msgstr "Você jogou o Planeta Blupi."
+msgstr "Você jogou o Planet Blupi."
 
 #, c-format
 msgid "construction %d, time %d"

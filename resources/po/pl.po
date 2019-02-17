@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-08 07:29+0200\n"
-"PO-Revision-Date: 2019-01-25 22:37+0100\n"
+"PO-Revision-Date: 2019-02-17 23:22+0100\n"
 "Last-Translator: tomangelo <tomangelo@wp.pl>\n"
 "Language-Team: TerranovaTeam <contact@colobot.info>\n"
 "Language: pl\n"
@@ -502,8 +502,8 @@ msgstr "Łatwopalna ziemia"
 
 msgid "Insert CD-Rom Planet Blupi and wait a few seconds..."
 msgstr ""
-"Włóż płytę CD-ROM z grą Planeta Blupich do napędu optycznego i poczekaj "
-"kilka sekund"
+"Włóż płytę CD-ROM z grą Planet Blupi do napędu optycznego i poczekaj kilka "
+"sekund"
 
 msgid ""
 "Interface language\n"
@@ -693,10 +693,10 @@ msgid "Paving stones"
 msgstr "Kostka brukowa"
 
 msgid "Planet Blupi"
-msgstr "Planeta Blupich"
+msgstr "Planet Blupi"
 
 msgid "Planet Blupi -- stop"
-msgstr "Planeta Blupich -- zatrzymano"
+msgstr "Planet Blupi -- zatrzymano"
 
 msgid "Planks"
 msgstr "Deski"
@@ -738,7 +738,7 @@ msgid "Quit"
 msgstr "Wyjdź"
 
 msgid "Quit Planet Blupi"
-msgstr "Wyjdź z Planeta Blupich"
+msgstr "Wyjdź z Planet Blupi"
 
 msgid "Quit construction"
 msgstr "Zakończ tworzenie"
@@ -956,7 +956,7 @@ msgid "You have failed, try again..."
 msgstr "Przegrałeś, spróbuj ponownie..."
 
 msgid "You have played Planet Blupi."
-msgstr "Grałeś w Planeta Blupich"
+msgstr "Grałeś w Planet Blupi"
 
 #, c-format
 msgid "construction %d, time %d"
