@@ -202,7 +202,7 @@ DrawText (
     if (isRightReading && numberSize == 0)
     {
       const auto test = [](const char * text) -> bool {
-        return *text >= ' ' && *text <= '~';
+        return *text > ' ' && *text <= '~';
       };
       it      = pText;
       isLatin = test (pText);
