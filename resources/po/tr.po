@@ -948,7 +948,7 @@ msgid "You have failed, try again..."
 msgstr "Kaybettin, tekrar dene..."
 
 msgid "You have played Planet Blupi."
-msgstr "Planet Blupi'ni oynadınız."
+msgstr "Planet Blupi'yi oynadınız."
 
 #, c-format
 msgid "construction %d, time %d"
