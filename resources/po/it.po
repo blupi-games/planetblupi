@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-08-08 07:29+0200\n"
-"PO-Revision-Date: 2017-12-14 23:15+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2019-02-18 15:22+0100\n"
+"Last-Translator: Mathieu Schroeter <mathieu@schroetersa.ch>\n"
 "Language-Team: \n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.5\n"
+"X-Generator: Poedit 2.2.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 msgid " - FFmpeg (LGPLv2.1)"
@@ -209,7 +209,7 @@ msgstr ""
 "1|le lastre tratteggiate."
 
 msgid "Aliasing"
-msgstr ""
+msgstr "Aliasing"
 
 msgid "All licenses are available under share/doc/planetblupi/copyright"
 msgstr "Tutte le license sono disponibili in share/doc/planetblupi/copyright"
@@ -221,7 +221,7 @@ msgid "Another mistake..."
 msgstr "Ahimè, hai sbagliato un'altra volta..."
 
 msgid "Anti-aliasing"
-msgstr ""
+msgstr "Anti-aliasing"
 
 msgid "Armour"
 msgstr "Armatura"
@@ -286,23 +286,20 @@ msgstr "Spacca una roccia"
 msgid "Carve rocks"
 msgstr "Spacca delle roccie"
 
-#, fuzzy
 msgid ""
 "Change the\n"
 "display mode"
 msgstr ""
 "Cambiare la\n"
-"dimensione\n"
-"della finestra"
+"visualizzazione"
 
-#, fuzzy
 msgid ""
 "Change the\n"
 "render quality"
 msgstr ""
 "Cambiare la\n"
-"dimensione\n"
-"della finestra"
+"qualità\n"
+"dell'immagina"
 
 msgid ""
 "Change the\n"
@@ -316,6 +313,9 @@ msgid ""
 "Choose the\n"
 "music format"
 msgstr ""
+"Scegliere il\n"
+"formato\n"
+"della musica"
 
 msgid "Construct this game"
 msgstr "Costruire questa partita"
@@ -354,16 +354,16 @@ msgid "Desert"
 msgstr "Deserto"
 
 msgid "Desktop"
-msgstr ""
+msgstr "Risoluzione"
 
 msgid "Desktop mode"
-msgstr ""
+msgstr "Modo desktop"
 
 msgid "Difficult"
 msgstr "Difficile"
 
 msgid "Disable anti-aliasing"
-msgstr ""
+msgstr "Disattivare anti-aliasing"
 
 msgid "Drink"
 msgstr "Bevi"
@@ -390,7 +390,7 @@ msgid "Electrocutor"
 msgstr "Folgoratore"
 
 msgid "Enable anti-aliasing"
-msgstr ""
+msgstr "Attivare anti-aliasing"
 
 msgid "Ending conditions"
 msgstr ""
@@ -538,10 +538,10 @@ msgid "Leave Jeep"
 msgstr "Lascia la Jeep"
 
 msgid "Legacy"
-msgstr ""
+msgstr "Originale"
 
 msgid "Legacy mode (640x480)"
-msgstr ""
+msgstr "Originale (640x480)"
 
 #, c-format
 msgid "Lost if less than %d Blupi"
@@ -670,7 +670,7 @@ msgid "Normal ground"
 msgstr "Terreno normale"
 
 msgid "Not available"
-msgstr ""
+msgstr "Non disponibile"
 
 msgid "Not enough energy"
 msgstr "Energia limitata"
@@ -895,10 +895,10 @@ msgid "Tree trunks"
 msgstr "Tronchi"
 
 msgid "Use Midi music (original)"
-msgstr ""
+msgstr "Utilizzare la musica Midi (originale)"
 
 msgid "Use Ogg music"
-msgstr ""
+msgstr "Utilizzare la musica Ogg"
 
 msgid "Version"
 msgstr "Versione"
