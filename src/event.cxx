@@ -1642,6 +1642,7 @@ CEvent::CEvent ()
   m_bHelp           = false;
   m_bAllMissions    = false;
   m_scrollSpeed     = 1;
+  m_scrollSpeedPrev = -1;
   m_bPause          = false;
   m_bShift          = false;
   m_shiftPhase      = 0;
@@ -5223,9 +5224,11 @@ CEvent::DemoRecStart ()
 
   InitRandom ();
   m_pDecor->SetTime (0);
-  m_speed                 = 1;
-  this->m_scrollSpeedPrev = this->m_scrollSpeed;
-  this->m_scrollSpeed     = 3;
+  m_speed = 1;
+
+  if (this->m_scrollSpeedPrev == -1)
+    this->m_scrollSpeedPrev = this->m_scrollSpeed;
+  this->m_scrollSpeed = 3;
 
   m_bStartRecording = true;
 }
@@ -5266,10 +5269,15 @@ CEvent::DemoRecStop ()
   }
 
   m_pDemoSDLBuffer.clear ();
-  m_bDemoRec          = false;
-  m_demoTime          = 0;
-  m_bStartRecording   = false;
-  this->m_scrollSpeed = this->m_scrollSpeedPrev;
+  m_bDemoRec        = false;
+  m_demoTime        = 0;
+  m_bStartRecording = false;
+
+  if (this->m_scrollSpeedPrev >= 0)
+  {
+    this->m_scrollSpeed     = this->m_scrollSpeedPrev;
+    this->m_scrollSpeedPrev = -1;
+  }
 }
 
 // Début de la reproduction d'une démo.
@@ -5349,8 +5357,9 @@ CEvent::DemoPlayStart (const std::string * demoFile)
     return false;
   }
 
-  this->m_scrollSpeedPrev = m_scrollSpeed;
-  this->m_scrollSpeed     = 3;
+  if (this->m_scrollSpeedPrev == -1)
+    this->m_scrollSpeedPrev = this->m_scrollSpeed;
+  this->m_scrollSpeed = 3;
 
   ChangePhase (EV_PHASE_PLAY);
   InitRandom ();
@@ -5373,10 +5382,15 @@ CEvent::DemoPlayStop ()
 
   m_pDemoSDLBuffer.clear ();
 
-  m_bDemoPlay         = false;
-  m_bDemoRec          = false;
-  m_demoTime          = 0;
-  this->m_scrollSpeed = this->m_scrollSpeedPrev;
+  m_bDemoPlay = false;
+  m_bDemoRec  = false;
+  m_demoTime  = 0;
+
+  if (this->m_scrollSpeedPrev >= 0)
+  {
+    this->m_scrollSpeed     = this->m_scrollSpeedPrev;
+    this->m_scrollSpeedPrev = -1;
+  }
 
   ChangePhase (EV_PHASE_INIT);
 }
