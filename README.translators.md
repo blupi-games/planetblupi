@@ -28,6 +28,31 @@ If you see some strange characters, like a square, then contact me and I will
 add the necessary glyphs for your language. Planet Blupi is not using a real
 font but just sprites with a limited range of characters.
 
+One text is hard-coded in the source code. It's the text for selecting the
+language in the global settings screen (it's just the lang's name). Please,
+don't forget to provide this one.
+
+```c
+    if (locale == "en")
+      lang = "English";
+    else if (locale == "en_US")
+      lang = "American english";
+    else if (locale == "fr")
+      lang = "Français";
+    else if (locale == "de")
+      lang = "Deutsch";
+    else if (locale == "it")
+      lang = "Italiano";
+    else if (locale == "pl")
+      lang = "Polski";
+    else if (locale == "tr")
+      lang = "Türkçe";
+    else if (locale == "pt")
+      lang = "Português";
+    else if (locale == "he")
+      lang = "עברית";
+```
+
 ## The missions
 
 The missions are located in the `resources/data/` directory. Open the
