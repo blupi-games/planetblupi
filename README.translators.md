@@ -24,9 +24,9 @@ this directory. You can replace an other lang if you like.
 Then start the game, the interface will use your new translation if you select
 "Français" in the global settings screen.
 
-If you see some strange characters, like a square, then contact me and I will
-add the necessary glyphs for your language. Planet Blupi is not using a real
-font but just sprites with a limited range of characters.
+If you see some strange characters, like a square '□', then contact me and I
+will add the necessary glyphs for your language. Planet Blupi is not using a
+real font but just sprites with a limited range of characters.
 
 One text is hard-coded in the source code. It's the text for selecting the
 language in the global settings screen (it's just the lang's name). Please,
