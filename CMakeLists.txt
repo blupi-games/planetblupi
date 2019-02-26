@@ -105,6 +105,10 @@ file (RENAME "${CMAKE_BINARY_DIR}/share/doc/planetblupi/LICENSE.all"
 
 if (BUILD_LINUX)
   file (COPY resources/icon/hicolor DESTINATION share/icons)
+  file (
+    COPY resources/linux/${PB_PACKAGE_NAME}.appdata.xml
+    DESTINATION share/metainfo
+  )
 endif ()
 
 # Windows stuff
