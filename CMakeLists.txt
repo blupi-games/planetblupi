@@ -315,7 +315,7 @@ if (NOT BUILD_JS)
   install (FILES LICENSE.all DESTINATION share/doc/planetblupi RENAME copyright)
   install (FILES COPYING DESTINATION share/doc/planetblupi)
 
-  if (UNIX AND NOT APPLE)
+  if (BUILD_LINUX)
     install (DIRECTORY resources/icon/hicolor DESTINATION share/icons)
     install (
       FILES resources/linux/${PB_PACKAGE_NAME}.appdata.xml
