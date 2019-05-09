@@ -123,7 +123,7 @@ bool
 CSound::Create ()
 {
   if (
-    Mix_OpenAudio (44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096) == -1)
+    Mix_OpenAudio (44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024) == -1)
     return false;
 
   Mix_AllocateChannels (MAXSOUND);
