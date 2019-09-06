@@ -5814,7 +5814,6 @@ CEvent::TreatEventBase (const SDL_Event & event)
       if (m_bRunMovie)
       {
         StopMovie ();
-        m_pSound->SetSuspendSkip (1);
         return true;
       }
 
@@ -5949,7 +5948,6 @@ CEvent::TreatEventBase (const SDL_Event & event)
       if (m_bRunMovie)
       {
         StopMovie ();
-        m_pSound->SetSuspendSkip (1);
         return true;
       }
       m_pDecor->FlipOutline ();

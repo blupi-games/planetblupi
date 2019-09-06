@@ -69,7 +69,6 @@ public:
   bool IsPlayingMusic ();
   bool IsStoppedOnDemand ();
   void AdaptVolumeMusic ();
-  void SetSuspendSkip (Sint32 nb);
   void StopSound (bool immediat, Sint32 rank);
   bool StopAllSounds (bool immediat, const std::set<Sint32> * except = nullptr);
 
@@ -84,5 +83,4 @@ protected:
   Sint32                   m_audioVolume;
   Sint32                   m_midiVolume;
   Sint32                   m_lastMidiVolume;
-  Sint32                   m_nbSuspendSkip;
 };

@@ -83,7 +83,6 @@ CSound::CSound ()
   m_audioVolume     = 20;
   m_midiVolume      = 15;
   m_lastMidiVolume  = 0;
-  m_nbSuspendSkip   = 0;
   m_pMusic          = nullptr;
   m_bStopped        = false;
 
@@ -407,12 +406,6 @@ CSound::RestartMusic ()
 void
 CSound::SuspendMusic ()
 {
-  if (m_nbSuspendSkip != 0)
-  {
-    m_nbSuspendSkip--;
-    return;
-  }
-
   m_bStopped = true;
   Mix_HaltMusic ();
 }
@@ -450,12 +443,4 @@ CSound::AdaptVolumeMusic ()
     Mix_VolumeMusic (MIX_MAX_VOLUME * 100 * m_midiVolume / 20 / 100);
     m_lastMidiVolume = m_midiVolume;
   }
-}
-
-// Indique le nombre de suspend ï¿½ sauter.
-
-void
-CSound::SetSuspendSkip (Sint32 nb)
-{
-  m_nbSuspendSkip = nb;
 }
