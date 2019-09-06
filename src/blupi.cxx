@@ -77,10 +77,11 @@ bool        g_restoreMidi = false; // restore music playback based on midi files
 bool        g_renderQuality = true; // use the best render quality with scaling
 int         g_settingsOverload = 0;
 
-bool        g_bTermInit = false; // initialisation en cours
-Uint32      g_lastPhase = 999;
-RestartMode g_restart   = RestartMode::NO;
-static bool g_pause;
+bool          g_bTermInit = false; // initialisation en cours
+Uint32        g_lastPhase = 999;
+RestartMode   g_restart   = RestartMode::NO;
+static bool   g_pause;
+static Uint32 g_prevPhase = 0;
 
 #ifdef USE_CURL
 struct url_data {
@@ -291,6 +292,27 @@ Update (void)
     if (term == 2)
       g_pEvent->ChangePhase (EV_PHASE_WINMOVIE); // win
   }
+
+  if (g_prevPhase != phase)
+  {
+    Point pos;
+
+    pos.x = LXIMAGE () / 2;
+    pos.y = LYIMAGE () / 2;
+
+    if (phase == EV_PHASE_LOST)
+    {
+      if (!g_pSound->PlayImage (SOUND_LOST, pos))
+        g_pSound->PlayImage (SOUND_GOAL, pos);
+    }
+    else if (phase == EV_PHASE_WIN || phase == EV_PHASE_LASTWIN)
+    {
+      if (!g_pSound->PlayImage (SOUND_WIN, pos))
+        g_pSound->PlayImage (SOUND_GOAL, pos);
+    }
+  }
+
+  g_prevPhase = phase;
 
   return display;
 }

@@ -4713,20 +4713,8 @@ CDecor::IsTerminated ()
 delay:
   m_winCount = count;
   if (m_winCount == 0)
-  {
-    if (out == 1) // perdu ?
-    {
-      if (!m_pSound->PlayImage (SOUND_LOST, pos))
-        m_pSound->PlayImage (SOUND_GOAL, pos);
-    }
-    else
-    {
-      if (!m_pSound->PlayImage (SOUND_WIN, pos))
-        m_pSound->PlayImage (SOUND_GOAL, pos);
-    }
-
     return out; // perdu/gagné
-  }
+
   m_winCount--;
   return 0; // continue
 }
