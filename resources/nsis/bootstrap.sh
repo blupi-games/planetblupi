@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CMAKE_VERSION=3.12
+CMAKE_VERSION=3.15
 
 mv /C/msys64/mingw64/share/cmake-$CMAKE_VERSION/Modules/NSIS.template.in /C/msys64/mingw64/share/cmake-$CMAKE_VERSION/Modules/NSIS.template.in.orig
 mv /C/msys64/mingw32/share/cmake-$CMAKE_VERSION/Modules/NSIS.template.in /C/msys64/mingw32/share/cmake-$CMAKE_VERSION/Modules/NSIS.template.in.orig
