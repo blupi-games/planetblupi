@@ -67,7 +67,7 @@
 #define DIMTEXTY        16
 
 #define DIMLITTLEX      16      // max small char size
-#define DIMLITTLEY      12
+#define DIMLITTLEY      16
 
 #define CHBACK          0
 #define CHFLOOR         1
