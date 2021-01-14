@@ -2496,6 +2496,14 @@ CDecor::BlupiNextAction (Sint32 rank)
           GoalStop (i, true);
           return false;
         }
+
+        /* Prevent time bomb duplication */
+        if (m_blupi[i].goalAction == EV_ACTION_MINE2)
+        {
+          BlupiInitAction (rank, ACTION_STOP);
+          GoalStop (rank, true);
+          return false;
+        }
       }
 
     /* Prevent Blupi to take a trap when an enemy is already captured. */
