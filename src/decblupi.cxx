@@ -2508,9 +2508,10 @@ CDecor::BlupiNextAction (Sint32 rank)
       {
         switch (icon)
         {
-        case 96: // spider in trap
-        case 97: // track in trap
-        case 98: // robot in trap
+        case 96:  // spider in trap
+        case 97:  // track in trap
+        case 98:  // robot in trap
+        case 114: // bomb in trap
           BlupiInitAction (rank, ACTION_STOP);
           GoalStop (rank, true);
           return false;
