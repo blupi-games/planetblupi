@@ -210,4 +210,4 @@ http://www.blupi.org <info@blupi.org>
 ## COPYRIGHT
 
 planetblupi is Copyright (C) 1997, Daniel Roux & EPSITEC SA and
-Copyright (C) 2017-2018, Mathieu Schroeter
+Copyright (C) 2017-2021, Mathieu Schroeter
