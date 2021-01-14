@@ -5868,6 +5868,12 @@ CEvent::TreatEventBase (const SDL_Event & event)
       }
       return true;
     case SDLK_RETURN:
+      if (m_bRunMovie)
+      {
+        StopMovie ();
+        return true;
+      }
+
       switch (m_phase)
       {
       case EV_PHASE_SETTINGS:
