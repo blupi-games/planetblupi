@@ -187,6 +187,8 @@ Only 10 musics are supported: `music000` to `music009`.
     **Duplicate everything**: this bug is very useful for duplicating objects
     by sending the same order to two Blupis.
 
+    **Duplicate time bomb**: you can duplicate an amorced bomb by taking.
+
     **Take trapped ennemy**: it's possible to take a trapped enemy; it's useless
     but possible.
 
