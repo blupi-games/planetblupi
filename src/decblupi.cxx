@@ -3182,11 +3182,11 @@ goal:
         }
         else
         {
-          BlupiInitAction (rank, ACTION_STOP);
           if (
             m_blupi[rank].perso == 0 || // blupi ?
             m_blupi[rank].perso == 8)   // disciple ?
           {
+            BlupiInitAction (rank, ACTION_STOP);
             if (m_blupi[rank].busyCount == 0) // dernière tentative ?
             {
               GoalStop (rank, true);
@@ -3195,9 +3195,12 @@ goal:
               m_blupi[rank].interrupt = 1;
             }
           }
+          else if (!g_restoreBugs && m_blupi[rank].perso == 4) // master robot
+            BlupiInitAction (rank, action);
           else // perso ennemi ?
           {
             // On cherchera un autre but !
+            BlupiInitAction (rank, ACTION_STOP);
             GoalStop (rank, true);
             //?                     m_blupi[rank].goalCel.x = -1;
             //?                     m_blupi[rank].goalPhase = 0;
