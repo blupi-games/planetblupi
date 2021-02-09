@@ -31,6 +31,9 @@
 
 class CMovie;
 
+#define MAXCHEAT 9
+#define CHEATLENGTH 20
+
 /////////////////////////////////////////////////////////////////////////////
 
 typedef struct {
@@ -159,6 +162,8 @@ public:
 
   static void PushUserEvent (Sint32 code, void * data = nullptr);
 
+  void HandleCheat (Sint32 index);
+
 protected:
   void DrawTextCenter (const char * text, Sint32 x, Sint32 y, Sint32 font = 0);
   bool CreateButtons (Sint32 phase);
@@ -279,6 +284,7 @@ protected:
   std::string                              m_updateVersion;
   Uint32                                   shiftDirection;
   bool                                     statDisabled;
+  bool                                     m_bCheatCandidates[MAXCHEAT];
 };
 
 /////////////////////////////////////////////////////////////////////////////
