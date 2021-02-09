@@ -81,10 +81,7 @@ typedef struct {
   Sint16 reserve2[88];
 } DescInfo;
 
-// Toutes les premières lettres doivent
-// être différentes !
-
-static char cheat_code[9][20] = {
+static char cheat_code[MAXCHEAT][CHEATLENGTH] = {
   "vision",      // 0
   "power",       // 1
   "lonesome",    // 2
@@ -1668,6 +1665,9 @@ CEvent::CEvent ()
 
   memset (m_textToolTips, 0, sizeof (m_textToolTips));
   memset (m_libelle, 0, sizeof (m_libelle));
+
+  for (i = 0; i < MAXCHEAT; i++)
+    m_bCheatCandidates[i] = true;
 
   for (i = 0; i < MAXBUTTON; i++)
     m_lastFloor[i] = 0;
@@ -5690,7 +5690,7 @@ CEvent::TreatEventBase (const SDL_Event & event)
   Sint32 i;
   Sounds sound;
   char   c;
-  bool   bEnable;
+  bool   bIncrement = false;
 
   DemoRecEvent (event);
 
@@ -5701,96 +5701,61 @@ CEvent::TreatEventBase (const SDL_Event & event)
     {
       if (m_posCheat == 0) // première lettre ?
       {
-        m_rankCheat = -1;
-        for (i = 0; i < 9; i++)
+        for (i = 0; i < MAXCHEAT; i++)
         {
           if ((char) event.key.keysym.sym == cheat_code[i][0])
           {
-            m_rankCheat = i;
+            m_bCheatCandidates[i] = true;
+            m_posCheat = 1;
+          }
+          else
+          {
+            m_bCheatCandidates[i] = false;
+          }
+        }
+      }
+      else if (m_posCheat > 0)
+      {
+        bIncrement = false;
+        for (i = 0; i < MAXCHEAT; i++)
+        {
+          if (m_posCheat >= CHEATLENGTH)
+          {
+            m_posCheat = 0;
             break;
           }
-        }
-      }
-      if (m_rankCheat != -1)
-      {
-        c = cheat_code[m_rankCheat][m_posCheat];
-        if (m_posCheat != 0 && m_rankCheat == 8)
-          c++; // CONSTRUIRE ?
-        if ((char) event.key.keysym.sym == c)
-        {
-          m_posCheat++;
-          if (cheat_code[m_rankCheat][m_posCheat] == 0)
+
+          if (!m_bCheatCandidates[i])
+            continue;
+
+          c = cheat_code[i][m_posCheat];
+
+          if (i == 8) // CONSTRUIRE ?
+            c++;
+
+          if ((char) event.key.keysym.sym == c)
           {
-            bEnable = true;
-            if (m_phase == EV_PHASE_PLAY)
-            {
-              if (m_rankCheat == 0) // vision ?
-                m_pDecor->EnableFog (false);
-              else if (
-                m_rankCheat == 1 || // power ?
-                m_rankCheat == 2)   // lonesome ?
-                m_pDecor->BlupiCheat (m_rankCheat);
-            }
-
-            switch (m_rankCheat)
-            {
-            case 3: // allmissions ?
-            {
-              m_bAllMissions = !m_bAllMissions;
-              bEnable        = m_bAllMissions;
-              break;
-            }
-            case 4: // quick ?
-            {
-              m_bSpeed = !m_bSpeed;
-              bEnable  = m_bSpeed;
-              break;
-            }
-            case 5: // helpme ?
-            {
-              m_bHelp = !m_bHelp;
-              bEnable = m_bHelp;
-              break;
-            }
-            case 6: // invincible ?
-            {
-              m_pDecor->SetInvincible (!m_pDecor->GetInvincible ());
-              bEnable = m_pDecor->GetInvincible ();
-              break;
-            }
-            case 7: // superblupi ?
-            {
-              m_pDecor->SetSuper (!m_pDecor->GetSuper ());
-              bEnable = m_pDecor->GetSuper ();
-              break;
-            }
-            case 8: // construire ?
-            {
-              m_bAccessBuild = !m_bAccessBuild;
-              bEnable        = m_bAccessBuild;
-              break;
-            }
-            }
-
-            if (m_phase != EV_PHASE_PLAY)
-              ChangePhase (m_phase);
-
-            pos.x = LXIMAGE () / 2;
-            pos.y = LYIMAGE () / 2;
-            if (bEnable)
-              m_pSound->PlayImage (SOUND_GOAL, pos);
-            else
-              m_pSound->PlayImage (SOUND_BOING, pos);
-
-            m_rankCheat = -1;
-            m_posCheat  = 0;
+            if (!bIncrement)
+              m_posCheat++;
+            bIncrement = true;
           }
-          return true;
+          else
+          {
+            m_bCheatCandidates[i] = false;
+          }
+
+          if (cheat_code[i][m_posCheat] == 0)
+          {
+            HandleCheat (i);
+            m_posCheat = 0;
+          }
         }
+        if (bIncrement)
+          return true;
+        else
+          m_posCheat = 0;
       }
     }
-    m_rankCheat = -1;
-    m_posCheat  = 0;
 
     if (m_phase == EV_PHASE_INTRO1)
     {
@@ -6425,4 +6390,57 @@ CEvent::PushUserEvent (Sint32 code, void * data)
   event.user.data2 = nullptr;
 
   SDL_PushEvent (&event);
+}
+
+void
+CEvent::HandleCheat (Sint32 index)
+{
+  bool bEnable = true;
+  if (m_phase == EV_PHASE_PLAY)
+  {
+    if (index == 0) // vision ?
+      m_pDecor->EnableFog (false);
+    else if (
+        index == 1 || // power ?
+        index == 2)   // lonesome ?
+      m_pDecor->BlupiCheat (index);
+  }
+
+  switch (index)
+  {
+  case 3: // allmissions ?
+    m_bAllMissions = !m_bAllMissions;
+    bEnable        = m_bAllMissions;
+    break;
+  case 4: // quick ?
+    m_bSpeed = !m_bSpeed;
+    bEnable  = m_bSpeed;
+    break;
+  case 5: // helpme ?
+    m_bHelp = !m_bHelp;
+    bEnable = m_bHelp;
+    break;
+  case 6: // invincible ?
+    m_pDecor->SetInvincible (!m_pDecor->GetInvincible ());
+    bEnable = m_pDecor->GetInvincible ();
+    break;
+  case 7: // superblupi ?
+    m_pDecor->SetSuper (!m_pDecor->GetSuper ());
+    bEnable = m_pDecor->GetSuper ();
+    break;
+  case 8: // construire ?
+    m_bAccessBuild = !m_bAccessBuild;
+    bEnable        = m_bAccessBuild;
+    break;
+  }
+
+  if (m_phase != EV_PHASE_PLAY)
+    ChangePhase (m_phase);
+
+  if (bEnable)
+    m_pSound->PlayImage (SOUND_GOAL, {LXIMAGE () / 2, 0});
+  else
+    m_pSound->PlayImage (SOUND_BOING, {LXIMAGE () / 2, 0});
+
+  return;
 }
