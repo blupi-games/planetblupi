@@ -1531,7 +1531,8 @@ CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
     y = *pTable++;
     GoalAdjustCel (rank, x, y);
     cel = GetCel (x, y);
-
+    if (cel.x < 0 || cel.x >= MAXCELX || cel.y < 0 || cel.y >= MAXCELY)
+      return true;
     BlupiKill (rank, cel, 0);
     MoveFinish (cel);
 
@@ -1562,7 +1563,8 @@ CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
     y = *pTable++;
     GoalAdjustCel (rank, x, y);
     cel = GetCel ((x / 2) * 2, (y / 2) * 2);
-
+    if (cel.x < 0 || cel.x >= MAXCELX || cel.y < 0 || cel.y >= MAXCELY)
+      return true;
     GetObject (cel, channel, icon);
     if (channel != CHOBJECT || icon != 85) // dynamite ?
     {
@@ -1609,7 +1611,9 @@ CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
     x = *pTable++;
     y = *pTable++;
     GoalAdjustCel (rank, x, y);
-    cel  = GetCel ((x / 2) * 2, (y / 2) * 2);
+    cel = GetCel ((x / 2) * 2, (y / 2) * 2);
+    if (cel.x < 0 || cel.x >= MAXCELX || cel.y < 0 || cel.y >= MAXCELY)
+      return true;
     icon = *pTable++;
     if (MoveCreate (
           cel, rank, true, CHFLOOR, -1, -1, -1, 100, 1, 100, false, true))
