@@ -75,6 +75,7 @@ Sint16 table_goal_nbop[] =
     2,      // teleporte
     0,      // actualise
     2,      // waitfree
+    6,      // othermiddle
 };
 
 // Va, mon petit.
@@ -1079,7 +1080,7 @@ static Sint16 table_goal_cultive[] =
     GOAL_ACTION,        ACTION_STOP, DIRECT_E,
     GOAL_FIX,           -2, 0,
     GOAL_REPEAT,        true,
-    GOAL_OTHERFIX,      CHFLOOR, 1, 1, 19, 32, EV_ACTION_CULTIVE2,
+    GOAL_OTHERMIDDLE,   CHFLOOR, 1, 1, 19, 32, EV_ACTION_CULTIVE2,
     GOAL_TERM,
     0
 };
@@ -1127,7 +1128,7 @@ static Sint16 table_goal_cultive2[] =
     GOAL_BUILDFLOOR,    0, -1, CHFLOOR, 1, CHMASK1, 0, 16, 1, 1 * 100, // herbe
     GOAL_FINISHMOVE,
 
-    GOAL_OTHERFIX,      CHFLOOR, 1, 1, 19, 32, EV_ACTION_CULTIVE2,
+    GOAL_OTHERMIDDLE,   CHFLOOR, 1, 1, 19, 32, EV_ACTION_CULTIVE2,
     GOAL_TERM,
     0
 };
