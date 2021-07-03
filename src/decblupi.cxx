@@ -1942,6 +1942,42 @@ CDecor::GoalNextOp (Sint32 rank, Sint16 * pTable)
     return true;
   }
 
+  if (op == GOAL_OTHERMIDDLE) // search for a given icon between blupi and his fixed point
+  {
+    if (!m_blupi[rank].bRepeat)
+      goto term;
+
+    // Bouton stop pressé ?
+    if (m_blupi[rank].stop == 1)
+      goto term;
+
+    channel = *pTable++;
+    first   = *pTable++;
+    last    = *pTable++;
+    first2  = *pTable++;
+    last2   = *pTable++;
+    action  = *pTable++;
+    if (!SearchOtherObject ( // search from midpoint (average)
+          rank,
+          {.x = (m_blupi[rank].fix.x + m_blupi[rank].cel.x) / 2,
+          .y = (m_blupi[rank].fix.y + m_blupi[rank].cel.y) / 2},
+          action, 100, channel, first, last, first2,
+          last2, m_blupi[rank].goalHili, icon))
+      goto term;
+    if (action == EV_ACTION_ABAT1 || action == EV_ACTION_ROC1)
+    {
+      action += icon - first; // EV_ACTION_ABAT1..6
+    }
+    m_blupi[rank].goalAction = action;
+    m_blupi[rank].goalPhase  = 0;
+    m_blupi[rank].goalCel.x  = -1;
+    m_blupi[rank].interrupt  = 1;
+    GoalInitJauge (rank);
+    GoalUnwork (rank);
+    FlushUsed (rank);
+    return true;
+  }
+
   if (op == GOAL_OTHERLOOP)
   {
     action = *pTable++;
