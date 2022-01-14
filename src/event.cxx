@@ -3087,7 +3087,7 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
 
   if (m_phase == EV_PHASE_PLAY)
   {
-    auto progress = [&](CJauge & prog, const char * text) -> bool {
+    auto progress = [&] (CJauge & prog, const char * text) -> bool {
       if (prog.GetHide ())
         return false;
 
@@ -4445,23 +4445,20 @@ CEvent::ChangeButtons (Sint32 message)
         ++m_Lang;
       SetLanguage ();
       break;
-    case EV_BUTTON3:
-    {
+    case EV_BUTTON3: {
       auto zoom = g_zoom;
       g_zoom    = g_settingsOverload & SETTING_LEGACY ? 2 : 1;
       SetFullScreen (true, zoom);
       break;
     }
-    case EV_BUTTON4:
-    {
+    case EV_BUTTON4: {
       Sint32 w1;
       SDL_GetWindowSize (g_window, &w1, nullptr);
       SetFullScreen (false);
       SetWindowSize (g_zoom * static_cast<double> (w1) / LXIMAGE (), g_zoom);
       break;
     }
-    case EV_BUTTON5:
-    {
+    case EV_BUTTON5: {
       auto scale = g_zoom;
       if (g_zoom > 1)
         --g_zoom;
@@ -4480,8 +4477,7 @@ CEvent::ChangeButtons (Sint32 message)
         SetFullScreen (g_bFullScreen);
       break;
     }
-    case EV_BUTTON6:
-    {
+    case EV_BUTTON6: {
       auto scale = g_zoom;
       if (g_zoom < 2)
         ++g_zoom;
@@ -5858,8 +5854,7 @@ CEvent::TreatEventBase (const SDL_Event & event)
         ChangePhase (EV_PHASE_BYE);
         return true;
 
-      case EV_PHASE_BYE:
-      {
+      case EV_PHASE_BYE: {
         SDL_Event ev;
         ev.type = SDL_QUIT;
         SDL_PushEvent (&ev);
