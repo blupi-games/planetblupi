@@ -5910,10 +5910,13 @@ CEvent::TreatEventBase (const SDL_Event & event)
 
       return true;
     case SDLK_LEFT:
+    case SDLK_KP_4:
     case SDLK_RIGHT:
+    case SDLK_KP_6:
     case SDLK_UP:
+    case SDLK_KP_8:
     case SDLK_DOWN:
-    {
+    case SDLK_KP_2: {
       if (m_phase != EV_PHASE_PLAY && m_phase != EV_PHASE_BUILD)
         return true;
 
@@ -5923,12 +5926,16 @@ CEvent::TreatEventBase (const SDL_Event & event)
       this->shiftDirection = 0;
 
       left = event.key.keysym.sym == SDLK_LEFT ||
+             event.key.keysym.sym == SDLK_KP_4 ||
              (!m_bDemoRec && state[SDL_SCANCODE_LEFT]);
       right = event.key.keysym.sym == SDLK_RIGHT ||
+              event.key.keysym.sym == SDLK_KP_6 ||
               (!m_bDemoRec && state[SDL_SCANCODE_RIGHT]);
       up = event.key.keysym.sym == SDLK_UP ||
+           event.key.keysym.sym == SDLK_KP_8 ||
            (!m_bDemoRec && state[SDL_SCANCODE_UP]);
       down = event.key.keysym.sym == SDLK_DOWN ||
+             event.key.keysym.sym == SDLK_KP_2 ||
              (!m_bDemoRec && state[SDL_SCANCODE_DOWN]);
 
       if (left)
