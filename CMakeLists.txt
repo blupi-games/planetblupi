@@ -224,7 +224,7 @@ if ("${STATIC_BUILD}")
   if (BUILD_LINUX)
     list (APPEND planetblupi_DEPS
       ${ALSA_STATIC_LIBRARIES}
-      ${PULSE_STATIC_LIBRARIES}
+      ${PULSE_STATIC_LIBRARIES} -lrt
     )
     set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L${CMAKE_INSTALL_PREFIX}/lib/pulseaudio")
   endif ()
