@@ -280,7 +280,7 @@ DrawTextRect (
   Sint32 itl;
 
   if (font == FONTLITTLE)
-    itl = DIMLITTLEY;
+    itl = DIMLITTLEY - 2;
   else
     itl = DIMTEXTY;
 
@@ -334,7 +334,7 @@ DrawTextCenter (CPixmap * pPixmap, Point pos, const char * pText, Sint32 font)
   auto   isRightReading = IsRightReading ();
 
   if (font == FONTLITTLE)
-    itl = DIMLITTLEY;
+    itl = DIMLITTLEY - 2;
   else
     itl = DIMTEXTY;
 
@@ -378,7 +378,7 @@ GetTextHeight (char * pText, Sint32 font, Sint32 part)
   Sint32 h = 0;
 
   if (font == FONTLITTLE)
-    itl = DIMLITTLEY;
+    itl = DIMLITTLEY - 2;
   else
     itl = DIMTEXTY;
 
