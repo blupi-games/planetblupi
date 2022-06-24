@@ -34,7 +34,7 @@
  * \param[in] c - The character (incremented if 0xC3 or 0xC4 or 0xC5 UTF-8).
  * \returns the offset.
  */
-static Uint8
+static Uint16
 GetOffset (const char *& c)
 {
   /* clang-format off */
@@ -67,6 +67,26 @@ GetOffset (const char *& c)
   /*a ת     ש    ר     ק     ץ     צ              */
     0xA6, 0xA5, 0xA7, 0xA8, 0xA9, 0xAA,
   };
+
+  static const unsigned char table_d8[] = {
+  /*a ؤ     أ     آ     ء    ؟     ؞     ؛        */
+    0x9B, 0x9E, 0x9F, 0xA1, 0xA2, 0xA3, 0xA4,
+  /*a ث     ت     ة     ب    ا     ئ     إ        */
+    0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB,
+  /*a ز     ر     ذ     د    خ     ح     ج        */
+    0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2,
+  /*a ع     ظ     ط     ض    ص     ش     س        */
+    0xB3, 0xB4, 0xB5, 0xB6, 0xB8, 0xB9, 0xB9,
+  /*a غ                                            */
+    0xBA,
+  };
+
+  static const unsigned char table_d9[] = {
+  /*a ن     م     ل     ك    ق     ف     ـ        */
+    0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86,
+  /*a ي    ى     و     ه                           */
+    0x87, 0x88, 0x89, 0x8A,
+  };
   /* clang-format on */
 
   int                   offset = 0;
@@ -98,6 +118,18 @@ GetOffset (const char *& c)
     offset = 128 + 96;
     table  = table_d7;
     size   = countof (table_d7);
+    inc    = 1;
+    break;
+  case 0xD8:
+    offset = 128 + 128;
+    table  = table_d8;
+    size   = countof (table_d8);
+    inc    = 1;
+    break;
+  case 0xD9:
+    offset = 128 + 160;
+    table  = table_d9;
+    size   = countof (table_d9);
     inc    = 1;
     break;
   }
@@ -159,8 +191,11 @@ GetCharWidth (const char *& c, Sint32 font)
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      6,  5,  5,  4,  5,  6,  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-     7,  7,  5,  6,  7,  2,  4,  7,  7,  3,  5,  7,  6,  7,  7,  4,
-     3,  7,  7,  7,  8,  7,  6,  7,  7,  9,  8,  0,  0,  0,  0,  0,
+     7,  7,  5,  6,  7,  2,  4,  7,  7,  3,  5,  7,  6,  7,  7,  4, /* HE */
+     3,  7,  7,  7,  8,  7,  6,  7,  7,  9,  8,  0,  0,  0,  0,  0, /* HE */
+     3,  9,  6,  3,  3,  3,  6,  3,  6,  3,  6,  5,  6,  6,  5,  5, /* AR */
+     5,  5,  5,  6,  6,  8,  8,  8,  8,  6,  6,  5,  5,  0,  0,  0, /* AR */
+     8,  8,  8,  8,  6,  6,  6,  5,  5,  6,  6,  0,  0,  0,  0,  0, /* AR */
   };
   // clang-format on
 
@@ -190,7 +225,9 @@ DrawText (
   Sint32       start      = pos.y;
   Sint32       rel        = 0;
 
-  auto useD7          = strchr (pText, 0xD7) != nullptr;
+  auto useD7 = strchr (pText, 0xD7) != nullptr ||
+               strchr (pText, 0xD8) != nullptr ||
+               strchr (pText, 0xD9) != nullptr;
   auto isRightReading = useD7 && IsRightReading ();
   auto length         = strlen (pText);
 
