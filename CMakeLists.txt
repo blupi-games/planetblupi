@@ -157,6 +157,9 @@ if (NOT BUILD_JS)
   pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
   include_directories (${SDL2_IMAGE_INCLUDE_DIRS})
   set (planetblupi_DEPS ${planetblupi_DEPS} ${SDL2_IMAGE_STATIC_LIBRARIES})
+  pkg_search_module (SDL2_TTF REQUIRED SDL2_ttf)
+  include_directories (${SDL2_TTF_INCLUDE_DIRS})
+  set (planetblupi_DEPS ${planetblupi_DEPS} ${SDL2_TTF_STATIC_LIBRARIES})
   pkg_search_module (SDL2_MIXER REQUIRED SDL2_mixer)
   include_directories (${SDL2_MIXER_INCLUDE_DIRS})
   set (planetblupi_DEPS ${planetblupi_DEPS} ${SDL2_MIXER_STATIC_LIBRARIES})
@@ -233,6 +236,7 @@ else ()
     ${SDL2_LIBRARIES}
     ${SDL2_MIXER_LIBRARIES}
     ${SDL2_IMAGE_LIBRARIES}
+    ${SDL2_TTF_LIBRARIES}
     ${CURL_LIBRARIES}
     ${SDLKitchensink_LIBRARIES}
     pthread

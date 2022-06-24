@@ -32,6 +32,7 @@
 #include <vector>
 
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <argagg/argagg.hpp>
 #ifdef USE_CURL
 #include <curl/curl.h>
@@ -798,6 +799,11 @@ DoInit (int argc, char * argv[], bool & exit)
   if (res < 0)
   {
     SDL_Log ("Unable to initialize SDL: %s", SDL_GetError ());
+    return EXIT_FAILURE;
+  }
+
+  if (TTF_Init () < 0) {
+    SDL_Log ("Couldn't initialize TTF: %s", SDL_GetError ());
     return EXIT_FAILURE;
   }
 
