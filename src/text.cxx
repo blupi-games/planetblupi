@@ -263,7 +263,9 @@ DrawText (
   Sint32       start      = pos.y;
   Sint32       rel        = 0;
 
-  auto useD7  = strchr (pText, 0xD7) != nullptr;
+  auto useD7 = strchr (pText, 0xD7) != nullptr ||
+               strchr (pText, 0xD8) != nullptr ||
+               strchr (pText, 0xD9) != nullptr;
   auto length = strlen (pText);
 
   //if (length >= 1 && !useD7 && IsRightReading ())

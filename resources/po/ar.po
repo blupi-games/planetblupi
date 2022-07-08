@@ -1,0 +1,977 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-09 23:28+0200\n"
+"PO-Revision-Date: 2022-04-28 14:38-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+msgid " - FFmpeg (LGPLv2.1)"
+msgstr " - FFmpeg (LGPLv2.1)"
+
+msgid " - GNU/gettext and GNU/libiconv (GPLv3)"
+msgstr " - GNU/gettext and GNU/libiconv (GPLv3)"
+
+msgid " - SDL2, SDL2_image and SDL2_mixer (zlib license)"
+msgstr " - SDL2, SDL2_image and SDL2_mixer (zlib license)"
+
+msgid " - SDL_kitchensink (MIT)"
+msgstr " - SDL_kitchensink (MIT)"
+
+msgid " - argagg (MIT)"
+msgstr " - argagg (MIT)"
+
+msgid " - libasound (LGPLv2.1)"
+msgstr " - libasound (LGPLv2.1)"
+
+msgid " - libcurl (MIT/X derivate)"
+msgstr " - libcurl (MIT/X derivate)"
+
+msgid " - libogg and libvorbis (own license)"
+msgstr " - libogg and libvorbis (own license)"
+
+msgid " - libpng (own license)"
+msgstr " - libpng (own license)"
+
+msgid " - libpulse (LGPLv2.1)"
+msgstr " - libpulse (LGPLv2.1)"
+
+msgid " - libsndfile (LGPLv3)"
+msgstr " - libsndfile (LGPLv3)"
+
+msgid " - zlib (own license)"
+msgstr " - zlib (own license)"
+
+msgid "(isolated tower)"
+msgstr "(برج معزول)"
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Build a bridge"
+msgstr ""
+"1: قطع شجرة\n"
+"2: بنى حسرًا"
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Make a boat"
+msgstr ""
+"1: قطع شجرة\n"
+"2: بنى قاربًا"
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Make a palisade"
+msgstr ""
+"1: قطع شجرة\n"
+"2: بنى حاجزًا"
+
+msgid ""
+"1: Extract iron\n"
+"2: Make a Jeep"
+msgstr ""
+"1: استخراج حديدًا\n"
+"2: بنى جيب"
+
+msgid ""
+"1: Extract iron\n"
+"2: Make a bomb"
+msgstr ""
+"1: استخراج حديدًا\n"
+"2: صنع قنبلة"
+
+msgid ""
+"1: Extract iron\n"
+"2: Make an armour"
+msgstr ""
+"1: استخراج حديدًا\n"
+"2: بنى جرعًا"
+
+msgid ""
+"1: Grow tomatoes\n"
+"2: Eat"
+msgstr ""
+"1: زراعة اطماطم\n"
+"2: أكل"
+
+msgid ""
+"1: Make a bunch\n"
+"2: Transform"
+msgstr ""
+"1: جمع\n"
+"2: تغيير"
+
+msgid ""
+"1: Take\n"
+"2: Build a bridge"
+msgstr ""
+"1: تخذ\n"
+"2: بنى جسرًا"
+
+msgid ""
+"1: Take\n"
+"2: Build palisade"
+msgstr ""
+"1: تخذ\n"
+"2: بنى حاجزًا"
+
+msgid ""
+"1: Take\n"
+"2: Make a boat"
+msgstr ""
+"1: تخذ\n"
+"2: بنى حسرًا"
+
+msgid ""
+"1: Take\n"
+"2: Transform"
+msgstr ""
+"1: تخذ\n"
+"2: تحويل"
+
+msgid ""
+"1|Drop planks on striped \n"
+"1|paving stones."
+msgstr ""
+"1| اخفض الألواح على\n"
+"1| حجار مخططة."
+
+msgid ""
+"1|Drop platinium on striped \n"
+"1|paving stones."
+msgstr ""
+"1| أوقع بلاتين على\n"
+"1| حجار المخططة."
+
+msgid ""
+"1|Drop tomatoes on striped \n"
+"1|paving stones."
+msgstr ""
+"1| انزع الطماطم على\n"
+"1| حجار المخططة."
+
+msgid ""
+"1|Each Blupi in\n"
+"1|his house."
+msgstr ""
+"1| كل بلوفي\n"
+"1| ببيته."
+
+msgid ""
+"1|Go on striped\n"
+"1|paving stones."
+msgstr ""
+"1| اذهب إلى\n"
+"1| حجار مخططة."
+
+msgid "1|Goal :"
+msgstr "1| هدف:"
+
+msgid ""
+"1|Kill all\n"
+"1|enemies !"
+msgstr ""
+"1| اقتل كل\n"
+"1| الأعداء!"
+
+msgid ""
+"1|Resist until\n"
+"1|fire extinction ..."
+msgstr ""
+"1| مقاومة حتى\n"
+"1| اغلاق النار..."
+
+#, c-format
+msgid ""
+"1|The Blupi population must\n"
+"1|be of at least %d Blupi."
+msgstr ""
+"1 | يجب أن يكون ساكن البلوفيين\n"
+"1 | على الأقل %d من بلوفيين."
+
+msgid ""
+"1|The robot must reach\n"
+"1|the striped paving stones."
+msgstr ""
+"1 | يجب أن يصل الرجل الآلي\n"
+"1 | الحجار المخططة."
+
+msgid "Aliasing"
+msgstr "للا تنغيم"
+
+msgid "All licenses are available under share/doc/planetblupi/copyright"
+msgstr "كل التراخيص متوفرة بموجب share/doc/planetblupi/copyright"
+
+msgid "Already two teleporters"
+msgstr "هناك بالفعل آلتين النقال الآني"
+
+msgid "Another mistake..."
+msgstr "خطأ آخر..."
+
+msgid "Anti-aliasing"
+msgstr "تنغيم المنحنيات"
+
+msgid "Armour"
+msgstr "درع"
+
+msgid "Available buttons"
+msgstr "أزرار متوفرة"
+
+msgid "Bang, failed again !"
+msgstr "يا للهول! لقد فشلت مرة أخرى!"
+
+msgid "Bank"
+msgstr "ضفة"
+
+msgid "Blow up"
+msgstr "فجر"
+
+msgid "Blupi"
+msgstr "بلوفي"
+
+msgid "Blupi in house"
+msgstr "بلوفي ببيت"
+
+msgid "Blupi on striped paving stones"
+msgstr "بلوفي على حجار الرصف مخططة"
+
+msgid "Blupi's energy"
+msgstr "طاقة بلوفي"
+
+msgid "Blupi's house"
+msgstr "بيت بلوفي"
+
+msgid "Boat"
+msgstr "قارب"
+
+msgid "Bouncing bomb"
+msgstr "قنبلة نطاطة"
+
+msgid "Bridge"
+msgstr "جسر"
+
+msgid "Bridge finished"
+msgstr "جسر منتهي"
+
+msgid "Buildings"
+msgstr "بنايات"
+
+msgid "Bulldozer"
+msgstr "جرافة"
+
+msgid "Bunch of flowers"
+msgstr "ممجموة من زهور"
+
+msgid "Burnt ground"
+msgstr "أرض محترقة"
+
+msgid "Cancel last operation"
+msgstr "إلغاء العملية الأخيرة"
+
+msgid "Carve a rock"
+msgstr "نحت صخرًا"
+
+msgid "Carve rocks"
+msgstr "نحت صخورًا"
+
+msgid ""
+"Change the\n"
+"display mode"
+msgstr ""
+"تغيير\n"
+"الوضع العرض"
+
+msgid ""
+"Change the\n"
+"render quality"
+msgstr ""
+"تغيير\n"
+"جودة التوصيل"
+
+msgid ""
+"Change the\n"
+"window size"
+msgstr ""
+"تغيير\n"
+"الحجم النافذة"
+
+msgid ""
+"Choose the\n"
+"music format"
+msgstr ""
+"أختيار\n"
+"التنسيق الموسيقى"
+
+msgid "Construct this game"
+msgstr "بنى هذه اللعبة"
+
+msgid "Construction"
+msgstr "بناء"
+
+msgid "Construction number"
+msgstr "رقم البناء"
+
+msgid "Continue this game"
+msgstr "أكمل هذه اللعبة"
+
+msgid "Cut down a tree"
+msgstr "قطع شجرة"
+
+msgid "Cut down trees"
+msgstr "قطع شجرات"
+
+msgid "Decorative plants"
+msgstr "نباتات الزينة"
+
+msgid "Delete figure"
+msgstr "حذف شكلًا"
+
+msgid "Delete fire"
+msgstr "حذف نارًا"
+
+msgid "Delete item"
+msgstr "حذف بندًا"
+
+msgid "Demo"
+msgstr "تجريب"
+
+msgid "Desert"
+msgstr "سهرة"
+
+msgid "Desktop"
+msgstr "سطح المكتب"
+
+msgid "Desktop mode"
+msgstr "سطح المكتب"
+
+msgid "Difficult"
+msgstr "صعب"
+
+msgid "Disable anti-aliasing"
+msgstr "تعطيل الصقل"
+
+msgid "Drink"
+msgstr "شرب"
+
+msgid "Drop"
+msgstr "أوقع"
+
+msgid "Dynamite"
+msgstr "المتفجرات"
+
+msgid "E"
+msgstr "شر"
+
+msgid "Easy"
+msgstr "سهل"
+
+msgid "Eat"
+msgstr "أكل"
+
+msgid "Eggs"
+msgstr "بيضات"
+
+msgid "Electrocutor"
+msgstr "كهربائي"
+
+msgid "Enable anti-aliasing"
+msgstr "تفعيل الصقل"
+
+msgid "Ending conditions"
+msgstr "شروط النهاية"
+
+msgid "Enemy barrier"
+msgstr "حاجز العدو"
+
+msgid "Enemy buildings"
+msgstr "بنايات العدو"
+
+msgid "Enemy construction"
+msgstr "بناء العدو"
+
+msgid "Enemy ground"
+msgstr "أرض العدو"
+
+msgid "Enemy rocket"
+msgstr "صاروخ العدو"
+
+msgid "Excellent..."
+msgstr "ممتاز..."
+
+msgid "Extract iron"
+msgstr "إستخراج حديدًا"
+
+msgid "Faster"
+msgstr "أسرع"
+
+msgid "Finish"
+msgstr "انتهى"
+
+msgid "Fire"
+msgstr "نار"
+
+msgid "Fire out"
+msgstr "انطفأت النار"
+
+msgid "Flag"
+msgstr "علم"
+
+msgid "Flowers"
+msgstr "زهور"
+
+msgid "Forest"
+msgstr "غابة"
+
+msgid "Forest under snow"
+msgstr "غابة تحت الثلج"
+
+msgid "Fullscreen"
+msgstr "شاشة كاملة"
+
+msgid "Game paused"
+msgstr "لعبة متوقفة"
+
+msgid "Garden shed"
+msgstr "كوخ حديقة"
+
+msgid ""
+"Global game\n"
+"speed"
+msgstr ""
+"سرعة\n"
+"اللعبة العامة"
+
+msgid "Global settings"
+msgstr "الإعدادات العامة"
+
+msgid "Go"
+msgstr "ذهب"
+
+msgid "Grow tomatoes"
+msgstr "زراعة الطماطم"
+
+msgid "Help"
+msgstr "تعليمات"
+
+msgid "Help number"
+msgstr "رقم التعليمة"
+
+msgid "Helper robot"
+msgstr "رجل آلي المساعدة"
+
+msgid "Ice"
+msgstr "جليد"
+
+msgid "Impossible"
+msgstr "مستحيل"
+
+#, c-format
+msgid "Impossible to win if less than %d Blupi"
+msgstr "من المستحيل الفوز إن كان أقل من %d بلوفيين"
+
+msgid "Inadequate ground"
+msgstr "أرض لاامناسبة"
+
+msgid "Increase volume"
+msgstr "تكبير الصوت"
+
+msgid "Increase window size"
+msgstr "تكبير حجم النافذة"
+
+msgid "Incubator"
+msgstr "حاضنة"
+
+msgid "Incubator or teleporter"
+msgstr "حاضنة أو آلة النقال الآني"
+
+msgid "Inflammable ground"
+msgstr "أرض قابلة للاشتعال"
+
+msgid "Insert CD-Rom Planet Blupi and wait a few seconds..."
+msgstr "الرجاء إدخال القرص المضغوط الخاص باللعبة وانتظر بضع ثوان..."
+
+msgid ""
+"Interface language\n"
+"and sounds"
+msgstr ""
+"لسان الواجهة\n"
+"وأصوات"
+
+msgid "Interrupt"
+msgstr "قطع"
+
+msgid "Iron"
+msgstr "حديد"
+
+msgid "Items"
+msgstr "بنود"
+
+msgid "Jeep"
+msgstr "جيب"
+
+msgid "Laboratory"
+msgstr "معمل"
+
+msgid "Last construction resolved !"
+msgstr "تم حل البناء الأخير!"
+
+msgid "Leave Jeep"
+msgstr "ترك الجيب"
+
+msgid "Legacy"
+msgstr "قديم"
+
+msgid "Legacy mode (640x480)"
+msgstr "وضع قديم (640 × 480)"
+
+#, c-format
+msgid "Lost if less than %d Blupi"
+msgstr "ضاع إن كان أقل من %d بلوفيين"
+
+msgid "Make a Jeep"
+msgstr "بنى جيب"
+
+msgid "Make a helper robot"
+msgstr "بنى روبوت مساعد"
+
+msgid "Make a time bomb"
+msgstr "بنى قنبلة مزمونة"
+
+msgid "Make armour"
+msgstr "بنى درعًا"
+
+msgid "Make bunch of flowers"
+msgstr "صنع باقة من الزهور"
+
+msgid "Make bunches of flowers"
+msgstr "اصنع باقات من الزهور"
+
+msgid "Master robot"
+msgstr "الرجل إلي الأعلى"
+
+msgid "Medical potion"
+msgstr "جرعة طبية"
+
+msgid "Midi"
+msgstr "حدد وضع النافذة"
+
+msgid "Mine"
+msgstr "لغم"
+
+msgid "Miscellaneous ground"
+msgstr "أرض متنوعة"
+
+msgid "Mission number"
+msgstr "رقم المهمة"
+
+msgid "Mission over..."
+msgstr "انتهت المهمة ..."
+
+msgid "Missions"
+msgstr "بعثات"
+
+msgid ""
+"Music\n"
+"volume"
+msgstr ""
+"شدة\n"
+"الموسيقى"
+
+msgid "Music choice"
+msgstr "اختيار الموسيقى"
+
+msgid "Music number 1"
+msgstr "موسيقى رقم 1"
+
+msgid "Music number 10"
+msgstr "موسيقى رقم 10"
+
+msgid "Music number 2"
+msgstr "موسيقى رقم 2"
+
+msgid "Music number 3"
+msgstr "موسيقى رقم 3"
+
+msgid "Music number 4"
+msgstr "موسيقى رقم 4"
+
+msgid "Music number 5"
+msgstr "موسيقى رقم 5"
+
+msgid "Music number 6"
+msgstr "موسيقى رقم 6"
+
+msgid "Music number 7"
+msgstr "موسيقى رقم 7"
+
+msgid "Music number 8"
+msgstr "موسيقى رقم 8"
+
+msgid "Music number 9"
+msgstr "موسيقى رقم 9"
+
+msgid "N"
+msgstr "شم"
+
+#, c-format
+msgid "New version available for download on www.blupi.org (v%s)"
+msgstr "يتوفر إصدار حديث للتنزيل من www.blupi.org (v%s)"
+
+msgid "Next game"
+msgstr "لعبة تالية"
+
+msgid "Next language"
+msgstr "لسان التالي"
+
+msgid "Next page"
+msgstr "صفحة تالية"
+
+msgid "No"
+msgstr "لا"
+
+msgid "No more enemies"
+msgstr "لا مزيد من الأعداء"
+
+msgid "No music"
+msgstr "لا موسيقى"
+
+msgid "No video"
+msgstr "لا فيديو"
+
+msgid "No, not that way !"
+msgstr "لا! ليس بهذه الطريقة!"
+
+msgid "No, wrong way ..."
+msgstr "لا ، هذه هي الطريقة الخاطئة."
+
+msgid "None"
+msgstr "بلا"
+
+msgid "Normal ground"
+msgstr "أرض عادي"
+
+msgid "Not available"
+msgstr "لامتوفر"
+
+msgid "Not enough energy"
+msgstr "ليست طاقة كافية"
+
+msgid "Now go on mission."
+msgstr "اذهب الآن في مهمة."
+
+msgid "Occupied ground"
+msgstr "أرض مأهولة"
+
+msgid "Ogg"
+msgstr "Ogg"
+
+msgid "Open another game"
+msgstr "فتر لعبة أحرى"
+
+msgid "Opposite bank no good"
+msgstr "بنك مقابل لامناسب"
+
+msgid "Palisade"
+msgstr "حاجز"
+
+msgid "Paving stones"
+msgstr "حجار الرصف"
+
+msgid "Planet Blupi"
+msgstr "الكوكب بلوفي"
+
+msgid "Planet Blupi -- stop"
+msgstr "الكوكب بلوفي - وقف"
+
+msgid "Planks"
+msgstr "ألواح"
+
+msgid "Planks on striped paving stones"
+msgstr "ألواح على حجار الرصف مخططة"
+
+msgid "Platinium"
+msgstr "بلاتين"
+
+msgid "Platinium on striped paving stones"
+msgstr "بلاتين على حجار الرصف مخططة"
+
+msgid "Play this game"
+msgstr "العب هذه اللعبة"
+
+msgid "Poison"
+msgstr "سم"
+
+msgid "Prairie"
+msgstr "مرج"
+
+msgid "Previous game"
+msgstr "لعبة سابقة"
+
+msgid "Previous language"
+msgstr "لسان السابق"
+
+msgid "Previous page"
+msgstr "صفحة سابقة"
+
+msgid "Prospect for iron"
+msgstr "بحث عن حديد"
+
+msgid "Protection tower"
+msgstr "برج الحماية"
+
+msgid "Quit"
+msgstr "خرج"
+
+msgid "Quit Planet Blupi"
+msgstr "خروج من بلوفي"
+
+msgid "Quit construction"
+msgstr "إنهاء البناء"
+
+msgid "Quit this game"
+msgstr "خروج من هذه اللعبة"
+
+msgid "REC"
+msgstr "تسجيل"
+
+msgid "Reduce volume"
+msgstr "تقليل الصوت"
+
+msgid "Reduce window size"
+msgstr "تصغير حجم النافذة"
+
+msgid "Repeat"
+msgstr "إعادة"
+
+msgid "Restart this game"
+msgstr "أعد بدء هذه اللعبة"
+
+msgid "Robot on striped paving stones"
+msgstr "رجل آلي على حجار الرصف مخططة"
+
+msgid "Rocks"
+msgstr "صخور"
+
+msgid "S"
+msgstr "ج"
+
+msgid "Save"
+msgstr "حفظ"
+
+msgid "Save this game"
+msgstr "حفظ هذه اللعبة"
+
+msgid "Scenery choice"
+msgstr "اختيار مشهد"
+
+msgid ""
+"Scroll speed\n"
+"with mouse"
+msgstr ""
+"سرعة التمرير\n"
+"باستخدام الفأرة"
+
+msgid ""
+"Select the\n"
+"window mode"
+msgstr ""
+"طريقة الاختيار\n"
+"النافذة"
+
+msgid "Settings"
+msgstr "إعدادات"
+
+msgid "Show videos"
+msgstr "إظهار مقاطع الفيديو"
+
+msgid "Sick Blupi"
+msgstr "بلوفي مرضان"
+
+msgid "Skill level"
+msgstr "مستوى المهارة"
+
+msgid "Slower"
+msgstr "أبطأ"
+
+msgid ""
+"Sound effect\n"
+"volume"
+msgstr ""
+"شدة التأثيرات\n"
+"الحبال الصوتية"
+
+msgid "Special pavings"
+msgstr "تبليط خاص"
+
+msgid "Spider"
+msgstr "عنكبوت"
+
+msgid "Starting fire"
+msgstr "بدء إطلاق النار"
+
+msgid "Sterile ground"
+msgstr "أرض معقمة"
+
+msgid "Sticky trap"
+msgstr "مصيدة لزجة"
+
+msgid "Stones"
+msgstr "حجار"
+
+msgid "Stop"
+msgstr "وقف"
+
+msgid "Striped paving stones"
+msgstr "حجار رصف مخططة"
+
+msgid "Take"
+msgstr "تخذ"
+
+msgid "Teleporter"
+msgstr "آلة النقال الآني"
+
+msgid ""
+"This game is an original creation of Epsitec SA, CH-1400 Yverdon-les-Bains"
+msgstr "هذه لعبة أصلية من Epsitec SA, CH-1400 Yverdon-les-Bains"
+
+msgid "This game uses statically linked free and open-source libraries:"
+msgstr "تستخدم هذه اللعبة مكتبات مفتوحة المصدر ومجانية مرتبطة بشكل ثابت:"
+
+msgid "Time bomb"
+msgstr "قنبلة مزمونة"
+
+msgid "Tired Blupi"
+msgstr "بلوفي نعسان"
+
+msgid "Tomatoes"
+msgstr "طماطم"
+
+msgid "Tomatoes on striped paving stones"
+msgstr "طماطم على حجار الرصف مخططة"
+
+msgid "Too close to water"
+msgstr "قريب جدا من الماء"
+
+msgid "Training"
+msgstr "تمرين"
+
+msgid "Training number"
+msgstr "رقم التمرين"
+
+msgid "Transform"
+msgstr "تحويل"
+
+msgid "Transport"
+msgstr "نقل"
+
+msgid "Trapped enemy"
+msgstr "عدو محاصر"
+
+msgid "Tree"
+msgstr "شجرة"
+
+msgid "Tree trunks"
+msgstr "جذوع الأشجار"
+
+msgid "Use Midi music (original)"
+msgstr "إستخدم موسيقى Midi (أصلي)"
+
+msgid "Use Ogg music"
+msgstr "إستخدم موسيقى Ogg"
+
+msgid "Version"
+msgstr "إصدار"
+
+msgid "Very good, success on all missions !"
+msgstr "رائع جدا ، النجاح بكل المهمات!"
+
+msgid "Very good."
+msgstr "رائع حقا."
+
+msgid ""
+"Video\n"
+"sequences"
+msgstr ""
+"تسلسل\n"
+" فيديو"
+
+msgid "Virus"
+msgstr "فيروس"
+
+msgid "W"
+msgstr "غ"
+
+msgid "Wall"
+msgstr "جدار"
+
+msgid "Wall or palisade"
+msgstr "جدار أو حاجز"
+
+msgid "Water"
+msgstr "ماء"
+
+msgid "We hope you have had as much fun playing the game as we had making it !"
+msgstr ""
+"نأمل أن تكونوا قد استمتعتم بلعب اللعبة على الأقل بقدر ما استمتعنا بالإنشاء "
+"معها!"
+
+msgid "Weapons"
+msgstr "أسلحة"
+
+msgid "Well done !"
+msgstr "أحسنت!"
+
+msgid "Windowed"
+msgstr "نافذة"
+
+msgid "Work done"
+msgstr "انتهى العمل"
+
+msgid "Workshop"
+msgstr "ورشة عمل"
+
+msgid "Yes"
+msgstr "نعم"
+
+msgid "Yes, great ..."
+msgstr "نعم، عظيم..."
+
+msgid "You have failed, try again..."
+msgstr "لقد فشلتم ، حاول مرة أخرى ..."
+
+msgid "You have played Planet Blupi."
+msgstr "لقد لعبتم بلوفي."
+
+#, c-format
+msgid "construction %d, time %d"
+msgstr "البناء% d زمن%d"
+
+msgid "en"
+msgstr "ar"
+
+msgid "free slot"
+msgstr "ساقطة بالمجان"
+
+msgid "http://www.blupi.org            info@blupi.org"
+msgstr "http://www.blupi.org            info@blupi.org"
+
+#, c-format
+msgid "mission %d, time %d"
+msgstr "البناء%d زمن%d"
+
+#, c-format
+msgid "training %d, time %d"
+msgstr "تمرين%d زمن%d"

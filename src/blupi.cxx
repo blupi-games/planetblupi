@@ -1022,7 +1022,7 @@ DoInit (int argc, char * argv[], bool & exit)
   }
 
   totalDim.x = DIMLITTLEX * 16;
-  totalDim.y = DIMLITTLEY * 16;
+  totalDim.y = DIMLITTLEY * 19;
   iconDim.x  = DIMLITTLEX;
   iconDim.y  = DIMLITTLEY;
   if (!g_pPixmap->Cache (CHLITTLE, "little.png", totalDim, iconDim))

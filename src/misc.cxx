@@ -103,9 +103,11 @@ IsRightReading (const char * text)
 {
   auto isRight = false;
   if (text)
-    isRight = strchr (text, 0xD7) != nullptr;
+    isRight = strchr (text, 0xD7) != nullptr || // HE
+              strchr (text, 0xD8) != nullptr || // AR
+              strchr (text, 0xD9) != nullptr;   // AR
   else
-    isRight = GetLocale () == "he";
+    isRight = GetLocale () == "he" || GetLocale () == "ar";
   return isRight;
 }
 
