@@ -52,6 +52,7 @@
 #include "platform.h"
 #include "progress.h"
 #include "sound.h"
+#include "text.h"
 
 // Global variables
 
@@ -806,6 +807,8 @@ DoInit (int argc, char * argv[], bool & exit)
     SDL_Log ("Couldn't initialize TTF: %s", SDL_GetError ());
     return EXIT_FAILURE;
   }
+
+  FontsInit();
 
   if (!(g_settingsOverload & SETTING_LEGACY))
     Display::getDisplay ().readDisplaySize ();

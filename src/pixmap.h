@@ -105,6 +105,8 @@ public:
   void   FromDisplayToGame (Sint32 & x, Sint32 & y, double prevScale = 1);
   void   FromGameToDisplay (Sint32 & x, Sint32 & y);
 
+  Sint32 Blit (
+    Sint32 dstCh, SDL_Texture * src, const SDL_Rect & dstRect, double angle, SDL_RendererFlip flip);
 protected:
   Sint32 BltFast (
     Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR,
@@ -134,6 +136,8 @@ protected:
   SDL_Cursor *                            m_lpCurrentCursor;
   SDL_Cursor *                            m_lpSDLCursors[MAXCURSORS];
   SDL_Surface *                           m_lpSDLBlupi;
+public:
   SDL_Texture *                           mainTexture;
+protected:
   std::unordered_map<size_t, TextureInfo> m_SDLTextureInfo;
 };

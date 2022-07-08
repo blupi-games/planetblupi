@@ -159,6 +159,8 @@ public:
 
   static void PushUserEvent (Sint32 code, void * data = nullptr);
 
+  Language GetLanguage ();
+
 protected:
   void DrawTextCenter (const char * text, Sint32 x, Sint32 y, Sint32 font = 0);
   bool CreateButtons (Sint32 phase);
@@ -170,7 +172,6 @@ protected:
   bool PlayUp (Point pos);
 
   Language GetStartLanguage ();
-  Language GetLanguage ();
   void     SetLanguage (Language lang = Language::undef);
   void     SetWindowSize (double prevScale, double newScale);
 

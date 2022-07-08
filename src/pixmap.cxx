@@ -124,6 +124,50 @@ CPixmap::CreateMainTexture ()
 }
 
 Sint32
+CPixmap::Blit (
+  Sint32 dstCh, SDL_Texture * src, const SDL_Rect & dstRect, double angle, SDL_RendererFlip flip)
+{
+  Sint32 res;
+  auto target = SDL_GetRenderTarget (g_renderer);
+
+  if (dstCh < 0)
+  {
+    if (!this->mainTexture && g_bFullScreen && g_zoom == 1)
+    {
+      SDL_SetHint (
+        SDL_HINT_RENDER_SCALE_QUALITY, g_renderQuality ? "best" : "nearest");
+      this->mainTexture = SDL_CreateTexture (
+        g_renderer, SDL_PIXELFORMAT_RGBA32, SDL_TEXTUREACCESS_TARGET,
+        LXIMAGE (), LYIMAGE ());
+      SDL_SetHint (SDL_HINT_RENDER_SCALE_QUALITY, "nearest");
+    }
+    else if (this->mainTexture && !(g_bFullScreen && g_zoom == 1))
+    {
+      SDL_DestroyTexture (this->mainTexture);
+      this->mainTexture = nullptr;
+    }
+
+    if (this->mainTexture)
+      SDL_SetRenderTarget (g_renderer, target ? target : this->mainTexture);
+    res = SDL_RenderCopyEx (
+      g_renderer, src, nullptr, &dstRect, angle,
+      nullptr, flip);
+    if (this->mainTexture)
+      SDL_SetRenderTarget (g_renderer, target);
+  }
+  else
+  {
+    SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[dstCh].texture);
+    res = SDL_RenderCopyEx (
+      g_renderer, src, nullptr, &dstRect, angle,
+      nullptr, flip);
+    SDL_SetRenderTarget (g_renderer, target);
+  }
+
+  return res;
+}
+
+Sint32
 CPixmap::BltFast (
   Sint32 dstCh, size_t srcCh, Rect dstR, Rect srcR, SDL_RendererFlip flip)
 {

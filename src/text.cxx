@@ -21,6 +21,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <SDL_ttf.h>
+
 #include "blupi.h"
 #include "def.h"
 #include "event.h"
@@ -28,145 +30,216 @@
 #include "pixmap.h"
 #include "text.h"
 
-/**
- * \brief Return the character offset for the sprite.
- *
- * \param[in] c - The character (incremented if 0xC3 or 0xC4 or 0xC5 UTF-8).
- * \returns the offset.
- */
-static Uint8
-GetOffset (const char *& c)
+class Font
 {
-  /* clang-format off */
-  static const unsigned char table_c3[] = {
-  /*  ü     à     â     é     è     ë     ê     ï   */
-    0xBC, 0xA0, 0xA2, 0xA9, 0xA8, 0xAB, 0xAA, 0xAF,
-  /*  î     ô     ù     û     ä     ö     ç     ò   */
-    0xAE, 0xB4, 0xB9, 0xBB, 0xA4, 0xB6, 0xA7, 0xB2,
-  /*  ì     ó     Ç     Ö     Ü     õ     ã         */
-    0xAC, 0xB3, 0x87, 0x96, 0x9C, 0xB5, 0xA3
-  };
+  TTF_Font * font;
+  SDL_Color  color;
+  SDL_bool   outline;
 
-  static const unsigned char table_c4[] = {
-  /*  ę     ć     ą     Ğ     ğ     İ     ı         */
-    0x99, 0x87, 0x85, 0x9E, 0x9F, 0xB0, 0xB1,
-  };
-
-  static const unsigned char table_c5[] = {
-  /*  ń     ź     ż     ł     ś     Ş     ş         */
-    0x84, 0xBA, 0xBC, 0x82, 0x9B, 0x9E, 0x9F,
-  };
-
-  static const unsigned char table_d7[] = {
-  /*a ז     ו     ה     ד    ג     ב     א        */
-    0x90, 0x91, 0x92, 0x93, 0x94, 0x95, 0x96,
-  /*a מ     ל     ך     כ    י     ט     ח        */
-    0x97, 0x98, 0x99, 0x9B, 0x9A, 0x9C, 0x9E,
-  /*a ף     פ     ע     ס    ן     נ     ם        */
-    0x9D, 0xA0, 0x9F, 0xA1, 0xA2, 0xA4, 0xA3,
-  /*a ת     ש    ר     ק     ץ     צ              */
-    0xA6, 0xA5, 0xA7, 0xA8, 0xA9, 0xAA,
-  };
-  /* clang-format on */
-
-  int                   offset = 0;
-  int                   inc    = 0;
-  size_t                size   = 0;
-  const unsigned char * table  = nullptr;
-
-  switch (static_cast<unsigned char> (*c))
+public:
+  Font (
+    const char * name, int size, SDL_Color color, SDL_bool bold,
+    SDL_bool outline, SDL_bool rtl = SDL_FALSE)
   {
-  case 0xC3:
-    offset = 128;
-    table  = table_c3;
-    size   = countof (table_c3);
-    inc    = 1;
-    break;
-  case 0xC4:
-    offset = 128 + 32;
-    table  = table_c4;
-    size   = countof (table_c4);
-    inc    = 1;
-    break;
-  case 0xC5:
-    offset = 128 + 64;
-    table  = table_c5;
-    size   = countof (table_c5);
-    inc    = 1;
-    break;
-  case 0xD7:
-    offset = 128 + 96;
-    table  = table_d7;
-    size   = countof (table_d7);
-    inc    = 1;
-    break;
+    this->font    = TTF_OpenFont (name, size);
+    this->color   = color;
+    this->outline = outline;
+
+    TTF_SetFontHinting (this->font, TTF_HINTING_NORMAL);
+    if (bold)
+      TTF_SetFontStyle (this->font, TTF_STYLE_BOLD);
+
+    if (rtl)
+    {
+      //TTF_SetFontDirection(TTF_DIRECTION_RTL);
+      TTF_SetDirection(5);
+    }
   }
 
-  for (size_t i = 0; i < size; ++i)
-    if (static_cast<unsigned char> (*(c + inc)) == table[i])
-      return offset + i;
+  ~Font () { TTF_CloseFont (this->font); }
 
-  if (*(c + inc) < 0)
-    return 1; // square
+  TTF_Font * GetFont () { return this->font; }
 
-  return *(c + inc);
-}
+  void Draw (CPixmap * pPixmap, Point pos, const char * pText, Sint32 slope)
+  {
+    int           w0, h0;
+    SDL_Rect      r0;
+    SDL_Texture * tex0;
 
-/**
- * \brief Return the character length.
- *
- * \param[in] c - The character (can be incremented).
- * \param[in] font - The font used (little or normal).
- * \returns the length.
- */
-Uint8
-GetCharWidth (const char *& c, Sint32 font)
+    const auto isRTL = IsRightReading ();
+    const auto angle = isRTL ? -2.5 : 2.5;
+
+    if (this->outline)
+    {
+      TTF_SetFontOutline (this->font, 1);
+      SDL_Surface * text =
+        TTF_RenderUTF8_Solid (this->font, pText, {0x00, 0x00, 0x00, 0});
+      tex0 = SDL_CreateTextureFromSurface (g_renderer, text);
+      SDL_FreeSurface (text);
+
+      TTF_SizeUTF8 (this->font, pText, &w0, &h0);
+      r0.x = pos.x;
+      r0.y = pos.y;
+      r0.w = w0;
+      r0.h = h0;
+
+      if (isRTL)
+        r0.x -= w0;
+    }
+
+    TTF_SetFontOutline (this->font, 0);
+    SDL_Surface * text =
+      TTF_RenderUTF8_Blended (this->font, pText, this->color);
+    SDL_Texture * tex = SDL_CreateTextureFromSurface (g_renderer, text);
+    SDL_FreeSurface (text);
+
+    TTF_SetFontOutline (this->font, 0);
+    this->color.a = 64;
+    SDL_Surface * text2 =
+      TTF_RenderUTF8_Blended (this->font, pText, this->color);
+    SDL_Texture * tex2 = SDL_CreateTextureFromSurface (g_renderer, text2);
+    SDL_FreeSurface (text2);
+    this->color.a = 0;
+
+    int w, h;
+    TTF_SizeUTF8 (this->font, pText, &w, &h);
+    SDL_Rect r;
+    r.x = pos.x + (isRTL ? -1 : 1);
+    r.y = pos.y + 1;
+    r.w = w;
+    r.h = h;
+
+    if (isRTL)
+      r.x -= w;
+
+    int           res;
+    SDL_Texture * target;
+
+    target = SDL_GetRenderTarget (g_renderer);
+
+    if (this->outline)
+    {
+      /* outline */
+      res = pPixmap->Blit (-1, tex0, r0, slope ? angle : 0, SDL_FLIP_NONE);
+      SDL_DestroyTexture (tex0);
+    }
+
+    res = pPixmap->Blit (-1, tex, r, slope ? angle : 0, SDL_FLIP_NONE);
+    SDL_DestroyTexture (tex);
+
+    res = pPixmap->Blit (-1, tex2, r, slope ? angle : 0, SDL_FLIP_NONE);
+    SDL_DestroyTexture (tex2);
+
+    SDL_SetRenderTarget (g_renderer, target);
+  }
+};
+
+class Fonts
 {
-  // clang-format off
-  static const Uint8 table_width[] =
-  {
-     9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,  0,
-     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 10,
-     5,  6,  9, 13, 11, 12, 12,  6,  6,  6, 12, 12,  5,  9,  6,  9,
-     8,  8,  9,  9,  8,  9,  8,  8,  9,  9,  6,  6,  8,  9, 10, 11,
-    12,  8,  9,  9,  9,  8,  8,  8,  9,  4,  8,  9,  8, 10,  9,  9,
-     8,  9,  8,  9, 10,  8,  9, 11,  9,  8, 10,  7, 10,  7, 13, 13,
-     9,  9,  8,  8,  8,  8,  6,  8,  8,  4,  6,  8,  4, 12,  8,  8,
-     8,  8,  7,  6,  7,  8,  8, 10,  8,  8,  7,  6,  6,  6, 10,  0,
-     8,  9,  9,  8,  8,  8,  8,  5,  5,  8,  8,  8,  9,  8,  8,  8,
-     5,  8,  9,  9,  8,  8,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-     8,  8,  9,  8,  8,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-     8,  8,  7,  6,  7,  9,  6,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-     9,  9,  8,  8,  9,  5,  7,  9, 10,  6,  8,  8,  9, 10,  9,  6,
-     7,  9,  9,  8,  9,  9, 10,  9,  8, 12, 10,  0,  0,  0,  0,  0,
-  };
+private:
+  Font * latinLittle;
+  Font * latinRed;
+  Font * latinSlim;
+  Font * latinWhite;
 
-  static const Uint8 table_width_little[] =
-  {
-     6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  5,  6,  6,  0,
-     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  5,  5,
-     3,  3,  5,  8,  5, 11,  9,  3,  4,  4,  6,  6,  3,  4,  3,  6,
-     5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  3,  3,  7,  6,  7,  6,
-     9,  8,  6,  7,  7,  5,  5,  8,  7,  2,  4,  7,  5, 10,  7,  8,
-     6,  8,  7,  6,  6,  6,  8, 12,  7,  6,  6,  3,  5,  3,  6,  8,
-     4,  6,  6,  6,  6,  6,  5,  6,  6,  2,  3,  6,  2, 10,  6,  6,
-     6,  6,  4,  5,  4,  6,  6,  8,  6,  6,  5,  4,  6,  4,  7,  0,
-     7,  6,  6,  6,  6,  6,  6,  3,  3,  6,  6,  6,  6,  6,  6,  6,
-     3,  6,  7,  8,  6,  6,  6,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-     6,  5,  7,  8,  6,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-     6,  5,  5,  4,  5,  6,  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-     7,  7,  5,  6,  7,  2,  4,  7,  7,  3,  5,  7,  6,  7,  7,  4,
-     3,  7,  7,  7,  8,  7,  6,  7,  7,  9,  8,  0,  0,  0,  0,  0,
-  };
-  // clang-format on
+  Font * hebrewLittle;
+  Font * hebrewRed;
+  Font * hebrewSlim;
+  Font * hebrewWhite;
 
-  if (font == FONTLITTLE)
-    return table_width_little[GetOffset (c)];
-  return table_width[GetOffset (c)] - 1;
+private:
+  Font * GetFont (Sint32 font)
+  {
+    if (IsRightReading ())
+      switch (font)
+      {
+      case FONTLITTLE:
+        return this->hebrewLittle;
+      case FONTRED:
+        return this->hebrewRed;
+      case FONTSLIM:
+        return this->hebrewSlim;
+      case FONTWHITE:
+        return this->hebrewWhite;
+      }
+
+    switch (font)
+    {
+    case FONTLITTLE:
+      return this->latinLittle;
+    case FONTRED:
+      return this->latinRed;
+    case FONTSLIM:
+      return this->latinSlim;
+    case FONTWHITE:
+      return this->latinWhite;
+    }
+
+    return nullptr;
+  }
+
+public:
+  Fonts ()
+  {
+    this->latinLittle = new Font (
+      "/home/schroeterm/devel/blupi/planetblupi-dev/ChakraPetch-Regular.ttf",
+      12, {0xFF, 0xFF, 0x00, 0}, SDL_FALSE, SDL_TRUE);
+    this->latinRed = new Font (
+      "/home/schroeterm/devel/blupi/planetblupi-dev/NovaSlim-Regular.ttf", 13,
+      {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE);
+    this->latinSlim = new Font (
+      "/home/schroeterm/devel/blupi/planetblupi-dev/NovaSlim-Regular.ttf", 12,
+      {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE);
+    this->latinWhite = new Font (
+      "/home/schroeterm/devel/blupi/planetblupi-dev/NovaSlim-Regular.ttf", 13,
+      {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE);
+
+    this->hebrewLittle = new Font (
+      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansHebrew-Regular.ttf",
+      12, {0xFF, 0xFF, 0x00, 0}, SDL_FALSE, SDL_TRUE, SDL_TRUE);
+    this->hebrewRed = new Font (
+      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansHebrew-Regular.ttf", 13,
+      {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+    this->hebrewSlim = new Font (
+      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansHebrew-Regular.ttf", 12,
+      {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE, SDL_TRUE);
+    this->hebrewWhite = new Font (
+      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansHebrew-Regular.ttf", 13,
+      {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+  }
+
+  ~Fonts ()
+  {
+    delete this->latinLittle;
+    delete this->latinRed;
+    delete this->latinSlim;
+    delete this->latinWhite;
+
+    delete this->hebrewLittle;
+    delete this->hebrewRed;
+    delete this->hebrewSlim;
+    delete this->hebrewWhite;
+  }
+
+  Sint32 GetTextWidth (const char * pText, Sint32 font)
+  {
+    int w = 0, h = 0;
+    TTF_SizeUTF8 (this->GetFont (font)->GetFont (), pText, &w, &h);
+    return w;
+  }
+
+  void Draw (
+    CPixmap * pPixmap, Sint32 font, Point pos, const char * pText, Sint32 slope)
+  {
+    this->GetFont (font)->Draw (pPixmap, pos, pText, slope);
+  }
+};
+
+Fonts *
+FontsInit ()
+{
+  static Fonts fonts;
+  return &fonts;
 }
 
 /**
@@ -190,13 +263,136 @@ DrawText (
   Sint32       start      = pos.y;
   Sint32       rel        = 0;
 
-  auto useD7          = strchr (pText, 0xD7) != nullptr;
-  auto isRightReading = useD7 && IsRightReading ();
-  auto length         = strlen (pText);
+  auto useD7  = strchr (pText, 0xD7) != nullptr;
+  auto length = strlen (pText);
 
-  if (length >= 1 && !useD7 && IsRightReading ())
-    pos.x -= GetTextWidth (pText, font);
+  //if (length >= 1 && !useD7 && IsRightReading ())
+  //  pos.x -= GetTextWidth (pText, font);
 
+  FontsInit ()->Draw (pPixmap, font, pos, pText, slope);
+
+#if 0
+  TTF_Font * _font;
+  SDL_bool outline;
+  SDL_Color black;
+  switch (font) {
+    case FONTLITTLE:
+      outline = SDL_TRUE;
+      black = { 0xFF, 0xFF, 0x00, 0 };
+      //_font = TTF_OpenFont("/usr/share/fonts/truetype/roboto/unhinted/RobotoTTF/Roboto-Regular.ttf", 10);
+      _font = TTF_OpenFont("/home/schroeterm/devel/blupi/planetblupi-dev/ChakraPetch-Regular.ttf", 12);
+      //_font = TTF_OpenFont("/home/schroeterm/devel/blupi/planetblupi-dev/Tomorrow-Regular.ttf", 11);
+      //_font = TTF_OpenFont("/home/schroeterm/devel/blupi/planetblupi-dev/NovaOval-Regular.ttf", 11);
+      break;
+    case FONTRED:
+      outline = SDL_TRUE;
+      black = { 0xFF, 0x00, 0x00, 0 };
+      _font = TTF_OpenFont("/home/schroeterm/devel/blupi/planetblupi-dev/NovaSlim-Regular.ttf", 13);
+      TTF_SetFontStyle(_font, TTF_STYLE_BOLD);
+      //_font = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf", 12);
+      break;
+    case FONTSLIM:
+      outline = SDL_FALSE;
+      black = { 0xB4, 0x17, 0x12, 0 };
+      _font = TTF_OpenFont("/home/schroeterm/devel/blupi/planetblupi-dev/NovaSlim-Regular.ttf", 12);
+      //TTF_SetFontStyle(_font, TTF_STYLE_BOLD);
+      //_font = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf", 12);
+      break;
+    case FONTWHITE:
+      outline = SDL_TRUE;
+      black = { 0xFF, 0xFF, 0xFF, 0 };
+      //_font = TTF_OpenFont("/usr/share/fonts/truetype/roboto/unhinted/RobotoTTF/Roboto-Bold.ttf", 12);
+      //_font = TTF_OpenFont("/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf", 13);
+      _font = TTF_OpenFont("/home/schroeterm/devel/blupi/planetblupi-dev/NovaSlim-Regular.ttf", 13);
+      TTF_SetFontStyle(_font, TTF_STYLE_BOLD);
+      //TTF_SetFontSizeDPI(_font, 14, 64,64);
+      //TTF_SetFontKerning(_font, 0);
+      break;
+  }
+
+  TTF_SetFontHinting(_font, TTF_HINTING_NORMAL);
+
+  int w0, h0;
+  SDL_Rect r0;
+  SDL_Texture * tex0;
+
+  if (outline)
+  {
+    TTF_SetFontOutline(_font, 1);
+    SDL_Surface * text = TTF_RenderUTF8_Solid(_font, pText, {0x00, 0x00, 0x00, 0});
+    tex0 = SDL_CreateTextureFromSurface(g_renderer, text);
+    SDL_FreeSurface(text);
+
+
+    TTF_SizeUTF8(_font, pText, &w0, &h0);
+    r0.x = pos.x;
+    r0.y = pos.y;
+    r0.w = w0;
+    r0.h = h0;
+  }
+
+  TTF_SetFontOutline(_font, 0);
+  SDL_Surface * text = TTF_RenderUTF8_Blended(_font, pText, black);
+  SDL_Texture * tex = SDL_CreateTextureFromSurface(g_renderer, text);
+  SDL_FreeSurface(text);
+
+  TTF_SetFontOutline(_font, 0);
+  black.a = 64;
+  SDL_Surface * text2 = TTF_RenderUTF8_Blended(_font, pText, black);
+  SDL_Texture * tex2 = SDL_CreateTextureFromSurface(g_renderer, text2);
+  SDL_FreeSurface(text2);
+
+  int w, h;
+  TTF_SizeUTF8(_font, pText, &w, &h);
+  SDL_Rect r;
+  r.x = pos.x + 1;
+  r.y = pos.y + 1;
+  r.w = w;
+  r.h = h;
+
+  TTF_CloseFont (_font);
+
+  int res;
+  SDL_Texture * target;
+
+  if (outline) {
+    /* outline */
+    target = SDL_GetRenderTarget (g_renderer);
+    SDL_SetRenderTarget (g_renderer, target);
+    //res = SDL_RenderCopy (g_renderer, tex0, nullptr, &r0);
+    SDL_Point pt = {0, 0};
+    if (slope)
+      res = SDL_RenderCopyEx(g_renderer, tex0, nullptr, &r0, 2.5, &pt, SDL_FLIP_NONE);
+    else
+      res = SDL_RenderCopy (g_renderer, tex0, nullptr, &r0);
+    //SDL_SetRenderTarget (g_renderer, target);
+    SDL_DestroyTexture(tex0);
+  }
+
+  SDL_Point pt = {0, 0};
+
+  target = SDL_GetRenderTarget (g_renderer);
+  SDL_SetRenderTarget (g_renderer, target);
+  //res = SDL_RenderCopy (g_renderer, tex, nullptr, &r);
+  if (slope)
+    res = SDL_RenderCopyEx(g_renderer, tex, nullptr, &r, 2.5, &pt, SDL_FLIP_NONE);
+  else
+    res = SDL_RenderCopy (g_renderer, tex, nullptr, &r);
+  //SDL_SetRenderTarget (g_renderer, target);
+  SDL_DestroyTexture(tex);
+
+  target = SDL_GetRenderTarget (g_renderer);
+  SDL_SetRenderTarget (g_renderer, target);
+  //res = SDL_RenderCopy (g_renderer, tex, nullptr, &r);
+  if (slope)
+    res = SDL_RenderCopyEx(g_renderer, tex2, nullptr, &r, 2.5, &pt, SDL_FLIP_NONE);
+  else
+    res = SDL_RenderCopy (g_renderer, tex2, nullptr, &r);
+  //SDL_SetRenderTarget (g_renderer, target);
+  SDL_DestroyTexture(tex2);
+#endif // 0
+
+#if 0
   while (*pText != '\0' || skip)
   {
     if (isRightReading && numberSize == 0)
@@ -263,6 +459,7 @@ DrawText (
       pText++;
     pText++;
   }
+#endif // 0
 }
 
 // Affiche un pavé de texte.
@@ -424,8 +621,7 @@ GetTextHeight (char * pText, Sint32 font, Sint32 part)
 Sint32
 GetTextWidth (const char * pText, Sint32 font)
 {
-  Sint32 width = 0;
-
+#if 0
   while (*pText != 0)
   {
     auto rank = GetOffset (pText);
@@ -437,8 +633,9 @@ GetTextWidth (const char * pText, Sint32 font)
       pText++;
     pText++;
   }
+#endif // 0
 
-  return width;
+  return FontsInit ()->GetTextWidth (pText, font);
 }
 
 // Retourne la longueur d'un grand chiffre.
