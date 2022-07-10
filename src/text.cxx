@@ -50,10 +50,7 @@ public:
       TTF_SetFontStyle (this->font, TTF_STYLE_BOLD);
 
     if (rtl)
-    {
-      //TTF_SetFontDirection(TTF_DIRECTION_RTL);
-      TTF_SetDirection(5);
-    }
+      TTF_SetFontDirection(this->font, TTF_DIRECTION_RTL);
   }
 
   ~Font () { TTF_CloseFont (this->font); }
@@ -147,10 +144,15 @@ private:
   Font * hebrewSlim;
   Font * hebrewWhite;
 
+  Font * arabicLittle;
+  Font * arabicRed;
+  Font * arabicSlim;
+  Font * arabicWhite;
+
 private:
   Font * GetFont (Sint32 font)
   {
-    if (IsRightReading ())
+    if (GetLocale () == "he")
       switch (font)
       {
       case FONTLITTLE:
@@ -161,6 +163,19 @@ private:
         return this->hebrewSlim;
       case FONTWHITE:
         return this->hebrewWhite;
+      }
+
+    if (GetLocale () == "ar")
+      switch (font)
+      {
+      case FONTLITTLE:
+        return this->arabicLittle;
+      case FONTRED:
+        return this->arabicRed;
+      case FONTSLIM:
+        return this->arabicSlim;
+      case FONTWHITE:
+        return this->arabicWhite;
       }
 
     switch (font)
@@ -197,15 +212,36 @@ public:
     this->hebrewLittle = new Font (
       "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansHebrew-Regular.ttf",
       12, {0xFF, 0xFF, 0x00, 0}, SDL_FALSE, SDL_TRUE, SDL_TRUE);
+    TTF_SetFontScriptName(this->hebrewLittle->GetFont(), "Hebr");
     this->hebrewRed = new Font (
       "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansHebrew-Regular.ttf", 13,
       {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+    TTF_SetFontScriptName(this->hebrewRed->GetFont(), "Hebr");
     this->hebrewSlim = new Font (
       "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansHebrew-Regular.ttf", 12,
       {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE, SDL_TRUE);
+    TTF_SetFontScriptName(this->hebrewSlim->GetFont(), "Hebr");
     this->hebrewWhite = new Font (
       "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansHebrew-Regular.ttf", 13,
       {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+    TTF_SetFontScriptName(this->hebrewWhite->GetFont(), "Hebr");
+
+    this->arabicLittle = new Font (
+      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansArabic-Regular.ttf",
+      12, {0xFF, 0xFF, 0x00, 0}, SDL_FALSE, SDL_TRUE, SDL_TRUE);
+    TTF_SetFontScriptName(this->arabicLittle->GetFont(), "Arab");
+    this->arabicRed = new Font (
+      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansArabic-Regular.ttf", 13,
+      {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+    TTF_SetFontScriptName(this->arabicRed->GetFont(), "Arab");
+    this->arabicSlim = new Font (
+      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansArabic-Regular.ttf", 12,
+      {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE, SDL_TRUE);
+    TTF_SetFontScriptName(this->arabicSlim->GetFont(), "Arab");
+    this->arabicWhite = new Font (
+      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansArabic-Regular.ttf", 13,
+      {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+    TTF_SetFontScriptName(this->arabicWhite->GetFont(), "Arab");
   }
 
   ~Fonts ()
@@ -219,6 +255,11 @@ public:
     delete this->hebrewRed;
     delete this->hebrewSlim;
     delete this->hebrewWhite;
+
+    delete this->arabicLittle;
+    delete this->arabicRed;
+    delete this->arabicSlim;
+    delete this->arabicWhite;
   }
 
   Sint32 GetTextWidth (const char * pText, Sint32 font)
