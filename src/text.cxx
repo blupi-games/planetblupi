@@ -50,7 +50,7 @@ public:
       TTF_SetFontStyle (this->font, TTF_STYLE_BOLD);
 
     if (rtl)
-      TTF_SetFontDirection(this->font, TTF_DIRECTION_RTL);
+      TTF_SetFontDirection (this->font, TTF_DIRECTION_RTL);
   }
 
   ~Font () { TTF_CloseFont (this->font); }
@@ -210,38 +210,46 @@ public:
       {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE);
 
     this->hebrewLittle = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansHebrew-Regular.ttf",
+      "/home/schroeterm/devel/blupi/planetblupi-dev/"
+      "IBMPlexSansHebrew-Regular.ttf",
       12, {0xFF, 0xFF, 0x00, 0}, SDL_FALSE, SDL_TRUE, SDL_TRUE);
-    TTF_SetFontScriptName(this->hebrewLittle->GetFont(), "Hebr");
+    TTF_SetFontScriptName (this->hebrewLittle->GetFont (), "Hebr");
     this->hebrewRed = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansHebrew-Regular.ttf", 13,
-      {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
-    TTF_SetFontScriptName(this->hebrewRed->GetFont(), "Hebr");
+      "/home/schroeterm/devel/blupi/planetblupi-dev/"
+      "IBMPlexSansHebrew-Regular.ttf",
+      13, {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+    TTF_SetFontScriptName (this->hebrewRed->GetFont (), "Hebr");
     this->hebrewSlim = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansHebrew-Regular.ttf", 12,
-      {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE, SDL_TRUE);
-    TTF_SetFontScriptName(this->hebrewSlim->GetFont(), "Hebr");
+      "/home/schroeterm/devel/blupi/planetblupi-dev/"
+      "IBMPlexSansHebrew-Regular.ttf",
+      12, {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE, SDL_TRUE);
+    TTF_SetFontScriptName (this->hebrewSlim->GetFont (), "Hebr");
     this->hebrewWhite = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansHebrew-Regular.ttf", 13,
-      {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
-    TTF_SetFontScriptName(this->hebrewWhite->GetFont(), "Hebr");
+      "/home/schroeterm/devel/blupi/planetblupi-dev/"
+      "IBMPlexSansHebrew-Regular.ttf",
+      13, {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+    TTF_SetFontScriptName (this->hebrewWhite->GetFont (), "Hebr");
 
     this->arabicLittle = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansArabic-Regular.ttf",
+      "/home/schroeterm/devel/blupi/planetblupi-dev/"
+      "IBMPlexSansArabic-Regular.ttf",
       12, {0xFF, 0xFF, 0x00, 0}, SDL_FALSE, SDL_TRUE, SDL_TRUE);
-    TTF_SetFontScriptName(this->arabicLittle->GetFont(), "Arab");
+    TTF_SetFontScriptName (this->arabicLittle->GetFont (), "Arab");
     this->arabicRed = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansArabic-Regular.ttf", 13,
-      {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
-    TTF_SetFontScriptName(this->arabicRed->GetFont(), "Arab");
+      "/home/schroeterm/devel/blupi/planetblupi-dev/"
+      "IBMPlexSansArabic-Regular.ttf",
+      13, {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+    TTF_SetFontScriptName (this->arabicRed->GetFont (), "Arab");
     this->arabicSlim = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansArabic-Regular.ttf", 12,
-      {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE, SDL_TRUE);
-    TTF_SetFontScriptName(this->arabicSlim->GetFont(), "Arab");
+      "/home/schroeterm/devel/blupi/planetblupi-dev/"
+      "IBMPlexSansArabic-Regular.ttf",
+      12, {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE, SDL_TRUE);
+    TTF_SetFontScriptName (this->arabicSlim->GetFont (), "Arab");
     this->arabicWhite = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/IBMPlexSansArabic-Regular.ttf", 13,
-      {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
-    TTF_SetFontScriptName(this->arabicWhite->GetFont(), "Arab");
+      "/home/schroeterm/devel/blupi/planetblupi-dev/"
+      "IBMPlexSansArabic-Regular.ttf",
+      13, {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+    TTF_SetFontScriptName (this->arabicWhite->GetFont (), "Arab");
   }
 
   ~Fonts ()
@@ -309,7 +317,7 @@ DrawText (
                strchr (pText, 0xD9) != nullptr;
   auto length = strlen (pText);
 
-  //if (length >= 1 && !useD7 && IsRightReading ())
+  // if (length >= 1 && !useD7 && IsRightReading ())
   //  pos.x -= GetTextWidth (pText, font);
 
   FontsInit ()->Draw (pPixmap, font, pos, pText, slope);
