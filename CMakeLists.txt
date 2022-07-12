@@ -151,18 +151,18 @@ include_directories (${SDLKitchensink_INCLUDE_DIRS})
 
 find_package (PkgConfig REQUIRED)
 if (NOT BUILD_JS)
-  pkg_search_module (SDL2 REQUIRED sdl2)
-  include_directories (${SDL2_INCLUDE_DIRS})
-  set (planetblupi_DEPS ${planetblupi_DEPS} ${SDL2_STATIC_LIBRARIES})
-  pkg_search_module (SDL2_IMAGE REQUIRED SDL2_image)
-  include_directories (${SDL2_IMAGE_INCLUDE_DIRS})
-  set (planetblupi_DEPS ${planetblupi_DEPS} ${SDL2_IMAGE_STATIC_LIBRARIES})
-  pkg_search_module (SDL2_TTF REQUIRED SDL2_ttf)
-  include_directories (${SDL2_TTF_INCLUDE_DIRS})
-  set (planetblupi_DEPS ${planetblupi_DEPS} ${SDL2_TTF_STATIC_LIBRARIES} -lharfbuzz -lfreetype -Wl,--allow-multiple-definition)
-  pkg_search_module (SDL2_MIXER REQUIRED SDL2_mixer)
-  include_directories (${SDL2_MIXER_INCLUDE_DIRS})
-  set (planetblupi_DEPS ${planetblupi_DEPS} ${SDL2_MIXER_STATIC_LIBRARIES})
+  find_package (SDL2 REQUIRED)
+  #include_directories (${SDL2_INCLUDE_DIRS})
+  set (planetblupi_DEPS ${planetblupi_DEPS} SDL2::Main)
+  find_package (SDL2_image REQUIRED)
+  #include_directories (${SDL2_IMAGE_INCLUDE_DIRS})
+  set (planetblupi_DEPS ${planetblupi_DEPS} SDL2::Image)
+  find_package (SDL2_ttf REQUIRED)
+  #include_directories (${SDL2_TTF_INCLUDE_DIRS})
+  set (planetblupi_DEPS ${planetblupi_DEPS} SDL2::TTF)
+  find_package (SDL2_mixer REQUIRED)
+  #include_directories (${SDL2_MIXER_INCLUDE_DIRS})
+  set (planetblupi_DEPS ${planetblupi_DEPS} SDL2::Mixer)
 endif ()
 
 if (${PB_HTTP_VERSION_CHECK})
@@ -194,6 +194,14 @@ if ("${STATIC_BUILD}")
     set (planetblupi_DEPS ${planetblupi_DEPS}
       ${Intl_LIBRARIES}
       ${Iconv_LIBRARIES}
+    )
+
+    # For the static SDL2::TTF
+    set (planetblupi_DEPS ${planetblupi_DEPS}
+      -Wl,--allow-multiple-definition
+      -lz
+      -lfreetype
+      -lharfbuzz
     )
   endif ()
 
