@@ -112,7 +112,7 @@ public:
 
   void Draw (CPixmap * pPixmap, Point pos, const char * pText, Sint32 slope)
   {
-    Uint32 format;
+    Uint32   format;
     int      access;
     SDL_Rect r0;
 
@@ -137,7 +137,7 @@ public:
         SDL_FreeSurface (text);
       }
 
-      SDL_QueryTexture(texOutline, &format, &access, &r0.w, &r0.h);
+      SDL_QueryTexture (texOutline, &format, &access, &r0.w, &r0.h);
       r0.x = pos.x;
       r0.y = pos.y;
 
@@ -166,7 +166,7 @@ public:
     }
 
     SDL_Rect r;
-    SDL_QueryTexture(texBase, &format, &access, &r.w, &r.h);
+    SDL_QueryTexture (texBase, &format, &access, &r.w, &r.h);
     r.x = pos.x + (isRTL ? -1 : 1);
     r.y = pos.y + 1;
 
