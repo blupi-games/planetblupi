@@ -30,11 +30,62 @@
 #include "pixmap.h"
 #include "text.h"
 
+struct TexText {
+  SDL_Texture * outline;
+  SDL_Texture * base;
+  SDL_Texture * over;
+
+  TexText (const TexText & texText)
+  {
+    this->outline = texText.outline;
+    this->base    = texText.base;
+    this->over    = texText.over;
+  }
+
+  TexText (SDL_Texture * outline, SDL_Texture * base, SDL_Texture * over)
+  {
+    this->outline = outline;
+    this->base    = base;
+    this->over    = over;
+  }
+
+  ~TexText ()
+  {
+    /*SDL_DestroyTexture (this->outline);
+    SDL_DestroyTexture (this->base);
+    SDL_DestroyTexture (this->over);*/
+  }
+};
+
+class Cache
+{
+private:
+  std::unordered_map<std::string, struct TexText> list;
+
+public:
+  Cache () {}
+
+  struct TexText * Get (const std::string & text)
+  {
+    const auto entry = this->list.find (text);
+    if (entry != this->list.end ())
+      return &entry->second;
+
+    return nullptr;
+  }
+
+  void Insert (const std::string & text, const TexText & texText)
+  {
+    this->list.insert (std::pair<std::string, struct TexText> (text, texText));
+  }
+};
+
 class Font
 {
   TTF_Font * font;
   SDL_Color  color;
   SDL_bool   outline;
+  Cache      cache;
 
 public:
   Font (
@@ -59,75 +110,78 @@ public:
 
   void Draw (CPixmap * pPixmap, Point pos, const char * pText, Sint32 slope)
   {
-    int           w0, h0;
-    SDL_Rect      r0;
-    SDL_Texture * tex0;
+    Uint32 format;
+    int      w0, h0, access;
+    SDL_Rect r0;
 
     const auto isRTL = IsRightReading ();
     const auto angle = isRTL ? -2.5 : 2.5;
 
+    auto texText = this->cache.Get (pText);
+
+    SDL_Texture * texOutline = texText ? texText->outline : nullptr;
+    SDL_Texture * texBase    = texText ? texText->base : nullptr;
+    SDL_Texture * texOver    = texText ? texText->over : nullptr;
+
     if (this->outline)
     {
       TTF_SetFontOutline (this->font, 1);
-      SDL_Surface * text =
-        TTF_RenderUTF8_Solid (this->font, pText, {0x00, 0x00, 0x00, 0});
-      tex0 = SDL_CreateTextureFromSurface (g_renderer, text);
-      SDL_FreeSurface (text);
 
-      TTF_SizeUTF8 (this->font, pText, &w0, &h0);
+      if (!texOutline)
+      {
+        SDL_Surface * text =
+          TTF_RenderUTF8_Solid (this->font, pText, {0x00, 0x00, 0x00, 0});
+        texOutline = SDL_CreateTextureFromSurface (g_renderer, text);
+        SDL_FreeSurface (text);
+      }
+
+      SDL_QueryTexture(texOutline, &format, &access, &r0.w, &r0.h);
       r0.x = pos.x;
       r0.y = pos.y;
-      r0.w = w0;
-      r0.h = h0;
 
       if (isRTL)
-        r0.x -= w0;
+        r0.x -= r0.w;
     }
 
     TTF_SetFontOutline (this->font, 0);
-    SDL_Surface * text =
-      TTF_RenderUTF8_Blended (this->font, pText, this->color);
-    SDL_Texture * tex = SDL_CreateTextureFromSurface (g_renderer, text);
-    SDL_FreeSurface (text);
 
-    TTF_SetFontOutline (this->font, 0);
-    this->color.a = 64;
-    SDL_Surface * text2 =
-      TTF_RenderUTF8_Blended (this->font, pText, this->color);
-    SDL_Texture * tex2 = SDL_CreateTextureFromSurface (g_renderer, text2);
-    SDL_FreeSurface (text2);
-    this->color.a = 0;
+    if (!texBase)
+    {
+      SDL_Surface * text =
+        TTF_RenderUTF8_Blended (this->font, pText, this->color);
+      texBase = SDL_CreateTextureFromSurface (g_renderer, text);
+      SDL_FreeSurface (text);
+    }
 
-    int w, h;
-    TTF_SizeUTF8 (this->font, pText, &w, &h);
+    if (!texOver)
+    {
+      this->color.a = 64;
+      SDL_Surface * text =
+        TTF_RenderUTF8_Blended (this->font, pText, this->color);
+      texOver = SDL_CreateTextureFromSurface (g_renderer, text);
+      SDL_FreeSurface (text);
+      this->color.a = 0;
+    }
+
     SDL_Rect r;
+    SDL_QueryTexture(texBase, &format, &access, &r.w, &r.h);
     r.x = pos.x + (isRTL ? -1 : 1);
     r.y = pos.y + 1;
-    r.w = w;
-    r.h = h;
 
     if (isRTL)
-      r.x -= w;
-
-    int           res;
-    SDL_Texture * target;
-
-    target = SDL_GetRenderTarget (g_renderer);
+      r.x -= r.w;
 
     if (this->outline)
+      pPixmap->Blit (-1, texOutline, r0, slope ? angle : 0, SDL_FLIP_NONE);
+
+    pPixmap->Blit (-1, texBase, r, slope ? angle : 0, SDL_FLIP_NONE);
+    pPixmap->Blit (-1, texOver, r, slope ? angle : 0, SDL_FLIP_NONE);
+
+    if (!texText)
     {
-      /* outline */
-      res = pPixmap->Blit (-1, tex0, r0, slope ? angle : 0, SDL_FLIP_NONE);
-      SDL_DestroyTexture (tex0);
+      struct TexText _texText (texOutline, texBase, texOver);
+      this->cache.Insert (pText, _texText);
     }
-
-    res = pPixmap->Blit (-1, tex, r, slope ? angle : 0, SDL_FLIP_NONE);
-    SDL_DestroyTexture (tex);
-
-    res = pPixmap->Blit (-1, tex2, r, slope ? angle : 0, SDL_FLIP_NONE);
-    SDL_DestroyTexture (tex2);
-
-    SDL_SetRenderTarget (g_renderer, target);
   }
 };
 
