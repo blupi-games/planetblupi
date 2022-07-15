@@ -366,8 +366,7 @@ HandleEvent (const SDL_Event & event)
 
   switch (event.type)
   {
-  case SDL_WINDOWEVENT:
-  {
+  case SDL_WINDOWEVENT: {
 #ifndef DEBUG
     Point totalDim, iconDim;
 
@@ -433,8 +432,7 @@ HandleEvent (const SDL_Event & event)
     g_pEvent->LoadBackground ();
     break;
 
-  case SDL_USEREVENT:
-  {
+  case SDL_USEREVENT: {
     switch (event.user.code)
     {
     case EV_UPDATE:
@@ -450,8 +448,7 @@ HandleEvent (const SDL_Event & event)
       }
       break;
 
-    case EV_WARPMOUSE:
-    {
+    case EV_WARPMOUSE: {
       const SDL_Point * coord = static_cast<SDL_Point *> (event.user.data1);
 
       Sint32 x = coord->x, y = coord->y;
@@ -461,8 +458,7 @@ HandleEvent (const SDL_Event & event)
       break;
     }
 
-    case EV_CHECKUPDATE:
-    {
+    case EV_CHECKUPDATE: {
       std::string * data = static_cast<std::string *> (event.user.data1);
 
       using json    = nlohmann::json;
@@ -473,7 +469,7 @@ HandleEvent (const SDL_Event & event)
       std::vector<unsigned int> version (3);
       std::transform (
         list.begin (), list.end (), version.begin (),
-        [](const std::string & s) -> unsigned int { return std::stoi (s); });
+        [] (const std::string & s) -> unsigned int { return std::stoi (s); });
 
       if (
         (!!PB_VERSION_EXTRA[0] &&
@@ -803,12 +799,13 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
-  if (TTF_Init () < 0) {
+  if (TTF_Init () < 0)
+  {
     SDL_Log ("Couldn't initialize TTF: %s", SDL_GetError ());
     return EXIT_FAILURE;
   }
 
-  FontsInit();
+  GetFonts ();
 
   if (!(g_settingsOverload & SETTING_LEGACY))
     Display::getDisplay ().readDisplaySize ();
