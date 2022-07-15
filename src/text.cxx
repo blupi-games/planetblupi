@@ -111,7 +111,7 @@ public:
   void Draw (CPixmap * pPixmap, Point pos, const char * pText, Sint32 slope)
   {
     Uint32 format;
-    int      w0, h0, access;
+    int      access;
     SDL_Rect r0;
 
     const auto isRTL = IsRightReading ();
