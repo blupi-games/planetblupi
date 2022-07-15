@@ -51,16 +51,16 @@ struct TexText {
 
   ~TexText ()
   {
-    /*SDL_DestroyTexture (this->outline);
+    SDL_DestroyTexture (this->outline);
     SDL_DestroyTexture (this->base);
-    SDL_DestroyTexture (this->over);*/
+    SDL_DestroyTexture (this->over);
   }
 };
 
 class Cache
 {
 private:
-  std::unordered_map<std::string, struct TexText> list;
+  std::unordered_map<std::string, std::shared_ptr<struct TexText>> list;
 
 public:
   Cache () {}
@@ -69,14 +69,16 @@ public:
   {
     const auto entry = this->list.find (text);
     if (entry != this->list.end ())
-      return &entry->second;
+      return entry->second.get ();
 
     return nullptr;
   }
 
-  void Insert (const std::string & text, const TexText & texText)
+  void
+  Insert (const std::string & text, std::shared_ptr<struct TexText> texText)
   {
-    this->list.insert (std::pair<std::string, struct TexText> (text, texText));
+    this->list.insert (
+      std::pair<std::string, std::shared_ptr<struct TexText>> (text, texText));
   }
 };
 
@@ -179,7 +181,8 @@ public:
 
     if (!texText)
     {
-      struct TexText _texText (texOutline, texBase, texOver);
+      std::shared_ptr<struct TexText> _texText =
+        std::make_shared<struct TexText> (texOutline, texBase, texOver);
       this->cache.Insert (pText, _texText);
     }
   }
