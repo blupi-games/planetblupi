@@ -1,7 +1,7 @@
 /*
  * This file is part of the planetblupi source code
  * Copyright (C) 1997, Daniel Roux & EPSITEC SA
- * Copyright (C) 2017-2019, Mathieu Schroeter
+ * Copyright (C) 2017-2022, Mathieu Schroeter
  * http://epsitec.ch; http://www.blupi.org; http://github.com/blupi-games
  *
  * This program is free software: you can redistribute it and/or modify
