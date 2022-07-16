@@ -32,21 +32,37 @@
 
 struct TexText {
   SDL_Texture * outline;
+  int           outlineW;
+  int           outlineH;
+
   SDL_Texture * base;
+  int           baseW;
+  int           baseH;
+
   SDL_Texture * over;
 
   TexText (const TexText & texText)
   {
-    this->outline = texText.outline;
-    this->base    = texText.base;
-    this->over    = texText.over;
+    this->outline  = texText.outline;
+    this->base     = texText.base;
+    this->over     = texText.over;
+    this->outlineW = texText.outlineW;
+    this->outlineH = texText.outlineH;
+    this->baseW    = texText.baseW;
+    this->baseH    = texText.baseH;
   }
 
-  TexText (SDL_Texture * outline, SDL_Texture * base, SDL_Texture * over)
+  TexText (
+    SDL_Texture * outline, int outlineW, int outlineH, SDL_Texture * base,
+    int baseW, int baseH, SDL_Texture * over)
   {
-    this->outline = outline;
-    this->base    = base;
-    this->over    = over;
+    this->outline  = outline;
+    this->base     = base;
+    this->over     = over;
+    this->outlineW = outlineW;
+    this->outlineH = outlineH;
+    this->baseW    = baseW;
+    this->baseH    = baseH;
   }
 
   ~TexText ()
@@ -125,6 +141,11 @@ public:
     SDL_Texture * texBase    = texText ? texText->base : nullptr;
     SDL_Texture * texOver    = texText ? texText->over : nullptr;
 
+    int outlineW = texText ? texText->outlineW : 0;
+    int outlineH = texText ? texText->outlineH : 0;
+    int baseW    = texText ? texText->baseW : 0;
+    int baseH    = texText ? texText->baseH : 0;
+
     if (this->outline)
     {
       TTF_SetFontOutline (this->font, 1);
@@ -135,14 +156,16 @@ public:
           TTF_RenderUTF8_Solid (this->font, pText, {0x00, 0x00, 0x00, 0});
         texOutline = SDL_CreateTextureFromSurface (g_renderer, text);
         SDL_FreeSurface (text);
+        SDL_QueryTexture (texOutline, &format, &access, &outlineW, &outlineH);
       }
 
-      SDL_QueryTexture (texOutline, &format, &access, &r0.w, &r0.h);
+      r0.w = outlineW;
+      r0.h = outlineH;
       r0.x = pos.x;
       r0.y = pos.y;
 
       if (isRTL)
-        r0.x -= r0.w;
+        r0.x -= outlineW;
     }
 
     TTF_SetFontOutline (this->font, 0);
@@ -153,6 +176,7 @@ public:
         TTF_RenderUTF8_Blended (this->font, pText, this->color);
       texBase = SDL_CreateTextureFromSurface (g_renderer, text);
       SDL_FreeSurface (text);
+      SDL_QueryTexture (texBase, &format, &access, &baseW, &baseH);
     }
 
     if (!texOver)
@@ -166,12 +190,13 @@ public:
     }
 
     SDL_Rect r;
-    SDL_QueryTexture (texBase, &format, &access, &r.w, &r.h);
+    r.w = baseW;
+    r.h = baseH;
     r.x = pos.x + (isRTL ? -1 : 1);
     r.y = pos.y + 1;
 
     if (isRTL)
-      r.x -= r.w;
+      r.x -= baseW;
 
     if (this->outline)
       pPixmap->Blit (-1, texOutline, r0, slope ? angle : 0, SDL_FLIP_NONE);
@@ -182,7 +207,8 @@ public:
     if (!texText)
     {
       std::shared_ptr<struct TexText> _texText =
-        std::make_shared<struct TexText> (texOutline, texBase, texOver);
+        std::make_shared<struct TexText> (
+          texOutline, outlineW, outlineH, texBase, baseW, baseH, texOver);
       this->cache.Insert (pText, _texText);
     }
   }
