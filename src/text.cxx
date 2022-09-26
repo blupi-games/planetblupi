@@ -20,6 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <regex>
 
 #include <SDL_ttf.h>
 
@@ -126,6 +127,22 @@ public:
 
   TTF_Font * GetFont () { return this->font; }
 
+  std::string ReverseLatinWords (const std::string & text)
+  {
+    std::regex re("([a-zA-Z0-9]+)");
+    std::string out;
+    std::string::const_iterator it = text.cbegin(), end = text.cend();
+    for (std::smatch match; std::regex_search(it, end, match, re); it = match[0].second)
+    {
+      out += match.prefix();
+      auto substr = match.str();
+      std::reverse(substr.begin (), substr.end ());
+      out += substr;
+    }
+    out.append(it, end);
+    return out;
+  }
+
   void Draw (CPixmap * pPixmap, Point pos, std::string pText, Sint32 slope)
   {
     Uint32   format;
@@ -136,6 +153,9 @@ public:
     const auto angle = isRTL ? -2.5 : 2.5;
 
     auto texText = this->cache.Get (pText);
+
+    if (!texText && isRTL)
+      pText = this->ReverseLatinWords (pText);
 
     SDL_Texture * texOutline = texText ? texText->outline : nullptr;
     SDL_Texture * texBase    = texText ? texText->base : nullptr;
