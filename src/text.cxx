@@ -126,7 +126,7 @@ public:
 
   TTF_Font * GetFont () { return this->font; }
 
-  void Draw (CPixmap * pPixmap, Point pos, const char * pText, Sint32 slope)
+  void Draw (CPixmap * pPixmap, Point pos, std::string pText, Sint32 slope)
   {
     Uint32   format;
     int      access;
@@ -152,8 +152,8 @@ public:
 
       if (!texOutline)
       {
-        SDL_Surface * text =
-          TTF_RenderUTF8_Solid (this->font, pText, {0x00, 0x00, 0x00, 0});
+        SDL_Surface * text = TTF_RenderUTF8_Solid (
+          this->font, pText.c_str (), {0x00, 0x00, 0x00, 0});
         texOutline = SDL_CreateTextureFromSurface (g_renderer, text);
         SDL_FreeSurface (text);
         SDL_QueryTexture (texOutline, &format, &access, &outlineW, &outlineH);
@@ -173,7 +173,7 @@ public:
     if (!texBase)
     {
       SDL_Surface * text =
-        TTF_RenderUTF8_Blended (this->font, pText, this->color);
+        TTF_RenderUTF8_Blended (this->font, pText.c_str (), this->color);
       texBase = SDL_CreateTextureFromSurface (g_renderer, text);
       SDL_FreeSurface (text);
       SDL_QueryTexture (texBase, &format, &access, &baseW, &baseH);
@@ -183,7 +183,7 @@ public:
     {
       this->color.a = 64;
       SDL_Surface * text =
-        TTF_RenderUTF8_Blended (this->font, pText, this->color);
+        TTF_RenderUTF8_Blended (this->font, pText.c_str (), this->color);
       texOver = SDL_CreateTextureFromSurface (g_renderer, text);
       SDL_FreeSurface (text);
       this->color.a = 0;
