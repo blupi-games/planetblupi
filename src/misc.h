@@ -40,7 +40,7 @@ std::string GetBaseDir ();
 std::string GetShareDir ();
 std::string GetBinDir ();
 std::string GetLocale ();
-bool        IsRightReading (const char * text = nullptr);
+bool        IsRightReading ();
 extern void AddUserPath (std::string & pFilename);
 
 enum Location { LOCATION_ABSOLUTE, LOCATION_BASE, LOCATION_USER };
