@@ -279,59 +279,57 @@ private:
 public:
   Fonts ()
   {
+    const auto latinLittleFont =
+      GetBaseDir () + "fonts/ChakraPetch-Regular.ttf";
+    const auto latinFont = GetBaseDir () + "fonts/NovaSlim-Regular.ttf";
+
     this->latinLittle = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/ChakraPetch-Regular.ttf",
-      12, {0xFF, 0xFF, 0x00, 0}, SDL_FALSE, SDL_TRUE);
+      latinLittleFont.c_str (), 12, {0xFF, 0xFF, 0x00, 0}, SDL_FALSE, SDL_TRUE);
     this->latinRed = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/NovaSlim-Regular.ttf", 13,
-      {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE);
+      latinFont.c_str (), 13, {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE);
     this->latinSlim = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/NovaSlim-Regular.ttf", 12,
-      {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE);
+      latinFont.c_str (), 12, {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE);
     this->latinWhite = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/NovaSlim-Regular.ttf", 13,
-      {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE);
+      latinFont.c_str (), 13, {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE);
+
+    const auto hebrewFont =
+      GetBaseDir () + "fonts/IBMPlexSansHebrew-Regular.ttf";
 
     this->hebrewLittle = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/"
-      "IBMPlexSansHebrew-Regular.ttf",
-      12, {0xFF, 0xFF, 0x00, 0}, SDL_FALSE, SDL_TRUE, SDL_TRUE);
+      hebrewFont.c_str (), 12, {0xFF, 0xFF, 0x00, 0}, SDL_FALSE, SDL_TRUE,
+      SDL_TRUE);
     TTF_SetFontScriptName (this->hebrewLittle->GetFont (), "Hebr");
     this->hebrewRed = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/"
-      "IBMPlexSansHebrew-Regular.ttf",
-      13, {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+      hebrewFont.c_str (), 13, {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE,
+      SDL_TRUE);
     TTF_SetFontScriptName (this->hebrewRed->GetFont (), "Hebr");
     this->hebrewSlim = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/"
-      "IBMPlexSansHebrew-Regular.ttf",
-      12, {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE, SDL_TRUE);
+      hebrewFont.c_str (), 12, {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE,
+      SDL_TRUE);
     TTF_SetFontScriptName (this->hebrewSlim->GetFont (), "Hebr");
     this->hebrewWhite = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/"
-      "IBMPlexSansHebrew-Regular.ttf",
-      13, {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+      hebrewFont.c_str (), 13, {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE,
+      SDL_TRUE);
     TTF_SetFontScriptName (this->hebrewWhite->GetFont (), "Hebr");
 
+    const auto arabicFont =
+      GetBaseDir () + "fonts/IBMPlexSansArabic-Regular.ttf";
+
     this->arabicLittle = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/"
-      "IBMPlexSansArabic-Regular.ttf",
-      12, {0xFF, 0xFF, 0x00, 0}, SDL_FALSE, SDL_TRUE, SDL_TRUE);
+      arabicFont.c_str (), 12, {0xFF, 0xFF, 0x00, 0}, SDL_FALSE, SDL_TRUE,
+      SDL_TRUE);
     TTF_SetFontScriptName (this->arabicLittle->GetFont (), "Arab");
     this->arabicRed = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/"
-      "IBMPlexSansArabic-Regular.ttf",
-      13, {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+      arabicFont.c_str (), 13, {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE,
+      SDL_TRUE);
     TTF_SetFontScriptName (this->arabicRed->GetFont (), "Arab");
     this->arabicSlim = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/"
-      "IBMPlexSansArabic-Regular.ttf",
-      12, {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE, SDL_TRUE);
+      arabicFont.c_str (), 12, {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE,
+      SDL_TRUE);
     TTF_SetFontScriptName (this->arabicSlim->GetFont (), "Arab");
     this->arabicWhite = new Font (
-      "/home/schroeterm/devel/blupi/planetblupi-dev/"
-      "IBMPlexSansArabic-Regular.ttf",
-      13, {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE, SDL_TRUE);
+      arabicFont.c_str (), 13, {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE,
+      SDL_TRUE);
     TTF_SetFontScriptName (this->arabicWhite->GetFont (), "Arab");
   }
 
