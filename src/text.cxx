@@ -18,9 +18,9 @@
  * along with this program. If not, see http://gnu.org/licenses
  */
 
+#include <regex>
 #include <stdio.h>
 #include <stdlib.h>
-#include <regex>
 
 #include <SDL_ttf.h>
 
@@ -129,17 +129,25 @@ public:
 
   std::string ReverseLatinWords (const std::string & text)
   {
-    std::regex re("([a-zA-Z0-9]+)");
-    std::string out;
-    std::string::const_iterator it = text.cbegin(), end = text.cend();
-    for (std::smatch match; std::regex_search(it, end, match, re); it = match[0].second)
+    std::regex                  re ("([a-zA-Z0-9.,-=_ \t()]{2,})");
+    std::string                 out;
+    std::string::const_iterator it = text.cbegin (), end = text.cend ();
+    for (std::smatch match; std::regex_search (it, end, match, re);
+         it = match[0].second)
     {
-      out += match.prefix();
-      auto substr = match.str();
-      std::reverse(substr.begin (), substr.end ());
+      out += match.prefix ();
+      auto substr = match.str ();
+      std::reverse (substr.begin (), substr.end ());
+      std::replace (substr.begin (), substr.end (), '(', '$');
+      std::replace (substr.begin (), substr.end (), ')', '(');
+      std::replace (substr.begin (), substr.end (), '$', ')');
+      if (substr.back () == ' ' && substr.at (0) != ' ')
+        substr = ' ' + substr.substr (0, substr.length () - 1);
+      else if (substr.back () != ' ' && substr.at (0) == ' ')
+        substr = substr.substr (1) + ' ';
       out += substr;
     }
-    out.append(it, end);
+    out.append (it, end);
     return out;
   }
 
