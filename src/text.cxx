@@ -129,7 +129,7 @@ public:
 
   std::string ReverseLatinWords (const std::string & text)
   {
-    std::regex                  re ("([a-zA-Z0-9.,-=_ \t()]{2,})");
+    std::regex                  re ("([a-zA-Z0-9.,-=_@ \t()]{2,})");
     std::string                 out;
     std::string::const_iterator it = text.cbegin (), end = text.cend ();
     for (std::smatch match; std::regex_search (it, end, match, re);
