@@ -77,6 +77,7 @@ struct TexText {
 class Cache
 {
 private:
+  std::string                                                      locale;
   std::unordered_map<std::string, std::shared_ptr<struct TexText>> list;
 
 public:
@@ -91,12 +92,21 @@ public:
     return nullptr;
   }
 
-  void
-  Insert (const std::string & text, std::shared_ptr<struct TexText> texText)
+  void Insert (
+    const std::string & text, std::shared_ptr<struct TexText> texText,
+    const std::string & locale)
   {
+    if (locale != this->locale)
+    {
+      this->Clear ();
+      this->locale = locale;
+    }
+
     this->list.insert (
       std::pair<std::string, std::shared_ptr<struct TexText>> (text, texText));
   }
+
+  void Clear () { this->list.clear (); }
 };
 
 class Font
@@ -174,9 +184,11 @@ public:
     int baseW    = texText ? texText->baseW : 0;
     int baseH    = texText ? texText->baseH : 0;
 
-    if (GetLocale () == "ar")
+    const auto locale = GetLocale ();
+
+    if (locale == "ar")
       pos.y -= 2;
-    else if (GetLocale () == "he")
+    else if (locale == "he")
       pos.y -= 1;
 
     if (this->outline)
@@ -242,7 +254,7 @@ public:
       std::shared_ptr<struct TexText> _texText =
         std::make_shared<struct TexText> (
           texOutline, outlineW, outlineH, texBase, baseW, baseH, texOver);
-      this->cache.Insert (pText, _texText);
+      this->cache.Insert (pText, _texText, locale);
     }
   }
 };
