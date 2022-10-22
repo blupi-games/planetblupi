@@ -3136,8 +3136,9 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
           pos.x = LXIMAGE () - lg;
         if (pos.x < 0)
           pos.x = 0;
-        if (pos.y > LYIMAGE () - (GetLocale () == "ar" ? 22 : 16))
-          pos.y = LYIMAGE () - (GetLocale () == "ar" ? 22 : 16);
+        const auto offset = g_settingsOverload & SETTING_LEGACY ? 14 : 16;
+        if (pos.y > LYIMAGE () - (GetLocale () == "ar" ? 22 : offset))
+          pos.y = LYIMAGE () - (GetLocale () == "ar" ? 22 : offset);
         m_posToolTips = pos;
         break;
       }
