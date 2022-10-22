@@ -352,7 +352,7 @@ public:
       SDL_TRUE);
     TTF_SetFontScriptName (this->arabicRed->GetFont (), "Arab");
     this->arabicSlim = new Font (
-      arabicFont.c_str (), 12, {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE,
+      arabicFont.c_str (), 13, {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE,
       SDL_TRUE);
     TTF_SetFontScriptName (this->arabicSlim->GetFont (), "Arab");
     this->arabicWhite = new Font (
