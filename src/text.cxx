@@ -174,6 +174,11 @@ public:
     int baseW    = texText ? texText->baseW : 0;
     int baseH    = texText ? texText->baseH : 0;
 
+    if (GetLocale () == "ar")
+      pos.y -= 2;
+    else if (GetLocale () == "he")
+      pos.y -= 1;
+
     if (this->outline)
     {
       TTF_SetFontOutline (this->font, 1);
