@@ -1688,7 +1688,8 @@ CEvent::CEvent ()
   m_Languages.push_back (Language::tr);
   m_Languages.push_back (Language::pt);
   m_Languages.push_back (Language::he);
-  m_Languages.push_back (Language::ar);
+  if (!(g_settingsOverload & SETTING_LEGACY))
+    m_Languages.push_back (Language::ar);
 
   this->m_LangStart = GetLocale ();
 
@@ -1708,7 +1709,7 @@ CEvent::CEvent ()
     m_Lang = m_Languages.begin () + 7;
   else if (this->m_LangStart == "he")
     m_Lang = m_Languages.begin () + 8;
-  else if (this->m_LangStart == "ar")
+  else if (this->m_LangStart == "ar" && !(g_settingsOverload & SETTING_LEGACY))
     m_Lang = m_Languages.begin () + 9;
   else
     m_Lang = m_Languages.begin ();
@@ -4201,7 +4202,7 @@ CEvent::GetStartLanguage ()
     return Language::pt;
   if (this->m_LangStart == "he")
     return Language::he;
-  if (this->m_LangStart == "ar")
+  if (this->m_LangStart == "ar" && !(g_settingsOverload & SETTING_LEGACY))
     return Language::ar;
   return Language::en;
 }

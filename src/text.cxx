@@ -393,6 +393,243 @@ public:
   }
 };
 
+/**
+ * \brief Return the character offset for the sprite.
+ *
+ * \param[in] c - The character (incremented if 0xC3 or 0xC4 or 0xC5 UTF-8).
+ * \returns the offset.
+ */
+static Uint8
+GetOffset (const char *& c)
+{
+  /* clang-format off */
+  static const unsigned char table_c3[] = {
+  /*  ü     à     â     é     è     ë     ê     ï   */
+    0xBC, 0xA0, 0xA2, 0xA9, 0xA8, 0xAB, 0xAA, 0xAF,
+  /*  î     ô     ù     û     ä     ö     ç     ò   */
+    0xAE, 0xB4, 0xB9, 0xBB, 0xA4, 0xB6, 0xA7, 0xB2,
+  /*  ì     ó     Ç     Ö     Ü     õ     ã         */
+    0xAC, 0xB3, 0x87, 0x96, 0x9C, 0xB5, 0xA3
+  };
+
+  static const unsigned char table_c4[] = {
+  /*  ę     ć     ą     Ğ     ğ     İ     ı         */
+    0x99, 0x87, 0x85, 0x9E, 0x9F, 0xB0, 0xB1,
+  };
+
+  static const unsigned char table_c5[] = {
+  /*  ń     ź     ż     ł     ś     Ş     ş         */
+    0x84, 0xBA, 0xBC, 0x82, 0x9B, 0x9E, 0x9F,
+  };
+
+  static const unsigned char table_d7[] = {
+  /*a ז     ו     ה     ד    ג     ב     א        */
+    0x90, 0x91, 0x92, 0x93, 0x94, 0x95, 0x96,
+  /*a מ     ל     ך     כ    י     ט     ח        */
+    0x97, 0x98, 0x99, 0x9B, 0x9A, 0x9C, 0x9E,
+  /*a ף     פ     ע     ס    ן     נ     ם        */
+    0x9D, 0xA0, 0x9F, 0xA1, 0xA2, 0xA4, 0xA3,
+  /*a ת     ש    ר     ק     ץ     צ              */
+    0xA6, 0xA5, 0xA7, 0xA8, 0xA9, 0xAA,
+  };
+  /* clang-format on */
+
+  int                   offset = 0;
+  int                   inc    = 0;
+  size_t                size   = 0;
+  const unsigned char * table  = nullptr;
+
+  switch (static_cast<unsigned char> (*c))
+  {
+  case 0xC3:
+    offset = 128;
+    table  = table_c3;
+    size   = countof (table_c3);
+    inc    = 1;
+    break;
+  case 0xC4:
+    offset = 128 + 32;
+    table  = table_c4;
+    size   = countof (table_c4);
+    inc    = 1;
+    break;
+  case 0xC5:
+    offset = 128 + 64;
+    table  = table_c5;
+    size   = countof (table_c5);
+    inc    = 1;
+    break;
+  case 0xD7:
+    offset = 128 + 96;
+    table  = table_d7;
+    size   = countof (table_d7);
+    inc    = 1;
+    break;
+  }
+
+  for (size_t i = 0; i < size; ++i)
+    if (static_cast<unsigned char> (*(c + inc)) == table[i])
+      return offset + i;
+
+  if (*(c + inc) < 0)
+    return 1; // square
+
+  return *(c + inc);
+}
+
+/**
+ * \brief Return the character length.
+ *
+ * \param[in] c - The character (can be incremented).
+ * \param[in] font - The font used (little or normal).
+ * \returns the length.
+ */
+Uint8
+GetCharWidth (const char *& c, Sint32 font)
+{
+  // clang-format off
+  static const Uint8 table_width[] =
+  {
+     9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,  0,
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 10, 10,
+     5,  6,  9, 13, 11, 12, 12,  6,  6,  6, 12, 12,  5,  9,  6,  9,
+     8,  8,  9,  9,  8,  9,  8,  8,  9,  9,  6,  6,  8,  9, 10, 11,
+    12,  8,  9,  9,  9,  8,  8,  8,  9,  4,  8,  9,  8, 10,  9,  9,
+     8,  9,  8,  9, 10,  8,  9, 11,  9,  8, 10,  7, 10,  7, 13, 13,
+     9,  9,  8,  8,  8,  8,  6,  8,  8,  4,  6,  8,  4, 12,  8,  8,
+     8,  8,  7,  6,  7,  8,  8, 10,  8,  8,  7,  6,  6,  6, 10,  0,
+     8,  9,  9,  8,  8,  8,  8,  5,  5,  8,  8,  8,  9,  8,  8,  8,
+     5,  8,  9,  9,  8,  8,  9,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     8,  8,  9,  8,  8,  4,  4,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     8,  8,  7,  6,  7,  9,  6,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     9,  9,  8,  8,  9,  5,  7,  9, 10,  6,  8,  8,  9, 10,  9,  6,
+     7,  9,  9,  8,  9,  9, 10,  9,  8, 12, 10,  0,  0,  0,  0,  0,
+  };
+
+  static const Uint8 table_width_little[] =
+  {
+     6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  6,  5,  6,  6,  0,
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  5,  5,
+     3,  3,  5,  8,  5, 11,  9,  3,  4,  4,  6,  6,  3,  4,  3,  6,
+     5,  5,  5,  5,  5,  5,  5,  5,  5,  5,  3,  3,  7,  6,  7,  6,
+     9,  8,  6,  7,  7,  5,  5,  8,  7,  2,  4,  7,  5, 10,  7,  8,
+     6,  8,  7,  6,  6,  6,  8, 12,  7,  6,  6,  3,  5,  3,  6,  8,
+     4,  6,  6,  6,  6,  6,  4,  6,  6,  2,  3,  5,  2, 10,  6,  6,
+     6,  6,  3,  5,  3,  6,  6,  8,  6,  6,  5,  4,  6,  4,  7,  0,
+     7,  6,  6,  6,  6,  6,  6,  3,  3,  6,  6,  6,  6,  6,  6,  6,
+     3,  6,  7,  8,  6,  6,  6,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     6,  5,  7,  8,  6,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     6,  5,  5,  4,  5,  6,  5,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     7,  7,  5,  6,  7,  2,  4,  7,  7,  3,  5,  7,  6,  7,  7,  4,
+     3,  7,  7,  7,  8,  7,  6,  7,  7,  9,  8,  0,  0,  0,  0,  0,
+  };
+  // clang-format on
+
+  if (font == FONTLITTLE)
+    return table_width_little[GetOffset (c)];
+  return table_width[GetOffset (c)] - 1;
+}
+
+/**
+ * \brief Draw a text in a pixmap to a specific position.
+ *
+ * \param[in] pPixmap - The pixmap where it must be drawn.
+ * \param[in] pos - The coordinates for the text.
+ * \param[in] pText - The text.
+ * \param[in] font - The font style (little or normal).
+ * \param[in] slope - Text slope.
+ */
+void
+DrawTextLegacy (
+  CPixmap * pPixmap, Point pos, const char * pText, Sint32 font, Sint32 slope)
+{
+  Sint32       rank;
+  bool         isLatin    = false;
+  int          numberSize = 0;
+  const char * it         = nullptr;
+  int          skip       = 0;
+  Sint32       start      = pos.y;
+  Sint32       rel        = 0;
+
+  auto useD7          = strchr (pText, 0xD7) != nullptr;
+  auto isRightReading = useD7 && IsRightReading ();
+  auto length         = strlen (pText);
+
+  if (length >= 1 && !useD7 && IsRightReading ())
+    pos.x -= GetTextWidth (pText, font);
+
+  while (*pText != '\0' || skip)
+  {
+    if (isRightReading && numberSize == 0)
+    {
+      const auto test = [](const char * text) -> bool {
+        return *text > ' ' && *text <= '~';
+      };
+      it      = pText;
+      isLatin = test (pText);
+      if (isLatin)
+      {
+        while (test (pText))
+          ++pText;
+
+        numberSize = pText - it;
+        skip       = numberSize - 1;
+      }
+    }
+
+    if (numberSize)
+    {
+      pText = it + numberSize - 1;
+      numberSize--;
+    }
+
+    rank = GetOffset (pText);
+
+    if (isRightReading)
+    {
+      if (rank == '(')
+        rank = ')';
+      else if (rank == ')')
+        rank = '(';
+    }
+
+    auto inc = rank > 127;
+    auto lg  = GetCharWidth (pText, font);
+
+    if (isRightReading)
+      pos.x += -lg;
+
+    rel += lg;
+    if (slope)
+      pos.y = start + rel / slope;
+
+    if (font != FONTLITTLE)
+    {
+      rank += 256 * font;
+      pPixmap->DrawIcon (-1, CHTEXT, rank, pos);
+    }
+    else
+      pPixmap->DrawIcon (-1, CHLITTLE, rank, pos);
+
+    if (!isRightReading)
+      pos.x += lg;
+
+    if (!numberSize && skip > 0)
+    {
+      pText += skip;
+      skip = 0;
+    }
+
+    if (inc)
+      pText++;
+    pText++;
+  }
+}
+
 Fonts *
 GetFonts ()
 {
@@ -413,7 +650,10 @@ void
 DrawText (
   CPixmap * pPixmap, Point pos, const char * pText, Sint32 font, Sint32 slope)
 {
-  GetFonts ()->Draw (pPixmap, font, pos, pText, slope);
+  if (g_settingsOverload & SETTING_LEGACY)
+    DrawTextLegacy(pPixmap, pos, pText, font, slope);
+  else
+    GetFonts ()->Draw (pPixmap, font, pos, pText, slope);
 }
 
 // Affiche un pavé de texte.
@@ -573,8 +813,30 @@ GetTextHeight (char * pText, Sint32 font, Sint32 part)
 // Retourne la longueur d'un texte.
 
 Sint32
+GetTextWidthLegacy (const char * pText, Sint32 font)
+{
+  Sint32 width = 0;
+
+  while (*pText != 0)
+  {
+    auto rank = GetOffset (pText);
+    auto inc  = rank > 127;
+
+    width += GetCharWidth (pText, font);
+
+    if (inc)
+      pText++;
+    pText++;
+  }
+
+  return width;
+}
+
+Sint32
 GetTextWidth (const char * pText, Sint32 font)
 {
+  if (g_settingsOverload & SETTING_LEGACY)
+    return GetTextWidthLegacy (pText, font);
   return GetFonts ()->GetTextWidth (pText, font);
 }
 
