@@ -3130,13 +3130,13 @@ CEvent::EventButtons (const SDL_Event & event, Point pos)
         snprintf (m_textToolTips, sizeof (m_textToolTips), "%s", text);
         lg = GetTextWidth (m_textToolTips);
         pos.x += IsRightReading () ? 0 : 10;
-        pos.y += 20;
+        pos.y += IsRightReading () ? 16 : 20;
         if (pos.x > LXIMAGE () + (IsRightReading () ? 0 : -lg))
           pos.x = LXIMAGE () - lg;
         if (pos.x < 0)
           pos.x = 0;
-        if (pos.y > LYIMAGE () - 14)
-          pos.y = LYIMAGE () - 14;
+        if (pos.y > LYIMAGE () - (GetLocale () == "ar" ? 22 : 16))
+          pos.y = LYIMAGE () - (GetLocale () == "ar" ? 22 : 16);
         m_posToolTips = pos;
         break;
       }
