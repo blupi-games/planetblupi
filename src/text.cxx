@@ -583,7 +583,7 @@ DrawTextLegacy (
   {
     if (isRightReading && numberSize == 0)
     {
-      const auto test = [](const char * text) -> bool {
+      const auto test = [] (const char * text) -> bool {
         return *text > ' ' && *text <= '~';
       };
       it      = pText;
@@ -668,7 +668,7 @@ DrawText (
   CPixmap * pPixmap, Point pos, const char * pText, Sint32 font, Sint32 slope)
 {
   if (g_settingsOverload & SETTING_LEGACY)
-    DrawTextLegacy(pPixmap, pos, pText, font, slope);
+    DrawTextLegacy (pPixmap, pos, pText, font, slope);
   else
     GetFonts ()->Draw (pPixmap, font, pos, pText, slope);
 }
