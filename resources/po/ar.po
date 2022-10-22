@@ -535,7 +535,7 @@ msgid "Legacy"
 msgstr "قديم"
 
 msgid "Legacy mode (640x480)"
-msgstr "وضع قديم (640 × 480)"
+msgstr "وضع قديم (640x480)"
 
 #, c-format
 msgid "Lost if less than %d Blupi"
