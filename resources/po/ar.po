@@ -887,7 +887,7 @@ msgid "Tree trunks"
 msgstr "جذوع الأشجار"
 
 msgid "Use Midi music (original)"
-msgstr "إستخدم موسيقى Midi (أصلي)"
+msgstr "إستخدم موسيقى Midi (أصلي)"
 
 msgid "Use Ogg music"
 msgstr "إستخدم موسيقى Ogg"
