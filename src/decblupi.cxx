@@ -200,7 +200,7 @@ void
 CDecor::BlupiDelete (Sint32 rank)
 {
   m_blupi[rank].bExist = false;
-  this->m_pSound->StopSound (true, rank);
+  this->m_pSound->StopSound (false, rank);
 
   if (
     !m_bBuild && // phase de jeu ?
