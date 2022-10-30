@@ -1689,7 +1689,10 @@ CEvent::CEvent ()
   m_Languages.push_back (Language::pt);
   m_Languages.push_back (Language::he);
   if (!(g_settingsOverload & SETTING_LEGACY))
+  {
     m_Languages.push_back (Language::ar);
+    m_Languages.push_back (Language::es);
+  }
 
   this->m_LangStart = GetLocale ();
 
@@ -1711,6 +1714,8 @@ CEvent::CEvent ()
     m_Lang = m_Languages.begin () + 8;
   else if (this->m_LangStart == "ar" && !(g_settingsOverload & SETTING_LEGACY))
     m_Lang = m_Languages.begin () + 9;
+  else if (this->m_LangStart == "es" && !(g_settingsOverload & SETTING_LEGACY))
+    m_Lang = m_Languages.begin () + 10;
   else
     m_Lang = m_Languages.begin ();
 
@@ -2812,6 +2817,8 @@ CEvent::DrawButtons ()
       lang = "עברית";
     else if (locale == "ar")
       lang = "العربية";
+    else if (locale == "es")
+      lang = "Español";
 
     lg    = GetTextWidth (lang.c_str ());
     lg    = IsRightReading () ? -lg : lg;
@@ -4205,6 +4212,8 @@ CEvent::GetStartLanguage ()
     return Language::he;
   if (this->m_LangStart == "ar" && !(g_settingsOverload & SETTING_LEGACY))
     return Language::ar;
+  if (this->m_LangStart == "es" && !(g_settingsOverload & SETTING_LEGACY))
+    return Language::es;
   return Language::en;
 }
 
@@ -4256,6 +4265,9 @@ CEvent::SetLanguage (Language lang)
     break;
   case Language::ar:
     slang = "ar";
+    break;
+  case Language::es:
+    slang = "es";
     break;
   }
 
