@@ -818,11 +818,11 @@ static const DescAction action_table[] =
             {40, 1, 0, 0, 0},           // n
             {40, 1, 0, 0, 0},           // ne
         },
-        {   40, -1, -1, SOUND_COUPSEC, -1, -1, -1, SOUND_COUPSEC, -1,
-            -1, -1, SOUND_COUPSEC, -1, -1, -1, SOUND_COUPSEC, -1,
-            -1, -1, SOUND_COUPSEC, -1, -1, -1, SOUND_COUPSEC, -1,
-            -1, -1, SOUND_COUPSEC, -1, -1, -1, SOUND_COUPSEC, -1,
-            -1, -1, SOUND_COUPSEC, -1, -1, -1, SOUND_COUPSEC, -1
+        {   40, -1, -1, SOUND_COUPSEC, -1, -1, -1, SOUND_COUPSEC2, -1,
+            -1, -1, SOUND_COUPSEC, -1, -1, -1, SOUND_COUPSEC2, -1,
+            -1, -1, SOUND_COUPSEC, -1, -1, -1, SOUND_COUPSEC2, -1,
+            -1, -1, SOUND_COUPSEC, -1, -1, -1, SOUND_COUPSEC2, -1,
+            -1, -1, SOUND_COUPSEC, -1, -1, -1, SOUND_COUPSEC2, -1
         },
     },
     {

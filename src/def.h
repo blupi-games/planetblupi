@@ -306,6 +306,7 @@ enum Sounds {
   SOUND_ARMURECLOSE = 82,
   SOUND_WIN         = 83,
   SOUND_LOST        = 84,
+  SOUND_COUPSEC2    = 85,
 };
 
 // Buttons (play):
