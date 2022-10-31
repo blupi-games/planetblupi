@@ -262,7 +262,7 @@ public:
   Sint32 BlupiCreate (
     Point cel, Sint32 action, Sint32 direct, Sint32 perso, Sint32 energy);
   bool   BlupiDelete (Point cel, Sint32 perso = -1);
-  void   BlupiDelete (Sint32 rank);
+  void   BlupiDelete (Sint32 rank, SDL_bool haveSound = SDL_FALSE);
   void   BlupiKill (Sint32 exRank, Point cel, Sint32 type);
   bool   BlupiIfExist (Sint32 rank);
   void   BlupiCheat (Sint32 cheat);

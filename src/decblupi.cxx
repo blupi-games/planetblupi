@@ -197,10 +197,10 @@ CDecor::BlupiDelete (Point cel, Sint32 perso)
 // Supprime un blupi existant.
 
 void
-CDecor::BlupiDelete (Sint32 rank)
+CDecor::BlupiDelete (Sint32 rank, SDL_bool haveSound)
 {
   m_blupi[rank].bExist = false;
-  this->m_pSound->StopSound (false, rank);
+  this->m_pSound->StopSound (!haveSound, rank);
 
   if (
     !m_bBuild && // phase de jeu ?
@@ -2847,9 +2847,10 @@ CDecor::BlupiNextGoal (Sint32 rank)
       }
       if (channel == CHOBJECT && icon == 93) // piège ?
       {
+        this->m_pSound->StopSound (true, rank);
         BlupiSound (rank, SOUND_TRAP, pos);
         PutObject (cel, CHOBJECT, 96); // araignée piégée
-        BlupiDelete (rank);            // supprime araignée
+        BlupiDelete (rank, SDL_TRUE);            // supprime araignée
         return;
       }
     }
@@ -2944,9 +2945,10 @@ CDecor::BlupiNextGoal (Sint32 rank)
         }
         if (icon == 93) // piège ?
         {
+          this->m_pSound->StopSound (true, rank);
           BlupiSound (rank, SOUND_TRAP, pos);
           PutObject (cel, CHOBJECT, 97); // tracks piégé
-          BlupiDelete (rank);            // supprime tracks
+          BlupiDelete (rank, SDL_TRUE);            // supprime tracks
           return;
         }
 
@@ -3024,9 +3026,10 @@ CDecor::BlupiNextGoal (Sint32 rank)
         }
         if (icon == 93) // piège ?
         {
+          this->m_pSound->StopSound (true, rank);
           BlupiSound (rank, SOUND_TRAP, pos);
           PutObject (cel, CHOBJECT, 98); // robot piégé
-          BlupiDelete (rank);            // supprime robot
+          BlupiDelete (rank, SDL_TRUE);            // supprime robot
           return;
         }
 
@@ -3070,9 +3073,10 @@ CDecor::BlupiNextGoal (Sint32 rank)
       GetObject (cel, channel, icon);
       if (channel == CHOBJECT && icon == 93) // piège ?
       {
+        this->m_pSound->StopSound (true, rank);
         BlupiSound (rank, SOUND_TRAP, pos);
         PutObject (cel, CHOBJECT, 114); // bombe piégée
-        BlupiDelete (rank);             // supprime bombe
+        BlupiDelete (rank, SDL_TRUE);             // supprime bombe
         return;
       }
     }
@@ -3114,9 +3118,10 @@ CDecor::BlupiNextGoal (Sint32 rank)
       GetObject (cel, channel, icon);
       if (channel == CHOBJECT && icon == 93) // piège ?
       {
+        this->m_pSound->StopSound (true, rank);
         BlupiSound (rank, SOUND_TRAP, pos);
         PutObject (cel, CHOBJECT, 19); // électro piégée
-        BlupiDelete (rank);            // supprime électro
+        BlupiDelete (rank, SDL_TRUE);            // supprime électro
         return;
       }
     }
