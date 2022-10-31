@@ -40,7 +40,7 @@ CSound::StopSound (bool immediat, Sint32 rank)
       if (immediat || Platform::getType () == Platform::Type::JS)
         Mix_HaltChannel (stopCh + 1);
       else
-        Mix_FadeOutChannel (stopCh + 1, 500);
+        Mix_FadeOutChannel (stopCh + 1, 800);
     }
 
     m_channelBlupi[rank] = SOUND_NONE;
