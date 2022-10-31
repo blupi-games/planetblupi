@@ -66,7 +66,7 @@ CSound::StopAllSounds (bool immediat, const std::set<Sint32> * except)
       if (immediat || Platform::getType () == Platform::Type::JS)
         Mix_HaltChannel (i + 1);
       else
-        Mix_FadeOutChannel (i + 1, 500);
+        Mix_FadeOutChannel (i + 1, 800);
     }
   }
 
