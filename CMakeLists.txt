@@ -258,7 +258,7 @@ else ()
   endif ()
 endif ()
 
-target_link_libraries (${planetblupi_OUTPUT} PUBLIC ${planetblupi_DEPS})
+target_link_libraries (${planetblupi_OUTPUT} PUBLIC ${planetblupi_DEPS} -Wl,--dynamicbase -Wl,--nxcompat -Wl,--high-entropy-va -lm -ldinput8 -ldxguid -ldxerr8 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lsetupapi -lversion -luuid)
 
 ##########
 ## GetText
