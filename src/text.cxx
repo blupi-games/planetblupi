@@ -68,9 +68,21 @@ struct TexText {
 
   ~TexText ()
   {
-    SDL_DestroyTexture (this->outline);
-    SDL_DestroyTexture (this->base);
-    SDL_DestroyTexture (this->over);
+    if (this->outline)
+    {
+      SDL_DestroyTexture (this->outline);
+      this->outline = nullptr;
+    }
+    if (this->base)
+    {
+      SDL_DestroyTexture (this->base);
+      this->base = nullptr;
+    }
+    if (this->over)
+    {
+      SDL_DestroyTexture (this->over);
+      this->over = nullptr;
+    }
   }
 };
 
@@ -133,7 +145,7 @@ public:
       TTF_SetFontDirection (this->font, TTF_DIRECTION_RTL);
   }
 
-  ~Font () { TTF_CloseFont (this->font); }
+  ~Font () {  this->cache.Clear (); TTF_CloseFont (this->font); }
 
   TTF_Font * GetFont () { return this->font; }
 
@@ -379,6 +391,10 @@ public:
   }
 
   ~Fonts ()
+  {
+  }
+
+  void Clear ()
   {
     delete this->latinLittle;
     delete this->latinRed;
@@ -652,6 +668,12 @@ GetFonts ()
 {
   static Fonts fonts;
   return &fonts;
+}
+
+void
+DisposeFonts ()
+{
+  GetFonts ()->Clear ();
 }
 
 /**

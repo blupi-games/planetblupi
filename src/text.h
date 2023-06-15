@@ -30,6 +30,7 @@
 class Fonts;
 
 Fonts * GetFonts ();
+void DisposeFonts ();
 
 void DrawText (
   CPixmap * pPixmap, Point pos, const char * pText, Sint32 font = 0,

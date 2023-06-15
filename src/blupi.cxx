@@ -1116,6 +1116,7 @@ main (int argc, char * argv[])
 
   Platform::run (HandleEvent);
 
+  DisposeFonts ();
   FinishObjects ();
 
   if (g_renderer)
