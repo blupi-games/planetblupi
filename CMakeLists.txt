@@ -240,6 +240,13 @@ if ("${STATIC_BUILD}")
     )
     set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L${CMAKE_INSTALL_PREFIX}/lib/pulseaudio")
   endif ()
+
+  if (BUILD_WINDOWS)
+    # Missing SDL2 static dependencies
+    list (APPEND planetblupi_DEPS
+      -lwinmm -limm32 -lsetupapi -lversion
+    )
+  endif ()
 else ()
   set (planetblupi_DEPS
     ${SDL2_LIBRARIES}
@@ -258,7 +265,7 @@ else ()
   endif ()
 endif ()
 
-target_link_libraries (${planetblupi_OUTPUT} PUBLIC ${planetblupi_DEPS} -Wl,--dynamicbase -Wl,--nxcompat -Wl,--high-entropy-va -lm -ldinput8 -ldxguid -ldxerr8 -luser32 -lgdi32 -lwinmm -limm32 -lole32 -loleaut32 -lshell32 -lsetupapi -lversion -luuid)
+target_link_libraries (${planetblupi_OUTPUT} PUBLIC ${planetblupi_DEPS})
 
 ##########
 ## GetText
