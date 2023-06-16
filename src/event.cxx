@@ -2835,7 +2835,7 @@ CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, text);
 
     if (!g_bFullScreen)
-      snprintf (res, sizeof (res), "%dx", g_zoom);
+      snprintf (res, sizeof (res), "x%d", g_zoom);
     else
       snprintf (
         res, sizeof (res), "%s",
