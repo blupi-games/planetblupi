@@ -1593,7 +1593,7 @@ static Phase table[] =
             {
                 EV_PHASE_INIT,
                 0, {1, 40},
-                42 + 42 * 0, 433,
+                11, 433,
                 { translate ("Finish") },
             },
             {
