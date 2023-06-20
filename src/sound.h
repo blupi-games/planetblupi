@@ -61,7 +61,7 @@ public:
     Sint32 channel, Sint32 volume = 0, Uint8 panLeft = 255,
     Uint8 panRight = 255);
   bool
-       PlayImage (Sounds channel, Point pos, Sint32 rank = -1, bool stop = false);
+  PlayImage (Sounds channel, Point pos, Sint32 rank = -1, bool stop = false);
   bool PlayMusic (const std::string & lpszMIDIFilename);
   bool RestartMusic ();
   void SuspendMusic ();

@@ -57,7 +57,7 @@ void
 CDecor::MapInitColors ()
 {
   // FIXME: add big-endian support
-  const auto MapRGB = [](Uint8 r, Uint8 g, Uint8 b) {
+  const auto MapRGB = [] (Uint8 r, Uint8 g, Uint8 b) {
     return r << 16 | g << 8 | b << 0;
   };
 
@@ -515,7 +515,7 @@ CDecor::GenerateMap ()
   Point  pos, cel;
   Sint32 dx, rank, i;
 
-  auto DrawMap = [&]() -> bool {
+  auto DrawMap = [&] () -> bool {
     if (!m_SurfaceMap)
       return true;
 

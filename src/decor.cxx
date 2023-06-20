@@ -1915,9 +1915,8 @@ CDecor::CelOkForAction (
       cel.x--;
       cel.y--;
 
-      if (
-        !bStrong || bTransport || bVehicule ||
-        m_blupi[rank].perso == 8) // disciple ?
+      if (!bStrong || bTransport || bVehicule || m_blupi[rank].perso == 8) // disciple
+                                                                           // ?
       {
         error = Errors::MISC; // pas assez fort
       }
@@ -1970,9 +1969,8 @@ CDecor::CelOkForAction (
       cel.x--;
       cel.y--;
 
-      if (
-        !bStrong || bTransport || bVehicule ||
-        m_blupi[rank].perso == 8) // disciple ?
+      if (!bStrong || bTransport || bVehicule || m_blupi[rank].perso == 8) // disciple
+                                                                           // ?
       {
         error = Errors::MISC; // pas assez fort
       }

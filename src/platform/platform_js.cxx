@@ -24,7 +24,7 @@
 #include "../event.h"
 #include "../platform.h"
 
-std::function<void(const SDL_Event &)> Platform::handleEvent;
+std::function<void (const SDL_Event &)> Platform::handleEvent;
 
 Platform::Type
 Platform::getType ()
@@ -33,12 +33,12 @@ Platform::getType ()
 }
 
 void
-Platform::run (std::function<void(const SDL_Event &)> handleEvent)
+Platform::run (std::function<void (const SDL_Event &)> handleEvent)
 {
   Platform::handleEvent = handleEvent;
   Platform::timer (nullptr);
   emscripten_set_main_loop (
-    []() {
+    [] () {
       SDL_Event event;
       while (SDL_PollEvent (&event))
       {

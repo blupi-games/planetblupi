@@ -102,7 +102,7 @@ public:
   bool  IsDemoPlaying ();
   Point GetMousePos ();
   void
-              Create (CPixmap * pPixmap, CDecor * pDecor, CSound * pSound, CMovie * pMovie);
+  Create (CPixmap * pPixmap, CDecor * pDecor, CSound * pSound, CMovie * pMovie);
   void        SetFullScreen (bool bFullScreen, double prevScale = 1);
   Sint32      GetWorld ();
   Sint32      GetPhysicalWorld ();
@@ -182,7 +182,7 @@ protected:
   void BuildFloor (Point cel, Sint32 insIcon);
   void BuildWater (Point cel, Sint32 insIcon);
   bool
-       BuildDown (Point pos, Uint16 mod, const SDL_Event * event, bool bMix = true);
+  BuildDown (Point pos, Uint16 mod, const SDL_Event * event, bool bMix = true);
   bool BuildMove (Point pos, Uint16 mod, const SDL_Event & event);
 
   void PrivateLibelle ();
@@ -195,7 +195,7 @@ protected:
   bool DemoPlayStart (const std::string * demoFile = nullptr);
   void DemoPlayStop ();
   static void
-       WinToSDLEvent (Uint32 msg, WParam wParam, LParam lParam, SDL_Event & event);
+  WinToSDLEvent (Uint32 msg, WParam wParam, LParam lParam, SDL_Event & event);
   void DemoRecEvent (const SDL_Event & event);
 
 protected:

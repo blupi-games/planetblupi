@@ -2878,7 +2878,7 @@ CEvent::DrawButtons ()
     DrawText (m_pPixmap, pos, text);
 
     text  = gettext ("We hope you have had as much fun playing the game as we "
-                    "had making it !");
+                      "had making it !");
     lg    = GetTextWidth (text);
     lg    = IsRightReading () ? -lg : lg;
     pos.x = LXIMAGE () / 2 - lg / 2;
@@ -2913,7 +2913,7 @@ CEvent::DrawButtons ()
     }
 
     text  = gettext ("This game is an original creation of Epsitec SA, CH-1400 "
-                    "Yverdon-les-Bains");
+                      "Yverdon-les-Bains");
     lg    = GetTextWidth (text);
     lg    = IsRightReading () ? -lg : lg;
     pos.x = LXIMAGE () / 2 - lg / 2;

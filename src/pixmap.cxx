@@ -125,10 +125,11 @@ CPixmap::CreateMainTexture ()
 
 Sint32
 CPixmap::Blit (
-  Sint32 dstCh, SDL_Texture * src, const SDL_Rect & dstRect, double angle, SDL_RendererFlip flip)
+  Sint32 dstCh, SDL_Texture * src, const SDL_Rect & dstRect, double angle,
+  SDL_RendererFlip flip)
 {
   Sint32 res;
-  auto target = SDL_GetRenderTarget (g_renderer);
+  auto   target = SDL_GetRenderTarget (g_renderer);
 
   if (dstCh < 0)
   {
@@ -150,8 +151,7 @@ CPixmap::Blit (
     if (this->mainTexture)
       SDL_SetRenderTarget (g_renderer, target ? target : this->mainTexture);
     res = SDL_RenderCopyEx (
-      g_renderer, src, nullptr, &dstRect, angle,
-      nullptr, flip);
+      g_renderer, src, nullptr, &dstRect, angle, nullptr, flip);
     if (this->mainTexture)
       SDL_SetRenderTarget (g_renderer, target);
   }
@@ -159,8 +159,7 @@ CPixmap::Blit (
   {
     SDL_SetRenderTarget (g_renderer, m_SDLTextureInfo[dstCh].texture);
     res = SDL_RenderCopyEx (
-      g_renderer, src, nullptr, &dstRect, angle,
-      nullptr, flip);
+      g_renderer, src, nullptr, &dstRect, angle, nullptr, flip);
     SDL_SetRenderTarget (g_renderer, target);
   }
 
@@ -436,8 +435,7 @@ CPixmap::Cache (
   switch (mode)
   {
   case FIX:
-  case FIX_REVERSABLE:
-  {
+  case FIX_REVERSABLE: {
     if (channel == CHBACK && (ow < LXIMAGE () || oh < LYIMAGE ()))
     {
       if (!wideName.empty ())
@@ -467,8 +465,7 @@ CPixmap::Cache (
   }
 
   case EXPAND:
-  case EXPAND_REVERSABLE:
-  {
+  case EXPAND_REVERSABLE: {
     auto isFlipped = flip == SDL_FLIP_HORIZONTAL;
 
     SDL_Rect src, dst;

@@ -21,7 +21,7 @@
 #include "../event.h"
 #include "../platform.h"
 
-std::function<void(const SDL_Event &)> Platform::handleEvent;
+std::function<void (const SDL_Event &)> Platform::handleEvent;
 
 Platform::Type
 Platform::getType ()
@@ -30,11 +30,11 @@ Platform::getType ()
 }
 
 void
-Platform::run (std::function<void(const SDL_Event &)> handleEvent)
+Platform::run (std::function<void (const SDL_Event &)> handleEvent)
 {
   SDL_TimerID updateTimer = SDL_AddTimer (
     g_timerInterval,
-    [](Uint32 interval, void * param) -> Uint32 {
+    [] (Uint32 interval, void * param) -> Uint32 {
       CEvent::PushUserEvent (EV_UPDATE);
       return interval;
     },

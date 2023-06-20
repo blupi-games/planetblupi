@@ -206,7 +206,7 @@ public:
   bool
   IsFreeCelEmbarque (Point cel, Sint32 rank, Sint32 & action, Point & limit);
   bool
-         IsFreeCelDebarque (Point cel, Sint32 rank, Sint32 & action, Point & limit);
+  IsFreeCelDebarque (Point cel, Sint32 rank, Sint32 & action, Point & limit);
   bool   IsFreeJump (Point cel, Sint32 direct, Sint32 rank, Sint32 & action);
   bool   IsFreeGlisse (Point cel, Sint32 direct, Sint32 rank, Sint32 & action);
   Sint32 DirectSearch (Point cel, Point goal);
@@ -349,7 +349,7 @@ public:
   // DecIO.cpp
   bool Write (Sint32 rank, bool bUser, Sint32 world, Sint32 time, Sint32 total);
   bool
-       Read (Sint32 rank, bool bUser, Sint32 & world, Sint32 & time, Sint32 & total);
+  Read (Sint32 rank, bool bUser, Sint32 & world, Sint32 & time, Sint32 & total);
   bool FileExist (
     Sint32 rank, bool bUser, Sint32 & world, Sint32 & time, Sint32 & total);
   void Flush ();

@@ -145,7 +145,11 @@ public:
       TTF_SetFontDirection (this->font, TTF_DIRECTION_RTL);
   }
 
-  ~Font () {  this->cache.Clear (); TTF_CloseFont (this->font); }
+  ~Font ()
+  {
+    this->cache.Clear ();
+    TTF_CloseFont (this->font);
+  }
 
   TTF_Font * GetFont () { return this->font; }
 
@@ -390,9 +394,7 @@ public:
     TTF_SetFontScriptName (this->arabicWhite->GetFont (), "Arab");
   }
 
-  ~Fonts ()
-  {
-  }
+  ~Fonts () {}
 
   void Clear ()
   {

@@ -2850,7 +2850,7 @@ CDecor::BlupiNextGoal (Sint32 rank)
         this->m_pSound->StopSound (true, rank);
         BlupiSound (rank, SOUND_TRAP, pos);
         PutObject (cel, CHOBJECT, 96); // araignée piégée
-        BlupiDelete (rank, SDL_TRUE);            // supprime araignée
+        BlupiDelete (rank, SDL_TRUE);  // supprime araignée
         return;
       }
     }
@@ -2948,7 +2948,7 @@ CDecor::BlupiNextGoal (Sint32 rank)
           this->m_pSound->StopSound (true, rank);
           BlupiSound (rank, SOUND_TRAP, pos);
           PutObject (cel, CHOBJECT, 97); // tracks piégé
-          BlupiDelete (rank, SDL_TRUE);            // supprime tracks
+          BlupiDelete (rank, SDL_TRUE);  // supprime tracks
           return;
         }
 
@@ -3029,7 +3029,7 @@ CDecor::BlupiNextGoal (Sint32 rank)
           this->m_pSound->StopSound (true, rank);
           BlupiSound (rank, SOUND_TRAP, pos);
           PutObject (cel, CHOBJECT, 98); // robot piégé
-          BlupiDelete (rank, SDL_TRUE);            // supprime robot
+          BlupiDelete (rank, SDL_TRUE);  // supprime robot
           return;
         }
 
@@ -3076,7 +3076,7 @@ CDecor::BlupiNextGoal (Sint32 rank)
         this->m_pSound->StopSound (true, rank);
         BlupiSound (rank, SOUND_TRAP, pos);
         PutObject (cel, CHOBJECT, 114); // bombe piégée
-        BlupiDelete (rank, SDL_TRUE);             // supprime bombe
+        BlupiDelete (rank, SDL_TRUE);   // supprime bombe
         return;
       }
     }
@@ -3121,7 +3121,7 @@ CDecor::BlupiNextGoal (Sint32 rank)
         this->m_pSound->StopSound (true, rank);
         BlupiSound (rank, SOUND_TRAP, pos);
         PutObject (cel, CHOBJECT, 19); // électro piégée
-        BlupiDelete (rank, SDL_TRUE);            // supprime électro
+        BlupiDelete (rank, SDL_TRUE);  // supprime électro
         return;
       }
     }
