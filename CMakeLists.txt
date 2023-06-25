@@ -392,7 +392,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release" AND "${STATIC_BUILD}")
     set (CPACK_NSIS_URL_INFO_ABOUT "http://www.blupi.org")
     set (CPACK_NSIS_MUI_FINISHPAGE_RUN "planetblupi")
     if (SIGN_APP)
-      set (CPACK_NSIS_SIGN_UNINSTALLER "sign -a -fd sha1 -t http://time.certum.pl -v")
+      set (CPACK_NSIS_SIGN_UNINSTALLER "sign -a -fd sha256 -t http://time.certum.pl -v")
     endif ()
 
     include (CPack)
@@ -402,7 +402,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release" AND "${STATIC_BUILD}")
       add_custom_command (TARGET planetblupi
                           POST_BUILD
                           COMMAND ${SIGNTOOL_EXECUTABLE}
-                            sign -a -fd sha1 -t http://time.certum.pl -v
+                            sign -a -fd sha256 -t http://time.certum.pl -v
                             "${CMAKE_BINARY_DIR}/planetblupi.exe")
     endif ()
 
