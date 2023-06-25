@@ -414,7 +414,7 @@ if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release" AND "${STATIC_BUILD}")
       add_custom_command (TARGET planetblupi
                           POST_BUILD
                           COMMAND ${SIGNTOOL_EXECUTABLE}
-                            sign -a -fd sha1 -t http://time.certum.pl
+                            sign -a -fd sha256 -t http://time.certum.pl
                             "${CMAKE_BINARY_DIR}/${INSTALLER_FILE_NAME}.exe")
     endif ()
   elseif (APPLE)
