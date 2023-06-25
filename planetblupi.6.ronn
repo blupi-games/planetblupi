@@ -205,7 +205,7 @@ Only 10 musics are supported: `music000` to `music009`.
 
 **Planet Blupi** is an original creation of Epsitec SA.
 
-http://www.blupi.org <info@blupi.org>
+https://www.blupi.org <info@blupi.org>
 
 ## COPYRIGHT
 

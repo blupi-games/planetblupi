@@ -968,7 +968,7 @@ msgstr "ranura disponible"
 
 #, fuzzy
 msgid "https://www.blupi.org           info@blupi.org"
-msgstr "http://www.blupi.org            info@blupi.org"
+msgstr "https://www.blupi.org            info@blupi.org"
 
 #, c-format
 msgid "mission %d, time %d"
