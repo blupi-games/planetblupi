@@ -199,7 +199,6 @@ if ("${STATIC_BUILD}")
 
     # For the static SDL2::TTF
     set (planetblupi_DEPS ${planetblupi_DEPS}
-      -Wl,--allow-multiple-definition
       -lz
       -lfreetype
       -lharfbuzz
