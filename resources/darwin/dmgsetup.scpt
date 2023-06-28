@@ -35,10 +35,9 @@ on run argv
     open
       update without registering applications
       tell container window
-        set sidebar width to 0
-        set statusbar visible to false
-        set toolbar visible to false
-        set the bounds to { 400, 100, 900, 465 }
+        set its sidebar width to 0
+        set its toolbar visible to false
+        set the bounds to { 400, 100, 900, 500 }
         set position of item "Planet Blupi.app" to { 133, 200 }
         set position of item "Applications" to { 378, 200 }
       end tell
