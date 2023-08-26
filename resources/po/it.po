@@ -24,8 +24,8 @@ msgstr " - FFmpeg (LGPLv2.1)"
 msgid " - GNU/gettext and GNU/libiconv (GPLv3)"
 msgstr " - GNU/gettext e GNU/libiconv (GPLv3)"
 
-msgid " - SDL2, SDL2_image and SDL2_mixer (zlib license)"
-msgstr " - SDL2, SDL2_image e SDL2_mixer (zlib licensa)"
+msgid " - SDL2, SDL2_image, SDL2_mixer and SDL2_ttf (zlib license)"
+msgstr " - SDL2, SDL2_image, SDL2_mixer e SDL2_ttf (zlib licensa)"
 
 msgid " - SDL_kitchensink (MIT)"
 msgstr " - SDL_kitchensink (MIT)"

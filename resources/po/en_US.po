@@ -24,7 +24,7 @@ msgstr ""
 msgid " - GNU/gettext and GNU/libiconv (GPLv3)"
 msgstr ""
 
-msgid " - SDL2, SDL2_image and SDL2_mixer (zlib license)"
+msgid " - SDL2, SDL2_image, SDL2_mixer and SDL2_ttf (zlib license)"
 msgstr ""
 
 msgid " - SDL_kitchensink (MIT)"

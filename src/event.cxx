@@ -2898,7 +2898,7 @@ CEvent::DrawButtons ()
       gettext (" - libpulse (LGPLv2.1)"),
       gettext (" - libsndfile (LGPLv3)"),
       gettext (" - SDL_kitchensink (MIT)"),
-      gettext (" - SDL2, SDL2_image and SDL2_mixer (zlib license)"),
+      gettext (" - SDL2, SDL2_image, SDL2_mixer and SDL2_ttf (zlib license)"),
       gettext (" - zlib (own license)"),
       gettext (
         "All licenses are available under share/doc/planetblupi/copyright")};
