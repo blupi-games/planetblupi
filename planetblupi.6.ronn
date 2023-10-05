@@ -195,6 +195,8 @@ Only 10 musics are supported: `music000` to `music009`.
     **Set fire**: you can add invisible fire on every type of cells (when
     building a map).
 
+    **Duplicate bombs**: duplicate a bomb just before the explosion.
+
   * `-m`, `--restore-midi`:
     Restore playback based on MIDI music instead of OGG.
 
@@ -210,4 +212,4 @@ https://www.blupi.org <info@blupi.org>
 ## COPYRIGHT
 
 planetblupi is Copyright (C) 1997, Daniel Roux & EPSITEC SA and
-Copyright (C) 2017-2021, Mathieu Schroeter
+Copyright (C) 2017-2023, Mathieu Schroeter

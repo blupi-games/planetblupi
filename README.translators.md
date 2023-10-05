@@ -14,11 +14,11 @@ yours for example) `share/locale/fr/LC_MESSAGES/` and put your `.mo` file in
 this directory. You can replace an other lang if you like.
 
 > Under Windows OS, you should find the french translations in
-> `C:\Program Files\Planet Blupi\share\locale\fr\LC_MESSAGES\`.  
+> `C:\Program Files\Planet Blupi\share\locale\fr\LC_MESSAGES\`.
 > With macOS it's possible to open the `Planet Blupi.app` and update the file
 > directly in the `.app`. But note that it breaks the application signature. To
 > start the game, maybe it's necessary to open via the context menu for by
-> passing the macOS security.  
+> passing the macOS security.
 > For Linux you must unpack the AppImage file somewhere for changing the files.
 
 Then start the game, the interface will use your new translation if you select
@@ -51,6 +51,10 @@ don't forget to provide this one.
       lang = "Português";
     else if (locale == "he")
       lang = "עברית";
+    else if (locale == "ar")
+      lang = "العربية";
+    else if (locale == "es")
+      lang = "Español";
 ```
 
 ## The missions
