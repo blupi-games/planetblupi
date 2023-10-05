@@ -821,11 +821,12 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
-#if 0
-  auto icon = IMG_Load ((GetShareDir () + "icons/hicolor/256x256/apps/blupi.png").c_str ());
+#ifdef __linux__
+  auto icon = IMG_Load (
+    (GetShareDir () + "icons/hicolor/256x256/apps/blupi.png").c_str ());
   SDL_SetWindowIcon (g_window, icon);
   SDL_FreeSurface (icon);
-#endif /* 0 */
+#endif /* __linux__ */
 
   g_renderer = SDL_CreateRenderer (
     g_window, -1, g_rendererType | SDL_RENDERER_TARGETTEXTURE);
