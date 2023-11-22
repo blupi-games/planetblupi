@@ -12,5 +12,7 @@
 	<string>@CPACK_BUNDLE_NAME@</string>
 	<key>CFBundleIconFile</key>
 	<string>@BUNDLE_ICON_REF@</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
 </dict>
 </plist>
