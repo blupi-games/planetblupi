@@ -4952,7 +4952,7 @@ CEvent::PrivateLibelle ()
     else if (term.bHachMetal)
     {
       term.bHachMetal = false;
-      text = gettext ("1|Drop platinium on striped \n1|paving stones.");
+      text = gettext ("1|Drop Platinium on striped \n1|paving stones.");
     }
     else if (term.bHachRobot)
     {
