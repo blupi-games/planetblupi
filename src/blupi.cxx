@@ -778,14 +778,14 @@ DoInit (int argc, char * argv[], bool & exit)
     return EXIT_FAILURE;
   }
 
-#ifdef __LINUX__
+#ifdef __linux__
   if (!getenv ("ALSA_CONFIG_DIR"))
   {
     static char env[256];
     snprintf (env, sizeof (env), "ALSA_CONFIG_DIR=/usr/share/alsa");
     putenv (env);
   }
-#endif /* __LINUX__ */
+#endif /* __linux__ */
 
 #ifdef _WIN32
   /* Fix laggy sounds on Windows by not using winmm driver. */
