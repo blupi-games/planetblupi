@@ -99,7 +99,7 @@ endif ()
 file (COPY resources/sound DESTINATION share/planetblupi)
 file (COPY resources/music DESTINATION share/planetblupi)
 file (COPY LICENSE.all DESTINATION share/doc/planetblupi)
-file (COPY COPYING DESTINATION share/doc/planetblupi)
+file (COPY CREDITS DESTINATION share/doc/planetblupi)
 file (RENAME "${CMAKE_BINARY_DIR}/share/doc/planetblupi/LICENSE.all"
              "${CMAKE_BINARY_DIR}/share/doc/planetblupi/copyright")
 
@@ -351,7 +351,7 @@ if (NOT BUILD_JS)
   install (DIRECTORY resources/sound DESTINATION share/planetblupi)
   install (DIRECTORY resources/music DESTINATION share/planetblupi)
   install (FILES LICENSE.all DESTINATION share/doc/planetblupi RENAME copyright)
-  install (FILES COPYING DESTINATION share/doc/planetblupi)
+  install (FILES CREDITS DESTINATION share/doc/planetblupi)
 
   if (BUILD_LINUX)
     install (DIRECTORY resources/icon/hicolor DESTINATION share/icons)
