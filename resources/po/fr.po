@@ -311,7 +311,7 @@ msgid ""
 "Choose the\n"
 "music format"
 msgstr ""
-"Choisi le\n"
+"Choisis le\n"
 "format de\n"
 "la musique"
 
