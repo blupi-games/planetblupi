@@ -1,0 +1,975 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-30 23:00+0100\n"
+"PO-Revision-Date: 2024-03-12 11:22+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Unknown\n"
+"Language: zxx\n"
+"Plural-Forms: nplurals=2; plural=n!=1;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"\n"
+"X-Loco-Source-Locale: en_GB\n"
+"X-Loco-Parser: loco_parse_po\n"
+"X-Generator: Loco https://localise.biz/"
+
+msgid "Planet Blupi"
+msgstr "Planet Blupi"
+
+msgid "Planet Blupi -- stop"
+msgstr "Planet Blupi -- stop"
+
+msgid ""
+"1: Grow tomatoes\n"
+"2: Eat"
+msgstr ""
+"1: Termessz paradicsomot \n"
+"2: Egyél"
+
+msgid ""
+"1: Make a bunch\n"
+"2: Transform"
+msgstr ""
+"1: Készíts egy csokrot\n"
+"2: Alakítsd át"
+
+msgid ""
+"1: Take\n"
+"2: Transform"
+msgstr ""
+"1: Vedd fel\n"
+"2: Alakítsd át"
+
+msgid ""
+"1: Extract iron\n"
+"2: Make a bomb"
+msgstr ""
+"1: Vas kitermelés\n"
+"2: Készíts bombát"
+
+msgid ""
+"1: Extract iron\n"
+"2: Make a Jeep"
+msgstr ""
+"1: Vas kitermelés\n"
+"2: Készíts Jeepet"
+
+msgid ""
+"1: Extract iron\n"
+"2: Make an armour"
+msgstr ""
+"1: Vas kitermelés\n"
+"2: Készíts páncélt"
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Make a palisade"
+msgstr ""
+"1: Fa kivágása\n"
+"2: Palánkfal készítése"
+
+msgid ""
+"1: Take fel\n"
+"2: Build palisade"
+msgstr ""
+"1: Vedd\n"
+"2: Palánkfal készítése"
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Build a bridge"
+msgstr ""
+"1: Fa kivágása\n"
+"2: Híd készítése"
+
+msgid ""
+"1: Take fel\n"
+"2: Build a bridge"
+msgstr ""
+"1: Vedd\n"
+"2: Híd készítése"
+
+msgid ""
+"1: Cut down a tree \n"
+"2: Make a boat"
+msgstr ""
+"1: Fa kivágása\n"
+"2: Csónak készítése"
+
+msgid ""
+"1: Take fel\n"
+"2: Make a boat"
+msgstr ""
+"1: Vedd\n"
+"2: Csónak készítése"
+
+msgid "Tree"
+msgstr "Fa"
+
+msgid "Enemy rocket"
+msgstr "Ellenséges rakéta"
+
+msgid "Platinium"
+msgstr "Platina"
+
+msgid "Armour"
+msgstr "Páncél"
+
+msgid "Enemy construction"
+msgstr "Ellenséges építmény"
+
+msgid "Wall"
+msgstr "Fal"
+
+msgid "Protection tower"
+msgstr "Védőtorony"
+
+msgid "Laboratory"
+msgstr "Laboratórium"
+
+msgid "Tree trunks"
+msgstr "Fatörzsek"
+
+msgid "Planks"
+msgstr "Deszkák"
+
+msgid "Rocks"
+msgstr "Sziklák"
+
+msgid "Stones"
+msgstr "Kövek"
+
+msgid "Fire"
+msgstr "Tűz"
+
+msgid "Tomatoes"
+msgstr "Paradicsomok"
+
+msgid "Garden shed"
+msgstr "Kertészház"
+
+msgid "Eggs"
+msgstr "Tojások"
+
+msgid "Palisade"
+msgstr "Palánkfal"
+
+msgid "Bridge"
+msgstr "Híd"
+
+msgid "Medical potion"
+msgstr "Gyógyital"
+
+msgid "Flowers"
+msgstr "Virágok"
+
+msgid "Bunch of flowers"
+msgstr "Virágcsokor"
+
+msgid "Dynamite"
+msgstr "Dinamit"
+
+msgid "Poison"
+msgstr "Méreg"
+
+msgid "Sticky trap"
+msgstr "Ragadós csapda"
+
+msgid "Trapped enemy"
+msgstr "Csapdába esett ellenség"
+
+msgid "Blupi's house"
+msgstr "Blupi ház"
+
+msgid "Boat"
+msgstr "Csónak"
+
+msgid "Jeep"
+msgstr "Jeep"
+
+msgid "Workshop"
+msgstr "Műhely"
+
+msgid "Mine"
+msgstr "Bánya"
+
+msgid "Iron"
+msgstr "Vas"
+
+msgid "Flag"
+msgstr "Zászló"
+
+msgid "Time bomb"
+msgstr "Időzített bomba"
+
+msgid "Normal ground"
+msgstr "Normál terület"
+
+msgid "Bank"
+msgstr "Part"
+
+msgid "Water"
+msgstr "Víz"
+
+msgid "Paving stones"
+msgstr "Járólap"
+
+msgid "Striped paving stones"
+msgstr "Csíkos járólap"
+
+msgid "Ice"
+msgstr "Jég"
+
+msgid "Burnt ground"
+msgstr "Leégett terület"
+
+msgid "Inflammable ground"
+msgstr "Gyúlékony terület"
+
+msgid "Miscellaneous ground"
+msgstr "Egyéb terület"
+
+msgid "Sterile ground"
+msgstr "Steril terület"
+
+msgid "Incubator"
+msgstr "Inkubátor"
+
+msgid "Enemy ground"
+msgstr "Ellenséges terület"
+
+msgid "Teleporter"
+msgstr "Teleportáló"
+
+msgid "Tired Blupi"
+msgstr "Fáradt Blupi"
+
+msgid "Sick Blupi"
+msgstr "Beteg Blupi"
+
+msgid "Blupi"
+msgstr "Blupi"
+
+msgid "Spider"
+msgstr "Pók"
+
+msgid "Virus"
+msgstr "Vírus"
+
+msgid "Bulldozer"
+msgstr "Bulldózer"
+
+msgid "Master robot"
+msgstr "Mester robot"
+
+msgid "Bouncing bomb"
+msgstr "Ugráló bomba"
+
+msgid "Electrocutor"
+msgstr "Elektro-bomba"
+
+msgid "Helper robot"
+msgstr "Segítő robot"
+
+msgid "Interrupt"
+msgstr "Megszakítás"
+
+msgid "Settings"
+msgstr "Beállítások"
+
+msgid "Save"
+msgstr "Mentés"
+
+msgid "Demo"
+msgstr "Demo"
+
+msgid "Training"
+msgstr "Gyakorlás"
+
+msgid "Missions"
+msgstr "Küldetések"
+
+msgid "Construction"
+msgstr "Szerkesztő"
+
+msgid "Global settings"
+msgstr "Általános beállítások"
+
+msgid "Quit Planet Blupi"
+msgstr "Kilépés a Planet Blupi-ból"
+
+msgid "Previous page"
+msgstr "Előző oldal"
+
+msgid "Next page"
+msgstr "Következő oldal"
+
+msgid "Previous game"
+msgstr "Előző játék"
+
+msgid "Play this game"
+msgstr "Játssz ezzel a játékkal"
+
+msgid "Next game"
+msgstr "Következő játék"
+
+msgid "Open another game"
+msgstr "Másik játék megnyitása"
+
+msgid "Construct this game"
+msgstr "Szerkeszd ezt a játékot"
+
+msgid "Skill level"
+msgstr "Képzettségi szint"
+
+msgid "Finish"
+msgstr "Befejezés"
+
+msgid "Continue this game"
+msgstr "Játék folytatása"
+
+msgid "Save this game"
+msgstr "Játék mentése"
+
+msgid "Quit this game"
+msgstr "Kilépés a játékból"
+
+msgid "Help"
+msgstr "Segítség"
+
+msgid "Slower"
+msgstr "Lassabb"
+
+msgid "Faster"
+msgstr "Gyorsabb"
+
+msgid "Reduce volume"
+msgstr "Hangerő csökkentése"
+
+msgid "Increase volume"
+msgstr "Hangerő növelése"
+
+msgid "No video"
+msgstr "Nincs videó"
+
+msgid "Show videos"
+msgstr "Videók mutatása"
+
+msgid "Restart this game"
+msgstr "Játék újraindítása"
+
+msgid "Special pavings"
+msgstr "Speciális járólapok"
+
+msgid "Incubator or teleporter"
+msgstr "Inkubátor vagy teleportáló"
+
+msgid "Delete item"
+msgstr "Tárgy törlése"
+
+msgid "Decorative plants"
+msgstr "Dísznövények"
+
+msgid "Buildings"
+msgstr "Épületek"
+
+msgid "Enemy buildings"
+msgstr "Ellenséges épületek"
+
+msgid "Enemy barrier"
+msgstr "Ellenséges akadály"
+
+msgid "Wall or palisade"
+msgstr "Fal vagy palánkfal"
+
+msgid "Items"
+msgstr "Tárgyak"
+
+msgid "Weapons"
+msgstr "Fegyverek"
+
+msgid "Transport"
+msgstr "Közlekedés"
+
+msgid "Delete figure"
+msgstr "Figura törlése"
+
+msgid "Delete fire"
+msgstr "Tűz törlése"
+
+msgid "Starting fire"
+msgstr "Tűz indítása"
+
+msgid "Scenery choice"
+msgstr "Táj kiválasztása"
+
+msgid "Music choice"
+msgstr "Zene választás"
+
+msgid "Available buttons"
+msgstr "Elérhető gombok"
+
+msgid "Ending conditions"
+msgstr "Befejezési feltételek"
+
+msgid "Quit construction"
+msgstr "Kilépés a szerkesztőből"
+
+msgid "Cancel last operation"
+msgstr "Utolsó művelet visszavonása"
+
+msgid "Stop"
+msgstr "Állj"
+
+msgid "Go"
+msgstr "Menj"
+
+msgid "Take"
+msgstr "Vedd fel"
+
+msgid "Drop"
+msgstr "Tedd le"
+
+msgid "Repeat"
+msgstr "Ismételd"
+
+msgid "Cut down a tree"
+msgstr "Fa kivágás"
+
+msgid "Cut down trees"
+msgstr "Fák kivágása"
+
+msgid "Carve a rock"
+msgstr "Kő faragása"
+
+msgid "Carve rocks"
+msgstr "Kövek faragása"
+
+msgid "Make bunch of flowers"
+msgstr "Virágcsokor készítése"
+
+msgid "Make bunches of flowers"
+msgstr "Virágcsokrok készítése"
+
+msgid "Grow tomatoes"
+msgstr "Termessz paradicsomot"
+
+msgid "Eat"
+msgstr "Egyél"
+
+msgid "Transform"
+msgstr "Alakítsd át"
+
+msgid "Drink"
+msgstr "Idd"
+
+msgid "Blow up"
+msgstr "Robbantsd fel"
+
+msgid "Prospect for iron"
+msgstr "Vas keresése"
+
+msgid "Extract iron"
+msgstr "Vas kitermelése"
+
+msgid "Make a Jeep"
+msgstr "Készíts Jeepet"
+
+msgid "Make a time bomb"
+msgstr "Készíts időzített bombát"
+
+msgid "Make armour"
+msgstr "Készíts páncélt"
+
+msgid "Make a helper robot"
+msgstr "Készíts segítő robotot"
+
+msgid "Blupi in house"
+msgstr "Blupi a házban"
+
+msgid "No more enemies"
+msgstr "Nincs több ellenség"
+
+msgid "Fire out"
+msgstr "Tűz kialudt"
+
+msgid "Blupi on striped paving stones"
+msgstr "Blupi a csíkos járólapokon"
+
+msgid "Planks on striped paving stones"
+msgstr "Deszkák a csíkos járólapokon"
+
+msgid "Tomatoes on striped paving stones"
+msgstr "Paradicsomok a csíkos járólapokon"
+
+msgid "Platinium on striped paving stones"
+msgstr "Platina a csíkos járólapokon"
+
+msgid "Robot on striped paving stones"
+msgstr "Robot a csíkos járólapokon"
+
+msgid "No music"
+msgstr "Nincs zene"
+
+msgid "Music number 1"
+msgstr "Zene 1"
+
+msgid "Music number 2"
+msgstr "Zene 2"
+
+msgid "Music number 3"
+msgstr "Zene 3"
+
+msgid "Music number 4"
+msgstr "Zene 4"
+
+msgid "Music number 5"
+msgstr "Zene 5"
+
+msgid "Music number 6"
+msgstr "Zene 6"
+
+msgid "Music number 7"
+msgstr "Zene 7"
+
+msgid "Music number 8"
+msgstr "Zene 8"
+
+msgid "Music number 9"
+msgstr "Zene 9"
+
+msgid "Music number 10"
+msgstr "Zene 10"
+
+msgid "Prairie"
+msgstr "Préri"
+
+msgid "Forest"
+msgstr "Erdő"
+
+msgid "Desert"
+msgstr "Sivatag"
+
+msgid "Forest under snow"
+msgstr "Hó borította erdő"
+
+msgid "Previous language"
+msgstr "Előző nyelv"
+
+msgid "Next language"
+msgstr "Következő nyelv"
+
+msgid "Fullscreen"
+msgstr "Teljes képernyő"
+
+msgid "Windowed"
+msgstr "Ablakos"
+
+msgid "Use Ogg music"
+msgstr "Ogg zene használata"
+
+msgid "Use Midi music (original)"
+msgstr "Midi zene használata (eredeti)"
+
+msgid "Disable anti-aliasing"
+msgstr "Élsimítás kikapcsolása"
+
+msgid "Enable anti-aliasing"
+msgstr "Élsimítás bekapcsolása"
+
+msgid "Version"
+msgstr "Verzió"
+
+#, c-format
+msgid "New version available for download on www.blupi.org (v%s)"
+msgstr "Új verzió érhető el letöltésre: www.blupi.org (v%s)"
+
+msgid "Desktop mode"
+msgstr "Asztali mód"
+
+msgid "Reduce window size"
+msgstr "Ablakméret csökkentése"
+
+msgid "Legacy mode (640x480)"
+msgstr "Legacy mód (640x480)"
+
+msgid "Increase window size"
+msgstr "Ablakméret növelése"
+
+msgid "N"
+msgstr "É"
+
+msgid "S"
+msgstr "D"
+
+msgid "W"
+msgstr "Ny"
+
+msgid "E"
+msgstr "K"
+
+msgid "Game paused"
+msgstr "Játék szünetel"
+
+msgid "REC"
+msgstr "REC"
+
+#, c-format
+msgid "construction %d, time %d"
+msgstr "szerkesztő %d, idő %d"
+
+#, c-format
+msgid "mission %d, time %d"
+msgstr "küldetés %d, idő %d"
+
+#, c-format
+msgid "training %d, time %d"
+msgstr "gyakorlás %d, idő %d"
+
+msgid "free slot"
+msgstr "üres hely"
+
+#, c-format
+msgid "Lost if less than %d Blupi"
+msgstr "Vesztés ha kevesebb, mint %d Blupi"
+
+#, c-format
+msgid "Impossible to win if less than %d Blupi"
+msgstr "Lehetetlen győzni ha kevesebb, mint %d Blupi"
+
+msgid "Training number"
+msgstr "Gyakorlat szám"
+
+msgid "Mission number"
+msgstr "Küldetés szám"
+
+msgid "Construction number"
+msgstr "szerkesztési szám"
+
+msgid "Help number"
+msgstr "Segítség szám"
+
+msgid "Easy"
+msgstr "Könnyű"
+
+msgid "Difficult"
+msgstr "Nehéz"
+
+msgid "You have failed, try again..."
+msgstr "Nem sikerült, próbáld újra..."
+
+msgid "No, wrong way ..."
+msgstr "Nem, rossz irány..."
+
+msgid "Bang, failed again !"
+msgstr "Bumm, megint elbuktál!"
+
+msgid "Another mistake..."
+msgstr "Újabb hiba..."
+
+msgid "No, not that way !"
+msgstr "Nem, nem úgy!"
+
+msgid "Well done !"
+msgstr "Szép munka!"
+
+msgid "Yes, great ..."
+msgstr "Igen, nagyszerű..."
+
+msgid "Very good."
+msgstr "Nagyon jó."
+
+msgid "Excellent..."
+msgstr "Kiváló..."
+
+msgid "Mission over..."
+msgstr "Küldetés vége..."
+
+msgid "Now go on mission."
+msgstr "Most menj küldetésre"
+
+msgid "Very good, success on all missions !"
+msgstr "Nagyon jó, minden küldetésben siker!"
+
+msgid "Last construction resolved !"
+msgstr "Utolsó építés megoldva!"
+
+msgid ""
+"Global game\n"
+"speed"
+msgstr ""
+"Globális játék\n"
+"sebesség"
+
+msgid ""
+"Scroll speed\n"
+"with mouse"
+msgstr ""
+"Görgetési\n"
+"sebesség"
+
+msgid ""
+"Sound effect\n"
+"volume"
+msgstr ""
+"Effektek\n"
+"hangereje"
+
+msgid ""
+"Music\n"
+"volume"
+msgstr ""
+"Zene\n"
+"hangereje"
+
+msgid ""
+"Video\n"
+"sequences"
+msgstr "Videósorozatok"
+
+msgid "No"
+msgstr "Nem"
+
+msgid "Yes"
+msgstr "Igen"
+
+msgid "None"
+msgstr "Egyik sem"
+
+msgid ""
+"Interface language\n"
+"and sounds"
+msgstr ""
+"Felület nyelve\n"
+"és hangok"
+
+msgid ""
+"Select the\n"
+"window mode"
+msgstr ""
+"Ablakos mód\n"
+"választása"
+
+msgid ""
+"Change the\n"
+"display mode"
+msgstr ""
+"Megjelenítési\n"
+"mód váltása"
+
+msgid ""
+"Change the\n"
+"window size"
+msgstr ""
+"Ablakméret\n"
+"váltása"
+
+msgid ""
+"Choose the\n"
+"music format"
+msgstr ""
+"Zeneformátum\n"
+"váltása"
+
+msgid ""
+"Change the\n"
+"render quality"
+msgstr ""
+"Renderelési minőség\n"
+"váltása"
+
+msgid "Legacy"
+msgstr "Legacy"
+
+msgid "Desktop"
+msgstr "Asztali"
+
+msgid "Midi"
+msgstr "Midi"
+
+msgid "Ogg"
+msgstr "Ogg"
+
+msgid "Anti-aliasing"
+msgstr "Élsimítás"
+
+msgid "Aliasing"
+msgstr "Elmosódás"
+
+msgid "Not available"
+msgstr "Nem elérhető"
+
+msgid "You have played Planet Blupi."
+msgstr "A Planet Blupi-val játszottál"
+
+msgid "We hope you have had as much fun playing the game as we had making it !"
+msgstr ""
+"Reméljük, hogy ugyanolyan jól érezted magadat a játékban, mint mi a "
+"készítésében!"
+
+msgid "This game uses statically linked free and open-source libraries:"
+msgstr ""
+"Ez a játék statikusan linkelt szabad és nyílt forráskódú könyvtárakat "
+"használ:"
+
+msgid " - argagg (MIT)"
+msgstr " - argagg (MIT)"
+
+msgid " - FFmpeg (LGPLv2.1)"
+msgstr " - FFmpeg (LGPLv2.1)"
+
+msgid " - GNU/gettext and GNU/libiconv (GPLv3)"
+msgstr " - GNU/gettext és GNU/libiconv (GPLv3)"
+
+msgid " - libasound (LGPLv2.1)"
+msgstr " - libasound (LGPLv2.1)"
+
+msgid " - libcurl (MIT/X derivate)"
+msgstr " - libcurl (MIT/X származék)"
+
+msgid " - libogg and libvorbis (own license)"
+msgstr " - libogg és libvorbis (saját licenc)"
+
+msgid " - libpng (own license)"
+msgstr " - libpng (saját licenc)"
+
+msgid " - libpulse (LGPLv2.1)"
+msgstr " - libpulse (LGPLv2.1)"
+
+msgid " - libsndfile (LGPLv3)"
+msgstr " - libsndfile (LGPLv3)"
+
+msgid " - SDL_kitchensink (MIT)"
+msgstr " - SDL_kitchensink (MIT)"
+
+msgid " - SDL2, SDL2_image, SDL2_mixer and SDL2_ttf (zlib license)"
+msgstr " - SDL2, SDL2_image, SDL2_mixer és SDL2_ttf (zlib licenc)"
+
+msgid " - zlib (own license)"
+msgstr " - zlib (saját licenc)"
+
+msgid "All licenses are available under share/doc/planetblupi/copyright"
+msgstr ""
+"Minden licenc elérhető a következő helyen share/doc/planetblupi/copyright"
+
+msgid ""
+"This game is an original creation of Epsitec SA, CH-1400 Yverdon-les-Bains"
+msgstr "Ez a játék az Epsitec SA, CH-1400 Yverdon-les-Bains eredeti alkotása"
+
+msgid "https://www.blupi.org           info@blupi.org"
+msgstr "https://www.blupi.org           info@blupi.org"
+
+msgid "Insert CD-Rom Planet Blupi and wait a few seconds..."
+msgstr "Helyezd be a Planet Blupi lemezét és várj pár másodpercet..."
+
+msgid "Blupi's energy"
+msgstr "Blupi energiája"
+
+msgid "Work done"
+msgstr "Feladat kész"
+
+msgid "1|Goal :"
+msgstr "1|Cél :"
+
+msgid ""
+"1|Kill all\n"
+"1|enemies !"
+msgstr ""
+"1|Megölni minden\n"
+"1|ellenséget !"
+
+msgid ""
+"1|Go on striped\n"
+"1|paving stones."
+msgstr ""
+"1|Menj a csíkos\n"
+"1|járólapokra."
+
+msgid ""
+"1|Drop planks on striped \n"
+"1|paving stones."
+msgstr ""
+"1|Helyezd a deszkákat a  \n"
+"1|csíkos járólapokra."
+
+msgid ""
+"1|Drop tomatoes on striped \n"
+"1|paving stones."
+msgstr ""
+"1|Helyezd a paradicsomokat a  \n"
+"1|csíkos járólapokra."
+
+msgid ""
+"1|Drop Platinium on striped \n"
+"1|paving stones."
+msgstr ""
+"1|Helyezd a platinát a  \n"
+"1|csíkos járólapokra."
+
+msgid ""
+"1|The robot must reach\n"
+"1|the striped paving stones."
+msgstr ""
+"1|A robotnak el kell érnie\n"
+"1|a csíkos járólapokat."
+
+msgid ""
+"1|Each Blupi in\n"
+"1|his house."
+msgstr ""
+"1|Minden Blupi a\n"
+"1|saját házában."
+
+msgid ""
+"1|Resist until\n"
+"1|fire extinction ..."
+msgstr ""
+"1|Tarts ki amíg\n"
+"1|a tűz kialszik ..."
+
+#, c-format
+msgid ""
+"1|The Blupi population must\n"
+"1|be of at least %d Blupi."
+msgstr ""
+"1|A Blupi népesség legalább \n"
+"1|%d Blupi-ból álljon."
+
+msgid "Leave Jeep"
+msgstr "Jeep elhagyása"
+
+msgid "Quit"
+msgstr "Kilépés"
+
+msgid "Impossible"
+msgstr "Lehetetlen"
+
+msgid "Inadequate ground"
+msgstr "Nem megfelelő terület"
+
+msgid "Occupied ground"
+msgstr "Foglalt terület"
+
+msgid "Opposite bank no good"
+msgstr "Szemközti part nem megfelelő"
+
+msgid "Bridge finished"
+msgstr "Híd befejezve"
+
+msgid "(isolated tower)"
+msgstr "(elszigetelt torony)"
+
+msgid "Too close to water"
+msgstr "Túl közel a vízhez"
+
+msgid "Already two teleporters"
+msgstr "Már két teleportáló is van"
+
+msgid "Not enough energy"
+msgstr "Nincs elég energia"
+
+msgid "en"
+msgstr "hu"
