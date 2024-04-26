@@ -113,7 +113,7 @@ msgid "Enemy rocket"
 msgstr "Ellenséges rakéta"
 
 msgid "Platinium"
-msgstr "Platina"
+msgstr "Platinium"
 
 msgid "Armour"
 msgstr "Páncél"
@@ -506,7 +506,7 @@ msgid "Tomatoes on striped paving stones"
 msgstr "Paradicsomok a csíkos járólapokon"
 
 msgid "Platinium on striped paving stones"
-msgstr "Platina a csíkos járólapokon"
+msgstr "Platinium a csíkos járólapokon"
 
 msgid "Robot on striped paving stones"
 msgstr "Robot a csíkos járólapokon"
@@ -906,7 +906,7 @@ msgid ""
 "1|Drop Platinium on striped \n"
 "1|paving stones."
 msgstr ""
-"1|Helyezd a platinát a  \n"
+"1|Helyezd a Platiniumot a  \n"
 "1|csíkos járólapokra."
 
 msgid ""
