@@ -1,5 +1,6 @@
 
 set (APPIMAGE_ASSISTANT_PROGRAM CACHE FILEPATH "AppImageAssistant executable")
+set (APPIMAGE_APPRUN_PROGRAM    CACHE FILEPATH "AppImage AppRun executable")
 
 set (APPIMAGE_WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/deploy/linux-appimage" CACHE PATH "Where to put the AppDir items")
 set (APPIMAGE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/package/linux-appimage" CACHE PATH "AppImage output directory")
@@ -92,6 +93,11 @@ macro (APPIMAGE_PACKAGE TARGET APPIMAGE_TITLE APPIMAGE_DISPLAYNAME CONFIGDIR DAT
     "${APPIMAGE_CONFIG_DIR}/application.desktop.in"
     "${APPIMAGE_INTERMEDIATE_DIR}/${APPIMAGE_INTERNALNAME}.desktop"
     @ONLY
+  )
+  configure_file (
+    "${APPIMAGE_APPRUN_PROGRAM}"
+    "${APPIMAGE_INTERMEDIATE_DIR}/AppRun"
+    COPYONLY
   )
 
   # Copy resources into AppDir
