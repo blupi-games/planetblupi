@@ -39,7 +39,7 @@ endif ()
 
 file (GLOB_RECURSE po resources/po/*.po)
 
-if (APPIMAGE_APPRUN_PROGRAM AND APPIMAGE_ASSISTANT_PROGRAM)
+if (APPIMAGE_ASSISTANT_PROGRAM)
   set (USE_APPIMAGE ON)
 endif ()
 
