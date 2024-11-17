@@ -43,13 +43,11 @@ if (APPIMAGE_APPRUN_PROGRAM AND APPIMAGE_ASSISTANT_PROGRAM)
   set (USE_APPIMAGE ON)
 endif ()
 
-if (NOT USE_APPIMAGE)
-  configure_file (
-    "${PROJECT_SOURCE_DIR}/resources/linux/application.desktop.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop"
-    @ONLY
-  )
-endif ()
+configure_file (
+  "${PROJECT_SOURCE_DIR}/resources/linux/application.desktop.in"
+  "${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop"
+  @ONLY
+)
 
 set (planetblupi_OUTPUT planetblupi)
 
@@ -108,6 +106,10 @@ if (BUILD_LINUX)
   file (
     COPY resources/linux/org.blupi.${PB_PACKAGE_NAME}.appdata.xml
     DESTINATION share/metainfo
+  )
+  file (
+    COPY ${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop
+    DESTINATION share/applications
   )
 endif ()
 
@@ -361,12 +363,10 @@ if (NOT BUILD_JS)
     )
   endif ()
 
-  if (NOT USE_APPIMAGE)
-    install (
-      FILES ${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop
-      DESTINATION share/applications
-    )
-  endif ()
+  install (
+    FILES ${CMAKE_CURRENT_BINARY_DIR}/${PB_PACKAGE_NAME}.desktop
+    DESTINATION share/applications
+  )
 
   # Copy libwinpthread-1.dll which seems not be linkable statically
   if (${CMAKE_SYSTEM_NAME} STREQUAL "Windows" AND MINGW)
