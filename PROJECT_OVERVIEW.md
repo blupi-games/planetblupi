@@ -24,7 +24,7 @@ If you want to understand how to play the game, its features, controls, and conf
 
 If you're looking to understand the codebase or contribute to the project, here’s how to get started:
 
-1.  **Main Development Repository:** This repository (`blupi-games/planetblupi`) holds the primary source code for the game. The `README.md` file also mentions a development bundle at `https://github.com/blupi-games/planetblupi-dev.git`. The specific contents of this bundle (e.g., additional tools or assets for development) would be detailed in that repository.
+1. **Main Source Code Repository & Development Bundle:** This repository (`blupi-games/planetblupi`) holds the primary C++ source code for the game. For building the game, the `planetblupi-dev` repository (at `https://github.com/blupi-games/planetblupi-dev.git`) serves as the main development bundle. It includes this source code repository and the `planetblupi-data` (game assets) repository as Git submodules, along with build scripts (CMake) and dependencies to produce distributable versions of the game (AppImage for Linux, DMG for macOS, NSIS installer for Windows).
 2.  **Source Code:** The game's source code is primarily located in the `src/` directory. It is mainly written in C++.
 3.  **Build System:** The project uses CMake to manage the build process. You'll find `CMakeLists.txt` in the root directory (and potentially in subdirectories), which defines how the code is compiled and linked.
 4.  **Game Assets:** The `resources/` directory contains all the game's assets. This includes:
