@@ -13,3 +13,8 @@ You can find "mostly" the original source code from previous versions (v1.7 and
 v1.8, 1997) under the tags `v1.7.0` and `v1.8.0`. Note that both tags are
 targetting the same commit. The reason is that the version 1.8 was done because
 a bug was discovered on the cdroms (deployment problems only).
+
+## AI Policy
+
+AI-generated code is not accepted in this project. Everything here is created by
+humans, for humans.
