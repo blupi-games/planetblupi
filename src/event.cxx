@@ -2819,6 +2819,8 @@ CEvent::DrawButtons ()
       lang = "العربية";
     else if (locale == "es")
       lang = "Español";
+    else if (locale == "hu")
+      lang = "Magyar";
 
     lg    = GetTextWidth (lang.c_str ());
     lg    = IsRightReading () ? -lg : lg;
