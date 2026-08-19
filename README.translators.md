@@ -14,19 +14,20 @@ yours for example) `share/locale/fr/LC_MESSAGES/` and put your `.mo` file in
 this directory. You can replace an other lang if you like.
 
 > Under Windows OS, you should find the french translations in
-> `C:\Program Files\Planet Blupi\share\locale\fr\LC_MESSAGES\`.
-> With macOS it's possible to open the `Planet Blupi.app` and update the file
-> directly in the `.app`. But note that it breaks the application signature. To
-> start the game, maybe it's necessary to open via the context menu for by
-> passing the macOS security.
-> For Linux you must unpack the AppImage file somewhere for changing the files.
+> `C:\Program Files\Planet Blupi\share\locale\fr\LC_MESSAGES\`. With macOS it's
+> possible to open the `Planet Blupi.app` and update the file directly in the
+> `.app`. But note that it breaks the application signature. To start the game,
+> maybe it's necessary to open via the context menu for by passing the macOS
+> security. For Linux you must unpack the AppImage file somewhere for changing
+> the files.
 
 Then start the game, the interface will use your new translation if you select
 "Français" in the global settings screen.
 
 If you see some strange characters, like a square '□', then contact me and I
-will add the necessary glyphs for your language. Planet Blupi is not using a
-real font but just sprites with a limited range of characters.
+will add the necessary glyphs for your language. The original Planet Blupi was
+not using a real font but just sprites with a limited range of characters, but
+now it's possible to add a lot more fonts.
 
 One text is hard-coded in the source code. It's the text for selecting the
 language in the global settings screen (it's just the lang's name). Please,
@@ -55,6 +56,8 @@ don't forget to provide this one.
       lang = "العربية";
     else if (locale == "es")
       lang = "Español";
+    else if (locale == "ru")
+      lang = "Русский";
 ```
 
 ## The missions
