@@ -293,6 +293,11 @@ private:
   Font * arabicSlim;
   Font * arabicWhite;
 
+  Font * cyrillicLittle;
+  Font * cyrillicRed;
+  Font * cyrillicSlim;
+  Font * cyrillicWhite;
+
 private:
   Font * GetFont (Sint32 font)
   {
@@ -320,6 +325,19 @@ private:
         return this->arabicSlim;
       case FONTWHITE:
         return this->arabicWhite;
+      }
+
+    if (GetLocale () == "ru")
+      switch (font)
+      {
+      case FONTLITTLE:
+        return this->cyrillicLittle;
+      case FONTRED:
+        return this->cyrillicRed;
+      case FONTSLIM:
+        return this->cyrillicSlim;
+      case FONTWHITE:
+        return this->cyrillicWhite;
       }
 
     switch (font)
@@ -392,6 +410,21 @@ public:
       arabicFont.c_str (), 13, {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE,
       SDL_TRUE);
     TTF_SetFontScriptName (this->arabicWhite->GetFont (), "Arab");
+
+    const auto cyrillicFont = GetBaseDir () + "fonts/IBMPlexSans-Regular.ttf";
+
+    this->cyrillicLittle = new Font (
+      cyrillicFont.c_str (), 12, {0xFF, 0xFF, 0x00, 0}, SDL_FALSE, SDL_TRUE);
+    TTF_SetFontScriptName (this->cyrillicLittle->GetFont (), "Cyrl");
+    this->cyrillicRed = new Font (
+      cyrillicFont.c_str (), 13, {0xFF, 0x00, 0x00, 0}, SDL_TRUE, SDL_TRUE);
+    TTF_SetFontScriptName (this->cyrillicRed->GetFont (), "Cyrl");
+    this->cyrillicSlim = new Font (
+      cyrillicFont.c_str (), 13, {0xB4, 0x17, 0x12, 0}, SDL_FALSE, SDL_FALSE);
+    TTF_SetFontScriptName (this->cyrillicSlim->GetFont (), "Cyrl");
+    this->cyrillicWhite = new Font (
+      cyrillicFont.c_str (), 13, {0xFF, 0xFF, 0xFF, 0}, SDL_TRUE, SDL_TRUE);
+    TTF_SetFontScriptName (this->cyrillicWhite->GetFont (), "Cyrl");
   }
 
   ~Fonts () {}
@@ -412,6 +445,11 @@ public:
     delete this->arabicRed;
     delete this->arabicSlim;
     delete this->arabicWhite;
+
+    delete this->cyrillicLittle;
+    delete this->cyrillicRed;
+    delete this->cyrillicSlim;
+    delete this->cyrillicWhite;
   }
 
   Sint32 GetTextWidth (const char * pText, Sint32 font)
