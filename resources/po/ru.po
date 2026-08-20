@@ -357,7 +357,7 @@ msgid "Desktop mode"
 msgstr "Полноэкранный"
 
 msgid "Difficult"
-msgstr "Нормально"
+msgstr "Трудно"
 
 msgid "Disable anti-aliasing"
 msgstr "Сглаживание выкл"
@@ -505,7 +505,8 @@ msgstr "Вставьте CD-Rom Planet Blupi и подождите нескол�
 msgid ""
 "Interface language\n"
 "and sounds"
-msgstr "Выбор языка"
+msgstr "Язык интерфейса\n"
+"и звуков"
 
 msgid "Interrupt"
 msgstr "Прервать"
