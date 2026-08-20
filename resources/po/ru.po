@@ -688,7 +688,7 @@ msgid "Paving stones"
 msgstr "Фундамент"
 
 msgid "Planet Blupi"
-msgstr "Планета Блупи"
+msgstr "Planet Blupi"
 
 msgid "Planet Blupi -- stop"
 msgstr "Planet Blupi -- стоп"
@@ -733,7 +733,7 @@ msgid "Quit"
 msgstr "Выход"
 
 msgid "Quit Planet Blupi"
-msgstr "Покинуть Планету Блупи"
+msgstr "Покинуть Planet Blupi"
 
 msgid "Quit construction"
 msgstr "Покинуть конструктор"
@@ -950,7 +950,7 @@ msgid "You have failed, try again..."
 msgstr "Не получилось, попробуй снова..."
 
 msgid "You have played Planet Blupi."
-msgstr "Вы сыграли в Планету Блупи."
+msgstr "Вы сыграли в Planet Blupi."
 
 #, c-format
 msgid "construction %d, time %d"
