@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Path": "CMakeLists.txt",
+      "Modifiers": [
+        {
+          "Match": "(PB_VERSION_MAJOR) [0-9]+",
+          "Replace": "$1$MAJ"
+        },
+        {
+          "Match": "(PB_VERSION_MINOR) [0-9]+",
+          "Replace": "$1$MIN"
+        },
+        {
+          "Match": "(PB_VERSION_PATCH) [0-9]+",
+          "Replace": "$1$PATCH"
+        },
+        {
+          "Match": "(PB_VERSION_EXTRA) [0-9]+",
+          "Replace": "$1\"$PREREL\""
+        }
+      ]
+    }
+  ]
+}
