@@ -23,7 +23,7 @@ set (PB_ICON_REF     "blupi")
 set (PB_DESCRIPTION "Planet Blupi - A delirious spell-binding game")
 
 if (PB_VERSION_EXTRA MATCHES "-")
-  set (PB_VERSION_EXTRA "")
+  set (PB_VERSION_EXTRA  "")
 endif ()
 
 option (PB_HTTP_VERSION_CHECK "Run a version check over HTTP (with CURL)" OFF)
