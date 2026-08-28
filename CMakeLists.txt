@@ -22,7 +22,7 @@ set (PB_EXEC         "planetblupi")
 set (PB_ICON_REF     "blupi")
 set (PB_DESCRIPTION "Planet Blupi - A delirious spell-binding game")
 
-if (PB_VERSION_EXTRA MATCHES "-")
+if (PB_VERSION_EXTRA STREQUAL "-")
   set (PB_VERSION_EXTRA  "")
 endif ()
 
