@@ -17,7 +17,7 @@
         },
         {
           "Match": "(PB_VERSION_EXTRA) \"[a-z0-9-]*\"",
-          "Replace": "$1 \"$PREREL\""
+          "Replace": "$1 \"-$PREREL\""
         }
       ]
     }
